@@ -52,7 +52,7 @@ public class AddCourseTypeDialogFragment extends DialogFragment implements View.
 
         addCourseTypeCallback = (AddCourseTypeCallback) getActivity();
 
-        getDialog().setTitle("Add Course Type");
+//        getDialog().setTitle("Add Course Type");
 
         View rootView = inflater.inflate(R.layout.dialog_fragment_add_course_type, container, false);
 

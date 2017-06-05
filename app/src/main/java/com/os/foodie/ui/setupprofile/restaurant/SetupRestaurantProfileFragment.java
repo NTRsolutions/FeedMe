@@ -295,54 +295,55 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         });
     }
 
-    /*   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//    /*   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//
+//            Log.d("requestCode", ">>" + requestCode);
+//            Log.d("resultCode", ">>" + resultCode);
+//
+//            if (requestCode == PLACE_PICKER_REQUEST) {
+//
+//                if (resultCode == RESULT_OK) {
+//
+//                    Place place = PlacePicker.getPlace(getActivity(), data);
+//
+//                    Log.d("place", ">>" + place.getAddress());
+//                    Log.d("LatLng", ">>" + place.getLatLng());
+//
+//    //                latLng = place.getLatLng();
+//    //                etAddress.setText(place.getAddress());
+//
+//                    setupRestaurantProfileMvpPresenter.getGeocoderLocationAddress(getActivity(), place.getLatLng());
+//
+//    //                etZipCode.setText(place.getLocale());
+//                }
+//
+//            } else if (requestCode == CAMERA_REQUEST) {
+//
+//                if (resultCode == RESULT_OK) {
+//                    onCaptureImageResult(data);
+//                }
+//
+//            } else if (requestCode == GALARY_REQUEST) {
+//
+//                if (resultCode == RESULT_OK) {
+//                    onSelectFromGalleryResult(data);
+//                }
+//            } else if (requestCode == CUISINE_TYPES_REQUEST) {
+//
+//                Log.d("CUISINE_TYPES_REQUEST", ">>Result");
+//
+//                if (resultCode == RESULT_OK) {
+//
+//                    ArrayList<CuisineType> cuisineTypesChecked = data.getParcelableArrayListExtra(AppConstants.CUISINE_TYPES_ARRAYLIST);
+//
+//                    for (CuisineType cuisineType : cuisineTypesChecked) {
+//                        Log.d("CuisineType", ">>" + cuisineType.getName());
+//                    }
+//                }
+//            }
+//        }
+//    */
 
-            Log.d("requestCode", ">>" + requestCode);
-            Log.d("resultCode", ">>" + resultCode);
-
-            if (requestCode == PLACE_PICKER_REQUEST) {
-
-                if (resultCode == RESULT_OK) {
-
-                    Place place = PlacePicker.getPlace(getActivity(), data);
-
-                    Log.d("place", ">>" + place.getAddress());
-                    Log.d("LatLng", ">>" + place.getLatLng());
-
-    //                latLng = place.getLatLng();
-    //                etAddress.setText(place.getAddress());
-
-                    setupRestaurantProfileMvpPresenter.getGeocoderLocationAddress(getActivity(), place.getLatLng());
-
-    //                etZipCode.setText(place.getLocale());
-                }
-
-            } else if (requestCode == CAMERA_REQUEST) {
-
-                if (resultCode == RESULT_OK) {
-                    onCaptureImageResult(data);
-                }
-
-            } else if (requestCode == GALARY_REQUEST) {
-
-                if (resultCode == RESULT_OK) {
-                    onSelectFromGalleryResult(data);
-                }
-            } else if (requestCode == CUISINE_TYPES_REQUEST) {
-
-                Log.d("CUISINE_TYPES_REQUEST", ">>Result");
-
-                if (resultCode == RESULT_OK) {
-
-                    ArrayList<CuisineType> cuisineTypesChecked = data.getParcelableArrayListExtra(AppConstants.CUISINE_TYPES_ARRAYLIST);
-
-                    for (CuisineType cuisineType : cuisineTypesChecked) {
-                        Log.d("CuisineType", ">>" + cuisineType.getName());
-                    }
-                }
-            }
-        }
-    */
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Gallery", "Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -467,6 +468,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(AppConstants.CUISINE_TYPES_ARRAYLIST, cuisineTypes);
+        bundle.putBoolean(AppConstants.IS_FAB_NEEDED, true);
 
         cuisineTypeDialogFragment = new CuisineTypeDialogFragment();
         cuisineTypeDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogFragment);

@@ -66,15 +66,15 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
     private TextView tvLogIn, tvCustomerRegister;
     private Button btSignUp, btSignUpFacebook;
 
-    private static final int PERMISSION_CODE = 10;
-
     private String fbId = "";
 
-    private static final List<String> PERMISSIONS = Arrays.asList("public_profile", "email", "user_location", "user_birthday", "user_friends", "user_about_me", "user_photos");
     private CallbackManager callbackManager;
+    private static final List<String> PERMISSIONS = Arrays.asList("public_profile", "email", "user_location", "user_birthday", "user_friends", "user_about_me", "user_photos");
 
-    private String restaurantLogoPath = "", restaurantLogoName = "";
     private File restaurantLogoFile;
+    private String restaurantLogoPath = "", restaurantLogoName = "";
+
+    private static final int PERMISSION_CODE = 10;
 
     private static final int CAMERA_REQUEST = 2;
     private static final int GALARY_REQUEST = 3;

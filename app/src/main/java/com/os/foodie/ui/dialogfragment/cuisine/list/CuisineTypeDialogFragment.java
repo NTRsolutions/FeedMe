@@ -20,6 +20,7 @@ import com.os.foodie.R;
 import com.os.foodie.data.network.model.cuisinetype.list.CuisineType;
 import com.os.foodie.ui.adapter.recyclerview.CuisineTypeAdapter;
 import com.os.foodie.ui.dialogfragment.cuisine.add.AddCuisineTypeDialogFragment;
+import com.os.foodie.ui.filters.FiltersActivity;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.ui.setupprofile.restaurant.SetupRestaurantProfileFragment;
 import com.os.foodie.utils.AppConstants;
@@ -64,6 +65,10 @@ public class CuisineTypeDialogFragment extends DialogFragment implements View.On
 
         cuisineTypes = getArguments().getParcelableArrayList(AppConstants.CUISINE_TYPES_ARRAYLIST);
 
+        if (getArguments().getBoolean(AppConstants.IS_FAB_NEEDED) == false) {
+            fabAdd.setVisibility(View.GONE);
+        }
+
         cuisineTypeAdapter = new CuisineTypeAdapter(getContext(), cuisineTypes);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -106,12 +111,21 @@ public class CuisineTypeDialogFragment extends DialogFragment implements View.On
 
             dismiss();
 
-            RestaurantMainActivity restaurantMainActivity=(RestaurantMainActivity)getActivity();
-            Fragment fragment=restaurantMainActivity.getCurrentFragment();
-            if(fragment instanceof SetupRestaurantProfileFragment){
-                ((SetupRestaurantProfileFragment) fragment).setCuisineTypeList(cuisineTypesChecked);
+            if (getActivity() instanceof RestaurantMainActivity) {
 
-            }        }
+                RestaurantMainActivity restaurantMainActivity = (RestaurantMainActivity) getActivity();
+                Fragment fragment = restaurantMainActivity.getCurrentFragment();
+
+                if (fragment instanceof SetupRestaurantProfileFragment) {
+                    ((SetupRestaurantProfileFragment) fragment).setCuisineTypeList(cuisineTypesChecked);
+                }
+
+            } else if (getActivity() instanceof FiltersActivity) {
+
+                FiltersActivity filtersActivity = (FiltersActivity) getActivity();
+                filtersActivity.setCuisineTypeList(cuisineTypesChecked);
+            }
+        }
     }
 
     public void showLoading() {

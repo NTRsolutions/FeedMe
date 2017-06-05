@@ -21,6 +21,7 @@ public class AppConstants {
     //    Fragment Arguments
     public static final String VIEWPAGER_POSITION = "VIEWPAGER_POSITION";
     public static final String CUISINE_TYPES_ARRAYLIST = "CUISINE_TYPES_ARRAYLIST";
+    public static final String IS_FAB_NEEDED = "IS_FAB_NEEDED";
     public static final String COURSE_TYPES_ARRAYLIST = "COURSE_TYPES_ARRAYLIST";
     public static final String EDIT_DISH = "EDIT_DISH";
     public static final String DISH_ARRAYLIST = "DISH_ARRAYLIST";
