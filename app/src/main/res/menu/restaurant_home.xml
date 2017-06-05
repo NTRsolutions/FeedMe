@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--<item-->
+        <!--android:id="@+id/action_account"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_my_account"-->
+        <!--app:showAsAction="never" />-->
+    <!--<item-->
+        <!--android:id="@+id/action_order_history"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_order_history"-->
+        <!--app:showAsAction="never" />-->
+    <!--<item-->
+        <!--android:id="@+id/action_order_list"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_order_list"-->
+        <!--app:showAsAction="never" />-->
+    <!--<item-->
+        <!--android:id="@+id/action_menu_management"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_menu_management"-->
+        <!--app:showAsAction="never" />-->
+    <!--<item-->
+        <!--android:id="@+id/action_discount_management"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_discount_mangement"-->
+        <!--app:showAsAction="never" />-->
+    <!--<item-->
+        <!--android:id="@+id/action_view_earning"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_view_earning"-->
+        <!--app:showAsAction="never" />-->
+    <!--<item-->
+        <!--android:id="@+id/action_settings"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_settings"-->
+        <!--app:showAsAction="never" />-->
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="@string/action_logout"
+        app:showAsAction="never" />
+</menu>

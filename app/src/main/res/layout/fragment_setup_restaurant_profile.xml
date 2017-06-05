@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.os.foodie.ui.setupprofile.restaurant.SetupRestaurantProfileFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/fragment_setup_restaurant_profile_ll_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingTop="20dp">
+
+            <ImageView
+                android:id="@+id/fragment_setup_restaurant_profile_iv_photo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/circular_image_view_dark_cream"
+                android:padding="25dp"
+                android:src="@mipmap/ic_camera" />
+
+            <GridLayout
+                android:id="@+id/fragment_setup_restaurant_profile_gl_photos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:columnCount="3"
+                android:orientation="horizontal" />
+
+            <EditText
+                android:id="@+id/fragment_setup_restaurant_profile_et_cuisine_type"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:clickable="true"
+                android:drawableEnd="@mipmap/ic_arrow_down"
+                android:focusable="false"
+                android:hint="Cuisine Type"
+                android:imeOptions="actionNext"
+                android:inputType="none"
+                android:longClickable="false"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp" />
+
+            <EditText
+                android:id="@+id/fragment_setup_restaurant_profile_et_working_days"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:drawableEnd="@mipmap/ic_arrow_down"
+                android:focusable="false"
+                android:hint="Working Days"
+                android:imeOptions="actionNext"
+                android:inputType="none"
+                android:longClickable="false"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp" />
+
+            <EditText
+                android:id="@+id/fragment_setup_restaurant_profile_et_address"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Address"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:longClickable="false"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp" />
+
+            <EditText
+                android:id="@+id/fragment_setup_restaurant_profile_et_country"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:enabled="false"
+                android:hint="Country"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp" />
+
+            <EditText
+                android:id="@+id/fragment_setup_restaurant_profile_et_city"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:enabled="false"
+                android:hint="City"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp" />
+
+            <EditText
+                android:id="@+id/fragment_setup_restaurant_profile_et_zip"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:enabled="false"
+                android:hint="ZIP Code"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp" />
+
+            <!--android:clickable="true"-->
+            <!--android:focusable="false"-->
+            <!--android:longClickable="false"-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/fragment_setup_restaurant_profile_et_opening_hours"
+                    style="@style/EditTextGreySingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="Opening Hours"
+                    android:imeOptions="actionNext"
+                    android:inputType="none"
+                    android:longClickable="false"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp" />
+
+                <EditText
+                    android:id="@+id/fragment_setup_restaurant_profile_et_closing_hours"
+                    style="@style/EditTextGreySingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="Closing Hours"
+                    android:imeOptions="actionNext"
+                    android:inputType="none"
+                    android:longClickable="false"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/fragment_setup_restaurant_profile_et_expected_delivery_time"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:hint="Expected Delivery Time (Optional)"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="2"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp" />
+
+            <EditText
+                android:id="@+id/fragment_setup_restaurant_profile_et_min_order_amount"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:hint="Minimum Order Amount"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="5"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp" />
+
+            <EditText
+                android:id="@+id/fragment_setup_restaurant_profile_et_delivery_charges"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:hint="Delivery Charges"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp" />
+
+            <Spinner
+                android:id="@+id/fragment_setup_restaurant_profile_spinner_order_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rectangle_round_corner_spinner"
+                android:entries="@array/order_types"
+                android:spinnerMode="dialog"
+                android:theme="@style/SpinnerTextGrey" />
+
+            <Spinner
+                android:id="@+id/fragment_setup_restaurant_profile_spinner_payment_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rectangle_round_corner_spinner"
+                android:entries="@array/payment_types"
+                android:spinnerMode="dialog"
+                android:theme="@style/SpinnerTextGrey" />
+
+            <EditText
+                android:id="@+id/fragment_setup_restaurant_profile_et_delivery_areas"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:digits="1234567890, abcdefghijklmnopqrstuvwxyz"
+                android:hint="Delivery Areas"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp" />
+
+            <com.os.foodie.ui.custom.RippleAppCompatButton
+                android:id="@+id/fragment_setup_restaurant_profile_bt_save"
+                style="@style/ButtonOrange"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:text="Save" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/fragment_setup_restaurant_profile_tv_ud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="70dp"
+            android:visibility="gone"
+            android:gravity="center"
+            android:text="Under Development"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+</ScrollView>

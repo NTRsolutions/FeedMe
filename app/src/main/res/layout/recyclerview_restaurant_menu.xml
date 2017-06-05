@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/recyclerview_restaurant_menu_ll_main_margin_end"
+    android:layout_marginStart="@dimen/recyclerview_restaurant_menu_ll_main_margin_start"
+    android:layout_marginTop="@dimen/recyclerview_restaurant_menu_ll_main_margin_top"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/recyclerview_restaurant_menu_tv_dish_name"
+            style="@style/TextView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/recyclerview_restaurant_menu_tv_veg_nonveg"
+            style="@style/TextView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/recyclerview_restaurant_menu_tv_vegnonveg_margin_top" />
+
+        <TextView
+            android:id="@+id/recyclerview_restaurant_menu_tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/recyclerview_restaurant_menu_tv_description_margin_bottom"
+            android:layout_marginTop="@dimen/recyclerview_restaurant_menu_tv_description_margin_top"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/recyclerview_restaurant_menu_tv_description_text_size"
+            android:typeface="serif" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/recyclerview_restaurant_menu_tv_price"
+            android:layout_width="@dimen/recyclerview_restaurant_menu_tv_price_height_width"
+            android:layout_height="@dimen/recyclerview_restaurant_menu_tv_price_height_width"
+            android:background="@drawable/circular_image_view_orange"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/recyclerview_restaurant_menu_tv_price_text_size" />
+
+        <ImageView
+            android:id="@+id/recyclerview_restaurant_menu_iv_overflow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="@dimen/recyclerview_restaurant_menu_iv_overflow_padding_bottom"
+            android:paddingTop="@dimen/recyclerview_restaurant_menu_iv_overflow_padding_top"
+            android:src="@mipmap/ic_overflow" />
+
+    </LinearLayout>
+
+</LinearLayout>

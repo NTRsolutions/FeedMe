@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main_ll_top"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.os.foodie.ui.welcome.WelcomeActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/activity_welcome_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/density_0"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/activity_welcome_ll_dots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/welcome_ll_margin_bottom"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/welcome_ll_footer_margin_bottom"
+        android:gravity="center_horizontal"
+        android:weightSum="2">
+
+        <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/activity_welcome_bt_log_in"
+            style="@style/ButtonLightGrey"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/welcome_bt_sign_up_height"
+            android:layout_marginEnd="@dimen/welcome_bt_log_in_margin_end"
+            android:layout_marginStart="@dimen/welcome_bt_log_in_margin_start"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/welcome_bt_log_in" />
+
+        <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/activity_welcome_bt_sign_up"
+            style="@style/ButtonOrange"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/welcome_bt_sign_up_height"
+            android:layout_marginEnd="@dimen/welcome_bt_sign_up_margin_end"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/welcome_bt_sign_up" />
+
+    </LinearLayout>
+
+    <!--<TextView-->
+    <!--android:id="@+id/activity_welcome_tv_skip"-->
+    <!--style="@style/TextButton"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!--android:layout_margin="@dimen/welcome_tv_skip_margin"-->
+    <!--android:text="@string/welcome_tv_skip" />-->
+
+</LinearLayout>

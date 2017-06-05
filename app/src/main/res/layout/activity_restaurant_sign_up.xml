@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    app:elevation="0dp"
+    tools:context="com.os.foodie.ui.signup.restaurant.RestaurantSignUpActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_ll">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/restaurant_logo_iv"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/slide_subtitle_margin_top"
+                    android:src="@mipmap/profile_default" />
+
+                <EditText
+                    android:id="@+id/activity_restaurant_sign_up_et_contact_person_name"
+                    style="@style/EditTextGreySingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/restaurant_sign_up_et_contact_person_name_height"
+                    android:layout_marginEnd="@dimen/restaurant_sign_up_et_margin_end"
+                    android:layout_marginStart="@dimen/restaurant_sign_up_et_margin_start"
+                    android:layout_marginTop="@dimen/slide_subtitle_margin_top"
+                    android:hint="@string/restaurant_sign_up_et_contact_person_name_hint"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:paddingEnd="@dimen/restaurant_sign_up_et_contact_person_name_padding_end"
+                    android:paddingStart="@dimen/restaurant_sign_up_et_contact_person_name_padding_start" />
+
+                <EditText
+                    android:id="@+id/activity_restaurant_sign_up_et_restaurant_name"
+                    style="@style/EditTextGreySingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/restaurant_sign_up_et_restaurant_name_height"
+                    android:layout_marginEnd="@dimen/restaurant_sign_up_et_margin_end"
+                    android:layout_marginStart="@dimen/restaurant_sign_up_et_margin_start"
+                    android:layout_marginTop="@dimen/restaurant_sign_up_et_restaurant_name_margin_top"
+                    android:hint="@string/restaurant_sign_up_et_restaurant_name_hint"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:paddingEnd="@dimen/restaurant_sign_up_et_restaurant_name_padding_end"
+                    android:paddingStart="@dimen/restaurant_sign_up_et_restaurant_name_padding_start" />
+
+                <EditText
+                    android:id="@+id/activity_restaurant_sign_up_et_email"
+                    style="@style/EditTextGreySingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/restaurant_sign_up_et_email_height"
+                    android:layout_marginEnd="@dimen/restaurant_sign_up_et_margin_end"
+                    android:layout_marginStart="@dimen/restaurant_sign_up_et_margin_start"
+                    android:layout_marginTop="@dimen/restaurant_sign_up_et_email_margin_top"
+                    android:hint="@string/restaurant_sign_up_et_email_hint"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:paddingEnd="@dimen/restaurant_sign_up_et_email_padding_end"
+                    android:paddingStart="@dimen/restaurant_sign_up_et_email_padding_start" />
+
+                <EditText
+                    android:id="@+id/activity_restaurant_sign_up_et_phone"
+                    style="@style/EditTextGreySingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/restaurant_sign_up_et_phone_height"
+                    android:layout_marginEnd="@dimen/restaurant_sign_up_et_margin_end"
+                    android:layout_marginStart="@dimen/restaurant_sign_up_et_margin_start"
+                    android:layout_marginTop="@dimen/restaurant_sign_up_et_phone_margin_top"
+                    android:hint="@string/restaurant_sign_up_et_phone_hint"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:paddingEnd="@dimen/restaurant_sign_up_et_phone_padding_end"
+                    android:paddingStart="@dimen/restaurant_sign_up_et_phone_padding_start" />
+
+                <EditText
+                    android:id="@+id/activity_restaurant_sign_up_et_password"
+                    style="@style/EditTextGreySingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/restaurant_sign_up_et_password_height"
+                    android:layout_marginEnd="@dimen/restaurant_sign_up_et_margin_end"
+                    android:layout_marginStart="@dimen/restaurant_sign_up_et_margin_start"
+                    android:layout_marginTop="@dimen/restaurant_sign_up_et_password_margin_top"
+                    android:hint="@string/restaurant_sign_up_et_password_hint"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:paddingEnd="@dimen/restaurant_sign_up_et_password_padding_end"
+                    android:paddingStart="@dimen/restaurant_sign_up_et_password_padding_start" />
+
+                <EditText
+                    android:id="@+id/activity_restaurant_sign_up_et_confirm_password"
+                    style="@style/EditTextGreySingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/restaurant_sign_up_et_confirm_password_height"
+                    android:layout_marginEnd="@dimen/restaurant_sign_up_et_margin_end"
+                    android:layout_marginStart="@dimen/restaurant_sign_up_et_margin_start"
+                    android:layout_marginTop="@dimen/restaurant_sign_up_et_confirm_password_margin_top"
+                    android:hint="@string/restaurant_sign_up_et_confirm_password_hint"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:paddingEnd="@dimen/restaurant_sign_up_et_confirm_password_padding_end"
+                    android:paddingStart="@dimen/restaurant_sign_up_et_confirm_password_padding_start" />
+
+                <com.os.foodie.ui.custom.RippleAppCompatButton
+                    android:id="@+id/activity_restaurant_sign_up_bt_sign_up"
+                    style="@style/ButtonOrange"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/restaurant_sign_up_bt_sign_up_height"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="@dimen/restaurant_sign_up_bt_margin_end"
+                    android:layout_marginStart="@dimen/restaurant_sign_up_bt_margin_start"
+                    android:layout_marginTop="@dimen/restaurant_sign_up_bt_sign_up_margin_top"
+                    android:gravity="center"
+                    android:text="@string/restaurant_sign_up_bt_sign_up_text" />
+
+                <com.os.foodie.ui.custom.RippleAppCompatButton
+                    android:id="@+id/activity_restaurant_sign_up_bt_sign_up_facebook"
+                    style="@style/ButtonBlue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="@dimen/restaurant_sign_up_bt_margin_end"
+                    android:layout_marginStart="@dimen/restaurant_sign_up_bt_margin_start"
+                    android:layout_marginTop="@dimen/restaurant_sign_up_bt_sign_up_facebook_margin_top"
+                    android:drawableLeft="@mipmap/ic_facebook"
+                    android:drawablePadding="@dimen/restaurant_sign_up_bt_sign_up_facebook_drawable_padding"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/restaurant_sign_up_bt_sign_up_facebook_padding"
+                    android:text="@string/restaurant_sign_up_bt_sign_up_facebook_text" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/bottom_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_sign_up_tv_restaurant_register_margin_top"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/activity_restaurant_sign_up_tv_already_account"
+                    style="@style/TextButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/restaurant_sign_up_tv_already_account_text" />
+
+                <TextView
+                    android:id="@+id/activity_restaurant_sign_up_tv_log_in"
+                    style="@style/TextButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/restaurant_sign_up_tv_log_in_margin_start"
+                    android:text="@string/restaurant_sign_up_tv_log_in_text" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/activity_restaurant_sign_up_tv_customer_register"
+                style="@style/TextButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/customer_sign_up_tv_restaurant_register_margin_top"
+                android:layout_marginTop="@dimen/customer_sign_up_tv_restaurant_register_margin_top"
+                android:text="@string/restaurant_sign_up_tv_customer_register_text" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

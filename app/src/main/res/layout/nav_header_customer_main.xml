@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/side_nav_bar"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/customer_main_header_ll_main_padding_bottom"
+    android:paddingTop="@dimen/customer_main_header_ll_main_padding_top"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="@dimen/customer_main_header_tv_margin_end"
+        android:layout_marginStart="@dimen/customer_main_header_tv_margin_start"
+        android:gravity="center"
+        android:text="@string/customer_main_header_tv_welcome_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+    <TextView
+        android:id="@+id/nav_header_customer_main_tv_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="@dimen/customer_main_header_tv_margin_end"
+        android:layout_marginStart="@dimen/customer_main_header_tv_margin_start"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textSize="@dimen/customer_main_header_tv_user_name_text_size" />
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="20sp"-->
+
+</LinearLayout>

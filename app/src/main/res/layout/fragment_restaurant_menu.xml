@@ -1,0 +1,35 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment">
+
+    <TextView
+        android:id="@+id/alert_tv"
+        style="@style/TextView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/restaurant_menu_fragment_tv_empty_menu"
+        android:visibility="gone" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_restaurant_menu_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fragment_restaurant_menu_fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/restaurant_menu_fab_add_margin"
+        android:src="@drawable/ic_add_white_24dp"
+        app:backgroundTint="@color/green"
+        app:rippleColor="@color/light_green" />
+    <!--app:layout_behavior="com.os.foodie.ui.custom.FABScrollingBehavior"-->
+
+</FrameLayout>

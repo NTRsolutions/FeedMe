@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/TextView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fragment_add_cuisine_type_tv_title_margin"
+        android:text="@string/fragment_add_cuisine_type_tv_title_text" />
+
+    <EditText
+        android:id="@+id/dialog_fragment_add_cuisine_type_et_cuisine_type"
+        style="@style/EditTextGreySingleLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_add_cuisine_type_et_height"
+        android:layout_marginEnd="@dimen/fragment_add_cuisine_type_et_margin_end"
+        android:layout_marginStart="@dimen/fragment_add_cuisine_type_et_margin_start"
+        android:layout_marginTop="@dimen/fragment_add_cuisine_type_et_margin_top"
+        android:hint="@string/fragment_add_cuisine_type_et_cuisine_type_hint"
+        android:imeOptions="actionGo"
+        android:inputType="text"
+        android:paddingEnd="@dimen/fragment_add_cuisine_type_et_padding_end"
+        android:paddingStart="@dimen/fragment_add_cuisine_type_et_padding_start" />
+
+    <com.os.foodie.ui.custom.RippleAppCompatButton
+        android:id="@+id/dialog_fragment_add_cuisine_type_bt_submit"
+        style="@style/ButtonOrange"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_add_cuisine_type_bt_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/fragment_add_cuisine_type_bt_margin_bottom"
+        android:layout_marginEnd="@dimen/fragment_add_cuisine_type_bt_margin_end"
+        android:layout_marginStart="@dimen/fragment_add_cuisine_type_bt_margin_start"
+        android:layout_marginTop="@dimen/fragment_add_cuisine_type_bt_margin_top"
+        android:gravity="center"
+        android:text="@string/fragment_add_cuisine_type_bt_submit_text" />
+
+</LinearLayout>

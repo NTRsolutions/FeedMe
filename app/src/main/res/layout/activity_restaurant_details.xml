@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <!--android:layout_height="@dimen/app_bar_height"-->
+        <!--android:layout_height="250dp"-->
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!--<ImageView-->
+            <!--android:id="@+id/activity_restaurant_details_iv_photos"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@mipmap/img_banner" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/activity_restaurant_details_viewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/app_bar_height" />
+
+                    <LinearLayout
+                        android:id="@+id/activity_restaurant_details_ll_page"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:gravity="center"
+                        android:orientation="horizontal" />
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/restaurant_details_ll_header_margin_start"
+                        android:layout_marginTop="@dimen/restaurant_details_ll_header_margin_top"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/content_restaurant_details_tv_restaurant_name"
+                            style="@style/TextView6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/restaurant_details_tv_restaurant_name_margin_bottom"
+                            android:layout_marginStart="@dimen/restaurant_details_tv_restaurant_name_margin_start" />
+
+                        <!--<TextView-->
+                        <!--android:id="@+id/recyclerview_restaurant_tv_restaurant_name"-->
+                        <!--style="@style/TextViewTitle"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginBottom="5dp"-->
+                        <!--android:layout_marginStart="5dp"-->
+                        <!--android:text="Acquerello" />-->
+
+                        <com.wefika.flowlayout.FlowLayout
+                            android:id="@+id/content_restaurant_details_fl_cuisine_types"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/restaurant_details_fl_margin_bottom" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/restaurant_details_ll_sub_header_margin_start"
+                            android:layout_marginTop="@dimen/restaurant_details_ll_sub_header_margin_top"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="@dimen/restaurant_details_tv_rating_text_margin_end"
+                                android:text="@string/restaurant_details_tv_rating_text_rating"
+                                android:textColor="@color/black"
+                                android:typeface="serif" />
+
+                            <RatingBar
+                                android:id="@+id/content_restaurant_details_rb_rating"
+                                style="?android:attr/ratingBarStyleSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:numStars="5"
+                                android:rating="4"
+                                android:stepSize="1" />
+
+                            <TextView
+                                android:id="@+id/content_restaurant_details_tv_reviews"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="@dimen/restaurant_details_tv_reviews_margin_start"
+                                android:text="Reviews(252)"
+                                android:textColor="@color/black"
+                                android:typeface="serif" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/restaurant_details_ll_sub_header_2_margin"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/content_restaurant_details_tv_discount"
+                            style="@style/TextView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:paddingEnd="@dimen/restaurant_details_tv_discount_padding_end"
+                            android:paddingStart="@dimen/restaurant_details_tv_discount_padding_start"
+                            android:text="30%"
+                            android:textColor="@color/grey2"
+                            android:textSize="@dimen/restaurant_details_tv_discount_text_size" />
+
+                        <TextView
+                            style="@style/TextView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:paddingEnd="@dimen/restaurant_details_tv_discount_text_padding_end"
+                            android:paddingStart="@dimen/restaurant_details_tv_discount_text_padding_start"
+                            android:text="@string/restaurant_details_tv_discount_text_discount"
+                            android:textColor="@color/grey2"
+                            android:textSize="@dimen/restaurant_details_tv_discount_text_text_size" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_restaurant_details" />
+
+    <com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingActionImageView
+        android:id="@+id/activity_restautant_details_faiv_profile_pic"
+        android:layout_width="@dimen/restautant_details_faiv_profile_pic_height_width"
+        android:layout_height="@dimen/restautant_details_faiv_profile_pic_height_width"
+        android:layout_marginStart="@dimen/restautant_details_faiv_profile_pic_margin_start"
+        android:background="@color/white"
+        android:cropToPadding="true"
+        android:padding="@dimen/restautant_details_faiv_profile_pic_padding"
+        app:layout_anchor="@id/activity_restaurant_details_viewpager"
+        app:layout_anchorGravity="bottom|start" />
+
+    <com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout
+        android:id="@+id/activity_restautant_details_fall_delivery_time"
+        android:layout_width="@dimen/restautant_details_fall_height_width"
+        android:layout_height="@dimen/restautant_details_fall_height_width"
+        android:layout_marginEnd="@dimen/restautant_details_fall_delivery_time_margin_end"
+        android:background="@drawable/circular_image_view_orange"
+        android:cropToPadding="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/restautant_details_fall_padding"
+        app:layout_anchor="@id/activity_restaurant_details_viewpager"
+        app:layout_anchorGravity="bottom|end">
+
+        <TextView
+            android:id="@+id/activity_restautant_details_fall_delivery_time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="20"
+            android:textColor="@color/white"
+            android:textSize="@dimen/restautant_details_fall_delivery_time_text_size"
+            android:typeface="serif" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-7dp"
+            android:gravity="center"
+            android:text="@string/restautant_details_fall_delivery_time_min_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/restautant_details_fall_delivery_time_min_text_size"
+            android:typeface="serif" />
+
+    </com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout>
+
+    <com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout
+        android:id="@+id/activity_restautant_details_faiv_likes"
+        android:layout_width="@dimen/restautant_details_fall_height_width"
+        android:layout_height="@dimen/restautant_details_fall_height_width"
+        android:layout_marginEnd="@dimen/restautant_details_faiv_likes_margin_end"
+        android:background="@drawable/circular_image_view_green"
+        android:cropToPadding="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/restautant_details_fall_padding"
+        app:layout_anchor="@id/activity_restaurant_details_viewpager"
+        app:layout_anchorGravity="bottom|end">
+
+        <ImageView
+            android:id="@+id/activity_restautant_details_faiv_likes_image"
+            android:layout_width="@dimen/restautant_details_faiv_likes_image_height_width"
+            android:layout_height="@dimen/restautant_details_faiv_likes_image_height_width" />
+        <!--android:src="@mipmap/ic_like_false"-->
+
+        <TextView
+            android:id="@+id/activity_restautant_details_faiv_likes_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="20"
+            android:textColor="@color/white"
+            android:textSize="@dimen/restautant_details_faiv_likes_text_size"
+            android:typeface="serif" />
+
+    </com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout>
+
+    <com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingActionImageView
+        android:id="@+id/activity_restautant_details_faiv_website"
+        android:layout_width="@dimen/restautant_details_fall_height_width"
+        android:layout_height="@dimen/restautant_details_fall_height_width"
+        android:layout_marginEnd="@dimen/restautant_details_faiv_website_margin_end"
+        android:background="@drawable/circular_image_view_black"
+        android:cropToPadding="true"
+        android:padding="@dimen/restautant_details_fall_padding"
+        android:src="@mipmap/ic_share"
+        app:layout_anchor="@id/activity_restaurant_details_viewpager"
+        app:layout_anchorGravity="bottom|end" />
+
+    <!--<com.os.foodie.ui.custom.floatingaction.floatingactiontextview.FloatingActionTextView-->
+    <!--android:id="@+id/activity_restautant_details_faiv_restaurant_min"-->
+    <!--android:layout_width="60dp"-->
+    <!--android:layout_height="60dp"-->
+    <!--android:layout_marginEnd="145dp"-->
+    <!--android:background="@drawable/circular_image_view_orange"-->
+    <!--android:gravity="center"-->
+    <!--android:padding="3dp"-->
+    <!--android:src="@mipmap/ic_overflow"-->
+    <!--android:text="30\nmin"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="20sp"-->
+    <!--android:typeface="serif"-->
+    <!--app:layout_anchor="@id/app_bar"-->
+    <!--app:layout_anchorGravity="bottom|end" />-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fab1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="@dimen/fab_margin"-->
+    <!--app:layout_anchor="@id/app_bar"-->
+    <!--app:layout_anchorGravity="bottom|right|end"-->
+    <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fab2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginEnd="80dp"-->
+    <!--app:layout_anchor="@id/app_bar"-->
+    <!--app:layout_anchorGravity="bottom|end"-->
+    <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fab3"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginEnd="15dp"-->
+    <!--app:layout_anchor="@id/app_bar"-->
+    <!--app:layout_anchorGravity="bottom|end"-->
+    <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
+
+
+</android.support.design.widget.CoordinatorLayout>

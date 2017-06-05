@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/restaurant_details_nsv_margin_top"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity"
+    tools:showIn="@layout/activity_restaurant_details">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/restaurant_details_ll_margin_bottom"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="@dimen/restaurant_details_ll_header_margin_start"-->
+        <!--android:layout_marginTop="@dimen/restaurant_details_ll_header_margin_top"-->
+        <!--android:layout_weight="1"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/content_restaurant_details_tv_restaurant_name"-->
+        <!--style="@style/TextView6"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/restaurant_details_tv_restaurant_name_margin_bottom"-->
+        <!--android:layout_marginStart="@dimen/restaurant_details_tv_restaurant_name_margin_start" />-->
+
+        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/recyclerview_restaurant_tv_restaurant_name"&ndash;&gt;-->
+        <!--&lt;!&ndash;style="@style/TextViewTitle"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginBottom="5dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginStart="5dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:text="Acquerello" />&ndash;&gt;-->
+
+        <!--<com.wefika.flowlayout.FlowLayout-->
+        <!--android:id="@+id/content_restaurant_details_fl_cuisine_types"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/restaurant_details_fl_margin_bottom" />-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="@dimen/restaurant_details_ll_sub_header_margin_start"-->
+        <!--android:layout_marginTop="@dimen/restaurant_details_ll_sub_header_margin_top"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_marginEnd="@dimen/restaurant_details_tv_rating_text_margin_end"-->
+        <!--android:text="@string/restaurant_details_tv_rating_text_rating"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:typeface="serif" />-->
+
+        <!--<RatingBar-->
+        <!--android:id="@+id/content_restaurant_details_rb_rating"-->
+        <!--style="?android:attr/ratingBarStyleSmall"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:numStars="5"-->
+        <!--android:rating="4"-->
+        <!--android:stepSize="1" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/content_restaurant_details_tv_reviews"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_marginStart="@dimen/restaurant_details_tv_reviews_margin_start"-->
+        <!--android:text="Reviews(252)"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:typeface="serif" />-->
+
+        <!--</LinearLayout>-->
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_margin="@dimen/restaurant_details_ll_sub_header_2_margin"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/content_restaurant_details_tv_discount"-->
+        <!--style="@style/TextView2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:paddingEnd="@dimen/restaurant_details_tv_discount_padding_end"-->
+        <!--android:paddingStart="@dimen/restaurant_details_tv_discount_padding_start"-->
+        <!--android:text="30%"-->
+        <!--android:textColor="@color/grey2"-->
+        <!--android:textSize="@dimen/restaurant_details_tv_discount_text_size" />-->
+
+        <!--<TextView-->
+        <!--style="@style/TextView2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:paddingEnd="@dimen/restaurant_details_tv_discount_text_padding_end"-->
+        <!--android:paddingStart="@dimen/restaurant_details_tv_discount_text_padding_start"-->
+        <!--android:text="@string/restaurant_details_tv_discount_text_discount"-->
+        <!--android:textColor="@color/grey2"-->
+        <!--android:textSize="@dimen/restaurant_details_tv_discount_text_text_size" />-->
+
+        <!--</LinearLayout>-->
+
+        <!--</LinearLayout>-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/content_restaurant_details_tv_discount"-->
+        <!--style="@style/TextView2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:layout_marginStart="5dp"-->
+        <!--android:text="Most Popular"-->
+        <!--android:textColor="@color/orange" />-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/content_restaurant_details_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/restaurant_details_recyclerview_margin_start" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
