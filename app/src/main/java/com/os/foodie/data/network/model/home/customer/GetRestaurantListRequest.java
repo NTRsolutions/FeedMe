@@ -13,6 +13,12 @@ public class GetRestaurantListRequest implements Parcelable
     @SerializedName("user_id")
     @Expose
     private String userId;
+    @SerializedName("search_text")
+    @Expose
+    private String searchText;
+    @SerializedName("filters")
+    @Expose
+    private Filters filters;
     public final static Creator<GetRestaurantListRequest> CREATOR = new Creator<GetRestaurantListRequest>() {
 
 
@@ -22,6 +28,8 @@ public class GetRestaurantListRequest implements Parcelable
         public GetRestaurantListRequest createFromParcel(Parcel in) {
             GetRestaurantListRequest instance = new GetRestaurantListRequest();
             instance.userId = ((String) in.readValue((String.class.getClassLoader())));
+            instance.searchText = ((String) in.readValue((String.class.getClassLoader())));
+            instance.filters = ((Filters) in.readValue((Filters.class.getClassLoader())));
             return instance;
         }
 
@@ -42,10 +50,14 @@ public class GetRestaurantListRequest implements Parcelable
     /**
      * 
      * @param userId
+     * @param searchText
+     * @param filters
      */
-    public GetRestaurantListRequest(String userId) {
+    public GetRestaurantListRequest(String userId, String searchText, Filters filters) {
         super();
         this.userId = userId;
+        this.searchText = searchText;
+        this.filters = filters;
     }
 
     public String getUserId() {
@@ -56,8 +68,26 @@ public class GetRestaurantListRequest implements Parcelable
         this.userId = userId;
     }
 
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
+    }
+
+    public Filters getFilters() {
+        return filters;
+    }
+
+    public void setFilters(Filters filters) {
+        this.filters = filters;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(userId);
+        dest.writeValue(searchText);
+        dest.writeValue(filters);
     }
 
     public int describeContents() {

@@ -2,7 +2,7 @@ package com.os.foodie.data.network;
 
 public class ApiConstants {
 
-//    public static final String BASE_URL = "http://67.205.96.105:8080/foodi/web_services/";
+    //    public static final String BASE_URL = "http://67.205.96.105:8080/foodi/web_services/";
     public static final String BASE_URL = "http://192.168.1.69/foodi/web_services/";
 
     public static final String LOGIN = "login";
@@ -43,4 +43,9 @@ public class ApiConstants {
 
     public static final String GET_CUSTOMER_PROFILE = "get_customer_profile";
     public static final String EDIT_CUSTOMER_PROFILE = "edit_customer_profile";
+
+    public static final String ADD_TO_CART = "add_cart";
+    public static final String UPDATE_CART = "edit_cart";
+    public static final String REMOVE_FROM_CART = "remove_dish_from_cart";
+    public static final String CART_DETAIL = "cart_detail";
 }

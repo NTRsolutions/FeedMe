@@ -9,6 +9,14 @@ import com.os.foodie.data.network.model.account.EditCustomerAccountDetailRespons
 import com.os.foodie.data.network.model.account.EditCustomerAccountRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailResponse;
+import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
+import com.os.foodie.data.network.model.cart.add.AddToCartResponse;
+import com.os.foodie.data.network.model.cart.remove.RemoveFromCartRequest;
+import com.os.foodie.data.network.model.cart.remove.RemoveFromCartResponse;
+import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
+import com.os.foodie.data.network.model.cart.update.UpdateCartResponse;
+import com.os.foodie.data.network.model.cart.view.ViewCartRequest;
+import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeRequest;
@@ -248,6 +256,26 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<EditCustomerAccountDetailResponse> editCustomerAccount(EditCustomerAccountRequest editCustomerAccountRequest) {
         return apiHelper.editCustomerAccount(editCustomerAccountRequest);
+    }
+
+    @Override
+    public Observable<AddToCartResponse> addToCart(AddToCartRequest addToCartRequest) {
+        return apiHelper.addToCart(addToCartRequest);
+    }
+
+    @Override
+    public Observable<ViewCartResponse> getCartDetails(ViewCartRequest viewCartRequest) {
+        return apiHelper.getCartDetails(viewCartRequest);
+    }
+
+    @Override
+    public Observable<RemoveFromCartResponse> removeFromCart(RemoveFromCartRequest removeFromCartRequest) {
+        return apiHelper.removeFromCart(removeFromCartRequest);
+    }
+
+    @Override
+    public Observable<UpdateCartResponse> updateCart(UpdateCartRequest updateCartRequest) {
+        return apiHelper.updateCart(updateCartRequest);
     }
 
     @Override

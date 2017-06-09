@@ -102,6 +102,16 @@
         <item name="android:typeface">monospace</item>
     </style>
 
+    <!--<style name="Widget.Toolbar" parent="@style/Widget.AppCompat.Toolbar">-->
+        <!--<item name="contentInsetStart">0dp</item>-->
+        <!--<item name="contentInsetLeft">0dp</item>-->
+    <!--</style>-->
+
+    <style name="TitleTextAppearance" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/style_action_bar_title_size</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+
     <!--TextView-->
 
     <style name="TextView1">
@@ -269,6 +279,30 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:typeface">monospace</item>
+    </style>
+
+    <!--<style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">-->
+        <!--<item name="colorAccent">@color/black</item>-->
+        <!--<item name="android:textColorPrimary">@color/white</item>-->
+        <!--&lt;!&ndash;<item name="android:background">@color/grey_dialog_box</item>&ndash;&gt;-->
+    <!--</style>-->
+
+
+
+
+    <style name="AlertDialogBottomSlide" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowAnimationStyle">@style/AlertDialogBottomSlideAnimation</item>
+    </style>
+
+    <style name="AlertDialogBottomSlideAnimation">
+        <item name="android:windowEnterAnimation">@anim/popup_show</item>
+        <item name="android:windowExitAnimation">@anim/popup_hide</item>
     </style>
 
 </resources>

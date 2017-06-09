@@ -37,6 +37,9 @@ public class Dish implements Parcelable
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("qty")
+    @Expose
+    private String qty;
     public final static Creator<Dish> CREATOR = new Creator<Dish>() {
 
 
@@ -54,6 +57,7 @@ public class Dish implements Parcelable
             instance.avail = ((String) in.readValue((String.class.getClassLoader())));
             instance.vegNonveg = ((String) in.readValue((String.class.getClassLoader())));
             instance.status = ((String) in.readValue((String.class.getClassLoader())));
+            instance.qty = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -83,7 +87,7 @@ public class Dish implements Parcelable
      * @param dishId
      * @param courseName
      */
-    public Dish(String dishId, String name, String courseId, String courseName, String description, String price, String avail, String vegNonveg, String status) {
+    public Dish(String dishId, String name, String courseId, String courseName, String description, String price, String avail, String vegNonveg, String status, String qty) {
         super();
         this.dishId = dishId;
         this.name = name;
@@ -94,6 +98,7 @@ public class Dish implements Parcelable
         this.avail = avail;
         this.vegNonveg = vegNonveg;
         this.status = status;
+        this.qty = qty;
     }
 
     public String getDishId() {
@@ -168,6 +173,14 @@ public class Dish implements Parcelable
         this.status = status;
     }
 
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String qty) {
+        this.qty = qty;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(dishId);
         dest.writeValue(name);
@@ -178,6 +191,7 @@ public class Dish implements Parcelable
         dest.writeValue(avail);
         dest.writeValue(vegNonveg);
         dest.writeValue(status);
+        dest.writeValue(qty);
     }
 
     public int describeContents() {

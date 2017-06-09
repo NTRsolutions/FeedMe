@@ -2,6 +2,7 @@ package com.os.foodie.ui.setting.changepassword;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +29,7 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         setContentView(R.layout.activity_change_password);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.mipmap.ic_home_up_orange));
+        getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this,R.mipmap.ic_home_up_orange));
 
         changePasswordMvpPresenter = new ChangePasswordPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         changePasswordMvpPresenter.onAttach(ChangePasswordActivity.this);

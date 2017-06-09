@@ -68,7 +68,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
             Glide.with(context)
                     .load(restaurantList.getImages().get(0).getUrl())
-                    .placeholder(context.getResources().getDrawable(R.mipmap.ic_logo))
+                    .placeholder(ContextCompat.getDrawable(context,R.mipmap.ic_logo))
                     .into(holder.ivRestaurantImage);
         }
 
@@ -109,7 +109,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             layoutParams.setMargins(0, marginTop, 0, 0);
 
             tvCuisine.setLayoutParams(layoutParams);
-            tvCuisine.setBackground(context.getResources().getDrawable(R.drawable.rectangle_round_corner_white_outline_black));
+            tvCuisine.setBackground(ContextCompat.getDrawable(context,R.drawable.rectangle_round_corner_white_outline_black));
 
             float padding = context.getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_padding);
 

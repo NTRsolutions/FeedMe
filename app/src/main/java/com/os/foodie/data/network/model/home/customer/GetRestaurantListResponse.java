@@ -4,11 +4,11 @@ package com.os.foodie.data.network.model.home.customer;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.Parcelable.Creator;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GetRestaurantListResponse implements Parcelable {
+public class GetRestaurantListResponse implements Parcelable
+{
 
     @SerializedName("response")
     @Expose
@@ -17,7 +17,7 @@ public class GetRestaurantListResponse implements Parcelable {
 
 
         @SuppressWarnings({
-                "unchecked"
+            "unchecked"
         })
         public GetRestaurantListResponse createFromParcel(Parcel in) {
             GetRestaurantListResponse instance = new GetRestaurantListResponse();
@@ -29,15 +29,18 @@ public class GetRestaurantListResponse implements Parcelable {
             return (new GetRestaurantListResponse[size]);
         }
 
-    };
+    }
+    ;
 
     /**
      * No args constructor for use in serialization
+     * 
      */
     public GetRestaurantListResponse() {
     }
 
     /**
+     * 
      * @param response
      */
     public GetRestaurantListResponse(Response response) {
@@ -58,7 +61,7 @@ public class GetRestaurantListResponse implements Parcelable {
     }
 
     public int describeContents() {
-        return 0;
+        return  0;
     }
 
 }

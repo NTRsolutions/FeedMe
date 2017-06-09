@@ -1,38 +1,49 @@
 package com.os.foodie.ui.details.restaurant;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
+import com.os.foodie.data.network.model.cart.view.CartList;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
-import com.os.foodie.data.network.model.details.Image;
+import com.os.foodie.data.network.model.details.Dish;
 import com.os.foodie.data.network.model.details.Menu;
 import com.os.foodie.model.RestaurantDetails;
 import com.os.foodie.ui.adapter.recyclerview.CourseAdapter;
 import com.os.foodie.ui.adapter.viewpager.PhotoAdapter;
 import com.os.foodie.ui.base.BaseActivity;
-import com.os.foodie.ui.custom.DividerItemLineDecoration;
+import com.os.foodie.ui.custom.RecyclerTouchListener;
 import com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingActionImageView;
 import com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingActionImageViewBehavior;
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout;
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayoutBehavior;
 import com.os.foodie.ui.info.RestaurantInfoActivity;
+import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.utils.AppConstants;
 import com.wefika.flowlayout.FlowLayout;
 
@@ -40,10 +51,14 @@ import java.util.ArrayList;
 
 public class RestaurantDetailsActivity extends BaseActivity implements RestaurantDetailsMvpView, View.OnClickListener, ViewPager.OnPageChangeListener {
 
+    private RelativeLayout rlBasketDetails;
+    private TextView tvTotalQuantity, tvTotalAmount;
+    private Button btViewBasket;
+
     private LinearLayout llPage;
     private FloatingActionImageView faivProfilePic, faivWebsite;
-    private FloatingActionLinearLayout fallDeliveryTime, fallLikes;
 
+    private FloatingActionLinearLayout fallDeliveryTime, fallLikes;
     private FlowLayout flCuisines;
     private TextView tvRestaurantName, tvDiscount, tvDeliveryTime, tvLikes;
     private ImageView ivLikes;
@@ -75,7 +90,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.mipmap.ic_home_up_white));
+        getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_white));
 
         Fresco.initialize(this);
 
@@ -94,6 +109,11 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         photoAdapter = new PhotoAdapter(this, urlList);
 
+        rlBasketDetails = (RelativeLayout) findViewById(R.id.activity_restaurant_details_rl_basket);
+        tvTotalQuantity = (TextView) findViewById(R.id.activity_restaurant_details_tv_total_quantity);
+        tvTotalAmount = (TextView) findViewById(R.id.activity_restaurant_details_tv_total_amount);
+        btViewBasket = (Button) findViewById(R.id.activity_restaurant_details_bt_view_basket);
+
         llPage = (LinearLayout) findViewById(R.id.activity_restaurant_details_ll_page);
         viewPager = (ViewPager) findViewById(R.id.activity_restaurant_details_viewpager);
 
@@ -109,6 +129,13 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         recyclerView.setNestedScrollingEnabled(false);
 
         initFloatingActionButtons();
+
+        btViewBasket.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         restaurantDetailsMvpPresenter.getRestaurantDetails(restaurantId);
     }
@@ -173,8 +200,10 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         if (v.getId() == fallLikes.getId()) {
             restaurantDetailsMvpPresenter.doLikeDislike(restaurantId);
+        } else if (v.getId() == btViewBasket.getId()) {
+            Intent intent = new Intent(RestaurantDetailsActivity.this, MyBasketActivity.class);
+            startActivity(intent);
         }
-
     }
 
     @Override
@@ -187,8 +216,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
 //        this.restaurantDetailsResponse = new CustomerRestaurantDetailsResponse();
 //        this.restaurantDetails = restaurantDetailsResponse;
-        setRestaurantDetails(restaurantDetailsResponse);
 
+        setRestaurantDetails(restaurantDetailsResponse);
 
         if (restaurantDetailsResponse.getResponse().getIsLike().equals("1")) {
             ivLikes.setImageResource(R.mipmap.ic_like_true);
@@ -217,10 +246,10 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
             onPageSelected(viewPager.getCurrentItem());
         }
 
-
         Glide.with(this)
                 .load(restaurantDetailsResponse.getResponse().getLogo())
-//                .placeholder(getResources().getDrawable(R.mipmap.ic_logo))
+                .placeholder(ContextCompat.getDrawable(this, R.mipmap.img_placeholder))
+                .error(ContextCompat.getDrawable(this, R.mipmap.img_placeholder))
                 .into(faivProfilePic);
 
         tvRestaurantName.setText(restaurantDetailsResponse.getResponse().getRestaurantName());
@@ -228,6 +257,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 //        tvLikes.setText(restaurantDetailsResponse.getResponse().getLatitude());
 //        tvDiscount.setText(restaurantDetailsResponse.getResponse().g());
 
+        flCuisines.removeAllViews();
 
         String cuisines[] = restaurantDetailsResponse.getResponse().getCuisineType().split(",");
 
@@ -243,7 +273,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
             layoutParams.setMargins(0, marginTop, 0, 0);
 
             tvCuisine.setLayoutParams(layoutParams);
-            tvCuisine.setBackground(getResources().getDrawable(R.drawable.rectangle_round_corner_white_outline_black));
+            tvCuisine.setBackground(ContextCompat.getDrawable(this, R.drawable.rectangle_round_corner_white_outline_black));
 
             float padding = getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_padding);
 
@@ -255,6 +285,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
             flCuisines.addView(tvCuisine);
         }
 
+        objectArrayList.clear();
+
         ArrayList<Menu> menu = (ArrayList<Menu>) restaurantDetailsResponse.getResponse().getMenu();
 
         for (int i = 0; i < menu.size(); i++) {
@@ -263,14 +295,289 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
             objectArrayList.addAll(menu.get(i).getDish());
         }
 
-        courseAdapter = new CourseAdapter(this, objectArrayList);
+        courseAdapter = new CourseAdapter(this, objectArrayList, restaurantId, restaurantDetailsMvpPresenter);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 
-        recyclerView.addItemDecoration(new DividerItemLineDecoration(this));
+//        recyclerView.addItemDecoration(new DividerItemLineDecoration(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(courseAdapter);
+
+        setOnItemTouch();
+
+        courseAdapter.notifyDataSetChanged();
+        courseAdapter.calcBasketDetails();
+
+        if (courseAdapter.getTotalQuantity() > 0) {
+
+            tvTotalQuantity.setText(String.valueOf(courseAdapter.getTotalQuantity()));
+            tvTotalAmount.setText("$" + courseAdapter.getTotalAmount());
+
+            rlBasketDetails.setVisibility(View.VISIBLE);
+        } else {
+            rlBasketDetails.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void resetResponse(CustomerRestaurantDetailsResponse restaurantDetailsResponse) {
+
+        setRestaurantDetails(restaurantDetailsResponse);
+
+        if (restaurantDetailsResponse.getResponse().getIsLike().equals("1")) {
+            ivLikes.setImageResource(R.mipmap.ic_like_true);
+        } else {
+            ivLikes.setImageResource(R.mipmap.ic_like_false);
+        }
+
+        ArrayList<String> urls = new ArrayList<String>();
+
+        for (int i = 0; i < restaurantDetailsResponse.getResponse().getImages().size(); i++) {
+            urls.add(restaurantDetailsResponse.getResponse().getImages().get(i).getUrl());
+        }
+
+        this.urlList.clear();
+        this.urlList.addAll(urls);
+
+        photoAdapter.notifyDataSetChanged();
+
+        viewPager.addOnPageChangeListener(this);
+        viewPager.setAdapter(photoAdapter);
+
+        if (urlList != null && !urlList.isEmpty()) {
+            onPageSelected(viewPager.getCurrentItem());
+        }
+
+        Glide.with(this)
+                .load(restaurantDetailsResponse.getResponse().getLogo())
+//                .placeholder(ContextCompat.getDrawable(this,R.mipmap.ic_logo))
+                .into(faivProfilePic);
+
+        tvRestaurantName.setText(restaurantDetailsResponse.getResponse().getRestaurantName());
+        tvDeliveryTime.setText(restaurantDetailsResponse.getResponse().getDeliveryTime());
+//        tvLikes.setText(restaurantDetailsResponse.getResponse().getLatitude());
+//        tvDiscount.setText(restaurantDetailsResponse.getResponse().g());
+
+        flCuisines.removeAllViews();
+
+        String cuisines[] = restaurantDetailsResponse.getResponse().getCuisineType().split(",");
+
+        for (String cuisine : cuisines) {
+
+            TextView tvCuisine = new TextView(this);
+
+            FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
+
+            int marginTop = (int) getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_margin_top);
+
+            layoutParams.setMarginStart((int) getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_margin_start));
+            layoutParams.setMargins(0, marginTop, 0, 0);
+
+            tvCuisine.setLayoutParams(layoutParams);
+            tvCuisine.setBackground(ContextCompat.getDrawable(this, R.drawable.rectangle_round_corner_white_outline_black));
+
+            float padding = getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_padding);
+
+            tvCuisine.setPadding((int) padding, (int) padding, (int) padding, (int) padding);
+            tvCuisine.setTextColor(getResources().getColor(R.color.black));
+            tvCuisine.setTypeface(Typeface.SERIF);
+            tvCuisine.setText(cuisine);
+
+            flCuisines.addView(tvCuisine);
+        }
+
+        objectArrayList.clear();
+
+        ArrayList<Menu> menu = (ArrayList<Menu>) restaurantDetailsResponse.getResponse().getMenu();
+
+        for (int i = 0; i < menu.size(); i++) {
+
+            objectArrayList.add(menu.get(i).getCourseType());
+            objectArrayList.addAll(menu.get(i).getDish());
+        }
+
+        courseAdapter.notifyDataSetChanged();
+        courseAdapter.calcBasketDetails();
+
+        if (courseAdapter.getTotalQuantity() > 0) {
+
+            tvTotalQuantity.setText(String.valueOf(courseAdapter.getTotalQuantity()));
+            tvTotalAmount.setText("$" + courseAdapter.getTotalAmount());
+
+            rlBasketDetails.setVisibility(View.VISIBLE);
+        } else {
+            rlBasketDetails.setVisibility(View.GONE);
+        }
+    }
+
+    public void setOnItemTouch() {
+
+
+        RecyclerTouchListener.ClickListener clickListener = new RecyclerTouchListener.ClickListener() {
+
+            @Override
+            public void onClick(View view, final int position) {
+
+                if (objectArrayList.get(position) instanceof Dish) {
+
+                    final boolean isUpdate;
+
+                    LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    final View dialogView = inflater.inflate(R.layout.dialog_item_quantity, null);
+
+                    final Dialog mBottomSheetDialog = new Dialog(RestaurantDetailsActivity.this, R.style.AlertDialogBottomSlide);
+
+                    TextView tvItemName = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_name);
+                    TextView tvItemQuantity = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_quantity);
+                    TextView tvPrice = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price);
+
+                    ImageView ivMinus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_minus);
+                    ImageView ivPlus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_plus);
+
+                    Button btUpdate = (Button) dialogView.findViewById(R.id.dialog_item_quantity_bt_update);
+
+                    Dish dish = (Dish) objectArrayList.get(position);
+
+                    tvItemName.setText(dish.getName());
+                    tvItemQuantity.setText(dish.getQty());
+
+                    if (dish.getQty().equals("0")) {
+
+                        btUpdate.setText("Add");
+                        isUpdate = false;
+                    } else {
+                        btUpdate.setText("Update");
+                        isUpdate = true;
+                    }
+
+                    float price = Float.parseFloat(dish.getPrice());
+                    int quantity = Integer.parseInt(dish.getQty());
+
+                    int totalAmount = 0;
+                    totalAmount += price * quantity;
+
+                    tvPrice.setText(totalAmount + "");
+
+                    final TextView tvItemQuantityTemp = tvItemQuantity;
+                    final TextView tvPriceTemp = tvPrice;
+                    final Button btUpdateTemp = btUpdate;
+
+                    ivMinus.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            float price = Float.parseFloat(((Dish) objectArrayList.get(position)).getPrice());
+                            int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
+
+                            if (quantity > 0) {
+
+                                quantity--;
+
+                                int totalAmount = 0;
+                                totalAmount += price * quantity;
+
+                                Log.d("quantity", ">>" + quantity);
+                                Log.d("price", ">>" + price);
+                                Log.d("totalAmount", ">>" + totalAmount);
+
+                                tvPriceTemp.setText(totalAmount + "");
+                                tvItemQuantityTemp.setText(quantity + "");
+                            }
+
+                            if (quantity <= 0) {
+                                btUpdateTemp.setText("Remove Item");
+                                btUpdateTemp.setTextColor(ContextCompat.getColor(RestaurantDetailsActivity.this, R.color.red));
+                            }
+                        }
+                    });
+
+                    ivPlus.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            float price = Float.parseFloat(((Dish) objectArrayList.get(position)).getPrice());
+                            int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
+
+                            if (quantity >= 0) {
+
+                                quantity++;
+
+                                int totalAmount = 0;
+                                totalAmount += price * quantity;
+
+                                Log.d("quantity", ">>" + quantity);
+                                Log.d("price", ">>" + price);
+                                Log.d("totalAmount", ">>" + totalAmount);
+
+                                tvPriceTemp.setText(totalAmount + "");
+                                tvItemQuantityTemp.setText(quantity + "");
+
+                                if (isUpdate) {
+                                    btUpdateTemp.setText("Update");
+                                }else {
+                                    btUpdateTemp.setText("Add");
+                                }
+
+                                btUpdateTemp.setTextColor(ContextCompat.getColor(RestaurantDetailsActivity.this, R.color.orange));
+                            }
+                        }
+                    });
+
+                    btUpdate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (tvItemQuantityTemp.getText().toString().equals("0")) {
+//                            cartLists.remove(position);
+//
+//                            myBasketAdapter.notifyDataSetChanged();
+//                            updateTotalAmount();
+                                mBottomSheetDialog.dismiss();
+                                restaurantDetailsMvpPresenter.removeFromMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), ((Dish) objectArrayList.get(position)).getDishId(), position);
+
+                            } else {
+//                            cartLists.get(position).setQty(tvItemQuantityTemp.getText().toString());
+//
+//                            myBasketAdapter.notifyDataSetChanged();
+//                            updateTotalAmount();
+                                mBottomSheetDialog.dismiss();
+                                if (isUpdate) {
+                                    restaurantDetailsMvpPresenter.updateMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), ((Dish) objectArrayList.get(position)).getDishId(), tvItemQuantityTemp.getText().toString(), position);
+                                } else {
+
+                                    AddToCartRequest addToCartRequest = new AddToCartRequest();
+
+                                    addToCartRequest.setDishId(((Dish) objectArrayList.get(position)).getDishId());
+                                    addToCartRequest.setUserId(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId());
+                                    addToCartRequest.setRestaurantId(restaurantId);
+                                    addToCartRequest.setPrice(((Dish) objectArrayList.get(position)).getPrice());
+                                    addToCartRequest.setQty((Integer.parseInt(((Dish) objectArrayList.get(position)).getQty()) + 1) + "");
+
+                                    restaurantDetailsMvpPresenter.addItemToCart(addToCartRequest);
+
+//                                    restaurantDetailsMvpPresenter.updateMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), ((Dish) objectArrayList.get(position)).getDishId(), tvItemQuantityTemp.getText().toString(), position);
+                                }
+                            }
+                        }
+                    });
+
+                    mBottomSheetDialog.setContentView(dialogView); // your custom view.
+                    mBottomSheetDialog.setCancelable(true);
+                    mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
+                    mBottomSheetDialog.show();
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        };
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, clickListener));
     }
 
     @Override
@@ -281,6 +588,11 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         } else {
             ivLikes.setImageResource(R.mipmap.ic_like_false);
         }
+    }
+
+    @Override
+    public void refreshDetails() {
+        restaurantDetailsMvpPresenter.getRestaurantDetails(restaurantId);
     }
 
     public void setRestaurantDetails(CustomerRestaurantDetailsResponse restaurantDetailsResponse) {
@@ -346,5 +658,54 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void itemRemovedFromBasket(int position) {
+//        objectArrayList.remove(position);
+
+        String dishId = ((Dish) objectArrayList.get(position)).getDishId();
+
+        for (int i = 0; i < objectArrayList.size(); i++) {
+
+            if(objectArrayList.get(i) instanceof Dish && ((Dish) objectArrayList.get(i)).getDishId().equals(dishId)){
+                ((Dish) objectArrayList.get(i)).setQty("0");
+            }
+        }
+
+        courseAdapter.notifyDataSetChanged();
+        updateTotalAmount();
+    }
+
+    @Override
+    public void updateMyBasket(int position, String quantity) {
+
+        String dishId = ((Dish) objectArrayList.get(position)).getDishId();
+
+        for (int i = 0; i < objectArrayList.size(); i++) {
+
+            if(objectArrayList.get(i) instanceof Dish && ((Dish) objectArrayList.get(i)).getDishId().equals(dishId)){
+                ((Dish) objectArrayList.get(i)).setQty(quantity);
+            }
+        }
+
+//        ((Dish) objectArrayList.get(position)).setQty(quantity);
+        courseAdapter.notifyDataSetChanged();
+        updateTotalAmount();
+    }
+
+    public void updateTotalAmount() {
+
+        courseAdapter.calcBasketDetails();
+
+        if (courseAdapter.getTotalQuantity() > 0) {
+
+            tvTotalQuantity.setText(String.valueOf(courseAdapter.getTotalQuantity()));
+            tvTotalAmount.setText("$" + courseAdapter.getTotalAmount());
+
+            rlBasketDetails.setVisibility(View.VISIBLE);
+        } else {
+            rlBasketDetails.setVisibility(View.GONE);
+        }
     }
 }

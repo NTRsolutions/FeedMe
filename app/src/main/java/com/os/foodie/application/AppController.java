@@ -15,6 +15,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.os.foodie.R;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.network.model.home.customer.Filters;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.FontOverride;
@@ -33,6 +34,8 @@ public class AppController extends MultiDexApplication {
 
     private static GoogleAnalytics googleAnalytics;
     private static Tracker tracker;
+
+    private Filters filters;
 
     public static AppController get(Activity activity) {
         return (AppController) activity.getApplication();
@@ -63,6 +66,7 @@ public class AppController extends MultiDexApplication {
         appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
 
         googleAnalytics = GoogleAnalytics.getInstance(this);
+        filters = new Filters();
     }
 
     public AppPreferencesHelper getAppPreferencesHelper() {
@@ -79,6 +83,14 @@ public class AppController extends MultiDexApplication {
 
     public CompositeDisposable getCompositeDisposable() {
         return compositeDisposable;
+    }
+
+    public Filters getFilters() {
+        return filters;
+    }
+
+    public void setFilters(Filters filters) {
+        this.filters = filters;
     }
 
     synchronized public Tracker getDefaultTracker() {

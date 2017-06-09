@@ -11,6 +11,14 @@ import com.os.foodie.data.network.model.account.EditCustomerAccountDetailRespons
 import com.os.foodie.data.network.model.account.EditCustomerAccountRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailResponse;
+import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
+import com.os.foodie.data.network.model.cart.add.AddToCartResponse;
+import com.os.foodie.data.network.model.cart.remove.RemoveFromCartRequest;
+import com.os.foodie.data.network.model.cart.remove.RemoveFromCartResponse;
+import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
+import com.os.foodie.data.network.model.cart.update.UpdateCartResponse;
+import com.os.foodie.data.network.model.cart.view.ViewCartRequest;
+import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeRequest;
@@ -531,5 +539,73 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(EditCustomerAccountDetailResponse.class);
+    }
+
+    @Override
+    public Observable<AddToCartResponse> addToCart(AddToCartRequest addToCartRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(addToCartRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.ADD_TO_CART)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(AddToCartResponse.class);
+    }
+
+    @Override
+    public Observable<ViewCartResponse> getCartDetails(ViewCartRequest viewCartRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(viewCartRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.CART_DETAIL)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(ViewCartResponse.class);
+    }
+
+    @Override
+    public Observable<RemoveFromCartResponse> removeFromCart(RemoveFromCartRequest removeFromCartRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(removeFromCartRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.REMOVE_FROM_CART)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(RemoveFromCartResponse.class);
+    }
+
+    @Override
+    public Observable<UpdateCartResponse> updateCart(UpdateCartRequest updateCartRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(updateCartRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.UPDATE_CART)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(UpdateCartResponse.class);
     }
 }

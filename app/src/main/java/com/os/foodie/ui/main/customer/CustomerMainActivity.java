@@ -23,6 +23,7 @@ import com.os.foodie.ui.account.customer.CustomerAccountFragment;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.home.customer.CustomerHomeFragment;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment;
+import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.ui.setting.SettingsFragment;
 import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.DialogUtils;
@@ -111,6 +112,11 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
         } else if (id == R.id.nav_payment) {
 
+        } else if (id == R.id.nav_my_bucket) {
+
+            Intent intent = new Intent(this, MyBasketActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_delivery_address) {
 
         } else if (id == R.id.nav_settings) {
@@ -152,7 +158,6 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
     @Override
     protected void setUp() {
-
     }
 
     public void replaceFragment(Fragment fragment, String TAG) {

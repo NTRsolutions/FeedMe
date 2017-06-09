@@ -1,28 +1,48 @@
 package com.os.foodie.ui.adapter.recyclerview;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.os.foodie.R;
+import com.os.foodie.application.AppController;
+import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
 import com.os.foodie.data.network.model.details.Dish;
+import com.os.foodie.ui.details.restaurant.RestaurantDetailsMvpPresenter;
+import com.os.foodie.ui.details.restaurant.RestaurantDetailsPresenter;
 
 import java.util.ArrayList;
 
 public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context context;
+    private Activity activity;
+    private String restaurantId;
+
+    private int totalQuantity;
+    private float totalAmount;
+
     private ArrayList<Object> objectArrayList;
+    private RestaurantDetailsPresenter restaurantDetailsPresenter;
 
     private final int TITLE = 1;
     private final int CONTENT = 2;
 
-    public CourseAdapter(Context context, ArrayList<Object> objectArrayList) {
-        this.context = context;
+    public CourseAdapter(Activity activity, ArrayList<Object> objectArrayList, String restaurantId, RestaurantDetailsMvpPresenter restaurantDetailsMvpPresenter) {
+        this.activity = activity;
         this.objectArrayList = objectArrayList;
+
+        totalQuantity = 0;
+        totalAmount = 0;
+
+        this.restaurantId = restaurantId;
+        this.restaurantDetailsPresenter = (RestaurantDetailsPresenter) restaurantDetailsMvpPresenter;
     }
 
     public class CourseTitleViewHolder extends RecyclerView.ViewHolder {
@@ -38,11 +58,16 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public class CourseContentViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvCourseName, tvCourseDescription, tvPrice;
+        RelativeLayout rlCourseQuantity;
+        LinearLayout llMain;
+        TextView tvCourseQuantity, tvCourseName, tvCourseDescription, tvPrice;
 
         public CourseContentViewHolder(View itemView) {
             super(itemView);
 
+            llMain = (LinearLayout) itemView.findViewById(R.id.recyclerview_course_content_ll_main);
+            rlCourseQuantity = (RelativeLayout) itemView.findViewById(R.id.recyclerview_course_content_rl_course_quantity);
+            tvCourseQuantity = (TextView) itemView.findViewById(R.id.recyclerview_course_content_tv_course_quantity);
             tvCourseName = (TextView) itemView.findViewById(R.id.recyclerview_course_content_tv_course_name);
             tvCourseDescription = (TextView) itemView.findViewById(R.id.recyclerview_course_content_tv_course_description);
             tvPrice = (TextView) itemView.findViewById(R.id.recyclerview_course_content_tv_price);
@@ -109,9 +134,25 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         holder.tvTitle.setText(title);
     }
 
-    public void setupContent(CourseContentViewHolder holder, int position) {
-        Dish dish = (Dish) objectArrayList.get(position);
-        holder.tvCourseName.setText(dish.getCourseName());
+    public void setupContent(final CourseContentViewHolder holder, final int position) {
+
+        final Dish dish = (Dish) objectArrayList.get(position);
+
+        if (dish.getQty() != null && !dish.getQty().isEmpty()) {
+
+            int quantity = Integer.parseInt(dish.getQty());
+
+            if (quantity > 0) {
+                holder.rlCourseQuantity.setVisibility(View.VISIBLE);
+                holder.tvCourseQuantity.setText(quantity + "");
+            } else {
+                holder.rlCourseQuantity.setVisibility(View.INVISIBLE);
+            }
+        } else {
+            holder.rlCourseQuantity.setVisibility(View.INVISIBLE);
+        }
+
+        holder.tvCourseName.setText(dish.getName());
         holder.tvCourseDescription.setText(dish.getDescription());
 
         String price = dish.getPrice();
@@ -120,6 +161,85 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             price = price.replace(".00", "");
         }
 
-        holder.tvPrice.setText("$"+price);
+        holder.tvPrice.setText("$" + price);
+
+//        holder.llMain.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                final Dish dish = (Dish) objectArrayList.get(position);
+//
+//                if (dish.getQty() != null && !dish.getQty().isEmpty()) {
+//
+//                    int quantity = Integer.parseInt(dish.getQty());
+//
+//                    if (quantity >= 0) {
+////                        holder.rlCourseQuantity.setVisibility(View.VISIBLE);
+////                        holder.tvCourseQuantity.setText(++quantity + "");
+//
+//                        Log.d("getMessage", ">>quantity>=0");
+//                        AddToCartRequest addToCartRequest = new AddToCartRequest();
+//
+//                        addToCartRequest.setDishId(dish.getDishId());
+//                        addToCartRequest.setUserId(AppController.get(activity).getAppDataManager().getCurrentUserId());
+//                        addToCartRequest.setRestaurantId(restaurantId);
+//                        addToCartRequest.setPrice(dish.getPrice());
+//                        addToCartRequest.setQty((Integer.parseInt(dish.getQty()) + 1) + "");
+//
+//                        restaurantDetailsPresenter.addItemToCart(addToCartRequest);
+//                    }
+//                } else {
+////                    holder.rlCourseQuantity.setVisibility(View.VISIBLE);
+////                    holder.tvCourseQuantity.setText("1");
+//
+//                    Log.d("getMessage", ">>quantity==null");
+//
+//                    AddToCartRequest addToCartRequest = new AddToCartRequest();
+//
+//                    addToCartRequest.setDishId(dish.getDishId());
+//                    addToCartRequest.setUserId(AppController.get(activity).getAppDataManager().getCurrentUserId());
+//                    addToCartRequest.setRestaurantId(restaurantId);
+//                    addToCartRequest.setPrice(dish.getPrice());
+//                    addToCartRequest.setQty("1");
+//
+//                    restaurantDetailsPresenter.addItemToCart(addToCartRequest);
+//                }
+//            }
+//        });
+    }
+
+    public void calcBasketDetails() {
+
+        totalQuantity = 0;
+        totalAmount = 0;
+
+        for (int i = 0; i < objectArrayList.size(); i++) {
+
+            if (objectArrayList.get(i) instanceof Dish) {
+
+                Dish dish = ((Dish) objectArrayList.get(i));
+
+                if (dish.getQty() != null && !dish.getQty().isEmpty() && !dish.getQty().equals("0")) {
+
+                    totalQuantity += Integer.parseInt(dish.getQty());
+                    Log.d("getQty", ">>" + dish.getQty());
+
+                    for (int j = 0; j < Integer.parseInt(dish.getQty()); j++) {
+                        totalAmount += Float.parseFloat(dish.getPrice());
+                        Log.d("getPrice", ">>" + dish.getPrice());
+                    }
+                } else {
+                    continue;
+                }
+            }
+        }
+    }
+
+    public int getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public float getTotalAmount() {
+        return totalAmount;
     }
 }

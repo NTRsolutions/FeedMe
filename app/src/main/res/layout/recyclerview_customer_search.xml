@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:padding="15dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.joooonho.SelectableRoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/recyclerview_customer_search_sriv_restaurant_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginEnd="25dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_banner"
+            app:sriv_left_bottom_corner_radius="5dip"
+            app:sriv_left_top_corner_radius="5dip"
+            app:sriv_right_bottom_corner_radius="5dip"
+            app:sriv_right_top_corner_radius="5dip" />
+
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@+id/recyclerview_customer_search_sriv_restaurant_image"
+            android:layout_alignEnd="@+id/recyclerview_customer_search_sriv_restaurant_image"
+            android:layout_marginBottom="-25dp"
+            android:layout_marginEnd="-25dp"
+            android:background="@drawable/circular_image_view_orange"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/recyclerview_customer_search_tv_minutes"
+                style="@style/TextView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="30"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
+            <TextView
+                style="@style/TextView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:gravity="center"
+                android:text="min."
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:typeface="serif" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/recyclerview_customer_search_tv_restaurant_name"
+            style="@style/TextView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"
+            android:text="Res" />
+
+        <com.wefika.flowlayout.FlowLayout
+            android:id="@+id/recyclerview_customer_search_fl_cuisine_types"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="@dimen/recyclerview_restaurant_tv_cuisine_margin_start"-->
+            <!--android:layout_marginTop="@dimen/recyclerview_restaurant_tv_cuisine_margin_top"-->
+            <!--android:background="@drawable/rectangle_round_corner_white_outline_black"-->
+            <!--android:padding="@dimen/recyclerview_restaurant_tv_cuisine_padding"-->
+            <!--android:text="Maxican"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:typeface="serif" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:background="@drawable/rectangle_round_corner_white_outline_black"-->
+            <!--android:padding="8dp"-->
+            <!--android:text="South Indian"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:typeface="serif" />-->
+
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:background="@drawable/rectangle_round_corner_white_outline_black"-->
+            <!--android:padding="8dp"-->
+            <!--android:text="Bangali"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:typeface="serif" />-->
+
+        </com.wefika.flowlayout.FlowLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp"
+                android:text="Rating"
+                android:textColor="@color/dark_grey"
+                android:typeface="serif" />
+
+            <RatingBar
+                android:id="@+id/recyclerview_customer_search_rb_rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:numStars="5"
+                android:rating="4"
+                android:stepSize="1" />
+
+            <TextView
+                android:id="@+id/recyclerview_customer_search_tv_reviews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:text="Reviews(252)"
+                android:textColor="@color/dark_grey"
+                android:typeface="serif" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

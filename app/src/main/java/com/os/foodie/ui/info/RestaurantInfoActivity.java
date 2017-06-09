@@ -1,5 +1,6 @@
 package com.os.foodie.ui.info;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,7 +39,7 @@ public class RestaurantInfoActivity extends BaseActivity implements RestaurantIn
         getExtras();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.mipmap.ic_home_up_orange));
+        getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this,R.mipmap.ic_home_up_orange));
 
         getSupportActionBar().setTitle(restaurantDetails.getRestaurantName());
 

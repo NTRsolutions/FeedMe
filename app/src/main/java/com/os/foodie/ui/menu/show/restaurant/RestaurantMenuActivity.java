@@ -3,7 +3,9 @@ package com.os.foodie.ui.menu.show.restaurant;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -49,7 +51,8 @@ public class RestaurantMenuActivity extends BaseActivity implements RestaurantMe
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 
-        recyclerView.addItemDecoration(new DividerItemLineDecoration(RestaurantMenuActivity.this));
+//        recyclerView.addItemDecoration(new DividerItemLineDecoration(RestaurantMenuActivity.this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(restaurantMenuAdapter);
@@ -60,7 +63,7 @@ public class RestaurantMenuActivity extends BaseActivity implements RestaurantMe
     @Override
     protected void setUp() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.mipmap.ic_home_up_orange));
+        getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this,R.mipmap.ic_home_up_orange));
 
 //        dishArrayList = getIntent().getParcelableArrayListExtra(AppConstants.DISH_ARRAYLIST);
     }

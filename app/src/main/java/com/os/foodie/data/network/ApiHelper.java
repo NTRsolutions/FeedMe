@@ -8,6 +8,14 @@ import com.os.foodie.data.network.model.account.EditCustomerAccountDetailRespons
 import com.os.foodie.data.network.model.account.EditCustomerAccountRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailResponse;
+import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
+import com.os.foodie.data.network.model.cart.add.AddToCartResponse;
+import com.os.foodie.data.network.model.cart.remove.RemoveFromCartRequest;
+import com.os.foodie.data.network.model.cart.remove.RemoveFromCartResponse;
+import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
+import com.os.foodie.data.network.model.cart.update.UpdateCartResponse;
+import com.os.foodie.data.network.model.cart.view.ViewCartRequest;
+import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeRequest;
@@ -103,9 +111,18 @@ public interface ApiHelper {
     Observable<LikeDislikeResponse> doLikeDislike(LikeDislikeRequest likeDislikeRequest);
 
     Observable<ChangePasswordResponse> changePassword(ChangePasswordRequest changePasswordRequest);
+
     Observable<GetAccountDetailResponse> getCustomerAccountDetail(GetAccountDetailRequest getAccountDetailRequest);
 
     Observable<EditCustomerAccountDetailResponse> editCustomerAccount(EditCustomerAccountRequest editCustomerAccountRequest);
+
+    Observable<AddToCartResponse> addToCart(AddToCartRequest addToCartRequest);
+
+    Observable<ViewCartResponse> getCartDetails(ViewCartRequest viewCartRequest);
+
+    Observable<RemoveFromCartResponse> removeFromCart(RemoveFromCartRequest removeFromCartRequest);
+
+    Observable<UpdateCartResponse> updateCart(UpdateCartRequest updateCartRequest);
 
 //    Observable<CustomerSignUpResponse> getFacebookDetail(CustomerSignUpRequest customerSignUpRequest);
 }

@@ -1,16 +1,11 @@
 package com.os.foodie.ui.home.customer;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,31 +13,27 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RatingBar;
+import android.widget.TextView;
 
-import com.bumptech.glide.load.engine.Resource;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.network.model.home.customer.RestaurantList;
-import com.os.foodie.data.network.model.menu.show.restaurant.Dish;
 import com.os.foodie.ui.adapter.recyclerview.RestaurantListAdapter;
-import com.os.foodie.ui.adapter.recyclerview.RestaurantMenuAdapter;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.custom.DividerItemLineDecoration;
 import com.os.foodie.ui.filters.FiltersActivity;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
-import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
-import com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment;
-import com.os.foodie.ui.menu.show.fragment.RestaurantMenuMvpView;
+import com.os.foodie.ui.search.RestaurantSearchActivity;
 
 import java.util.ArrayList;
+
+import static android.view.View.GONE;
 
 public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMvpView, View.OnClickListener {
 
     public static final String TAG = "CustomerHomeFragment";
+
+    private TextView tvNoResult;
 
     private RecyclerView recyclerView;
     private ArrayList<RestaurantList> restaurantList;
@@ -69,6 +60,7 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
         customerHomeMvpPresenter = new CustomerHomePresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         customerHomeMvpPresenter.onAttach(this);
 
+        tvNoResult = (TextView) view.findViewById(R.id.fragment_customer_home_tv_no_result);
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_customer_home_recyclerview);
 
         restaurantList = new ArrayList<RestaurantList>();
@@ -77,7 +69,8 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
 
-        recyclerView.addItemDecoration(new DividerItemLineDecoration(getActivity()));
+//        recyclerView.addItemDecoration(new DividerItemLineDecoration(getActivity()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(restaurantListAdapter);
@@ -88,8 +81,8 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
     @Override
     public void onResume() {
         super.onResume();
-        customerHomeMvpPresenter.getRestaurantList();
         ((CustomerMainActivity) getActivity()).setTitle(getResources().getString(R.string.title_fragment_customer_home));
+        customerHomeMvpPresenter.getRestaurantList(AppController.get(getActivity()).getFilters());
     }
 
     @Override
@@ -165,6 +158,9 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
         if (item.getItemId() == R.id.action_filter) {
             Intent intent = new Intent(getActivity(), FiltersActivity.class);
             startActivity(intent);
+        } else if (item.getItemId() == R.id.action_search) {
+            Intent intent = new Intent(getActivity(), RestaurantSearchActivity.class);
+            startActivity(intent);
         }
 
         return true;
@@ -180,18 +176,29 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
 
     @Override
     public void notifyDataSetChanged() {
+        this.restaurantList.clear();
         restaurantListAdapter.notifyDataSetChanged();
+        checkNoResult();
     }
 
     @Override
     public void notifyDataSetChanged(ArrayList<RestaurantList> restaurantList) {
 
-        Log.d("size", ">>" + restaurantList.get(0).getCuisineType());
+//        Log.d("size", ">>" + restaurantList.get(0).getCuisineType());
 
         this.restaurantList.clear();
         restaurantListAdapter.notifyDataSetChanged();
         this.restaurantList.addAll(restaurantList);
 
         restaurantListAdapter.notifyDataSetChanged();
+        checkNoResult();
+    }
+
+    public void checkNoResult() {
+        if (restaurantList != null && !restaurantList.isEmpty()) {
+            tvNoResult.setVisibility(View.GONE);
+        } else {
+            tvNoResult.setVisibility(View.VISIBLE);
+        }
     }
 }

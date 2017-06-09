@@ -2,6 +2,7 @@ package com.os.foodie.ui.menu.add;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -81,7 +82,7 @@ public class RestaurantMenuAddUpdateDishActivity extends BaseActivity implements
     @Override
     protected void setUp() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.mipmap.ic_home_up_orange));
+        getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this,R.mipmap.ic_home_up_orange));
     }
 
     public void initPresenter() {

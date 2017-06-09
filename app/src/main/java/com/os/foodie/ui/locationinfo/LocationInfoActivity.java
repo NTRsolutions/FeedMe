@@ -344,6 +344,8 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
         Log.d("Now Observe Location", ">>" + location.toString());
 
+        progressDialog.dismiss();
+
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         locationInfoMvpPresenter.getGeocoderLocationAddress(this, latLng);
 //        observable = Observable.just(location);

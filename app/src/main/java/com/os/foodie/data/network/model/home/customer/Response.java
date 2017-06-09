@@ -18,8 +18,11 @@ public class Response implements Parcelable {
     @SerializedName("status")
     @Expose
     private Integer status;
-    public final static Creator<Response> CREATOR = new Creator<Response>() {
+    @SerializedName("message")
+    @Expose
+    private String message;
 
+    public final static Creator<Response> CREATOR = new Creator<Response>() {
 
         @SuppressWarnings({
                 "unchecked"
@@ -28,6 +31,7 @@ public class Response implements Parcelable {
             Response instance = new Response();
             in.readList(instance.restaurantList, (com.os.foodie.data.network.model.home.customer.RestaurantList.class.getClassLoader()));
             instance.status = ((Integer) in.readValue((Integer.class.getClassLoader())));
+            instance.message = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -46,11 +50,13 @@ public class Response implements Parcelable {
     /**
      * @param restaurantList
      * @param status
+     * @param message
      */
-    public Response(List<RestaurantList> restaurantList, Integer status) {
+    public Response(List<RestaurantList> restaurantList, Integer status, String message) {
         super();
         this.restaurantList = restaurantList;
         this.status = status;
+        this.message = message;
     }
 
     public List<RestaurantList> getRestaurantList() {
@@ -69,13 +75,21 @@ public class Response implements Parcelable {
         this.status = status;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeList(restaurantList);
         dest.writeValue(status);
+        dest.writeValue(message);
     }
 
     public int describeContents() {
         return 0;
     }
-
 }

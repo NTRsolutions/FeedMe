@@ -96,7 +96,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     private static final String PLUS_IMAGE = "PLUS_IMAGE";
     private static final String REMOVE_IMAGE = "REMOVE_IMAGE";
 
-    public static  AddCuisineTypeCallback addCuisineTypeCallback;
+    public static AddCuisineTypeCallback addCuisineTypeCallback;
     private SetupRestaurantProfileMvpPresenter<SetupRestaurantProfileMvpView> setupRestaurantProfileMvpPresenter;
 
     public static SetupRestaurantProfileFragment newInstance() {
@@ -112,7 +112,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_setup_restaurant_profile, container, false);
-        addCuisineTypeCallback=this;
+        addCuisineTypeCallback = this;
         setupRestaurantProfileMvpPresenter = new SetupRestaurantProfilePresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         setupRestaurantProfileMvpPresenter.onAttach(this);
 
@@ -577,7 +577,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                 if (i == 0) {
                     days = (i + 1) + "";
                 } else {
-                    days = "," + (i + 1);
+                    days = days + "," + (i + 1);
                 }
             }
         }

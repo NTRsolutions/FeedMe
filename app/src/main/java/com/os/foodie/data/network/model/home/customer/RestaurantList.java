@@ -11,21 +11,21 @@ import com.google.gson.annotations.SerializedName;
 public class RestaurantList implements Parcelable
 {
 
+    @SerializedName("is_like")
+    @Expose
+    private Integer isLike;
     @SerializedName("id")
     @Expose
     private String id;
-    @SerializedName("is_like")
-    @Expose
-    private String isLike;
-    @SerializedName("logo")
-    @Expose
-    private String logo;
     @SerializedName("restaurant_name")
     @Expose
     private String restaurantName;
     @SerializedName("contact_person_name")
     @Expose
     private String contactPersonName;
+    @SerializedName("min_order_amount")
+    @Expose
+    private String minOrderAmount;
     @SerializedName("address")
     @Expose
     private String address;
@@ -74,6 +74,9 @@ public class RestaurantList implements Parcelable
     @SerializedName("images")
     @Expose
     private List<Image> images = null;
+    @SerializedName("logo")
+    @Expose
+    private String logo;
     public final static Creator<RestaurantList> CREATOR = new Creator<RestaurantList>() {
 
 
@@ -82,11 +85,11 @@ public class RestaurantList implements Parcelable
         })
         public RestaurantList createFromParcel(Parcel in) {
             RestaurantList instance = new RestaurantList();
+            instance.isLike = ((Integer) in.readValue((Integer.class.getClassLoader())));
             instance.id = ((String) in.readValue((String.class.getClassLoader())));
-            instance.isLike = ((String) in.readValue((String.class.getClassLoader())));
-            instance.logo = ((String) in.readValue((String.class.getClassLoader())));
             instance.restaurantName = ((String) in.readValue((String.class.getClassLoader())));
             instance.contactPersonName = ((String) in.readValue((String.class.getClassLoader())));
+            instance.minOrderAmount = ((String) in.readValue((String.class.getClassLoader())));
             instance.address = ((String) in.readValue((String.class.getClassLoader())));
             instance.latitude = ((String) in.readValue((String.class.getClassLoader())));
             instance.longitude = ((String) in.readValue((String.class.getClassLoader())));
@@ -103,6 +106,7 @@ public class RestaurantList implements Parcelable
             instance.deliveryType = ((String) in.readValue((String.class.getClassLoader())));
             instance.deliveryZipcode = ((String) in.readValue((String.class.getClassLoader())));
             in.readList(instance.images, (com.os.foodie.data.network.model.home.customer.Image.class.getClassLoader()));
+            instance.logo = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -126,6 +130,7 @@ public class RestaurantList implements Parcelable
      * @param cuisineType
      * @param deliveryZipcode
      * @param deliveryType
+     * @param minOrderAmount
      * @param deliveryCharge
      * @param id
      * @param deliveryTime
@@ -144,13 +149,13 @@ public class RestaurantList implements Parcelable
      * @param openingTime
      * @param restaurantName
      */
-    public RestaurantList(String id, String isLike, String logo, String restaurantName, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String deliveryZipcode, List<Image> images) {
+    public RestaurantList(Integer isLike, String id, String restaurantName, String contactPersonName, String minOrderAmount, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String deliveryZipcode, List<Image> images, String logo) {
         super();
-        this.id = id;
         this.isLike = isLike;
-        this.logo = logo;
+        this.id = id;
         this.restaurantName = restaurantName;
         this.contactPersonName = contactPersonName;
+        this.minOrderAmount = minOrderAmount;
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -167,6 +172,15 @@ public class RestaurantList implements Parcelable
         this.deliveryType = deliveryType;
         this.deliveryZipcode = deliveryZipcode;
         this.images = images;
+        this.logo = logo;
+    }
+
+    public Integer getIsLike() {
+        return isLike;
+    }
+
+    public void setIsLike(Integer isLike) {
+        this.isLike = isLike;
     }
 
     public String getId() {
@@ -175,22 +189,6 @@ public class RestaurantList implements Parcelable
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getIsLike() {
-        return isLike;
-    }
-
-    public void setIsLike(String isLike) {
-        this.isLike = isLike;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
     }
 
     public String getRestaurantName() {
@@ -207,6 +205,14 @@ public class RestaurantList implements Parcelable
 
     public void setContactPersonName(String contactPersonName) {
         this.contactPersonName = contactPersonName;
+    }
+
+    public String getMinOrderAmount() {
+        return minOrderAmount;
+    }
+
+    public void setMinOrderAmount(String minOrderAmount) {
+        this.minOrderAmount = minOrderAmount;
     }
 
     public String getAddress() {
@@ -337,12 +343,20 @@ public class RestaurantList implements Parcelable
         this.images = images;
     }
 
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(id);
         dest.writeValue(isLike);
-        dest.writeValue(logo);
+        dest.writeValue(id);
         dest.writeValue(restaurantName);
         dest.writeValue(contactPersonName);
+        dest.writeValue(minOrderAmount);
         dest.writeValue(address);
         dest.writeValue(latitude);
         dest.writeValue(longitude);
@@ -359,6 +373,7 @@ public class RestaurantList implements Parcelable
         dest.writeValue(deliveryType);
         dest.writeValue(deliveryZipcode);
         dest.writeList(images);
+        dest.writeValue(logo);
     }
 
     public int describeContents() {

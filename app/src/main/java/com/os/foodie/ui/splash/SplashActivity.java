@@ -48,6 +48,8 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
     @Override
     public void openLocationInfoActivity() {
 
+        splashMvpPresenter.onDetach();
+
         Intent intent = new Intent(SplashActivity.this, LocationInfoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -55,6 +57,8 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
 
     @Override
     public void openSetupRestaurantProfileActivity() {
+
+        splashMvpPresenter.onDetach();
 
         Intent intent = new Intent(SplashActivity.this, RestaurantMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -64,6 +68,8 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
     @Override
     public void openCustomerHomeActivity() {
 
+        splashMvpPresenter.onDetach();
+
         Intent intent = new Intent(SplashActivity.this, CustomerMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -72,6 +78,8 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
     @Override
     public void openRestaurantHomeActivity() {
 
+        splashMvpPresenter.onDetach();
+
         Intent intent = new Intent(SplashActivity.this, RestaurantMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -79,6 +87,8 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
 
     @Override
     public void openWelcomeActivity() {
+
+        splashMvpPresenter.onDetach();
 
         Intent intent = new Intent(SplashActivity.this, WelcomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -29,7 +29,11 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
 //        mCompositeDisposable.dispose();
         mCompositeDisposable.clear();
         mMvpView = null;
+    }
 
+    @Override
+    public void clearRequests() {
+        mCompositeDisposable.clear();
     }
 
     public boolean isViewAttached() {

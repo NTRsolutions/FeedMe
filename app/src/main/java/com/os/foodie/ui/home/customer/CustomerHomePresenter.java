@@ -3,7 +3,9 @@ package com.os.foodie.ui.home.customer;
 import android.util.Log;
 
 import com.os.foodie.R;
+import com.os.foodie.application.AppController;
 import com.os.foodie.data.DataManager;
+import com.os.foodie.data.network.model.home.customer.Filters;
 import com.os.foodie.data.network.model.home.customer.GetRestaurantListRequest;
 import com.os.foodie.data.network.model.home.customer.GetRestaurantListResponse;
 import com.os.foodie.data.network.model.home.customer.RestaurantList;
@@ -26,14 +28,14 @@ public class CustomerHomePresenter<V extends CustomerHomeMvpView> extends BasePr
     }
 
     @Override
-    public void getRestaurantList() {
+    public void getRestaurantList(Filters filters) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
-                    .getRestaurantList(new GetRestaurantListRequest(getDataManager().getCurrentUserId()))
+                    .getRestaurantList(new GetRestaurantListRequest(getDataManager().getCurrentUserId(), "", filters))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<GetRestaurantListResponse>() {
@@ -50,11 +52,13 @@ public class CustomerHomePresenter<V extends CustomerHomeMvpView> extends BasePr
 
                                 } else {
                                     Log.d("Error", ">>Err");
-                                    getMvpView().onError(R.string.no_restaurant);
+//                                    getMvpView().onError(R.string.no_restaurant);
+                                    getMvpView().notifyDataSetChanged();
                                 }
 
                             } else {
-                                getMvpView().onError("No Restaurant found");
+//                                getMvpView().onError("No Restaurant found");
+                                getMvpView().notifyDataSetChanged();
                             }
 
                         }
@@ -67,9 +71,7 @@ public class CustomerHomePresenter<V extends CustomerHomeMvpView> extends BasePr
                             Log.d("Error", ">>Err" + throwable.getMessage());
                         }
                     }));
-        } else
-
-        {
+        } else {
             getMvpView().onError(R.string.connection_error);
         }
     }

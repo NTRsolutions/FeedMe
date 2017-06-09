@@ -39,8 +39,8 @@
                 app:data_type="_integer"
                 app:left_thumb_color="@color/orange"
                 app:left_thumb_color_pressed="@color/orange"
-                app:max_value="100"
-                app:min_value="50"
+                app:max_value="5000"
+                app:min_value="0"
                 app:right_thumb_color="@color/orange"
                 app:right_thumb_color_pressed="@color/orange" />
 
@@ -129,7 +129,7 @@
                 app:data_type="_integer"
                 app:left_thumb_color="@color/orange"
                 app:left_thumb_color_pressed="@color/orange"
-                app:max_value="100"
+                app:max_value="10"
                 app:min_value="0"
                 app:right_thumb_color="@color/orange"
                 app:right_thumb_color_pressed="@color/orange" />
@@ -145,7 +145,15 @@
                     android:id="@+id/activity_filters_tv_distance_min"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/orange"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="km"
+                    android:layout_marginLeft="2dp"
                     android:textColor="@color/orange"
                     android:textStyle="bold" />
 
@@ -153,6 +161,14 @@
                     android:id="@+id/activity_filters_tv_distance_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/orange"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="km"
+                    android:layout_marginLeft="2dp"
                     android:textColor="@color/orange"
                     android:textStyle="bold" />
 
@@ -185,7 +201,6 @@
                     android:id="@+id/activity_filters_ctv_open"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
                     android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
                     android:gravity="center"
                     android:text="Open" />
@@ -228,7 +243,6 @@
                     android:id="@+id/activity_filters_ctv_deliver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
                     android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
                     android:gravity="center"
                     android:text="Deliver" />
@@ -315,6 +329,7 @@
         </LinearLayout>
 
         <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/activity_filters_bt_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/orange"

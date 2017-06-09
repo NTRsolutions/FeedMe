@@ -27,6 +27,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_key" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="aea43dd828cd9f836b47f84c4e07333b9b153d03" />
 
         <receiver
             android:name="com.google.android.gms.analytics.AnalyticsReceiver"
@@ -122,15 +125,18 @@
             android:name=".ui.setting.changepassword.ChangePasswordActivity"
             android:label="@string/change_password_activity_title"
             android:theme="@style/AppTheme2" />
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="aea43dd828cd9f836b47f84c4e07333b9b153d03" />
-
         <activity
             android:name=".ui.filters.FiltersActivity"
             android:label="Filters"
-            android:theme="@style/AppTheme3"></activity>
+            android:theme="@style/AppTheme3" />
+        <activity
+            android:name=".ui.search.RestaurantSearchActivity"
+            android:label=""
+            android:theme="@style/AppTheme3" />
+        <activity
+            android:name=".ui.mybasket.MyBasketActivity"
+            android:label="My Basket"
+            android:theme="@style/AppTheme2"></activity>
     </application>
 
 </manifest>

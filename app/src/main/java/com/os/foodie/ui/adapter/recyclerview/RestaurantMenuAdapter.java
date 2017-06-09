@@ -201,7 +201,7 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
                     }
                 });
 
-                popupWindow.setBackgroundDrawable(context.getResources().getDrawable(R.mipmap.ic_popup_background));
+                popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_popup_background));
                 popupWindow.setOutsideTouchable(true);
                 popupWindow.setFocusable(true);
                 popupWindow.showAsDropDown(v);

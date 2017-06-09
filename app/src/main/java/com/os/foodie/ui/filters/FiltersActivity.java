@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.RatingBar;
@@ -19,11 +20,14 @@ import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.network.model.cuisinetype.list.CuisineType;
+import com.os.foodie.data.network.model.home.customer.Filters;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.dialogfragment.cuisine.list.CuisineTypeDialogFragment;
 import com.os.foodie.utils.AppConstants;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class FiltersActivity extends BaseActivity implements FiltersMvpView, View.OnClickListener {
 
@@ -32,6 +36,7 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
     private CheckedTextView ctvOpen, ctvClose, ctvDeliver, ctvPickup, ctvOffer;
     private EditText etCuisineType;
     private RatingBar ratingBar;
+    private Button btSearch;
 
     public ArrayList<CuisineType> cuisineTypesChecked;
     private CuisineTypeDialogFragment cuisineTypeDialogFragment;
@@ -70,6 +75,8 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
         ratingBar = (RatingBar) findViewById(R.id.activity_filters_rb_rating);
 
+        btSearch = (Button) findViewById(R.id.activity_filters_bt_search);
+
         setOnRangeSeekbarChangeListenerMinimumAmount();
         setOnRangeSeekbarChangeListenerDistance();
         setOnRatingChangedListener();
@@ -81,6 +88,9 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
         ctvOffer.setOnClickListener(this);
 
         etCuisineType.setOnClickListener(this);
+        btSearch.setOnClickListener(this);
+
+        setUp();
     }
 
     @Override
@@ -113,7 +123,7 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
         if (item.getItemId() == android.R.id.home) {
             finish();
         } else if (item.getItemId() == R.id.action_clear) {
-            finish();
+            AppController.get(this).setFilters(new Filters());
         }
 
         return true;
@@ -165,12 +175,65 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
             } else {
                 ctvOffer.setChecked(true);
             }
+        } else if (btSearch.getId() == v.getId()) {
+
+            setFilters();
+            AppController.get(this).getFilters();
+            finish();
+//            filtersMvpPresenter;
         }
+    }
+
+    public void setFilters() {
+
+        Filters filters = new Filters();
+
+        filters.setMinOrderAmount(tvMinimumOrderMin.getText().toString());
+        filters.setMaxOrderAmount(tvMinimumOrderMax.getText().toString());
+
+        filters.setMinDistance(tvDistanceMin.getText().toString());
+        filters.setMaxDistance(tvDistanceMax.getText().toString());
+
+        if (ctvPickup.isChecked() || ctvDeliver.isChecked()) {
+
+            Calendar calendar = Calendar.getInstance();
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+
+            filters.setTime(simpleDateFormat.format(calendar.getTime()));
+        }
+
+        filters.setClear(false);
+        AppController.get(this).setFilters(filters);
     }
 
     @Override
     protected void setUp() {
 
+        Filters filters = AppController.get(this).getFilters();
+
+        if (!filters.isClear()) {
+
+            if (filters.getMinOrderAmount() != null && !filters.getMinOrderAmount().isEmpty()) {
+                tvMinimumOrderMin.setText(filters.getMinOrderAmount());
+                seekbarMinimumOrderAmount.setMinStartValue(Float.parseFloat(filters.getMinOrderAmount()));
+            }
+
+            if (filters.getMaxOrderAmount() != null && !filters.getMaxOrderAmount().isEmpty()) {
+                tvMinimumOrderMax.setText(filters.getMaxOrderAmount());
+                seekbarMinimumOrderAmount.setMaxStartValue(Float.parseFloat(filters.getMaxOrderAmount()));
+            }
+
+            if (filters.getMinDistance() != null && !filters.getMinDistance().isEmpty()) {
+                tvDistanceMin.setText(filters.getMinDistance());
+                seekbarDistance.setMinValue(Float.parseFloat(filters.getMinDistance()));
+            }
+
+            if (filters.getMaxDistance() != null && !filters.getMaxDistance().isEmpty()) {
+                tvDistanceMax.setText(filters.getMaxDistance());
+                seekbarDistance.setMaxValue(Float.parseFloat(filters.getMaxDistance()));
+            }
+        }
     }
 
     @Override
