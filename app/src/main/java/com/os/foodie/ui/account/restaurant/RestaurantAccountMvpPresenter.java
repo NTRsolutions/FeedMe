@@ -1,6 +1,6 @@
 package com.os.foodie.ui.account.restaurant;
 
-import com.os.foodie.data.network.model.account.EditRestaurantAccountRequest;
+import com.os.foodie.data.network.model.account.edit.restaurant.EditRestaurantAccountRequest;
 import com.os.foodie.ui.base.MvpPresenter;
 
 import java.io.File;

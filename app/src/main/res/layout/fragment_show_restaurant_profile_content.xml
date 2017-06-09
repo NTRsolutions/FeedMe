@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/restaurant_details_nsv_margin_top"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/layout_show_restaurant_profile">
+    tools:showIn="@layout/fragment_show_restaurant_profile">
 
     <LinearLayout
         android:layout_width="match_parent"

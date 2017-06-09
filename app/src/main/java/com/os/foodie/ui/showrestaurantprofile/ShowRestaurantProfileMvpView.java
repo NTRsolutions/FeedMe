@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public interface ShowRestaurantProfileMvpView extends MvpView {
 
-    void setRestaurantProfileDetail(RestaurantProfileResponse getAccountDetailResponse);
+    void setRestaurantProfileDetail(RestaurantProfileResponse restaurantProfileResponse);
 
 
 }

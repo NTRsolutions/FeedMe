@@ -4,31 +4,18 @@ import android.util.Log;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
-import com.os.foodie.data.network.model.account.EditCustomerAccountDetailResponse;
-import com.os.foodie.data.network.model.account.EditCustomerAccountRequest;
+import com.os.foodie.data.network.model.account.edit.customer.EditCustomerAccountDetailResponse;
+import com.os.foodie.data.network.model.account.edit.customer.EditCustomerAccountRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailResponse;
-import com.os.foodie.data.network.model.home.customer.GetRestaurantListRequest;
-import com.os.foodie.data.network.model.home.customer.GetRestaurantListResponse;
-import com.os.foodie.data.network.model.home.customer.RestaurantList;
-import com.os.foodie.data.network.model.signup.customer.CustomerSignUpRequest;
-import com.os.foodie.data.network.model.signup.customer.CustomerSignUpResponse;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.ValidationUtils;
-
-import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
-
-import static android.R.attr.password;
-import static com.os.foodie.R.string.email;
-import static com.os.foodie.R.string.first_name;
-import static com.os.foodie.R.string.last_name;
 
 public class CustomerAccountPresenter<V extends CustomerAccountMvpView> extends BasePresenter<V> implements CustomerAccountMvpPresenter<V> {
 

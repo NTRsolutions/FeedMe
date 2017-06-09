@@ -4,9 +4,8 @@ import android.util.Log;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
-import com.os.foodie.data.network.model.account.EditCustomerAccountDetailResponse;
-import com.os.foodie.data.network.model.account.EditRestaurantAccountRequest;
-import com.os.foodie.data.network.model.account.EditRestaurantAccountResponse;
+import com.os.foodie.data.network.model.account.edit.restaurant.EditRestaurantAccountRequest;
+import com.os.foodie.data.network.model.account.edit.restaurant.EditRestaurantAccountResponse;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsRequest;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
 import com.os.foodie.ui.base.BasePresenter;

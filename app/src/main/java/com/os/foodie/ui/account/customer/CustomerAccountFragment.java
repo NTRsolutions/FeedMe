@@ -11,8 +11,8 @@ import android.widget.EditText;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
-import com.os.foodie.data.network.model.account.EditCustomerAccountDetailResponse;
-import com.os.foodie.data.network.model.account.EditCustomerAccountRequest;
+import com.os.foodie.data.network.model.account.edit.customer.EditCustomerAccountDetailResponse;
+import com.os.foodie.data.network.model.account.edit.customer.EditCustomerAccountRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailResponse;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.custom.RippleAppCompatButton;

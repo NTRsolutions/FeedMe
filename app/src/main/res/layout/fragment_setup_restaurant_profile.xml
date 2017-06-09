@@ -273,12 +273,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="30dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
                 android:gravity="center"
                 android:text="Save" />
+
+            <com.os.foodie.ui.custom.RippleAppCompatButton
+                android:id="@+id/fragment_setup_restaurant_profile_bt_cancel"
+                style="@style/ButtonLightGrey"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Cancel" />
 
         </LinearLayout>
 
@@ -287,11 +299,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="70dp"
-            android:visibility="gone"
             android:gravity="center"
             android:text="Under Development"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="gone" />
 
     </LinearLayout>
 

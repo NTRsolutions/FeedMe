@@ -36,32 +36,33 @@ import java.util.ArrayList;
 public class ShowRestaurantProfileFragment extends BaseFragment implements ShowRestaurantProfileMvpView, View.OnClickListener, ViewPager.OnPageChangeListener {
 
     public static final String TAG = "ShowRestaurantProfileFragment";
-    private FlowLayout flCuisines;
-    private ShowRestaurantProfileMvpPresenter<ShowRestaurantProfileMvpView> setupRestaurantProfileMvpPresenter;
-    private ViewPager activityRestaurantDetailsViewpager;
-    private TextView contentRestaurantDetailsTvRestaurantName;
+
     private Toolbar toolbar;
-    private FloatingActionImageView activityRestautantDetailsFaivProfilePic;
-    private FloatingActionLinearLayout activityRestautantDetailsFallDeliveryTime;
-    private TextView activityRestautantDetailsFallDeliveryTimeText;
-    private TextView openingClosingHourTv;
-    private TextView deliveryChargesTv;
-    private TextView minimumOrderAmountTv;
-    private TextView deliveryAreasTv;
-    private TextView orderTypeTv;
-    private TextView workingDaysTv;
-    private TextView paymentTypeTv;
-    private TextView addressTv;
-    private TextView cityTv;
-    private TextView countyTv;
-    private TextView zipCodeTv;
+
+    private ViewPager viewPager;
+
+    private FlowLayout flCuisines;
+    private LinearLayout llPage;
+
+    private FloatingActionImageView faivProfilePic;
+    private FloatingActionLinearLayout fallDeliveryTime;
+
+    private TextView tvRestaurantName, tvDeliveryTime, tvOpeningClosingHours, tvDeliveryCharges;
+    private TextView tvMinimumOrderAmount, tvDeliveryAreas, tvOrderType, tvWorkingDays;
+    private TextView tvPaymentType, tvAddress, tvCity, tvCounty, tvZipCode;
+
     private PhotoAdapter photoAdapter;
-    LinearLayout activityRestaurantDetailsLlPage;
+
     private ArrayList<String> urlList = new ArrayList<>();
+
+    private RestaurantMainActivity restaurantMainActivity;
+    private RestaurantProfileResponse restaurantProfileDetail;
+
     private final int ADJUST_PADDING_DP = 110;
     private final int ADJUST_PADDING_MIN = 85;
-    RestaurantMainActivity restaurantMainActivity;
-    RestaurantProfileResponse restaurantProfileDetail;
+
+    private ShowRestaurantProfileMvpPresenter<ShowRestaurantProfileMvpView> setupRestaurantProfileMvpPresenter;
+
     public static ShowRestaurantProfileFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -74,17 +75,20 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.layout_show_restaurant_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_show_restaurant_profile, container, false);
+
         initView(view);
+
         setupRestaurantProfileMvpPresenter = new ShowRestaurantProfilePresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         setupRestaurantProfileMvpPresenter.onAttach(this);
+
         setupRestaurantProfileMvpPresenter.getRestaurantProfile(AppController.get(getActivity()).getAppDataManager().getCurrentUserId());
+
         return view;
     }
 
     @Override
     protected void setUp(View view) {
-
     }
 
     @Override
@@ -92,28 +96,34 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 
     }
 
-
     private void initView(View rootView) {
+
         restaurantMainActivity = (RestaurantMainActivity) getActivity();
-        activityRestaurantDetailsViewpager = (ViewPager) rootView.findViewById(R.id.activity_restaurant_details_viewpager);
-        contentRestaurantDetailsTvRestaurantName = (TextView) rootView.findViewById(R.id.content_restaurant_details_tv_restaurant_name);
-        activityRestaurantDetailsLlPage = (LinearLayout) rootView.findViewById(R.id.activity_restaurant_details_ll_page);
-        flCuisines = (FlowLayout) rootView.findViewById(R.id.content_restaurant_details_fl_cuisine_types);
+
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        activityRestautantDetailsFaivProfilePic = (FloatingActionImageView) rootView.findViewById(R.id.activity_restautant_details_faiv_profile_pic);
-        activityRestautantDetailsFallDeliveryTime = (FloatingActionLinearLayout) rootView.findViewById(R.id.activity_restautant_details_fall_delivery_time);
-        activityRestautantDetailsFallDeliveryTimeText = (TextView) rootView.findViewById(R.id.activity_restautant_details_fall_delivery_time_text);
-        openingClosingHourTv = (TextView) rootView.findViewById(R.id.opening_closing_hour_tv);
-        deliveryChargesTv = (TextView) rootView.findViewById(R.id.delivery_charges_tv);
-        minimumOrderAmountTv = (TextView) rootView.findViewById(R.id.minimum_order_amount_tv);
-        deliveryAreasTv = (TextView) rootView.findViewById(R.id.delivery_areas_tv);
-        orderTypeTv = (TextView) rootView.findViewById(R.id.order_type_tv);
-        workingDaysTv = (TextView) rootView.findViewById(R.id.working_days_tv);
-        paymentTypeTv = (TextView) rootView.findViewById(R.id.payment_type_tv);
-        addressTv = (TextView) rootView.findViewById(R.id.address_tv);
-        cityTv = (TextView) rootView.findViewById(R.id.city_tv);
-        countyTv = (TextView) rootView.findViewById(R.id.county_tv);
-        zipCodeTv = (TextView) rootView.findViewById(R.id.zip_code_tv);
+
+        viewPager = (ViewPager) rootView.findViewById(R.id.activity_restaurant_details_viewpager);
+        llPage = (LinearLayout) rootView.findViewById(R.id.activity_restaurant_details_ll_page);
+
+        faivProfilePic = (FloatingActionImageView) rootView.findViewById(R.id.activity_restautant_details_faiv_profile_pic);
+        fallDeliveryTime = (FloatingActionLinearLayout) rootView.findViewById(R.id.activity_restautant_details_fall_delivery_time);
+
+        flCuisines = (FlowLayout) rootView.findViewById(R.id.content_restaurant_details_fl_cuisine_types);
+
+        tvRestaurantName = (TextView) rootView.findViewById(R.id.content_restaurant_details_tv_restaurant_name);
+        tvDeliveryTime = (TextView) rootView.findViewById(R.id.activity_restautant_details_fall_delivery_time_text);
+        tvOpeningClosingHours = (TextView) rootView.findViewById(R.id.opening_closing_hour_tv);
+        tvDeliveryCharges = (TextView) rootView.findViewById(R.id.delivery_charges_tv);
+        tvMinimumOrderAmount = (TextView) rootView.findViewById(R.id.minimum_order_amount_tv);
+        tvDeliveryAreas = (TextView) rootView.findViewById(R.id.delivery_areas_tv);
+        tvOrderType = (TextView) rootView.findViewById(R.id.order_type_tv);
+        tvWorkingDays = (TextView) rootView.findViewById(R.id.working_days_tv);
+        tvPaymentType = (TextView) rootView.findViewById(R.id.payment_type_tv);
+        tvAddress = (TextView) rootView.findViewById(R.id.address_tv);
+        tvCity = (TextView) rootView.findViewById(R.id.city_tv);
+        tvCounty = (TextView) rootView.findViewById(R.id.county_tv);
+        tvZipCode = (TextView) rootView.findViewById(R.id.zip_code_tv);
+
         initFloatingActionButtons();
         setHasOptionsMenu(true);
     }
@@ -135,7 +145,7 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.action_edit) {
-                restaurantMainActivity.navigateToSetRestaurantProfile(restaurantProfileDetail);
+            restaurantMainActivity.navigateToSetRestaurantProfile(restaurantProfileDetail);
         }
 
         return true;
@@ -143,39 +153,45 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 
     @Override
     public void setRestaurantProfileDetail(RestaurantProfileResponse restaurantProfileDetail) {
-        this.restaurantProfileDetail=restaurantProfileDetail;
+
+        this.restaurantProfileDetail = restaurantProfileDetail;
         RestaurantProfileResponse.RestaurantDetail restaurantDetail = restaurantProfileDetail.getResponse().getRestaurantDetail();
+
         Glide.with(this)
                 .load(restaurantDetail.getLogo())
 //                .load("http://192.168.1.69/foodi/app/webroot//uploads/restaurant_images/restaurant_logo_1496410374.jpg")
 //                .placeholder(ContextCompat.getDrawable(this, R.mipmap.ic_launcher))
                 .error(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_launcher))
-                .into(activityRestautantDetailsFaivProfilePic);
-        activityRestautantDetailsFallDeliveryTimeText.setText(restaurantDetail.getDeliveryTime());
-        contentRestaurantDetailsTvRestaurantName.setText(restaurantDetail.getRestaurantName());
-        openingClosingHourTv.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getOpeningTime(), "HH:mm:ss", "hh:mm a") + " - " + TimeFormatUtils.changeTimeFormat(restaurantDetail.getClosingTime(), "HH:mm:ss", "hh:mm a"));
-        deliveryChargesTv.setText(restaurantDetail.getDeliveryCharge());
-        minimumOrderAmountTv.setText(restaurantDetail.getMinOrderAmount());
-        deliveryAreasTv.setText(restaurantDetail.getDeliveryZipcode());
-        orderTypeTv.setText(restaurantDetail.getDeliveryType());
-        workingDaysTv.setText(restaurantDetail.getWorkingDays());
-        //  paymentTypeTv.setText(restaurantDetail.ty);
-        addressTv.setText(restaurantDetail.getAddress());
-        cityTv.setText(restaurantDetail.getCityName());
-        countyTv.setText(restaurantDetail.getCountryName());
-        zipCodeTv.setText(restaurantDetail.getZipCode());
+                .into(faivProfilePic);
+
+        tvDeliveryTime.setText(restaurantDetail.getDeliveryTime());
+        tvRestaurantName.setText(restaurantDetail.getRestaurantName());
+        tvOpeningClosingHours.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getOpeningTime(), "HH:mm:ss", "hh:mm a") + " - " + TimeFormatUtils.changeTimeFormat(restaurantDetail.getClosingTime(), "HH:mm:ss", "hh:mm a"));
+        tvDeliveryCharges.setText(restaurantDetail.getDeliveryCharge());
+        tvMinimumOrderAmount.setText(restaurantDetail.getMinOrderAmount());
+        tvDeliveryAreas.setText(restaurantDetail.getDeliveryZipcode());
+        tvOrderType.setText(restaurantDetail.getDeliveryType());
+        tvWorkingDays.setText(restaurantDetail.getWorkingDays());
+        //  tvPaymentType.setText(restaurantDetail.ty);
+        tvAddress.setText(restaurantDetail.getAddress());
+        tvCity.setText(restaurantDetail.getCityName());
+        tvCounty.setText(restaurantDetail.getCountryName());
+        tvZipCode.setText(restaurantDetail.getZipCode());
 
         for (int i = 0; i < restaurantDetail.getImages().size(); i++) {
             urlList.add(restaurantDetail.getImages().get(i).getUrl());
         }
+
         photoAdapter = new PhotoAdapter(getActivity(), urlList);
         photoAdapter.notifyDataSetChanged();
 
-        activityRestaurantDetailsViewpager.addOnPageChangeListener(this);
-        activityRestaurantDetailsViewpager.setAdapter(photoAdapter);
+        viewPager.addOnPageChangeListener(this);
+        viewPager.setAdapter(photoAdapter);
+
         if (urlList != null && !urlList.isEmpty()) {
-            onPageSelected(activityRestaurantDetailsViewpager.getCurrentItem());
+            onPageSelected(viewPager.getCurrentItem());
         }
+
         String cuisines[] = restaurantDetail.getCuisineType().split(",");
 
         for (String cuisine : cuisines) {
@@ -201,19 +217,16 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 
             flCuisines.addView(tvCuisine);
         }
-
-
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
     }
 
     @Override
     public void onPageSelected(int position) {
 
-        activityRestaurantDetailsLlPage.removeAllViews();
+        llPage.removeAllViews();
 
         for (int i = 0; i < urlList.size(); i++) {
 
@@ -231,23 +244,19 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
                 ivPage.setImageResource(R.mipmap.ic_page_inactive);
             }
 
-            activityRestaurantDetailsLlPage.addView(ivPage);
+            llPage.addView(ivPage);
         }
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
-
 
     public void initFloatingActionButtons() {
 
         Log.d("initFAB", ">>Called");
-        ((CoordinatorLayout.LayoutParams) activityRestautantDetailsFaivProfilePic.getLayoutParams()).setBehavior(new FloatingActionImageViewBehavior(ADJUST_PADDING_DP));
 
-        ((CoordinatorLayout.LayoutParams) activityRestautantDetailsFallDeliveryTime.getLayoutParams()).setBehavior(new FloatingActionLinearLayoutBehavior(ADJUST_PADDING_MIN));
+        ((CoordinatorLayout.LayoutParams) faivProfilePic.getLayoutParams()).setBehavior(new FloatingActionImageViewBehavior(ADJUST_PADDING_DP));
+        ((CoordinatorLayout.LayoutParams) fallDeliveryTime.getLayoutParams()).setBehavior(new FloatingActionLinearLayoutBehavior(ADJUST_PADDING_MIN));
     }
-
-
 }

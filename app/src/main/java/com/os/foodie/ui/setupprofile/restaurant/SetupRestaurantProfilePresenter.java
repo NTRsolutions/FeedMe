@@ -65,6 +65,7 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                         public void accept(ChangePasswordResponse cuisineTypeResponse) throws Exception {
 
                             Log.d("Message", ">>" + cuisineTypeResponse.getResponse().getMessage());
+
                             getMvpView().hideLoading();
 
                             if (cuisineTypeResponse.getResponse().getStatus() == 0) {
@@ -137,52 +138,64 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                 getMvpView().onError(R.string.empty_cuisine_type);
                 return;
             }
+
             if (restaurantProfileRequest.getWorkingDays() == null || restaurantProfileRequest.getWorkingDays().isEmpty()) {
                 getMvpView().onError(R.string.empty_working_days);
                 return;
             }
+
             if (restaurantProfileRequest.getAddress() == null || restaurantProfileRequest.getAddress().isEmpty()) {
                 getMvpView().onError(R.string.empty_address);
                 return;
             }
+
             if (restaurantProfileRequest.getCountry() == null || restaurantProfileRequest.getCountry().isEmpty()) {
                 getMvpView().onError(R.string.empty_country);
                 return;
             }
+
             if (restaurantProfileRequest.getCity() == null || restaurantProfileRequest.getCity().isEmpty()) {
                 getMvpView().onError(R.string.empty_city);
                 return;
             }
+
             if (restaurantProfileRequest.getZipCode() == null || restaurantProfileRequest.getZipCode().isEmpty()) {
                 getMvpView().onError(R.string.empty_zip_code);
                 return;
             }
+
             if (restaurantProfileRequest.getOpeningTime() == null || restaurantProfileRequest.getOpeningTime().isEmpty()) {
                 getMvpView().onError(R.string.empty_opening_hours);
                 return;
             }
+
             if (restaurantProfileRequest.getClosingTime() == null || restaurantProfileRequest.getClosingTime().isEmpty()) {
                 getMvpView().onError(R.string.empty_closing_hours);
                 return;
             }
+
             if (restaurantProfileRequest.getMinOrderAmount() == null || restaurantProfileRequest.getMinOrderAmount().isEmpty()) {
                 getMvpView().onError(R.string.empty_minimum_order_amount);
                 return;
             }
+
             if (restaurantProfileRequest.getDeliveryCharge() == null || restaurantProfileRequest.getDeliveryCharge().isEmpty()) {
                 getMvpView().onError(R.string.empty_delivery_charges);
                 return;
             }
+
             if (restaurantProfileRequest.getDeliveryZipcode() == null || restaurantProfileRequest.getDeliveryZipcode().isEmpty()) {
                 getMvpView().onError(R.string.empty_delivery_zip_codes);
                 return;
             }
+
             if(restaurantProfileRequest.getRestaurantId()==null) {
                 if (fileMap.size() == 0) {
                     getMvpView().onError(R.string.mandatory_image);
                     return;
                 }
             }
+
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
@@ -210,9 +223,10 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
 
                             getMvpView().hideLoading();
                             getMvpView().onError(R.string.api_default_error);
-//                            Log.d("Error", ">>Err" + throwable.getMessage());
+                            Log.d("Error", ">>Err" + throwable.getMessage());
                         }
                     }));
+
         } else {
             getMvpView().onError(R.string.connection_error);
         }

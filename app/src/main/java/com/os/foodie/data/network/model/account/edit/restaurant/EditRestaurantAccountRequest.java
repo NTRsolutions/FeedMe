@@ -1,4 +1,4 @@
-package com.os.foodie.data.network.model.account;
+package com.os.foodie.data.network.model.account.edit.restaurant;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

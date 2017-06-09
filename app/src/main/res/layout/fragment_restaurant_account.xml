@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,17 +13,17 @@
         android:padding="10dp">
 
         <LinearLayout
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image_iv"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@mipmap/profile_default"/>
+                android:src="@mipmap/img_profile_default" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -46,10 +47,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
+                android:inputType="text"
+                android:lines="1"
                 android:paddingTop="2dp"
                 android:text="@string/restaurant_name"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/text_size_18" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -71,15 +75,14 @@
                 android:id="@+id/contact_person_name_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:digits="-0123456789"
                 android:enabled="false"
-                android:maxLength="20"
+                android:inputType="textPersonName"
+                android:lines="1"
                 android:paddingTop="2dp"
                 android:text="@string/restaurant_sign_up_et_contact_person_name_hint"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/text_size_18" />
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,6 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
+                android:inputType="textEmailAddress"
+                android:lines="1"
                 android:paddingTop="2dp"
                 android:text="@string/email"
                 android:textColor="@color/dark_grey"
@@ -128,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:inputType="number"
+                android:lines="1"
                 android:maxLength="10"
                 android:paddingTop="2dp"
                 android:text="@string/phone_number"
@@ -135,9 +141,7 @@
                 android:textSize="@dimen/text_size_18" />
         </LinearLayout>
 
-
         <com.os.foodie.ui.custom.RippleAppCompatButton
-            android:visibility="gone"
             android:id="@+id/activity_restaurant_save_profile"
             style="@style/ButtonOrange"
             android:layout_width="match_parent"
@@ -147,7 +151,22 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="@dimen/customer_sign_up_bt_sign_up_margin_top"
             android:gravity="center"
-            android:text="@string/save" />
+            android:text="@string/save"
+            android:visibility="gone" />
+
+        <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/fragment_restaurant_account_bt_cancel"
+            style="@style/ButtonLightGrey"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/customer_sign_up_bt_sign_up_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="@dimen/customer_sign_up_bt_sign_up_margin_top"
+            android:gravity="center"
+            android:text="Cancel"
+            android:visibility="gone" />
 
     </LinearLayout>
-</LinearLayout>
+
+</ScrollView>

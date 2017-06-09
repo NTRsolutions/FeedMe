@@ -100,10 +100,10 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_logout) {
-
-            return true;
-        }
+//        if (id == R.id.action_logout) {
+//
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -237,5 +237,9 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
 
     public void navigateToSetRestaurantProfile(RestaurantProfileResponse restaurantProfileResponse) {
         replaceFragment(SetupRestaurantProfileFragment.newInstance(restaurantProfileResponse), SetupRestaurantProfileFragment.TAG);
+    }
+
+    public void navigateToShowRestaurantProfile() {
+        replaceFragment(ShowRestaurantProfileFragment.newInstance(), ShowRestaurantProfileFragment.TAG);
     }
 }

@@ -78,10 +78,11 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     private EditText etDeliveryCharges, etDeliveryZipCodes;
 
     private Spinner spinnerDeliveryType, spinnerPaymentMethods;
-    private Button btSave;
+    private Button btSave, btCancel;
 
     private Random random;
     private LatLng latLng;
+
     private ArrayList<Integer> idList;
     private HashMap<Integer, File> fileMap;
 
@@ -98,14 +99,14 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     private static final String PLUS_IMAGE = "PLUS_IMAGE";
     private static final String REMOVE_IMAGE = "REMOVE_IMAGE";
 
+    private String cuisionTypesId = "", deleteImageIds = "";
+    private RestaurantMainActivity restaurantMainActivity;
+
+    private RestaurantProfileResponse restaurantProfileResponse;
+    private List<RestaurantProfileResponse.Image> restaurantImage = new ArrayList<>();
+
     public static AddCuisineTypeCallback addCuisineTypeCallback;
     private SetupRestaurantProfileMvpPresenter<SetupRestaurantProfileMvpView> setupRestaurantProfileMvpPresenter;
-    String cuisionTypesId = "";
-    RestaurantMainActivity restaurantMainActivity;
-    RestaurantProfileResponse restaurantProfileResponse;
-
-    List<RestaurantProfileResponse.Image> restaurantImage=new ArrayList<>();
-    String deleteImageIds="";
 
     public static SetupRestaurantProfileFragment newInstance(RestaurantProfileResponse restaurantProfileResponse) {
 
@@ -121,18 +122,13 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_setup_restaurant_profile, container, false);
+
+        restaurantMainActivity = (RestaurantMainActivity) getActivity();
+
         addCuisineTypeCallback = this;
+
         setupRestaurantProfileMvpPresenter = new SetupRestaurantProfilePresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         setupRestaurantProfileMvpPresenter.onAttach(this);
-
-        /*if (setupRestaurantProfileMvpPresenter.isCurrentUserInfoInitialized()) {
-            view.findViewById(R.id.fragment_setup_restaurant_profile_ll_main).setVisibility(View.GONE);
-            view.findViewById(R.id.fragment_setup_restaurant_profile_tv_ud).setVisibility(View.VISIBLE);
-        }*/
-//        else {
-//            view.findViewById(R.id.fragment_setup_restaurant_profile_ll_main).setVisibility(View.GONE);
-//            view.findViewById(R.id.fragment_setup_restaurant_profile_tv_ud).setVisibility(View.VISIBLE);
-//        }
 
         random = new Random();
 
@@ -165,6 +161,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         spinnerPaymentMethods = (Spinner) view.findViewById(R.id.fragment_setup_restaurant_profile_spinner_payment_type);
 
         btSave = (Button) view.findViewById(R.id.fragment_setup_restaurant_profile_bt_save);
+        btCancel = (Button) view.findViewById(R.id.fragment_setup_restaurant_profile_bt_cancel);
 
         ivPhotos.setOnClickListener(this);
         etCuisineType.setOnClickListener(this);
@@ -175,7 +172,10 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         etClosingTime.setOnClickListener(this);
 
         btSave.setOnClickListener(this);
+        btCancel.setOnClickListener(this);
+
         setProfileData();
+
         return view;
     }
 
@@ -230,16 +230,15 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         } else if (v.getTag() != null && v.getTag().equals(REMOVE_IMAGE)) {
 
-          RelativeLayout relativeLayout=  ((RelativeLayout) v.getParent());
+            RelativeLayout relativeLayout = ((RelativeLayout) v.getParent());
 
-            int position=(int)relativeLayout.getChildAt(0).getTag();
+            int position = (int) relativeLayout.getChildAt(0).getTag();
 
             Log.d("getTag", ">>" + ((RelativeLayout) v.getParent()).getTag());
 
             if (glPhotos.getChildCount() == 2) {
 
                 idList.clear();
-
                 fileMap.clear();
 
                 glPhotos.removeAllViews();
@@ -250,32 +249,28 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                 idList.remove((Integer) ((RelativeLayout) v.getParent()).getTag());
                 fileMap.remove(((RelativeLayout) v.getParent()).getTag());
                 glPhotos.removeView((RelativeLayout) v.getParent());
-                if(glPhotos.getChildCount()==2){
-                    RelativeLayout view=(RelativeLayout) glPhotos.getChildAt(0);
+
+                if (glPhotos.getChildCount() == 2) {
+                    RelativeLayout view = (RelativeLayout) glPhotos.getChildAt(0);
                     view.getChildAt(1).setVisibility(View.GONE);
                 }
-//
             }
 
-
-            if(position<restaurantImage.size()){
+            if (position < restaurantImage.size()) {
                 restaurantImage.remove(position);
-                String imageId=restaurantProfileResponse.getResponse().getRestaurantDetail().getImages().get(position).getImageId();
-                if(deleteImageIds.length()==0)
-                deleteImageIds=imageId;
+                String imageId = restaurantProfileResponse.getResponse().getRestaurantDetail().getImages().get(position).getImageId();
+                if (deleteImageIds.length() == 0)
+                    deleteImageIds = imageId;
                 else
-                    deleteImageIds=deleteImageIds+ "," +imageId;
-                //setupRestaurantProfileMvpPresenter.deleteRestaurantImage(imageId);
+                    deleteImageIds = deleteImageIds + "," + imageId;
             }
 
             Log.d("idList", ">>" + idList.size());
             Log.d("fileMap", ">>" + fileMap.size());
 
             if (glPhotos.getChildCount() == 5) {
-
                 glPhotos.getChildAt(4).setVisibility(View.VISIBLE);
             }
-
 
         } else if (v.getId() == btSave.getId()) {
 
@@ -284,8 +279,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
             setupRestaurantProfileMvpPresenter.saveRestaurantProfile(restaurantProfileRequest, fileHashMap);
 
-//            just();
-//            setupRestaurantProfileMvpPresenter.setCurrentUserInfoInitialized(true);
+        } else if (v.getId() == btCancel.getId()) {
+            restaurantMainActivity.navigateToShowRestaurantProfile();
         }
     }
 
@@ -302,14 +297,10 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                 Log.d("place", ">>" + place.getAddress());
                 Log.d("LatLng", ">>" + place.getLatLng());
 
-                //                latLng = place.getLatLng();
-                //                etAddress.setText(place.getAddress());
-
                 setupRestaurantProfileMvpPresenter.getGeocoderLocationAddress(getActivity(), place.getLatLng());
-
-                //                etZipCode.setText(place.getLocale());
             }
         }
+
         EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new DefaultCallback() {
             @Override
             public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
@@ -324,57 +315,61 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         });
     }
 
-    /*   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//    /*   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//
+//            Log.d("requestCode", ">>" + requestCode);
+//            Log.d("resultCode", ">>" + resultCode);
+//
+//            if (requestCode == PLACE_PICKER_REQUEST) {
+//
+//                if (resultCode == RESULT_OK) {
+//
+//                    Place place = PlacePicker.getPlace(getActivity(), data);
+//
+//                    Log.d("place", ">>" + place.getAddress());
+//                    Log.d("LatLng", ">>" + place.getLatLng());
+//
+//    //                latLng = place.getLatLng();
+//    //                etAddress.setText(place.getAddress());
+//
+//                    setupRestaurantProfileMvpPresenter.getGeocoderLocationAddress(getActivity(), place.getLatLng());
+//
+//    //                etZipCode.setText(place.getLocale());
+//                }
+//
+//            } else if (requestCode == CAMERA_REQUEST) {
+//
+//                if (resultCode == RESULT_OK) {
+//                    onCaptureImageResult(data);
+//                }
+//
+//            } else if (requestCode == GALARY_REQUEST) {
+//
+//                if (resultCode == RESULT_OK) {
+//                    onSelectFromGalleryResult(data);
+//                }
+//            } else if (requestCode == CUISINE_TYPES_REQUEST) {
+//
+//                Log.d("CUISINE_TYPES_REQUEST", ">>Result");
+//
+//                if (resultCode == RESULT_OK) {
+//
+//                    ArrayList<CuisineType> cuisineTypesChecked = data.getParcelableArrayListExtra(AppConstants.CUISINE_TYPES_ARRAYLIST);
+//
+//                    for (CuisineType cuisineType : cuisineTypesChecked) {
+//                        Log.d("CuisineType", ">>" + cuisineType.getName());
+//                    }
+//                }
+//            }
+//        }
+//    */
 
-            Log.d("requestCode", ">>" + requestCode);
-            Log.d("resultCode", ">>" + resultCode);
-
-            if (requestCode == PLACE_PICKER_REQUEST) {
-
-                if (resultCode == RESULT_OK) {
-
-                    Place place = PlacePicker.getPlace(getActivity(), data);
-
-                    Log.d("place", ">>" + place.getAddress());
-                    Log.d("LatLng", ">>" + place.getLatLng());
-
-    //                latLng = place.getLatLng();
-    //                etAddress.setText(place.getAddress());
-
-                    setupRestaurantProfileMvpPresenter.getGeocoderLocationAddress(getActivity(), place.getLatLng());
-
-    //                etZipCode.setText(place.getLocale());
-                }
-
-            } else if (requestCode == CAMERA_REQUEST) {
-
-                if (resultCode == RESULT_OK) {
-                    onCaptureImageResult(data);
-                }
-
-            } else if (requestCode == GALARY_REQUEST) {
-
-                if (resultCode == RESULT_OK) {
-                    onSelectFromGalleryResult(data);
-                }
-            } else if (requestCode == CUISINE_TYPES_REQUEST) {
-
-                Log.d("CUISINE_TYPES_REQUEST", ">>Result");
-
-                if (resultCode == RESULT_OK) {
-
-                    ArrayList<CuisineType> cuisineTypesChecked = data.getParcelableArrayListExtra(AppConstants.CUISINE_TYPES_ARRAYLIST);
-
-                    for (CuisineType cuisineType : cuisineTypesChecked) {
-                        Log.d("CuisineType", ">>" + cuisineType.getName());
-                    }
-                }
-            }
-        }
-    */
     private void selectImage() {
+
         final CharSequence[] items = {"Take Photo", "Choose from Gallery", "Cancel"};
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         builder.setTitle("Add Photo");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
@@ -385,14 +380,12 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                 if (items[item].equals("Take Photo")) {
 
 //                    userChoosenTask = 1;
-
 //                    if(result)
                     cameraIntent();
 
                 } else if (items[item].equals("Choose from Gallery")) {
 
 //                    userChoosenTask = 2;
-
 //                    if(result)
                     galleryIntent();
 
@@ -410,9 +403,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
     private void galleryIntent() {
         EasyImage.openGallery(SetupRestaurantProfileFragment.this, GALARY_REQUEST);
-
     }
-
 
     void addImageView(File file) {
 
@@ -475,11 +466,14 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
             glPhotos.getChildAt(5).setVisibility(View.GONE);
         }
+
         Log.d("idList", ">>" + idList.size());
         Log.d("fileMap", ">>" + fileMap.size());
-        imageView.setTag(glPhotos.getChildCount()-2);
-        if(glPhotos.getChildCount()>2){
-            RelativeLayout view=(RelativeLayout) glPhotos.getChildAt(0);
+
+        imageView.setTag(glPhotos.getChildCount() - 2);
+
+        if (glPhotos.getChildCount() > 2) {
+            RelativeLayout view = (RelativeLayout) glPhotos.getChildAt(0);
             view.getChildAt(1).setVisibility(View.VISIBLE);
         }
     }
@@ -518,9 +512,11 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     @Override
     public void onRestaurantProfileSaved() {
 
-        Intent intent = new Intent(getActivity(), RestaurantMainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        restaurantMainActivity.navigateToShowRestaurantProfile();
+
+//        Intent intent = new Intent(getActivity(), RestaurantMainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        startActivity(intent);
     }
 
     public void setCuisineTypeList(ArrayList<CuisineType> cuisineTypesChecked) {
@@ -601,25 +597,25 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         restaurantProfileRequest.setRestaurantId(preferencesHelper.getCurrentUserId());
 
         restaurantProfileRequest.setCuisineType(cuisionTypesId);
-        if(restaurantProfileResponse !=null)
-        restaurantProfileRequest.setRestaurantId(restaurantProfileResponse.getResponse().getRestaurantDetail().getId());
+        if (restaurantProfileResponse != null)
+            restaurantProfileRequest.setRestaurantId(restaurantProfileResponse.getResponse().getRestaurantDetail().getId());
 
-        /*String days = "";
-
-        for (int i = 0; i < workingDays.size(); i++) {
-
-            if (workingDays.get(i).isChecked()) {
-
-                if (i == 0) {
-                    days = (i + 1) + "";
-                } else {
-                    days = days + "," + (i + 1);
-                }
-            }
-        }*/
+//        /*String days = "";
+//
+//        for (int i = 0; i < workingDays.size(); i++) {
+//
+//            if (workingDays.get(i).isChecked()) {
+//
+//                if (i == 0) {
+//                    days = (i + 1) + "";
+//                } else {
+//                    days = days + "," + (i + 1);
+//                }
+//            }
+//        }*/
 
         restaurantProfileRequest.setWorkingDays(etWorkingDays.getText().toString());
-      //  restaurantProfileRequest.setWorkingDays(days);
+        //  restaurantProfileRequest.setWorkingDays(days);
 
         restaurantProfileRequest.setAddress(etAddress.getText().toString());
         restaurantProfileRequest.setCountry(etCountry.getText().toString());
@@ -639,7 +635,6 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         restaurantProfileRequest.setLatitude(latLng.latitude + "");
         restaurantProfileRequest.setLongitude(latLng.longitude + "");
         restaurantProfileRequest.setDeleteImageId(deleteImageIds);
-
 
         return restaurantProfileRequest;
     }
@@ -710,9 +705,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
             e.printStackTrace();
         }
 
-
         Rx2AndroidNetworking.upload(ApiConstants.BASE_URL + "set_restaurant_profile")
-//                .addMultipartFile("a",file)
                 .addMultipartFile(fileMapTemp)
                 .addMultipartParameter("data", jsonObject.toString())
                 .build()
@@ -922,27 +915,33 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 //        Log.d("getPostalCode", ">>" + address.getPostalCode());
     }
 
-
     public void setProfileData() {
 
         Bundle extra = getArguments();
+
         if (extra != null) {
+
             restaurantProfileResponse = (RestaurantProfileResponse) extra.getSerializable("profileResponse");
+
             RestaurantProfileResponse.RestaurantDetail restaurantDetail = restaurantProfileResponse.getResponse().getRestaurantDetail();
+
             restaurantImage.addAll(restaurantDetail.getImages());
+
             for (int i = 0; i < restaurantDetail.getImages().size(); i++) {
                 addImageView(restaurantDetail.getImages().get(i).getUrl());
             }
-            if(glPhotos.getChildCount()==2){
-                RelativeLayout view=(RelativeLayout) glPhotos.getChildAt(0);
+
+            if (glPhotos.getChildCount() == 2) {
+                RelativeLayout view = (RelativeLayout) glPhotos.getChildAt(0);
                 view.getChildAt(1).setVisibility(View.GONE);
             }
+
             etDeliveryZipCodes.setText(restaurantDetail.getDeliveryZipcode());
             etDeliveryCharges.setText(restaurantDetail.getDeliveryCharge());
             etMinimumOrderAmount.setText(restaurantDetail.getMinOrderAmount());
             etDeliveryTime.setText(restaurantDetail.getDeliveryTime());
-            etOpeningTime.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getOpeningTime(),"HH:mm:ss","hh:mm a"));
-            etClosingTime.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getClosingTime(),"HH:mm:ss","hh:mm a"));
+            etOpeningTime.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getOpeningTime(), "HH:mm:ss", "hh:mm a"));
+            etClosingTime.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getClosingTime(), "HH:mm:ss", "hh:mm a"));
             etZipCode.setText(restaurantDetail.getZipCode());
             etCity.setText(restaurantDetail.getCityName());
             etCountry.setText(restaurantDetail.getCountryName());
@@ -950,36 +949,36 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
             etWorkingDays.setText(restaurantDetail.getWorkingDays());
             etCuisineType.setText(restaurantDetail.getCuisineType());
 
-            if(restaurantDetail.getDeliveryType().equalsIgnoreCase("Pick Only"))
-            spinnerDeliveryType.setSelection(0);
+            if (restaurantDetail.getDeliveryType().equalsIgnoreCase("Pick Only"))
+                spinnerDeliveryType.setSelection(0);
             else
-            spinnerDeliveryType.setSelection(1);
+                spinnerDeliveryType.setSelection(1);
 
-            if(restaurantDetail.getPaymentMethod().equalsIgnoreCase("Online"))
+            if (restaurantDetail.getPaymentMethod().equalsIgnoreCase("Online"))
                 spinnerPaymentMethods.setSelection(0);
-            else if(restaurantDetail.getPaymentMethod().equalsIgnoreCase("Cash On Delivery"))
+            else if (restaurantDetail.getPaymentMethod().equalsIgnoreCase("Cash On Delivery"))
                 spinnerPaymentMethods.setSelection(1);
             else
                 spinnerPaymentMethods.setSelection(2);
 
-            String cuisineTypeName[]=restaurantDetail.getCuisineType().split(",");
-            String cuisineTypeNId[]=restaurantDetail.getCuisineTypeId().split(",");
-            cuisionTypesId=restaurantDetail.getCuisineTypeId();
-            for (int i = 0; i <cuisineTypeName.length ; i++) {
-                CuisineType cuisineType=new CuisineType();
+            String cuisineTypeName[] = restaurantDetail.getCuisineType().split(",");
+            String cuisineTypeNId[] = restaurantDetail.getCuisineTypeId().split(",");
+
+            cuisionTypesId = restaurantDetail.getCuisineTypeId();
+
+            for (int i = 0; i < cuisineTypeName.length; i++) {
+                CuisineType cuisineType = new CuisineType();
                 cuisineType.setName(cuisineTypeName[i]);
                 cuisineType.setId(cuisineTypeNId[i]);
                 cuisineTypesChecked.add(cuisineType);
             }
-            for (int i = 0; i <workingDays.size() ; i++) {
-                if(restaurantDetail.getWorkingDays().contains(workingDays.get(i).getDay()))
+
+            for (int i = 0; i < workingDays.size(); i++) {
+                if (restaurantDetail.getWorkingDays().contains(workingDays.get(i).getDay()))
                     workingDays.get(i).setChecked(true);
-
             }
-
         }
     }
-
 
     void addImageView(String url) {
 
@@ -993,13 +992,9 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         imageView.setLayoutParams(new RelativeLayout.LayoutParams((ScreenUtils.getScreenWidth(getActivity()) / 3), (ScreenUtils.getScreenWidth(getActivity()) / 3)));
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-
         Glide.with(getActivity())
                 .load(url)
                 .into(imageView);
-
-//        imageView.setTag(imageView);
-//        imageView.setOnClickListener(this);
 
         relativeLayout.addView(imageView);
 
@@ -1039,12 +1034,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
             glPhotos.getChildAt(5).setVisibility(View.GONE);
         }
 
-
-        imageView.setTag(glPhotos.getChildCount()-2);
+        imageView.setTag(glPhotos.getChildCount() - 2);
         Log.d("idList", ">>" + idList.size());
         Log.d("fileMap", ">>" + fileMap.size());
-
     }
-
-
 }

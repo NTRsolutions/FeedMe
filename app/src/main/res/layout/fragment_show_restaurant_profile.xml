@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -55,7 +56,6 @@
 
                 </RelativeLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -81,23 +81,23 @@
                         <com.wefika.flowlayout.FlowLayout
                             android:id="@+id/content_restaurant_details_fl_cuisine_types"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+            <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--app:layout_collapseMode="pin"-->
+            <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/layout_show_restaurant_profile_content" />
+    <include layout="@layout/fragment_show_restaurant_profile_content" />
 
     <com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingActionImageView
         android:id="@+id/activity_restautant_details_faiv_profile_pic"
@@ -107,17 +107,16 @@
         android:background="@color/white"
         android:cropToPadding="true"
         android:padding="@dimen/restautant_details_faiv_profile_pic_padding"
-        android:scaleType="fitXY"
-        android:src="@mipmap/profile_default"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/img_profile_default"
         app:layout_anchor="@id/activity_restaurant_details_viewpager"
         app:layout_anchorGravity="bottom|start" />
-
 
     <com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout
         android:id="@+id/activity_restautant_details_fall_delivery_time"
         android:layout_width="@dimen/restautant_details_fall_height_width"
         android:layout_height="@dimen/restautant_details_fall_height_width"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="10sp"
         android:background="@drawable/circular_image_view_orange"
         android:cropToPadding="true"
         android:gravity="center"

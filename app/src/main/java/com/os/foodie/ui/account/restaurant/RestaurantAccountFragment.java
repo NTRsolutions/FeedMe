@@ -20,9 +20,8 @@ import android.widget.EditText;
 import com.bumptech.glide.Glide;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
-import com.os.foodie.data.network.model.account.EditCustomerAccountDetailResponse;
-import com.os.foodie.data.network.model.account.EditRestaurantAccountRequest;
-import com.os.foodie.data.network.model.account.EditRestaurantAccountResponse;
+import com.os.foodie.data.network.model.account.edit.restaurant.EditRestaurantAccountRequest;
+import com.os.foodie.data.network.model.account.edit.restaurant.EditRestaurantAccountResponse;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
@@ -39,18 +38,20 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
 
     public static final String TAG = "RestaurantAccountFragment";
 
-    private RestaurantAccountMvpPresenter<RestaurantAccountMvpView> restaurantAccountMvpPresenter;
+    RestaurantMainActivity restaurantMainActivity;
+
     private CircleImageView profileImageIv;
-    private EditText restaurantNameEt;
-    private EditText contactPersonNameEt;
-    private EditText emailEt;
-    private EditText phoneNumEt;
+    private EditText restaurantNameEt, contactPersonNameEt, emailEt, phoneNumEt;
+    private RippleAppCompatButton btSave, btCancel;
+
     private static final int CAMERA_REQUEST = 2;
     private static final int GALARY_REQUEST = 3;
-    private RippleAppCompatButton activityRestaurantSaveProfile;
-    RestaurantMainActivity restaurantMainActivity;
+
     private String restaurantLogoPath = "", restaurantLogoName = "";
     private File restaurantLogoFile;
+
+    private RestaurantAccountMvpPresenter<RestaurantAccountMvpView> restaurantAccountMvpPresenter;
+
     public RestaurantAccountFragment() {
     }
 
@@ -64,10 +65,10 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.layout_restaurant_account, container, false);
-        restaurantMainActivity=(RestaurantMainActivity) getActivity();
-        initView(view);
+        View view = inflater.inflate(R.layout.fragment_restaurant_account, container, false);
+        restaurantMainActivity = (RestaurantMainActivity) getActivity();
 
+        initView(view);
 
         (restaurantMainActivity).setTitle(getActivity().getResources().getString(R.string.title_fragment_customer_home));
 
@@ -96,8 +97,13 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.action_edit) {
-            activityRestaurantSaveProfile.setVisibility(View.VISIBLE);
+
             setHasOptionsMenu(false);
+
+            btSave.setVisibility(View.VISIBLE);
+            btCancel.setVisibility(View.VISIBLE);
+
+            profileImageIv.setOnClickListener(this);
             setEditTextEnable(true);
         }
 
@@ -109,7 +115,21 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
 
         hideKeyboard();
 
-        if (v.getId() == activityRestaurantSaveProfile.getId()) {
+        if (v.getId() == btCancel.getId()) {
+
+            setHasOptionsMenu(true);
+
+            btSave.setVisibility(View.GONE);
+            btCancel.setVisibility(View.GONE);
+
+            ((RestaurantMainActivity) getActivity()).setCustomerName();
+            restaurantMainActivity.setRestaurantLogo();
+
+            profileImageIv.setOnClickListener(null);
+            setEditTextEnable(false);
+
+        } else if (v.getId() == btSave.getId()) {
+
             EditRestaurantAccountRequest editRestaurantAccountRequest = new EditRestaurantAccountRequest();
             editRestaurantAccountRequest.setContactPersonName(contactPersonNameEt.getText().toString().trim());
             editRestaurantAccountRequest.setRestaurantName(restaurantNameEt.getText().toString().trim());
@@ -117,10 +137,9 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
             editRestaurantAccountRequest.setMobileNumber(phoneNumEt.getText().toString().trim());
             editRestaurantAccountRequest.setRestaurantId(AppController.get(getActivity()).getAppDataManager().getCurrentUserId());
 
-            restaurantAccountMvpPresenter.editRestaurantAccountDetail(editRestaurantAccountRequest,createFileHashMap());
-        }
-        else if(v.getId()==profileImageIv.getId()){
+            restaurantAccountMvpPresenter.editRestaurantAccountDetail(editRestaurantAccountRequest, createFileHashMap());
 
+        } else if (v.getId() == profileImageIv.getId()) {
 
             if (restaurantMainActivity.hasPermission(Manifest.permission.CAMERA) && restaurantMainActivity.hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE) && restaurantMainActivity.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 selectImage();
@@ -135,20 +154,25 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
     }
 
     @Override
-    public void setRestaurantAccountDetail(CustomerRestaurantDetailsResponse getAccountDetailResponse) {
+    public void setRestaurantAccountDetail(CustomerRestaurantDetailsResponse customerRestaurantDetailsResponse) {
 
-        restaurantNameEt.setText(getAccountDetailResponse.getResponse().getRestaurantName());
-        contactPersonNameEt.setText(getAccountDetailResponse.getResponse().getContactPersonName());
-        phoneNumEt.setText(getAccountDetailResponse.getResponse().getMobileNumber());
-        emailEt.setText(getAccountDetailResponse.getResponse().getEmail());
+        restaurantNameEt.setText(customerRestaurantDetailsResponse.getResponse().getRestaurantName());
+        contactPersonNameEt.setText(customerRestaurantDetailsResponse.getResponse().getContactPersonName());
+        phoneNumEt.setText(customerRestaurantDetailsResponse.getResponse().getMobileNumber());
+        emailEt.setText(customerRestaurantDetailsResponse.getResponse().getEmail());
     }
 
     @Override
     public void editRestaurantAccountDetail(EditRestaurantAccountResponse editRestaurantAccountResponse) {
         setHasOptionsMenu(true);
-        activityRestaurantSaveProfile.setVisibility(View.GONE);
+
+        btSave.setVisibility(View.GONE);
+        btCancel.setVisibility(View.GONE);
+
         ((RestaurantMainActivity) getActivity()).setCustomerName();
         restaurantMainActivity.setRestaurantLogo();
+
+        profileImageIv.setOnClickListener(null);
         setEditTextEnable(false);
     }
 
@@ -157,52 +181,52 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
         setHasOptionsMenu(true);
 
         profileImageIv = (CircleImageView) view.findViewById(R.id.profile_image_iv);
+
         restaurantNameEt = (EditText) view.findViewById(R.id.restaurant_name_et);
         contactPersonNameEt = (EditText) view.findViewById(R.id.contact_person_name_et);
         emailEt = (EditText) view.findViewById(R.id.email_et);
         phoneNumEt = (EditText) view.findViewById(R.id.phone_num_et);
-        activityRestaurantSaveProfile = (RippleAppCompatButton) view.findViewById(R.id.activity_restaurant_save_profile);
-        activityRestaurantSaveProfile.setOnClickListener(this);
-        profileImageIv.setOnClickListener(this);
+
+        btSave = (RippleAppCompatButton) view.findViewById(R.id.activity_restaurant_save_profile);
+        btCancel = (RippleAppCompatButton) view.findViewById(R.id.fragment_restaurant_account_bt_cancel);
+
+        btSave.setOnClickListener(this);
+        btCancel.setOnClickListener(this);
 
         Glide.with(this)
                 .load(AppController.get(getActivity()).getAppDataManager().getRestaurantLogoURL())
-//                .load("http://192.168.1.69/foodi/app/webroot//uploads/restaurant_images/restaurant_logo_1496410374.jpg")
-//                .placeholder(ContextCompat.getDrawable(this, R.mipmap.ic_launcher))
-                .error(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_launcher))
+                .placeholder(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
+                .error(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
                 .into(profileImageIv);
     }
 
     private void setEditTextEnable(boolean setEnable) {
+
         restaurantNameEt.setEnabled(setEnable);
         contactPersonNameEt.setEnabled(setEnable);
+
         emailEt.setEnabled(setEnable);
         phoneNumEt.setEnabled(setEnable);
     }
 
 
     private void selectImage() {
+
         final CharSequence[] items = {"Take Photo", "Choose from Gallery", "Cancel"};
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Add Photo");
+
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
 
-//                boolean result= hasPermission(Manifest.permission.CAMERA);
-
                 if (items[item].equals("Take Photo")) {
 
-//                    userChoosenTask = 1;
-
-//                    if(result)
                     cameraIntent();
 
                 } else if (items[item].equals("Choose from Gallery")) {
 
-//                    userChoosenTask = 2;
-
-//                    if(result)
                     galleryIntent();
 
                 } else if (items[item].equals("Cancel")) {
@@ -213,7 +237,6 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
         builder.show();
     }
 
-
     private void cameraIntent() {
         EasyImage.openCamera(RestaurantAccountFragment.this, CAMERA_REQUEST);
     }
@@ -221,6 +244,7 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
     private void galleryIntent() {
         EasyImage.openGallery(RestaurantAccountFragment.this, GALARY_REQUEST);
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], int[] grantResults) {
         int i = 0;
@@ -233,29 +257,34 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
             }
         }
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new DefaultCallback() {
             @Override
             public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
-                //Some error handling
             }
 
             @Override
             public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+
                 restaurantLogoPath = imageFile.getPath();
                 restaurantLogoName = imageFile.getName();
+
                 Uri imageUri = Uri.fromFile(imageFile);
+
                 restaurantLogoFile = imageFile;
+
                 Glide.with(getActivity())
                         .load(imageUri)
+                        .placeholder(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
+                        .error(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
                         .into(profileImageIv);
             }
-
         });
-
     }
+
     public HashMap<String, File> createFileHashMap() {
 
         HashMap<String, File> fileMapTemp = new HashMap<String, File>();

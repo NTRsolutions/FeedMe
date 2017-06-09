@@ -1,14 +1,9 @@
-package com.os.foodie.data.network.model.account;
+package com.os.foodie.data.network.model.account.edit.customer;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by monikab on 6/5/2017.
- */
-
-public class EditRestaurantAccountResponse {
-
+public class EditCustomerAccountDetailResponse {
     @SerializedName("response")
     @Expose
     private Response response;
@@ -21,24 +16,23 @@ public class EditRestaurantAccountResponse {
         this.response = response;
     }
 
-
     public class Response {
 
-        @SerializedName("logo")
+        @SerializedName("id")
         @Expose
-        private String logo;
+        private String id;
+        @SerializedName("first_name")
+        @Expose
+        private String firstName;
+        @SerializedName("last_name")
+        @Expose
+        private String lastName;
         @SerializedName("email")
         @Expose
         private String email;
         @SerializedName("mobile_number")
         @Expose
         private String mobileNumber;
-        @SerializedName("restaurant_name")
-        @Expose
-        private String restaurantName;
-        @SerializedName("user_id")
-        @Expose
-        private String userId;
         @SerializedName("status")
         @Expose
         private Integer status;
@@ -46,12 +40,28 @@ public class EditRestaurantAccountResponse {
         @Expose
         private String message;
 
-        public String getLogo() {
-            return logo;
+        public String getId() {
+            return id;
         }
 
-        public void setLogo(String logo) {
-            this.logo = logo;
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
         }
 
         public String getEmail() {
@@ -70,22 +80,6 @@ public class EditRestaurantAccountResponse {
             this.mobileNumber = mobileNumber;
         }
 
-        public String getRestaurantName() {
-            return restaurantName;
-        }
-
-        public void setRestaurantName(String restaurantName) {
-            this.restaurantName = restaurantName;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
         public Integer getStatus() {
             return status;
         }
@@ -101,6 +95,5 @@ public class EditRestaurantAccountResponse {
         public void setMessage(String message) {
             this.message = message;
         }
-
     }
 }

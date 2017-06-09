@@ -246,6 +246,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
             onPageSelected(viewPager.getCurrentItem());
         }
 
+        Log.d("getLogo",">>"+restaurantDetailsResponse.getResponse().getLogo());
+
         Glide.with(this)
                 .load(restaurantDetailsResponse.getResponse().getLogo())
                 .placeholder(ContextCompat.getDrawable(this, R.mipmap.img_placeholder))

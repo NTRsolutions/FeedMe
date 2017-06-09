@@ -5,10 +5,10 @@ import android.location.Address;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.data.network.ApiHelper;
-import com.os.foodie.data.network.model.account.EditCustomerAccountDetailResponse;
-import com.os.foodie.data.network.model.account.EditCustomerAccountRequest;
-import com.os.foodie.data.network.model.account.EditRestaurantAccountRequest;
-import com.os.foodie.data.network.model.account.EditRestaurantAccountResponse;
+import com.os.foodie.data.network.model.account.edit.customer.EditCustomerAccountDetailResponse;
+import com.os.foodie.data.network.model.account.edit.customer.EditCustomerAccountRequest;
+import com.os.foodie.data.network.model.account.edit.restaurant.EditRestaurantAccountRequest;
+import com.os.foodie.data.network.model.account.edit.restaurant.EditRestaurantAccountResponse;
 import com.os.foodie.data.network.model.account.GetAccountDetailRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailResponse;
 import com.os.foodie.data.network.model.cart.add.AddToCartRequest;

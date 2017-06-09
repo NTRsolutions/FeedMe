@@ -16,7 +16,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="5dp"
-        android:src="@mipmap/profile_default" />
+        android:src="@mipmap/img_profile_default" />
 
     <EditText
         android:id="@+id/activity_facebook_sign_up_et_restaurant_name"
