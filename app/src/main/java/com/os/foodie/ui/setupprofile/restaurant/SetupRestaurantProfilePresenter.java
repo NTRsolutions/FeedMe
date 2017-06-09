@@ -12,6 +12,7 @@ import android.widget.TimePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
+import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
 import com.os.foodie.data.network.model.cuisinetype.list.CuisineType;
 import com.os.foodie.data.network.model.cuisinetype.list.CuisineTypeResponse;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
@@ -47,6 +48,42 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
     @Override
     public boolean isCurrentUserInfoInitialized() {
         return getDataManager().isCurrentUserInfoInitialized();
+    }
+
+    @Override
+    public void deleteRestaurantImage(String imageId) {
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
+            getMvpView().showLoading();
+
+            getCompositeDisposable().add(getDataManager()
+                    .deleteRestaurantImage(imageId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<ChangePasswordResponse>() {
+                        @Override
+                        public void accept(ChangePasswordResponse cuisineTypeResponse) throws Exception {
+
+                            Log.d("Message", ">>" + cuisineTypeResponse.getResponse().getMessage());
+                            getMvpView().hideLoading();
+
+                            if (cuisineTypeResponse.getResponse().getStatus() == 0) {
+                                getMvpView().onError(cuisineTypeResponse.getResponse().getMessage());
+                            } else {
+
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+
+                            getMvpView().hideLoading();
+                            getMvpView().onError(R.string.api_default_error);
+                        }
+                    }));
+        } else {
+            getMvpView().onError(R.string.connection_error);
+        }
     }
 
     @Override
@@ -140,11 +177,12 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                 getMvpView().onError(R.string.empty_delivery_zip_codes);
                 return;
             }
-            if (fileMap.size() == 0) {
-                getMvpView().onError(R.string.mandatory_image);
-                return;
+            if(restaurantProfileRequest.getRestaurantId()==null) {
+                if (fileMap.size() == 0) {
+                    getMvpView().onError(R.string.mandatory_image);
+                    return;
+                }
             }
-
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()

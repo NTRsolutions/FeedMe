@@ -20,10 +20,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
+import com.os.foodie.ui.account.restaurant.RestaurantAccountFragment;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment;
 import com.os.foodie.ui.setting.SettingsFragment;
 import com.os.foodie.ui.setupprofile.restaurant.SetupRestaurantProfileFragment;
+import com.os.foodie.ui.showrestaurantprofile.ShowRestaurantProfileFragment;
 import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.DialogUtils;
 
@@ -69,7 +72,7 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
         if (AppController.get(this).getAppDataManager().isCurrentUserInfoInitialized())
             replaceFragment(RestaurantMenuFragment.newInstance(), RestaurantMenuFragment.TAG);
         else
-            replaceFragment(SetupRestaurantProfileFragment.newInstance(), SetupRestaurantProfileFragment.TAG);
+            replaceFragment(SetupRestaurantProfileFragment.newInstance(null), SetupRestaurantProfileFragment.TAG);
     }
 
     public void initPresenter() {
@@ -111,9 +114,13 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_restaurant_profile) {
+        if (id == R.id.nav_account) {
 
-            replaceFragment(SetupRestaurantProfileFragment.newInstance(), SetupRestaurantProfileFragment.TAG);
+            replaceFragment(RestaurantAccountFragment.newInstance(), RestaurantAccountFragment.TAG);
+
+        } else if (id == R.id.nav_restaurant_profile) {
+
+            replaceFragment(ShowRestaurantProfileFragment.newInstance(), SetupRestaurantProfileFragment.TAG);
 
         } else if (id == R.id.nav_menu_management) {
 
@@ -226,5 +233,9 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
 //                .placeholder(ContextCompat.getDrawable(this, R.mipmap.ic_launcher))
                 .error(ContextCompat.getDrawable(this, R.mipmap.ic_launcher))
                 .into(ivRestaurantLogo);
+    }
+
+    public void navigateToSetRestaurantProfile(RestaurantProfileResponse restaurantProfileResponse) {
+        replaceFragment(SetupRestaurantProfileFragment.newInstance(restaurantProfileResponse), SetupRestaurantProfileFragment.TAG);
     }
 }

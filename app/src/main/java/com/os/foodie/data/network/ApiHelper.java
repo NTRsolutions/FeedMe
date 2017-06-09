@@ -6,6 +6,8 @@ import android.location.Address;
 import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.data.network.model.account.EditCustomerAccountDetailResponse;
 import com.os.foodie.data.network.model.account.EditCustomerAccountRequest;
+import com.os.foodie.data.network.model.account.EditRestaurantAccountRequest;
+import com.os.foodie.data.network.model.account.EditRestaurantAccountResponse;
 import com.os.foodie.data.network.model.account.GetAccountDetailRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailResponse;
 import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
@@ -51,6 +53,7 @@ import com.os.foodie.data.network.model.otp.OtpVerificationRequest;
 import com.os.foodie.data.network.model.otp.OtpVerificationResponse;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
+import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
 import com.os.foodie.data.network.model.signup.customer.CustomerSignUpRequest;
 import com.os.foodie.data.network.model.signup.customer.CustomerSignUpResponse;
 import com.os.foodie.data.network.model.fblogin.FacebookLoginRequest;
@@ -123,6 +126,13 @@ public interface ApiHelper {
     Observable<RemoveFromCartResponse> removeFromCart(RemoveFromCartRequest removeFromCartRequest);
 
     Observable<UpdateCartResponse> updateCart(UpdateCartRequest updateCartRequest);
+
+    Observable<RestaurantProfileResponse> getRestaurantProfile(CustomerRestaurantDetailsRequest customerRestaurantDetailsRequest);
+
+    Observable<ChangePasswordResponse> deleteRestaurantImage(String restaurantId);
+
+    Observable<EditRestaurantAccountResponse> editRestaurantAccount(EditRestaurantAccountRequest editRestaurantAccountRequest, HashMap<String, File> fileMap);
+
 
 //    Observable<CustomerSignUpResponse> getFacebookDetail(CustomerSignUpRequest customerSignUpRequest);
 }

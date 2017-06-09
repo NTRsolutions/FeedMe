@@ -9,6 +9,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.os.foodie.data.network.model.account.EditCustomerAccountDetailResponse;
 import com.os.foodie.data.network.model.account.EditCustomerAccountRequest;
+import com.os.foodie.data.network.model.account.EditRestaurantAccountRequest;
+import com.os.foodie.data.network.model.account.EditRestaurantAccountResponse;
 import com.os.foodie.data.network.model.account.GetAccountDetailRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailResponse;
 import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
@@ -54,6 +56,7 @@ import com.os.foodie.data.network.model.otp.OtpVerificationRequest;
 import com.os.foodie.data.network.model.otp.OtpVerificationResponse;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
+import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
 import com.os.foodie.data.network.model.signup.customer.CustomerSignUpRequest;
 import com.os.foodie.data.network.model.signup.customer.CustomerSignUpResponse;
 import com.os.foodie.data.network.model.fblogin.FacebookLoginRequest;
@@ -608,4 +611,61 @@ public class AppApiHelpter implements ApiHelper {
                 .build()
                 .getObjectObservable(UpdateCartResponse.class);
     }
+
+    @Override
+    public Observable<RestaurantProfileResponse> getRestaurantProfile(CustomerRestaurantDetailsRequest customerRestaurantDetailsRequest) {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(customerRestaurantDetailsRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.GET_RESTAURANT_PROFILE)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(RestaurantProfileResponse.class);
+    }
+
+    @Override
+    public Observable<ChangePasswordResponse> deleteRestaurantImage(String restaurantId) {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("image_id", restaurantId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.DELETE_RESTAURNT_IMAGES)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(ChangePasswordResponse.class);
+    }
+
+    @Override
+    public Observable<EditRestaurantAccountResponse> editRestaurantAccount(EditRestaurantAccountRequest editRestaurantAccountRequest, HashMap<String, File> fileMap) {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(editRestaurantAccountRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.upload(ApiConstants.BASE_URL + ApiConstants.EDIT_RESTAURANT_ACCOUNT)
+                .addMultipartFile(fileMap)
+                .addMultipartParameter("data", jsonObject.toString())
+                .build()
+                .getObjectObservable(EditRestaurantAccountResponse.class);
+    }
+
 }

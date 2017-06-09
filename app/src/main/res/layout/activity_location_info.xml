@@ -110,7 +110,7 @@
             android:layout_height="@dimen/location_info_et_height"
             android:layout_marginTop="@dimen/location_info_et_margin_top"
             android:clickable="true"
-            android:drawableEnd="@mipmap/ic_location"
+            android:drawableEnd="@mipmap/ic_gps"
             android:drawablePadding="5dp"
             android:focusable="false"
             android:hint="@string/location_info_et_current_location_hint"

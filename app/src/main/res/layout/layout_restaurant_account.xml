@@ -68,7 +68,7 @@
                 android:textColor="@color/orange" />
 
             <EditText
-                android:id="@+id/zip_code_et"
+                android:id="@+id/contact_person_name_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:digits="-0123456789"
@@ -137,7 +137,8 @@
 
 
         <com.os.foodie.ui.custom.RippleAppCompatButton
-            android:id="@+id/activity_customer_save_profile"
+            android:visibility="gone"
+            android:id="@+id/activity_restaurant_save_profile"
             style="@style/ButtonOrange"
             android:layout_width="match_parent"
             android:layout_height="@dimen/customer_sign_up_bt_sign_up_height"

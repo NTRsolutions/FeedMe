@@ -24,6 +24,7 @@ public class ApiConstants {
 
     public static final String SET_RESTAURANT_PROFILE = "set_restaurant_profile";
     public static final String GET_RESTAURANT_PROFILE = "get_restaurant_profile";
+    public static final String DELETE_RESTAURNT_IMAGES = "delete_image";
 
     public static final String GET_RESTAURANT_MENU = "get_restaurant_menu_item";
     public static final String ADD_RESTAURANT_MENU_ITEM = "add_menu_item";
@@ -43,6 +44,8 @@ public class ApiConstants {
 
     public static final String GET_CUSTOMER_PROFILE = "get_customer_profile";
     public static final String EDIT_CUSTOMER_PROFILE = "edit_customer_profile";
+
+    public static final String EDIT_RESTAURANT_ACCOUNT = "edit_restaurant_account";
 
     public static final String ADD_TO_CART = "add_cart";
     public static final String UPDATE_CART = "edit_cart";

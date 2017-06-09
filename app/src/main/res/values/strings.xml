@@ -302,5 +302,13 @@
     <string name="restaurant_name">Restaurant Name</string>
     <string name="title_activity_customer_search">CustomerSearchActivity</string>
 
+    <string name="opening_closing_hour">Opening Closing Hour:</string>
+    <string name="delivery_charges">Delivery Charges:</string>
+    <string name="delivery_areas">Delivery Areas:</string>
+    <string name="order_type">Order Type:</string>
+    <string name="working_days">Working Days:</string>
+    <string name="minimum_order_amount">Minimum order amount:</string>
+    <string name="other_details">Other Details</string>
+    <string name="payment_type">Payment type:</string>
 
 </resources>

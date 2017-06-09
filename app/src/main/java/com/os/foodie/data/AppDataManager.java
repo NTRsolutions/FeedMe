@@ -7,6 +7,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.data.network.ApiHelper;
 import com.os.foodie.data.network.model.account.EditCustomerAccountDetailResponse;
 import com.os.foodie.data.network.model.account.EditCustomerAccountRequest;
+import com.os.foodie.data.network.model.account.EditRestaurantAccountRequest;
+import com.os.foodie.data.network.model.account.EditRestaurantAccountResponse;
 import com.os.foodie.data.network.model.account.GetAccountDetailRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailResponse;
 import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
@@ -52,6 +54,7 @@ import com.os.foodie.data.network.model.otp.OtpVerificationRequest;
 import com.os.foodie.data.network.model.otp.OtpVerificationResponse;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
+import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
 import com.os.foodie.data.network.model.signup.customer.CustomerSignUpRequest;
 import com.os.foodie.data.network.model.signup.customer.CustomerSignUpResponse;
 import com.os.foodie.data.network.model.fblogin.FacebookLoginRequest;
@@ -292,6 +295,22 @@ public class AppDataManager implements DataManager {
     public Observable<DeleteMenuItemResponse> deleteRestaurantMenuItem(DeleteMenuItemRequest deleteMenuItemRequest) {
         return apiHelper.deleteRestaurantMenuItem(deleteMenuItemRequest);
     }
+
+    @Override
+    public Observable<RestaurantProfileResponse> getRestaurantProfile(CustomerRestaurantDetailsRequest customerRestaurantDetailsRequest) {
+        return apiHelper.getRestaurantProfile(customerRestaurantDetailsRequest);
+    }
+
+    @Override
+    public Observable<ChangePasswordResponse> deleteRestaurantImage(String restaurantId) {
+        return apiHelper.deleteRestaurantImage(restaurantId);
+    }
+
+    @Override
+    public Observable<EditRestaurantAccountResponse> editRestaurantAccount(EditRestaurantAccountRequest editRestaurantAccountRequest, HashMap<String, File> fileMap) {
+        return apiHelper.editRestaurantAccount(editRestaurantAccountRequest,fileMap);
+    }
+
 
     //    private final Context mContext;
 //    private final DbHelper mDbHelper;

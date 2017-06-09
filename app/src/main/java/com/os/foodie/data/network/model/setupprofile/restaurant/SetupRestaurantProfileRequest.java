@@ -61,6 +61,10 @@ public class SetupRestaurantProfileRequest {
     @Expose
     private String city;
 
+    @SerializedName("delete_image_id")
+    @Expose
+    private String deleteImageId;
+
     /**
      * No args constructor for use in serialization
      */
@@ -253,4 +257,11 @@ public class SetupRestaurantProfileRequest {
         this.longitude = longitude;
     }
 
+    public String getDeleteImageId() {
+        return deleteImageId;
+    }
+
+    public void setDeleteImageId(String deleteImageId) {
+        this.deleteImageId = deleteImageId;
+    }
 }
