@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
@@ -77,6 +78,8 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 
         View view = inflater.inflate(R.layout.fragment_show_restaurant_profile, container, false);
 
+        Fresco.initialize(getActivity());
+
         initView(view);
 
         setupRestaurantProfileMvpPresenter = new ShowRestaurantProfilePresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
@@ -134,6 +137,12 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
         (restaurantMainActivity).setTitle(getString(R.string.restaurant_profile));
     }
 
+    @Override
+    public void onDestroy() {
+        setupRestaurantProfileMvpPresenter.onDetach();
+        super.onDestroy();
+        Fresco.shutDown();
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

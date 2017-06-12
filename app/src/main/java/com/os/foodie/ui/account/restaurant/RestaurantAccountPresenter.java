@@ -45,6 +45,7 @@ public class RestaurantAccountPresenter<V extends RestaurantAccountMvpView> exte
 
                             if (restaurantDetailsResponse.getResponse().getStatus() == 1) {
 
+                                Log.d("Logo", ">>" + restaurantDetailsResponse.getResponse().getLogo());
                                 getMvpView().setRestaurantAccountDetail(restaurantDetailsResponse);
 
                             } else {
@@ -71,7 +72,7 @@ public class RestaurantAccountPresenter<V extends RestaurantAccountMvpView> exte
     public void editRestaurantAccountDetail(EditRestaurantAccountRequest editRestaurantAccountRequest, HashMap<String, File> fileMapTemp) {
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
-            if (editRestaurantAccountRequest.getRestaurantName() == null || editRestaurantAccountRequest.getRestaurantName() .isEmpty()) {
+            if (editRestaurantAccountRequest.getRestaurantName() == null || editRestaurantAccountRequest.getRestaurantName().isEmpty()) {
                 getMvpView().onError(R.string.empty_restaurant_name);
                 return;
             }
@@ -83,7 +84,7 @@ public class RestaurantAccountPresenter<V extends RestaurantAccountMvpView> exte
 //            getMvpView().onError(R.string.invalid_first_name);
 //            return;
 //        }
-            if (editRestaurantAccountRequest.getEmail()  == null || editRestaurantAccountRequest.getEmail().isEmpty()) {
+            if (editRestaurantAccountRequest.getEmail() == null || editRestaurantAccountRequest.getEmail().isEmpty()) {
                 getMvpView().onError(R.string.empty_email);
                 return;
             }
@@ -92,7 +93,7 @@ public class RestaurantAccountPresenter<V extends RestaurantAccountMvpView> exte
                 return;
             }
 
-            if (editRestaurantAccountRequest.getMobileNumber()  == null || editRestaurantAccountRequest.getMobileNumber().isEmpty()) {
+            if (editRestaurantAccountRequest.getMobileNumber() == null || editRestaurantAccountRequest.getMobileNumber().isEmpty()) {
                 getMvpView().onError(R.string.empty_phone);
                 return;
             }
@@ -104,7 +105,7 @@ public class RestaurantAccountPresenter<V extends RestaurantAccountMvpView> exte
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
-                    .editRestaurantAccount(editRestaurantAccountRequest,fileMapTemp)
+                    .editRestaurantAccount(editRestaurantAccountRequest, fileMapTemp)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<EditRestaurantAccountResponse>() {
@@ -116,6 +117,7 @@ public class RestaurantAccountPresenter<V extends RestaurantAccountMvpView> exte
                             if (editCustomerAccountDetailResponse.getResponse().getStatus() == 1) {
 //                                TODO OTP
 //                                getMvpView().verifyOTP();
+                                Log.d("Logo", ">>" + editCustomerAccountDetailResponse.getResponse().getLogo());
                                 getDataManager().setRestaurantLogoURL(editCustomerAccountDetailResponse.getResponse().getLogo());
                                 getDataManager().setCurrentUserName(editCustomerAccountDetailResponse.getResponse().getRestaurantName());
                                 getMvpView().editRestaurantAccountDetail(editCustomerAccountDetailResponse);

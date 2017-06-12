@@ -33,9 +33,9 @@ import java.util.Calendar;
 
 public class FiltersActivity extends BaseActivity implements FiltersMvpView, View.OnClickListener {
 
-    RangeSeekBar seekbarMinimumOrderAmount, seekbarDistance;
     //    private CrystalRangeSeekbar seekbarMinimumOrderAmount, seekbarDistance;
 //    private TextView /*tvMinimumOrderMin, tvMinimumOrderMax,*/ tvDistanceMin, tvDistanceMax;
+    private RangeSeekBar seekbarMinimumOrderAmount, seekbarDistance;
     private CheckedTextView ctvOpen, ctvClose, ctvDeliver, ctvPickup, ctvOffer;
     private EditText etCuisineType;
     private RatingBar ratingBar;

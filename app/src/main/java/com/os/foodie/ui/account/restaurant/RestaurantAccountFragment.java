@@ -195,8 +195,8 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
 
         Glide.with(this)
                 .load(AppController.get(getActivity()).getAppDataManager().getRestaurantLogoURL())
-                .placeholder(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
-                .error(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
+//                .placeholder(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
+//                .error(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
                 .into(profileImageIv);
     }
 
@@ -278,8 +278,8 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
 
                 Glide.with(getActivity())
                         .load(imageUri)
-                        .placeholder(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
-                        .error(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
+//                        .placeholder(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
+//                        .error(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
                         .into(profileImageIv);
             }
         });
