@@ -15,8 +15,8 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
-import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+//import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
+//import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.network.model.cuisinetype.list.CuisineType;
@@ -25,14 +25,17 @@ import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.dialogfragment.cuisine.list.CuisineTypeDialogFragment;
 import com.os.foodie.utils.AppConstants;
 
+import org.florescu.android.rangeseekbar.RangeSeekBar;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class FiltersActivity extends BaseActivity implements FiltersMvpView, View.OnClickListener {
 
-    private CrystalRangeSeekbar seekbarMinimumOrderAmount, seekbarDistance;
-    private TextView tvMinimumOrderMin, tvMinimumOrderMax, tvDistanceMin, tvDistanceMax;
+    RangeSeekBar seekbarMinimumOrderAmount, seekbarDistance;
+    //    private CrystalRangeSeekbar seekbarMinimumOrderAmount, seekbarDistance;
+//    private TextView /*tvMinimumOrderMin, tvMinimumOrderMax,*/ tvDistanceMin, tvDistanceMax;
     private CheckedTextView ctvOpen, ctvClose, ctvDeliver, ctvPickup, ctvOffer;
     private EditText etCuisineType;
     private RatingBar ratingBar;
@@ -56,14 +59,22 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
         cuisineTypesChecked = new ArrayList<>();
 
-        seekbarMinimumOrderAmount = (CrystalRangeSeekbar) findViewById(R.id.activity_filters_seekbar_minimum_order_amount);
-        seekbarDistance = (CrystalRangeSeekbar) findViewById(R.id.activity_filters_seekbar_distance);
+        seekbarMinimumOrderAmount = (RangeSeekBar) findViewById(R.id.activity_filters_seekbar_minimum_order_amount);
+        seekbarDistance = (RangeSeekBar) findViewById(R.id.activity_filters_seekbar_distance);
 
-        tvMinimumOrderMin = (TextView) findViewById(R.id.activity_filters_tv_min_order_min);
-        tvMinimumOrderMax = (TextView) findViewById(R.id.activity_filters_tv_min_order_max);
+//        seekbarMinimumOrderAmount.setRangeValues(0, 5000);
+//        seekbarMinimumOrderAmount.setRangeValues(0, 10);
+//        seekbarMinimumOrderAmount.setSelectedMinValue(20);
+//        seekbarMinimumOrderAmount.setSelectedMaxValue(88);
 
-        tvDistanceMin = (TextView) findViewById(R.id.activity_filters_tv_distance_min);
-        tvDistanceMax = (TextView) findViewById(R.id.activity_filters_tv_distance_max);
+//        seekbarMinimumOrderAmount = (CrystalRangeSeekbar) findViewById(R.id.activity_filters_seekbar_minimum_order_amount);
+//        seekbarDistance = (CrystalRangeSeekbar) findViewById(R.id.activity_filters_seekbar_distance);
+
+//        tvMinimumOrderMin = (TextView) findViewById(R.id.activity_filters_tv_min_order_min);
+//        tvMinimumOrderMax = (TextView) findViewById(R.id.activity_filters_tv_min_order_max);
+//
+//        tvDistanceMin = (TextView) findViewById(R.id.activity_filters_tv_distance_min);
+//        tvDistanceMax = (TextView) findViewById(R.id.activity_filters_tv_distance_max);
 
         ctvOpen = (CheckedTextView) findViewById(R.id.activity_filters_ctv_open);
         ctvClose = (CheckedTextView) findViewById(R.id.activity_filters_ctv_close);
@@ -77,8 +88,8 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
         btSearch = (Button) findViewById(R.id.activity_filters_bt_search);
 
-        setOnRangeSeekbarChangeListenerMinimumAmount();
-        setOnRangeSeekbarChangeListenerDistance();
+//        setOnRangeSeekbarChangeListenerMinimumAmount();
+//        setOnRangeSeekbarChangeListenerDistance();
         setOnRatingChangedListener();
 
         ctvOpen.setOnClickListener(this);
@@ -188,22 +199,59 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
         Filters filters = new Filters();
 
-        filters.setMinOrderAmount(tvMinimumOrderMin.getText().toString());
-        filters.setMaxOrderAmount(tvMinimumOrderMax.getText().toString());
+//        seekbarMinimumOrderAmount.setSelectedMinValue(seekbarMinimumOrderAmount.getSelectedMinValue());
+//        seekbarMinimumOrderAmount.setSelectedMaxValue(seekbarMinimumOrderAmount.getSelectedMaxValue());
 
-        filters.setMinDistance(tvDistanceMin.getText().toString());
-        filters.setMaxDistance(tvDistanceMax.getText().toString());
+        filters.setMinOrderAmount(seekbarMinimumOrderAmount.getSelectedMinValue().toString());
+        filters.setMaxOrderAmount(seekbarMinimumOrderAmount.getSelectedMaxValue().toString());
+
+        filters.setMinDistance(seekbarDistance.getSelectedMinValue().toString());
+        filters.setMaxDistance(seekbarDistance.getSelectedMaxValue().toString());
+
+        filters.setClear(false);
+
+//        if (seekbarMinimumOrderAmount.getSelectedMinValue().toString().equals("0")) {
+//            filters.setMinOrderAmount("");
+////            filters.setClear(true);
+//        } else {
+//            filters.setMinOrderAmount(seekbarMinimumOrderAmount.getSelectedMinValue().toString());
+////            filters.setClear(false);
+//        }
+//
+//        if (seekbarMinimumOrderAmount.getSelectedMaxValue().toString().equals("5000")) {
+//            filters.setMaxOrderAmount("");
+////            filters.setClear(true);
+//        } else {
+//            filters.setMaxOrderAmount(seekbarMinimumOrderAmount.getSelectedMaxValue().toString());
+////            filters.setClear(false);
+//        }
+//
+//        if (seekbarDistance.getSelectedMinValue().toString().equals("0")) {
+//            filters.setMinDistance("");
+////            filters.setClear(true);
+//        } else {
+//            filters.setMinDistance(seekbarDistance.getSelectedMinValue().toString());
+////            filters.setClear(false);
+//        }
+//
+//        if (seekbarDistance.getSelectedMaxValue().toString().equals("10")) {
+//            filters.setMaxDistance("");
+////            filters.setClear(true);
+//        } else {
+//            filters.setMaxDistance(seekbarDistance.getSelectedMaxValue().toString());
+////            filters.setClear(false);
+//        }
+//
+//        filters.setMinDistance(tvDistanceMin.getText().toString());
+//        filters.setMaxDistance(tvDistanceMax.getText().toString());
 
         if (ctvPickup.isChecked() || ctvDeliver.isChecked()) {
 
             Calendar calendar = Calendar.getInstance();
-
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-
             filters.setTime(simpleDateFormat.format(calendar.getTime()));
         }
 
-        filters.setClear(false);
         AppController.get(this).setFilters(filters);
     }
 
@@ -214,24 +262,34 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
         if (!filters.isClear()) {
 
+            Log.d("filters", ">>Set");
+
             if (filters.getMinOrderAmount() != null && !filters.getMinOrderAmount().isEmpty()) {
-                tvMinimumOrderMin.setText(filters.getMinOrderAmount());
-                seekbarMinimumOrderAmount.setMinStartValue(Float.parseFloat(filters.getMinOrderAmount()));
+//                tvMinimumOrderMin.setText(filters.getMinOrderAmount());
+
+                Log.d("getMinOrderAmount", ">>" + filters.getMinOrderAmount());
+                seekbarMinimumOrderAmount.setSelectedMinValue(Integer.parseInt(filters.getMinOrderAmount()));
+//                seekbarMinimumOrderAmount.setMinStartValue(Float.parseFloat(filters.getMinOrderAmount()));
             }
 
             if (filters.getMaxOrderAmount() != null && !filters.getMaxOrderAmount().isEmpty()) {
-                tvMinimumOrderMax.setText(filters.getMaxOrderAmount());
-                seekbarMinimumOrderAmount.setMaxStartValue(Float.parseFloat(filters.getMaxOrderAmount()));
+//                tvMinimumOrderMax.setText(filters.getMaxOrderAmount());
+
+                Log.d("getMaxOrderAmount", ">>" + filters.getMaxOrderAmount());
+                seekbarMinimumOrderAmount.setSelectedMaxValue(Integer.parseInt(filters.getMaxOrderAmount()));
+//                seekbarMinimumOrderAmount.setMaxStartValue(Float.parseFloat(filters.getMaxOrderAmount()));
             }
 
             if (filters.getMinDistance() != null && !filters.getMinDistance().isEmpty()) {
-                tvDistanceMin.setText(filters.getMinDistance());
-                seekbarDistance.setMinValue(Float.parseFloat(filters.getMinDistance()));
+//                tvDistanceMin.setText(filters.getMinDistance());
+                seekbarDistance.setSelectedMinValue(Integer.parseInt(filters.getMinDistance()));
+//                seekbarDistance.setMinValue(Float.parseFloat(filters.getMinDistance()));
             }
 
             if (filters.getMaxDistance() != null && !filters.getMaxDistance().isEmpty()) {
-                tvDistanceMax.setText(filters.getMaxDistance());
-                seekbarDistance.setMaxValue(Float.parseFloat(filters.getMaxDistance()));
+//                tvDistanceMax.setText(filters.getMaxDistance());
+                seekbarDistance.setSelectedMaxValue(Integer.parseInt(filters.getMaxDistance()));
+//                seekbarDistance.setMaxValue(Float.parseFloat(filters.getMaxDistance()));
             }
         }
     }
@@ -270,24 +328,31 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
     public void setOnRangeSeekbarChangeListenerMinimumAmount() {
 
-        seekbarMinimumOrderAmount.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
-            @Override
-            public void valueChanged(Number minValue, Number maxValue) {
-                tvMinimumOrderMin.setText(String.valueOf(minValue));
-                tvMinimumOrderMax.setText(String.valueOf(maxValue));
-            }
-        });
+//        seekbarMinimumOrderAmount.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
+//            @Override
+//            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
+//
+//            }
+//        });
+
+//        seekbarMinimumOrderAmount.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
+//            @Override
+//            public void valueChanged(Number minValue, Number maxValue) {
+//                tvMinimumOrderMin.setText(String.valueOf(minValue));
+//                tvMinimumOrderMax.setText(String.valueOf(maxValue));
+//            }
+//        });
     }
 
     public void setOnRangeSeekbarChangeListenerDistance() {
 
-        seekbarDistance.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
-            @Override
-            public void valueChanged(Number minValue, Number maxValue) {
-                tvDistanceMin.setText(String.valueOf(minValue));
-                tvDistanceMax.setText(String.valueOf(maxValue));
-            }
-        });
+//        seekbarDistance.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
+//            @Override
+//            public void valueChanged(Number minValue, Number maxValue) {
+//                tvDistanceMin.setText(String.valueOf(minValue));
+//                tvDistanceMax.setText(String.valueOf(maxValue));
+//            }
+//        });
     }
 
     public void setOnRatingChangedListener() {

@@ -28,45 +28,60 @@
                 android:text="Minimum Order Amount"
                 android:textColor="@color/black" />
 
-            <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+            <org.florescu.android.rangeseekbar.RangeSeekBar
                 android:id="@+id/activity_filters_seekbar_minimum_order_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:bar_color="@color/light_grey2"
-                app:bar_highlight_color="@color/orange"
-                app:corner_radius="10"
-                app:data_type="_integer"
-                app:left_thumb_color="@color/orange"
-                app:left_thumb_color_pressed="@color/orange"
-                app:max_value="5000"
-                app:min_value="0"
-                app:right_thumb_color="@color/orange"
-                app:right_thumb_color_pressed="@color/orange" />
+                rsb:absoluteMaxValue="5000"
+                rsb:absoluteMinValue="0"
+                app:thumbDisabled="@drawable/seekbar_thumb_disabled"
+                app:thumbNormal="@drawable/seekbar_thumb_normal"
+                app:thumbPressed="@drawable/seekbar_thumb_pressed"
+                rsb:textAboveThumbsColor="@color/orange"
+                rsb:thumbShadow="true" />
+            <!--rsb:thumbDisabled="@drawable/custom_slider_thumb"-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/activity_filters_tv_min_order_min"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/orange"
-                    android:textStyle="bold" />
+            <!--<com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar-->
+            <!--android:id="@+id/activity_filters_seekbar_minimum_order_amount"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--app:bar_color="@color/light_grey2"-->
+            <!--app:bar_highlight_color="@color/orange"-->
+            <!--app:corner_radius="10"-->
+            <!--app:data_type="_integer"-->
+            <!--app:left_thumb_color="@color/orange"-->
+            <!--app:left_thumb_color_pressed="@color/orange"-->
+            <!--app:max_value="5000"-->
+            <!--app:min_value="0"-->
+            <!--app:right_thumb_color="@color/orange"-->
+            <!--app:right_thumb_color_pressed="@color/orange" />-->
 
-                <TextView
-                    android:id="@+id/activity_filters_tv_min_order_max"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/orange"
-                    android:textStyle="bold" />
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:layout_marginStart="10dp"-->
+                <!--android:orientation="horizontal">-->
 
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/activity_filters_tv_min_order_min"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="aaaa"-->
+                    <!--android:textColor="@color/orange"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/activity_filters_tv_min_order_max"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textColor="@color/orange"-->
+                    <!--android:textStyle="bold" />-->
+
+            <!--</LinearLayout>-->
 
         </LinearLayout>
 
@@ -118,57 +133,80 @@
                 android:text="Distance"
                 android:textColor="@color/black" />
 
-            <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+            <org.florescu.android.rangeseekbar.RangeSeekBar
                 android:id="@+id/activity_filters_seekbar_distance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:bar_color="@color/light_grey2"
-                app:bar_highlight_color="@color/orange"
-                app:corner_radius="10"
-                app:data_type="_integer"
-                app:left_thumb_color="@color/orange"
-                app:left_thumb_color_pressed="@color/orange"
-                app:max_value="10"
-                app:min_value="0"
-                app:right_thumb_color="@color/orange"
-                app:right_thumb_color_pressed="@color/orange" />
+                rsb:absoluteMaxValue="10"
+                rsb:absoluteMinValue="0"
+                app:thumbDisabled="@drawable/seekbar_thumb_disabled"
+                app:thumbNormal="@drawable/seekbar_thumb_normal"
+                app:thumbPressed="@drawable/seekbar_thumb_pressed"
+                rsb:textAboveThumbsColor="@color/orange"
+                rsb:thumbShadow="true" />
+
+            <!--<com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar-->
+            <!--android:id="@+id/activity_filters_seekbar_distance"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--app:bar_color="@color/light_grey2"-->
+            <!--app:bar_highlight_color="@color/orange"-->
+            <!--app:corner_radius="10"-->
+            <!--app:data_type="_integer"-->
+            <!--app:left_thumb_color="@color/orange"-->
+            <!--app:left_thumb_color_pressed="@color/orange"-->
+            <!--app:max_value="10"-->
+            <!--app:min_value="0"-->
+            <!--app:right_thumb_color="@color/orange"-->
+            <!--app:right_thumb_color_pressed="@color/orange" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginStart="10dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/activity_filters_tv_distance_min"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/orange"
-                    android:textStyle="bold" />
+                <!--<TextView-->
+                    <!--android:id="@+id/activity_filters_tv_distance_min"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textColor="@color/orange"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="2dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="km"-->
+                    <!--android:textColor="@color/orange"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/activity_filters_tv_distance_max"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textColor="@color/orange"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="2dp"-->
+                    <!--android:text="km"-->
+                    <!--android:textColor="@color/orange"-->
+                    <!--android:textStyle="bold" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="*in km"
+                    android:gravity="end"
                     android:layout_weight="1"
-                    android:text="km"
-                    android:layout_marginLeft="2dp"
-                    android:textColor="@color/orange"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/activity_filters_tv_distance_max"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/orange"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="km"
-                    android:layout_marginLeft="2dp"
                     android:textColor="@color/orange"
                     android:textStyle="bold" />
 
