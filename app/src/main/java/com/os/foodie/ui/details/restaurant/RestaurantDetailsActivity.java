@@ -2,6 +2,7 @@ package com.os.foodie.ui.details.restaurant;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
+import com.os.foodie.data.network.model.cart.add.AddToCartResponse;
 import com.os.foodie.data.network.model.cart.view.CartList;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
 import com.os.foodie.data.network.model.details.Dish;
@@ -43,8 +45,11 @@ import com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingAc
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout;
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayoutBehavior;
 import com.os.foodie.ui.info.RestaurantInfoActivity;
+import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
+import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.DialogUtils;
 import com.wefika.flowlayout.FlowLayout;
 
 import java.util.ArrayList;
@@ -219,11 +224,13 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         setRestaurantDetails(restaurantDetailsResponse);
 
-        if (restaurantDetailsResponse.getResponse().getIsLike().equals("1")) {
+        if (restaurantDetailsResponse.getResponse().getIsLike() == 1) {
             ivLikes.setImageResource(R.mipmap.ic_like_true);
         } else {
             ivLikes.setImageResource(R.mipmap.ic_like_false);
         }
+
+        tvLikes.setText(restaurantDetailsResponse.getResponse().getLikeCount().toString());
 
         Log.d("getDishList size", ">>" + restaurantDetailsResponse.getResponse().getMenu().size());
 //        Log.d("keySet", ">>" + restaurantDetailsResponse.getResponse().getDishes().keySet().toString());
@@ -246,7 +253,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
             onPageSelected(viewPager.getCurrentItem());
         }
 
-        Log.d("getLogo",">>"+restaurantDetailsResponse.getResponse().getLogo());
+        Log.d("getLogo", ">>" + restaurantDetailsResponse.getResponse().getLogo());
 
         Glide.with(this)
                 .load(restaurantDetailsResponse.getResponse().getLogo())
@@ -328,11 +335,15 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         setRestaurantDetails(restaurantDetailsResponse);
 
-        if (restaurantDetailsResponse.getResponse().getIsLike().equals("1")) {
+//        if (restaurantDetailsResponse.getResponse().getIsLike().equals("1")) {
+
+        if (restaurantDetailsResponse.getResponse().getIsLike() == 1) {
             ivLikes.setImageResource(R.mipmap.ic_like_true);
         } else {
             ivLikes.setImageResource(R.mipmap.ic_like_false);
         }
+
+        tvLikes.setText(restaurantDetailsResponse.getResponse().getLikeCount().toString());
 
         ArrayList<String> urls = new ArrayList<String>();
 
@@ -416,11 +427,14 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
     public void setOnItemTouch() {
 
+//        if(restaurantDetails.getRestaurantName())
 
         RecyclerTouchListener.ClickListener clickListener = new RecyclerTouchListener.ClickListener() {
 
             @Override
             public void onClick(View view, final int position) {
+
+//                if (restaurantDetails.getInCart() == 1) {
 
                 if (objectArrayList.get(position) instanceof Dish) {
 
@@ -446,7 +460,6 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                     tvItemQuantity.setText(dish.getQty());
 
                     if (dish.getQty().equals("0")) {
-
                         btUpdate.setText("Add");
                         isUpdate = false;
                     } else {
@@ -465,6 +478,44 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                     final TextView tvItemQuantityTemp = tvItemQuantity;
                     final TextView tvPriceTemp = tvPrice;
                     final Button btUpdateTemp = btUpdate;
+
+                    final View.OnClickListener onClickListener = new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (tvItemQuantityTemp.getText().toString().equals("0")) {
+//                            cartLists.remove(position);
+//
+//                            myBasketAdapter.notifyDataSetChanged();
+//                            updateTotalAmount();
+                                mBottomSheetDialog.dismiss();
+                                restaurantDetailsMvpPresenter.removeFromMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), ((Dish) objectArrayList.get(position)).getDishId(), position);
+
+                            } else {
+//                            cartLists.get(position).setQty(tvItemQuantityTemp.getText().toString());
+//
+//                            myBasketAdapter.notifyDataSetChanged();
+//                            updateTotalAmount();
+                                mBottomSheetDialog.dismiss();
+                                if (isUpdate) {
+                                    restaurantDetailsMvpPresenter.updateMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), restaurantId, ((Dish) objectArrayList.get(position)).getDishId(), tvItemQuantityTemp.getText().toString(), ((Dish) objectArrayList.get(position)).getPrice(), position);
+                                } else {
+
+                                    AddToCartRequest addToCartRequest = new AddToCartRequest();
+
+                                    addToCartRequest.setDishId(((Dish) objectArrayList.get(position)).getDishId());
+                                    addToCartRequest.setUserId(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId());
+                                    addToCartRequest.setRestaurantId(restaurantId);
+                                    addToCartRequest.setPrice(((Dish) objectArrayList.get(position)).getPrice());
+                                    addToCartRequest.setQty((Integer.parseInt(((Dish) objectArrayList.get(position)).getQty()) + 1) + "");
+
+                                    restaurantDetailsMvpPresenter.addItemToCart(position, addToCartRequest);
+
+//                                    restaurantDetailsMvpPresenter.updateMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), ((Dish) objectArrayList.get(position)).getDishId(), tvItemQuantityTemp.getText().toString(), position);
+                                }
+                            }
+                        }
+                    };
 
                     ivMinus.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -489,8 +540,12 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                             }
 
                             if (quantity <= 0) {
-                                btUpdateTemp.setText("Remove Item");
-                                btUpdateTemp.setTextColor(ContextCompat.getColor(RestaurantDetailsActivity.this, R.color.red));
+                                if(isUpdate) {
+                                    btUpdateTemp.setText("Remove Item");
+                                    btUpdateTemp.setTextColor(ContextCompat.getColor(RestaurantDetailsActivity.this, R.color.red));
+                                } else {
+                                    btUpdateTemp.setOnClickListener(null);
+                                }
                             }
                         }
                     });
@@ -503,6 +558,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                             int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
 
                             if (quantity >= 0) {
+
+                                btUpdateTemp.setOnClickListener(onClickListener);
 
                                 quantity++;
 
@@ -518,7 +575,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
                                 if (isUpdate) {
                                     btUpdateTemp.setText("Update");
-                                }else {
+                                } else {
                                     btUpdateTemp.setText("Add");
                                 }
 
@@ -527,43 +584,12 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                         }
                     });
 
-                    btUpdate.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+                    if (dish.getQty().equals("0")) {
 
-                            if (tvItemQuantityTemp.getText().toString().equals("0")) {
-//                            cartLists.remove(position);
-//
-//                            myBasketAdapter.notifyDataSetChanged();
-//                            updateTotalAmount();
-                                mBottomSheetDialog.dismiss();
-                                restaurantDetailsMvpPresenter.removeFromMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), ((Dish) objectArrayList.get(position)).getDishId(), position);
-
-                            } else {
-//                            cartLists.get(position).setQty(tvItemQuantityTemp.getText().toString());
-//
-//                            myBasketAdapter.notifyDataSetChanged();
-//                            updateTotalAmount();
-                                mBottomSheetDialog.dismiss();
-                                if (isUpdate) {
-                                    restaurantDetailsMvpPresenter.updateMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), ((Dish) objectArrayList.get(position)).getDishId(), tvItemQuantityTemp.getText().toString(), position);
-                                } else {
-
-                                    AddToCartRequest addToCartRequest = new AddToCartRequest();
-
-                                    addToCartRequest.setDishId(((Dish) objectArrayList.get(position)).getDishId());
-                                    addToCartRequest.setUserId(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId());
-                                    addToCartRequest.setRestaurantId(restaurantId);
-                                    addToCartRequest.setPrice(((Dish) objectArrayList.get(position)).getPrice());
-                                    addToCartRequest.setQty((Integer.parseInt(((Dish) objectArrayList.get(position)).getQty()) + 1) + "");
-
-                                    restaurantDetailsMvpPresenter.addItemToCart(addToCartRequest);
-
-//                                    restaurantDetailsMvpPresenter.updateMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), ((Dish) objectArrayList.get(position)).getDishId(), tvItemQuantityTemp.getText().toString(), position);
-                                }
-                            }
-                        }
-                    });
+                        btUpdate.setOnClickListener(null);
+                    } else {
+                        btUpdate.setOnClickListener(onClickListener);
+                    }
 
                     mBottomSheetDialog.setContentView(dialogView); // your custom view.
                     mBottomSheetDialog.setCancelable(true);
@@ -571,6 +597,29 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                     mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
                     mBottomSheetDialog.show();
                 }
+
+//                } else {
+//
+//                    DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                            restaurantDetailsMvpPresenter.clearBasket();
+//                        }
+//                    };
+//
+//                    DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    };
+//
+//                    DialogUtils.showAlert(RestaurantDetailsActivity.this,
+//                            R.string.alert_dialog_title_clear_basket, R.string.alert_dialog_text_clear_basket,
+//                            getResources().getString(R.string.alert_dialog_bt_ok), positiveButton,
+//                            getResources().getString(R.string.alert_dialog_bt_cancel), negativeButton);
+//                }
             }
 
             @Override
@@ -592,10 +641,11 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         }
     }
 
-    @Override
-    public void refreshDetails() {
-        restaurantDetailsMvpPresenter.getRestaurantDetails(restaurantId);
-    }
+//    @Override
+//    public void refreshDetails(int position, String quantity, AddToCartResponse addToCartResponse) {
+//
+////        restaurantDetailsMvpPresenter.getRestaurantDetails(restaurantId);
+//    }
 
     public void setRestaurantDetails(CustomerRestaurantDetailsResponse restaurantDetailsResponse) {
 
@@ -618,6 +668,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         restaurantDetails.setDeliveryCharge(restaurantDetailsResponse.getResponse().getDeliveryCharge());
         restaurantDetails.setDeliveryType(restaurantDetailsResponse.getResponse().getDeliveryType());
         restaurantDetails.setDeliveryZipcode(restaurantDetailsResponse.getResponse().getDeliveryZipcode());
+        restaurantDetails.setInCart(restaurantDetailsResponse.getResponse().getInCart());
     }
 
     @Override
@@ -670,7 +721,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         for (int i = 0; i < objectArrayList.size(); i++) {
 
-            if(objectArrayList.get(i) instanceof Dish && ((Dish) objectArrayList.get(i)).getDishId().equals(dishId)){
+            if (objectArrayList.get(i) instanceof Dish && ((Dish) objectArrayList.get(i)).getDishId().equals(dishId)) {
                 ((Dish) objectArrayList.get(i)).setQty("0");
             }
         }
@@ -680,34 +731,44 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
     }
 
     @Override
-    public void updateMyBasket(int position, String quantity) {
+    public void updateMyBasket(int position, String quantity, String totalQuantity, String totalAmount) {
 
         String dishId = ((Dish) objectArrayList.get(position)).getDishId();
 
         for (int i = 0; i < objectArrayList.size(); i++) {
 
-            if(objectArrayList.get(i) instanceof Dish && ((Dish) objectArrayList.get(i)).getDishId().equals(dishId)){
+            if (objectArrayList.get(i) instanceof Dish && ((Dish) objectArrayList.get(i)).getDishId().equals(dishId)) {
                 ((Dish) objectArrayList.get(i)).setQty(quantity);
             }
         }
 
 //        ((Dish) objectArrayList.get(position)).setQty(quantity);
         courseAdapter.notifyDataSetChanged();
-        updateTotalAmount();
-    }
+//        updateTotalAmount();
 
-    public void updateTotalAmount() {
+        if (Integer.parseInt(totalQuantity) > 0) {
 
-        courseAdapter.calcBasketDetails();
-
-        if (courseAdapter.getTotalQuantity() > 0) {
-
-            tvTotalQuantity.setText(String.valueOf(courseAdapter.getTotalQuantity()));
-            tvTotalAmount.setText("$" + courseAdapter.getTotalAmount());
+            tvTotalQuantity.setText(totalQuantity);
+            tvTotalAmount.setText("$" + totalAmount);
 
             rlBasketDetails.setVisibility(View.VISIBLE);
         } else {
             rlBasketDetails.setVisibility(View.GONE);
         }
+    }
+
+    public void updateTotalAmount() {
+
+//        courseAdapter.calcBasketDetails();
+//
+//        if (courseAdapter.getTotalQuantity() > 0) {
+//
+//            tvTotalQuantity.setText(String.valueOf(courseAdapter.getTotalQuantity()));
+//            tvTotalAmount.setText("$" + courseAdapter.getTotalAmount());
+//
+//            rlBasketDetails.setVisibility(View.VISIBLE);
+//        } else {
+//            rlBasketDetails.setVisibility(View.GONE);
+//        }
     }
 }

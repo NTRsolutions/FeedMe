@@ -106,6 +106,7 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
             replaceFragment(CustomerHomeFragment.newInstance(), CustomerHomeFragment.TAG);
 
         } else if (id == R.id.nav_account) {
+
             replaceFragment(CustomerAccountFragment.newInstance(), CustomerAccountFragment.TAG);
 
         } else if (id == R.id.nav_order_history) {

@@ -11,6 +11,9 @@ public class RestaurantDetails implements Parcelable {
     @SerializedName("id")
     @Expose
     private String id;
+    @SerializedName("in_cart")
+    @Expose
+    private Integer inCart;
     @SerializedName("restaurant_name")
     @Expose
     private String restaurantName;
@@ -92,6 +95,7 @@ public class RestaurantDetails implements Parcelable {
             instance.deliveryCharge = ((String) in.readValue((String.class.getClassLoader())));
             instance.deliveryType = ((String) in.readValue((String.class.getClassLoader())));
             instance.deliveryZipcode = ((String) in.readValue((String.class.getClassLoader())));
+            instance.inCart = ((Integer) in.readValue((Integer.class.getClassLoader())));
             return instance;
         }
 
@@ -128,7 +132,7 @@ public class RestaurantDetails implements Parcelable {
      * @param openingTime
      * @param restaurantName
      */
-    public RestaurantDetails(String id, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String deliveryZipcode) {
+    public RestaurantDetails(String id, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String deliveryZipcode, Integer inCart) {
         super();
         this.id = id;
         this.restaurantName = restaurantName;
@@ -149,6 +153,7 @@ public class RestaurantDetails implements Parcelable {
         this.deliveryCharge = deliveryCharge;
         this.deliveryType = deliveryType;
         this.deliveryZipcode = deliveryZipcode;
+        this.inCart = inCart;
     }
 
     public String getId() {
@@ -303,6 +308,14 @@ public class RestaurantDetails implements Parcelable {
         this.deliveryZipcode = deliveryZipcode;
     }
 
+    public Integer getInCart() {
+        return inCart;
+    }
+
+    public void setInCart(Integer inCart) {
+        this.inCart = inCart;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);
         dest.writeValue(restaurantName);
@@ -323,6 +336,7 @@ public class RestaurantDetails implements Parcelable {
         dest.writeValue(deliveryCharge);
         dest.writeValue(deliveryType);
         dest.writeValue(deliveryZipcode);
+        dest.writeValue(inCart);
     }
 
     public int describeContents() {

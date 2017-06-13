@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Response {
 
+    @SerializedName("data")
+    @Expose
+    private Data data;
     @SerializedName("message")
     @Expose
     private String message;
@@ -24,11 +27,21 @@ public class Response {
      * 
      * @param message
      * @param status
+     * @param data
      */
-    public Response(String message, Integer status) {
+    public Response(Data data, String message, Integer status) {
         super();
+        this.data = data;
         this.message = message;
         this.status = status;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
     }
 
     public String getMessage() {

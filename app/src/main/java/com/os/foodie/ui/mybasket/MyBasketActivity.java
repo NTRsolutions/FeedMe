@@ -102,7 +102,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
 
                 Button btUpdate = (Button) dialogView.findViewById(R.id.dialog_item_quantity_bt_update);
 
-                CartList cartItem = cartLists.get(position);
+                final CartList cartItem = cartLists.get(position);
 
                 tvItemName.setText(cartItem.getName());
                 tvItemQuantity.setText(cartItem.getQty());
@@ -193,7 +193,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
 //                            myBasketAdapter.notifyDataSetChanged();
 //                            updateTotalAmount();
                             mBottomSheetDialog.dismiss();
-                            myBasketMvpPresenter.updateMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(), tvItemQuantityTemp.getText().toString(), position);
+                            myBasketMvpPresenter.updateMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(),viewCartResponse.getResponse().getRestaurantId(), tvItemQuantityTemp.getText().toString(),cartLists.get(position).getPrice(), position);
                         }
                     }
                 });
@@ -346,11 +346,27 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
     }
 
     @Override
-    public void updateMyBasket(int position, String quantity) {
-        cartLists.get(position).setQty(quantity);
-        myBasketAdapter.notifyDataSetChanged();
-        updateTotalAmount();
+    public void updateMyBasket(int position, String quantity, String totalQuantity, String totalAmount) {
 
+        cartLists.get(position).setQty(quantity);
+
+        myBasketAdapter.notifyDataSetChanged();
+
+//        updateTotalAmount();
+
+        if (Integer.parseInt(totalQuantity) > 0) {
+
+            if (llDeliveryCharges.getVisibility() == View.VISIBLE) {
+                totalAmount = Float.parseFloat(totalAmount) + Float.parseFloat(viewCartResponse.getResponse().getDeliveryCharge()) + "";
+            }
+
+            tvTotalAmount.setText("$" + totalAmount);
+
+//            rlBasketDetails.setVisibility(View.VISIBLE);
+        }
+//        else {
+//            rlBasketDetails.setVisibility(View.GONE);
+//        }
     }
 
     public void clearBasket() {

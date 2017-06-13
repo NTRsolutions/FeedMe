@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/fragment_delivery_address_tv_personal_addresses"
+        style="@style/TextView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:padding="20dp"
+        android:text="Personal Addresses"
+        android:textSize="20sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fragment_delivery_address_bt_add_new_address"
+        android:layout_below="@+id/fragment_delivery_address_tv_personal_addresses"></android.support.v7.widget.RecyclerView>
+
+    <com.os.foodie.ui.custom.RippleAppCompatButton
+        android:id="@+id/fragment_delivery_address_bt_add_new_address"
+        style="@style/ButtonOrange"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="Add New Address" />
+
+</RelativeLayout>

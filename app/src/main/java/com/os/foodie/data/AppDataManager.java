@@ -13,6 +13,8 @@ import com.os.foodie.data.network.model.account.GetAccountDetailRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailResponse;
 import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
 import com.os.foodie.data.network.model.cart.add.AddToCartResponse;
+import com.os.foodie.data.network.model.cart.clear.ClearCartRequest;
+import com.os.foodie.data.network.model.cart.clear.ClearCartResponse;
 import com.os.foodie.data.network.model.cart.remove.RemoveFromCartRequest;
 import com.os.foodie.data.network.model.cart.remove.RemoveFromCartResponse;
 import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
@@ -282,6 +284,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Observable<ClearCartResponse> clearCart(ClearCartRequest clearCartRequest) {
+        return apiHelper.clearCart(clearCartRequest);
+    }
+
+    @Override
     public Observable<AddMenuItemResponse> addRestaurantMenuItem(AddMenuItemRequest addMenuItemRequest) {
         return apiHelper.addRestaurantMenuItem(addMenuItemRequest);
     }
@@ -308,7 +315,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public Observable<EditRestaurantAccountResponse> editRestaurantAccount(EditRestaurantAccountRequest editRestaurantAccountRequest, HashMap<String, File> fileMap) {
-        return apiHelper.editRestaurantAccount(editRestaurantAccountRequest,fileMap);
+        return apiHelper.editRestaurantAccount(editRestaurantAccountRequest, fileMap);
     }
 
 

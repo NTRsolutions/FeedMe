@@ -12,9 +12,15 @@ public class UpdateCartRequest {
     @SerializedName("dish_id")
     @Expose
     private String dishId;
+    @SerializedName("restaurant_id")
+    @Expose
+    private String restaurantId;
     @SerializedName("qty")
     @Expose
     private String qty;
+    @SerializedName("price")
+    @Expose
+    private String price;
 
     /**
      * No args constructor for use in serialization
@@ -25,15 +31,19 @@ public class UpdateCartRequest {
 
     /**
      * 
+     * @param price
      * @param userId
      * @param qty
      * @param dishId
+     * @param restaurantId
      */
-    public UpdateCartRequest(String userId, String dishId, String qty) {
+    public UpdateCartRequest(String userId, String dishId, String restaurantId, String qty, String price) {
         super();
         this.userId = userId;
         this.dishId = dishId;
+        this.restaurantId = restaurantId;
         this.qty = qty;
+        this.price = price;
     }
 
     public String getUserId() {
@@ -52,12 +62,28 @@ public class UpdateCartRequest {
         this.dishId = dishId;
     }
 
+    public String getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(String restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
     public String getQty() {
         return qty;
     }
 
     public void setQty(String qty) {
         this.qty = qty;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
 }

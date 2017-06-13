@@ -1,10 +1,10 @@
 
-package com.os.foodie.data.network.model.details;
+package com.os.foodie.data.network.model.cart.clear;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CustomerRestaurantDetailsResponse {
+public class ClearCartResponse {
 
     @SerializedName("response")
     @Expose
@@ -14,14 +14,14 @@ public class CustomerRestaurantDetailsResponse {
      * No args constructor for use in serialization
      * 
      */
-    public CustomerRestaurantDetailsResponse() {
+    public ClearCartResponse() {
     }
 
     /**
      * 
      * @param response
      */
-    public CustomerRestaurantDetailsResponse(Response response) {
+    public ClearCartResponse(Response response) {
         super();
         this.response = response;
     }

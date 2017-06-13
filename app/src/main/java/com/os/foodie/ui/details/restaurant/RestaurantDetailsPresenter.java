@@ -6,6 +6,8 @@ import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
 import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
 import com.os.foodie.data.network.model.cart.add.AddToCartResponse;
+import com.os.foodie.data.network.model.cart.clear.ClearCartRequest;
+import com.os.foodie.data.network.model.cart.clear.ClearCartResponse;
 import com.os.foodie.data.network.model.cart.remove.RemoveFromCartRequest;
 import com.os.foodie.data.network.model.cart.remove.RemoveFromCartResponse;
 import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
@@ -117,7 +119,7 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
     }
 
     @Override
-    public void addItemToCart(AddToCartRequest addToCartRequest) {
+    public void addItemToCart(final int position, final AddToCartRequest addToCartRequest) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -136,7 +138,9 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
                             if (addToCartResponse.getResponse().getStatus() == 1) {
 
                                 Log.d("getMessage", ">>Success");
-                                getMvpView().refreshDetails();
+//                                getMvpView().refreshDetails(position, addToCartRequest.getQty(), addToCartResponse);
+                                getMvpView().updateMyBasket(position, addToCartRequest.getQty(),addToCartResponse.getResponse().getData().getTotalCartQuantity(),addToCartResponse.getResponse().getData().getTotalCartAmount());
+
 
                             } else {
                                 Log.d("getMessage", ">>Failed");
@@ -200,7 +204,7 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
     }
 
     @Override
-    public void updateMyBasket(String userId, String itemId, final String quantity, final int position) {
+    public void updateMyBasket(String userId, String restaurantId, String itemId, final String quantity, String price, final int position) {
 
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
@@ -210,7 +214,7 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
             Log.d("itemId", ">>" + itemId);
 
             getCompositeDisposable().add(getDataManager()
-                    .updateCart(new UpdateCartRequest(userId, itemId, quantity))
+                    .updateCart(new UpdateCartRequest(userId, itemId, restaurantId, quantity, price))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<UpdateCartResponse>() {
@@ -221,12 +225,51 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
                             if (updateCartResponse.getResponse().getStatus() == 1) {
 
-                                getMvpView().updateMyBasket(position, quantity);
-//                                getMvpView().setMyBasket(viewCartResponse);
+                                getMvpView().updateMyBasket(position, quantity,updateCartResponse.getResponse().getData().getTotalCartQuantity(),updateCartResponse.getResponse().getData().getTotalCartAmount());
+////                                getMvpView().setMyBasket(viewCartResponse);
 
                             } else {
                                 getMvpView().onError(updateCartResponse.getResponse().getMessage());
 //                                getMvpView().onError("No Restaurant found");
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            getMvpView().hideLoading();
+                            Log.d("Error", ">>ErrThorwed");
+                            getMvpView().onError(R.string.api_default_error);
+                            Log.d("Error", ">>Err" + throwable.getMessage());
+                        }
+                    }));
+        } else {
+            getMvpView().onError(R.string.connection_error);
+        }
+    }
+
+    @Override
+    public void clearBasket() {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
+            getMvpView().showLoading();
+
+            getCompositeDisposable().add(getDataManager()
+                    .clearCart(new ClearCartRequest(getDataManager().getCurrentUserId()))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<ClearCartResponse>() {
+                        @Override
+                        public void accept(ClearCartResponse clearCartResponse) throws Exception {
+
+                            getMvpView().hideLoading();
+
+                            if (clearCartResponse.getResponse().getStatus() == 1) {
+
+                                getMvpView().onError(clearCartResponse.getResponse().getMessage());
+
+                            } else {
+                                getMvpView().onError(clearCartResponse.getResponse().getMessage());
                             }
                         }
                     }, new Consumer<Throwable>() {

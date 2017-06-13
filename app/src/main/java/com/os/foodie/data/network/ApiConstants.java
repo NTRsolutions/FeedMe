@@ -51,4 +51,5 @@ public class ApiConstants {
     public static final String UPDATE_CART = "edit_cart";
     public static final String REMOVE_FROM_CART = "remove_dish_from_cart";
     public static final String CART_DETAIL = "cart_detail";
+    public static final String CLEAR_CART = "remove_user_cart";
 }

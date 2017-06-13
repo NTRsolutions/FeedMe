@@ -1,5 +1,5 @@
 
-package com.os.foodie.data.network.model.cart.add;
+package com.os.foodie.data.network.model.cart.clear;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -9,9 +9,6 @@ public class Response {
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("data")
-    @Expose
-    private Data data;
     @SerializedName("status")
     @Expose
     private Integer status;
@@ -27,12 +24,10 @@ public class Response {
      * 
      * @param message
      * @param status
-     * @param data
      */
-    public Response(String message, Data data, Integer status) {
+    public Response(String message, Integer status) {
         super();
         this.message = message;
-        this.data = data;
         this.status = status;
     }
 
@@ -42,14 +37,6 @@ public class Response {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public Data getData() {
-        return data;
-    }
-
-    public void setData(Data data) {
-        this.data = data;
     }
 
     public Integer getStatus() {

@@ -114,7 +114,7 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
     }
 
     @Override
-    public void updateMyBasket(String userId, String itemId, final String quantity, final int position) {
+    public void updateMyBasket(String userId, String itemId, String restaurantId, final String qty, String price, final int position) {
 
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
@@ -124,7 +124,7 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
             Log.d("itemId", ">>" + itemId);
 
             getCompositeDisposable().add(getDataManager()
-                    .updateCart(new UpdateCartRequest(userId, itemId, quantity))
+                    .updateCart(new UpdateCartRequest(userId, itemId, restaurantId, qty, price))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<UpdateCartResponse>() {
@@ -135,7 +135,7 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
 
                             if (updateCartResponse.getResponse().getStatus() == 1) {
 
-                                getMvpView().updateMyBasket(position, quantity);
+                                getMvpView().updateMyBasket(position, qty, updateCartResponse.getResponse().getData().getTotalCartQuantity(), updateCartResponse.getResponse().getData().getTotalCartAmount());
 //                                getMvpView().setMyBasket(viewCartResponse);
 
                             } else {

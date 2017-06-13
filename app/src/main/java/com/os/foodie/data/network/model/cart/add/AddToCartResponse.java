@@ -1,3 +1,4 @@
+
 package com.os.foodie.data.network.model.cart.add;
 
 import com.google.gson.annotations.Expose;
@@ -11,11 +12,13 @@ public class AddToCartResponse {
 
     /**
      * No args constructor for use in serialization
+     * 
      */
     public AddToCartResponse() {
     }
 
     /**
+     * 
      * @param response
      */
     public AddToCartResponse(Response response) {

@@ -1,15 +1,14 @@
 
 package com.os.foodie.data.network.model.details;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.os.Parcelable.Creator;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Dish implements Parcelable
-{
+public class Dish {
 
+    @SerializedName("qty")
+    @Expose
+    private String qty;
     @SerializedName("dish_id")
     @Expose
     private String dishId;
@@ -37,36 +36,6 @@ public class Dish implements Parcelable
     @SerializedName("status")
     @Expose
     private String status;
-    @SerializedName("qty")
-    @Expose
-    private String qty;
-    public final static Creator<Dish> CREATOR = new Creator<Dish>() {
-
-
-        @SuppressWarnings({
-            "unchecked"
-        })
-        public Dish createFromParcel(Parcel in) {
-            Dish instance = new Dish();
-            instance.dishId = ((String) in.readValue((String.class.getClassLoader())));
-            instance.name = ((String) in.readValue((String.class.getClassLoader())));
-            instance.courseId = ((String) in.readValue((String.class.getClassLoader())));
-            instance.courseName = ((String) in.readValue((String.class.getClassLoader())));
-            instance.description = ((String) in.readValue((String.class.getClassLoader())));
-            instance.price = ((String) in.readValue((String.class.getClassLoader())));
-            instance.avail = ((String) in.readValue((String.class.getClassLoader())));
-            instance.vegNonveg = ((String) in.readValue((String.class.getClassLoader())));
-            instance.status = ((String) in.readValue((String.class.getClassLoader())));
-            instance.qty = ((String) in.readValue((String.class.getClassLoader())));
-            return instance;
-        }
-
-        public Dish[] newArray(int size) {
-            return (new Dish[size]);
-        }
-
-    }
-    ;
 
     /**
      * No args constructor for use in serialization
@@ -83,12 +52,14 @@ public class Dish implements Parcelable
      * @param description
      * @param name
      * @param avail
+     * @param qty
      * @param courseId
      * @param dishId
      * @param courseName
      */
-    public Dish(String dishId, String name, String courseId, String courseName, String description, String price, String avail, String vegNonveg, String status, String qty) {
+    public Dish(String qty, String dishId, String name, String courseId, String courseName, String description, String price, String avail, String vegNonveg, String status) {
         super();
+        this.qty = qty;
         this.dishId = dishId;
         this.name = name;
         this.courseId = courseId;
@@ -98,6 +69,13 @@ public class Dish implements Parcelable
         this.avail = avail;
         this.vegNonveg = vegNonveg;
         this.status = status;
+    }
+
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String qty) {
         this.qty = qty;
     }
 
@@ -171,31 +149,6 @@ public class Dish implements Parcelable
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getQty() {
-        return qty;
-    }
-
-    public void setQty(String qty) {
-        this.qty = qty;
-    }
-
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(dishId);
-        dest.writeValue(name);
-        dest.writeValue(courseId);
-        dest.writeValue(courseName);
-        dest.writeValue(description);
-        dest.writeValue(price);
-        dest.writeValue(avail);
-        dest.writeValue(vegNonveg);
-        dest.writeValue(status);
-        dest.writeValue(qty);
-    }
-
-    public int describeContents() {
-        return  0;
     }
 
 }

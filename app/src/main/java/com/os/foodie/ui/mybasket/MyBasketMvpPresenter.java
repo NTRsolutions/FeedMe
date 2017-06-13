@@ -8,5 +8,5 @@ public interface MyBasketMvpPresenter<V extends MyBasketMvpView> extends MvpPres
 
     void removeFromMyBasket(String userId, String itemId, int position);
 
-    void updateMyBasket(String userId, String itemId, String quantity, int position);
+    void updateMyBasket(String userId, String itemId, String restaurantId, String qty, String price, final int position);
 }

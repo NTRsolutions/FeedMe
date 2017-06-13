@@ -9,9 +9,11 @@ public interface RestaurantDetailsMvpPresenter<V extends RestaurantDetailsMvpVie
 
     void doLikeDislike(String restaurantId);
 
-    void addItemToCart(AddToCartRequest addToCartRequest);
+    void addItemToCart(int position, AddToCartRequest addToCartRequest);
 
     void removeFromMyBasket(String userId, String itemId, int position);
 
-    void updateMyBasket(String userId, String itemId, String quantity, int position);
+    void updateMyBasket(String userId, String restaurantId, String itemId, String quantity, String price, int position);
+
+    void clearBasket();
 }

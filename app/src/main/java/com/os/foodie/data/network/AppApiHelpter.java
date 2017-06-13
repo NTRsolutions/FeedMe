@@ -15,6 +15,8 @@ import com.os.foodie.data.network.model.account.GetAccountDetailRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailResponse;
 import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
 import com.os.foodie.data.network.model.cart.add.AddToCartResponse;
+import com.os.foodie.data.network.model.cart.clear.ClearCartRequest;
+import com.os.foodie.data.network.model.cart.clear.ClearCartResponse;
 import com.os.foodie.data.network.model.cart.remove.RemoveFromCartRequest;
 import com.os.foodie.data.network.model.cart.remove.RemoveFromCartResponse;
 import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
@@ -610,6 +612,23 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(UpdateCartResponse.class);
+    }
+
+    @Override
+    public Observable<ClearCartResponse> clearCart(ClearCartRequest clearCartRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(clearCartRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.CLEAR_CART)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(ClearCartResponse.class);
     }
 
     @Override
