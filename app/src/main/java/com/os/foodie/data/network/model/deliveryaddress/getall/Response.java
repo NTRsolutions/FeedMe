@@ -2,10 +2,14 @@
 package com.os.foodie.data.network.model.deliveryaddress.getall;
 
 import java.util.List;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.os.Parcelable.Creator;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Response {
+public class Response implements Parcelable
+{
 
     @SerializedName("address")
     @Expose
@@ -16,6 +20,26 @@ public class Response {
     @SerializedName("message")
     @Expose
     private String message;
+    public final static Creator<Response> CREATOR = new Creator<Response>() {
+
+
+        @SuppressWarnings({
+            "unchecked"
+        })
+        public Response createFromParcel(Parcel in) {
+            Response instance = new Response();
+            in.readList(instance.address, (com.os.foodie.data.network.model.deliveryaddress.getall.Address.class.getClassLoader()));
+            instance.status = ((Integer) in.readValue((Integer.class.getClassLoader())));
+            instance.message = ((String) in.readValue((String.class.getClassLoader())));
+            return instance;
+        }
+
+        public Response[] newArray(int size) {
+            return (new Response[size]);
+        }
+
+    }
+    ;
 
     /**
      * No args constructor for use in serialization
@@ -59,6 +83,16 @@ public class Response {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeList(address);
+        dest.writeValue(status);
+        dest.writeValue(message);
+    }
+
+    public int describeContents() {
+        return  0;
     }
 
 }

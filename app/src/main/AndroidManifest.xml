@@ -142,7 +142,7 @@
             android:label="Delivery Address"
             android:theme="@style/AppTheme2"></activity>
         <activity
-            android:name=".ui.deliveryaddress.addedit.AddDeliveryAddressActivity"
+            android:name=".ui.deliveryaddress.addedit.AddEditDeliveryAddressActivity"
             android:label="Add Address"
             android:theme="@style/AppTheme2"></activity>
     </application>

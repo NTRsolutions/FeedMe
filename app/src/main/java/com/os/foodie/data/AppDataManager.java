@@ -34,6 +34,8 @@ import com.os.foodie.data.network.model.deliveryaddress.delete.DeleteAddressRequ
 import com.os.foodie.data.network.model.deliveryaddress.delete.DeleteAddressResponse;
 import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressRequest;
 import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressResponse;
+import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressRequest;
+import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressResponse;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsRequest;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordRequest;
@@ -346,6 +348,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<ForgotPasswordResponse> addDeliveryAddress(AddDeliveryAddressRequest addDeliveryAddressRequest) {
         return apiHelper.addDeliveryAddress(addDeliveryAddressRequest);
+    }
+
+    @Override
+    public Observable<UpdateAddressResponse> updateDeliveryAddress(UpdateAddressRequest updateAddressRequest) {
+        return apiHelper.updateDeliveryAddress(updateAddressRequest);
     }
 
 

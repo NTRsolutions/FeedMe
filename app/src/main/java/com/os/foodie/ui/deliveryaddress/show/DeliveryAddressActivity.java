@@ -6,7 +6,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +16,8 @@ import com.os.foodie.data.network.model.deliveryaddress.getall.Address;
 import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressResponse;
 import com.os.foodie.ui.adapter.recyclerview.DeliveryAddressAdapter;
 import com.os.foodie.ui.base.BaseActivity;
-import com.os.foodie.ui.deliveryaddress.addedit.AddDeliveryAddressActivity;
+import com.os.foodie.ui.deliveryaddress.addedit.AddEditDeliveryAddressActivity;
+import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
 
@@ -76,8 +76,8 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
 
         if (v.getId() == btAddNewAddress.getId()) {
 
-            Intent intent = new Intent(DeliveryAddressActivity.this, AddDeliveryAddressActivity.class);
-            startActivity(intent);
+            Intent intent = new Intent(DeliveryAddressActivity.this, AddEditDeliveryAddressActivity.class);
+            startActivityForResult(intent, 1);
         }
     }
 
@@ -104,5 +104,27 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
     public void onAddressDelete(int position) {
         addresses.remove(position);
         deliveryAddressAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == 1 && data != null) {
+
+            Address address = data.getParcelableExtra(AppConstants.DELIVERY_ADDRESS);
+
+            addresses.add(address);
+            deliveryAddressAdapter.notifyDataSetChanged();
+
+        } else if (resultCode == 2 && data != null) {
+
+            int position = data.getIntExtra(AppConstants.POSITION, -1);
+            Address address = data.getParcelableExtra(AppConstants.DELIVERY_ADDRESS);
+
+            addresses.set(position, address);
+            deliveryAddressAdapter.notifyDataSetChanged();
+        }
     }
 }

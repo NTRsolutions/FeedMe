@@ -1,21 +1,17 @@
 
-package com.os.foodie.data.network.model.deliveryaddress.getall;
+package com.os.foodie.data.network.model.deliveryaddress.update;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.os.Parcelable.Creator;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Address implements Parcelable
-{
+public class UpdateAddressRequest {
 
-    @SerializedName("id")
-    @Expose
-    private String id;
     @SerializedName("user_id")
     @Expose
     private String userId;
+    @SerializedName("address_id")
+    @Expose
+    private String addressId;
     @SerializedName("full_name")
     @Expose
     private String fullName;
@@ -37,56 +33,30 @@ public class Address implements Parcelable
     @SerializedName("city")
     @Expose
     private String city;
-    public final static Creator<Address> CREATOR = new Creator<Address>() {
-
-
-        @SuppressWarnings({
-            "unchecked"
-        })
-        public Address createFromParcel(Parcel in) {
-            Address instance = new Address();
-            instance.id = ((String) in.readValue((String.class.getClassLoader())));
-            instance.userId = ((String) in.readValue((String.class.getClassLoader())));
-            instance.fullName = ((String) in.readValue((String.class.getClassLoader())));
-            instance.mobileNumber = ((String) in.readValue((String.class.getClassLoader())));
-            instance.pincode = ((String) in.readValue((String.class.getClassLoader())));
-            instance.flatNumber = ((String) in.readValue((String.class.getClassLoader())));
-            instance.colony = ((String) in.readValue((String.class.getClassLoader())));
-            instance.landmark = ((String) in.readValue((String.class.getClassLoader())));
-            instance.city = ((String) in.readValue((String.class.getClassLoader())));
-            return instance;
-        }
-
-        public Address[] newArray(int size) {
-            return (new Address[size]);
-        }
-
-    }
-    ;
 
     /**
      * No args constructor for use in serialization
      * 
      */
-    public Address() {
+    public UpdateAddressRequest() {
     }
 
     /**
      * 
      * @param pincode
-     * @param id
      * @param landmark
      * @param colony
      * @param userId
      * @param fullName
      * @param mobileNumber
      * @param flatNumber
+     * @param addressId
      * @param city
      */
-    public Address(String id, String userId, String fullName, String mobileNumber, String pincode, String flatNumber, String colony, String landmark, String city) {
+    public UpdateAddressRequest(String userId, String addressId, String fullName, String mobileNumber, String pincode, String flatNumber, String colony, String landmark, String city) {
         super();
-        this.id = id;
         this.userId = userId;
+        this.addressId = addressId;
         this.fullName = fullName;
         this.mobileNumber = mobileNumber;
         this.pincode = pincode;
@@ -96,20 +66,20 @@ public class Address implements Parcelable
         this.city = city;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getUserId() {
         return userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
     }
 
     public String getFullName() {
@@ -166,22 +136,6 @@ public class Address implements Parcelable
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(id);
-        dest.writeValue(userId);
-        dest.writeValue(fullName);
-        dest.writeValue(mobileNumber);
-        dest.writeValue(pincode);
-        dest.writeValue(flatNumber);
-        dest.writeValue(colony);
-        dest.writeValue(landmark);
-        dest.writeValue(city);
-    }
-
-    public int describeContents() {
-        return  0;
     }
 
 }

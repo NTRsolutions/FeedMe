@@ -88,6 +88,10 @@
     <string name="empty_new_password">Please provide new password</string>
     <string name="empty_confirm_new_password">Please confirm new password</string>
     <string name="not_match_new_password">New password do not match</string>
+    <string name="empty_fullname">Please provide your full name</string>
+    <string name="empty_flat">Please provide your Flat No. / House No. / Floor / Building</string>
+    <string name="empty_colony">Please provide your Colony / Street / Locality</string>
+    <string name="empty_state">Please provide state</string>
 
     <!--Slide-->
     <array name="slide_title_text">
@@ -326,10 +330,6 @@
     <string name="city">City</string>
     <string name="state">State</string>
     <string name="country">Country</string>
-    <string name="empty_fullname">Please provide your full name</string>
-    <string name="empty_flat">Please provide your Flat No. / House No. / Floor / Building</string>
-    <string name="empty_colony">Please provide your Colony / Street / Locality</string>
-    <string name="empty_state">Please provide state</string>
     <string name="add_new_address">add New Address</string>
 
 </resources>
