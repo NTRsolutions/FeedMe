@@ -10,7 +10,7 @@
     <dimen name="style_text_view_4_text_size">24sp</dimen>
     <dimen name="style_text_view_5_text_size">25sp</dimen>
     <dimen name="style_text_view_6_text_size">30sp</dimen>
-    <dimen name="style_text_view_7_text_size">22sp</dimen>
+    <dimen name="recyclerview_course_content_tv_course_name_text_size">22sp</dimen>
     <dimen name="style_text_button_size">20sp</dimen>
     <dimen name="style_button_text_size">20sp</dimen>
 
@@ -308,6 +308,17 @@
     <dimen name="restaurant_details_tv_discount_text_text_size">16sp</dimen>
     <dimen name="restaurant_details_recyclerview_margin_start">5dp</dimen>
 
+    <dimen name="recyclerview_course_title_tv_title_margin">10dp</dimen>
+    <dimen name="recyclerview_ll_main_margin_bottom">5dp</dimen>
+    <dimen name="recyclerview_ll_main_margin_top">5dp</dimen>
+    <dimen name="recyclerview_course_content_rl_course_quantity_width">60dp</dimen>
+    <dimen name="recyclerview_course_content_tv_course_quantity_text_size">20sp</dimen>
+    <dimen name="recyclerview_course_content_tv_x_text_size">20sp</dimen>
+    <dimen name="recyclerview_course_content_ll_main_course_margin">10dp</dimen>
+    <dimen name="recyclerview_course_content_tv_course_des_margin_top">5dp</dimen>
+    <dimen name="recyclerview_course_content_tv_course_des_text_size">16sp</dimen>
+    <dimen name="recyclerview_course_content_tv_price_margin">15dp</dimen>
+
     <!--Restaurant Menu-->
     <dimen name="restaurant_menu_fab_add_margin">16dp</dimen>
     <dimen name="recyclerview_restaurant_menu_ll_main_margin_end">15dp</dimen>
@@ -355,6 +366,27 @@
 
     <!--Restaurant Info-->
     <dimen name="restaurant_info_ll_padding">15dp</dimen>
+
+    <!--Restaurant Show Profile-->
+    <dimen name="fragment_show_restaurant_profile_ll_main_margin_top">40dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_ll_main_2_margin_start">5dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_ll_main_2_margin_top">10dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_tv_restaurant_name_margin_start">5dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_nsv_main_margin_top">20dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_ll_main_padding">10dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_tv_opening_closing_padding_start">5dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_ll_padding_top">5dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_tv_delivery_charges_padding_start">5dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_tv_padding_start">5dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_tv_delivery_areas_padding_start">5dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_tv_order_type_padding_start">5dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_tv_other_details_padding">10dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_ll_address_padding">10dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_tv_drawable_padding">5dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_tv_other_details_padding_top">5dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_tv_city_padding_top">10dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_tv_country_padding_top">10dp</dimen>
+    <dimen name="fragment_show_restaurant_profile_content_tv_zip_padding_top">10dp</dimen>
 
     <!-- TODO: Remove or change this placeholder text -->
     <dimen name="text_size_18">18sp</dimen>

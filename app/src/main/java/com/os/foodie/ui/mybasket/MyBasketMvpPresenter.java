@@ -6,7 +6,9 @@ public interface MyBasketMvpPresenter<V extends MyBasketMvpView> extends MvpPres
 
     void getMyBasketDetails(String userId);
 
-    void removeFromMyBasket(String userId, String itemId, int position);
+    void removeFromMyBasket(String userId, String itemId, String restaurantId, int position);
 
     void updateMyBasket(String userId, String itemId, String restaurantId, String qty, String price, final int position);
+
+    void clearBasket();
 }

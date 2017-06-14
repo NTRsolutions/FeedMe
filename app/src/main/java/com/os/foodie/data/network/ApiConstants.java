@@ -52,4 +52,9 @@ public class ApiConstants {
     public static final String REMOVE_FROM_CART = "remove_dish_from_cart";
     public static final String CART_DETAIL = "cart_detail";
     public static final String CLEAR_CART = "remove_user_cart";
+
+    public static final String GET_ADDRESS = "get_user_address";
+    public static final String ADD_ADDRESS = "add_user_address";
+    public static final String UPDATE_ADDRESS = "update_address";
+    public static final String DELETE_ADDRESS = "remove_user_address";
 }

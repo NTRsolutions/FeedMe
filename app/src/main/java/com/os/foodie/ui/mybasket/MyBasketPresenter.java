@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
+import com.os.foodie.data.network.model.cart.clear.ClearCartRequest;
+import com.os.foodie.data.network.model.cart.clear.ClearCartResponse;
 import com.os.foodie.data.network.model.cart.remove.RemoveFromCartRequest;
 import com.os.foodie.data.network.model.cart.remove.RemoveFromCartResponse;
 import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
@@ -71,7 +73,7 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
     }
 
     @Override
-    public void removeFromMyBasket(String userId, String itemId, final int position) {
+    public void removeFromMyBasket(String userId, String itemId, String restaurantId, final int position) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -80,7 +82,7 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
             Log.d("itemId", ">>" + itemId);
 
             getCompositeDisposable().add(getDataManager()
-                    .removeFromCart(new RemoveFromCartRequest(userId, itemId))
+                    .removeFromCart(new RemoveFromCartRequest(userId, itemId, restaurantId))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<RemoveFromCartResponse>() {
@@ -141,6 +143,46 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
                             } else {
                                 getMvpView().onError(updateCartResponse.getResponse().getMessage());
 //                                getMvpView().onError("No Restaurant found");
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            getMvpView().hideLoading();
+                            Log.d("Error", ">>ErrThorwed");
+                            getMvpView().onError(R.string.api_default_error);
+                            Log.d("Error", ">>Err" + throwable.getMessage());
+                        }
+                    }));
+        } else {
+            getMvpView().onError(R.string.connection_error);
+        }
+    }
+
+    @Override
+    public void clearBasket() {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
+            getMvpView().showLoading();
+
+            getCompositeDisposable().add(getDataManager()
+                    .clearCart(new ClearCartRequest(getDataManager().getCurrentUserId()))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<ClearCartResponse>() {
+                        @Override
+                        public void accept(ClearCartResponse clearCartResponse) throws Exception {
+
+                            getMvpView().hideLoading();
+
+                            if (clearCartResponse.getResponse().getStatus() == 1) {
+
+                                getDataManager().setCustomerRestaurantId("");
+                                getMvpView().onError(clearCartResponse.getResponse().getMessage());
+
+                            } else {
+                                getMvpView().onError(clearCartResponse.getResponse().getMessage());
                             }
                         }
                     }, new Consumer<Throwable>() {

@@ -12,6 +12,9 @@ public class RemoveFromCartRequest {
     @SerializedName("dish_id")
     @Expose
     private String dishId;
+    @SerializedName("restaurant_id")
+    @Expose
+    private String restaurantId;
 
     /**
      * No args constructor for use in serialization
@@ -24,11 +27,13 @@ public class RemoveFromCartRequest {
      * 
      * @param userId
      * @param dishId
+     * @param restaurantId
      */
-    public RemoveFromCartRequest(String userId, String dishId) {
+    public RemoveFromCartRequest(String userId, String dishId, String restaurantId) {
         super();
         this.userId = userId;
         this.dishId = dishId;
+        this.restaurantId = restaurantId;
     }
 
     public String getUserId() {
@@ -47,4 +52,11 @@ public class RemoveFromCartRequest {
         this.dishId = dishId;
     }
 
+    public String getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(String restaurantId) {
+        this.restaurantId = restaurantId;
+    }
 }

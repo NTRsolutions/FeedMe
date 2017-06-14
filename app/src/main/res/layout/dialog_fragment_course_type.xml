@@ -34,6 +34,7 @@
         android:layout_margin="@dimen/fragment_course_type_fab_add_margin"
         android:src="@drawable/ic_add_white_24dp"
         app:backgroundTint="@color/green"
+        app:layout_behavior="com.os.foodie.ui.custom.FABScrollingBehavior"
         app:rippleColor="@color/light_green" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -23,7 +23,9 @@
     <string name="alert_dialog_title_deactivate_dish">Deactive Item</string>
     <string name="alert_dialog_text_deactivate_dish">Do you want to deactivate this item ?</string>
     <string name="alert_dialog_title_clear_basket">Clear Basket</string>
-    <string name="alert_dialog_text_clear_basket">Basket contains item from other restaurant and should be clear before add from other restaurant. Are you sure you want to clear basket ?</string>
+    <string name="alert_dialog_text_clear_basket">Your basket will be cleared ?</string>
+    <string name="alert_dialog_title_delete_address">Delete Address</string>
+    <string name="alert_dialog_text_delete_address">Are you sure, address will be deleted permanently ?</string>
 
     <!--Menu-->
     <string name="menu_close">Close</string>
@@ -260,6 +262,7 @@
     <string name="restautant_details_fall_delivery_time_min_text">min</string>
     <string name="restaurant_details_tv_rating_text_rating">Rating</string>
     <string name="restaurant_details_tv_discount_text_discount">Discount</string>
+    <string name="recyclerview_course_content_tv_x_text">x</string>
 
     <!--Restaurant List-->
     <string name="title_fragment_customer_home">Home</string>
@@ -295,6 +298,16 @@
     <string name="change_password_activity_title">Change Password</string>
     <string name="restaurant_profile">Restaurant Profile</string>
 
+    <!--Restaurant Show Profile-->
+    <string name="fragment_show_restaurant_profile_content_tv_opening_closing_hour_text">Opening Closing Hour:</string>
+    <string name="fragment_show_restaurant_profile_content_tv_delivery_charges_text">Delivery Charges:</string>
+    <string name="fragment_show_restaurant_profile_content_tv_delivery_areas_text">Delivery Areas:</string>
+    <string name="fragment_show_restaurant_profile_content_tv_order_type_text">Order Type:</string>
+    <string name="fragment_show_restaurant_profile_content_tv_working_days_text">Working Days:</string>
+    <string name="fragment_show_restaurant_profile_content_tv_minimum_order_amount_text">Minimum order amount:</string>
+    <string name="fragment_show_restaurant_profile_content_tv_other_details_text">Other Details</string>
+    <string name="fragment_show_restaurant_profile_content_tv_payment_type_text">Payment type:</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="first_name">First Name</string>
     <string name="email">Email</string>
@@ -303,14 +316,5 @@
     <string name="save">Save</string>
     <string name="restaurant_name">Restaurant Name</string>
     <string name="title_activity_customer_search">CustomerSearchActivity</string>
-
-    <string name="opening_closing_hour">Opening Closing Hour:</string>
-    <string name="delivery_charges">Delivery Charges:</string>
-    <string name="delivery_areas">Delivery Areas:</string>
-    <string name="order_type">Order Type:</string>
-    <string name="working_days">Working Days:</string>
-    <string name="minimum_order_amount">Minimum order amount:</string>
-    <string name="other_details">Other Details</string>
-    <string name="payment_type">Payment type:</string>
 
 </resources>

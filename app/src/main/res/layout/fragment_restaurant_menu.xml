@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -29,7 +29,8 @@
         android:layout_margin="@dimen/restaurant_menu_fab_add_margin"
         android:src="@drawable/ic_add_white_24dp"
         app:backgroundTint="@color/green"
+        app:layout_behavior="com.os.foodie.ui.custom.FABScrollingBehavior"
         app:rippleColor="@color/light_green" />
     <!--app:layout_behavior="com.os.foodie.ui.custom.FABScrollingBehavior"-->
 
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

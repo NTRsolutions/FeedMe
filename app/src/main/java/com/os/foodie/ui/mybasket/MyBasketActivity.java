@@ -185,7 +185,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
 //                            myBasketAdapter.notifyDataSetChanged();
 //                            updateTotalAmount();
                             mBottomSheetDialog.dismiss();
-                            myBasketMvpPresenter.removeFromMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(), position);
+                            myBasketMvpPresenter.removeFromMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(),viewCartResponse.getResponse().getRestaurantId(), position);
 
                         } else {
 //                            cartLists.get(position).setQty(tvItemQuantityTemp.getText().toString());
@@ -376,7 +376,6 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
 
     @Override
     protected void setUp() {
-
     }
 
     @Override

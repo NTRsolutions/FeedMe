@@ -46,6 +46,9 @@ public class Response {
     @SerializedName("contact_person_name")
     @Expose
     private String contactPersonName;
+    @SerializedName("restaurant_id")
+    @Expose
+    private String restaurantId;
 
     /**
      * No args constructor for use in serialization
@@ -69,7 +72,7 @@ public class Response {
      * @param restaurantName
      * @param contactPersonName
      */
-    public Response(String userId, String firstName, String lastName, String email, String deviceType, String deviceId, String profileImage, Integer status, String message, String userType, String isProfileSet, String restaurantName, String contactPersonName) {
+    public Response(String userId, String firstName, String lastName, String email, String deviceType, String deviceId, String profileImage, Integer status, String message, String userType, String isProfileSet, String restaurantName, String contactPersonName, String restaurantId) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -83,6 +86,7 @@ public class Response {
         this.isProfileSet = isProfileSet;
         this.restaurantName = restaurantName;
         this.contactPersonName = contactPersonName;
+        this.restaurantId = restaurantId;
     }
 
 //    public Response(String userId, String firstName, String lastName, String email, String deviceType, String deviceId, String profileImage, Integer status, String message) {
@@ -200,5 +204,13 @@ public class Response {
 
     public void setContactPersonName(String contactPersonName) {
         this.contactPersonName = contactPersonName;
+    }
+
+    public String getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(String restaurantId) {
+        this.restaurantId = restaurantId;
     }
 }

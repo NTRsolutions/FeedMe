@@ -13,6 +13,13 @@ public class Response {
     @Expose
     private Integer status;
 
+    @SerializedName("total_cart_quantity")
+    @Expose
+    private String totalCartQuantity;
+    @SerializedName("total_cart_amount")
+    @Expose
+    private String totalCartAmount;
+
     /**
      * No args constructor for use in serialization
      * 
@@ -25,10 +32,12 @@ public class Response {
      * @param message
      * @param status
      */
-    public Response(String message, Integer status) {
+    public Response(String message, Integer status,String totalCartQuantity, String totalCartAmount) {
         super();
         this.message = message;
         this.status = status;
+        this.totalCartQuantity = totalCartQuantity;
+        this.totalCartAmount = totalCartAmount;
     }
 
     public String getMessage() {
@@ -47,4 +56,19 @@ public class Response {
         this.status = status;
     }
 
+    public String getTotalCartQuantity() {
+        return totalCartQuantity;
+    }
+
+    public void setTotalCartQuantity(String totalCartQuantity) {
+        this.totalCartQuantity = totalCartQuantity;
+    }
+
+    public String getTotalCartAmount() {
+        return totalCartAmount;
+    }
+
+    public void setTotalCartAmount(String totalCartAmount) {
+        this.totalCartAmount = totalCartAmount;
+    }
 }

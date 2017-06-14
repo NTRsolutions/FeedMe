@@ -25,21 +25,6 @@ public class MyBasketAdapter extends RecyclerView.Adapter<MyBasketAdapter.MyBask
         this.cartLists = cartLists;
     }
 
-//    @Override
-//    public void setupView(View view) {
-//
-//        TextView tvItemName = (TextView) view.findViewById(R.id.dialog_item_quantity_tv_item_name);
-//        TextView tvItemQuantity = (TextView) view.findViewById(R.id.dialog_item_quantity_tv_item_quantity);
-//        TextView tvPrice = (TextView) view.findViewById(R.id.dialog_item_quantity_tv_price);
-//
-//        ImageView ivMinus = (ImageView) view.findViewById(R.id.dialog_item_quantity_iv_minus);
-//        ImageView ivPlus = (ImageView) view.findViewById(R.id.dialog_item_quantity_iv_plus);
-//
-//        Button btUpdate = (Button) view.findViewById(R.id.dialog_item_quantity_bt_update);
-//
-//
-//    }
-
     class MyBasketViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvItemName, tvItemQuantity, tvAmount;

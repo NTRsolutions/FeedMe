@@ -137,6 +137,10 @@
             android:name=".ui.mybasket.MyBasketActivity"
             android:label="My Basket"
             android:theme="@style/AppTheme2"></activity>
+        <activity
+            android:name=".ui.deliveryaddress.show.DeliveryAddressActivity"
+            android:label="Delivery Address"
+            android:theme="@style/AppTheme2"></activity>
     </application>
 
 </manifest>

@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:layout_marginTop="5dp"
+    android:layout_marginBottom="@dimen/recyclerview_ll_main_margin_bottom"
+    android:layout_marginTop="@dimen/recyclerview_ll_main_margin_top"
     android:orientation="horizontal">
 
     <TextView
@@ -11,7 +11,7 @@
         style="@style/TextView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/recyclerview_course_title_tv_title_margin"
         android:textColor="@color/orange" />
 
 </LinearLayout>

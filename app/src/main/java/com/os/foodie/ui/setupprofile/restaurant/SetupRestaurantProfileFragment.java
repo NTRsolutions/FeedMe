@@ -495,6 +495,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(AppConstants.CUISINE_TYPES_ARRAYLIST, cuisineTypes);
+        bundle.putBoolean(AppConstants.IS_FAB_NEEDED, true);
 
         cuisineTypeDialogFragment = new CuisineTypeDialogFragment();
         cuisineTypeDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogFragment);

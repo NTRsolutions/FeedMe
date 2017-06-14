@@ -27,7 +27,11 @@ public interface PreferencesHelper {
     String getRestaurantLogoURL();
 
     void setRestaurantLogoURL(String logoURL);
-//
+
+    String getCustomerRestaurantId();
+
+    void setCustomerRestaurantId(String restaurantId);
+
 //    String getCurrentUserEmail();
 //
 //    void setCurrentUserEmail(String email);

@@ -11,6 +11,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_CURRENT_USER_NAME = "PREF_KEY_CURRENT_USER_NAME";
     private static final String PREF_KEY_CURRENT_USER_INITIALIZED = "PREF_KEY_CURRENT_USER_INITIALIZED";
     private static final String PREF_KEY_RESTAURANT_LOGO_URL = "PREF_KEY_RESTAURANT_LOGO_URL";
+    private static final String PREF_KEY_CUSTOMER_RESTAURANT_ID = "PREF_KEY_CUSTOMER_RESTAURANT_ID";
 
     private final SharedPreferences sharedPreferences;
 
@@ -77,6 +78,18 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public void setRestaurantLogoURL(String imageURL) {
         sharedPreferences.edit().putString(PREF_KEY_RESTAURANT_LOGO_URL, imageURL).apply();
     }
+
+    @Override
+    public String getCustomerRestaurantId() {
+        return sharedPreferences.getString(PREF_KEY_CUSTOMER_RESTAURANT_ID, "");
+    }
+
+    @Override
+    public void setCustomerRestaurantId(String restaurantId) {
+        sharedPreferences.edit().putString(PREF_KEY_CUSTOMER_RESTAURANT_ID, restaurantId).apply();
+    }
+
+
 
 //    private static final String PREF_KEY_USER_LOGGED_IN_MODE = "PREF_KEY_USER_LOGGED_IN_MODE";
 //    private static final String PREF_KEY_CURRENT_USER_EMAIL = "PREF_KEY_CURRENT_USER_EMAIL";

@@ -45,10 +45,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        app:rippleColor="@color/light_green"
-        app:backgroundTint="@color/green"
         android:layout_margin="@dimen/fragment_cuisine_type_fab_add_margin"
-        android:src="@drawable/ic_add_white_24dp" />
+        android:src="@drawable/ic_add_white_24dp"
+        app:layout_behavior="com.os.foodie.ui.custom.FABScrollingBehavior"
+        app:backgroundTint="@color/green"
+        app:rippleColor="@color/light_green" />
 
     <!--android:backgroundTint="@color/orange"-->
     <!--app:layout_anchor="@id/dialog_fragment_cuisine_type_recycler_view"-->

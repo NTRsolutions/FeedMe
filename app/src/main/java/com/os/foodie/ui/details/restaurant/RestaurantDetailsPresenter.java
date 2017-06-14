@@ -37,7 +37,7 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
-//            getMvpView().showLoading();
+            getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
                     .getRestaurantDetails(new CustomerRestaurantDetailsRequest(getDataManager().getCurrentUserId(), restaurantId))
@@ -47,7 +47,7 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
                         @Override
                         public void accept(CustomerRestaurantDetailsResponse restaurantDetailsResponse) throws Exception {
 
-//                            getMvpView().hideLoading();
+                            getMvpView().hideLoading();
 
                             if (restaurantDetailsResponse.getResponse().getStatus() == 1) {
 
@@ -66,7 +66,7 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
-//                            getMvpView().hideLoading();
+                            getMvpView().hideLoading();
                             getMvpView().onError(R.string.api_default_error);
                             Log.d("Error", ">>Err" + throwable.getMessage());
                         }
@@ -138,8 +138,9 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
                             if (addToCartResponse.getResponse().getStatus() == 1) {
 
                                 Log.d("getMessage", ">>Success");
+                                Log.d("getMessage", ">>Success");
 //                                getMvpView().refreshDetails(position, addToCartRequest.getQty(), addToCartResponse);
-                                getMvpView().updateMyBasket(position, addToCartRequest.getQty(),addToCartResponse.getResponse().getData().getTotalCartQuantity(),addToCartResponse.getResponse().getData().getTotalCartAmount());
+                                getMvpView().updateMyBasket(position, addToCartRequest.getQty(), addToCartResponse.getResponse().getData().getTotalCartQuantity(), addToCartResponse.getResponse().getData().getTotalCartAmount());
 
 
                             } else {
@@ -161,7 +162,7 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
     }
 
     @Override
-    public void removeFromMyBasket(String userId, String itemId, final int position) {
+    public void removeFromMyBasket(String userId, String itemId, String restaurantId, final int position) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -170,7 +171,7 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
             Log.d("itemId", ">>" + itemId);
 
             getCompositeDisposable().add(getDataManager()
-                    .removeFromCart(new RemoveFromCartRequest(userId, itemId))
+                    .removeFromCart(new RemoveFromCartRequest(userId, itemId, restaurantId))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<RemoveFromCartResponse>() {
@@ -181,7 +182,7 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
                             if (removeFromCartResponse.getResponse().getStatus() == 1) {
 
-                                getMvpView().itemRemovedFromBasket(position);
+                                getMvpView().itemRemovedFromBasket(position, removeFromCartResponse.getResponse().getTotalCartQuantity(), removeFromCartResponse.getResponse().getTotalCartAmount());
 //                                getMvpView().setMyBasket(viewCartResponse);
 
                             } else {
@@ -225,7 +226,7 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
                             if (updateCartResponse.getResponse().getStatus() == 1) {
 
-                                getMvpView().updateMyBasket(position, quantity,updateCartResponse.getResponse().getData().getTotalCartQuantity(),updateCartResponse.getResponse().getData().getTotalCartAmount());
+                                getMvpView().updateMyBasket(position, quantity, updateCartResponse.getResponse().getData().getTotalCartQuantity(), updateCartResponse.getResponse().getData().getTotalCartAmount());
 ////                                getMvpView().setMyBasket(viewCartResponse);
 
                             } else {
@@ -266,6 +267,7 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
                             if (clearCartResponse.getResponse().getStatus() == 1) {
 
+                                getDataManager().setCustomerRestaurantId("");
                                 getMvpView().onError(clearCartResponse.getResponse().getMessage());
 
                             } else {
@@ -284,5 +286,15 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
         } else {
             getMvpView().onError(R.string.connection_error);
         }
+    }
+
+    @Override
+    public String getCustomerRestaurantId() {
+        return getDataManager().getCustomerRestaurantId();
+    }
+
+    @Override
+    public void setCustomerRestaurantId(String restaurantId) {
+        getDataManager().setCustomerRestaurantId(restaurantId);
     }
 }

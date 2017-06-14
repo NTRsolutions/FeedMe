@@ -31,6 +31,10 @@ import com.os.foodie.data.network.model.coursetype.list.GetCourseTypeResponse;
 import com.os.foodie.data.network.model.cuisinetype.add.AddCuisineTypeRequest;
 import com.os.foodie.data.network.model.cuisinetype.add.AddCuisineTypeResponse;
 import com.os.foodie.data.network.model.cuisinetype.list.CuisineTypeResponse;
+import com.os.foodie.data.network.model.deliveryaddress.delete.DeleteAddressRequest;
+import com.os.foodie.data.network.model.deliveryaddress.delete.DeleteAddressResponse;
+import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressRequest;
+import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressResponse;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsRequest;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordRequest;
@@ -687,4 +691,41 @@ public class AppApiHelpter implements ApiHelper {
                 .getObjectObservable(EditRestaurantAccountResponse.class);
     }
 
+    @Override
+    public Observable<GetAllAddressResponse> getAllAddress(GetAllAddressRequest getAllAddressRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(getAllAddressRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.GET_ADDRESS)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(GetAllAddressResponse.class);
+    }
+
+    @Override
+    public Observable<DeleteAddressResponse> deleteAddress(DeleteAddressRequest deleteAddressRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(deleteAddressRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.DELETE_ADDRESS)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(DeleteAddressResponse.class);
+    }
 }

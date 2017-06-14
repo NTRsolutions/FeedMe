@@ -115,17 +115,17 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 
         tvRestaurantName = (TextView) rootView.findViewById(R.id.content_restaurant_details_tv_restaurant_name);
         tvDeliveryTime = (TextView) rootView.findViewById(R.id.activity_restautant_details_fall_delivery_time_text);
-        tvOpeningClosingHours = (TextView) rootView.findViewById(R.id.opening_closing_hour_tv);
-        tvDeliveryCharges = (TextView) rootView.findViewById(R.id.delivery_charges_tv);
-        tvMinimumOrderAmount = (TextView) rootView.findViewById(R.id.minimum_order_amount_tv);
-        tvDeliveryAreas = (TextView) rootView.findViewById(R.id.delivery_areas_tv);
-        tvOrderType = (TextView) rootView.findViewById(R.id.order_type_tv);
-        tvWorkingDays = (TextView) rootView.findViewById(R.id.working_days_tv);
-        tvPaymentType = (TextView) rootView.findViewById(R.id.payment_type_tv);
-        tvAddress = (TextView) rootView.findViewById(R.id.address_tv);
-        tvCity = (TextView) rootView.findViewById(R.id.city_tv);
-        tvCounty = (TextView) rootView.findViewById(R.id.county_tv);
-        tvZipCode = (TextView) rootView.findViewById(R.id.zip_code_tv);
+        tvOpeningClosingHours = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_opening_closing_hour);
+        tvDeliveryCharges = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_delivery_charges);
+        tvMinimumOrderAmount = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_minimum_order_amount);
+        tvDeliveryAreas = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_delivery_areas);
+        tvOrderType = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_order_type);
+        tvWorkingDays = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_working_days);
+        tvPaymentType = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_payment_type);
+        tvAddress = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_other_details);
+        tvCity = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_city);
+        tvCounty = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_county);
+        tvZipCode = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_zip);
 
         initFloatingActionButtons();
         setHasOptionsMenu(true);

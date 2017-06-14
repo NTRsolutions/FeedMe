@@ -11,18 +11,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.ui.account.customer.CustomerAccountFragment;
 import com.os.foodie.ui.base.BaseActivity;
+import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
 import com.os.foodie.ui.home.customer.CustomerHomeFragment;
-import com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.ui.setting.SettingsFragment;
 import com.os.foodie.ui.welcome.WelcomeActivity;
@@ -119,6 +116,9 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
             startActivity(intent);
 
         } else if (id == R.id.nav_delivery_address) {
+
+            Intent intent = new Intent(this, DeliveryAddressActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_settings) {
 

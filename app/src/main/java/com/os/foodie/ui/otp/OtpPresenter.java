@@ -70,6 +70,7 @@ public class OtpPresenter<V extends OtpMvpView> extends BasePresenter<V> impleme
 
                                 if (otpVerificationResponse.getResponse().getUserType().equals(AppConstants.CUSTOMER)) {
                                     getDataManager().setCurrentUserName(otpVerificationResponse.getResponse().getFirstName() + " " + otpVerificationResponse.getResponse().getLastName());
+                                    getDataManager().setCustomerRestaurantId("");
                                 } else {
                                     getDataManager().setCurrentUserName(otpVerificationResponse.getResponse().getRestaurantName());
                                     getDataManager().setRestaurantLogoURL(otpVerificationResponse.getResponse().getProfileImage());

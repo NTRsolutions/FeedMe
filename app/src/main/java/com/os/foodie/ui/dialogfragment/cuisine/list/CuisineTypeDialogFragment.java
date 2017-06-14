@@ -67,6 +67,8 @@ public class CuisineTypeDialogFragment extends DialogFragment implements View.On
 
         if (getArguments().getBoolean(AppConstants.IS_FAB_NEEDED) == false) {
             fabAdd.setVisibility(View.GONE);
+        } else {
+            fabAdd.setVisibility(View.VISIBLE);
         }
 
         cuisineTypeAdapter = new CuisineTypeAdapter(getContext(), cuisineTypes);

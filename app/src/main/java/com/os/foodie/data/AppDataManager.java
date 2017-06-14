@@ -29,6 +29,10 @@ import com.os.foodie.data.network.model.coursetype.list.GetCourseTypeResponse;
 import com.os.foodie.data.network.model.cuisinetype.add.AddCuisineTypeRequest;
 import com.os.foodie.data.network.model.cuisinetype.add.AddCuisineTypeResponse;
 import com.os.foodie.data.network.model.cuisinetype.list.CuisineTypeResponse;
+import com.os.foodie.data.network.model.deliveryaddress.delete.DeleteAddressRequest;
+import com.os.foodie.data.network.model.deliveryaddress.delete.DeleteAddressResponse;
+import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressRequest;
+import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressResponse;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsRequest;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordRequest;
@@ -151,6 +155,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setRestaurantLogoURL(String imageURL) {
         preferencesHelper.setRestaurantLogoURL(imageURL);
+    }
+
+    @Override
+    public String getCustomerRestaurantId() {
+        return preferencesHelper.getCustomerRestaurantId();
+    }
+
+    @Override
+    public void setCustomerRestaurantId(String restaurantId) {
+        preferencesHelper.setCustomerRestaurantId(restaurantId);
     }
 
     @Override
@@ -316,6 +330,16 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<EditRestaurantAccountResponse> editRestaurantAccount(EditRestaurantAccountRequest editRestaurantAccountRequest, HashMap<String, File> fileMap) {
         return apiHelper.editRestaurantAccount(editRestaurantAccountRequest, fileMap);
+    }
+
+    @Override
+    public Observable<GetAllAddressResponse> getAllAddress(GetAllAddressRequest getAllAddressRequest) {
+        return apiHelper.getAllAddress(getAllAddressRequest);
+    }
+
+    @Override
+    public Observable<DeleteAddressResponse> deleteAddress(DeleteAddressRequest deleteAddressRequest) {
+        return apiHelper.deleteAddress(deleteAddressRequest);
     }
 
 

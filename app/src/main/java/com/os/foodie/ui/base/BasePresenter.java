@@ -106,6 +106,9 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     @Override
     public void setUserAsLoggedOut() {
 
+        getDataManager().setRestaurantLogoURL(null);
+        getDataManager().setCustomerRestaurantId(null);
+        getDataManager().setCurrentUserName(null);
         getDataManager().setCurrentUserLoggedIn(false);
         getDataManager().setCurrentUserId(null);
         getDataManager().setCurrentUserType(null);

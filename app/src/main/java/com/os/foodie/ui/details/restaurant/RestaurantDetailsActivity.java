@@ -317,16 +317,24 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         setOnItemTouch();
 
         courseAdapter.notifyDataSetChanged();
-        courseAdapter.calcBasketDetails();
+//        courseAdapter.calcBasketDetails();
 
-        if (courseAdapter.getTotalQuantity() > 0) {
+        if (!restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() && !restaurantDetailsResponse.getResponse().getTotalQuantity().equals("0") && restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)) {
+//        if (courseAdapter.getTotalQuantity() > 0) {
+//
+//            tvTotalQuantity.setText(String.valueOf(courseAdapter.getTotalQuantity()));
+//            tvTotalAmount.setText("$" + courseAdapter.getTotalAmount());
 
-            tvTotalQuantity.setText(String.valueOf(courseAdapter.getTotalQuantity()));
-            tvTotalAmount.setText("$" + courseAdapter.getTotalAmount());
+            tvTotalQuantity.setText(restaurantDetailsResponse.getResponse().getTotalQuantity());
+            tvTotalAmount.setText("$" + restaurantDetailsResponse.getResponse().getTotalAmount());
+
+            Log.d("VISIBLE", ">>Yes" + restaurantDetailsMvpPresenter.getCustomerRestaurantId());
 
             rlBasketDetails.setVisibility(View.VISIBLE);
         } else {
             rlBasketDetails.setVisibility(View.GONE);
+
+            Log.d("GONE", ">>" + restaurantDetailsMvpPresenter.getCustomerRestaurantId());
         }
     }
 
@@ -412,12 +420,13 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         }
 
         courseAdapter.notifyDataSetChanged();
-        courseAdapter.calcBasketDetails();
+//        courseAdapter.calcBasketDetails();
 
-        if (courseAdapter.getTotalQuantity() > 0) {
+        if (!restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() && !restaurantDetailsResponse.getResponse().getTotalQuantity().equals("0") && restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)) {
+//        if (courseAdapter.getTotalQuantity() > 0) {
 
-            tvTotalQuantity.setText(String.valueOf(courseAdapter.getTotalQuantity()));
-            tvTotalAmount.setText("$" + courseAdapter.getTotalAmount());
+            tvTotalQuantity.setText(restaurantDetailsResponse.getResponse().getTotalQuantity());
+            tvTotalAmount.setText("$" + restaurantDetailsResponse.getResponse().getTotalAmount());
 
             rlBasketDetails.setVisibility(View.VISIBLE);
         } else {
@@ -427,204 +436,205 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
     public void setOnItemTouch() {
 
-//        if(restaurantDetails.getRestaurantName())
-
         RecyclerTouchListener.ClickListener clickListener = new RecyclerTouchListener.ClickListener() {
 
             @Override
             public void onClick(View view, final int position) {
 
-//                if (restaurantDetails.getInCart() == 1) {
+                if (restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() || restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)) {
 
-                if (objectArrayList.get(position) instanceof Dish) {
+                    if (objectArrayList.get(position) instanceof Dish) {
 
-                    final boolean isUpdate;
+                        final boolean isUpdate;
 
-                    LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    final View dialogView = inflater.inflate(R.layout.dialog_item_quantity, null);
+                        LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        final View dialogView = inflater.inflate(R.layout.dialog_item_quantity, null);
 
-                    final Dialog mBottomSheetDialog = new Dialog(RestaurantDetailsActivity.this, R.style.AlertDialogBottomSlide);
+                        final Dialog mBottomSheetDialog = new Dialog(RestaurantDetailsActivity.this, R.style.AlertDialogBottomSlide);
 
-                    TextView tvItemName = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_name);
-                    TextView tvItemQuantity = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_quantity);
-                    TextView tvPrice = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price);
+                        TextView tvItemName = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_name);
+                        TextView tvItemQuantity = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_quantity);
+                        TextView tvPrice = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price);
 
-                    ImageView ivMinus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_minus);
-                    ImageView ivPlus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_plus);
+                        ImageView ivMinus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_minus);
+                        ImageView ivPlus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_plus);
 
-                    Button btUpdate = (Button) dialogView.findViewById(R.id.dialog_item_quantity_bt_update);
+                        Button btUpdate = (Button) dialogView.findViewById(R.id.dialog_item_quantity_bt_update);
 
-                    Dish dish = (Dish) objectArrayList.get(position);
+                        Dish dish = (Dish) objectArrayList.get(position);
 
-                    tvItemName.setText(dish.getName());
-                    tvItemQuantity.setText(dish.getQty());
+                        tvItemName.setText(dish.getName());
+                        tvItemQuantity.setText(dish.getQty());
 
-                    if (dish.getQty().equals("0")) {
-                        btUpdate.setText("Add");
-                        isUpdate = false;
-                    } else {
-                        btUpdate.setText("Update");
-                        isUpdate = true;
-                    }
+                        if (dish.getQty().equals("0")) {
+                            btUpdate.setText("Add");
+                            isUpdate = false;
+                        } else {
+                            btUpdate.setText("Update");
+                            isUpdate = true;
+                        }
 
-                    float price = Float.parseFloat(dish.getPrice());
-                    int quantity = Integer.parseInt(dish.getQty());
+                        float price = Float.parseFloat(dish.getPrice());
+                        int quantity = Integer.parseInt(dish.getQty());
 
-                    int totalAmount = 0;
-                    totalAmount += price * quantity;
+                        int totalAmount = 0;
+                        totalAmount += price * quantity;
 
-                    tvPrice.setText(totalAmount + "");
+                        tvPrice.setText(totalAmount + "");
 
-                    final TextView tvItemQuantityTemp = tvItemQuantity;
-                    final TextView tvPriceTemp = tvPrice;
-                    final Button btUpdateTemp = btUpdate;
+                        final TextView tvItemQuantityTemp = tvItemQuantity;
+                        final TextView tvPriceTemp = tvPrice;
+                        final Button btUpdateTemp = btUpdate;
 
-                    final View.OnClickListener onClickListener = new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+                        final View.OnClickListener onClickListener = new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
 
-                            if (tvItemQuantityTemp.getText().toString().equals("0")) {
+                                if (tvItemQuantityTemp.getText().toString().equals("0")) {
 //                            cartLists.remove(position);
 //
 //                            myBasketAdapter.notifyDataSetChanged();
 //                            updateTotalAmount();
-                                mBottomSheetDialog.dismiss();
-                                restaurantDetailsMvpPresenter.removeFromMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), ((Dish) objectArrayList.get(position)).getDishId(), position);
+                                    mBottomSheetDialog.dismiss();
+                                    restaurantDetailsMvpPresenter.removeFromMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), ((Dish) objectArrayList.get(position)).getDishId(), restaurantId, position);
 
-                            } else {
+                                } else {
 //                            cartLists.get(position).setQty(tvItemQuantityTemp.getText().toString());
 //
 //                            myBasketAdapter.notifyDataSetChanged();
 //                            updateTotalAmount();
-                                mBottomSheetDialog.dismiss();
-                                if (isUpdate) {
-                                    restaurantDetailsMvpPresenter.updateMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), restaurantId, ((Dish) objectArrayList.get(position)).getDishId(), tvItemQuantityTemp.getText().toString(), ((Dish) objectArrayList.get(position)).getPrice(), position);
-                                } else {
+                                    mBottomSheetDialog.dismiss();
+                                    if (isUpdate) {
+                                        restaurantDetailsMvpPresenter.updateMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), restaurantId, ((Dish) objectArrayList.get(position)).getDishId(), tvItemQuantityTemp.getText().toString(), ((Dish) objectArrayList.get(position)).getPrice(), position);
+                                    } else {
 
-                                    AddToCartRequest addToCartRequest = new AddToCartRequest();
+                                        if (restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty()) {
+                                            restaurantDetailsMvpPresenter.setCustomerRestaurantId(restaurantId);
+                                        }
 
-                                    addToCartRequest.setDishId(((Dish) objectArrayList.get(position)).getDishId());
-                                    addToCartRequest.setUserId(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId());
-                                    addToCartRequest.setRestaurantId(restaurantId);
-                                    addToCartRequest.setPrice(((Dish) objectArrayList.get(position)).getPrice());
-                                    addToCartRequest.setQty((Integer.parseInt(((Dish) objectArrayList.get(position)).getQty()) + 1) + "");
+                                        AddToCartRequest addToCartRequest = new AddToCartRequest();
 
-                                    restaurantDetailsMvpPresenter.addItemToCart(position, addToCartRequest);
+                                        addToCartRequest.setDishId(((Dish) objectArrayList.get(position)).getDishId());
+                                        addToCartRequest.setUserId(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId());
+                                        addToCartRequest.setRestaurantId(restaurantId);
+                                        addToCartRequest.setPrice(((Dish) objectArrayList.get(position)).getPrice());
+                                        addToCartRequest.setQty((Integer.parseInt(tvItemQuantityTemp.getText().toString())) + "");
+
+                                        restaurantDetailsMvpPresenter.addItemToCart(position, addToCartRequest);
 
 //                                    restaurantDetailsMvpPresenter.updateMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), ((Dish) objectArrayList.get(position)).getDishId(), tvItemQuantityTemp.getText().toString(), position);
+                                    }
                                 }
                             }
+                        };
+
+                        ivMinus.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                float price = Float.parseFloat(((Dish) objectArrayList.get(position)).getPrice());
+                                int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
+
+                                if (quantity > 0) {
+
+                                    quantity--;
+
+                                    int totalAmount = 0;
+                                    totalAmount += price * quantity;
+
+                                    Log.d("quantity", ">>" + quantity);
+                                    Log.d("price", ">>" + price);
+                                    Log.d("totalAmount", ">>" + totalAmount);
+
+                                    tvPriceTemp.setText(totalAmount + "");
+                                    tvItemQuantityTemp.setText(quantity + "");
+                                }
+
+                                if (quantity <= 0) {
+                                    if (isUpdate) {
+                                        btUpdateTemp.setText("Remove Item");
+                                        btUpdateTemp.setTextColor(ContextCompat.getColor(RestaurantDetailsActivity.this, R.color.red));
+                                    } else {
+                                        btUpdateTemp.setOnClickListener(null);
+                                    }
+                                }
+                            }
+                        });
+
+                        ivPlus.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                float price = Float.parseFloat(((Dish) objectArrayList.get(position)).getPrice());
+                                int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
+
+                                if (quantity >= 0) {
+
+                                    btUpdateTemp.setOnClickListener(onClickListener);
+
+                                    quantity++;
+
+                                    int totalAmount = 0;
+                                    totalAmount += price * quantity;
+
+                                    Log.d("quantity", ">>" + quantity);
+                                    Log.d("price", ">>" + price);
+                                    Log.d("totalAmount", ">>" + totalAmount);
+
+                                    tvPriceTemp.setText(totalAmount + "");
+                                    tvItemQuantityTemp.setText(quantity + "");
+
+                                    if (isUpdate) {
+                                        btUpdateTemp.setText("Update");
+                                    } else {
+                                        btUpdateTemp.setText("Add");
+                                    }
+
+                                    btUpdateTemp.setTextColor(ContextCompat.getColor(RestaurantDetailsActivity.this, R.color.orange));
+                                }
+                            }
+                        });
+
+                        if (dish.getQty().equals("0")) {
+
+                            btUpdate.setOnClickListener(null);
+                        } else {
+                            btUpdate.setOnClickListener(onClickListener);
+                        }
+
+                        mBottomSheetDialog.setContentView(dialogView); // your custom view.
+                        mBottomSheetDialog.setCancelable(true);
+                        mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
+                        mBottomSheetDialog.show();
+                    }
+
+                } else {
+
+                    DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            restaurantDetailsMvpPresenter.clearBasket();
                         }
                     };
 
-                    ivMinus.setOnClickListener(new View.OnClickListener() {
+                    DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(View v) {
-
-                            float price = Float.parseFloat(((Dish) objectArrayList.get(position)).getPrice());
-                            int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
-
-                            if (quantity > 0) {
-
-                                quantity--;
-
-                                int totalAmount = 0;
-                                totalAmount += price * quantity;
-
-                                Log.d("quantity", ">>" + quantity);
-                                Log.d("price", ">>" + price);
-                                Log.d("totalAmount", ">>" + totalAmount);
-
-                                tvPriceTemp.setText(totalAmount + "");
-                                tvItemQuantityTemp.setText(quantity + "");
-                            }
-
-                            if (quantity <= 0) {
-                                if(isUpdate) {
-                                    btUpdateTemp.setText("Remove Item");
-                                    btUpdateTemp.setTextColor(ContextCompat.getColor(RestaurantDetailsActivity.this, R.color.red));
-                                } else {
-                                    btUpdateTemp.setOnClickListener(null);
-                                }
-                            }
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
-                    });
+                    };
 
-                    ivPlus.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            float price = Float.parseFloat(((Dish) objectArrayList.get(position)).getPrice());
-                            int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
-
-                            if (quantity >= 0) {
-
-                                btUpdateTemp.setOnClickListener(onClickListener);
-
-                                quantity++;
-
-                                int totalAmount = 0;
-                                totalAmount += price * quantity;
-
-                                Log.d("quantity", ">>" + quantity);
-                                Log.d("price", ">>" + price);
-                                Log.d("totalAmount", ">>" + totalAmount);
-
-                                tvPriceTemp.setText(totalAmount + "");
-                                tvItemQuantityTemp.setText(quantity + "");
-
-                                if (isUpdate) {
-                                    btUpdateTemp.setText("Update");
-                                } else {
-                                    btUpdateTemp.setText("Add");
-                                }
-
-                                btUpdateTemp.setTextColor(ContextCompat.getColor(RestaurantDetailsActivity.this, R.color.orange));
-                            }
-                        }
-                    });
-
-                    if (dish.getQty().equals("0")) {
-
-                        btUpdate.setOnClickListener(null);
-                    } else {
-                        btUpdate.setOnClickListener(onClickListener);
-                    }
-
-                    mBottomSheetDialog.setContentView(dialogView); // your custom view.
-                    mBottomSheetDialog.setCancelable(true);
-                    mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
-                    mBottomSheetDialog.show();
+                    DialogUtils.showAlert(RestaurantDetailsActivity.this,
+                            R.string.alert_dialog_title_clear_basket, R.string.alert_dialog_text_clear_basket,
+                            getResources().getString(R.string.alert_dialog_bt_ok), positiveButton,
+                            getResources().getString(R.string.alert_dialog_bt_cancel), negativeButton);
                 }
-
-//                } else {
-//
-//                    DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            dialog.dismiss();
-//                            restaurantDetailsMvpPresenter.clearBasket();
-//                        }
-//                    };
-//
-//                    DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            dialog.dismiss();
-//                        }
-//                    };
-//
-//                    DialogUtils.showAlert(RestaurantDetailsActivity.this,
-//                            R.string.alert_dialog_title_clear_basket, R.string.alert_dialog_text_clear_basket,
-//                            getResources().getString(R.string.alert_dialog_bt_ok), positiveButton,
-//                            getResources().getString(R.string.alert_dialog_bt_cancel), negativeButton);
-//                }
             }
 
             @Override
             public void onLongClick(View view, int position) {
-
             }
         };
 
@@ -635,8 +645,10 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
     public void updateLikeDislike(boolean isLike) {
 
         if (isLike) {
+            tvLikes.setText("" + (Integer.parseInt(tvLikes.getText().toString()) + 1));
             ivLikes.setImageResource(R.mipmap.ic_like_true);
         } else {
+            tvLikes.setText("" + (Integer.parseInt(tvLikes.getText().toString()) - 1));
             ivLikes.setImageResource(R.mipmap.ic_like_false);
         }
     }
@@ -714,7 +726,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
     }
 
     @Override
-    public void itemRemovedFromBasket(int position) {
+    public void itemRemovedFromBasket(int position, String totalQuantity, String totalAmount) {
 //        objectArrayList.remove(position);
 
         String dishId = ((Dish) objectArrayList.get(position)).getDishId();
@@ -727,7 +739,18 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         }
 
         courseAdapter.notifyDataSetChanged();
-        updateTotalAmount();
+//        updateTotalAmount();
+
+        if (Integer.parseInt(totalQuantity) > 0) {
+
+            tvTotalQuantity.setText(totalQuantity);
+            tvTotalAmount.setText("$" + totalAmount);
+
+            rlBasketDetails.setVisibility(View.VISIBLE);
+        } else {
+            rlBasketDetails.setVisibility(View.GONE);
+            restaurantDetailsMvpPresenter.setCustomerRestaurantId("");
+        }
     }
 
     @Override

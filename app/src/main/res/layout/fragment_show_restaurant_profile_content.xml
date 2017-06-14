@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/restaurant_details_nsv_margin_top"
+    android:layout_marginTop="@dimen/fragment_show_restaurant_profile_content_nsv_main_margin_top"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/fragment_show_restaurant_profile">
 
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/fragment_show_restaurant_profile_content_ll_main_padding">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,13 +27,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/opening_closing_hour" />
+                    android:text="@string/fragment_show_restaurant_profile_content_tv_opening_closing_hour_text" />
 
                 <TextView
-                    android:id="@+id/opening_closing_hour_tv"
+                    android:id="@+id/fragment_show_restaurant_profile_content_tv_opening_closing_hour"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="5dp"
+                    android:paddingStart="@dimen/fragment_show_restaurant_profile_content_tv_padding_start"
                     android:textColor="@color/orange" />
 
             </LinearLayout>
@@ -42,56 +42,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="5dp">
+                android:paddingTop="@dimen/fragment_show_restaurant_profile_content_ll_padding_top">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/delivery_charges" />
+                    android:text="@string/fragment_show_restaurant_profile_content_tv_delivery_charges_text" />
 
                 <TextView
-                    android:id="@+id/delivery_charges_tv"
+                    android:id="@+id/fragment_show_restaurant_profile_content_tv_delivery_charges"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="5dp"
-                    android:textColor="@color/orange" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/minimum_order_amount" />
-
-                <TextView
-                    android:id="@+id/minimum_order_amount_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="5dp"
-                    android:textColor="@color/orange" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/delivery_areas" />
-
-                <TextView
-                    android:id="@+id/delivery_areas_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="5dp"
+                    android:paddingStart="@dimen/fragment_show_restaurant_profile_content_tv_padding_start"
                     android:textColor="@color/orange" />
 
             </LinearLayout>
@@ -100,129 +62,167 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="5dp">
+                android:paddingTop="@dimen/fragment_show_restaurant_profile_content_ll_padding_top">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/order_type" />
+                    android:text="@string/fragment_show_restaurant_profile_content_tv_minimum_order_amount_text" />
 
                 <TextView
-                    android:id="@+id/order_type_tv"
+                    android:id="@+id/fragment_show_restaurant_profile_content_tv_minimum_order_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="5dp"
+                    android:paddingStart="@dimen/fragment_show_restaurant_profile_content_tv_padding_start"
                     android:textColor="@color/orange" />
 
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/working_days" />
-
-                <TextView
-                    android:id="@+id/working_days_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="5dp"
-                    android:textColor="@color/orange" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="5dp">
+                android:paddingTop="@dimen/fragment_show_restaurant_profile_content_ll_padding_top">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/payment_type" />
+                    android:text="@string/fragment_show_restaurant_profile_content_tv_delivery_areas_text" />
 
                 <TextView
-                    android:id="@+id/payment_type_tv"
+                    android:id="@+id/fragment_show_restaurant_profile_content_tv_delivery_areas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="5dp"
+                    android:paddingStart="@dimen/fragment_show_restaurant_profile_content_tv_padding_start"
+                    android:textColor="@color/orange" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/fragment_show_restaurant_profile_content_ll_padding_top">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_show_restaurant_profile_content_tv_order_type_text" />
+
+                <TextView
+                    android:id="@+id/fragment_show_restaurant_profile_content_tv_order_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/fragment_show_restaurant_profile_content_tv_padding_start"
+                    android:textColor="@color/orange" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/fragment_show_restaurant_profile_content_ll_padding_top">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_show_restaurant_profile_content_tv_working_days_text" />
+
+                <TextView
+                    android:id="@+id/fragment_show_restaurant_profile_content_tv_working_days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/fragment_show_restaurant_profile_content_tv_padding_start"
+                    android:textColor="@color/orange" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/fragment_show_restaurant_profile_content_ll_padding_top">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_show_restaurant_profile_content_tv_payment_type_text" />
+
+                <TextView
+                    android:id="@+id/fragment_show_restaurant_profile_content_tv_payment_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/fragment_show_restaurant_profile_content_tv_padding_start"
                     android:textColor="@color/orange" />
             </LinearLayout>
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/divider_color" />
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:background="@color/divider_color" />-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/other_details"
+            android:background="@drawable/rectangle_white_top_outline_light_grey"
+            android:padding="@dimen/fragment_show_restaurant_profile_content_tv_other_details_padding"
+            android:text="@string/fragment_show_restaurant_profile_content_tv_other_details_text"
             android:textColor="@color/orange" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider_color" />
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/divider_color" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_white_top_outline_light_grey"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/fragment_show_restaurant_profile_content_ll_address_padding">
 
             <TextView
-                android:id="@+id/address_tv"
+                android:id="@+id/fragment_show_restaurant_profile_content_tv_other_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/ic_location"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/fragment_show_restaurant_profile_content_tv_drawable_padding"
                 android:gravity="center_vertical"
-                android:paddingTop="5dp"
-                android:text="@string/other_details" />
+                android:paddingTop="@dimen/fragment_show_restaurant_profile_content_tv_other_details_padding_top" />
 
             <TextView
-                android:id="@+id/city_tv"
+                android:id="@+id/fragment_show_restaurant_profile_content_tv_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/ic_location"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/fragment_show_restaurant_profile_content_tv_drawable_padding"
                 android:gravity="center_vertical"
-                android:paddingTop="10dp"
-                android:text="@string/other_details" />
+                android:paddingTop="@dimen/fragment_show_restaurant_profile_content_tv_city_padding_top" />
 
             <TextView
-                android:id="@+id/county_tv"
+                android:id="@+id/fragment_show_restaurant_profile_content_tv_county"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/ic_location"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/fragment_show_restaurant_profile_content_tv_drawable_padding"
                 android:gravity="center_vertical"
-                android:paddingTop="10dp"
-                android:text="@string/other_details" />
+                android:paddingTop="@dimen/fragment_show_restaurant_profile_content_tv_country_padding_top" />
 
 
             <TextView
-                android:id="@+id/zip_code_tv"
+                android:id="@+id/fragment_show_restaurant_profile_content_tv_zip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/ic_location"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/fragment_show_restaurant_profile_content_tv_drawable_padding"
                 android:gravity="center_vertical"
-                android:paddingTop="10dp"
-                android:text="@string/other_details" />
+                android:paddingTop="@dimen/fragment_show_restaurant_profile_content_tv_zip_padding_top" />
 
         </LinearLayout>
 
     </LinearLayout>
+
 </android.support.v4.widget.NestedScrollView>

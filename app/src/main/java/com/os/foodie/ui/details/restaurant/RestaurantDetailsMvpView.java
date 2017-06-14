@@ -15,7 +15,7 @@ public interface RestaurantDetailsMvpView extends MvpView {
 
 //    void refreshDetails(int position, String quantity, AddToCartResponse addToCartResponse);
 
-    void itemRemovedFromBasket(int position);
+    void itemRemovedFromBasket(int position, String totalQuantity, String totalAmount);
 
     void updateMyBasket(int position, String quantity, String totalQuantity, String totalAmount);
 }

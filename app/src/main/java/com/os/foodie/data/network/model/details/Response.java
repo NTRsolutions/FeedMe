@@ -88,6 +88,12 @@ public class Response {
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("total_cart_quantity")
+    @Expose
+    private String totalQuantity;
+    @SerializedName("total_cart_amount")
+    @Expose
+    private String totalAmount;
 
     /**
      * No args constructor for use in serialization
@@ -126,7 +132,7 @@ public class Response {
      * @param mobileNumber
      * @param openingTime
      */
-    public Response(Integer isLike, Integer inCart, String id, Integer likeCount, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String deliveryZipcode, List<Image> images, String logo, List<Menu> menu, Integer status, String message) {
+    public Response(Integer isLike, Integer inCart, String id, Integer likeCount, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String deliveryZipcode, List<Image> images, String logo, List<Menu> menu, Integer status, String message, String totalQuantity, String totalAmount) {
         super();
         this.isLike = isLike;
         this.inCart = inCart;
@@ -155,6 +161,8 @@ public class Response {
         this.menu = menu;
         this.status = status;
         this.message = message;
+        this.totalQuantity = totalQuantity;
+        this.totalAmount= totalAmount;
     }
 
     public Integer getIsLike() {
@@ -373,4 +381,19 @@ public class Response {
         this.message = message;
     }
 
+    public String getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(String totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public String getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(String totalAmount) {
+        this.totalAmount = totalAmount;
+    }
 }
