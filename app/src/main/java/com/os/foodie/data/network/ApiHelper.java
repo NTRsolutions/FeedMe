@@ -28,6 +28,7 @@ import com.os.foodie.data.network.model.coursetype.list.GetCourseTypeResponse;
 import com.os.foodie.data.network.model.cuisinetype.add.AddCuisineTypeRequest;
 import com.os.foodie.data.network.model.cuisinetype.add.AddCuisineTypeResponse;
 import com.os.foodie.data.network.model.cuisinetype.list.CuisineTypeResponse;
+import com.os.foodie.data.network.model.deliveryaddress.add.AddDeliveryAddressRequest;
 import com.os.foodie.data.network.model.deliveryaddress.delete.DeleteAddressRequest;
 import com.os.foodie.data.network.model.deliveryaddress.delete.DeleteAddressResponse;
 import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressRequest;
@@ -145,6 +146,7 @@ public interface ApiHelper {
 
     Observable<DeleteAddressResponse> deleteAddress(DeleteAddressRequest deleteAddressRequest);
 
+    Observable<ForgotPasswordResponse> addDeliveryAddress(AddDeliveryAddressRequest addDeliveryAddressRequest);
 
 //    Observable<CustomerSignUpResponse> getFacebookDetail(CustomerSignUpRequest customerSignUpRequest);
 }

@@ -1,10 +1,12 @@
 package com.os.foodie.ui.deliveryaddress.show;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import com.os.foodie.data.network.model.deliveryaddress.getall.Address;
 import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressResponse;
 import com.os.foodie.ui.adapter.recyclerview.DeliveryAddressAdapter;
 import com.os.foodie.ui.base.BaseActivity;
+import com.os.foodie.ui.deliveryaddress.addedit.AddDeliveryAddressActivity;
 
 import java.util.ArrayList;
 
@@ -54,6 +57,8 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(deliveryAddressAdapter);
 
+        btAddNewAddress.setOnClickListener(this);
+
         deliveryAddressMvpPresenter.getAddressList();
     }
 
@@ -69,11 +74,15 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
     @Override
     public void onClick(View v) {
 
+        if (v.getId() == btAddNewAddress.getId()) {
+
+            Intent intent = new Intent(DeliveryAddressActivity.this, AddDeliveryAddressActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
     protected void setUp() {
-
     }
 
     @Override

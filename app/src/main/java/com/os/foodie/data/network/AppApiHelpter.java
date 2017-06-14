@@ -31,6 +31,7 @@ import com.os.foodie.data.network.model.coursetype.list.GetCourseTypeResponse;
 import com.os.foodie.data.network.model.cuisinetype.add.AddCuisineTypeRequest;
 import com.os.foodie.data.network.model.cuisinetype.add.AddCuisineTypeResponse;
 import com.os.foodie.data.network.model.cuisinetype.list.CuisineTypeResponse;
+import com.os.foodie.data.network.model.deliveryaddress.add.AddDeliveryAddressRequest;
 import com.os.foodie.data.network.model.deliveryaddress.delete.DeleteAddressRequest;
 import com.os.foodie.data.network.model.deliveryaddress.delete.DeleteAddressResponse;
 import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressRequest;
@@ -727,5 +728,24 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(DeleteAddressResponse.class);
+    }
+
+    @Override
+    public Observable<ForgotPasswordResponse> addDeliveryAddress(AddDeliveryAddressRequest addDeliveryAddressRequest) {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(addDeliveryAddressRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.ADD_ADDRESS)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(ForgotPasswordResponse.class);
     }
 }
