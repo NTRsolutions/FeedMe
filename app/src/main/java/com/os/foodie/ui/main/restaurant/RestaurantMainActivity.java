@@ -24,6 +24,7 @@ import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileR
 import com.os.foodie.ui.account.restaurant.RestaurantAccountFragment;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment;
+import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
 import com.os.foodie.ui.setting.SettingsFragment;
 import com.os.foodie.ui.setupprofile.restaurant.SetupRestaurantProfileFragment;
 import com.os.foodie.ui.showrestaurantprofile.ShowRestaurantProfileFragment;
@@ -119,13 +120,18 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
             replaceFragment(RestaurantAccountFragment.newInstance(), RestaurantAccountFragment.TAG);
 
         } else if (id == R.id.nav_restaurant_profile) {
-            if(AppController.get(this).getAppDataManager().isCurrentUserInfoInitialized())
-            replaceFragment(ShowRestaurantProfileFragment.newInstance(), ShowRestaurantProfileFragment.TAG);
-            else
-            {
+
+            if (AppController.get(this).getAppDataManager().isCurrentUserInfoInitialized())
+
+                replaceFragment(ShowRestaurantProfileFragment.newInstance(), ShowRestaurantProfileFragment.TAG);
+
+            else {
                 replaceFragment(SetupRestaurantProfileFragment.newInstance(null), SetupRestaurantProfileFragment.TAG);
             }
 
+        } else if (id == R.id.nav_order_list) {
+
+            replaceFragment(RestaurantOrderListFragment.newInstance(), RestaurantOrderListFragment.TAG);
 
         } else if (id == R.id.nav_menu_management) {
 

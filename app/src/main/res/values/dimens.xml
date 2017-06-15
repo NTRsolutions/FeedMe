@@ -389,6 +389,34 @@
     <dimen name="fragment_show_restaurant_profile_content_tv_country_padding_top">10dp</dimen>
     <dimen name="fragment_show_restaurant_profile_content_tv_zip_padding_top">10dp</dimen>
 
+    <!--Restaurant Order List-->
+    <dimen name="recyclerview_restaurant_order_ll_padding">15dp</dimen>
+    <dimen name="recyclerview_restaurant_order_tv_item_name_margin_top">5dp</dimen>
+    <dimen name="recyclerview_restaurant_order_ll_delivery_time_margin_top">15dp</dimen>
+    <dimen name="recyclerview_restaurant_order_tv_delivery_type_tag_text_size">14sp</dimen>
+    <dimen name="recyclerview_restaurant_order_delivery_type_text_size">14sp</dimen>
+    <dimen name="recyclerview_restaurant_order_ll_order_type_margin_bottom">15dp</dimen>
+    <dimen name="recyclerview_restaurant_order_ll_order_type_margin_top">5dp</dimen>
+    <dimen name="recyclerview_restaurant_order_tv_order_type_tag_text_size">14sp</dimen>
+    <dimen name="recyclerview_restaurant_order_tv_order_type_text_size">14sp</dimen>
+    <dimen name="recyclerview_restaurant_order_tv_discount_height_width">60dp</dimen>
+    <dimen name="recyclerview_restaurant_order_tv_discount_text_size">18sp</dimen>
+    <dimen name="recyclerview_restaurant_order_tv_price_text_size">24sp</dimen>
+    <dimen name="recyclerview_restaurant_order_tv_price_margin_top">10dp</dimen>
+    <dimen name="recyclerview_restaurant_order_iv_accept_reject_margin_top">10dp</dimen>
+    <dimen name="recyclerview_restaurant_order_iv_accept_order_margin_end">10dp</dimen>
+
+    <!--Change Password-->
+    <dimen name="activity_change_password_et_height">50dp</dimen>
+    <dimen name="activity_change_password_et_margin_start_end">40dp</dimen>
+    <dimen name="activity_change_password_et_current_password_margin_top">20dp</dimen>
+    <dimen name="activity_change_password_et_padding_start_end">10dp</dimen>
+    <dimen name="activity_change_password_et_new_password_margin_top">5dp</dimen>
+    <dimen name="activity_change_password_et_confirm_new_password_margin_top">5dp</dimen>
+    <dimen name="activity_change_password_bt_change_password_height">45dp</dimen>
+    <dimen name="activity_change_password_bt_margin_start_end">40dp</dimen>
+    <dimen name="activity_change_password_bt_change_password_margin_top">20dp</dimen>
+
     <!-- TODO: Remove or change this placeholder text -->
     <dimen name="text_size_18">18sp</dimen>
 

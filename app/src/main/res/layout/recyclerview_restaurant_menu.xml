@@ -48,6 +48,7 @@
 
         <TextView
             android:id="@+id/recyclerview_restaurant_menu_tv_price"
+            style="@style/TextView1"
             android:layout_width="@dimen/recyclerview_restaurant_menu_tv_price_height_width"
             android:layout_height="@dimen/recyclerview_restaurant_menu_tv_price_height_width"
             android:background="@drawable/circular_image_view_orange"

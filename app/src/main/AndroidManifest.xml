@@ -136,15 +136,23 @@
         <activity
             android:name=".ui.mybasket.MyBasketActivity"
             android:label="My Basket"
-            android:theme="@style/AppTheme2"></activity>
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.deliveryaddress.show.DeliveryAddressActivity"
             android:label="Delivery Address"
-            android:theme="@style/AppTheme2"></activity>
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.deliveryaddress.addedit.AddEditDeliveryAddressActivity"
             android:label="Add Address"
-            android:theme="@style/AppTheme2"></activity>
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".ui.payment.show.ManagePaymentCard"
+            android:label="Manage Cards"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".ui.payment.add.AddPaymentCard"
+            android:label="Add Card"
+            android:theme="@style/AppTheme2" />
     </application>
 
 </manifest>

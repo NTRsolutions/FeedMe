@@ -18,7 +18,6 @@ import com.os.foodie.application.AppController;
 import com.os.foodie.data.network.model.menu.show.restaurant.Dish;
 import com.os.foodie.ui.adapter.recyclerview.RestaurantMenuAdapter;
 import com.os.foodie.ui.base.BaseFragment;
-import com.os.foodie.ui.custom.DividerItemLineDecoration;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.ui.menu.add.RestaurantMenuAddUpdateDishActivity;
 
@@ -29,7 +28,7 @@ public class RestaurantMenuFragment extends BaseFragment implements RestaurantMe
 
     public static final String TAG = "RestaurantMenuFragment";
 
-    private TextView tvalert;
+    private TextView tvAlert;
     private FloatingActionButton fabAdd;
 
     private RecyclerView recyclerView;
@@ -61,7 +60,7 @@ public class RestaurantMenuFragment extends BaseFragment implements RestaurantMe
 
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_restaurant_menu_recyclerview);
         fabAdd = (FloatingActionButton) view.findViewById(R.id.fragment_restaurant_menu_fab_add);
-        tvalert = (TextView) view.findViewById(R.id.alert_tv);
+        tvAlert = (TextView) view.findViewById(R.id.fragment_restaurant_menu_tv_alert);
 
         dishArrayList = new ArrayList<Dish>();
 
@@ -107,10 +106,13 @@ public class RestaurantMenuFragment extends BaseFragment implements RestaurantMe
 
     @Override
     public void createRestaurantMenu(List<Dish> dishArrayList) {
+
         if (dishArrayList.size() == 0) {
-            tvalert.setVisibility(View.VISIBLE);
-        } else
-            tvalert.setVisibility(View.GONE);
+            tvAlert.setVisibility(View.VISIBLE);
+        } else {
+            tvAlert.setVisibility(View.GONE);
+        }
+
         this.dishArrayList.clear();
         this.dishArrayList.addAll(dishArrayList);
 

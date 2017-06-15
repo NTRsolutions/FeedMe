@@ -316,6 +316,18 @@
     <string name="fragment_show_restaurant_profile_content_tv_other_details_text">Other Details</string>
     <string name="fragment_show_restaurant_profile_content_tv_payment_type_text">Payment type:</string>
 
+    <!--Restaurant Order List-->
+    <string name="title_fragment_restaurant_order_list">Orders</string>
+    <string name="fragment_restaurant_order_list_tv_no_order_text">No Order</string>
+    <string name="recyclerview_restaurant_order_tv_delivery_time_tag_text">Delivery Time:</string>
+    <string name="recyclerview_restaurant_order_tv_order_type_tag_text">Order Type:</string>
+
+    <!--Change Password-->
+    <string name="activity_change_password_et_current_password_hint">Current Password</string>
+    <string name="activity_change_password_et_new_password_hint">New Password</string>
+    <string name="activity_change_password_et_confirm_new_password_hint">Confirm New Password</string>
+    <string name="activity_change_password_bt_change_password_text">Change Password</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="first_name">First Name</string>
     <string name="email">Email</string>
@@ -335,5 +347,15 @@
     <string name="state">State</string>
     <string name="country">Country</string>
     <string name="add_new_address">add New Address</string>
+
+    <string name="card_number">Card Number</string>
+    <string name="MM">MM</string>
+    <string name="YY">YY</string>
+    <string name="CVV">CVV</string>
+    <string name="add">Add</string>
+    <string name="add_a_card">Add a Card</string>
+    <string name="no_card">No Card</string>
+    <string name="manage_card">Manage Card</string>
+    <string name="add_card">Add Card</string>
 
 </resources>

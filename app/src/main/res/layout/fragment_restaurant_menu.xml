@@ -7,7 +7,7 @@
     tools:context="com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment">
 
     <TextView
-        android:id="@+id/alert_tv"
+        android:id="@+id/fragment_restaurant_menu_tv_alert"
         style="@style/TextView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
