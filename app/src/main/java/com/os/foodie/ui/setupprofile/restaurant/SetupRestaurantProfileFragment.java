@@ -514,6 +514,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     public void onRestaurantProfileSaved() {
 
         restaurantMainActivity.navigateToShowRestaurantProfile();
+        AppController.get(getActivity()).getAppDataManager().setCurrentUserInfoInitialized(true);
 
 //        Intent intent = new Intent(getActivity(), RestaurantMainActivity.class);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -923,60 +924,61 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         if (extra != null) {
 
             restaurantProfileResponse = (RestaurantProfileResponse) extra.getSerializable("profileResponse");
+            if (restaurantProfileResponse != null) {
+                RestaurantProfileResponse.RestaurantDetail restaurantDetail = restaurantProfileResponse.getResponse().getRestaurantDetail();
 
-            RestaurantProfileResponse.RestaurantDetail restaurantDetail = restaurantProfileResponse.getResponse().getRestaurantDetail();
+                restaurantImage.addAll(restaurantDetail.getImages());
 
-            restaurantImage.addAll(restaurantDetail.getImages());
+                for (int i = 0; i < restaurantDetail.getImages().size(); i++) {
+                    addImageView(restaurantDetail.getImages().get(i).getUrl());
+                }
 
-            for (int i = 0; i < restaurantDetail.getImages().size(); i++) {
-                addImageView(restaurantDetail.getImages().get(i).getUrl());
-            }
+                if (glPhotos.getChildCount() == 2) {
+                    RelativeLayout view = (RelativeLayout) glPhotos.getChildAt(0);
+                    view.getChildAt(1).setVisibility(View.GONE);
+                }
 
-            if (glPhotos.getChildCount() == 2) {
-                RelativeLayout view = (RelativeLayout) glPhotos.getChildAt(0);
-                view.getChildAt(1).setVisibility(View.GONE);
-            }
+                etDeliveryZipCodes.setText(restaurantDetail.getDeliveryZipcode());
+                etDeliveryCharges.setText(restaurantDetail.getDeliveryCharge());
+                etMinimumOrderAmount.setText(restaurantDetail.getMinOrderAmount());
+                etDeliveryTime.setText(restaurantDetail.getDeliveryTime());
+                etOpeningTime.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getOpeningTime(), "HH:mm:ss", "hh:mm a"));
+                etClosingTime.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getClosingTime(), "HH:mm:ss", "hh:mm a"));
+                etZipCode.setText(restaurantDetail.getZipCode());
+                etCity.setText(restaurantDetail.getCityName());
+                etCountry.setText(restaurantDetail.getCountryName());
+                etAddress.setText(restaurantDetail.getAddress());
+                etWorkingDays.setText(restaurantDetail.getWorkingDays());
+                etCuisineType.setText(restaurantDetail.getCuisineType());
 
-            etDeliveryZipCodes.setText(restaurantDetail.getDeliveryZipcode());
-            etDeliveryCharges.setText(restaurantDetail.getDeliveryCharge());
-            etMinimumOrderAmount.setText(restaurantDetail.getMinOrderAmount());
-            etDeliveryTime.setText(restaurantDetail.getDeliveryTime());
-            etOpeningTime.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getOpeningTime(), "HH:mm:ss", "hh:mm a"));
-            etClosingTime.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getClosingTime(), "HH:mm:ss", "hh:mm a"));
-            etZipCode.setText(restaurantDetail.getZipCode());
-            etCity.setText(restaurantDetail.getCityName());
-            etCountry.setText(restaurantDetail.getCountryName());
-            etAddress.setText(restaurantDetail.getAddress());
-            etWorkingDays.setText(restaurantDetail.getWorkingDays());
-            etCuisineType.setText(restaurantDetail.getCuisineType());
+                if (restaurantDetail.getDeliveryType().equalsIgnoreCase("Pick Only"))
+                    spinnerDeliveryType.setSelection(0);
+                else
+                    spinnerDeliveryType.setSelection(1);
 
-            if (restaurantDetail.getDeliveryType().equalsIgnoreCase("Pick Only"))
-                spinnerDeliveryType.setSelection(0);
-            else
-                spinnerDeliveryType.setSelection(1);
+                if (restaurantDetail.getPaymentMethod().equalsIgnoreCase("Online"))
+                    spinnerPaymentMethods.setSelection(0);
+                else if (restaurantDetail.getPaymentMethod().equalsIgnoreCase("Cash On Delivery"))
+                    spinnerPaymentMethods.setSelection(1);
+                else
+                    spinnerPaymentMethods.setSelection(2);
 
-            if (restaurantDetail.getPaymentMethod().equalsIgnoreCase("Online"))
-                spinnerPaymentMethods.setSelection(0);
-            else if (restaurantDetail.getPaymentMethod().equalsIgnoreCase("Cash On Delivery"))
-                spinnerPaymentMethods.setSelection(1);
-            else
-                spinnerPaymentMethods.setSelection(2);
+                String cuisineTypeName[] = restaurantDetail.getCuisineType().split(",");
+                String cuisineTypeNId[] = restaurantDetail.getCuisineTypeId().split(",");
 
-            String cuisineTypeName[] = restaurantDetail.getCuisineType().split(",");
-            String cuisineTypeNId[] = restaurantDetail.getCuisineTypeId().split(",");
+                cuisionTypesId = restaurantDetail.getCuisineTypeId();
 
-            cuisionTypesId = restaurantDetail.getCuisineTypeId();
+                for (int i = 0; i < cuisineTypeName.length; i++) {
+                    CuisineType cuisineType = new CuisineType();
+                    cuisineType.setName(cuisineTypeName[i]);
+                    cuisineType.setId(cuisineTypeNId[i]);
+                    cuisineTypesChecked.add(cuisineType);
+                }
 
-            for (int i = 0; i < cuisineTypeName.length; i++) {
-                CuisineType cuisineType = new CuisineType();
-                cuisineType.setName(cuisineTypeName[i]);
-                cuisineType.setId(cuisineTypeNId[i]);
-                cuisineTypesChecked.add(cuisineType);
-            }
-
-            for (int i = 0; i < workingDays.size(); i++) {
-                if (restaurantDetail.getWorkingDays().contains(workingDays.get(i).getDay()))
-                    workingDays.get(i).setChecked(true);
+                for (int i = 0; i < workingDays.size(); i++) {
+                    if (restaurantDetail.getWorkingDays().contains(workingDays.get(i).getDay()))
+                        workingDays.get(i).setChecked(true);
+                }
             }
         }
     }

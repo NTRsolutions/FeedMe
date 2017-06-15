@@ -119,8 +119,13 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
             replaceFragment(RestaurantAccountFragment.newInstance(), RestaurantAccountFragment.TAG);
 
         } else if (id == R.id.nav_restaurant_profile) {
+            if(AppController.get(this).getAppDataManager().isCurrentUserInfoInitialized())
+            replaceFragment(ShowRestaurantProfileFragment.newInstance(), ShowRestaurantProfileFragment.TAG);
+            else
+            {
+                replaceFragment(SetupRestaurantProfileFragment.newInstance(null), SetupRestaurantProfileFragment.TAG);
+            }
 
-            replaceFragment(ShowRestaurantProfileFragment.newInstance(), SetupRestaurantProfileFragment.TAG);
 
         } else if (id == R.id.nav_menu_management) {
 

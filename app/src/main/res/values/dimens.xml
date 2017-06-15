@@ -1,6 +1,7 @@
 <resources>
     <!--Common-->
     <dimen name="density_0">0dp</dimen>
+    <dimen name="fab_default_margin">16dp</dimen>
 
     <!--Style-->
     <dimen name="style_action_bar_title_size">22sp</dimen>

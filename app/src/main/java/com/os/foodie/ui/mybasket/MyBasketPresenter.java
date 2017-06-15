@@ -179,6 +179,7 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
                             if (clearCartResponse.getResponse().getStatus() == 1) {
 
                                 getDataManager().setCustomerRestaurantId("");
+                                getMvpView().onBasketClear();
                                 getMvpView().onError(clearCartResponse.getResponse().getMessage());
 
                             } else {

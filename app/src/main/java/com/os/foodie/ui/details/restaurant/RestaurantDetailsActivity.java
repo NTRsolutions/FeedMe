@@ -60,7 +60,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
     private TextView tvTotalQuantity, tvTotalAmount;
     private Button btViewBasket;
 
-    private LinearLayout llPage;
+    private LinearLayout llPage, llDiscount;
     private FloatingActionImageView faivProfilePic, faivWebsite;
 
     private FloatingActionLinearLayout fallDeliveryTime, fallLikes;
@@ -118,6 +118,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         tvTotalQuantity = (TextView) findViewById(R.id.activity_restaurant_details_tv_total_quantity);
         tvTotalAmount = (TextView) findViewById(R.id.activity_restaurant_details_tv_total_amount);
         btViewBasket = (Button) findViewById(R.id.activity_restaurant_details_bt_view_basket);
+
+        llDiscount = (LinearLayout) findViewById(R.id.content_restaurant_details_ll_discount);
 
         llPage = (LinearLayout) findViewById(R.id.activity_restaurant_details_ll_page);
         viewPager = (ViewPager) findViewById(R.id.activity_restaurant_details_viewpager);
@@ -221,6 +223,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
 //        this.restaurantDetailsResponse = new CustomerRestaurantDetailsResponse();
 //        this.restaurantDetails = restaurantDetailsResponse;
+
+        llDiscount.setVisibility(View.GONE);
 
         setRestaurantDetails(restaurantDetailsResponse);
 
@@ -342,6 +346,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
     public void resetResponse(CustomerRestaurantDetailsResponse restaurantDetailsResponse) {
 
         setRestaurantDetails(restaurantDetailsResponse);
+        llDiscount.setVisibility(View.GONE);
 
 //        if (restaurantDetailsResponse.getResponse().getIsLike().equals("1")) {
 
@@ -440,6 +445,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
             @Override
             public void onClick(View view, final int position) {
+
+                Log.d("getCustomerRestaurantId",">>"+restaurantDetailsMvpPresenter.getCustomerRestaurantId());
 
                 if (restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() || restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)) {
 
@@ -680,7 +687,6 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         restaurantDetails.setDeliveryCharge(restaurantDetailsResponse.getResponse().getDeliveryCharge());
         restaurantDetails.setDeliveryType(restaurantDetailsResponse.getResponse().getDeliveryType());
         restaurantDetails.setDeliveryZipcode(restaurantDetailsResponse.getResponse().getDeliveryZipcode());
-        restaurantDetails.setInCart(restaurantDetailsResponse.getResponse().getInCart());
     }
 
     @Override

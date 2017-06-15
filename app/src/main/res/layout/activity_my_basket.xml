@@ -1,275 +1,295 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:background="@color/white"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context="com.os.foodie.ui.mybasket.MyBasketActivity">
 
-    <ScrollView
+    <RelativeLayout
+        android:id="@+id/activity_my_basket_rl_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/activity_my_basket_ll_checkout"
-        android:layout_alignParentTop="true">
+        android:visibility="gone"
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
 
             <LinearLayout
-                android:id="@+id/activity_my_basket_ll_delivery_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <CheckedTextView
-                    android:id="@+id/activity_my_basket_ctv_pickup"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/activity_my_basket_ll_delivery_type"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="Pickup" />
+                    android:orientation="horizontal">
 
-                <CheckedTextView
-                    android:id="@+id/activity_my_basket_ctv_deliver"
-                    android:layout_width="wrap_content"
+                    <CheckedTextView
+                        android:id="@+id/activity_my_basket_ctv_pickup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
+                        android:gravity="center"
+                        android:text="Pickup" />
+
+                    <CheckedTextView
+                        android:id="@+id/activity_my_basket_ctv_deliver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
+                        android:gravity="center"
+                        android:text="Delivery" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
-                    android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
-                    android:gravity="center"
-                    android:text="Delivery" />
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rectangle_outline_grey"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/activity_my_basket_tv_ordering_for_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ordering for" />
+
+                    <TextView
+                        android:id="@+id/activity_my_basket_tv_date_time_text"
+                        style="@style/TextView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/activity_my_basket_tv_ordering_for_text"
+                        android:text="02-05-2017 at 09:00"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        style="@style/TextView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:padding="5dp"
+                        android:text="Change"
+                        android:textColor="@color/orange"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/activity_my_basket_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_white_top_outline_light_grey"
+                    android:nestedScrollingEnabled="false" />
+
+                <EditText
+                    android:id="@+id/activity_my_basket_et_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:gravity="top|start"
+                    android:hint="Add a Note"
+                    android:lines="2"
+                    android:maxLines="2"
+                    android:minLines="2"
+                    android:padding="10dp" />
+
+                <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:paddingEnd="10dp"-->
+                <!--android:paddingStart="10dp">-->
+
+                <!--<TextView-->
+                <!--style="@style/TextView2"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="Due Tommorow"-->
+                <!--android:textSize="18sp" />-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/activity_my_basket_tv_due"-->
+                <!--style="@style/TextView3"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="12.15-12.30"-->
+                <!--android:textColor="@color/orange"-->
+                <!--android:textStyle="bold" />-->
+
+                <!--</LinearLayout>-->
 
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/rectangle_outline_grey"
-                android:padding="10dp">
+        </ScrollView>
 
-                <TextView
-                    android:id="@+id/activity_my_basket_tv_ordering_for_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ordering for" />
 
-                <TextView
-                    android:id="@+id/activity_my_basket_tv_date_time_text"
-                    style="@style/TextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/activity_my_basket_tv_ordering_for_text"
-                    android:text="02-05-2017 at 09:00"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+        <LinearLayout
+            android:id="@+id/activity_my_basket_ll_checkout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
 
-                <TextView
-                    style="@style/TextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:padding="5dp"
-                    android:text="Change"
-                    android:textColor="@color/orange"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/activity_my_basket_recyclerview"
+            <TextView
+                style="@style/TextView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle_white_top_outline_light_grey"
-                android:nestedScrollingEnabled="false" />
+                android:padding="10dp"
+                android:text="Payment Summary"
+                android:textColor="@color/dark_grey" />
 
-            <EditText
-                android:id="@+id/activity_my_basket_et_note"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp">
+
+                <TextView
+                    style="@style/TextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Discount Amount"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/activity_my_basket_tv_discount_amount"
+                    style="@style/TextView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$10"
+                    android:textColor="@color/orange"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_my_basket_ll_delivery_charges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/TextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Delivery Charges"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/activity_my_basket_tv_delivery_charges"
+                    style="@style/TextView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$10"
+                    android:textColor="@color/orange"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/activity_my_basket_ll_checkout"
+                android:layout_gravity="center_vertical"
                 android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp">
+
+                <TextView
+                    style="@style/TextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Total Amount"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/activity_my_basket_tv_total_amount"
+                    style="@style/TextView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$250"
+                    android:textColor="@color/orange"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:background="@color/white"
-                android:gravity="top|start"
-                android:hint="Add a Note"
-                android:lines="2"
-                android:maxLines="2"
-                android:minLines="2"
-                android:padding="10dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp"
+                android:paddingEnd="30dp"
+                android:paddingStart="30dp"
+                android:paddingTop="20dp">
 
-            <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center_vertical"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:paddingEnd="10dp"-->
-            <!--android:paddingStart="10dp">-->
 
-            <!--<TextView-->
-            <!--style="@style/TextView2"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:text="Due Tommorow"-->
-            <!--android:textSize="18sp" />-->
+                <com.os.foodie.ui.custom.RippleAppCompatButton
+                    android:id="@+id/activity_my_basket_bt_checkout"
+                    style="@style/ButtonOrange"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/login_bt_height"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:text="Checkout" />
 
-            <!--<TextView-->
-            <!--android:id="@+id/activity_my_basket_tv_due"-->
-            <!--style="@style/TextView3"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="12.15-12.30"-->
-            <!--android:textColor="@color/orange"-->
-            <!--android:textStyle="bold" />-->
-
-            <!--</LinearLayout>-->
+            </LinearLayout>
 
         </LinearLayout>
 
-    </ScrollView>
+    </RelativeLayout>
 
-
-    <LinearLayout
-        android:id="@+id/activity_my_basket_ll_checkout"
+    <TextView
+        android:id="@+id/activity_my_basket_tv_empty_basket"
+        style="@style/TextView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        android:visibility="gone"
+        android:gravity="center"
+        android:text="Basket is empty"
+        android:textColor="@color/black" />
 
-        <TextView
-            style="@style/TextView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_white_top_outline_light_grey"
-            android:padding="10dp"
-            android:text="Payment Summary"
-            android:textColor="@color/dark_grey" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp">
-
-            <TextView
-                style="@style/TextView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Discount Amount"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/activity_my_basket_tv_discount_amount"
-                style="@style/TextView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$10"
-                android:textColor="@color/orange"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/activity_my_basket_ll_delivery_charges"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
-            android:visibility="gone">
-
-            <TextView
-                style="@style/TextView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Delivery Charges"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/activity_my_basket_tv_delivery_charges"
-                style="@style/TextView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$10"
-                android:textColor="@color/orange"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/activity_my_basket_ll_checkout"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="10dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp">
-
-            <TextView
-                style="@style/TextView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Total Amount"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/activity_my_basket_tv_total_amount"
-                style="@style/TextView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$250"
-                android:textColor="@color/orange"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="20dp"
-            android:paddingEnd="30dp"
-            android:paddingStart="30dp"
-            android:paddingTop="20dp">
-
-
-            <com.os.foodie.ui.custom.RippleAppCompatButton
-                android:id="@+id/activity_my_basket_bt_checkout"
-                style="@style/ButtonOrange"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/login_bt_height"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:text="Checkout" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

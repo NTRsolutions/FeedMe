@@ -2,6 +2,8 @@ package com.os.foodie.ui.mybasket;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,6 +20,7 @@ import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.os.foodie.R;
@@ -27,15 +30,19 @@ import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
 import com.os.foodie.ui.adapter.recyclerview.MyBasketAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RecyclerTouchListener;
+import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
+import com.os.foodie.utils.DialogUtils;
 
 import java.util.ArrayList;
 
-public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
+public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, View.OnClickListener {
 
+    private RelativeLayout rlMain;
     private CheckedTextView ctvPickup, ctvDeliver;
     private EditText etNote;
     private LinearLayout llDeliveryType, llDeliveryCharges;
-    private TextView tvDiscountAmount, tvDeliveryCharges, tvTotalAmount;
+    private TextView tvDiscountAmount, tvDeliveryCharges, tvTotalAmount, tvEmptyBasket;
+    private Button btCheckout;
 
     private RecyclerView recyclerView;
     private MyBasketAdapter myBasketAdapter;
@@ -57,6 +64,9 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
 
+        rlMain = (RelativeLayout) findViewById(R.id.activity_my_basket_rl_main);
+        tvEmptyBasket = (TextView) findViewById(R.id.activity_my_basket_tv_empty_basket);
+
         etNote = (EditText) findViewById(R.id.activity_my_basket_et_note);
 
         ctvPickup = (CheckedTextView) findViewById(R.id.activity_my_basket_ctv_pickup);
@@ -68,6 +78,9 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
 
         llDeliveryType = (LinearLayout) findViewById(R.id.activity_my_basket_ll_delivery_type);
         llDeliveryCharges = (LinearLayout) findViewById(R.id.activity_my_basket_ll_delivery_charges);
+
+        btCheckout = (Button) findViewById(R.id.activity_my_basket_bt_checkout);
+        btCheckout.setOnClickListener(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.activity_my_basket_recyclerview);
 
@@ -185,7 +198,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
 //                            myBasketAdapter.notifyDataSetChanged();
 //                            updateTotalAmount();
                             mBottomSheetDialog.dismiss();
-                            myBasketMvpPresenter.removeFromMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(),viewCartResponse.getResponse().getRestaurantId(), position);
+                            myBasketMvpPresenter.removeFromMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(), viewCartResponse.getResponse().getRestaurantId(), position);
 
                         } else {
 //                            cartLists.get(position).setQty(tvItemQuantityTemp.getText().toString());
@@ -193,7 +206,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
 //                            myBasketAdapter.notifyDataSetChanged();
 //                            updateTotalAmount();
                             mBottomSheetDialog.dismiss();
-                            myBasketMvpPresenter.updateMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(),viewCartResponse.getResponse().getRestaurantId(), tvItemQuantityTemp.getText().toString(),cartLists.get(position).getPrice(), position);
+                            myBasketMvpPresenter.updateMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(), viewCartResponse.getResponse().getRestaurantId(), tvItemQuantityTemp.getText().toString(), cartLists.get(position).getPrice(), position);
                         }
                     }
                 });
@@ -217,7 +230,40 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_my_basket, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        } else if (item.getItemId() == R.id.action_clear_basket) {
+
+
+            if (cartLists != null && cartLists.size() != 0) {
+                myBasketMvpPresenter.clearBasket();
+            }
+        }
+
+        return true;
+    }
+
+    @Override
     public void setMyBasket(ViewCartResponse viewCartResponse) {
+
+        if (viewCartResponse.getResponse().getCartList() == null || viewCartResponse.getResponse().getCartList().size() == 0) {
+            rlMain.setVisibility(View.GONE);
+            tvEmptyBasket.setVisibility(View.VISIBLE);
+            return;
+        } else {
+            rlMain.setVisibility(View.VISIBLE);
+            tvEmptyBasket.setVisibility(View.GONE);
+        }
 
         this.viewCartResponse = viewCartResponse;
 
@@ -287,7 +333,22 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
         updateTotalAmount();
     }
 
+    @Override
+    public void onBasketClear() {
+        rlMain.setVisibility(View.GONE);
+        tvEmptyBasket.setVisibility(View.VISIBLE);
+    }
+
     public void updateTotalAmount() {
+
+        if (cartLists == null || cartLists.size() == 0) {
+            rlMain.setVisibility(View.GONE);
+            tvEmptyBasket.setVisibility(View.VISIBLE);
+            return;
+        } else {
+            rlMain.setVisibility(View.VISIBLE);
+            tvEmptyBasket.setVisibility(View.GONE);
+        }
 
         float totalAmount = 0;
 
@@ -307,36 +368,36 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
 
         tvTotalAmount.setText("$" + totalAmount);
     }
-
-    @Override
-    public void askForClearBasket() {
-
-//        DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
 //
-//                dialog.dismiss();
-////                                        customerMainMvpPresenter.setUserAsLoggedOut();
+//    @Override
+//    public void askForClearBasket() {
+//
+////        DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
+////            @Override
+////            public void onClick(DialogInterface dialog, int which) {
 ////
-////                Intent intent = new Intent(CustomerMainActivity.this, WelcomeActivity.class);
-////                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-////                startActivity(intent);
-//                clearBasket();
-//            }
-//        };
-//
-//        DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        };
-//
-//        DialogUtils.showAlert(this, R.mipmap.ic_logout,
-//                R.string.alert_dialog_title_logout, R.string.alert_dialog_text_logout,
-//                getResources().getString(R.string.alert_dialog_bt_yes), positiveButton,
-//                getResources().getString(R.string.alert_dialog_bt_no), negativeButton);
-    }
+////                dialog.dismiss();
+//////                                        customerMainMvpPresenter.setUserAsLoggedOut();
+//////
+//////                Intent intent = new Intent(CustomerMainActivity.this, WelcomeActivity.class);
+//////                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//////                startActivity(intent);
+////                clearBasket();
+////            }
+////        };
+////
+////        DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
+////            @Override
+////            public void onClick(DialogInterface dialog, int which) {
+////                dialog.dismiss();
+////            }
+////        };
+////
+////        DialogUtils.showAlert(this, R.mipmap.ic_logout,
+////                R.string.alert_dialog_title_logout, R.string.alert_dialog_text_logout,
+////                getResources().getString(R.string.alert_dialog_bt_yes), positiveButton,
+////                getResources().getString(R.string.alert_dialog_bt_no), negativeButton);
+//    }
 
     @Override
     public void itemRemovedFromBasket(int position) {
@@ -369,11 +430,6 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
 //        }
     }
 
-    public void clearBasket() {
-//        TODO Clear Cart
-//        cartLists
-    }
-
     @Override
     protected void setUp() {
     }
@@ -385,22 +441,71 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public void onClick(View v) {
 
-        if (item.getItemId() == android.R.id.home) {
-            finish();
+        if (v.getId() == btCheckout.getId()) {
 
-//            LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            View view = inflater.inflate(R.layout.dialog_item_quantity, null);
-//
-//            final Dialog mBottomSheetDialog = new Dialog(this, R.style.MaterialDialogSheet);
-//            mBottomSheetDialog.setContentView(view); // your custom view.
-//            mBottomSheetDialog.setCancelable(true);
-//            mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//            mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
-//            mBottomSheetDialog.show();
+            DialogInterface.OnClickListener online = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    doNext(1);
+                    dialog.dismiss();
+                }
+            };
+
+            DialogInterface.OnClickListener cod = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    doNext(2);
+                    dialog.dismiss();
+                }
+            };
+
+            DialogUtils.showAlert(MyBasketActivity.this,
+                    R.string.alert_dialog_title_payment_method, R.string.alert_dialog_text_payment_method,
+                    getResources().getString(R.string.alert_dialog_bt_online), online,
+                    getResources().getString(R.string.alert_dialog_bt_cod), cod);
         }
+    }
 
-        return true;
+    public void doNext(int method) {
+
+        String deliveryTypes[] = getResources().getStringArray(R.array.delivery_type);
+        String deliveryType = viewCartResponse.getResponse().getDeliveryType();
+
+        if (method == 1) {
+
+            if (deliveryType.equals(deliveryTypes[0])) {
+
+                Log.d("Pick only","Online");
+
+//                Intent intent = new Intent(MyBasketActivity.this, DeliveryAddressActivity.class);
+//                startActivity(intent);
+
+            } else if (deliveryType.equals(deliveryTypes[1])) {
+
+                Log.d("Delivery","Online");
+
+                Intent intent = new Intent(MyBasketActivity.this, DeliveryAddressActivity.class);
+                startActivity(intent);
+            }
+
+        } else {
+
+            if (deliveryType.equals(deliveryTypes[0])) {
+
+                Log.d("Pick only","COD");
+
+//                Intent intent = new Intent(MyBasketActivity.this, DeliveryAddressActivity.class);
+//                startActivity(intent);
+
+            } else if (deliveryType.equals(deliveryTypes[1])) {
+
+                Log.d("Delivery","COD");
+
+                Intent intent = new Intent(MyBasketActivity.this, DeliveryAddressActivity.class);
+                startActivity(intent);
+            }
+        }
     }
 }

@@ -7,7 +7,9 @@ public interface MyBasketMvpView extends MvpView {
 
     void setMyBasket(ViewCartResponse viewCartResponse);
 
-    void askForClearBasket();
+//    void askForClearBasket();
+
+    void onBasketClear();
 
     void itemRemovedFromBasket(int position);
 

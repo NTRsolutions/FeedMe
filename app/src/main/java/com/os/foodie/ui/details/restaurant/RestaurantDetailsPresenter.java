@@ -264,13 +264,16 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
                         public void accept(ClearCartResponse clearCartResponse) throws Exception {
 
                             getMvpView().hideLoading();
+                            getDataManager().setCustomerRestaurantId("");
 
                             if (clearCartResponse.getResponse().getStatus() == 1) {
 
-                                getDataManager().setCustomerRestaurantId("");
+                                Log.d("Cart", ">>1");
                                 getMvpView().onError(clearCartResponse.getResponse().getMessage());
 
                             } else {
+
+                                Log.d("Cart", ">>0");
                                 getMvpView().onError(clearCartResponse.getResponse().getMessage());
                             }
                         }
@@ -278,7 +281,6 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
                         @Override
                         public void accept(Throwable throwable) throws Exception {
                             getMvpView().hideLoading();
-                            Log.d("Error", ">>ErrThorwed");
                             getMvpView().onError(R.string.api_default_error);
                             Log.d("Error", ">>Err" + throwable.getMessage());
                         }

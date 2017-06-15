@@ -26,6 +26,10 @@
     <string name="alert_dialog_text_clear_basket">Your basket will be cleared ?</string>
     <string name="alert_dialog_title_delete_address">Delete Address</string>
     <string name="alert_dialog_text_delete_address">Are you sure, address will be deleted permanently ?</string>
+    <string name="alert_dialog_title_payment_method">Select Payment Method</string>
+    <string name="alert_dialog_text_payment_method">How would you like to do the payment ?</string>
+    <string name="alert_dialog_bt_online">Online</string>
+    <string name="alert_dialog_bt_cod">Cash On Delivery</string>
 
     <!--Menu-->
     <string name="menu_close">Close</string>
@@ -236,7 +240,7 @@
     <string name="action_view_earning">View Earning</string>
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
-    <string name="action_my_bucket">My Bucket</string>
+    <string name="action_my_bucket">My Basket</string>
     <string name="action_payment">Payment Methods</string>
     <string name="action_delivery_address">Delivery Address</string>
 

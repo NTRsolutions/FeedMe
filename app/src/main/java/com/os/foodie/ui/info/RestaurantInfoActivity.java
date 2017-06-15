@@ -144,7 +144,7 @@ public class RestaurantInfoActivity extends BaseActivity implements RestaurantIn
             tvMinimumOrder.setText("$" + minOrderAmount);
         }
 
-        tvDeliveryType.setText(getResources().getStringArray(R.array.order_types)[Integer.parseInt(restaurantDetails.getDeliveryType()) - 1]);
+   //     tvDeliveryType.setText(getResources().getStringArray(R.array.order_types)[Integer.parseInt(restaurantDetails.getDeliveryType())/* - 1*/]);
 
         if (!restaurantDetails.getDeliveryCharge().isEmpty()) {
             tvDeliveryCharge.setText("$" + restaurantDetails.getDeliveryCharge());

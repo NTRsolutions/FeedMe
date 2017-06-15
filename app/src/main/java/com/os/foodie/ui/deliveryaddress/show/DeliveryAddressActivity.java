@@ -2,6 +2,7 @@ package com.os.foodie.ui.deliveryaddress.show;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,7 +24,8 @@ import java.util.ArrayList;
 
 public class DeliveryAddressActivity extends BaseActivity implements DeliveryAddressMvpView, View.OnClickListener {
 
-    private Button btAddNewAddress;
+    private FloatingActionButton fabAddAddress;
+    private Button btPayment;
 
     private ArrayList<Address> addresses;
 
@@ -44,7 +46,8 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
         deliveryAddressMvpPresenter = new DeliveryAddressPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         deliveryAddressMvpPresenter.onAttach(this);
 
-        btAddNewAddress = (Button) findViewById(R.id.activity_delivery_address_bt_add_new_address);
+        fabAddAddress = (FloatingActionButton) findViewById(R.id.activity_delivery_address_fab_add_address);
+        btPayment = (Button) findViewById(R.id.activity_delivery_address_bt_payment);
 
         addresses = new ArrayList<Address>();
 
@@ -57,7 +60,8 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(deliveryAddressAdapter);
 
-        btAddNewAddress.setOnClickListener(this);
+        fabAddAddress.setOnClickListener(this);
+        btPayment.setOnClickListener(this);
 
         deliveryAddressMvpPresenter.getAddressList();
     }
@@ -74,10 +78,12 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == btAddNewAddress.getId()) {
+        if (v.getId() == fabAddAddress.getId()) {
 
             Intent intent = new Intent(DeliveryAddressActivity.this, AddEditDeliveryAddressActivity.class);
             startActivityForResult(intent, 1);
+
+        } else if (v.getId() == btPayment.getId()) {
         }
     }
 

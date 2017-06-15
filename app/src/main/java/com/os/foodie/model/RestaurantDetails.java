@@ -11,9 +11,6 @@ public class RestaurantDetails implements Parcelable {
     @SerializedName("id")
     @Expose
     private String id;
-    @SerializedName("in_cart")
-    @Expose
-    private Integer inCart;
     @SerializedName("restaurant_name")
     @Expose
     private String restaurantName;
@@ -68,6 +65,12 @@ public class RestaurantDetails implements Parcelable {
     @SerializedName("delivery_zipcode")
     @Expose
     private String deliveryZipcode;
+    @SerializedName("total_cart_quantity")
+    @Expose
+    private String totalQuantity;
+    @SerializedName("total_cart_amount")
+    @Expose
+    private String totalAmount;
     public final static Parcelable.Creator<RestaurantDetails> CREATOR = new Creator<RestaurantDetails>() {
 
 
@@ -95,7 +98,8 @@ public class RestaurantDetails implements Parcelable {
             instance.deliveryCharge = ((String) in.readValue((String.class.getClassLoader())));
             instance.deliveryType = ((String) in.readValue((String.class.getClassLoader())));
             instance.deliveryZipcode = ((String) in.readValue((String.class.getClassLoader())));
-            instance.inCart = ((Integer) in.readValue((Integer.class.getClassLoader())));
+            instance.totalQuantity = ((String) in.readValue((String.class.getClassLoader())));
+            instance.totalAmount = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -132,7 +136,7 @@ public class RestaurantDetails implements Parcelable {
      * @param openingTime
      * @param restaurantName
      */
-    public RestaurantDetails(String id, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String deliveryZipcode, Integer inCart) {
+    public RestaurantDetails(String id, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String deliveryZipcode, String totalQuantity, String totalAmount) {
         super();
         this.id = id;
         this.restaurantName = restaurantName;
@@ -153,7 +157,8 @@ public class RestaurantDetails implements Parcelable {
         this.deliveryCharge = deliveryCharge;
         this.deliveryType = deliveryType;
         this.deliveryZipcode = deliveryZipcode;
-        this.inCart = inCart;
+        this.totalQuantity = totalQuantity;
+        this.totalAmount= totalAmount;
     }
 
     public String getId() {
@@ -308,12 +313,20 @@ public class RestaurantDetails implements Parcelable {
         this.deliveryZipcode = deliveryZipcode;
     }
 
-    public Integer getInCart() {
-        return inCart;
+    public String getTotalQuantity() {
+        return totalQuantity;
     }
 
-    public void setInCart(Integer inCart) {
-        this.inCart = inCart;
+    public void setTotalQuantity(String totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public String getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(String totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public void writeToParcel(Parcel dest, int flags) {
@@ -336,7 +349,8 @@ public class RestaurantDetails implements Parcelable {
         dest.writeValue(deliveryCharge);
         dest.writeValue(deliveryType);
         dest.writeValue(deliveryZipcode);
-        dest.writeValue(inCart);
+        dest.writeValue(totalQuantity);
+        dest.writeValue(totalAmount);
     }
 
     public int describeContents() {
