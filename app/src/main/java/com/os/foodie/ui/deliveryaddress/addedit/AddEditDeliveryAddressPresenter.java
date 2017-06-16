@@ -5,6 +5,7 @@ import android.util.Log;
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
 import com.os.foodie.data.network.model.deliveryaddress.add.AddDeliveryAddressRequest;
+import com.os.foodie.data.network.model.deliveryaddress.add.AddDeliveryAddressResponse;
 import com.os.foodie.data.network.model.deliveryaddress.getall.Address;
 import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressRequest;
 import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressResponse;
@@ -73,23 +74,23 @@ public class AddEditDeliveryAddressPresenter<V extends AddEditDeliveryAddressMvp
                     .addDeliveryAddress(addDeliveryAddressRequest)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<ForgotPasswordResponse>() {
+                    .subscribe(new Consumer<AddDeliveryAddressResponse>() {
                         @Override
-                        public void accept(ForgotPasswordResponse forgotPasswordResponse) throws Exception {
+                        public void accept(AddDeliveryAddressResponse addDeliveryAddressResponse) throws Exception {
 
                             getMvpView().hideLoading();
 
-                            if (forgotPasswordResponse.getResponse().getStatus() == 1) {
-                                Log.d("getMessage", ">>" + forgotPasswordResponse.getResponse().getMessage());
+                            if (addDeliveryAddressResponse.getResponse().getStatus() == 1) {
+                                Log.d("getMessage", ">>" + addDeliveryAddressResponse.getResponse().getMessage());
 
-                                Address address = setAddress(addDeliveryAddressRequest);
+                                Address address = setAddress(addDeliveryAddressResponse.getResponse().getAddressId(), addDeliveryAddressRequest);
 
-                                getMvpView().onError(forgotPasswordResponse.getResponse().getMessage());
+                                getMvpView().onError(addDeliveryAddressResponse.getResponse().getMessage());
                                 getMvpView().onDeliveryAddressAdd(address);
 //                                getMvpView().onPasswordReset("Password Reset");
 
                             } else {
-                                getMvpView().onError(forgotPasswordResponse.getResponse().getMessage());
+                                getMvpView().onError(addDeliveryAddressResponse.getResponse().getMessage());
                             }
                         }
                     }, new Consumer<Throwable>() {
@@ -139,14 +140,14 @@ public class AddEditDeliveryAddressPresenter<V extends AddEditDeliveryAddressMvp
                 getMvpView().onError(R.string.empty_city);
                 return;
             }
-//            if (updateAddressRequest.getState() == null || updateAddressRequest.getState().isEmpty()) {
-//                getMvpView().onError(R.string.empty_state);
-//                return;
-//            }
-//            if (updateAddressRequest.getCountry() == null || updateAddressRequest.getCountry().isEmpty()) {
-//                getMvpView().onError(R.string.empty_country);
-//                return;
-//            }
+            if (updateAddressRequest.getState() == null || updateAddressRequest.getState().isEmpty()) {
+                getMvpView().onError(R.string.empty_state);
+                return;
+            }
+            if (updateAddressRequest.getCountry() == null || updateAddressRequest.getCountry().isEmpty()) {
+                getMvpView().onError(R.string.empty_country);
+                return;
+            }
 
             getMvpView().showLoading();
 
@@ -187,12 +188,11 @@ public class AddEditDeliveryAddressPresenter<V extends AddEditDeliveryAddressMvp
 
     }
 
-    private Address setAddress(AddDeliveryAddressRequest addDeliveryAddressRequest) {
+    private Address setAddress(String addressId, AddDeliveryAddressRequest addDeliveryAddressRequest) {
 
         Address address = new Address();
 
-//        TODO get address id
-        address.setId(addDeliveryAddressRequest.getUserId());
+        address.setId(addressId);
         address.setUserId(addDeliveryAddressRequest.getUserId());
         address.setFullName(addDeliveryAddressRequest.getFullName());
         address.setMobileNumber(addDeliveryAddressRequest.getMobileNumber());
@@ -201,6 +201,8 @@ public class AddEditDeliveryAddressPresenter<V extends AddEditDeliveryAddressMvp
         address.setColony(addDeliveryAddressRequest.getColony());
         address.setLandmark(addDeliveryAddressRequest.getLandmark());
         address.setCity(addDeliveryAddressRequest.getCity());
+        address.setState(addDeliveryAddressRequest.getState());
+        address.setCountry(addDeliveryAddressRequest.getCountry());
 
         return address;
     }
@@ -209,7 +211,6 @@ public class AddEditDeliveryAddressPresenter<V extends AddEditDeliveryAddressMvp
 
         Address address = new Address();
 
-//        TODO get address id
         address.setId(updateAddressRequest.getAddressId());
         address.setUserId(updateAddressRequest.getUserId());
         address.setFullName(updateAddressRequest.getFullName());
@@ -219,6 +220,8 @@ public class AddEditDeliveryAddressPresenter<V extends AddEditDeliveryAddressMvp
         address.setColony(updateAddressRequest.getColony());
         address.setLandmark(updateAddressRequest.getLandmark());
         address.setCity(updateAddressRequest.getCity());
+        address.setState(updateAddressRequest.getState());
+        address.setCountry(updateAddressRequest.getCountry());
 
         return address;
     }

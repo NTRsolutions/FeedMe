@@ -123,7 +123,7 @@
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.filters.FiltersActivity"
-            android:label="Filters"
+            android:label="@string/filters_activity_title"
             android:theme="@style/AppTheme3" />
         <activity
             android:name=".ui.search.RestaurantSearchActivity"
@@ -131,23 +131,23 @@
             android:theme="@style/AppTheme3" />
         <activity
             android:name=".ui.mybasket.MyBasketActivity"
-            android:label="My Basket"
+            android:label="@string/my_basket_activity_title"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.deliveryaddress.show.DeliveryAddressActivity"
-            android:label="Delivery Address"
+            android:label="@string/delivery_address_activity_title"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.deliveryaddress.addedit.AddEditDeliveryAddressActivity"
-            android:label="Add Address"
+            android:label="@string/add_delivery_address_activity_title"
             android:theme="@style/AppTheme2" />
         <activity
-            android:name=".ui.payment.show.ManagePaymentCard"
-            android:label="Manage Cards"
+            android:name=".ui.payment.show.ManagePaymentCardActivity"
+            android:label="@string/manage_cards_activity_title"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.payment.add.AddPaymentCardActivity"
-            android:label="Add Card"
+            android:label="@string/add_payment_card_activity_title"
             android:theme="@style/AppTheme2" />
     </application>
 

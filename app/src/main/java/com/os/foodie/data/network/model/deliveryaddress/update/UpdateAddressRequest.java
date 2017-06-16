@@ -33,6 +33,12 @@ public class UpdateAddressRequest {
     @SerializedName("city")
     @Expose
     private String city;
+    @SerializedName("state")
+    @Expose
+    private String state;
+    @SerializedName("country")
+    @Expose
+    private String country;
 
     /**
      * No args constructor for use in serialization
@@ -52,8 +58,10 @@ public class UpdateAddressRequest {
      * @param flatNumber
      * @param addressId
      * @param city
+     * @param state
+     * @param country
      */
-    public UpdateAddressRequest(String userId, String addressId, String fullName, String mobileNumber, String pincode, String flatNumber, String colony, String landmark, String city) {
+    public UpdateAddressRequest(String userId, String addressId, String fullName, String mobileNumber, String pincode, String flatNumber, String colony, String landmark, String city, String state, String country) {
         super();
         this.userId = userId;
         this.addressId = addressId;
@@ -64,6 +72,8 @@ public class UpdateAddressRequest {
         this.colony = colony;
         this.landmark = landmark;
         this.city = city;
+        this.state = state;
+        this.country = country;
     }
 
     public String getUserId() {
@@ -138,4 +148,19 @@ public class UpdateAddressRequest {
         this.city = city;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 }

@@ -189,6 +189,11 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                 return;
             }
 
+            if (restaurantProfileRequest.getDescription() == null || restaurantProfileRequest.getDescription().isEmpty()) {
+                getMvpView().onError(R.string.empty_description);
+                return;
+            }
+
             if(restaurantProfileRequest.getRestaurantId()==null) {
                 if (fileMap.size() == 0) {
                     getMvpView().onError(R.string.mandatory_image);

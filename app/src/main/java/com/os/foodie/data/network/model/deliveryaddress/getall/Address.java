@@ -4,11 +4,11 @@ package com.os.foodie.data.network.model.deliveryaddress.getall;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Address implements Parcelable
-{
+public class Address implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -37,11 +37,17 @@ public class Address implements Parcelable
     @SerializedName("city")
     @Expose
     private String city;
+    @SerializedName("state")
+    @Expose
+    private String state;
+    @SerializedName("country")
+    @Expose
+    private String country;
     public final static Creator<Address> CREATOR = new Creator<Address>() {
 
 
         @SuppressWarnings({
-            "unchecked"
+                "unchecked"
         })
         public Address createFromParcel(Parcel in) {
             Address instance = new Address();
@@ -54,6 +60,8 @@ public class Address implements Parcelable
             instance.colony = ((String) in.readValue((String.class.getClassLoader())));
             instance.landmark = ((String) in.readValue((String.class.getClassLoader())));
             instance.city = ((String) in.readValue((String.class.getClassLoader())));
+            instance.state = ((String) in.readValue((String.class.getClassLoader())));
+            instance.country = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -61,18 +69,15 @@ public class Address implements Parcelable
             return (new Address[size]);
         }
 
-    }
-    ;
+    };
 
     /**
      * No args constructor for use in serialization
-     * 
      */
     public Address() {
     }
 
     /**
-     * 
      * @param pincode
      * @param id
      * @param landmark
@@ -82,8 +87,10 @@ public class Address implements Parcelable
      * @param mobileNumber
      * @param flatNumber
      * @param city
+     * @param state
+     * @param country
      */
-    public Address(String id, String userId, String fullName, String mobileNumber, String pincode, String flatNumber, String colony, String landmark, String city) {
+    public Address(String id, String userId, String fullName, String mobileNumber, String pincode, String flatNumber, String colony, String landmark, String city, String state, String country) {
         super();
         this.id = id;
         this.userId = userId;
@@ -94,6 +101,8 @@ public class Address implements Parcelable
         this.colony = colony;
         this.landmark = landmark;
         this.city = city;
+        this.state = state;
+        this.country = country;
     }
 
     public String getId() {
@@ -168,6 +177,22 @@ public class Address implements Parcelable
         this.city = city;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);
         dest.writeValue(userId);
@@ -178,10 +203,12 @@ public class Address implements Parcelable
         dest.writeValue(colony);
         dest.writeValue(landmark);
         dest.writeValue(city);
+        dest.writeValue(state);
+        dest.writeValue(country);
     }
 
     public int describeContents() {
-        return  0;
+        return 0;
     }
 
 }

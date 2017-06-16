@@ -48,6 +48,10 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
 
             setAddresses(address);
         }
+
+        if(isEdit){
+            getSupportActionBar().setTitle(getString(R.string.edit_delivery_address_activity_title));
+        }
     }
 
     @Override
@@ -72,8 +76,8 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
                     updateAddressRequest.setColony(etColony.getText().toString().trim());
                     updateAddressRequest.setLandmark(etLandmark.getText().toString().trim());
                     updateAddressRequest.setCity(etCity.getText().toString().trim());
-//                    updateAddressRequest.setCountry(etCountry.getText().toString().trim());
-//                    updateAddressRequest.setState(etState.getText().toString().trim());
+                    updateAddressRequest.setCountry(etCountry.getText().toString().trim());
+                    updateAddressRequest.setState(etState.getText().toString().trim());
                     updateAddressRequest.setUserId(AppController.get(this).getAppDataManager().getCurrentUserId());
 
                     addEditDeliveryAddressMvpPresenter.updateDeliverAddress(updateAddressRequest);
@@ -82,6 +86,7 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
 
                     AddDeliveryAddressRequest addDeliveryAddressRequest = new AddDeliveryAddressRequest();
 
+                    addDeliveryAddressRequest.setUserId(AppController.get(this).getAppDataManager().getCurrentUserId());
                     addDeliveryAddressRequest.setFullName(etFullName.getText().toString().trim());
                     addDeliveryAddressRequest.setMobileNumber(etPhoneNumber.getText().toString().trim());
                     addDeliveryAddressRequest.setPincode(etPinCode.getText().toString().trim());
@@ -91,7 +96,6 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
                     addDeliveryAddressRequest.setCity(etCity.getText().toString().trim());
                     addDeliveryAddressRequest.setCountry(etCountry.getText().toString().trim());
                     addDeliveryAddressRequest.setState(etState.getText().toString().trim());
-                    addDeliveryAddressRequest.setUserId(AppController.get(this).getAppDataManager().getCurrentUserId());
 
                     addEditDeliveryAddressMvpPresenter.addDeliverAddress(addDeliveryAddressRequest);
                 }
@@ -153,6 +157,8 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
         etColony.setText(address.getColony());
         etLandmark.setText(address.getLandmark());
         etCity.setText(address.getCity());
+        etState.setText(address.getState());
+        etCountry.setText(address.getCountry());
     }
 
     private void setOnClickListener() {

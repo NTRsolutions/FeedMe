@@ -31,7 +31,7 @@ import com.os.foodie.ui.adapter.recyclerview.MyBasketAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RecyclerTouchListener;
 import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
-import com.os.foodie.ui.payment.show.ManagePaymentCard;
+import com.os.foodie.ui.payment.show.ManagePaymentCardActivity;
 import com.os.foodie.utils.DialogUtils;
 
 import java.util.ArrayList;
@@ -480,7 +480,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                 Log.d("Pick only","Online");
 
-                Intent intent = new Intent(MyBasketActivity.this, ManagePaymentCard.class);
+                Intent intent = new Intent(MyBasketActivity.this, ManagePaymentCardActivity.class);
                 startActivity(intent);
 
             } else if (deliveryType.equals(deliveryTypes[1])) {
@@ -497,7 +497,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                 Log.d("Pick only","COD");
 
-                Intent intent = new Intent(MyBasketActivity.this, ManagePaymentCard.class);
+                Intent intent = new Intent(MyBasketActivity.this, ManagePaymentCardActivity.class);
                 startActivity(intent);
 
             } else if (deliveryType.equals(deliveryTypes[1])) {

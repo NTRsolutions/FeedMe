@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,7 +16,7 @@ import com.os.foodie.R;
 import com.os.foodie.ui.adapter.recyclerview.CardAdapter;
 import com.os.foodie.ui.payment.add.AddPaymentCardActivity;
 
-public class ManagePaymentCard extends AppCompatActivity implements View.OnClickListener {
+public class ManagePaymentCardActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FloatingActionButton btAddCard;
     private RecyclerView recyclerView;
@@ -38,6 +39,16 @@ public class ManagePaymentCard extends AppCompatActivity implements View.OnClick
         recyclerView.setAdapter(cardAdapter);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        return true;
+    }
+
     private void initView() {
 
         btAddCard = (FloatingActionButton) findViewById(R.id.activity_manage_payment_card_bt_add_card);
@@ -51,7 +62,7 @@ public class ManagePaymentCard extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_manage_payment_card_bt_add_card:
-                Intent i = new Intent(ManagePaymentCard.this, AddPaymentCardActivity.class);
+                Intent i = new Intent(ManagePaymentCardActivity.this, AddPaymentCardActivity.class);
                 startActivity(i);
                 break;
         }

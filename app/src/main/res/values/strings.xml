@@ -78,6 +78,7 @@
     <string name="empty_minimum_order_amount">Please provide minimum order amount</string>
     <string name="empty_delivery_charges">Please provide delivery charges</string>
     <string name="empty_delivery_zip_codes">Please provide delivery zip codes</string>
+    <string name="empty_description">Please provide few lines about restaurant</string>
     <string name="mandatory_image">Please provide atleast one image</string>
     <string name="empty_course_type">Please provide course type</string>
     <string name="empty_menu_item_course_type">Please select a course type</string>
@@ -223,6 +224,7 @@
     <string name="setup_restaurant_profile_bt_save_text">Save</string>
     <string name="setup_restaurant_profile_et_opening_hours_hint">Opening Hours</string>
     <string name="setup_restaurant_profile_bt_cancel_text">Cancel</string>
+    <string name="setup_restaurant_profile_et_description_hint">Description</string>
 
     <!--Customer Main-->
     <string name="customer_main_header_tv_welcome_text">Welcome</string>
@@ -343,6 +345,7 @@
     <string name="facebook_sign_up_bt_submit_text">Submit</string>
 
     <!--Filters-->
+    <string name="filters_activity_title">Filters</string>
     <string name="filters_tv_minimum_order_amount_text">Minimum Order Amount</string>
     <string name="filters_tv_cuisine_type_text">Cuisine Type</string>
     <string name="filters_tv_cuisine_type_hint">Cuisine Type</string>
@@ -360,6 +363,7 @@
     <string name="filters_bt_search_text">Search</string>
 
     <!--My Basket-->
+    <string name="my_basket_activity_title">My Basket</string>
     <string name="my_basket_ctv_pickup_text">Pickup</string>
     <string name="my_basket_ctv_deliver_text">Delivery</string>
     <string name="my_basket_tv_ordering_for_text">Ordering for</string>
@@ -395,6 +399,7 @@
     <string name="restaurant_account_bt_cancel_text">Cancel</string>
 
     <!--Add Payment Card-->
+    <string name="add_payment_card_activity_title">Add Card</string>
     <string name="add_payment_card_et_card_number_hint">Card Number</string>
     <string name="add_payment_card_et_month_hint">MM</string>
     <string name="add_payment_card_et_year_hint">YY</string>
@@ -405,6 +410,8 @@
     <string name="add_payment_card_ctv_terms_text"><![CDATA[By adding your debit / credit card, you agree to the Terms & Condition.]]></string>
 
     <!--Add Edit Delivery Address-->
+    <string name="add_delivery_address_activity_title">Add Address</string>
+    <string name="edit_delivery_address_activity_title">Edit Address</string>
     <string name="add_edit_delivery_address_tv_full_name_tag_text">Full Name</string>
     <string name="add_edit_delivery_address_tv_phone_number_tag_text">Phone Number</string>
     <string name="add_edit_delivery_address_bt_save_text">Save</string>
@@ -429,7 +436,12 @@
     <string name="restaurant_tv_time_text">min.</string>
 
     <!--Manage Payment Card-->
+    <string name="manage_cards_activity_title">Manage Cards</string>
     <string name="manage_payment_card_tv_alert_text">No Card</string>
+
+    <!--Delivery Address-->
+    <string name="delivery_address_activity_title">Delivery Address</string>
+    <string name="delivery_address_bt_payment_text">Make Payment</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

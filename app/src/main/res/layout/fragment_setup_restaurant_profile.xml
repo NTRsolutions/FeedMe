@@ -44,7 +44,7 @@
                 android:layout_height="@dimen/setup_restaurant_profile_et_height"
                 android:layout_marginEnd="@dimen/setup_restaurant_profile_et_margin_start_end"
                 android:layout_marginStart="@dimen/setup_restaurant_profile_et_margin_start_end"
-                android:layout_marginTop="@dimen/setup_restaurant_profile_et_margin_top"
+                android:layout_marginTop="@dimen/setup_restaurant_profile_et_cuisine_type_margin_top"
                 android:clickable="true"
                 android:drawableEnd="@mipmap/ic_arrow_down"
                 android:focusable="false"
@@ -266,6 +266,25 @@
                 android:inputType="text"
                 android:paddingEnd="@dimen/setup_restaurant_profile_et_padding_start_end"
                 android:paddingStart="@dimen/setup_restaurant_profile_et_padding_start_end" />
+
+            <EditText
+                android:id="@+id/fragment_setup_restaurant_profile_et_description"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/setup_restaurant_profile_et_margin_start_end"
+                android:layout_marginStart="@dimen/setup_restaurant_profile_et_margin_start_end"
+                android:layout_marginTop="@dimen/setup_restaurant_profile_et_margin_top"
+                android:gravity="top|start"
+                android:hint="@string/setup_restaurant_profile_et_description_hint"
+                android:imeOptions="actionDone"
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:maxLines="8"
+                android:minLines="4"
+                android:paddingEnd="@dimen/setup_restaurant_profile_et_padding_start_end"
+                android:paddingStart="@dimen/setup_restaurant_profile_et_padding_start_end"
+                android:paddingTop="@dimen/setup_restaurant_profile_et_description_padding_top" />
 
             <com.os.foodie.ui.custom.RippleAppCompatButton
                 android:id="@+id/fragment_setup_restaurant_profile_bt_save"

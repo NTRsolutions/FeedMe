@@ -34,11 +34,11 @@
         android:id="@+id/activity_delivery_address_bt_payment"
         style="@style/ButtonOrange"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/delivery_address_bt_height"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/delivery_address_bt_payment_margin"
         android:gravity="center"
-        android:text="Make Payment" />
+        android:text="@string/delivery_address_bt_payment_text" />
 
 </RelativeLayout>

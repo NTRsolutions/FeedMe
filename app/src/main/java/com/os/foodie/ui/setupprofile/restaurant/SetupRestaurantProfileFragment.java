@@ -75,7 +75,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
     private EditText etCuisineType, etWorkingDays, etAddress, etZipCode, etCountry, etCity;
     private EditText etOpeningTime, etClosingTime, etMinimumOrderAmount, etDeliveryTime;
-    private EditText etDeliveryCharges, etDeliveryZipCodes;
+    private EditText etDeliveryCharges, etDeliveryZipCodes, etDescription;
 
     private Spinner spinnerDeliveryType, spinnerPaymentMethods;
     private Button btSave, btCancel;
@@ -156,6 +156,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         etMinimumOrderAmount = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_min_order_amount);
         etDeliveryCharges = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_delivery_charges);
         etDeliveryZipCodes = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_delivery_areas);
+        etDescription = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_description);
 
         spinnerDeliveryType = (Spinner) view.findViewById(R.id.fragment_setup_restaurant_profile_spinner_order_type);
         spinnerPaymentMethods = (Spinner) view.findViewById(R.id.fragment_setup_restaurant_profile_spinner_payment_type);
@@ -629,7 +630,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         restaurantProfileRequest.setDeliveryTime(etDeliveryTime.getText().toString());
         restaurantProfileRequest.setDeliveryCharge(etDeliveryCharges.getText().toString());
         restaurantProfileRequest.setDeliveryZipcode(etDeliveryZipCodes.getText().toString());
-        restaurantProfileRequest.setDescription("");
+        restaurantProfileRequest.setDescription(etDescription.getText().toString());
 
         restaurantProfileRequest.setDeliveryType((spinnerDeliveryType.getSelectedItemPosition() + 1) + "");
         restaurantProfileRequest.setPaymentMethod((spinnerPaymentMethods.getSelectedItemPosition() + 1) + "");
@@ -938,6 +939,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                     view.getChildAt(1).setVisibility(View.GONE);
                 }
 
+                etDescription.setText(restaurantDetail.getDescription());
                 etDeliveryZipCodes.setText(restaurantDetail.getDeliveryZipcode());
                 etDeliveryCharges.setText(restaurantDetail.getDeliveryCharge());
                 etMinimumOrderAmount.setText(restaurantDetail.getMinOrderAmount());

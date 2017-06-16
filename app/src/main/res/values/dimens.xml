@@ -200,6 +200,7 @@
     <dimen name="setup_restaurant_profile_et_opening_hours_margin_end">5dp</dimen>
     <dimen name="setup_restaurant_profile_bt_cancel_margin_bottom">30dp</dimen>
     <dimen name="setup_restaurant_profile_bt_cancel_margin_top">10dp</dimen>
+    <dimen name="setup_restaurant_profile_et_description_padding_top">10dp</dimen>
 
     <!--Customer Main-->
     <dimen name="customer_main_toolbar_content_inset_start">0dp</dimen>
@@ -634,7 +635,10 @@
     <!--Manage Payment Card-->
     <dimen name="manage_payment_card_ll_recyclerview_padding">20dp</dimen>
 
+    <!--Delivery Address-->
+    <dimen name="delivery_address_bt_height">45dp</dimen>
+    <dimen name="delivery_address_bt_payment_margin">20dp</dimen>
+
     <!-- TODO: Remove or change this placeholder text -->
-    <dimen name="text_size_18">18sp</dimen>
 
 </resources>
