@@ -8,10 +8,10 @@
         android:id="@+id/spinner_text_tv_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingEnd="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingStart="5dp"
-        android:textSize="20sp" />
+        android:paddingEnd="@dimen/spinner_text_tv_text_padding_end"
+        android:paddingTop="@dimen/spinner_text_tv_text_padding_top"
+        android:paddingBottom="@dimen/spinner_text_tv_text_padding_bottom"
+        android:paddingStart="@dimen/spinner_text_tv_text_padding_start"
+        android:textSize="@dimen/spinner_text_tv_text_size" />
 
 </LinearLayout>

@@ -101,7 +101,7 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
         tvLogIn = (TextView) findViewById(R.id.activity_restaurant_sign_up_tv_log_in);
         tvCustomerRegister = (TextView) findViewById(R.id.activity_restaurant_sign_up_tv_customer_register);
 
-        icRestaurantLogo = (CircleImageView) findViewById(R.id.restaurant_logo_iv);
+        icRestaurantLogo = (CircleImageView) findViewById(R.id.activity_facebook_sign_up_civ_restaurant_logo);
 
         btSignUp.setOnClickListener(this);
         btSignUpFacebook.setOnClickListener(this);

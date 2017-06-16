@@ -32,7 +32,7 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_add_delivery_address);
+        setContentView(R.layout.activity_add_edit_delivery_address);
 
         addEditDeliveryAddressMvpPresenter = new AddEditDeliveryAddressPresenter<>(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         addEditDeliveryAddressMvpPresenter.onAttach(AddEditDeliveryAddressActivity.this);
@@ -57,7 +57,7 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
 
         switch (v.getId()) {
 
-            case R.id.add_delivery_address_btn_save:
+            case R.id.activity_add_delivery_address_bt_save:
 
                 if (isEdit) {
 
@@ -129,17 +129,17 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
 
     private void initView() {
 
-        etFullName = (EditText) findViewById(R.id.full_name_et);
-        etPhoneNumber = (EditText) findViewById(R.id.phone_number_et);
-        etPinCode = (EditText) findViewById(R.id.pin_code_et);
-        etFlatNo = (EditText) findViewById(R.id.flat_no_et);
-        etColony = (EditText) findViewById(R.id.colony_et);
-        etLandmark = (EditText) findViewById(R.id.landmark_et);
-        etCity = (EditText) findViewById(R.id.city_et);
-        etState = (EditText) findViewById(R.id.state_et);
-        etCountry = (EditText) findViewById(R.id.country_et);
+        etFullName = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_full_name);
+        etPhoneNumber = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_phone_number);
+        etPinCode = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_pin_code);
+        etFlatNo = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_flat_no);
+        etColony = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_colony);
+        etLandmark = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_landmark);
+        etCity = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_city);
+        etState = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_state);
+        etCountry = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_country);
 
-        btSave = (RippleAppCompatButton) findViewById(R.id.add_delivery_address_btn_save);
+        btSave = (RippleAppCompatButton) findViewById(R.id.activity_add_delivery_address_bt_save);
 
         setOnClickListener();
     }

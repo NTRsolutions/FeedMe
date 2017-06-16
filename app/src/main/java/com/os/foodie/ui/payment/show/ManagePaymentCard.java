@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.ui.adapter.recyclerview.CardAdapter;
-import com.os.foodie.ui.payment.add.AddPaymentCard;
+import com.os.foodie.ui.payment.add.AddPaymentCardActivity;
 
 public class ManagePaymentCard extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,7 +51,7 @@ public class ManagePaymentCard extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_manage_payment_card_bt_add_card:
-                Intent i = new Intent(ManagePaymentCard.this, AddPaymentCard.class);
+                Intent i = new Intent(ManagePaymentCard.this, AddPaymentCardActivity.class);
                 startActivity(i);
                 break;
         }

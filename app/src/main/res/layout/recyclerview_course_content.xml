@@ -3,13 +3,13 @@
     android:id="@+id/recyclerview_course_content_ll_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/recyclerview_ll_main_margin_bottom"
-    android:layout_marginTop="@dimen/recyclerview_ll_main_margin_top"
+    android:layout_marginBottom="@dimen/course_content_ll_main_margin_bottom"
+    android:layout_marginTop="@dimen/course_content_ll_main_margin_top"
     android:orientation="horizontal">
 
     <RelativeLayout
         android:id="@+id/recyclerview_course_content_rl_course_quantity"
-        android:layout_width="@dimen/recyclerview_course_content_rl_course_quantity_width"
+        android:layout_width="@dimen/course_content_rl_course_quantity_width"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal">
@@ -19,7 +19,7 @@
             style="@style/TextView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/recyclerview_course_content_tv_course_quantity_text_size"
+            android:textSize="@dimen/course_content_tv_course_quantity_text_size"
             android:textColor="@color/orange" />
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_toEndOf="@+id/recyclerview_course_content_tv_course_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/recyclerview_course_content_tv_x_text_size"
+            android:textSize="@dimen/course_content_tv_x_text_size"
             android:text="@string/recyclerview_course_content_tv_x_text"
             android:textColor="@color/orange" />
 
@@ -36,7 +36,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/recyclerview_course_content_ll_main_course_margin"
+        android:layout_margin="@dimen/course_content_ll_main_course_margin"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -54,9 +54,9 @@
             style="@style/TextView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/recyclerview_course_content_tv_course_des_margin_top"
+            android:layout_marginTop="@dimen/course_content_tv_course_des_margin_top"
             android:ellipsize="end"
-            android:textSize="@dimen/recyclerview_course_content_tv_course_des_text_size"
+            android:textSize="@dimen/course_content_tv_course_des_text_size"
             android:textColor="@color/grey" />
 
     </LinearLayout>
@@ -66,7 +66,7 @@
         style="@style/TextView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/recyclerview_course_content_tv_price_margin"
+        android:layout_margin="@dimen/course_content_tv_price_margin"
         android:textColor="@color/orange" />
 
 </LinearLayout>

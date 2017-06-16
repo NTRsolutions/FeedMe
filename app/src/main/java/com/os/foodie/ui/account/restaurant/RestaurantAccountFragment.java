@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -180,14 +179,14 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
 
         setHasOptionsMenu(true);
 
-        profileImageIv = (CircleImageView) view.findViewById(R.id.profile_image_iv);
+        profileImageIv = (CircleImageView) view.findViewById(R.id.fragment_restaurant_account_civ_profile_image);
 
-        restaurantNameEt = (EditText) view.findViewById(R.id.restaurant_name_et);
-        contactPersonNameEt = (EditText) view.findViewById(R.id.contact_person_name_et);
-        emailEt = (EditText) view.findViewById(R.id.email_et);
-        phoneNumEt = (EditText) view.findViewById(R.id.phone_num_et);
+        restaurantNameEt = (EditText) view.findViewById(R.id.fragment_restaurant_account_et_restaurant_name);
+        contactPersonNameEt = (EditText) view.findViewById(R.id.fragment_restaurant_account_et_contact_person_name);
+        emailEt = (EditText) view.findViewById(R.id.fragment_restaurant_account_et_email);
+        phoneNumEt = (EditText) view.findViewById(R.id.fragment_restaurant_account_et_phone_number);
 
-        btSave = (RippleAppCompatButton) view.findViewById(R.id.activity_restaurant_save_profile);
+        btSave = (RippleAppCompatButton) view.findViewById(R.id.activity_restaurant_account_bt_save_profile);
         btCancel = (RippleAppCompatButton) view.findViewById(R.id.fragment_restaurant_account_bt_cancel);
 
         btSave.setOnClickListener(this);

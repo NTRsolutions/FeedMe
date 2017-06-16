@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -78,15 +77,15 @@ public class RestaurantSearchAdapter extends RecyclerView.Adapter<RestaurantSear
 
             FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
 
-            int marginTop = (int) context.getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_margin_top);
+            int marginTop = (int) context.getResources().getDimension(R.dimen.restaurant_tv_cuisine_margin_top);
 
-            layoutParams.setMarginStart((int) context.getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_margin_start));
+            layoutParams.setMarginStart((int) context.getResources().getDimension(R.dimen.restaurant_tv_cuisine_margin_start));
             layoutParams.setMargins(0, marginTop, 0, 0);
 
             tvCuisine.setLayoutParams(layoutParams);
             tvCuisine.setBackground(ContextCompat.getDrawable(context,R.drawable.rectangle_round_corner_white_outline_black));
 
-            float padding = context.getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_padding);
+            float padding = context.getResources().getDimension(R.dimen.restaurant_tv_cuisine_padding);
 
             tvCuisine.setPadding((int) padding, (int) padding, (int) padding, (int) padding);
             tvCuisine.setTextColor(ContextCompat.getColor(context, R.color.dark_grey));

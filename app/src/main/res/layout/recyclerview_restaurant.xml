@@ -15,14 +15,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/restaurant_ll_info_margin_bottom"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/restaurant_ll_sub_info_margin_start"
+            android:layout_marginTop="@dimen/restaurant_ll_sub_info_margin_top"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -31,14 +31,14 @@
                 style="@style/TextView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp" />
+                android:layout_marginBottom="@dimen/restaurant_tv_restaurant_name_margin_bottom"
+                android:layout_marginStart="@dimen/restaurant_tv_restaurant_name_margin_start" />
 
             <com.wefika.flowlayout.FlowLayout
                 android:id="@+id/recyclerview_restaurant_fl_cuisine_types"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="@dimen/restaurant_fl_cuisine_types_margin_bottom">
 
                 <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->
@@ -79,16 +79,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="@dimen/restaurant_ll_rating_review_margin_start"
+                android:layout_marginTop="@dimen/restaurant_ll_rating_review_margin_top"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="10dp"
-                    android:text="Rating"
+                    android:layout_marginEnd="@dimen/restaurant_tv_rating_tag_margin_end"
+                    android:text="@string/restaurant_tv_rating_tag_text"
                     android:textColor="@color/dark_grey"
                     android:typeface="serif" />
 
@@ -108,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/restaurant_tv_reviews_margin_start"
                     android:text="Reviews(0)"
                     android:textColor="@color/dark_grey"
                     android:typeface="serif" />
@@ -117,11 +117,10 @@
 
         </LinearLayout>
 
-
         <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_margin="15dp"
+            android:layout_width="@dimen/restaurant_ll_minutes_height_width"
+            android:layout_height="@dimen/restaurant_ll_minutes_height_width"
+            android:layout_margin="@dimen/restaurant_ll_minutes_margin"
             android:background="@drawable/circular_image_view_white_orange_outline"
             android:gravity="center"
             android:orientation="vertical">
@@ -132,10 +131,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:paddingEnd="5dp"
-                android:paddingStart="5dp"
+                android:paddingEnd="@dimen/restaurant_tv_minutes_padding_start_end"
+                android:paddingStart="@dimen/restaurant_tv_minutes_padding_start_end"
                 android:textColor="@color/orange"
-                android:textSize="24sp" />
+                android:textSize="@dimen/restaurant_tv_minutes_text_size" />
 
             <TextView
                 android:id="@+id/recyclerview_restaurant_tv_time"
@@ -143,11 +142,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:paddingEnd="5dp"
-                android:paddingStart="5dp"
-                android:text="min."
+                android:paddingEnd="@dimen/restaurant_tv_time_padding_start_end"
+                android:paddingStart="@dimen/restaurant_tv_time_padding_start_end"
+                android:text="@string/restaurant_tv_time_text"
                 android:textColor="@color/orange"
-                android:textSize="16sp" />
+                android:textSize="@dimen/restaurant_tv_time_text_size" />
 
         </LinearLayout>
 

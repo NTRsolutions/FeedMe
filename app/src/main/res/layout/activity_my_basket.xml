@@ -13,10 +13,11 @@
     <RelativeLayout
         android:id="@+id/activity_my_basket_rl_main"
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
+        <!--android:visibility="gone"-->
 
-        <ScrollView
+    <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -31,9 +32,9 @@
                     android:id="@+id/activity_my_basket_ll_delivery_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="@dimen/my_basket_ll_delivery_type_margin_start_end"
+                    android:layout_marginStart="@dimen/my_basket_ll_delivery_type_margin_start_end"
+                    android:layout_marginTop="@dimen/my_basket_ll_delivery_type_margin_top"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -43,53 +44,54 @@
                         android:layout_height="wrap_content"
                         android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
                         android:gravity="center"
-                        android:text="Pickup" />
+                        android:text="@string/my_basket_ctv_pickup_text" />
 
                     <CheckedTextView
                         android:id="@+id/activity_my_basket_ctv_deliver"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="@dimen/my_basket_ctv_deliver_margin_start"
                         android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
                         android:gravity="center"
-                        android:text="Delivery" />
+                        android:text="@string/my_basket_ctv_deliver_text" />
 
                 </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="@dimen/my_basket_rl_order_schedule_margin_bottom"
+                    android:layout_marginEnd="@dimen/my_basket_rl_order_schedule_margin_start_end"
+                    android:layout_marginStart="@dimen/my_basket_rl_order_schedule_margin_start_end"
+                    android:layout_marginTop="@dimen/my_basket_rl_order_schedule_margin_top"
                     android:background="@drawable/rectangle_outline_grey"
-                    android:padding="10dp">
+                    android:padding="@dimen/my_basket_rl_order_schedule_padding">
 
                     <TextView
-                        android:id="@+id/activity_my_basket_tv_ordering_for_text"
+                        android:id="@+id/activity_my_basket_tv_ordering_for"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ordering for" />
+                        android:text="@string/my_basket_tv_ordering_for_text" />
 
                     <TextView
-                        android:id="@+id/activity_my_basket_tv_date_time_text"
+                        android:id="@+id/activity_my_basket_tv_date_time"
                         style="@style/TextView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/activity_my_basket_tv_ordering_for_text"
+                        android:layout_below="@+id/activity_my_basket_tv_ordering_for"
                         android:text="02-05-2017 at 09:00"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/my_basket_tv_date_time_text_size" />
 
                     <TextView
                         style="@style/TextView1"
+                        android:id="@+id/activity_my_basket_tv_change"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:padding="5dp"
-                        android:text="Change"
+                        android:padding="@dimen/my_basket_tv_change_padding"
+                        android:text="@string/my_basket_tv_change_text"
                         android:textColor="@color/orange"
                         android:textStyle="bold" />
 
@@ -106,14 +108,14 @@
                     android:id="@+id/activity_my_basket_et_note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/my_basket_et_note_margin_top"
                     android:background="@color/white"
                     android:gravity="top|start"
-                    android:hint="Add a Note"
+                    android:hint="@string/my_basket_et_note_hint"
                     android:lines="2"
                     android:maxLines="2"
                     android:minLines="2"
-                    android:padding="10dp" />
+                    android:padding="@dimen/my_basket_et_note_padding" />
 
                 <!--<LinearLayout-->
                 <!--android:layout_width="match_parent"-->
@@ -148,13 +150,12 @@
 
         </ScrollView>
 
-
         <LinearLayout
             android:id="@+id/activity_my_basket_ll_checkout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:layout_alignParentBottom="true"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <TextView
@@ -162,8 +163,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle_white_top_outline_light_grey"
-                android:padding="10dp"
-                android:text="Payment Summary"
+                android:padding="@dimen/my_basket_tv_payment_summery_padding"
+                android:text="@string/my_basket_tv_payment_summery_text"
                 android:textColor="@color/dark_grey" />
 
             <LinearLayout
@@ -172,16 +173,16 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp">
+                android:paddingEnd="@dimen/my_basket_ll_discount_amount_padding_start_end"
+                android:paddingStart="@dimen/my_basket_ll_discount_amount_padding_start_end">
 
                 <TextView
                     style="@style/TextView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Discount Amount"
-                    android:textSize="18sp" />
+                    android:text="@string/my_basket_tv_discount_amount_text"
+                    android:textSize="@dimen/my_basket_tv_discount_amount_text_size" />
 
                 <TextView
                     android:id="@+id/activity_my_basket_tv_discount_amount"
@@ -199,11 +200,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/my_basket_ll_delivery_charges_margin_top"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
+                android:paddingEnd="@dimen/my_basket_ll_delivery_charges_padding_start_end"
+                android:paddingStart="@dimen/my_basket_ll_delivery_charges_padding_start_end"
                 android:visibility="gone">
 
                 <TextView
@@ -211,8 +212,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Delivery Charges"
-                    android:textSize="18sp" />
+                    android:text="@string/my_basket_tv_delivery_charges_tag_text"
+                    android:textSize="@dimen/my_basket_tv_delivery_charges_tag_text_size" />
 
                 <TextView
                     android:id="@+id/activity_my_basket_tv_delivery_charges"
@@ -230,19 +231,19 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/activity_my_basket_ll_checkout"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/my_basket_ll_total_amount_margin_top"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp">
+                android:paddingEnd="@dimen/my_basket_tv_total_amount_padding_start_end"
+                android:paddingStart="@dimen/my_basket_tv_total_amount_padding_start_end">
 
                 <TextView
                     style="@style/TextView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Total Amount"
-                    android:textSize="18sp" />
+                    android:text="@string/my_basket_tv_total_amount_tag_text"
+                    android:textSize="@dimen/my_basket_tv_total_amount_tag_text_size" />
 
                 <TextView
                     android:id="@+id/activity_my_basket_tv_total_amount"
@@ -262,20 +263,20 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="20dp"
-                android:paddingEnd="30dp"
-                android:paddingStart="30dp"
-                android:paddingTop="20dp">
+                android:paddingBottom="@dimen/my_basket_ll_checkout_padding_top_bottom"
+                android:paddingEnd="@dimen/my_basket_ll_checkout_padding_start_end"
+                android:paddingStart="@dimen/my_basket_ll_checkout_padding_start_end"
+                android:paddingTop="@dimen/my_basket_ll_checkout_padding_top_bottom">
 
 
                 <com.os.foodie.ui.custom.RippleAppCompatButton
                     android:id="@+id/activity_my_basket_bt_checkout"
                     style="@style/ButtonOrange"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/login_bt_height"
+                    android:layout_height="@dimen/my_basket_bt_checkout_height"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="Checkout" />
+                    android:text="@string/my_basket_bt_checkout_text" />
 
             </LinearLayout>
 
@@ -288,9 +289,9 @@
         style="@style/TextView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:gravity="center"
-        android:text="Basket is empty"
-        android:textColor="@color/black" />
+        android:text="@string/my_basket_tv_empty_basket_text"
+        android:textColor="@color/black"
+        android:visibility="gone" />
 
 </LinearLayout>

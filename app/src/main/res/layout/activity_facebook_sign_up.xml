@@ -3,60 +3,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
-    android:paddingTop="20dp"
+    android:background="@color/white"
     android:orientation="vertical"
+    android:paddingTop="@dimen/facebook_sign_up_ll_padding_top"
     tools:context="com.os.foodie.ui.fbsignup.FacebookSignUpActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/restaurant_logo_iv"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:id="@+id/activity_facebook_sign_up_civ_restaurant_logo"
+        android:layout_width="@dimen/facebook_sign_up_civ_restaurant_logo_height_width"
+        android:layout_height="@dimen/facebook_sign_up_civ_restaurant_logo_height_width"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="@dimen/facebook_sign_up_civ_restaurant_logo_margin_bottom"
+        android:layout_marginTop="@dimen/facebook_sign_up_civ_restaurant_logo_margin_top"
         android:src="@mipmap/img_profile_default" />
 
     <EditText
         android:id="@+id/activity_facebook_sign_up_et_restaurant_name"
         style="@style/EditTextGreySingleLine"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/restaurant_sign_up_et_restaurant_name_height"
-        android:layout_marginEnd="@dimen/restaurant_sign_up_et_margin_end"
-        android:layout_marginStart="@dimen/restaurant_sign_up_et_margin_start"
-        android:layout_marginTop="5dp"
+        android:layout_height="@dimen/facebook_sign_up_et_height"
+        android:layout_marginEnd="@dimen/facebook_sign_up_et_margin_start_end"
+        android:layout_marginStart="@dimen/facebook_sign_up_et_margin_start_end"
+        android:layout_marginTop="@dimen/facebook_sign_up_et_restaurant_name_margin_top"
         android:hint="@string/restaurant_sign_up_et_restaurant_name_hint"
         android:imeOptions="actionNext"
         android:inputType="textCapWords"
-        android:paddingEnd="@dimen/restaurant_sign_up_et_restaurant_name_padding_end"
-        android:paddingStart="@dimen/restaurant_sign_up_et_restaurant_name_padding_start" />
+        android:paddingEnd="@dimen/facebook_sign_up_et_padding_start_end"
+        android:paddingStart="@dimen/facebook_sign_up_et_padding_start_end" />
 
     <EditText
         android:id="@+id/activity_facebook_sign_up_et_phone"
         style="@style/EditTextGreySingleLine"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/otp_et_height"
-        android:layout_marginEnd="@dimen/otp_et_otp_margin_end"
-        android:layout_marginStart="@dimen/otp_et_otp_margin_start"
-        android:layout_marginTop="@dimen/restaurant_sign_up_et_restaurant_name_margin_top"
-        android:hint="Phone Number"
+        android:layout_height="@dimen/facebook_sign_up_et_height"
+        android:layout_marginEnd="@dimen/facebook_sign_up_et_margin_start_end"
+        android:layout_marginStart="@dimen/facebook_sign_up_et_margin_start_end"
+        android:layout_marginTop="@dimen/facebook_sign_up_et_phone_margin_top"
+        android:hint="@string/facebook_sign_up_et_phone_hint"
         android:imeOptions="actionDone"
         android:inputType="number"
         android:maxLength="10"
-        android:paddingEnd="@dimen/otp_et_otp_padding_end"
-        android:paddingStart="@dimen/otp_et_otp_padding_start" />
+        android:paddingEnd="@dimen/facebook_sign_up_et_padding_start_end"
+        android:paddingStart="@dimen/facebook_sign_up_et_padding_start_end" />
 
     <com.os.foodie.ui.custom.RippleAppCompatButton
         android:id="@+id/activity_facebook_sign_up_bt_submit"
         style="@style/ButtonOrange"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/otp_bt_height"
+        android:layout_height="@dimen/facebook_sign_up_bt_height"
         android:layout_gravity="center_horizontal"
-        android:layout_marginEnd="@dimen/otp_bt_submit_margin_end"
-        android:layout_marginStart="@dimen/otp_bt_submit_margin_start"
-        android:layout_marginTop="@dimen/otp_bt_submit_margin_top"
+        android:layout_marginEnd="@dimen/facebook_sign_up_bt_margin_start_end"
+        android:layout_marginStart="@dimen/facebook_sign_up_bt_margin_start_end"
+        android:layout_marginTop="@dimen/facebook_sign_up_bt_submit_margin_top"
         android:gravity="center"
-        android:text="@string/otp_bt_submit_text" />
+        android:text="@string/facebook_sign_up_bt_submit_text" />
 
 </LinearLayout>

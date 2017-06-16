@@ -8,7 +8,7 @@
         android:id="@+id/dialog_fragment_working_days_ll_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fragment_working_days_ll_title_margin"
+        android:layout_margin="@dimen/working_days_ll_title_margin"
         android:orientation="horizontal">
 
         <TextView
@@ -30,6 +30,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingBottom="@dimen/fragment_working_days_recycler_view_padding_bottom" />
+        android:paddingBottom="@dimen/working_days_recycler_view_padding_bottom" />
 
 </LinearLayout>

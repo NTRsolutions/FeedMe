@@ -221,6 +221,8 @@
     <string name="setup_restaurant_profile_et_delivery_charges_hint">Delivery Charges</string>
     <string name="setup_restaurant_profile_et_delivery_areas_hint">Delivery Areas</string>
     <string name="setup_restaurant_profile_bt_save_text">Save</string>
+    <string name="setup_restaurant_profile_et_opening_hours_hint">Opening Hours</string>
+    <string name="setup_restaurant_profile_bt_cancel_text">Cancel</string>
 
     <!--Customer Main-->
     <string name="customer_main_header_tv_welcome_text">Welcome</string>
@@ -246,6 +248,7 @@
 
     <!--Customer Home-->
     <string name="title_activity_customer_home">Customer Home</string>
+    <string name="customer_home_tv_no_result">No Restaurant Found</string>
 
     <!--Fragment Course Type-->
     <string name="fragment_course_type_tv_select_course_type_text">Select Course Type</string>
@@ -301,6 +304,13 @@
 
     <!--Settings-->
     <string name="title_fragment_settings">Settings</string>
+    <string name="settings_tv_notification_tag_text">Notification</string>
+    <string name="settings_ll_change_password_tag_text">Change Password</string>
+    <string name="settings_tv_contact_us_tag_text">Contact Us</string>
+    <string name="settings_tv_terms_of_use_tag_text">Terms of Use</string>
+    <string name="settings_tv_privacy_policy_tag_text">Privacy Policy</string>
+    <string name="settings_tv_faq_tag_text">FAQ</string>
+    <string name="settings_tv_rate_us_tag_text">Rate Us</string>
 
     <!--Change Password-->
     <string name="change_password_activity_title">Change Password</string>
@@ -328,34 +338,99 @@
     <string name="activity_change_password_et_confirm_new_password_hint">Confirm New Password</string>
     <string name="activity_change_password_bt_change_password_text">Change Password</string>
 
+    <!--Facebook Sign Up-->
+    <string name="facebook_sign_up_et_phone_hint">Phone Number</string>
+    <string name="facebook_sign_up_bt_submit_text">Submit</string>
+
+    <!--Filters-->
+    <string name="filters_tv_minimum_order_amount_text">Minimum Order Amount</string>
+    <string name="filters_tv_cuisine_type_text">Cuisine Type</string>
+    <string name="filters_tv_cuisine_type_hint">Cuisine Type</string>
+    <string name="filters_tv_distance_text">Distance</string>
+    <string name="filters_tv_in_km_text">*in km</string>
+    <string name="filters_tv_open_now_text">Open Now</string>
+    <string name="filters_ctv_open_text">Open</string>
+    <string name="filters_ctv_close_text">Close</string>
+    <string name="filters_tv_delivery_type_text">Food Delivery</string>
+    <string name="filters_ctv_deliver_text">Deliver</string>
+    <string name="filters_ctv_pickup_text">Pickup</string>
+    <string name="filters_tv_rating_text">Rating</string>
+    <string name="filters_tv_offer_text">Offer/Discount</string>
+    <string name="filters_ctv_offer_text">Offer</string>
+    <string name="filters_bt_search_text">Search</string>
+
+    <!--My Basket-->
+    <string name="my_basket_ctv_pickup_text">Pickup</string>
+    <string name="my_basket_ctv_deliver_text">Delivery</string>
+    <string name="my_basket_tv_ordering_for_text">Ordering for</string>
+    <string name="my_basket_tv_change_text">Change</string>
+    <string name="my_basket_et_note_hint">Add a Note</string>
+    <string name="my_basket_tv_payment_summery_text">Payment Summary</string>
+    <string name="my_basket_tv_discount_amount_text">Discount Amount</string>
+    <string name="my_basket_tv_delivery_charges_tag_text">Delivery Charges</string>
+    <string name="my_basket_tv_total_amount_tag_text">Total Amount</string>
+    <string name="my_basket_bt_checkout_text">Checkout</string>
+    <string name="my_basket_tv_empty_basket_text">Basket is empty</string>
+
+    <!--Customer_Restaurant Search-->
+    <string name="customer_search_tv_no_result_text">No Result Found</string>
+
+    <!--Dialog Item Quantity-->
+    <string name="dialog_item_quantity_tv_price_tag_text">Price: $</string>
+    <string name="dialog_item_quantity_bt_update_text">Update</string>
+
+    <!--Customer Account-->
+    <string name="customer_account_tv_first_name_tag_text">First Name</string>
+    <string name="customer_account_tv_email_tag_text">Email</string>
+    <string name="customer_account_tv_phone_number_tag_text">Phone Number</string>
+    <string name="customer_account_ll_last_name_tag_text">Last Name</string>
+    <string name="customer_account_bt_save_profile_text">Save</string>
+
+    <!--Restaurant Account-->
+    <string name="restaurant_account_tv_restaurant_name_text">Restaurant Name</string>
+    <string name="restaurant_account_tv_contact_person_name_text">Contact Person Name</string>
+    <string name="restaurant_account_tv_phone_number_text">Phone Number</string>
+    <string name="restaurant_account_tv_email_text">Email</string>
+    <string name="restaurant_account_bt_save_profile_text">Save</string>
+    <string name="restaurant_account_bt_cancel_text">Cancel</string>
+
+    <!--Add Payment Card-->
+    <string name="add_payment_card_et_card_number_hint">Card Number</string>
+    <string name="add_payment_card_et_month_hint">MM</string>
+    <string name="add_payment_card_et_year_hint">YY</string>
+    <string name="add_payment_card_et_cvv_hint">CVV</string>
+    <string name="add_payment_card_bt_add_text">Add</string>
+    <string name="add_payment_card_et_first_name_hint">First Name</string>
+    <string name="add_payment_card_et_last_name_hint">Last Name</string>
+    <string name="add_payment_card_ctv_terms_text"><![CDATA[By adding your debit / credit card, you agree to the Terms & Condition.]]></string>
+
+    <!--Add Edit Delivery Address-->
+    <string name="add_edit_delivery_address_tv_full_name_tag_text">Full Name</string>
+    <string name="add_edit_delivery_address_tv_phone_number_tag_text">Phone Number</string>
+    <string name="add_edit_delivery_address_bt_save_text">Save</string>
+    <string name="add_edit_delivery_address_tv_pin_code_tag_text">Pincode</string>
+    <string name="add_edit_delivery_address_tv_flat_no_tag_text">Flat No. / House No. / Floor / Building</string>
+    <string name="add_edit_delivery_address_tv_colony_tag_text">Colony / Street / Locality</string>
+    <string name="add_edit_delivery_address_tv_landmark_tag_text">Landmark</string>
+    <string name="add_edit_delivery_address_tv_city_tag_text">City</string>
+    <string name="add_edit_delivery_address_et_state_tag_text">State</string>
+    <string name="add_edit_delivery_address_tv_country_tag_text">Country</string>
+
+    <!--Customer Search-->
+    <string name="customer_search_tv_minutes_tag_text">min.</string>
+    <string name="customer_search_tv_rating_tag_text">Rating</string>
+
+    <!--Customer Search RecyclerView-->
+    <string name="delivery_address_bt_edit_text">Edit</string>
+    <string name="delivery_address_bt_delete_text">Delete</string>
+
+    <!--RecyclerView Restaurant-->
+    <string name="restaurant_tv_rating_tag_text">Rating</string>
+    <string name="restaurant_tv_time_text">min.</string>
+
+    <!--Manage Payment Card-->
+    <string name="manage_payment_card_tv_alert_text">No Card</string>
+
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="first_name">First Name</string>
-    <string name="email">Email</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="last_name">Last Name</string>
-    <string name="save">Save</string>
-    <string name="restaurant_name">Restaurant Name</string>
-    <string name="title_activity_customer_search">CustomerSearchActivity</string>
-
-
-    <string name="full_name">Full Name</string>
-    <string name="pin_code">Pincode</string>
-    <string name="flat_no">Flat No. / House No. / Floor / Building</string>
-    <string name="colony">Colony / Street / Locality</string>
-    <string name="landmark">Landmark</string>
-    <string name="city">City</string>
-    <string name="state">State</string>
-    <string name="country">Country</string>
-    <string name="add_new_address">add New Address</string>
-
-    <string name="card_number">Card Number</string>
-    <string name="MM">MM</string>
-    <string name="YY">YY</string>
-    <string name="CVV">CVV</string>
-    <string name="add">Add</string>
-    <string name="add_a_card">Add a Card</string>
-    <string name="no_card">No Card</string>
-    <string name="manage_card">Manage Card</string>
-    <string name="add_card">Add Card</string>
 
 </resources>

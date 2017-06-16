@@ -11,9 +11,9 @@
         style="@style/TextView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/customer_search_tv_no_result_margin_top"
         android:gravity="center"
-        android:text="No Result Found"
+        android:text="@string/customer_search_tv_no_result_text"
         android:textColor="@color/orange" />
 
     <android.support.v7.widget.RecyclerView

@@ -209,15 +209,15 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 
             FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
 
-            int marginTop = (int) getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_margin_top);
+            int marginTop = (int) getResources().getDimension(R.dimen.restaurant_tv_cuisine_margin_top);
 
-            layoutParams.setMarginStart((int) getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_margin_start));
+            layoutParams.setMarginStart((int) getResources().getDimension(R.dimen.restaurant_tv_cuisine_margin_start));
             layoutParams.setMargins(0, marginTop, 0, 0);
 
             tvCuisine.setLayoutParams(layoutParams);
             tvCuisine.setBackground(getResources().getDrawable(R.drawable.rectangle_round_corner_white_outline_black));
 
-            float padding = getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_padding);
+            float padding = getResources().getDimension(R.dimen.restaurant_tv_cuisine_padding);
 
             tvCuisine.setPadding((int) padding, (int) padding, (int) padding, (int) padding);
             tvCuisine.setTextColor(getResources().getColor(R.color.black));

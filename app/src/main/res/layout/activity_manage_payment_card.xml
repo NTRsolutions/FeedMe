@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="@dimen/manage_payment_card_ll_recyclerview_padding">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/activity_manage_payment_card_recyclerview"
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/no_card"
+            android:text="@string/manage_payment_card_tv_alert_text"
             android:textColor="@color/black"
             android:visibility="gone" />
 
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fragment_cuisine_type_fab_add_margin"
+        android:layout_margin="@dimen/cuisine_type_fab_add_margin"
         android:src="@drawable/ic_add_white_24dp"
         app:backgroundTint="@color/green"
         app:layout_behavior="com.os.foodie.ui.custom.FABScrollingDecoration"

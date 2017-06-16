@@ -114,10 +114,6 @@
             android:label=""
             android:theme="@style/AppTheme.NoActionBar2" />
         <activity
-            android:name=".fresco.view.FrescoFullScreenActivity"
-            android:label=""
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".ui.info.RestaurantInfoActivity"
             android:label=""
             android:theme="@style/AppTheme2" />
@@ -150,7 +146,7 @@
             android:label="Manage Cards"
             android:theme="@style/AppTheme2" />
         <activity
-            android:name=".ui.payment.add.AddPaymentCard"
+            android:name=".ui.payment.add.AddPaymentCardActivity"
             android:label="Add Card"
             android:theme="@style/AppTheme2" />
     </application>

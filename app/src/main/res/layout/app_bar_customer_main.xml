@@ -16,14 +16,14 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:contentInsetStart="0dp"
+            app:contentInsetStart="@dimen/customer_main_toolbar_content_inset_start"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:titleTextAppearance="@style/TitleTextAppearance"
             app:titleTextColor="@color/orange" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/customer_main_divider_height"
             android:background="@color/divider_color" />
 
     </android.support.design.widget.AppBarLayout>

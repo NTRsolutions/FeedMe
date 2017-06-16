@@ -30,8 +30,6 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
-import com.os.foodie.data.network.model.cart.add.AddToCartResponse;
-import com.os.foodie.data.network.model.cart.view.CartList;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
 import com.os.foodie.data.network.model.details.Dish;
 import com.os.foodie.data.network.model.details.Menu;
@@ -45,9 +43,7 @@ import com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingAc
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout;
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayoutBehavior;
 import com.os.foodie.ui.info.RestaurantInfoActivity;
-import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
-import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.DialogUtils;
 import com.wefika.flowlayout.FlowLayout;
@@ -280,15 +276,15 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
             FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
 
-            int marginTop = (int) getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_margin_top);
+            int marginTop = (int) getResources().getDimension(R.dimen.restaurant_tv_cuisine_margin_top);
 
-            layoutParams.setMarginStart((int) getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_margin_start));
+            layoutParams.setMarginStart((int) getResources().getDimension(R.dimen.restaurant_tv_cuisine_margin_start));
             layoutParams.setMargins(0, marginTop, 0, 0);
 
             tvCuisine.setLayoutParams(layoutParams);
             tvCuisine.setBackground(ContextCompat.getDrawable(this, R.drawable.rectangle_round_corner_white_outline_black));
 
-            float padding = getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_padding);
+            float padding = getResources().getDimension(R.dimen.restaurant_tv_cuisine_padding);
 
             tvCuisine.setPadding((int) padding, (int) padding, (int) padding, (int) padding);
             tvCuisine.setTextColor(getResources().getColor(R.color.black));
@@ -396,15 +392,15 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
             FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
 
-            int marginTop = (int) getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_margin_top);
+            int marginTop = (int) getResources().getDimension(R.dimen.restaurant_tv_cuisine_margin_top);
 
-            layoutParams.setMarginStart((int) getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_margin_start));
+            layoutParams.setMarginStart((int) getResources().getDimension(R.dimen.restaurant_tv_cuisine_margin_start));
             layoutParams.setMargins(0, marginTop, 0, 0);
 
             tvCuisine.setLayoutParams(layoutParams);
             tvCuisine.setBackground(ContextCompat.getDrawable(this, R.drawable.rectangle_round_corner_white_outline_black));
 
-            float padding = getResources().getDimension(R.dimen.recyclerview_restaurant_tv_cuisine_padding);
+            float padding = getResources().getDimension(R.dimen.restaurant_tv_cuisine_padding);
 
             tvCuisine.setPadding((int) padding, (int) padding, (int) padding, (int) padding);
             tvCuisine.setTextColor(getResources().getColor(R.color.black));

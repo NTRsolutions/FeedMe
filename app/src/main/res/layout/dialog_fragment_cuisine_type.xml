@@ -14,7 +14,7 @@
             android:id="@+id/dialog_fragment_cuisine_type_ll_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fragment_cuisine_type_ll_title_margin"
+            android:layout_margin="@dimen/cuisine_type_ll_title_margin"
             android:orientation="horizontal">
 
             <TextView
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingBottom="@dimen/fragment_cuisine_type_recyclerview_padding_bottom" />
+            android:paddingBottom="@dimen/cuisine_type_recyclerview_padding_bottom" />
 
     </LinearLayout>
 
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fragment_cuisine_type_fab_add_margin"
+        android:layout_margin="@dimen/cuisine_type_fab_add_margin"
         android:src="@drawable/ic_add_white_24dp"
         app:layout_behavior="com.os.foodie.ui.custom.FABScrollingBehavior"
         app:backgroundTint="@color/green"

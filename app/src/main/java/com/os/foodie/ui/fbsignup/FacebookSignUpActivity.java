@@ -57,7 +57,7 @@ public class FacebookSignUpActivity extends BaseActivity implements FacebookSign
         etRestaurantName = (EditText) findViewById(R.id.activity_facebook_sign_up_et_restaurant_name);
         etPhone = (EditText) findViewById(R.id.activity_facebook_sign_up_et_phone);
         btSubmit = (Button) findViewById(R.id.activity_facebook_sign_up_bt_submit);
-        ivRestaurantLogo = (CircleImageView) findViewById(R.id.restaurant_logo_iv);
+        ivRestaurantLogo = (CircleImageView) findViewById(R.id.activity_facebook_sign_up_civ_restaurant_logo);
         setUp();
         ivRestaurantLogo.setOnClickListener(this);
         btSubmit.setOnClickListener(this);

@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="@dimen/delivery_address_ll_main_margin"
     android:background="@drawable/rectangle_round_corner_white_outline_light_grey"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="@dimen/delivery_address_ll_main_padding">
 
     <TextView
         android:id="@+id/recyclerview_delivery_address_tv_name"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:text="10 B, Near Calgery Marg"
         android:textColor="@color/grey2"
-        android:textSize="14sp"
+        android:textSize="@dimen/delivery_address_tv_street_number_text_size"
         android:typeface="sans" />
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:text="Malviya Nagar"
         android:textColor="@color/grey2"
-        android:textSize="14sp"
+        android:textSize="@dimen/delivery_address_tv_colony_text_size"
         android:typeface="sans" />
 
     <TextView
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="Jaipur, Rajasthan 302004"
         android:textColor="@color/grey2"
-        android:textSize="14sp"
+        android:textSize="@dimen/delivery_address_tv_city_state_pin_text_size"
         android:typeface="sans" />
 
     <TextView
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:text="India"
         android:textColor="@color/grey2"
-        android:textSize="14sp"
+        android:textSize="@dimen/delivery_address_tv_country_text_size"
         android:typeface="sans" />
 
     <TextView
@@ -57,13 +57,13 @@
         android:layout_height="wrap_content"
         android:text="Mobile Number: 9969598985"
         android:textColor="@color/grey2"
-        android:textSize="14sp"
+        android:textSize="@dimen/delivery_address_tv_mobile_number_text_size"
         android:typeface="sans" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/delivery_address_ll_edit_delete_margin_top"
         android:orientation="horizontal">
 
         <com.os.foodie.ui.custom.RippleAppCompatButton
@@ -74,13 +74,13 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/rectangle_round_corner_orange"
             android:drawableLeft="@mipmap/ic_edit_2"
-            android:drawablePadding="10dp"
+            android:drawablePadding="@dimen/delivery_address_bt_drawable_padding"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="Edit"
+            android:padding="@dimen/delivery_address_bt_padding"
+            android:text="@string/delivery_address_bt_edit_text"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="@dimen/delivery_address_bt_text_size"
             android:typeface="serif" />
 
         <com.os.foodie.ui.custom.RippleAppCompatButton
@@ -89,16 +89,16 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/delivery_address_bt_delete_margin_start"
             android:background="@drawable/rectangle_round_corner_dark_grey"
             android:drawableLeft="@mipmap/ic_delete_2"
-            android:drawablePadding="10dp"
+            android:drawablePadding="@dimen/delivery_address_bt_drawable_padding"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="Delete"
+            android:padding="@dimen/delivery_address_bt_padding"
+            android:text="@string/delivery_address_bt_delete_text"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="@dimen/delivery_address_bt_text_size"
             android:typeface="serif" />
 
     </LinearLayout>

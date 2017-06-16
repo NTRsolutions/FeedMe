@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="@dimen/recyclerview_cuisine_type_working_days_ll_main_padding">
+    android:padding="@dimen/cuisine_type_working_days_ll_main_padding">
 
     <CheckedTextView
         android:id="@+id/recyclerview_cuisine_type_ctv_cuisine_type"
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
-        android:drawablePadding="@dimen/recyclerview_cuisine_type_working_days_ctv_drawable_padding"
+        android:drawablePadding="@dimen/cuisine_type_working_days_ctv_drawable_padding"
         android:ellipsize="end"
         android:singleLine="true" />
 

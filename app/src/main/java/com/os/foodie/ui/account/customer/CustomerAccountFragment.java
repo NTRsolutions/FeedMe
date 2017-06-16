@@ -120,12 +120,12 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
 
         setHasOptionsMenu(true);
 
-        etFirstName = (EditText) view.findViewById(R.id.first_name_et);
-        etLastName = (EditText) view.findViewById(R.id.last_name_et);
-        etEmail = (EditText) view.findViewById(R.id.email_et);
-        etPhoneNum = (EditText) view.findViewById(R.id.phone_num_et);
+        etFirstName = (EditText) view.findViewById(R.id.fragment_customer_account_et_first_name);
+        etLastName = (EditText) view.findViewById(R.id.fragment_customer_account_et_last_name);
+        etEmail = (EditText) view.findViewById(R.id.fragment_customer_account_et_email);
+        etPhoneNum = (EditText) view.findViewById(R.id.fragment_customer_account_et_phone_number);
 
-        btSave = (RippleAppCompatButton) view.findViewById(R.id.activity_customer_save_profile);
+        btSave = (RippleAppCompatButton) view.findViewById(R.id.activity_customer_bt_save_profile);
         btSave.setOnClickListener(this);
     }
 

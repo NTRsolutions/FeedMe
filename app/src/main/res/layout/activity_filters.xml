@@ -18,25 +18,25 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_bottom_line_light_grey"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/filters_ll_minimum_order_amount_padding">
 
             <TextView
                 style="@style/TextView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Minimum Order Amount"
+                android:layout_margin="@dimen/filters_tv_minimum_order_amount_margin"
+                android:text="@string/filters_tv_minimum_order_amount_text"
                 android:textColor="@color/black" />
 
             <org.florescu.android.rangeseekbar.RangeSeekBar
                 android:id="@+id/activity_filters_seekbar_minimum_order_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                rsb:absoluteMaxValue="5000"
-                rsb:absoluteMinValue="0"
                 app:thumbDisabled="@drawable/seekbar_thumb_disabled"
                 app:thumbNormal="@drawable/seekbar_thumb_normal"
                 app:thumbPressed="@drawable/seekbar_thumb_pressed"
+                rsb:absoluteMaxValue="5000"
+                rsb:absoluteMinValue="0"
                 rsb:textAboveThumbsColor="@color/orange"
                 rsb:thumbShadow="true" />
             <!--rsb:thumbDisabled="@drawable/custom_slider_thumb"-->
@@ -59,27 +59,27 @@
             <!--app:right_thumb_color_pressed="@color/orange" />-->
 
             <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginEnd="10dp"-->
-                <!--android:layout_marginStart="10dp"-->
-                <!--android:orientation="horizontal">-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="10dp"-->
+            <!--android:layout_marginStart="10dp"-->
+            <!--android:orientation="horizontal">-->
 
-                <!--<TextView-->
-                    <!--android:id="@+id/activity_filters_tv_min_order_min"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:text="aaaa"-->
-                    <!--android:textColor="@color/orange"-->
-                    <!--android:textStyle="bold" />-->
+            <!--<TextView-->
+            <!--android:id="@+id/activity_filters_tv_min_order_min"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="aaaa"-->
+            <!--android:textColor="@color/orange"-->
+            <!--android:textStyle="bold" />-->
 
-                <!--<TextView-->
-                    <!--android:id="@+id/activity_filters_tv_min_order_max"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:textColor="@color/orange"-->
-                    <!--android:textStyle="bold" />-->
+            <!--<TextView-->
+            <!--android:id="@+id/activity_filters_tv_min_order_max"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/orange"-->
+            <!--android:textStyle="bold" />-->
 
             <!--</LinearLayout>-->
 
@@ -90,31 +90,31 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_bottom_line_light_grey"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/filters_ll_cuisine_type_padding">
 
             <TextView
                 style="@style/TextView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Cuisine Type"
+                android:layout_margin="@dimen/filters_tv_cuisine_type_margin"
+                android:text="@string/filters_tv_cuisine_type_text"
                 android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/activity_filters_et_cuisine_type"
                 style="@style/EditTextGreySingleLine"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
+                android:layout_height="@dimen/filters_et_height"
+                android:layout_margin="@dimen/filters_cuisine_type_margin"
                 android:clickable="true"
                 android:drawableEnd="@mipmap/ic_arrow_down"
-                android:drawablePadding="10dp"
+                android:drawablePadding="@dimen/filters_tv_cuisine_type_drawable_padding"
                 android:focusable="false"
-                android:hint="Cuisine Type"
+                android:hint="@string/filters_tv_cuisine_type_hint"
                 android:inputType="none"
                 android:longClickable="false"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp" />
+                android:paddingEnd="@dimen/filters_tv_cuisine_type_padding_start_end"
+                android:paddingStart="@dimen/filters_tv_cuisine_type_padding_start_end" />
 
         </LinearLayout>
 
@@ -123,25 +123,25 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_bottom_line_light_grey"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/filters_ll_distance_padding">
 
             <TextView
                 style="@style/TextView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Distance"
+                android:layout_margin="@dimen/filters_tv_distance_margin"
+                android:text="@string/filters_tv_distance_text"
                 android:textColor="@color/black" />
 
             <org.florescu.android.rangeseekbar.RangeSeekBar
                 android:id="@+id/activity_filters_seekbar_distance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                rsb:absoluteMaxValue="10"
-                rsb:absoluteMinValue="0"
                 app:thumbDisabled="@drawable/seekbar_thumb_disabled"
                 app:thumbNormal="@drawable/seekbar_thumb_normal"
                 app:thumbPressed="@drawable/seekbar_thumb_pressed"
+                rsb:absoluteMaxValue="10"
+                rsb:absoluteMinValue="0"
                 rsb:textAboveThumbsColor="@color/orange"
                 rsb:thumbShadow="true" />
 
@@ -161,56 +161,56 @@
             <!--app:right_thumb_color="@color/orange"-->
             <!--app:right_thumb_color_pressed="@color/orange" />-->
 
-            <LinearLayout
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="10dp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:layout_marginStart="10dp"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/activity_filters_tv_distance_min"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/orange"-->
+            <!--android:textStyle="bold" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="2dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="km"-->
+            <!--android:textColor="@color/orange"-->
+            <!--android:textStyle="bold" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/activity_filters_tv_distance_max"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/orange"-->
+            <!--android:textStyle="bold" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="2dp"-->
+            <!--android:text="km"-->
+            <!--android:textColor="@color/orange"-->
+            <!--android:textStyle="bold" />-->
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="10dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/filters_tv_in_km_margin_top"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="@string/filters_tv_in_km_text"
+                android:textColor="@color/orange"
+                android:textStyle="bold" />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/activity_filters_tv_distance_min"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:textColor="@color/orange"-->
-                    <!--android:textStyle="bold" />-->
-
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginLeft="2dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:text="km"-->
-                    <!--android:textColor="@color/orange"-->
-                    <!--android:textStyle="bold" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/activity_filters_tv_distance_max"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:textColor="@color/orange"-->
-                    <!--android:textStyle="bold" />-->
-
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginLeft="2dp"-->
-                    <!--android:text="km"-->
-                    <!--android:textColor="@color/orange"-->
-                    <!--android:textStyle="bold" />-->
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:text="*in km"
-                    android:gravity="end"
-                    android:layout_weight="1"
-                    android:textColor="@color/orange"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
         </LinearLayout>
 
@@ -219,20 +219,20 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_bottom_line_light_grey"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/filters_ll_open_now_padding">
 
             <TextView
                 style="@style/TextView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Open Now"
+                android:layout_margin="@dimen/filters_tv_open_now_margin"
+                android:text="@string/filters_tv_open_now_text"
                 android:textColor="@color/black" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/filters_ll_open_now_checkbox_margin"
                 android:orientation="horizontal">
 
                 <CheckedTextView
@@ -241,16 +241,16 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
                     android:gravity="center"
-                    android:text="Open" />
+                    android:text="@string/filters_ctv_open_text" />
 
                 <CheckedTextView
                     android:id="@+id/activity_filters_ctv_close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/filters_ctv_close_margin_start"
                     android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
                     android:gravity="center"
-                    android:text="Close" />
+                    android:text="@string/filters_ctv_close_text" />
 
             </LinearLayout>
 
@@ -261,20 +261,20 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_bottom_line_light_grey"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/filters_ll_delivery_type_padding">
 
             <TextView
                 style="@style/TextView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Food Delivery"
+                android:layout_margin="@dimen/filters_tv_delivery_type_margin"
+                android:text="@string/filters_tv_delivery_type_text"
                 android:textColor="@color/black" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/filters_ll_delivery_type_checkbox_margin"
                 android:orientation="horizontal">
 
                 <CheckedTextView
@@ -283,16 +283,16 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
                     android:gravity="center"
-                    android:text="Deliver" />
+                    android:text="@string/filters_ctv_deliver_text" />
 
                 <CheckedTextView
                     android:id="@+id/activity_filters_ctv_pickup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/filters_ctv_pickup_margin_start"
                     android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
                     android:gravity="center"
-                    android:text="Pickup" />
+                    android:text="@string/filters_ctv_pickup_text" />
 
             </LinearLayout>
 
@@ -303,20 +303,20 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_bottom_line_light_grey"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/filters_ll_rating_padding">
 
             <TextView
                 style="@style/TextView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Rating"
+                android:layout_margin="@dimen/filters_tv_rating_margin"
+                android:text="@string/filters_tv_rating_text"
                 android:textColor="@color/black" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/filters_ll_rating_bar_margin"
                 android:orientation="horizontal">
 
                 <RatingBar
@@ -338,20 +338,20 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_bottom_line_light_grey"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/filters_ll_offer_padding">
 
             <TextView
                 style="@style/TextView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Offer/Discount"
+                android:layout_margin="@dimen/filters_tv_offer_margin"
+                android:text="@string/filters_tv_offer_text"
                 android:textColor="@color/black" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/filters_ll_offer_checkbox_margin"
                 android:orientation="horizontal">
 
                 <CheckedTextView
@@ -360,7 +360,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
                     android:gravity="center"
-                    android:text="Offer" />
+                    android:text="@string/filters_ctv_offer_text" />
 
             </LinearLayout>
 
@@ -372,11 +372,11 @@
             android:layout_height="wrap_content"
             android:background="@color/orange"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="Search"
+            android:padding="@dimen/filters_bt_search_padding"
+            android:text="@string/filters_bt_search_text"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/style_button_text_size"
+            android:textSize="@dimen/filters_bt_search_text_size"
             android:typeface="serif" />
 
     </LinearLayout>

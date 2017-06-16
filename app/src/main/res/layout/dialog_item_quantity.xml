@@ -10,7 +10,7 @@
         style="@style/TextView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/dialog_item_quantity_tv_item_name_margin_top"
         android:gravity="center"
         android:text="Crispy Calamari"
         android:textStyle="bold" />
@@ -18,7 +18,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/dialog_item_quantity_ll_quantity_margin_top"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -31,10 +31,10 @@
         <TextView
             android:id="@+id/dialog_item_quantity_tv_item_quantity"
             style="@style/TextView3"
-            android:layout_width="50dp"
+            android:layout_width="@dimen/dialog_item_quantity_tv_item_quantity_width"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginEnd="@dimen/dialog_item_quantity_tv_item_quantity_margin_start_end"
+            android:layout_marginStart="@dimen/dialog_item_quantity_tv_item_quantity_margin_start_end"
             android:gravity="center"
             android:text="1000"
             android:textColor="@color/black"
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/dialog_item_quantity_ll_price_margin_top"
         android:orientation="horizontal">
 
         <TextView
@@ -60,8 +60,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Price: $"
-            android:textSize="16sp" />
+            android:text="@string/dialog_item_quantity_tv_price_tag_text"
+            android:textSize="@dimen/dialog_item_quantity_tv_price_tag_text_size" />
 
         <TextView
             android:id="@+id/dialog_item_quantity_tv_price"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text=""
-            android:textSize="16sp" />
+            android:textSize="@dimen/dialog_item_quantity_tv_price_text_size" />
 
     </LinearLayout>
 
@@ -78,14 +78,14 @@
         android:id="@+id/dialog_item_quantity_bt_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dialog_item_quantity_bt_update_margin_top"
         android:background="@drawable/rectangle_white_top_outline_light_grey"
         android:gravity="center"
-        android:padding="15dp"
-        android:text="Update"
+        android:padding="@dimen/dialog_item_quantity_bt_update_padding"
+        android:text="@string/dialog_item_quantity_bt_update_text"
         android:textAllCaps="false"
         android:textColor="@color/orange"
-        android:textSize="20sp"
+        android:textSize="@dimen/dialog_item_quantity_bt_update_text_size"
         android:typeface="serif" />
 
 </LinearLayout>

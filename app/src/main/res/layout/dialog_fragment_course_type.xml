@@ -14,7 +14,7 @@
             style="@style/TextView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fragment_course_type_tv_title_margin"
+            android:layout_margin="@dimen/course_type_tv_title_margin"
             android:text="@string/fragment_course_type_tv_select_course_type_text" />
 
         <android.support.v7.widget.RecyclerView
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingBottom="@dimen/fragment_course_type_recyclerview_padding_bottom" />
+            android:paddingBottom="@dimen/course_type_recyclerview_padding_bottom" />
 
     </LinearLayout>
 
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fragment_course_type_fab_add_margin"
+        android:layout_margin="@dimen/course_type_fab_add_margin"
         android:src="@drawable/ic_add_white_24dp"
         app:backgroundTint="@color/green"
         app:layout_behavior="com.os.foodie.ui.custom.FABScrollingBehavior"
