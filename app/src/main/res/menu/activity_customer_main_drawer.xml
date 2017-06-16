@@ -16,9 +16,9 @@
             android:icon="@mipmap/ic_order_history"
             android:title="@string/action_order_history" />
         <item
-            android:id="@+id/nav_my_bucket"
+            android:id="@+id/nav_my_basket"
             android:checkable="false"
-            android:icon="@mipmap/ic_payment"
+            android:icon="@mipmap/ic_basket"
             android:title="@string/action_my_bucket" />
         <item
             android:id="@+id/nav_payment"

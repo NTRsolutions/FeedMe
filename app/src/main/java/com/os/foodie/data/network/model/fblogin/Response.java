@@ -64,6 +64,9 @@ public class Response implements Parcelable
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("restaurant_id")
+    @Expose
+    private String restaurantId;
     public final static Creator<Response> CREATOR = new Creator<Response>() {
 
 
@@ -90,6 +93,7 @@ public class Response implements Parcelable
             instance.isFacebook = ((String) in.readValue((String.class.getClassLoader())));
             instance.status = ((Integer) in.readValue((Integer.class.getClassLoader())));
             instance.message = ((String) in.readValue((String.class.getClassLoader())));
+            instance.restaurantId = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -127,8 +131,9 @@ public class Response implements Parcelable
      * @param firstName
      * @param deviceId
      * @param restaurantName
+     * @param restaurantId
      */
-    public Response(String userId, String fbId, String firstName, String lastName, String email, String deviceType, String deviceId, String latitude, String longitude, String isProfileSet, String userType, String restaurantName, Object contactPersonName, String isNotification, String profileImage, String isFacebook, Integer status, String message) {
+    public Response(String userId, String fbId, String firstName, String lastName, String email, String deviceType, String deviceId, String latitude, String longitude, String isProfileSet, String userType, String restaurantName, Object contactPersonName, String isNotification, String profileImage, String isFacebook, Integer status, String message, String restaurantId) {
         super();
         this.userId = userId;
         this.fbId = fbId;
@@ -148,6 +153,7 @@ public class Response implements Parcelable
         this.isFacebook = isFacebook;
         this.status = status;
         this.message = message;
+        this.restaurantId = restaurantId;
     }
 
     public String getUserId() {
@@ -294,6 +300,14 @@ public class Response implements Parcelable
         this.message = message;
     }
 
+    public String getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(String restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(userId);
         dest.writeValue(fbId);
@@ -313,6 +327,7 @@ public class Response implements Parcelable
         dest.writeValue(isFacebook);
         dest.writeValue(status);
         dest.writeValue(message);
+        dest.writeValue(restaurantId);
     }
 
     public int describeContents() {

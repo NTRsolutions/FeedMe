@@ -110,7 +110,7 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
         } else if (id == R.id.nav_payment) {
 
-        } else if (id == R.id.nav_my_bucket) {
+        } else if (id == R.id.nav_my_basket) {
 
             Intent intent = new Intent(this, MyBasketActivity.class);
             startActivity(intent);

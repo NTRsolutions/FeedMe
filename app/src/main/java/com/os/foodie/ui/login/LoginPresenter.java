@@ -132,7 +132,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
 
                             if (facebookLoginResponse.getResponse().getUserType().equals(AppConstants.CUSTOMER)) {
                                 getDataManager().setCurrentUserName(facebookLoginResponse.getResponse().getFirstName() + " " + facebookLoginResponse.getResponse().getLastName());
-//                                getDataManager().setCustomerRestaurantId(facebookLoginResponse.getResponse().getRestaurantId());
+                                getDataManager().setCustomerRestaurantId(facebookLoginResponse.getResponse().getRestaurantId());
                             } else {
                                 getDataManager().setCurrentUserName(facebookLoginResponse.getResponse().getRestaurantName());
                                 getDataManager().setRestaurantLogoURL(facebookLoginResponse.getResponse().getProfileImage());
