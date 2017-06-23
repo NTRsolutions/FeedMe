@@ -300,7 +300,7 @@ public class CustomerSignUpActivity extends BaseActivity implements CustomerSign
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         customerSignUpMvpPresenter.onDetach();
+        super.onDestroy();
     }
 }

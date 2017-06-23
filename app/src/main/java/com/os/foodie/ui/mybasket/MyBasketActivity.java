@@ -301,6 +301,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
             llDeliveryType.setVisibility(View.VISIBLE);
             llDeliveryCharges.setVisibility(View.GONE);
 
+            viewCartResponse.getResponse().setDeliveryType(deliveryTypes[0]);
             ctvPickup.setChecked(true);
             ctvDeliver.setChecked(false);
 

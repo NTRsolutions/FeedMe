@@ -64,8 +64,8 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPasswo
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         forgotPasswordMvpPresenter.onDetach();
+        super.onDestroy();
     }
 
     @Override

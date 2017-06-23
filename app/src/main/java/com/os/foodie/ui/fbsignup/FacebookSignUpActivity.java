@@ -229,4 +229,10 @@ public class FacebookSignUpActivity extends BaseActivity implements FacebookSign
 
         return fileMapTemp;
     }
+
+    @Override
+    protected void onDestroy() {
+        facebookSignUpMvpPresenter.onDetach();
+        super.onDestroy();
+    }
 }

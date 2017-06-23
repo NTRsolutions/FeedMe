@@ -292,4 +292,10 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
 
         return fileMapTemp;
     }
+
+    @Override
+    public void onDestroyView() {
+        restaurantAccountMvpPresenter.onDetach();
+        super.onDestroyView();
+    }
 }

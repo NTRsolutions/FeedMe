@@ -1043,4 +1043,10 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         Log.d("idList", ">>" + idList.size());
         Log.d("fileMap", ">>" + fileMap.size());
     }
+
+    @Override
+    public void onDestroyView() {
+        setupRestaurantProfileMvpPresenter.onDetach();
+        super.onDestroyView();
+    }
 }

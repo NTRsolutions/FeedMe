@@ -140,8 +140,8 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
     @Override
     public void onDestroy() {
         setupRestaurantProfileMvpPresenter.onDetach();
-        super.onDestroy();
         Fresco.shutDown();
+        super.onDestroy();
     }
 
     @Override

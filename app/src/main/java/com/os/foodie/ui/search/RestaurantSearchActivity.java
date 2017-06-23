@@ -184,4 +184,10 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
             tvNoResult.setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        restaurantSearchMvpPresenter.onDetach();
+        super.onDestroy();
+    }
 }

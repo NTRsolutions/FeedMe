@@ -135,4 +135,10 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
         etPhoneNum.setEnabled(setEnable);
         etEmail.setEnabled(setEnable);
     }
+
+    @Override
+    public void onDestroyView() {
+        customerAccountMvpPresenter.onDetach();
+        super.onDestroyView();
+    }
 }

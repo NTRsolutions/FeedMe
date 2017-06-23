@@ -140,4 +140,10 @@ public class OtpActivity extends BaseActivity implements OtpMvpView, View.OnClic
             startActivity(intent);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        otpMvpPresenter.onDetach();
+        super.onDestroy();
+    }
 }

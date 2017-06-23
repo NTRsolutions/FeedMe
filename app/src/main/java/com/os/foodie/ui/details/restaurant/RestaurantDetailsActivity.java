@@ -689,8 +689,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
     @Override
     protected void onDestroy() {
         restaurantDetailsMvpPresenter.onDetach();
-        super.onDestroy();
         Fresco.shutDown();
+        super.onDestroy();
     }
 
     @Override

@@ -26,7 +26,7 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
     private LinearLayout llDots;
     private SlidePagerAdapter slidePagerAdapter;
 
-    private WelcomeMvpPresenter<WelcomeMvpView> welcomeMvpPresenter;
+//    private WelcomeMvpPresenter<WelcomeMvpView> welcomeMvpPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,5 +135,11 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
 //            Intent intent = new Intent(WelcomeActivity.this, SetupRestaurantProfileFragment.class);
 //            startActivity(intent);
 //        }
+    }
+
+    @Override
+    protected void onDestroy() {
+//        welcomeMvpPresenter.onDetach();
+        super.onDestroy();
     }
 }
