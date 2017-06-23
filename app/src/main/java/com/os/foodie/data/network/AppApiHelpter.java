@@ -64,6 +64,12 @@ import com.os.foodie.data.network.model.menu.status.StatusMenuItemRequest;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemResponse;
 import com.os.foodie.data.network.model.otp.OtpVerificationRequest;
 import com.os.foodie.data.network.model.otp.OtpVerificationResponse;
+import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardRequest;
+import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardResponse;
+import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardRequest;
+import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardResponse;
+import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardRequest;
+import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardResponse;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
@@ -769,5 +775,65 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(UpdateAddressResponse.class);
+    }
+
+    @Override
+    public Observable<AddPaymentCardResponse> addPaymentCard(AddPaymentCardRequest addPaymentCardRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(addPaymentCardRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.ADD_PAYMENT_CARD)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(AddPaymentCardResponse.class);
+    }
+
+    @Override
+    public Observable<GetAllPaymentCardResponse> getAllPaymentCard(GetAllPaymentCardRequest getAllPaymentCardRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(getAllPaymentCardRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.GET_ALL_PAYMENT_CARD)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(GetAllPaymentCardResponse.class);
+    }
+
+    @Override
+    public Observable<DeletePaymentCardResponse> deletePaymentCard(DeletePaymentCardRequest deletePaymentCardRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(deletePaymentCardRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.DELETE_PAYMENT_CARD)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(DeletePaymentCardResponse.class);
     }
 }

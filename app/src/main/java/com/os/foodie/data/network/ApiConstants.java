@@ -57,4 +57,8 @@ public class ApiConstants {
     public static final String ADD_ADDRESS = "add_user_address";
     public static final String UPDATE_ADDRESS = "update_address";
     public static final String DELETE_ADDRESS = "remove_user_address";
+
+    public static final String ADD_PAYMENT_CARD = "add_payment_card";
+    public static final String GET_ALL_PAYMENT_CARD = "get_all_cards";
+    public static final String DELETE_PAYMENT_CARD = "card_delete";
 }

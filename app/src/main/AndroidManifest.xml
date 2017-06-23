@@ -74,7 +74,7 @@
             android:name=".ui.signup.restaurant.RestaurantSignUpActivity"
             android:label="@string/restaurant_sign_up_activity_title"
             android:theme="@style/AppTheme2"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.otp.OtpActivity"
             android:label="@string/otp_activity_title"
@@ -132,7 +132,8 @@
         <activity
             android:name=".ui.mybasket.MyBasketActivity"
             android:label="@string/my_basket_activity_title"
-            android:theme="@style/AppTheme2" />
+            android:theme="@style/AppTheme2"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.deliveryaddress.show.DeliveryAddressActivity"
             android:label="@string/delivery_address_activity_title"
@@ -142,13 +143,18 @@
             android:label="@string/add_delivery_address_activity_title"
             android:theme="@style/AppTheme2" />
         <activity
-            android:name=".ui.payment.show.ManagePaymentCardActivity"
+            android:name=".ui.payment.show.PaymentMethodActivity"
             android:label="@string/manage_cards_activity_title"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.payment.add.AddPaymentCardActivity"
             android:label="@string/add_payment_card_activity_title"
             android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".ui.payment.select.SelectPaymentActivity"
+            android:label="@string/select_payment_activity_title"
+            android:theme="@style/AppTheme2" />
+        <activity android:name=".ui.deliveryaddress.select.SelectDeliveryAddressActivity"></activity>
     </application>
 
 </manifest>

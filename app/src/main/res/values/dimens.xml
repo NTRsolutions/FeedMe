@@ -601,11 +601,11 @@
     <!--RecyclerView My Basket Item-->
     <dimen name="mybasket_item_ll_main_padding">10dp</dimen>
 
-    <!--RecyclerView Payment Card-->
-    <dimen name="payment_card_rl_main_padding_bottom">10dp</dimen>
-    <dimen name="payment_card_rl_sub_main_margin_bottom">10dp</dimen>
-    <dimen name="payment_card_rl_sub_main_padding">10dp</dimen>
-    <dimen name="payment_card_ll_card_type_number_padding_start">5dp</dimen>
+    <!--RecyclerView Payment Method-->
+    <dimen name="payment_method_rl_main_padding_bottom">10dp</dimen>
+    <dimen name="payment_method_rl_sub_main_margin_bottom">10dp</dimen>
+    <dimen name="payment_method_rl_sub_main_padding">10dp</dimen>
+    <dimen name="payment_method_ll_card_type_number_padding_start">5dp</dimen>
 
     <!--RecyclerView Restaurant-->
     <dimen name="restaurant_ll_info_margin_bottom">20dp</dimen>
@@ -638,6 +638,14 @@
     <!--Delivery Address-->
     <dimen name="delivery_address_bt_height">45dp</dimen>
     <dimen name="delivery_address_bt_payment_margin">20dp</dimen>
+
+    <!--Select Payment-->
+    <dimen name="select_payment_bt_search_padding">10dp</dimen>
+    <dimen name="select_payment_bt_search_text_size">20sp</dimen>
+    <dimen name="select_payment_bt_search_margin">16dp</dimen>
+    <dimen name="select_payment_ll_main_padding">10dp</dimen>
+    <dimen name="select_payment_tv_card_number_text_size">18sp</dimen>
+    <dimen name="select_payment_tv_card_number_margin_start">10dp</dimen>
 
     <!-- TODO: Remove or change this placeholder text -->
 

@@ -21,6 +21,7 @@ import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
 import com.os.foodie.ui.home.customer.CustomerHomeFragment;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
+import com.os.foodie.ui.payment.show.PaymentMethodActivity;
 import com.os.foodie.ui.setting.SettingsFragment;
 import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.DialogUtils;
@@ -109,6 +110,9 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
         } else if (id == R.id.nav_order_history) {
 
         } else if (id == R.id.nav_payment) {
+
+            Intent intent = new Intent(this, PaymentMethodActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_my_basket) {
 

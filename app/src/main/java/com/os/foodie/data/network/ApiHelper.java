@@ -61,6 +61,12 @@ import com.os.foodie.data.network.model.menu.status.StatusMenuItemRequest;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemResponse;
 import com.os.foodie.data.network.model.otp.OtpVerificationRequest;
 import com.os.foodie.data.network.model.otp.OtpVerificationResponse;
+import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardRequest;
+import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardResponse;
+import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardRequest;
+import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardResponse;
+import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardRequest;
+import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardResponse;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
@@ -152,6 +158,12 @@ public interface ApiHelper {
     Observable<AddDeliveryAddressResponse> addDeliveryAddress(AddDeliveryAddressRequest addDeliveryAddressRequest);
 
     Observable<UpdateAddressResponse> updateDeliveryAddress(UpdateAddressRequest updateAddressRequest);
+
+    Observable<AddPaymentCardResponse> addPaymentCard(AddPaymentCardRequest addPaymentCardRequest);
+
+    Observable<GetAllPaymentCardResponse> getAllPaymentCard(GetAllPaymentCardRequest getAllPaymentCardRequest);
+
+    Observable<DeletePaymentCardResponse> deletePaymentCard(DeletePaymentCardRequest deletePaymentCardRequest);
 
 //    Observable<CustomerSignUpResponse> getFacebookDetail(CustomerSignUpRequest customerSignUpRequest);
 }

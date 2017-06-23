@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="@color/white"
     android:gravity="center"
@@ -13,14 +13,14 @@
     <RelativeLayout
         android:id="@+id/activity_my_basket_rl_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
         <!--android:visibility="gone"-->
 
-    <ScrollView
+        <ScrollView
+            android:id="@+id/activity_my_basket_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
+            android:layout_above="@+id/activity_my_basket_ll_checkout"
             android:layout_alignParentTop="true">
 
             <LinearLayout
@@ -84,8 +84,8 @@
                         android:textSize="@dimen/my_basket_tv_date_time_text_size" />
 
                     <TextView
-                        style="@style/TextView1"
                         android:id="@+id/activity_my_basket_tv_change"
+                        style="@style/TextView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -268,7 +268,6 @@
                 android:paddingStart="@dimen/my_basket_ll_checkout_padding_start_end"
                 android:paddingTop="@dimen/my_basket_ll_checkout_padding_top_bottom">
 
-
                 <com.os.foodie.ui.custom.RippleAppCompatButton
                     android:id="@+id/activity_my_basket_bt_checkout"
                     style="@style/ButtonOrange"
@@ -290,6 +289,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_gravity="center"
         android:text="@string/my_basket_tv_empty_basket_text"
         android:textColor="@color/black"
         android:visibility="gone" />

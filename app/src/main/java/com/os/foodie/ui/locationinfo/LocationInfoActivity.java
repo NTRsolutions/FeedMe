@@ -345,6 +345,7 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
         Log.d("Now Observe Location", ">>" + location.toString());
 
         progressDialog.dismiss();
+        progressDialog.cancel();
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         locationInfoMvpPresenter.getGeocoderLocationAddress(this, latLng);
@@ -356,6 +357,7 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
     @Override
     public void onFailed() {
         progressDialog.dismiss();
+        progressDialog.cancel();
     }
 
     @Override
@@ -370,6 +372,7 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
     public void setAllAddress(ArrayList<Address> addresses) {
 
         progressDialog.dismiss();
+        progressDialog.cancel();
 
         Address address = addresses.get(0);
         String fullAddress = "";

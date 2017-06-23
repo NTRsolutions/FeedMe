@@ -100,19 +100,6 @@
 
     <include layout="@layout/fragment_show_restaurant_profile_content" />
 
-    <com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingActionImageView
-        android:id="@+id/activity_restautant_details_faiv_profile_pic"
-        android:layout_width="@dimen/restautant_details_faiv_profile_pic_height_width"
-        android:layout_height="@dimen/restautant_details_faiv_profile_pic_height_width"
-        android:layout_marginStart="@dimen/restautant_details_faiv_profile_pic_margin_start"
-        android:background="@color/white"
-        android:cropToPadding="true"
-        android:padding="@dimen/restautant_details_faiv_profile_pic_padding"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/img_profile_default"
-        app:layout_anchor="@id/activity_restaurant_details_viewpager"
-        app:layout_anchorGravity="bottom|start" />
-
     <com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout
         android:id="@+id/activity_restautant_details_fall_delivery_time"
         android:layout_width="@dimen/restautant_details_fall_height_width"
@@ -147,5 +134,19 @@
             android:typeface="serif" />
 
     </com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout>
+
+    <com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingActionImageView
+        android:id="@+id/activity_restautant_details_faiv_profile_pic"
+        android:layout_width="@dimen/restautant_details_faiv_profile_pic_height_width"
+        android:layout_height="@dimen/restautant_details_faiv_profile_pic_height_width"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginStart="@dimen/restautant_details_faiv_profile_pic_margin_start"
+        android:background="@color/white"
+        android:cropToPadding="true"
+        android:padding="@dimen/restautant_details_faiv_profile_pic_padding"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/img_profile_default"
+        app:layout_anchor="@+id/app_bar"
+        app:layout_anchorGravity="bottom|left" />
 
 </android.support.design.widget.CoordinatorLayout>

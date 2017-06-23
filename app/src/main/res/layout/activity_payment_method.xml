@@ -4,6 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity_payment_method_fab_add_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/cuisine_type_fab_add_margin"
+        android:src="@drawable/ic_add_white_24dp"
+        app:backgroundTint="@color/green"
+        app:layout_behavior="com.os.foodie.ui.custom.FABScrollingBehavior"
+        app:rippleColor="@color/light_green" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,12 +22,12 @@
         android:padding="@dimen/manage_payment_card_ll_recyclerview_padding">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/activity_manage_payment_card_recyclerview"
+            android:id="@+id/activity_payment_method_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <TextView
-            android:id="@+id/activity_manage_payment_card_tv_alert"
+            android:id="@+id/activity_payment_method_tv_alert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -25,16 +36,5 @@
             android:visibility="gone" />
 
     </RelativeLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/activity_manage_payment_card_bt_add_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/cuisine_type_fab_add_margin"
-        android:src="@drawable/ic_add_white_24dp"
-        app:backgroundTint="@color/green"
-        app:layout_behavior="com.os.foodie.ui.custom.FABScrollingDecoration"
-        app:rippleColor="@color/light_green" />
 
 </FrameLayout>

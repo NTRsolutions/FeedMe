@@ -21,7 +21,6 @@
             android:adjustViewBounds="true"
             android:src="@mipmap/img_banner" />
 
-
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,7 +83,7 @@
             android:clickable="true"
             android:enabled="false"
             android:hint="@string/location_info_et_country_hint"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:paddingEnd="@dimen/location_info_et_padding_end"
             android:paddingStart="@dimen/location_info_et_padding_start" />
@@ -98,7 +97,7 @@
             android:clickable="true"
             android:enabled="false"
             android:hint="@string/location_info_et_city_hint"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:paddingEnd="@dimen/location_info_et_padding_end"
             android:paddingStart="@dimen/location_info_et_padding_start" />

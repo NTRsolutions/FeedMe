@@ -62,6 +62,12 @@ import com.os.foodie.data.network.model.menu.status.StatusMenuItemRequest;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemResponse;
 import com.os.foodie.data.network.model.otp.OtpVerificationRequest;
 import com.os.foodie.data.network.model.otp.OtpVerificationResponse;
+import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardRequest;
+import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardResponse;
+import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardRequest;
+import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardResponse;
+import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardRequest;
+import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardResponse;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
@@ -354,6 +360,21 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<UpdateAddressResponse> updateDeliveryAddress(UpdateAddressRequest updateAddressRequest) {
         return apiHelper.updateDeliveryAddress(updateAddressRequest);
+    }
+
+    @Override
+    public Observable<AddPaymentCardResponse> addPaymentCard(AddPaymentCardRequest addPaymentCardRequest) {
+        return apiHelper.addPaymentCard(addPaymentCardRequest);
+    }
+
+    @Override
+    public Observable<GetAllPaymentCardResponse> getAllPaymentCard(GetAllPaymentCardRequest getAllPaymentCardRequest) {
+        return apiHelper.getAllPaymentCard(getAllPaymentCardRequest);
+    }
+
+    @Override
+    public Observable<DeletePaymentCardResponse> deletePaymentCard(DeletePaymentCardRequest deletePaymentCardRequest) {
+        return apiHelper.deletePaymentCard(deletePaymentCardRequest);
     }
 
 

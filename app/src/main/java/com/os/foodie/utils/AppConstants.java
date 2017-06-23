@@ -38,6 +38,7 @@ public class AppConstants {
     public static final String RESTAURANT_DETAILS = "RESTAURANT_DETAILS";
     public static final String DELIVERY_ADDRESS = "DELIVERY_ADDRESS";
     public static final String POSITION = "POSITION";
+    public static final String CARD = "CARD";
 
 //    public static final String CUSTOMER_SIGN_UP_REQUEST = "CUSTOMER_SIGN_UP_REQUEST";
 //    public static final String RESTAURANT_SIGN_UP_REQUEST = "RESTAURANT_SIGN_UP_REQUEST";

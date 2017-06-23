@@ -444,9 +444,9 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
                 Log.d("getCustomerRestaurantId",">>"+restaurantDetailsMvpPresenter.getCustomerRestaurantId());
 
-                if (restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() || restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)) {
+                if (objectArrayList.get(position) instanceof Dish) {
 
-                    if (objectArrayList.get(position) instanceof Dish) {
+                    if (restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() || restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)) {
 
                         final boolean isUpdate;
 
@@ -611,28 +611,29 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                         mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
                         mBottomSheetDialog.show();
                     }
+                    else {
 
-                } else {
+                        DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                restaurantDetailsMvpPresenter.clearBasket();
+                            }
+                        };
 
-                    DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            restaurantDetailsMvpPresenter.clearBasket();
-                        }
-                    };
+                        DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        };
 
-                    DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    };
+                        DialogUtils.showAlert(RestaurantDetailsActivity.this,
+                                R.string.alert_dialog_title_clear_basket, R.string.alert_dialog_text_clear_basket,
+                                getResources().getString(R.string.alert_dialog_bt_ok), positiveButton,
+                                getResources().getString(R.string.alert_dialog_bt_cancel), negativeButton);
+                    }
 
-                    DialogUtils.showAlert(RestaurantDetailsActivity.this,
-                            R.string.alert_dialog_title_clear_basket, R.string.alert_dialog_text_clear_basket,
-                            getResources().getString(R.string.alert_dialog_bt_ok), positiveButton,
-                            getResources().getString(R.string.alert_dialog_bt_cancel), negativeButton);
                 }
             }
 

@@ -201,4 +201,10 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
             tvNoResult.setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    public void onDestroyView() {
+        customerHomeMvpPresenter.onDetach();
+        super.onDestroyView();
+    }
 }

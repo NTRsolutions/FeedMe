@@ -97,6 +97,10 @@
     <string name="empty_flat">Please provide your Flat No. / House No. / Floor / Building</string>
     <string name="empty_colony">Please provide your Colony / Street / Locality</string>
     <string name="empty_state">Please provide state</string>
+    <string name="empty_credit_card_number">Please provide credit card number</string>
+    <string name="empty_expiry_month">Please provide expiry month</string>
+    <string name="empty_expiry_year">Please provide expiry year</string>
+    <string name="empty_cvv">Please provide cvv number</string>
 
     <!--Slide-->
     <array name="slide_title_text">
@@ -442,6 +446,11 @@
     <!--Delivery Address-->
     <string name="delivery_address_activity_title">Delivery Address</string>
     <string name="delivery_address_bt_payment_text">Make Payment</string>
+
+    <!--Select Payment-->
+    <string name="select_payment_activity_title">Payment</string>
+    <string name="select_payment_tv_alert_text">No Card</string>
+    <string name="select_payment_bt_search_text">Pay Now</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

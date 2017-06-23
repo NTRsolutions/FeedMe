@@ -96,7 +96,9 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
                             if (likeDislikeResponse.getResponse().getStatus() == 1) {
 
                                 Log.d("getIsLike", ">>" + likeDislikeResponse.getResponse().getIsLike());
-                                boolean isLike = (likeDislikeResponse.getResponse().getIsLike() == "0") ? false : true;
+                                boolean isLike = (likeDislikeResponse.getResponse().getIsLike().equals("0")) ? false : true;
+
+                                Log.d("isLike", ">>" + isLike);
 
                                 getMvpView().updateLikeDislike(isLike);
 

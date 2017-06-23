@@ -33,8 +33,6 @@ import java.util.Calendar;
 
 public class FiltersActivity extends BaseActivity implements FiltersMvpView, View.OnClickListener {
 
-    //    private CrystalRangeSeekbar seekbarMinimumOrderAmount, seekbarDistance;
-//    private TextView /*tvMinimumOrderMin, tvMinimumOrderMax,*/ tvDistanceMin, tvDistanceMax;
     private RangeSeekBar seekbarMinimumOrderAmount, seekbarDistance;
     private CheckedTextView ctvOpen, ctvClose, ctvDeliver, ctvPickup, ctvOffer;
     private EditText etCuisineType;
@@ -62,20 +60,6 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
         seekbarMinimumOrderAmount = (RangeSeekBar) findViewById(R.id.activity_filters_seekbar_minimum_order_amount);
         seekbarDistance = (RangeSeekBar) findViewById(R.id.activity_filters_seekbar_distance);
 
-//        seekbarMinimumOrderAmount.setRangeValues(0, 5000);
-//        seekbarMinimumOrderAmount.setRangeValues(0, 10);
-//        seekbarMinimumOrderAmount.setSelectedMinValue(20);
-//        seekbarMinimumOrderAmount.setSelectedMaxValue(88);
-
-//        seekbarMinimumOrderAmount = (CrystalRangeSeekbar) findViewById(R.id.activity_filters_seekbar_minimum_order_amount);
-//        seekbarDistance = (CrystalRangeSeekbar) findViewById(R.id.activity_filters_seekbar_distance);
-
-//        tvMinimumOrderMin = (TextView) findViewById(R.id.activity_filters_tv_min_order_min);
-//        tvMinimumOrderMax = (TextView) findViewById(R.id.activity_filters_tv_min_order_max);
-//
-//        tvDistanceMin = (TextView) findViewById(R.id.activity_filters_tv_distance_min);
-//        tvDistanceMax = (TextView) findViewById(R.id.activity_filters_tv_distance_max);
-
         ctvOpen = (CheckedTextView) findViewById(R.id.activity_filters_ctv_open);
         ctvClose = (CheckedTextView) findViewById(R.id.activity_filters_ctv_close);
         ctvDeliver = (CheckedTextView) findViewById(R.id.activity_filters_ctv_deliver);
@@ -88,8 +72,6 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
         btSearch = (Button) findViewById(R.id.activity_filters_bt_search);
 
-//        setOnRangeSeekbarChangeListenerMinimumAmount();
-//        setOnRangeSeekbarChangeListenerDistance();
         setOnRatingChangedListener();
 
         ctvOpen.setOnClickListener(this);
@@ -102,6 +84,28 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
         btSearch.setOnClickListener(this);
 
         setUp();
+    }
+
+    public void clearFilter() {
+
+        seekbarMinimumOrderAmount.setSelectedMinValue(0);
+        seekbarMinimumOrderAmount.setSelectedMaxValue(5000);
+
+        seekbarDistance.setSelectedMinValue(0);
+        seekbarDistance.setSelectedMaxValue(10);
+
+        etCuisineType.setText("");
+        cuisineTypesChecked.clear();
+
+        ctvOpen.setChecked(false);
+        ctvClose.setChecked(false);
+
+        ctvDeliver.setChecked(false);
+        ctvPickup.setChecked(false);
+
+        ratingBar.setRating(0);
+
+        ctvOffer.setChecked(false);
     }
 
     @Override
@@ -135,6 +139,7 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
             finish();
         } else if (item.getItemId() == R.id.action_clear) {
             AppController.get(this).setFilters(new Filters());
+            clearFilter();
         }
 
         return true;
@@ -199,9 +204,6 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
         Filters filters = new Filters();
 
-//        seekbarMinimumOrderAmount.setSelectedMinValue(seekbarMinimumOrderAmount.getSelectedMinValue());
-//        seekbarMinimumOrderAmount.setSelectedMaxValue(seekbarMinimumOrderAmount.getSelectedMaxValue());
-
         filters.setMinOrderAmount(seekbarMinimumOrderAmount.getSelectedMinValue().toString());
         filters.setMaxOrderAmount(seekbarMinimumOrderAmount.getSelectedMaxValue().toString());
 
@@ -210,46 +212,31 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
         filters.setClear(false);
 
-//        if (seekbarMinimumOrderAmount.getSelectedMinValue().toString().equals("0")) {
-//            filters.setMinOrderAmount("");
-////            filters.setClear(true);
-//        } else {
-//            filters.setMinOrderAmount(seekbarMinimumOrderAmount.getSelectedMinValue().toString());
-////            filters.setClear(false);
-//        }
-//
-//        if (seekbarMinimumOrderAmount.getSelectedMaxValue().toString().equals("5000")) {
-//            filters.setMaxOrderAmount("");
-////            filters.setClear(true);
-//        } else {
-//            filters.setMaxOrderAmount(seekbarMinimumOrderAmount.getSelectedMaxValue().toString());
-////            filters.setClear(false);
-//        }
-//
-//        if (seekbarDistance.getSelectedMinValue().toString().equals("0")) {
-//            filters.setMinDistance("");
-////            filters.setClear(true);
-//        } else {
-//            filters.setMinDistance(seekbarDistance.getSelectedMinValue().toString());
-////            filters.setClear(false);
-//        }
-//
-//        if (seekbarDistance.getSelectedMaxValue().toString().equals("10")) {
-//            filters.setMaxDistance("");
-////            filters.setClear(true);
-//        } else {
-//            filters.setMaxDistance(seekbarDistance.getSelectedMaxValue().toString());
-////            filters.setClear(false);
-//        }
-//
-//        filters.setMinDistance(tvDistanceMin.getText().toString());
-//        filters.setMaxDistance(tvDistanceMax.getText().toString());
-
         if (ctvPickup.isChecked() || ctvDeliver.isChecked()) {
 
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
             filters.setTime(simpleDateFormat.format(calendar.getTime()));
+        }
+
+        if (cuisineTypesChecked != null && cuisineTypesChecked.size() > 0) {
+
+            String cuisineTypes = "";
+            String cuisineNames = "";
+
+            for (int i = 0; i < cuisineTypesChecked.size(); i++) {
+
+                if (i == 0) {
+                    cuisineTypes = cuisineTypesChecked.get(i).getId();
+                    cuisineNames = cuisineTypesChecked.get(i).getName();
+                } else {
+                    cuisineTypes += "," + cuisineTypesChecked.get(i).getId();
+                    cuisineNames += "," + cuisineTypesChecked.get(i).getName();
+                }
+            }
+
+            filters.setCuisineTypes(cuisineTypes);
+            filters.setCuisineNames(cuisineNames);
         }
 
         AppController.get(this).setFilters(filters);
@@ -290,6 +277,25 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 //                tvDistanceMax.setText(filters.getMaxDistance());
                 seekbarDistance.setSelectedMaxValue(Integer.parseInt(filters.getMaxDistance()));
 //                seekbarDistance.setMaxValue(Float.parseFloat(filters.getMaxDistance()));
+            }
+
+            if (filters.getCuisineTypes() != null && !filters.getCuisineTypes().isEmpty()) {
+
+                String cuisineTypes[] = filters.getCuisineTypes().split(",");
+                String cuisineNames[] = filters.getCuisineNames().split(",");
+
+                etCuisineType.setText(filters.getCuisineNames());
+
+                for (int i = 0; i < cuisineTypes.length; i++) {
+
+                    CuisineType cuisineType = new CuisineType();
+
+                    cuisineType.setId(cuisineTypes[i]);
+                    cuisineType.setName(cuisineNames[i]);
+                    cuisineType.setChecked(true);
+
+                    cuisineTypesChecked.add(cuisineType);
+                }
             }
         }
     }

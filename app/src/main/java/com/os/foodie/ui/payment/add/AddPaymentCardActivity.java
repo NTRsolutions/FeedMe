@@ -1,33 +1,47 @@
 package com.os.foodie.ui.payment.add;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.os.foodie.R;
+import com.os.foodie.application.AppController;
+import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardRequest;
+import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardResponse;
+import com.os.foodie.data.network.model.payment.getall.Card;
+import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
+import com.os.foodie.ui.mybasket.MyBasketActivity;
+import com.os.foodie.ui.mybasket.MyBasketPresenter;
+import com.os.foodie.utils.AppConstants;
 
-public class AddPaymentCardActivity extends AppCompatActivity {
-    private LinearLayout rlMain;
-    private EditText firstNameEt;
-    private EditText lastNameEt;
-    private EditText cardNumberEt;
-    private TextView monthEt;
-    private TextView yearEt;
-    private EditText cvvEt;
-    private CheckedTextView termAndConditionCheckbox;
-    private RippleAppCompatButton addBt;
+public class AddPaymentCardActivity extends BaseActivity implements AddPaymentCardMvpView, View.OnClickListener {
+
+    private LinearLayout llMain;
+    private EditText etFirstName, etLastName, etCardNumber, etMonth, etYear, etCVV;
+    private CheckedTextView cbTerms;
+    private RippleAppCompatButton btAdd;
+
+    private static final int ADD_CARD_RESPONSE_CODE = 2;
+
+    private AddPaymentCardMvpPresenter<AddPaymentCardMvpView> addPaymentCardMvpPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_payment_card);
+
+        addPaymentCardMvpPresenter = new AddPaymentCardPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        addPaymentCardMvpPresenter.onAttach(AddPaymentCardActivity.this);
+
         initView();
     }
 
@@ -48,14 +62,71 @@ public class AddPaymentCardActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        rlMain = (LinearLayout) findViewById(R.id.rl_main);
-        firstNameEt = (EditText) findViewById(R.id.activity_add_payment_card_et_first_name);
-        lastNameEt = (EditText) findViewById(R.id.activity_add_payment_card_et_last_name);
-        cardNumberEt = (EditText) findViewById(R.id.activity_add_payment_card_et_card_number);
-        monthEt = (TextView) findViewById(R.id.activity_add_payment_card_et_month);
-        yearEt = (TextView) findViewById(R.id.activity_add_payment_card_et_year);
-        cvvEt = (EditText) findViewById(R.id.activity_add_payment_card_et_cvv);
-        termAndConditionCheckbox = (CheckedTextView) findViewById(R.id.activity_add_payment_card_ctv_terms);
-        addBt = (RippleAppCompatButton) findViewById(R.id.activity_add_payment_card_bt_add);
+
+        llMain = (LinearLayout) findViewById(R.id.rl_main);
+
+        etFirstName = (EditText) findViewById(R.id.activity_add_payment_card_et_first_name);
+        etLastName = (EditText) findViewById(R.id.activity_add_payment_card_et_last_name);
+        etCardNumber = (EditText) findViewById(R.id.activity_add_payment_card_et_card_number);
+        etMonth = (EditText) findViewById(R.id.activity_add_payment_card_et_month);
+        etYear = (EditText) findViewById(R.id.activity_add_payment_card_et_year);
+        etCVV = (EditText) findViewById(R.id.activity_add_payment_card_et_cvv);
+
+        cbTerms = (CheckedTextView) findViewById(R.id.activity_add_payment_card_ctv_terms);
+
+        btAdd = (RippleAppCompatButton) findViewById(R.id.activity_add_payment_card_bt_add);
+        btAdd.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if (btAdd.getId() == v.getId()) {
+
+            AddPaymentCardRequest addPaymentCardRequest = createAddPaymentCardRequest();
+            addPaymentCardMvpPresenter.addPaymentCard(addPaymentCardRequest);
+        }
+    }
+
+    public AddPaymentCardRequest createAddPaymentCardRequest() {
+
+        AddPaymentCardRequest addPaymentCardRequest = new AddPaymentCardRequest();
+
+        addPaymentCardRequest.setFirstName(etFirstName.getText().toString());
+        addPaymentCardRequest.setLastName(etLastName.getText().toString());
+        addPaymentCardRequest.setCreditCardNumber(etCardNumber.getText().toString());
+        addPaymentCardRequest.setExpiryMonth(etMonth.getText().toString());
+        addPaymentCardRequest.setExpiryYear(etYear.getText().toString());
+        addPaymentCardRequest.setCvv2(etCVV.getText().toString());
+
+        return addPaymentCardRequest;
+    }
+
+    @Override
+    public void onPaymentAdded(AddPaymentCardResponse addPaymentCardResponse) {
+
+        Card card = new Card();
+
+        card.setCardId(addPaymentCardResponse.getResponse().getCardId());
+        card.setCreditCardNumber(addPaymentCardResponse.getResponse().getCreditCardNumber());
+        card.setCardType(addPaymentCardResponse.getResponse().getCardType());
+        card.setCreditCardId(addPaymentCardResponse.getResponse().getCreditCardId());
+
+        Intent intent = new Intent();
+        intent.putExtra(AppConstants.CARD, card);
+
+        setResult(ADD_CARD_RESPONSE_CODE, intent);
+        finish();
+    }
+
+    @Override
+    protected void setUp() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        addPaymentCardMvpPresenter.onDetach();
+        super.onDestroy();
     }
 }

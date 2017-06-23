@@ -31,7 +31,8 @@ import com.os.foodie.ui.adapter.recyclerview.MyBasketAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RecyclerTouchListener;
 import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
-import com.os.foodie.ui.payment.show.ManagePaymentCardActivity;
+import com.os.foodie.ui.payment.select.SelectPaymentActivity;
+import com.os.foodie.ui.payment.show.PaymentMethodActivity;
 import com.os.foodie.utils.DialogUtils;
 
 import java.util.ArrayList;
@@ -255,7 +256,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
     }
 
     @Override
-    public void setMyBasket(ViewCartResponse viewCartResponse) {
+    public void setMyBasket(final ViewCartResponse viewCartResponse) {
 
         if (viewCartResponse.getResponse().getCartList() == null || viewCartResponse.getResponse().getCartList().size() == 0) {
             rlMain.setVisibility(View.GONE);
@@ -280,17 +281,19 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 //        }
 //        tvDiscountAmount.setText(viewCartResponse.getResponse().());
 
-        String deliveryTypes[] = getResources().getStringArray(R.array.delivery_type);
+        final String deliveryTypes[] = getResources().getStringArray(R.array.delivery_type);
+
+        Log.d("getDeliveryType", ">>" + viewCartResponse.getResponse().getDeliveryType());
 
         if (viewCartResponse.getResponse().getDeliveryType().equalsIgnoreCase(deliveryTypes[0])) {
 
             llDeliveryCharges.setVisibility(View.GONE);
             llDeliveryType.setVisibility(View.GONE);
 
-        } else if (viewCartResponse.getResponse().getDeliveryType().equalsIgnoreCase(deliveryTypes[1])) {
+        } else if (viewCartResponse.getResponse().getDeliveryType().trim().equalsIgnoreCase(deliveryTypes[1])) {
 
-            llDeliveryCharges.setVisibility(View.GONE);
-            llDeliveryType.setVisibility(View.VISIBLE);
+            llDeliveryCharges.setVisibility(View.VISIBLE);
+            llDeliveryType.setVisibility(View.GONE);
 
         } else if (viewCartResponse.getResponse().getDeliveryType().equalsIgnoreCase(deliveryTypes[2])) {
 
@@ -307,6 +310,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                     if (!ctvPickup.isChecked()) {
                         Log.d("ctvPickup", "isChecked");
                         llDeliveryCharges.setVisibility(View.GONE);
+                        viewCartResponse.getResponse().setDeliveryType(deliveryTypes[0]);
                         updateTotalAmount();
                     }
 
@@ -322,6 +326,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                     if (!ctvDeliver.isChecked()) {
                         Log.d("ctvDeliver", "isChecked");
                         llDeliveryCharges.setVisibility(View.VISIBLE);
+                        viewCartResponse.getResponse().setDeliveryType(deliveryTypes[1]);
                         updateTotalAmount();
                     }
 
@@ -345,6 +350,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         if (cartLists == null || cartLists.size() == 0) {
             rlMain.setVisibility(View.GONE);
             tvEmptyBasket.setVisibility(View.VISIBLE);
+            myBasketMvpPresenter.clearBasketRestaurant();
             return;
         } else {
             rlMain.setVisibility(View.VISIBLE);
@@ -474,18 +480,21 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         String deliveryTypes[] = getResources().getStringArray(R.array.delivery_type);
         String deliveryType = viewCartResponse.getResponse().getDeliveryType();
 
+        Log.d("deliveryType", ">>"+deliveryType);
+        Log.d("method", ">>"+method);
+
         if (method == 1) {
 
-            if (deliveryType.equals(deliveryTypes[0])) {
+            if (deliveryType.equalsIgnoreCase(deliveryTypes[0])) {
 
-                Log.d("Pick only","Online");
+                Log.d("Pick only", "Online");
 
-                Intent intent = new Intent(MyBasketActivity.this, ManagePaymentCardActivity.class);
+                Intent intent = new Intent(MyBasketActivity.this, SelectPaymentActivity.class);
                 startActivity(intent);
 
-            } else if (deliveryType.equals(deliveryTypes[1])) {
+            } else if (deliveryType.equalsIgnoreCase(deliveryTypes[1])) {
 
-                Log.d("Delivery","Online");
+                Log.d("Delivery", "Online");
 
                 Intent intent = new Intent(MyBasketActivity.this, DeliveryAddressActivity.class);
                 startActivity(intent);
@@ -493,16 +502,16 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
         } else {
 
-            if (deliveryType.equals(deliveryTypes[0])) {
+            if (deliveryType.equalsIgnoreCase(deliveryTypes[0])) {
 
-                Log.d("Pick only","COD");
+                Log.d("Pick only", "COD");
 
-                Intent intent = new Intent(MyBasketActivity.this, ManagePaymentCardActivity.class);
+                Intent intent = new Intent(MyBasketActivity.this, SelectPaymentActivity.class);
                 startActivity(intent);
 
-            } else if (deliveryType.equals(deliveryTypes[1])) {
+            } else if (deliveryType.equalsIgnoreCase(deliveryTypes[1])) {
 
-                Log.d("Delivery","COD");
+                Log.d("Delivery", "COD");
 
                 Intent intent = new Intent(MyBasketActivity.this, DeliveryAddressActivity.class);
                 startActivity(intent);

@@ -199,4 +199,8 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
             getMvpView().onError(R.string.connection_error);
         }
     }
+
+    public void clearBasketRestaurant(){
+        getDataManager().setCustomerRestaurantId("");
+    }
 }

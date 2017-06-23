@@ -199,6 +199,8 @@
             android:layout_marginStart="@dimen/restautant_details_faiv_profile_pic_margin_start"
             android:background="@color/white"
             android:cropToPadding="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_banner"
             android:padding="@dimen/restautant_details_faiv_profile_pic_padding"
             app:layout_anchor="@id/activity_restaurant_details_viewpager"
             app:layout_anchorGravity="bottom|start" />

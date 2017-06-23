@@ -28,8 +28,13 @@ public class Filters implements Parcelable {
     @SerializedName("max_distance")
     @Expose
     private String maxDistance;
+    @SerializedName("cuisine_type")
+    @Expose
+    private String cuisineTypes;
     @Expose(serialize = false, deserialize = false)
-    private boolean isClear = true;
+    private transient String cuisineNames;
+    @Expose(serialize = false, deserialize = false)
+    private transient boolean isClear = true;
 
     public final static Creator<Filters> CREATOR = new Creator<Filters>() {
 
@@ -45,6 +50,7 @@ public class Filters implements Parcelable {
             instance.time = ((String) in.readValue((String.class.getClassLoader())));
             instance.minDistance = ((String) in.readValue((String.class.getClassLoader())));
             instance.maxDistance = ((String) in.readValue((String.class.getClassLoader())));
+            instance.cuisineTypes = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -67,8 +73,9 @@ public class Filters implements Parcelable {
      * @param minDistance
      * @param deliveryType
      * @param minOrderAmount
+     * @param cuisineTypes
      */
-    public Filters(String minOrderAmount, String maxOrderAmount, String deliveryType, String time, String minDistance, String maxDistance) {
+    public Filters(String minOrderAmount, String maxOrderAmount, String deliveryType, String time, String minDistance, String maxDistance, String cuisineTypes) {
         super();
         this.minOrderAmount = minOrderAmount;
         this.maxOrderAmount = maxOrderAmount;
@@ -76,6 +83,7 @@ public class Filters implements Parcelable {
         this.time = time;
         this.minDistance = minDistance;
         this.maxDistance = maxDistance;
+        this.cuisineTypes = cuisineTypes;
     }
 
     public String getMinOrderAmount() {
@@ -126,6 +134,22 @@ public class Filters implements Parcelable {
         this.maxDistance = maxDistance;
     }
 
+    public String getCuisineTypes() {
+        return cuisineTypes;
+    }
+
+    public void setCuisineTypes(String cuisineTypes) {
+        this.cuisineTypes = cuisineTypes;
+    }
+
+    public String getCuisineNames() {
+        return cuisineNames;
+    }
+
+    public void setCuisineNames(String cuisineNames) {
+        this.cuisineNames = cuisineNames;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(minOrderAmount);
         dest.writeValue(maxOrderAmount);
@@ -133,6 +157,7 @@ public class Filters implements Parcelable {
         dest.writeValue(time);
         dest.writeValue(minDistance);
         dest.writeValue(maxDistance);
+        dest.writeValue(cuisineTypes);
     }
 
     public int describeContents() {
@@ -157,6 +182,9 @@ public class Filters implements Parcelable {
             isClear = false;
             return false;
         } else if (maxDistance == null || maxDistance.isEmpty()) {
+            isClear = false;
+            return false;
+        } else if (cuisineTypes == null || cuisineTypes.isEmpty()) {
             isClear = false;
             return false;
         }

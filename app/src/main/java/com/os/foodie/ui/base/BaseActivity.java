@@ -30,6 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
     @Override
     public void hideLoading() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
             mProgressDialog.cancel();
         }
     }
