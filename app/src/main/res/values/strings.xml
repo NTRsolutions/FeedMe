@@ -452,6 +452,9 @@
     <string name="select_payment_tv_alert_text">No Card</string>
     <string name="select_payment_bt_search_text">Pay Now</string>
 
+    <!--Select Delivery Address-->
+    <string name="select_delivery_address_activity_title">Delivery Address</string>
+
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

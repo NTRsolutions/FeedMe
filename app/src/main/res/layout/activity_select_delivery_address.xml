@@ -1,9 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.os.foodie.ui.deliveryaddress.select.SelectDeliveryAddressActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/activity_select_delivery_address_bt_payment"
+        android:layout_alignParentTop="true">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_select_delivery_address_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activity_select_delivery_address_fab_add_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_default_margin"
+            android:src="@drawable/ic_add_white_24dp"
+            app:backgroundTint="@color/green"
+            app:layout_behavior="com.os.foodie.ui.custom.FABScrollingBehavior"
+            app:rippleColor="@color/light_green" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <com.os.foodie.ui.custom.RippleAppCompatButton
+        android:id="@+id/activity_select_delivery_address_bt_payment"
+        style="@style/ButtonOrange"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/delivery_address_bt_height"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/delivery_address_bt_payment_margin"
+        android:gravity="center"
+        android:text="@string/delivery_address_bt_payment_text" />
+
+</RelativeLayout>

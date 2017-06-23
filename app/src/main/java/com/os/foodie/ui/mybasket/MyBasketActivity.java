@@ -30,6 +30,7 @@ import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
 import com.os.foodie.ui.adapter.recyclerview.MyBasketAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RecyclerTouchListener;
+import com.os.foodie.ui.deliveryaddress.select.SelectDeliveryAddressActivity;
 import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
 import com.os.foodie.ui.payment.select.SelectPaymentActivity;
 import com.os.foodie.ui.payment.show.PaymentMethodActivity;
@@ -496,7 +497,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                 Log.d("Delivery", "Online");
 
-                Intent intent = new Intent(MyBasketActivity.this, DeliveryAddressActivity.class);
+                Intent intent = new Intent(MyBasketActivity.this, SelectDeliveryAddressActivity.class);
                 startActivity(intent);
             }
 
@@ -513,7 +514,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                 Log.d("Delivery", "COD");
 
-                Intent intent = new Intent(MyBasketActivity.this, DeliveryAddressActivity.class);
+                Intent intent = new Intent(MyBasketActivity.this, SelectDeliveryAddressActivity.class);
                 startActivity(intent);
             }
         }

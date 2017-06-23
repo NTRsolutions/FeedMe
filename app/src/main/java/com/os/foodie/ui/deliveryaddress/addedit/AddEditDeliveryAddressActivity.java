@@ -111,8 +111,8 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         addEditDeliveryAddressMvpPresenter.onDetach();
+        super.onDestroy();
     }
 
     @Override

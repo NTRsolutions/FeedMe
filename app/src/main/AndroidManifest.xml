@@ -154,7 +154,9 @@
             android:name=".ui.payment.select.SelectPaymentActivity"
             android:label="@string/select_payment_activity_title"
             android:theme="@style/AppTheme2" />
-        <activity android:name=".ui.deliveryaddress.select.SelectDeliveryAddressActivity"></activity>
+        <activity android:name=".ui.deliveryaddress.select.SelectDeliveryAddressActivity"
+            android:label="@string/select_delivery_address_activity_title"
+            android:theme="@style/AppTheme2"/>
     </application>
 
 </manifest>

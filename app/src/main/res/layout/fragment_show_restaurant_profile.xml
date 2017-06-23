@@ -146,7 +146,7 @@
         android:padding="@dimen/restautant_details_faiv_profile_pic_padding"
         android:scaleType="centerCrop"
         android:src="@mipmap/img_profile_default"
-        app:layout_anchor="@+id/app_bar"
+        app:layout_anchor="@+id/activity_restaurant_details_viewpager"
         app:layout_anchorGravity="bottom|left" />
 
 </android.support.design.widget.CoordinatorLayout>

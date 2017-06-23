@@ -43,6 +43,8 @@ public class Address implements Parcelable {
     @SerializedName("country")
     @Expose
     private String country;
+    @Expose(serialize = false, deserialize = false)
+    private boolean isChecked;
     public final static Creator<Address> CREATOR = new Creator<Address>() {
 
 
@@ -191,6 +193,14 @@ public class Address implements Parcelable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 
     public void writeToParcel(Parcel dest, int flags) {

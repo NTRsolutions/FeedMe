@@ -584,7 +584,7 @@
     <dimen name="customer_search_tv_rating_tag_margin_end">5dp</dimen>
     <dimen name="customer_search_tv_reviews_margin_start">5dp</dimen>
 
-    <!--Customer Search RecyclerView-->
+    <!--Delivery Address RecyclerView-->
     <dimen name="delivery_address_ll_main_margin">10dp</dimen>
     <dimen name="delivery_address_ll_main_padding">20dp</dimen>
     <dimen name="delivery_address_tv_street_number_text_size">14sp</dimen>
@@ -646,6 +646,7 @@
     <dimen name="select_payment_ll_main_padding">10dp</dimen>
     <dimen name="select_payment_tv_card_number_text_size">18sp</dimen>
     <dimen name="select_payment_tv_card_number_margin_start">10dp</dimen>
+    <dimen name="select_delivery_address_rb_margin_end">10dp</dimen>
 
     <!-- TODO: Remove or change this placeholder text -->
 

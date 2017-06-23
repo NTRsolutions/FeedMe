@@ -8,9 +8,9 @@
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/activity_delivery_address_bt_payment"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true">
+        <!--android:layout_above="@+id/activity_delivery_address_bt_payment"-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/activity_delivery_address_recyclerview"
@@ -30,15 +30,15 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <com.os.foodie.ui.custom.RippleAppCompatButton
-        android:id="@+id/activity_delivery_address_bt_payment"
-        style="@style/ButtonOrange"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/delivery_address_bt_height"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/delivery_address_bt_payment_margin"
-        android:gravity="center"
-        android:text="@string/delivery_address_bt_payment_text" />
+    <!--<com.os.foodie.ui.custom.RippleAppCompatButton-->
+        <!--android:id="@+id/activity_delivery_address_bt_payment"-->
+        <!--style="@style/ButtonOrange"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/delivery_address_bt_height"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_margin="@dimen/delivery_address_bt_payment_margin"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/delivery_address_bt_payment_text" />-->
 
 </RelativeLayout>
