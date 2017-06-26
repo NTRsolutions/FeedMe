@@ -164,4 +164,9 @@ public class RestaurantMenuPresenter<V extends RestaurantMenuMvpView> extends Ba
         }
 
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

@@ -13,14 +13,20 @@ import android.widget.Button;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.deliveryaddress.getall.Address;
 import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressResponse;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.recyclerview.DeliveryAddressAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.deliveryaddress.addedit.AddEditDeliveryAddressActivity;
+import com.os.foodie.ui.deliveryaddress.select.SelectDeliveryAddressPresenter;
 import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class DeliveryAddressActivity extends BaseActivity implements DeliveryAddressMvpView, View.OnClickListener {
 
@@ -43,7 +49,8 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
 
-        deliveryAddressMvpPresenter = new DeliveryAddressPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        initPresenter();
+//        deliveryAddressMvpPresenter = new DeliveryAddressPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         deliveryAddressMvpPresenter.onAttach(this);
 
         fabAddAddress = (FloatingActionButton) findViewById(R.id.activity_delivery_address_fab_add_address);
@@ -64,6 +71,16 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
 //        btPayment.setOnClickListener(this);
 
         deliveryAddressMvpPresenter.getAddressList();
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        deliveryAddressMvpPresenter = new DeliveryAddressPresenter(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -94,7 +111,8 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
 
     @Override
     protected void onDestroy() {
-        deliveryAddressMvpPresenter.onDetach();
+        deliveryAddressMvpPresenter.dispose();
+//        deliveryAddressMvpPresenter.onDetach();
         super.onDestroy();
     }
 

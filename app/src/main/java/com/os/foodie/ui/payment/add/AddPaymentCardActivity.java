@@ -13,14 +13,20 @@ import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardRequest;
 import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardResponse;
 import com.os.foodie.data.network.model.payment.getall.Card;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.ui.mybasket.MyBasketPresenter;
 import com.os.foodie.utils.AppConstants;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class AddPaymentCardActivity extends BaseActivity implements AddPaymentCardMvpView, View.OnClickListener {
 
@@ -39,10 +45,22 @@ public class AddPaymentCardActivity extends BaseActivity implements AddPaymentCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_payment_card);
 
-        addPaymentCardMvpPresenter = new AddPaymentCardPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        initPresenter();
+//        addPaymentCardMvpPresenter = new AddPaymentCardPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         addPaymentCardMvpPresenter.onAttach(AddPaymentCardActivity.this);
 
         initView();
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        addPaymentCardMvpPresenter = new AddPaymentCardPresenter(appDataManager, compositeDisposable);
+
     }
 
     @Override
@@ -126,7 +144,8 @@ public class AddPaymentCardActivity extends BaseActivity implements AddPaymentCa
 
     @Override
     protected void onDestroy() {
-        addPaymentCardMvpPresenter.onDetach();
+        addPaymentCardMvpPresenter.dispose();
+//        addPaymentCardMvpPresenter.onDetach();
         super.onDestroy();
     }
 }

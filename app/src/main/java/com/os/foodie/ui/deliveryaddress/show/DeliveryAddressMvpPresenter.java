@@ -7,4 +7,6 @@ public interface DeliveryAddressMvpPresenter<V extends DeliveryAddressMvpView> e
     public void getAddressList();
 
     public void deleteAddress(String addressId,int position);
+
+    void dispose();
 }

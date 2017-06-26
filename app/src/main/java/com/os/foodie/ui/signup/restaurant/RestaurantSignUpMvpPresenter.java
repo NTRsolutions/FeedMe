@@ -15,4 +15,6 @@ public interface RestaurantSignUpMvpPresenter<V extends RestaurantSignUpMvpView>
     void onFacebookLoginClick(String fbId, String contactPersonName, String email, String deviceId, String deviceType);
 
     void setError(@StringRes int resId);
+
+    void dispose();
 }

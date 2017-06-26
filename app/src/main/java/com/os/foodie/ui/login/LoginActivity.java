@@ -23,7 +23,11 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.base.BaseActivity;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.forgotpassword.ForgotPasswordActivity;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
@@ -36,6 +40,8 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class LoginActivity extends BaseActivity implements LoginMvpView, View.OnClickListener {
 
@@ -105,7 +111,12 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
 
     public void initPresenter() {
 
-        loginMvpPresenter = new LoginPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        loginMvpPresenter = new LoginPresenter(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -114,8 +125,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
 
     @Override
     protected void onDestroy() {
+        loginMvpPresenter.dispose();
+//        loginMvpPresenter.onDetach();
         super.onDestroy();
-        loginMvpPresenter.onDetach();
     }
 
     @Override

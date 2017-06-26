@@ -21,13 +21,20 @@ import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.home.customer.RestaurantList;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.recyclerview.RestaurantSearchAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.DividerItemLineDecoration;
 import com.os.foodie.ui.filters.FiltersActivity;
+import com.os.foodie.ui.filters.FiltersPresenter;
+import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class RestaurantSearchActivity extends BaseActivity implements RestaurantSearchMvpView, SearchView.OnQueryTextListener {
 
@@ -48,7 +55,8 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
 
-        restaurantSearchMvpPresenter = new RestaurantSearchPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        initPresenter();
+//        restaurantSearchMvpPresenter = new RestaurantSearchPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         restaurantSearchMvpPresenter.onAttach(this);
 
         tvNoResult = (TextView) findViewById(R.id.activity_customer_search_tv_no_result);
@@ -75,6 +83,17 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
 //                .load("http://192.168.1.69/foodi/app/webroot//uploads/restaurant_images/restaurant_image_11494918033.9151.jpg")
 //                .asBitmap()
 //                .into(ivRes);
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        restaurantSearchMvpPresenter = new RestaurantSearchPresenter(appDataManager, compositeDisposable);
+
     }
 
     @Override
@@ -187,7 +206,8 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
 
     @Override
     protected void onDestroy() {
-        restaurantSearchMvpPresenter.onDetach();
+        restaurantSearchMvpPresenter.dispose();
+//        restaurantSearchMvpPresenter.onDetach();
         super.onDestroy();
     }
 }

@@ -9,12 +9,18 @@ import android.widget.EditText;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.deliveryaddress.add.AddDeliveryAddressRequest;
 import com.os.foodie.data.network.model.deliveryaddress.getall.Address;
 import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressRequest;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
+import com.os.foodie.ui.home.customer.CustomerHomePresenter;
 import com.os.foodie.utils.AppConstants;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class AddEditDeliveryAddressActivity extends BaseActivity implements AddEditDeliveryAddressMvpView, View.OnClickListener {
 
@@ -34,7 +40,8 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_delivery_address);
 
-        addEditDeliveryAddressMvpPresenter = new AddEditDeliveryAddressPresenter<>(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        initPresenter();
+//        addEditDeliveryAddressMvpPresenter = new AddEditDeliveryAddressPresenter<>(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         addEditDeliveryAddressMvpPresenter.onAttach(AddEditDeliveryAddressActivity.this);
 
         initView();
@@ -52,6 +59,16 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
         if(isEdit){
             getSupportActionBar().setTitle(getString(R.string.edit_delivery_address_activity_title));
         }
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        addEditDeliveryAddressMvpPresenter = new AddEditDeliveryAddressPresenter<>(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -111,7 +128,8 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
 
     @Override
     protected void onDestroy() {
-        addEditDeliveryAddressMvpPresenter.onDetach();
+        addEditDeliveryAddressMvpPresenter.dispose();
+//        addEditDeliveryAddressMvpPresenter.onDetach();
         super.onDestroy();
     }
 

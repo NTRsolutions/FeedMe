@@ -11,11 +11,17 @@ import android.widget.EditText;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.signup.customer.CustomerSignUpResponse;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.base.BaseActivity;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.locationinfo.LocationInfoActivity;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.utils.AppConstants;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class OtpActivity extends BaseActivity implements OtpMvpView, View.OnClickListener {
 
@@ -68,7 +74,14 @@ public class OtpActivity extends BaseActivity implements OtpMvpView, View.OnClic
 
     public void initPresenter() {
 
-        otpMvpPresenter = new OtpPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        otpMvpPresenter = new OtpPresenter(appDataManager, compositeDisposable);
+
+//        otpMvpPresenter = new OtpPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
     }
 
 //    public void getExtras() {
@@ -143,7 +156,8 @@ public class OtpActivity extends BaseActivity implements OtpMvpView, View.OnClic
 
     @Override
     protected void onDestroy() {
-        otpMvpPresenter.onDetach();
+        otpMvpPresenter.dispose();
+//        otpMvpPresenter.onDetach();
         super.onDestroy();
     }
 }

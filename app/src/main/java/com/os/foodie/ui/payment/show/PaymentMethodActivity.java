@@ -14,14 +14,20 @@ import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.payment.getall.Card;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardResponse;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.recyclerview.PaymentMethodAdapter;
 import com.os.foodie.ui.base.BaseActivity;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.payment.add.AddPaymentCardActivity;
 import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class PaymentMethodActivity extends BaseActivity implements PaymentMethodMvpView, View.OnClickListener {
 
@@ -46,7 +52,8 @@ public class PaymentMethodActivity extends BaseActivity implements PaymentMethod
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
 
-        paymentMethodMvpPresenter = new PaymentMethodPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        initPresenter();
+//        paymentMethodMvpPresenter = new PaymentMethodPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         paymentMethodMvpPresenter.onAttach(this);
 
         initView();
@@ -59,6 +66,16 @@ public class PaymentMethodActivity extends BaseActivity implements PaymentMethod
         recyclerView.setAdapter(paymentMethodAdapter);
 
         paymentMethodMvpPresenter.getAllPaymentCard();
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        paymentMethodMvpPresenter = new PaymentMethodPresenter(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -139,7 +156,8 @@ public class PaymentMethodActivity extends BaseActivity implements PaymentMethod
 
     @Override
     protected void onDestroy() {
-        paymentMethodMvpPresenter.onDetach();
+        paymentMethodMvpPresenter.dispose();
+//        paymentMethodMvpPresenter.onDetach();
         super.onDestroy();
     }
 }

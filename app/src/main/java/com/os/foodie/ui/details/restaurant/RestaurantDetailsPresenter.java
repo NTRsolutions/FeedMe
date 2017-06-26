@@ -301,4 +301,9 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
     public void setCustomerRestaurantId(String restaurantId) {
         getDataManager().setCustomerRestaurantId(restaurantId);
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

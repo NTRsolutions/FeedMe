@@ -9,4 +9,6 @@ public interface AddEditDeliveryAddressMvpPresenter<V extends AddEditDeliveryAdd
     void addDeliverAddress(AddDeliveryAddressRequest addDeliveryAddressRequest);
 
     void updateDeliverAddress(UpdateAddressRequest updateAddressRequest);
+
+    void dispose();
 }

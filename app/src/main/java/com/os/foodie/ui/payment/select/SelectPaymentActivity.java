@@ -21,18 +21,24 @@ import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.cart.view.CartList;
 import com.os.foodie.data.network.model.payment.getall.Card;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardResponse;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.recyclerview.SelectPaymentAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RecyclerTouchListener;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.ui.payment.add.AddPaymentCardActivity;
 import com.os.foodie.ui.payment.show.PaymentMethodActivity;
 import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class SelectPaymentActivity extends BaseActivity implements SelectPaymentMvpView, View.OnClickListener {
 
@@ -61,7 +67,8 @@ public class SelectPaymentActivity extends BaseActivity implements SelectPayment
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
 
-        selectPaymentMvpPresenter = new SelectPaymentPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        initPresenter();
+//        selectPaymentMvpPresenter = new SelectPaymentPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         selectPaymentMvpPresenter.onAttach(this);
 
         initView();
@@ -86,6 +93,16 @@ public class SelectPaymentActivity extends BaseActivity implements SelectPayment
         recyclerView.setAdapter(selectPaymentAdapter);
 
         selectPaymentMvpPresenter.getAllPaymentCard();
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        selectPaymentMvpPresenter = new SelectPaymentPresenter(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -195,7 +212,8 @@ public class SelectPaymentActivity extends BaseActivity implements SelectPayment
 
     @Override
     protected void onDestroy() {
-        selectPaymentMvpPresenter.onDetach();
+        selectPaymentMvpPresenter.dispose();
+//        selectPaymentMvpPresenter.onDetach();
         super.onDestroy();
     }
 }

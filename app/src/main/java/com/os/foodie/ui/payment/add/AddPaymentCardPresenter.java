@@ -90,4 +90,9 @@ public class AddPaymentCardPresenter<V extends AddPaymentCardMvpView> extends Ba
             getMvpView().onError(R.string.connection_error);
         }
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

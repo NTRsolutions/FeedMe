@@ -29,10 +29,13 @@ import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
 import com.os.foodie.data.network.model.details.Dish;
 import com.os.foodie.data.network.model.details.Menu;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.model.RestaurantDetails;
 import com.os.foodie.ui.adapter.recyclerview.CourseAdapter;
 import com.os.foodie.ui.adapter.viewpager.PhotoAdapter;
@@ -42,6 +45,7 @@ import com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingAc
 import com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingActionImageViewBehavior;
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout;
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayoutBehavior;
+import com.os.foodie.ui.deliveryaddress.addedit.AddEditDeliveryAddressPresenter;
 import com.os.foodie.ui.info.RestaurantInfoActivity;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.utils.AppConstants;
@@ -49,6 +53,8 @@ import com.os.foodie.utils.DialogUtils;
 import com.wefika.flowlayout.FlowLayout;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class RestaurantDetailsActivity extends BaseActivity implements RestaurantDetailsMvpView, View.OnClickListener, ViewPager.OnPageChangeListener {
 
@@ -105,7 +111,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         urlList = new ArrayList<>();
         objectArrayList = new ArrayList<>();
 
-        restaurantDetailsMvpPresenter = new RestaurantDetailsPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        initPresenter();
+//        restaurantDetailsMvpPresenter = new RestaurantDetailsPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         restaurantDetailsMvpPresenter.onAttach(this);
 
         photoAdapter = new PhotoAdapter(this, urlList);
@@ -134,6 +141,16 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         initFloatingActionButtons();
 
         btViewBasket.setOnClickListener(this);
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        restaurantDetailsMvpPresenter = new RestaurantDetailsPresenter(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -688,7 +705,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
     @Override
     protected void onDestroy() {
-        restaurantDetailsMvpPresenter.onDetach();
+        restaurantDetailsMvpPresenter.dispose();
+//        restaurantDetailsMvpPresenter.onDetach();
         Fresco.shutDown();
         super.onDestroy();
     }

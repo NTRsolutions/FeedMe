@@ -9,4 +9,6 @@ import java.util.HashMap;
 public interface FacebookSignUpMvpPresenter<V extends FacebookSignUpMvpView> extends MvpPresenter<V> {
 
     void onSubmit(FacebookSignUpModel facebookSignUpModel, String restaurantName, String phone, String deviceId, String deviceType, String Latitude, String Longitude, String language, HashMap<String, File> fileMap);
+
+    void dispose();
 }

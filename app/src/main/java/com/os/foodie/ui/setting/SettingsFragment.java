@@ -11,10 +11,17 @@ import android.widget.Switch;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.base.BaseFragment;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.ui.setting.changepassword.ChangePasswordActivity;
+import com.os.foodie.utils.AppConstants;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class SettingsFragment extends BaseFragment implements SettingsMvpView, View.OnClickListener {
 
@@ -43,7 +50,8 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
 
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        settingsMvpPresenter = new SettingsPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
+        initPresenter();
+//        settingsMvpPresenter = new SettingsPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         settingsMvpPresenter.onAttach(this);
 
         switchNotification = (Switch) view.findViewById(R.id.fragment_settings_switch_notification);
@@ -65,6 +73,16 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
         llRateUs.setOnClickListener(this);
 
         return view;
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(getActivity(), AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(getActivity(), appPreferencesHelper, appApiHelpter);
+        settingsMvpPresenter = new SettingsPresenter(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -99,7 +117,8 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
 
     @Override
     public void onDestroyView() {
-        settingsMvpPresenter.onDetach();
+        settingsMvpPresenter.dispose();
+//        settingsMvpPresenter.onDetach();
         super.onDestroyView();
     }
 }

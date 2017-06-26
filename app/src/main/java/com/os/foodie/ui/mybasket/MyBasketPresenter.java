@@ -249,4 +249,9 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
             getMvpView().onError(R.string.connection_error);
         }
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

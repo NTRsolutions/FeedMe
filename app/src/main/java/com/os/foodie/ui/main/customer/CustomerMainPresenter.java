@@ -15,4 +15,9 @@ public class CustomerMainPresenter<V extends CustomerMainMvpView> extends BasePr
     public String getCurrentUserName() {
         return getDataManager().getCurrentUserName();
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

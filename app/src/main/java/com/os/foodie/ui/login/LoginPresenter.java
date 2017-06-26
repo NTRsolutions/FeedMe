@@ -217,4 +217,9 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
             }
         }
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

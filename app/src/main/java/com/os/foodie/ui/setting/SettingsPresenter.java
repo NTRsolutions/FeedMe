@@ -10,4 +10,9 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
     public SettingsPresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
         super(dataManager, compositeDisposable);
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

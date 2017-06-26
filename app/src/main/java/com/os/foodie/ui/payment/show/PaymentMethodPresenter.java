@@ -101,4 +101,9 @@ public class PaymentMethodPresenter<V extends PaymentMethodMvpView> extends Base
             getMvpView().onError(R.string.connection_error);
         }
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

@@ -30,16 +30,20 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.ApiConstants;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.cuisinetype.list.CuisineType;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.data.prefs.PreferencesHelper;
 import com.os.foodie.feature.callback.AddCuisineTypeCallback;
 import com.os.foodie.model.WorkingDay;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.dialogfragment.cuisine.list.CuisineTypeDialogFragment;
 import com.os.foodie.ui.dialogfragment.workingdays.WorkingDaysDialogFragment;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.ScreenUtils;
@@ -59,6 +63,7 @@ import java.util.Random;
 import java.util.Set;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
@@ -129,7 +134,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         addCuisineTypeCallback = this;
 
-        setupRestaurantProfileMvpPresenter = new SetupRestaurantProfilePresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
+        initPresenter();
+//        setupRestaurantProfileMvpPresenter = new SetupRestaurantProfilePresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         setupRestaurantProfileMvpPresenter.onAttach(this);
 
         random = new Random();
@@ -180,6 +186,17 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         setProfileData();
 
         return view;
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(getActivity(), AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(getActivity(), appPreferencesHelper, appApiHelpter);
+        setupRestaurantProfileMvpPresenter = new SetupRestaurantProfilePresenter(appDataManager, compositeDisposable);
+
     }
 
     @Override
@@ -1047,7 +1064,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
     @Override
     public void onDestroyView() {
-        setupRestaurantProfileMvpPresenter.onDetach();
+        setupRestaurantProfileMvpPresenter.dispose();
+//        setupRestaurantProfileMvpPresenter.onDetach();
         super.onDestroyView();
     }
 }

@@ -6,4 +6,6 @@ import com.os.foodie.ui.base.MvpPresenter;
 public interface RestaurantSearchMvpPresenter<V extends RestaurantSearchMvpView> extends MvpPresenter<V> {
 
     void getRestaurantList(String keyword, Filters filters);
+
+    void dispose();
 }

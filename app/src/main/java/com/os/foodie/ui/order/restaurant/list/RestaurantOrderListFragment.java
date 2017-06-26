@@ -13,16 +13,23 @@ import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.model.TempModelRestaurantOrder;
 import com.os.foodie.ui.adapter.recyclerview.RestaurantMenuAdapter;
 import com.os.foodie.ui.adapter.recyclerview.RestaurantOrderListAdapter;
 import com.os.foodie.ui.base.BaseFragment;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuMvpPresenter;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuMvpView;
+import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class RestaurantOrderListFragment extends BaseFragment implements RestaurantOrderListMvpView {
 
@@ -52,7 +59,8 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
 
         View view = inflater.inflate(R.layout.fragment_restaurant_order_list, container, false);
 
-        restaurantOrderListMvpPresenter = new RestaurantOrderListPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
+        initPresenter();
+//        restaurantOrderListMvpPresenter = new RestaurantOrderListPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         restaurantOrderListMvpPresenter.onAttach(this);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_restaurant_order_list_recyclerview);
@@ -87,6 +95,17 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
         return view;
     }
 
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(getActivity(), AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(getActivity(), appPreferencesHelper, appApiHelpter);
+        restaurantOrderListMvpPresenter = new RestaurantOrderListPresenter(appDataManager, compositeDisposable);
+
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -96,7 +115,8 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
 
     @Override
     public void onDestroyView() {
-        restaurantOrderListMvpPresenter.onDetach();
+        restaurantOrderListMvpPresenter.dispose();
+//        restaurantOrderListMvpPresenter.onDetach();
         super.onDestroyView();
     }
 

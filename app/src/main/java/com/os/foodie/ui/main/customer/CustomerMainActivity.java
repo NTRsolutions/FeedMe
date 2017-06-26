@@ -16,15 +16,22 @@ import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.account.customer.CustomerAccountFragment;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.home.customer.CustomerHomeFragment;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.ui.payment.show.PaymentMethodActivity;
 import com.os.foodie.ui.setting.SettingsFragment;
 import com.os.foodie.ui.welcome.WelcomeActivity;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.DialogUtils;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class CustomerMainActivity extends BaseActivity implements CustomerMainMvpView, NavigationView.OnNavigationItemSelectedListener {
 
@@ -48,7 +55,9 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
 
-        customerMainMvpPresenter = new CustomerMainPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        initPresenter();
+//        customerMainMvpPresenter = new CustomerMainPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        customerMainMvpPresenter.onAttach(this);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -63,6 +72,17 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
         setCustomerName();
 
         replaceFragment(CustomerHomeFragment.newInstance(), CustomerHomeFragment.TAG);
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        customerMainMvpPresenter = new CustomerMainPresenter(appDataManager, compositeDisposable);
+
     }
 
     @Override
@@ -177,7 +197,8 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
     @Override
     protected void onDestroy() {
-        customerMainMvpPresenter.onDetach();
+        customerMainMvpPresenter.dispose();
+//        customerMainMvpPresenter.onDetach();
         super.onDestroy();
     }
 

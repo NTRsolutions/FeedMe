@@ -12,14 +12,20 @@ import android.widget.RadioGroup;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.coursetype.list.Course;
 import com.os.foodie.data.network.model.menu.show.restaurant.Dish;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.feature.callback.AddCourseTypeCallback;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.dialogfragment.course.list.CourseTypeDialogFragment;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class RestaurantMenuAddUpdateDishActivity extends BaseActivity implements AddCourseTypeCallback, RestaurantMenuAddUpdateDishMvpView, View.OnClickListener {
 
@@ -86,8 +92,14 @@ public class RestaurantMenuAddUpdateDishActivity extends BaseActivity implements
     }
 
     public void initPresenter() {
-        restaurantMenuAddUpdateDishMvpPresenter = new RestaurantMenuAddUpdateDishPresenter<>(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
 
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+//        restaurantMenuAddUpdateDishMvpPresenter = new RestaurantMenuAddUpdateDishPresenter<>(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        restaurantMenuAddUpdateDishMvpPresenter = new RestaurantMenuAddUpdateDishPresenter<>(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -171,7 +183,8 @@ public class RestaurantMenuAddUpdateDishActivity extends BaseActivity implements
 
     @Override
     protected void onDestroy() {
-        restaurantMenuAddUpdateDishMvpPresenter.onDetach();
+        restaurantMenuAddUpdateDishMvpPresenter.dispose();
+//        restaurantMenuAddUpdateDishMvpPresenter.onDetach();
         super.onDestroy();
     }
 

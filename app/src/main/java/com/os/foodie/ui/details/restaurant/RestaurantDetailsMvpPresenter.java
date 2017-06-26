@@ -20,4 +20,6 @@ public interface RestaurantDetailsMvpPresenter<V extends RestaurantDetailsMvpVie
     String getCustomerRestaurantId();
 
     void setCustomerRestaurantId(String restaurantId);
+
+    void dispose();
 }

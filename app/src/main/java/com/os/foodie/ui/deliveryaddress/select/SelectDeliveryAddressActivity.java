@@ -16,20 +16,26 @@ import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.checkout.CheckoutRequest;
 import com.os.foodie.data.network.model.deliveryaddress.getall.Address;
 import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressResponse;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.recyclerview.DeliveryAddressAdapter;
 import com.os.foodie.ui.adapter.recyclerview.SelectDeliveryAddressAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RecyclerTouchListener;
 import com.os.foodie.ui.deliveryaddress.addedit.AddEditDeliveryAddressActivity;
+import com.os.foodie.ui.deliveryaddress.addedit.AddEditDeliveryAddressPresenter;
 import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class SelectDeliveryAddressActivity extends BaseActivity implements SelectDeliveryAddressMvpView, View.OnClickListener {
 
@@ -56,7 +62,8 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
 
-        selectDeliveryAddressMvpPresenter = new SelectDeliveryAddressPresenter<>(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        initPresenter();
+//        selectDeliveryAddressMvpPresenter = new SelectDeliveryAddressPresenter<>(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         selectDeliveryAddressMvpPresenter.onAttach(this);
 
         fabAddAddress = (FloatingActionButton) findViewById(R.id.activity_select_delivery_address_fab_add_address);
@@ -80,6 +87,16 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
         btPayment.setOnClickListener(this);
 
         selectDeliveryAddressMvpPresenter.getAddressList();
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        selectDeliveryAddressMvpPresenter = new SelectDeliveryAddressPresenter<>(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -192,7 +209,8 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
 
     @Override
     protected void onDestroy() {
-        selectDeliveryAddressMvpPresenter.onDetach();
+        selectDeliveryAddressMvpPresenter.dispose();
+//        selectDeliveryAddressMvpPresenter.onDetach();
         super.onDestroy();
     }
 }

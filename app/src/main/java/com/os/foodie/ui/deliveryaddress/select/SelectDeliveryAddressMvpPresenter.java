@@ -14,4 +14,6 @@ public interface SelectDeliveryAddressMvpPresenter<V extends SelectDeliveryAddre
     void checkout(CheckoutRequest checkoutRequest);
 
     void setError(@StringRes int resId);
+
+    void dispose();
 }

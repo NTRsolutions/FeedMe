@@ -11,9 +11,15 @@ import android.widget.LinearLayout;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.base.BaseActivity;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.info.RestaurantInfoActivity;
 import com.os.foodie.utils.AppConstants;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class ChangePasswordActivity extends BaseActivity implements ChangePasswordMvpView, View.OnClickListener {
 
@@ -31,7 +37,8 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this,R.mipmap.ic_home_up_orange));
 
-        changePasswordMvpPresenter = new ChangePasswordPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        initPresenter();
+//        changePasswordMvpPresenter = new ChangePasswordPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         changePasswordMvpPresenter.onAttach(ChangePasswordActivity.this);
 
         etCurrentPassword = (EditText) findViewById(R.id.activity_change_password_et_current_password);
@@ -40,6 +47,17 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
 
         btChangePassword = (Button) findViewById(R.id.activity_change_password_bt_change_password);
         btChangePassword.setOnClickListener(this);
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        changePasswordMvpPresenter = new ChangePasswordPresenter(appDataManager, compositeDisposable);
+
     }
 
     @Override
@@ -59,7 +77,8 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
     @Override
     protected void onDestroy() {
 
-        changePasswordMvpPresenter.onDetach();
+        changePasswordMvpPresenter.dispose();
+//        changePasswordMvpPresenter.onDetach();
         super.onDestroy();
     }
 

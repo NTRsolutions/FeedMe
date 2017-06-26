@@ -9,4 +9,6 @@ public interface CustomerSignUpMvpPresenter<V extends CustomerSignUpMvpView> ext
     void onFacebookLoginClick(String fbId, String first_name, String last_name, String email, String deviceId, String deviceType);
 
     void setError(int resId);
+
+    void dispose();
 }

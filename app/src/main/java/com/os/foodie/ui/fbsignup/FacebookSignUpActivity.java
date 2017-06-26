@@ -19,8 +19,12 @@ import android.widget.EditText;
 import com.bumptech.glide.Glide;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.model.FacebookSignUpModel;
 import com.os.foodie.ui.base.BaseActivity;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.otp.OtpActivity;
 import com.os.foodie.utils.AppConstants;
 
@@ -28,6 +32,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.disposables.CompositeDisposable;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
@@ -81,7 +86,13 @@ public class FacebookSignUpActivity extends BaseActivity implements FacebookSign
 
     public void initPresenter() {
 
-        facebookSignUpMvpPresenter = new FacebookSignUpPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+
+        facebookSignUpMvpPresenter = new FacebookSignUpPresenter(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -232,7 +243,8 @@ public class FacebookSignUpActivity extends BaseActivity implements FacebookSign
 
     @Override
     protected void onDestroy() {
-        facebookSignUpMvpPresenter.onDetach();
+        facebookSignUpMvpPresenter.dispose();
+//        facebookSignUpMvpPresenter.onDetach();
         super.onDestroy();
     }
 }

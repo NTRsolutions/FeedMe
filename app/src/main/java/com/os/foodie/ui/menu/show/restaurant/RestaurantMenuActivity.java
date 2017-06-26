@@ -14,14 +14,21 @@ import android.view.View;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.menu.show.restaurant.Dish;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.custom.DividerItemLineDecoration;
 import com.os.foodie.ui.adapter.recyclerview.RestaurantMenuAdapter;
 import com.os.foodie.ui.base.BaseActivity;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.menu.add.RestaurantMenuAddUpdateDishActivity;
+import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class RestaurantMenuActivity extends BaseActivity implements RestaurantMenuMvpView, View.OnClickListener {
 
@@ -70,7 +77,14 @@ public class RestaurantMenuActivity extends BaseActivity implements RestaurantMe
 
     public void initPresenter() {
 
-        restaurantMenuMvpPresenter = new RestaurantMenuPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        restaurantMenuMvpPresenter = new RestaurantMenuPresenter(appDataManager, compositeDisposable);
+
+//        restaurantMenuMvpPresenter = new RestaurantMenuPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
     }
 
     @Override
@@ -127,5 +141,11 @@ public class RestaurantMenuActivity extends BaseActivity implements RestaurantMe
     public void onMenuItemDelete(Dish dish) {
         dishArrayList.remove(dish);
         restaurantMenuAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onDestroy() {
+        restaurantMenuMvpPresenter.dispose();
+        super.onDestroy();
     }
 }

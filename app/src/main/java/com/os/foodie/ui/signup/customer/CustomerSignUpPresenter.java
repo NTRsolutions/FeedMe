@@ -158,4 +158,9 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
     public void setError(int resId) {
         getMvpView().onError(resId);
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

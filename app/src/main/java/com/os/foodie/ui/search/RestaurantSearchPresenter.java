@@ -73,4 +73,9 @@ public class RestaurantSearchPresenter<V extends RestaurantSearchMvpView> extend
             getMvpView().onError(R.string.connection_error);
         }
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

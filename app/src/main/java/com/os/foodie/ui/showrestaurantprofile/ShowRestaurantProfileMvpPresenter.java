@@ -15,4 +15,6 @@ import java.util.HashMap;
 public interface ShowRestaurantProfileMvpPresenter<V extends ShowRestaurantProfileMvpView> extends MvpPresenter<V> {
 
     void getRestaurantProfile(String restaurantId);
+
+    void dispose();
 }

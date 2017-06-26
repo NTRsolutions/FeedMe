@@ -20,18 +20,24 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.account.restaurant.RestaurantAccountFragment;
 import com.os.foodie.ui.base.BaseActivity;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
 import com.os.foodie.ui.setting.SettingsFragment;
 import com.os.foodie.ui.setupprofile.restaurant.SetupRestaurantProfileFragment;
 import com.os.foodie.ui.showrestaurantprofile.ShowRestaurantProfileFragment;
 import com.os.foodie.ui.welcome.WelcomeActivity;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.DialogUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class RestaurantMainActivity extends BaseActivity implements RestaurantMainMvpView, View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -77,7 +83,14 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
     }
 
     public void initPresenter() {
-        restaurantMainMvpPresenter = new RestaurantMainPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+//        restaurantMainMvpPresenter = new RestaurantMainPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        restaurantMainMvpPresenter = new RestaurantMainPresenter(appDataManager, compositeDisposable);
+
     }
 
     @Override
@@ -196,7 +209,8 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
 
     @Override
     protected void onDestroy() {
-        restaurantMainMvpPresenter.onDetach();
+        restaurantMainMvpPresenter.dispose();
+//        restaurantMainMvpPresenter.onDetach();
         super.onDestroy();
     }
 

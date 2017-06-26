@@ -7,4 +7,6 @@ public interface PaymentMethodMvpPresenter<V extends PaymentMethodMvpView> exten
     void getAllPaymentCard();
 
     void deletePaymentCard(String cardId, int position);
+
+    void dispose();
 }

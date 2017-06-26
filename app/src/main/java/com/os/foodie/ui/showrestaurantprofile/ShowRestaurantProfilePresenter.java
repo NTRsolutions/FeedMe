@@ -38,12 +38,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ShowRestaurantProfilePresenter<V extends ShowRestaurantProfileMvpView> extends BasePresenter<V> implements ShowRestaurantProfileMvpPresenter<V> {
 
-
-
     public ShowRestaurantProfilePresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
         super(dataManager, compositeDisposable);
     }
-
 
     @Override
     public void getRestaurantProfile(String restaurantId) {
@@ -84,5 +81,10 @@ public class ShowRestaurantProfilePresenter<V extends ShowRestaurantProfileMvpVi
         {
             getMvpView().onError(R.string.connection_error);
         }
+    }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
     }
 }

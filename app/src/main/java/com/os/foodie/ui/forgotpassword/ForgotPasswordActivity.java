@@ -14,6 +14,7 @@ import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.base.BaseActivity;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.utils.AppConstants;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -44,7 +45,12 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPasswo
 
     public void initPresenter() {
 
-        forgotPasswordMvpPresenter = new ForgotPasswordPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        forgotPasswordMvpPresenter = new ForgotPasswordPresenter(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -64,7 +70,8 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPasswo
 
     @Override
     protected void onDestroy() {
-        forgotPasswordMvpPresenter.onDetach();
+        forgotPasswordMvpPresenter.dispose();
+//        forgotPasswordMvpPresenter.onDetach();
         super.onDestroy();
     }
 

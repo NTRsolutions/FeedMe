@@ -11,4 +11,6 @@ public interface LoginMvpPresenter<V extends LoginMvpView> extends MvpPresenter<
     void setError(int resId);
 
     void setError(String message);
+
+    void dispose();
 }

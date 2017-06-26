@@ -100,4 +100,9 @@ public class OtpPresenter<V extends OtpMvpView> extends BasePresenter<V> impleme
     public void showMessage(String string) {
         getMvpView().onErrorLong(string);
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

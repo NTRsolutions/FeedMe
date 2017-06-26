@@ -140,4 +140,9 @@ public class RestaurantAccountPresenter<V extends RestaurantAccountMvpView> exte
             getMvpView().onError(R.string.connection_error);
         }
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

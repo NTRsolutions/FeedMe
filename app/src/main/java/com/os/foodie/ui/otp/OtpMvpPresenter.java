@@ -11,4 +11,6 @@ public interface OtpMvpPresenter<V extends OtpMvpView> extends MvpPresenter<V> {
     void verify(String otp);
 
     void showMessage(String string);
+
+    void dispose();
 }

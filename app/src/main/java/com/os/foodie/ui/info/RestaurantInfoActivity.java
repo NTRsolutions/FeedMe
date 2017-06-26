@@ -10,16 +10,22 @@ import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.model.RestaurantDetails;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.details.restaurant.RestaurantDetailsPresenter;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.utils.AppConstants;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class RestaurantInfoActivity extends BaseActivity implements RestaurantInfoMvpView, View.OnClickListener {
 
@@ -43,7 +49,8 @@ public class RestaurantInfoActivity extends BaseActivity implements RestaurantIn
 
         getSupportActionBar().setTitle(restaurantDetails.getRestaurantName());
 
-        restaurantInfoMvpPresenter = new RestaurantInfoPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        initPresenter();
+//        restaurantInfoMvpPresenter = new RestaurantInfoPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         restaurantInfoMvpPresenter.onAttach(this);
 
         tvTime = (TextView) findViewById(R.id.activity_restaurant_info_tv_time);
@@ -58,6 +65,17 @@ public class RestaurantInfoActivity extends BaseActivity implements RestaurantIn
         setUp();
     }
 
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        restaurantInfoMvpPresenter = new RestaurantInfoPresenter(appDataManager, compositeDisposable);
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -66,6 +84,12 @@ public class RestaurantInfoActivity extends BaseActivity implements RestaurantIn
         }
 
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        restaurantInfoMvpPresenter.dispose();
+        super.onDestroy();
     }
 
     @Override

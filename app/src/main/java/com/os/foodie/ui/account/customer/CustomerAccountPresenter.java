@@ -142,4 +142,9 @@ public class CustomerAccountPresenter<V extends CustomerAccountMvpView> extends 
             getMvpView().onError(R.string.connection_error);
         }
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

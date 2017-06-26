@@ -21,18 +21,25 @@ import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.viewpager.PhotoAdapter;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingActionImageView;
 import com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingActionImageViewBehavior;
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout;
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayoutBehavior;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.TimeFormatUtils;
 import com.wefika.flowlayout.FlowLayout;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class ShowRestaurantProfileFragment extends BaseFragment implements ShowRestaurantProfileMvpView, View.OnClickListener, ViewPager.OnPageChangeListener {
 
@@ -82,12 +89,24 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 
         initView(view);
 
-        setupRestaurantProfileMvpPresenter = new ShowRestaurantProfilePresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
+        initPresenter();
+//        setupRestaurantProfileMvpPresenter = new ShowRestaurantProfilePresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         setupRestaurantProfileMvpPresenter.onAttach(this);
 
         setupRestaurantProfileMvpPresenter.getRestaurantProfile(AppController.get(getActivity()).getAppDataManager().getCurrentUserId());
 
         return view;
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(getActivity(), AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(getActivity(), appPreferencesHelper, appApiHelpter);
+        setupRestaurantProfileMvpPresenter = new ShowRestaurantProfilePresenter(appDataManager, compositeDisposable);
+
     }
 
     @Override
@@ -139,7 +158,8 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 
     @Override
     public void onDestroy() {
-        setupRestaurantProfileMvpPresenter.onDetach();
+        setupRestaurantProfileMvpPresenter.dispose();
+//        setupRestaurantProfileMvpPresenter.onDetach();
         Fresco.shutDown();
         super.onDestroy();
     }

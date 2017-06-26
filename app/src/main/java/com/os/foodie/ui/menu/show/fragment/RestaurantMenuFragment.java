@@ -15,14 +15,21 @@ import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.menu.show.restaurant.Dish;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.recyclerview.RestaurantMenuAdapter;
 import com.os.foodie.ui.base.BaseFragment;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.ui.menu.add.RestaurantMenuAddUpdateDishActivity;
+import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class RestaurantMenuFragment extends BaseFragment implements RestaurantMenuMvpView, View.OnClickListener {
 
@@ -55,7 +62,8 @@ public class RestaurantMenuFragment extends BaseFragment implements RestaurantMe
 
 //        ((RestaurantMainActivity) getActivity()).setTitle(getActivity().getResources().getString(R.string.title_fragment_restaurant_menu));
 
-        restaurantMenuMvpPresenter = new RestaurantMenuPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
+        initPresenter();
+//        restaurantMenuMvpPresenter = new RestaurantMenuPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         restaurantMenuMvpPresenter.onAttach(this);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_restaurant_menu_recyclerview);
@@ -77,6 +85,16 @@ public class RestaurantMenuFragment extends BaseFragment implements RestaurantMe
         fabAdd.setOnClickListener(this);
 
         return view;
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(getActivity(), AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(getActivity(), appPreferencesHelper, appApiHelpter);
+        restaurantMenuMvpPresenter = new RestaurantMenuPresenter(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -140,7 +158,8 @@ public class RestaurantMenuFragment extends BaseFragment implements RestaurantMe
 
     @Override
     public void onDestroyView() {
-        restaurantMenuMvpPresenter.onDetach();
+        restaurantMenuMvpPresenter.dispose();
+//        restaurantMenuMvpPresenter.onDetach();
         super.onDestroyView();
     }
 }

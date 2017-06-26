@@ -216,4 +216,9 @@ public class LocationInfoPresenter<V extends LocationInfoMvpView> extends BasePr
             getMvpView().onError(R.string.connection_error);
         }
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

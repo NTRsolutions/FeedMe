@@ -36,4 +36,6 @@ public interface SetupRestaurantProfileMvpPresenter<V extends SetupRestaurantPro
     boolean isCurrentUserInfoInitialized();
 
     void deleteRestaurantImage(String imageId);
+
+    void dispose();
 }

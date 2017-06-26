@@ -127,4 +127,9 @@ public class FacebookSignUpPresenter<V extends FacebookSignUpMvpView> extends Ba
             getMvpView().onError(R.string.connection_error);
         }
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

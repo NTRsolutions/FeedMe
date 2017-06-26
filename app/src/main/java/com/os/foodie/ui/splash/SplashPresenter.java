@@ -125,4 +125,9 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
                     }
                 });
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

@@ -20,4 +20,9 @@ public class RestaurantMainPresenter<V extends RestaurantMainMvpView> extends Ba
     public String getRestaurantLogoURL() {
         return getDataManager().getRestaurantLogoURL();
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

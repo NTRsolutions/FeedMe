@@ -26,14 +26,21 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.feature.callback.GpsLocationCallback;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.feature.GpsLocation;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.NetworkUtils;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class LocationInfoActivity extends BaseActivity implements LocationInfoMvpView, View.OnClickListener, GpsLocationCallback {
 
@@ -96,7 +103,13 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
     public void initPresenter() {
 
-        locationInfoMvpPresenter = new LocationInfoPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        locationInfoMvpPresenter = new LocationInfoPresenter(appDataManager, compositeDisposable);
+
     }
 
     @Override
@@ -212,7 +225,8 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
     @Override
     protected void onDestroy() {
-        locationInfoMvpPresenter.onDetach();
+        locationInfoMvpPresenter.dispose();
+//        locationInfoMvpPresenter.onDetach();
         super.onDestroy();
     }
 

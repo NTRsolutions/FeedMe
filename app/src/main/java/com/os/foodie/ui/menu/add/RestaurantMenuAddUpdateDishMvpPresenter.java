@@ -7,4 +7,6 @@ public interface RestaurantMenuAddUpdateDishMvpPresenter<V extends RestaurantMen
     void getCourseTypeList();
 
     void addRestaurantMenuItem(String dishId, String courseId, String name, String price, String description, String vegNonVeg);
+
+    void dispose();
 }

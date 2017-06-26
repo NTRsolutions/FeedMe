@@ -11,12 +11,19 @@ import android.widget.EditText;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.account.edit.customer.EditCustomerAccountDetailResponse;
 import com.os.foodie.data.network.model.account.edit.customer.EditCustomerAccountRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailResponse;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
+import com.os.foodie.ui.home.customer.CustomerHomePresenter;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
+import com.os.foodie.utils.AppConstants;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class CustomerAccountFragment extends BaseFragment implements CustomerAccountMvpView, View.OnClickListener {
 
@@ -45,13 +52,24 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
 
         ((CustomerMainActivity) getActivity()).setTitle(getActivity().getResources().getString(R.string.title_fragment_customer_home));
 
-        customerAccountMvpPresenter = new CustomerAccountPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
+        initPresenter();
+//        customerAccountMvpPresenter = new CustomerAccountPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         customerAccountMvpPresenter.onAttach(this);
 
         customerAccountMvpPresenter.getCustomerAccountDetail();
 //        fabAdd.setOnClickListener(this);
 
         return view;
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(getActivity(), AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(getActivity(), appPreferencesHelper, appApiHelpter);
+        customerAccountMvpPresenter = new CustomerAccountPresenter(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -138,7 +156,8 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
 
     @Override
     public void onDestroyView() {
-        customerAccountMvpPresenter.onDetach();
+        customerAccountMvpPresenter.dispose();
+//        customerAccountMvpPresenter.onDetach();
         super.onDestroyView();
     }
 }

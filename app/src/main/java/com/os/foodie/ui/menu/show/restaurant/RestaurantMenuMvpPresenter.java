@@ -10,4 +10,6 @@ public interface RestaurantMenuMvpPresenter<V extends RestaurantMenuMvpView> ext
     void changeStatusRestaurantMenuList(Dish dish/*String dishId, String status*/);
 
     void deleteRestaurantMenuList(Dish dish);
+
+    void dispose();
 }

@@ -5,11 +5,18 @@ import android.os.Bundle;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.base.BaseActivity;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.ui.locationinfo.LocationInfoActivity;
 import com.os.foodie.ui.welcome.WelcomeActivity;
+import com.os.foodie.utils.AppConstants;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class SplashActivity extends BaseActivity implements SplashMvpView {
 
@@ -42,13 +49,21 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
 
     public void initPresenter() {
 
-        splashMvpPresenter = new SplashPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        splashMvpPresenter = new SplashPresenter(appDataManager, compositeDisposable);
+
+//        splashMvpPresenter = new SplashPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
     }
 
     @Override
     public void openLocationInfoActivity() {
 
-        splashMvpPresenter.onDetach();
+        splashMvpPresenter.dispose();
+//        splashMvpPresenter.onDetach();
 
         Intent intent = new Intent(SplashActivity.this, LocationInfoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -58,7 +73,8 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
     @Override
     public void openSetupRestaurantProfileActivity() {
 
-        splashMvpPresenter.onDetach();
+        splashMvpPresenter.dispose();
+//        splashMvpPresenter.onDetach();
 
         Intent intent = new Intent(SplashActivity.this, RestaurantMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -68,7 +84,8 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
     @Override
     public void openCustomerHomeActivity() {
 
-        splashMvpPresenter.onDetach();
+        splashMvpPresenter.dispose();
+//        splashMvpPresenter.onDetach();
 
         Intent intent = new Intent(SplashActivity.this, CustomerMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -78,7 +95,8 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
     @Override
     public void openRestaurantHomeActivity() {
 
-        splashMvpPresenter.onDetach();
+        splashMvpPresenter.dispose();
+//        splashMvpPresenter.onDetach();
 
         Intent intent = new Intent(SplashActivity.this, RestaurantMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -88,7 +106,8 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
     @Override
     public void openWelcomeActivity() {
 
-        splashMvpPresenter.onDetach();
+        splashMvpPresenter.dispose();
+//        splashMvpPresenter.onDetach();
 
         Intent intent = new Intent(SplashActivity.this, WelcomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -110,7 +129,8 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
 //        Currency currency = Currency.getInstance(swedishLocale);
 //        Log.d("Currency", "Symbol: " + currency.getSymbol());
 
-        splashMvpPresenter.onDetach();
+        splashMvpPresenter.dispose();
+//        splashMvpPresenter.onDetach();
         super.onDestroy();
     }
 }

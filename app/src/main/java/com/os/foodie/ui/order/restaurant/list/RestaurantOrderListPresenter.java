@@ -10,4 +10,9 @@ public class RestaurantOrderListPresenter<V extends RestaurantOrderListMvpView> 
     public RestaurantOrderListPresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
         super(dataManager, compositeDisposable);
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

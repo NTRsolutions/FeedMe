@@ -150,4 +150,9 @@ public class SelectDeliveryAddressPresenter<V extends SelectDeliveryAddressMvpVi
     public void setError(@StringRes int resId) {
         getMvpView().onError(resId);
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

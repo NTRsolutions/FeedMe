@@ -9,5 +9,8 @@ import java.util.HashMap;
 public interface RestaurantAccountMvpPresenter<V extends RestaurantAccountMvpView> extends MvpPresenter<V> {
 
     void getRestaurantAccountDetail(String restaurantId);
+
     void editRestaurantAccountDetail(EditRestaurantAccountRequest editRestaurantAccountRequest, HashMap<String, File> fileMap);
+
+    void dispose();
 }

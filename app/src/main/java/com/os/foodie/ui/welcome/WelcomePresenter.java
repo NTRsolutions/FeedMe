@@ -16,9 +16,10 @@ public class WelcomePresenter<V extends WelcomeMvpView> extends BasePresenter<V>
     @Override
     public void onAttach(V mvpView) {
         super.onAttach(mvpView);
-
-
     }
 
-
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

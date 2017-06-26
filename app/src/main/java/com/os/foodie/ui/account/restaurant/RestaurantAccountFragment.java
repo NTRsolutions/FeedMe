@@ -19,17 +19,23 @@ import android.widget.EditText;
 import com.bumptech.glide.Glide;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.account.edit.restaurant.EditRestaurantAccountRequest;
 import com.os.foodie.data.network.model.account.edit.restaurant.EditRestaurantAccountResponse;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
+import com.os.foodie.ui.home.customer.CustomerHomePresenter;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
+import com.os.foodie.utils.AppConstants;
 
 import java.io.File;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.disposables.CompositeDisposable;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
@@ -71,13 +77,24 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
 
         (restaurantMainActivity).setTitle(getActivity().getResources().getString(R.string.title_fragment_customer_home));
 
-        restaurantAccountMvpPresenter = new RestaurantAccountPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
+        initPresenter();
+//        restaurantAccountMvpPresenter = new RestaurantAccountPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         restaurantAccountMvpPresenter.onAttach(this);
 
         restaurantAccountMvpPresenter.getRestaurantAccountDetail(AppController.get(getActivity()).getAppDataManager().getCurrentUserId());
 //        fabAdd.setOnClickListener(this);
 
         return view;
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(getActivity(), AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(getActivity(), appPreferencesHelper, appApiHelpter);
+        restaurantAccountMvpPresenter = new RestaurantAccountPresenter(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -295,7 +312,8 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
 
     @Override
     public void onDestroyView() {
-        restaurantAccountMvpPresenter.onDetach();
+        restaurantAccountMvpPresenter.dispose();
+//        restaurantAccountMvpPresenter.onDetach();
         super.onDestroyView();
     }
 }

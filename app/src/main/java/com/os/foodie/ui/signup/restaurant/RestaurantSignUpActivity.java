@@ -33,9 +33,13 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.model.FacebookSignUpModel;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.fbsignup.FacebookSignUpActivity;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.login.LoginActivity;
 import com.os.foodie.ui.otp.OtpActivity;
 import com.os.foodie.ui.signup.customer.CustomerSignUpActivity;
@@ -56,6 +60,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.disposables.CompositeDisposable;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
@@ -165,7 +170,15 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
 
     public void initPresenter() {
 
-        restaurantSignUpMvpPresenter = new RestaurantSignUpPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        restaurantSignUpMvpPresenter = new RestaurantSignUpPresenter(appDataManager, compositeDisposable);
+
+
+//        restaurantSignUpMvpPresenter = new RestaurantSignUpPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
     }
 
     @Override
@@ -474,4 +487,10 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        restaurantSignUpMvpPresenter.dispose();
+//        restaurantSignUpMvpPresenter.onDetach();
+        super.onDestroy();
+    }
 }

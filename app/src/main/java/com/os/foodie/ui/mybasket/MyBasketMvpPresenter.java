@@ -19,4 +19,6 @@ public interface MyBasketMvpPresenter<V extends MyBasketMvpView> extends MvpPres
     void clearBasketRestaurant();
 
     void checkout(CheckoutRequest checkoutRequest);
+
+    void dispose();
 }

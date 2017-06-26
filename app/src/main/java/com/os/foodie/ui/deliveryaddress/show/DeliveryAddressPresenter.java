@@ -100,4 +100,9 @@ public class DeliveryAddressPresenter<V extends DeliveryAddressMvpView> extends 
             getMvpView().onError(R.string.connection_error);
         }
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

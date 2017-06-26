@@ -59,4 +59,9 @@ public class SelectPaymentPresenter<V extends SelectPaymentMvpView> extends Base
             getMvpView().onError(R.string.connection_error);
         }
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

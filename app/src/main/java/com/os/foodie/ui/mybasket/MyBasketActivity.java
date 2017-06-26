@@ -26,19 +26,25 @@ import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.cart.view.CartList;
 import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
 import com.os.foodie.data.network.model.checkout.CheckoutRequest;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.recyclerview.MyBasketAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RecyclerTouchListener;
 import com.os.foodie.ui.deliveryaddress.select.SelectDeliveryAddressActivity;
+import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.payment.select.SelectPaymentActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.DialogUtils;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, View.OnClickListener {
 
@@ -63,7 +69,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_basket);
 
-        myBasketMvpPresenter = new MyBasketPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        initPresenter();
+//        myBasketMvpPresenter = new MyBasketPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         myBasketMvpPresenter.onAttach(MyBasketActivity.this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -232,6 +239,16 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, clickListener));
 
         myBasketMvpPresenter.getMyBasketDetails(AppController.get(this).getAppDataManager().getCurrentUserId());
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        myBasketMvpPresenter = new MyBasketPresenter(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -457,7 +474,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
     @Override
     protected void onDestroy() {
-        myBasketMvpPresenter.onDetach();
+        myBasketMvpPresenter.dispose();
+//        myBasketMvpPresenter.onDetach();
         super.onDestroy();
     }
 

@@ -6,4 +6,6 @@ import com.os.foodie.ui.base.MvpPresenter;
 public interface AddPaymentCardMvpPresenter<V extends AddPaymentCardMvpView> extends MvpPresenter<V> {
 
     void addPaymentCard(AddPaymentCardRequest addPaymentCardRequest);
+
+    void dispose();
 }

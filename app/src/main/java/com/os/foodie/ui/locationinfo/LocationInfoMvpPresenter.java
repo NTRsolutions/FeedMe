@@ -21,4 +21,6 @@ public interface LocationInfoMvpPresenter<V extends LocationInfoMvpView> extends
     void setUserLocationInfo(LatLng latLng, String country, String city, String address);
 
     void getGeocoderLocationAddress(Context context, LatLng latLng);
+
+    void dispose();
 }

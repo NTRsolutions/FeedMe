@@ -10,4 +10,9 @@ public class RestaurantInfoPresenter<V extends RestaurantInfoMvpView> extends Ba
     public RestaurantInfoPresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
         super(dataManager, compositeDisposable);
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }
