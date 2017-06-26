@@ -8,4 +8,6 @@ public interface SelectDeliveryAddressMvpView extends MvpView {
     public void setAddressList(GetAllAddressResponse getAllAddressResponse);
 
     public void onAddressDelete(int position);
+
+    void onCheckoutComplete(String message);
 }

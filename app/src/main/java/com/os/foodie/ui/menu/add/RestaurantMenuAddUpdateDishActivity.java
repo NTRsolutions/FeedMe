@@ -87,6 +87,7 @@ public class RestaurantMenuAddUpdateDishActivity extends BaseActivity implements
 
     public void initPresenter() {
         restaurantMenuAddUpdateDishMvpPresenter = new RestaurantMenuAddUpdateDishPresenter<>(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+
     }
 
     @Override

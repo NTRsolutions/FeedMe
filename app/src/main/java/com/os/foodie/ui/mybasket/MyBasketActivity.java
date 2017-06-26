@@ -22,18 +22,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.network.model.cart.view.CartList;
 import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
+import com.os.foodie.data.network.model.checkout.CheckoutRequest;
 import com.os.foodie.ui.adapter.recyclerview.MyBasketAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RecyclerTouchListener;
 import com.os.foodie.ui.deliveryaddress.select.SelectDeliveryAddressActivity;
-import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
+import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.payment.select.SelectPaymentActivity;
-import com.os.foodie.ui.payment.show.PaymentMethodActivity;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.DialogUtils;
 
 import java.util.ArrayList;
@@ -440,6 +442,16 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
     }
 
     @Override
+    public void onCheckoutComplete(String message) {
+
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(MyBasketActivity.this, CustomerMainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
     protected void setUp() {
     }
 
@@ -479,24 +491,34 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
     public void doNext(int method) {
 
+        CheckoutRequest checkoutRequest = new CheckoutRequest();
+
         String deliveryTypes[] = getResources().getStringArray(R.array.delivery_type);
         String deliveryType = viewCartResponse.getResponse().getDeliveryType();
 
-        Log.d("deliveryType", ">>"+deliveryType);
-        Log.d("method", ">>"+method);
+        checkoutRequest.setUserId(AppController.get(this).getAppDataManager().getCurrentUserId());
+        checkoutRequest.setDeliveryType(deliveryType);
+
+        Log.d("deliveryType", ">>" + deliveryType);
+        Log.d("method", ">>" + method);
 
         if (method == 1) {
 
             if (deliveryType.equalsIgnoreCase(deliveryTypes[0])) {
 
-                Log.d("Pick only", "Online");
+                Log.d("Pick only", "ONLINE");
+
+                checkoutRequest.setPaymentMethod(AppConstants.ONLINE);
 
                 Intent intent = new Intent(MyBasketActivity.this, SelectPaymentActivity.class);
+                intent.putExtra(AppConstants.CHECKOUT, checkoutRequest);
                 startActivity(intent);
 
             } else if (deliveryType.equalsIgnoreCase(deliveryTypes[1])) {
 
-                Log.d("Delivery", "Online");
+                Log.d("Delivery", "ONLINE");
+
+                checkoutRequest.setPaymentMethod(AppConstants.ONLINE);
 
                 Intent intent = new Intent(MyBasketActivity.this, SelectDeliveryAddressActivity.class);
                 startActivity(intent);
@@ -508,14 +530,26 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                 Log.d("Pick only", "COD");
 
-                Intent intent = new Intent(MyBasketActivity.this, SelectPaymentActivity.class);
-                startActivity(intent);
+                checkoutRequest.setPaymentMethod(AppConstants.COD);
+                checkoutRequest.setCardId("");
+                checkoutRequest.setUserAddressId("");
+//                TODO Date and Time
+                checkoutRequest.setOrderDelieveryDate("");
+                checkoutRequest.setOrderDelieveryTime("");
+
+                myBasketMvpPresenter.checkout(checkoutRequest);
 
             } else if (deliveryType.equalsIgnoreCase(deliveryTypes[1])) {
 
                 Log.d("Delivery", "COD");
 
+                checkoutRequest.setPaymentMethod(AppConstants.COD);
+//                TODO Date and Time
+                checkoutRequest.setOrderDelieveryDate("");
+                checkoutRequest.setOrderDelieveryTime("");
+
                 Intent intent = new Intent(MyBasketActivity.this, SelectDeliveryAddressActivity.class);
+                intent.putExtra(AppConstants.CHECKOUT, checkoutRequest);
                 startActivity(intent);
             }
         }

@@ -20,7 +20,7 @@ public interface SetupRestaurantProfileMvpPresenter<V extends SetupRestaurantPro
 
     void onCuisineTypeClick();
 
-    void saveRestaurantProfile(SetupRestaurantProfileRequest restaurantProfileRequest, HashMap<String, File> fileMap);
+    void saveRestaurantProfile(SetupRestaurantProfileRequest restaurantProfileRequest, HashMap<String, File> fileMap,boolean tag);
 
     void getGeocoderLocationAddress(Context context, LatLng latLng);
 

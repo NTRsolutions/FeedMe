@@ -130,7 +130,7 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
     }
 
     @Override
-    public void saveRestaurantProfile(SetupRestaurantProfileRequest restaurantProfileRequest, HashMap<String, File> fileMap) {
+    public void saveRestaurantProfile(SetupRestaurantProfileRequest restaurantProfileRequest, HashMap<String, File> fileMap,boolean isEditProfile) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -194,7 +194,7 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                 return;
             }
 
-            if(restaurantProfileRequest.getRestaurantId()==null) {
+            if(!isEditProfile) {
                 if (fileMap.size() == 0) {
                     getMvpView().onError(R.string.mandatory_image);
                     return;

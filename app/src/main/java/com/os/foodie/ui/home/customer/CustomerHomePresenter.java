@@ -75,4 +75,9 @@ public class CustomerHomePresenter<V extends CustomerHomeMvpView> extends BasePr
             getMvpView().onError(R.string.connection_error);
         }
     }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
 }

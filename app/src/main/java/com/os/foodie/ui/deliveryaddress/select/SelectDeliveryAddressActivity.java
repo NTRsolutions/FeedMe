@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.network.model.checkout.CheckoutRequest;
 import com.os.foodie.data.network.model.deliveryaddress.getall.Address;
 import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressResponse;
 import com.os.foodie.ui.adapter.recyclerview.DeliveryAddressAdapter;
@@ -22,6 +25,8 @@ import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RecyclerTouchListener;
 import com.os.foodie.ui.deliveryaddress.addedit.AddEditDeliveryAddressActivity;
 import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
+import com.os.foodie.ui.main.customer.CustomerMainActivity;
+import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
@@ -37,6 +42,8 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
 
     private RecyclerView recyclerView;
     private SelectDeliveryAddressAdapter selectDeliveryAddressAdapter;
+
+    private CheckoutRequest checkoutRequest;
 
     private SelectDeliveryAddressMvpPresenter<SelectDeliveryAddressMvpView> selectDeliveryAddressMvpPresenter;
 
@@ -56,6 +63,7 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
         btPayment = (Button) findViewById(R.id.activity_select_delivery_address_bt_payment);
 
         addresses = new ArrayList<Address>();
+        checkoutRequest = new CheckoutRequest();
 
         selectDeliveryAddressAdapter = new SelectDeliveryAddressAdapter(this, addresses, selectDeliveryAddressMvpPresenter);
         recyclerView = (RecyclerView) findViewById(R.id.activity_select_delivery_address_recyclerview);
@@ -72,6 +80,16 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
         btPayment.setOnClickListener(this);
 
         selectDeliveryAddressMvpPresenter.getAddressList();
+    }
+
+    @Override
+    public void onCheckoutComplete(String message) {
+
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, CustomerMainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     @Override
@@ -92,11 +110,25 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
             startActivityForResult(intent, 1);
 
         } else if (v.getId() == btPayment.getId()) {
+
+            if (selectedPosition == -1) {
+                selectDeliveryAddressMvpPresenter.setError(R.string.select_address);
+            } else {
+
+                checkoutRequest.setCardId("");
+                checkoutRequest.setUserAddressId(addresses.get(selectedPosition).getId());
+
+                selectDeliveryAddressMvpPresenter.checkout(checkoutRequest);
+            }
         }
     }
 
     @Override
     protected void setUp() {
+
+        if (getIntent().hasExtra(AppConstants.CHECKOUT)) {
+            checkoutRequest = getIntent().getParcelableExtra(AppConstants.CHECKOUT);
+        }
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {
 
@@ -138,6 +170,8 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
+
+        selectedPosition = -1;
 
         if (resultCode == 1 && data != null) {
 

@@ -18,6 +18,10 @@ public class AppConstants {
     //    SharedPreferences File Name
     public static final String PREFERENCE_DEFAULT = "PREFERENCE_DEFAULT";
 
+    //    Payment Methods
+    public static final String COD = "Cash on delivery";
+    public static final String ONLINE = "Online";
+
     //    Fragment Arguments
     public static final String VIEWPAGER_POSITION = "VIEWPAGER_POSITION";
     public static final String CUISINE_TYPES_ARRAYLIST = "CUISINE_TYPES_ARRAYLIST";
@@ -39,6 +43,7 @@ public class AppConstants {
     public static final String DELIVERY_ADDRESS = "DELIVERY_ADDRESS";
     public static final String POSITION = "POSITION";
     public static final String CARD = "CARD";
+    public static final String CHECKOUT = "CHECKOUT";
 
 //    public static final String CUSTOMER_SIGN_UP_REQUEST = "CUSTOMER_SIGN_UP_REQUEST";
 //    public static final String RESTAURANT_SIGN_UP_REQUEST = "RESTAURANT_SIGN_UP_REQUEST";

@@ -14,4 +14,6 @@ public interface MyBasketMvpView extends MvpView {
     void itemRemovedFromBasket(int position);
 
     void updateMyBasket(int position, String quantity, String totalQuantity, String totalAmount);
+
+    void onCheckoutComplete(String message);
 }

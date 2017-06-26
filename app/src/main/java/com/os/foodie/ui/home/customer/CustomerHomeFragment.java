@@ -17,15 +17,21 @@ import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.home.customer.RestaurantList;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.recyclerview.RestaurantListAdapter;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.custom.DividerItemLineDecoration;
 import com.os.foodie.ui.filters.FiltersActivity;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.search.RestaurantSearchActivity;
+import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 import static android.view.View.GONE;
 
@@ -45,6 +51,7 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
     }
 
     public static CustomerHomeFragment newInstance() {
+        Log.d("newInstance","Called");
         Bundle args = new Bundle();
         CustomerHomeFragment fragment = new CustomerHomeFragment();
         fragment.setArguments(args);
@@ -57,7 +64,8 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
         View view = inflater.inflate(R.layout.fragment_customer_home, container, false);
         setHasOptionsMenu(true);
 
-        customerHomeMvpPresenter = new CustomerHomePresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
+        initPresenter();
+//        customerHomeMvpPresenter = new CustomerHomePresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         customerHomeMvpPresenter.onAttach(this);
 
         tvNoResult = (TextView) view.findViewById(R.id.fragment_customer_home_tv_no_result);
@@ -78,9 +86,20 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
         return view;
     }
 
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(getActivity(), AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(getActivity(), appPreferencesHelper, appApiHelpter);
+        customerHomeMvpPresenter = new CustomerHomePresenter(appDataManager, compositeDisposable);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
+        Log.d("getRestaurantList","Called");
         ((CustomerMainActivity) getActivity()).setTitle(getResources().getString(R.string.title_fragment_customer_home));
         customerHomeMvpPresenter.getRestaurantList(AppController.get(getActivity()).getFilters());
     }
@@ -204,7 +223,9 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
 
     @Override
     public void onDestroyView() {
-        customerHomeMvpPresenter.onDetach();
+        Log.d("onDestroyView","Called");
+//        customerHomeMvpPresenter.onDetach();
+        customerHomeMvpPresenter.dispose();
         super.onDestroyView();
     }
 }

@@ -45,6 +45,7 @@
     <string name="empty_menu">Menu is empty</string>
     <string name="no_restaurant">No Restaurant</string>
     <string name="fb_user_already_exist">User already exist</string>
+    <string name="select_address">Please select a address</string>
 
     <!--Validation Message-->
     <string name="empty_first_name">Please provide your first name</string>

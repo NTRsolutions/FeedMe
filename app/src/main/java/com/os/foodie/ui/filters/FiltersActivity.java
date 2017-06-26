@@ -19,10 +19,14 @@ import android.widget.TextView;
 //import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.cuisinetype.list.CuisineType;
 import com.os.foodie.data.network.model.home.customer.Filters;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.dialogfragment.cuisine.list.CuisineTypeDialogFragment;
+import com.os.foodie.ui.home.customer.CustomerHomePresenter;
 import com.os.foodie.utils.AppConstants;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
@@ -30,6 +34,8 @@ import org.florescu.android.rangeseekbar.RangeSeekBar;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class FiltersActivity extends BaseActivity implements FiltersMvpView, View.OnClickListener {
 
@@ -52,7 +58,8 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
 
-        filtersMvpPresenter = new FiltersPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
+        initPresenter();
+//        filtersMvpPresenter = new FiltersPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         filtersMvpPresenter.onAttach(this);
 
         cuisineTypesChecked = new ArrayList<>();
@@ -84,6 +91,17 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
         btSearch.setOnClickListener(this);
 
         setUp();
+    }
+
+    public void initPresenter(){
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+        filtersMvpPresenter = new FiltersPresenter(appDataManager, compositeDisposable);
+
     }
 
     public void clearFilter() {
@@ -196,7 +214,6 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
             setFilters();
             AppController.get(this).getFilters();
             finish();
-//            filtersMvpPresenter;
         }
     }
 
@@ -328,7 +345,8 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
     @Override
     protected void onDestroy() {
-        filtersMvpPresenter.onDetach();
+//        filtersMvpPresenter.onDetach();
+        filtersMvpPresenter.dispose();
         super.onDestroy();
     }
 

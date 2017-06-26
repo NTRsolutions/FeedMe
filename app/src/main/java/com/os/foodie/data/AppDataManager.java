@@ -23,6 +23,8 @@ import com.os.foodie.data.network.model.cart.view.ViewCartRequest;
 import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
+import com.os.foodie.data.network.model.checkout.CheckoutRequest;
+import com.os.foodie.data.network.model.checkout.CheckoutResponse;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeRequest;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeResponse;
 import com.os.foodie.data.network.model.coursetype.list.GetCourseTypeResponse;
@@ -375,6 +377,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<DeletePaymentCardResponse> deletePaymentCard(DeletePaymentCardRequest deletePaymentCardRequest) {
         return apiHelper.deletePaymentCard(deletePaymentCardRequest);
+    }
+
+    @Override
+    public Observable<CheckoutResponse> checkoout(CheckoutRequest checkoutRequest) {
+        return apiHelper.checkoout(checkoutRequest);
     }
 
 

@@ -108,6 +108,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     public static AddCuisineTypeCallback addCuisineTypeCallback;
     private SetupRestaurantProfileMvpPresenter<SetupRestaurantProfileMvpView> setupRestaurantProfileMvpPresenter;
 
+    boolean isEditProfile=false;
+
     public static SetupRestaurantProfileFragment newInstance(RestaurantProfileResponse restaurantProfileResponse) {
 
         Bundle args = new Bundle();
@@ -278,7 +280,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
             HashMap<String, File> fileHashMap = createFileHashMap();
             SetupRestaurantProfileRequest restaurantProfileRequest = createRestaurantProfileRequest();
 
-            setupRestaurantProfileMvpPresenter.saveRestaurantProfile(restaurantProfileRequest, fileHashMap);
+            setupRestaurantProfileMvpPresenter.saveRestaurantProfile(restaurantProfileRequest, fileHashMap,isEditProfile);
 
         } else if (v.getId() == btCancel.getId()) {
             restaurantMainActivity.navigateToShowRestaurantProfile();
@@ -600,8 +602,6 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         restaurantProfileRequest.setRestaurantId(preferencesHelper.getCurrentUserId());
 
         restaurantProfileRequest.setCuisineType(cuisionTypesId);
-        if (restaurantProfileResponse != null)
-            restaurantProfileRequest.setRestaurantId(restaurantProfileResponse.getResponse().getRestaurantDetail().getId());
 
 //        /*String days = "";
 //
@@ -926,6 +926,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
             restaurantProfileResponse = (RestaurantProfileResponse) extra.getSerializable("profileResponse");
             if (restaurantProfileResponse != null) {
+                isEditProfile=true;
                 RestaurantProfileResponse.RestaurantDetail restaurantDetail = restaurantProfileResponse.getResponse().getRestaurantDetail();
 
                 restaurantImage.addAll(restaurantDetail.getImages());
@@ -958,7 +959,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                 else
                     spinnerDeliveryType.setSelection(1);
 
-                if (restaurantDetail.getPaymentMethod().equalsIgnoreCase("Online"))
+                if (restaurantDetail.getPaymentMethod().equalsIgnoreCase("ONLINE"))
                     spinnerPaymentMethods.setSelection(0);
                 else if (restaurantDetail.getPaymentMethod().equalsIgnoreCase("Cash On Delivery"))
                     spinnerPaymentMethods.setSelection(1);

@@ -25,6 +25,8 @@ import com.os.foodie.data.network.model.cart.view.ViewCartRequest;
 import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
+import com.os.foodie.data.network.model.checkout.CheckoutRequest;
+import com.os.foodie.data.network.model.checkout.CheckoutResponse;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeRequest;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeResponse;
 import com.os.foodie.data.network.model.coursetype.list.GetCourseTypeResponse;
@@ -835,5 +837,25 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(DeletePaymentCardResponse.class);
+    }
+
+    @Override
+    public Observable<CheckoutResponse> checkoout(CheckoutRequest checkoutRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(checkoutRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.CHECKOUT)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(CheckoutResponse.class);
     }
 }

@@ -1,5 +1,6 @@
 package com.os.foodie.ui.menu.show.fragment;
 
+import android.provider.Settings;
 import android.util.Log;
 
 import com.os.foodie.R;
@@ -18,6 +19,7 @@ import com.os.foodie.utils.NetworkUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class RestaurantMenuPresenter<V extends RestaurantMenuMvpView> extends BasePresenter<V> implements RestaurantMenuMvpPresenter<V> {
@@ -37,7 +39,39 @@ public class RestaurantMenuPresenter<V extends RestaurantMenuMvpView> extends Ba
                     .getRestaurantMenuList(new GetRestaurantMenuRequest(getDataManager().getCurrentUserId()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<GetRestaurantMenuResponse>() {
+                            .subscribeWith(new DisposableObserver<GetRestaurantMenuResponse>() {
+                                @Override
+                                public void onNext(GetRestaurantMenuResponse getRestaurantMenuResponse) {
+                                    System.out.print("next");
+                                    getMvpView().hideLoading();
+
+                                    if (getRestaurantMenuResponse.getResponse().getStatus() == 1) {
+
+                                        if (getRestaurantMenuResponse.getResponse().getDishes() != null) {
+                                            getMvpView().createRestaurantMenu(getRestaurantMenuResponse.getResponse().getDishes());
+                                        } else {
+                                            Log.d("Error", ">>Err");
+                                            getMvpView().onError(R.string.empty_menu);
+                                        }
+
+                                    } else {
+                                        getMvpView().onError(getRestaurantMenuResponse.getResponse().getMessage());
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    getMvpView().onError(e.getMessage());
+                                }
+
+                                @Override
+                                public void onComplete() {
+                                    getMvpView().hideLoading();
+                                    System.out.print("complete");
+
+                                }
+                            })
+                   /* .subscribe(new Consumer<GetRestaurantMenuResponse>() {
                         @Override
                         public void accept(GetRestaurantMenuResponse getRestaurantMenuResponse) throws Exception {
 
@@ -65,7 +99,7 @@ public class RestaurantMenuPresenter<V extends RestaurantMenuMvpView> extends Ba
                             getMvpView().onError(R.string.api_default_error);
                             Log.d("Error", ">>Err" + throwable.getMessage());
                         }
-                    }));
+                    })*/);
         } else {
             getMvpView().onError(R.string.connection_error);
         }
