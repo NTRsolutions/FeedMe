@@ -183,6 +183,11 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
 
     @Override
     public void onAddressDelete(int position) {
+
+//        addresses.get(selectedPosition).setChecked(false);
+//        selectDeliveryAddressAdapter.notifyItemChanged(selectedPosition);
+        selectedPosition = -1;
+
         addresses.remove(position);
         selectDeliveryAddressAdapter.notifyDataSetChanged();
     }

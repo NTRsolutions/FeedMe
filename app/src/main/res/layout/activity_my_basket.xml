@@ -110,7 +110,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/my_basket_et_note_margin_top"
-                    android:background="@color/white"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rectangle_outline_grey"
                     android:gravity="top|start"
                     android:hint="@string/my_basket_et_note_hint"
                     android:lines="2"
@@ -156,14 +159,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"
+            android:background="@drawable/rectangle_white_top_outline_light_grey"
             android:orientation="vertical">
 
             <TextView
                 style="@style/TextView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_white_top_outline_light_grey"
+                android:background="@drawable/rectangle_white_top_outline_grey"
                 android:padding="@dimen/my_basket_tv_payment_summery_padding"
                 android:text="@string/my_basket_tv_payment_summery_text"
                 android:textColor="@color/dark_grey" />

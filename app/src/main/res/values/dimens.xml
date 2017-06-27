@@ -469,7 +469,7 @@
     <dimen name="my_basket_ctv_deliver_margin_start">10dp</dimen>
     <dimen name="my_basket_rl_order_schedule_margin_bottom">10dp</dimen>
     <dimen name="my_basket_rl_order_schedule_margin_start_end">10dp</dimen>
-    <dimen name="my_basket_rl_order_schedule_margin_top">5dp</dimen>
+    <dimen name="my_basket_rl_order_schedule_margin_top">15dp</dimen>
     <dimen name="my_basket_rl_order_schedule_padding">10dp</dimen>
     <dimen name="my_basket_tv_date_time_text_size">16sp</dimen>
     <dimen name="my_basket_tv_change_padding">5dp</dimen>

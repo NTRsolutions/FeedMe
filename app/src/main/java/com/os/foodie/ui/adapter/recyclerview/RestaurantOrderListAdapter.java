@@ -32,14 +32,14 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
 
     class RestaurantOrderListViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvOrderId, tvItemName, tvOrderType, tvDeliveryTime, tvDiscount, tvPrice;
+        public TextView tvOrderId/*, tvItemName*/, tvOrderType, tvDeliveryTime, tvDiscount, tvPrice;
         public ImageView ivAccept, ivReject;
 
         public RestaurantOrderListViewHolder(View itemView) {
             super(itemView);
 
             tvOrderId = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_order_id);
-            tvItemName = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_item_name);
+//            tvItemName = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_item_name);
             tvDeliveryTime = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_delivery_time);
             tvOrderType = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_order_type);
             tvDiscount = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_discount);
@@ -62,8 +62,8 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
         final OrderList order = orderLists.get(position);
 
         holder.tvOrderId.setText(order.getOrderId());
-        holder.tvItemName.setText(order.getDishName());
-        holder.tvDeliveryTime.setText(order.getDeliveryTime());
+//        holder.tvItemName.setText(order.getDishName());
+        holder.tvDeliveryTime.setText(order.getDeliveryTime()+" min.");
         holder.tvOrderType.setText(order.getOrderType());
         holder.tvDiscount.setText(order.getDiscount() + "%");
         holder.tvPrice.setText("$" + order.getTotalAmount());
