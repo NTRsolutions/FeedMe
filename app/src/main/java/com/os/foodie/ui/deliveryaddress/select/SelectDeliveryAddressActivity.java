@@ -89,7 +89,7 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
         selectDeliveryAddressMvpPresenter.getAddressList();
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -152,6 +152,8 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
             @Override
             public void onClick(View view, final int position) {
 
+                Log.d("selectedPosition Before", ">>" + selectedPosition);
+
                 if (selectedPosition >= 0) {
                     addresses.get(selectedPosition).setChecked(false);
                     selectedPosition = -1;
@@ -160,6 +162,8 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
                 selectedPosition = position;
                 addresses.get(position).setChecked(true);
                 selectDeliveryAddressAdapter.notifyDataSetChanged();
+
+                Log.d("selectedPosition After", ">>" + selectedPosition);
             }
 
             @Override
@@ -188,7 +192,11 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        selectedPosition = -1;
+        if (selectedPosition != -1) {
+            addresses.get(selectedPosition).setChecked(false);
+            selectDeliveryAddressAdapter.notifyItemChanged(selectedPosition);
+            selectedPosition = -1;
+        }
 
         if (resultCode == 1 && data != null) {
 

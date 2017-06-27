@@ -102,6 +102,8 @@
     <string name="empty_expiry_month">Please provide expiry month</string>
     <string name="empty_expiry_year">Please provide expiry year</string>
     <string name="empty_cvv">Please provide cvv number</string>
+    <string name="invalid_weekday">Restaurant don\'t open on this week day</string>
+    <string name="invalid_time">Restaurant don\'t open on this time</string>
 
     <!--Slide-->
     <array name="slide_title_text">

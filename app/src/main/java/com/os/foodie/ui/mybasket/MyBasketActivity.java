@@ -1,6 +1,8 @@
 package com.os.foodie.ui.mybasket;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,11 +19,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.os.foodie.R;
@@ -42,17 +46,29 @@ import com.os.foodie.ui.payment.select.SelectPaymentActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.DialogUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import io.reactivex.disposables.CompositeDisposable;
 
 public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, View.OnClickListener {
 
-    private RelativeLayout rlMain;
+    //    private TextView tvScheduledTime;
+    private Calendar selectedCalendar;
+
+//    private final String[] weekDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+    private DatePickerDialog datePickerDialog;
+    private TimePickerDialog timePickerDialog;
+
+
+    private RelativeLayout rlMain, rlSchedule;
     private CheckedTextView ctvPickup, ctvDeliver;
     private EditText etNote;
     private LinearLayout llDeliveryType, llDeliveryCharges;
-    private TextView tvDiscountAmount, tvDeliveryCharges, tvTotalAmount, tvEmptyBasket;
+    private TextView tvDiscountAmount, tvDeliveryCharges, tvTotalAmount, tvScheduledTime, tvEmptyBasket;
     private Button btCheckout;
 
     private RecyclerView recyclerView;
@@ -60,6 +76,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
     private ArrayList<CartList> cartLists;
 
     private ViewCartResponse viewCartResponse;
+
+    private final String[] weekDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
     private MyBasketMvpPresenter<MyBasketMvpView> myBasketMvpPresenter;
 
@@ -76,6 +94,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
 
+        selectedCalendar = Calendar.getInstance();
+
         rlMain = (RelativeLayout) findViewById(R.id.activity_my_basket_rl_main);
         tvEmptyBasket = (TextView) findViewById(R.id.activity_my_basket_tv_empty_basket);
 
@@ -83,6 +103,9 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
         ctvPickup = (CheckedTextView) findViewById(R.id.activity_my_basket_ctv_pickup);
         ctvDeliver = (CheckedTextView) findViewById(R.id.activity_my_basket_ctv_deliver);
+
+        rlSchedule = (RelativeLayout) findViewById(R.id.activity_my_basket_rl_schedule);
+        tvScheduledTime = (TextView) findViewById(R.id.activity_my_basket_tv_date_time);
 
         tvDiscountAmount = (TextView) findViewById(R.id.activity_my_basket_tv_discount_amount);
         tvDeliveryCharges = (TextView) findViewById(R.id.activity_my_basket_tv_delivery_charges);
@@ -92,6 +115,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         llDeliveryCharges = (LinearLayout) findViewById(R.id.activity_my_basket_ll_delivery_charges);
 
         btCheckout = (Button) findViewById(R.id.activity_my_basket_bt_checkout);
+
+        rlSchedule.setOnClickListener(this);
         btCheckout.setOnClickListener(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.activity_my_basket_recyclerview);
@@ -241,7 +266,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         myBasketMvpPresenter.getMyBasketDetails(AppController.get(this).getAppDataManager().getCurrentUserId());
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -504,6 +529,10 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                     R.string.alert_dialog_title_payment_method, R.string.alert_dialog_text_payment_method,
                     getResources().getString(R.string.alert_dialog_bt_online), online,
                     getResources().getString(R.string.alert_dialog_bt_cod), cod);
+
+        } else if (v.getId() == rlSchedule.getId()) {
+//            myBasketMvpPresenter.dateTimePickerDialog(this, viewCartResponse, tvScheduledTime);
+            dateTimePickerDialog();
         }
     }
 
@@ -528,6 +557,18 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                 checkoutRequest.setPaymentMethod(AppConstants.ONLINE);
 
+                if(tvScheduledTime.getText().toString().isEmpty()) {
+                    checkoutRequest.setOrderDelieveryDate("");
+                    checkoutRequest.setOrderDelieveryTime("");
+                }else {
+
+                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
+
+                    checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(selectedCalendar.getTime()));
+                    checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(selectedCalendar.getTime()));
+                }
+
                 Intent intent = new Intent(MyBasketActivity.this, SelectPaymentActivity.class);
                 intent.putExtra(AppConstants.CHECKOUT, checkoutRequest);
                 startActivity(intent);
@@ -537,6 +578,18 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 Log.d("Delivery", "ONLINE");
 
                 checkoutRequest.setPaymentMethod(AppConstants.ONLINE);
+
+                if(tvScheduledTime.getText().toString().isEmpty()) {
+                    checkoutRequest.setOrderDelieveryDate("");
+                    checkoutRequest.setOrderDelieveryTime("");
+                }else {
+
+                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
+
+                    checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(selectedCalendar.getTime()));
+                    checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(selectedCalendar.getTime()));
+                }
 
                 Intent intent = new Intent(MyBasketActivity.this, SelectDeliveryAddressActivity.class);
                 startActivity(intent);
@@ -552,8 +605,20 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 checkoutRequest.setCardId("");
                 checkoutRequest.setUserAddressId("");
 //                TODO Date and Time
-                checkoutRequest.setOrderDelieveryDate("");
-                checkoutRequest.setOrderDelieveryTime("");
+
+                if(tvScheduledTime.getText().toString().isEmpty()) {
+                    checkoutRequest.setOrderDelieveryDate("");
+                    checkoutRequest.setOrderDelieveryTime("");
+                }else {
+
+                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
+
+                    checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(selectedCalendar.getTime()));
+                    checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(selectedCalendar.getTime()));
+                }
+
+
 
                 myBasketMvpPresenter.checkout(checkoutRequest);
 
@@ -563,8 +628,18 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                 checkoutRequest.setPaymentMethod(AppConstants.COD);
 //                TODO Date and Time
-                checkoutRequest.setOrderDelieveryDate("");
-                checkoutRequest.setOrderDelieveryTime("");
+
+                if(tvScheduledTime.getText().toString().isEmpty()) {
+                    checkoutRequest.setOrderDelieveryDate("");
+                    checkoutRequest.setOrderDelieveryTime("");
+                }else {
+
+                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
+
+                    checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(selectedCalendar.getTime()));
+                    checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(selectedCalendar.getTime()));
+                }
 
                 Intent intent = new Intent(MyBasketActivity.this, SelectDeliveryAddressActivity.class);
                 intent.putExtra(AppConstants.CHECKOUT, checkoutRequest);
@@ -572,4 +647,241 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
             }
         }
     }
+
+    public void dateTimePickerDialog() {
+
+//        this.tvScheduledTime = tvScheduledTime;
+
+//        selectedCalendar = Calendar.getInstance();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+
+        final Calendar timeFrom = Calendar.getInstance();
+        final Calendar timeTo = Calendar.getInstance();
+
+        try {
+            timeFrom.setTime(simpleDateFormat.parse(viewCartResponse.getResponse().getOpeningTime()));
+            timeTo.setTime(simpleDateFormat.parse(viewCartResponse.getResponse().getClosingTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar fromCalendar = Calendar.getInstance();
+        Calendar toCalendar = Calendar.getInstance();
+
+        toCalendar.setTimeInMillis(fromCalendar.getTimeInMillis() + (24 * 60 * 60 * 1000 * 7));
+
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                setTimePickerDialogListenerAction(MyBasketActivity.this.tvScheduledTime, selectedCalendar, timeFrom, timeTo, hourOfDay, minute);
+            }
+        };
+
+        timePickerDialog = new TimePickerDialog(this, onTimeSetListener, fromCalendar.get(Calendar.HOUR_OF_DAY), fromCalendar.get(Calendar.MINUTE), false);
+
+//        timePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+//                getString(R.string.alert_dialog_bt_ok),
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (which == DialogInterface.BUTTON_POSITIVE) {
+////                            dialog.cancel();
+//                            setTimePickerDialogListenerAction(MyBasketActivity.this.tvScheduledTime, selectedCalendar, timeFrom, timeTo, selectedCalendar.get(Calendar.HOUR_OF_DAY), selectedCalendar.get(Calendar.MINUTE));
+//                        }
+//                    }
+//                });
+
+
+        DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                setDatePickerDialogListenerAction(viewCartResponse, selectedCalendar, year, month, dayOfMonth);
+            }
+        };
+
+        datePickerDialog = new DatePickerDialog(this, onDateSetListener, fromCalendar.get(Calendar.YEAR), fromCalendar.get(Calendar.MONTH), fromCalendar.get(Calendar.DAY_OF_MONTH));
+
+        datePickerDialog.getDatePicker().setMinDate(fromCalendar.getTimeInMillis());
+        datePickerDialog.getDatePicker().setMaxDate(toCalendar.getTimeInMillis());
+
+//        datePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+//                getString(R.string.alert_dialog_bt_ok),
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (which == DialogInterface.BUTTON_POSITIVE) {
+////                            dialog.cancel();
+//                            setDatePickerDialogListenerAction(viewCartResponse, selectedCalendar, selectedCalendar.get(Calendar.YEAR), selectedCalendar.get(Calendar.MONTH), selectedCalendar.get(Calendar.DAY_OF_MONTH));
+//                        }
+//                    }
+//                });
+
+        datePickerDialog.show();
+    }
+
+    public void setDatePickerDialogListenerAction(ViewCartResponse viewCartResponse, Calendar selectedCalendar, int year, int month, int dayOfMonth) {
+
+
+        Calendar tempCalendar = Calendar.getInstance();
+
+        tempCalendar.set(Calendar.YEAR, year);
+        tempCalendar.set(Calendar.MONTH, month);
+        tempCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+        boolean isOk = false;
+        String[] selectedWeekDays = viewCartResponse.getResponse().getWorkingDays().split(",");
+
+        for (int i = 0; i < weekDays.length; i++) {
+
+            if (weekDays[tempCalendar.get(Calendar.DAY_OF_WEEK) - 1].equalsIgnoreCase(selectedWeekDays[i])) {
+                isOk = true;
+                break;
+            }
+        }
+
+        if (isOk) {
+
+            selectedCalendar.set(Calendar.YEAR, year);
+            selectedCalendar.set(Calendar.MONTH, month);
+            selectedCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            datePickerDialog.dismiss();
+            timePickerDialog.show();
+
+        } else {
+            Log.d("Problem", "Restaurant don't open on this week day");
+            myBasketMvpPresenter.onError(R.string.invalid_weekday);
+        }
+    }
+
+    public void setTimePickerDialogListenerAction(TextView tvScheduledTime, Calendar selectedCalendar, Calendar timeFrom, Calendar timeTo, int hourOfDay, int minute) {
+
+        Log.d("hourOfDay", ">>" + hourOfDay);
+        Log.d("minute", ">>" + minute);
+
+        Log.d("timeFrom HOUR_OF_DAY", ">>" + timeFrom.get(Calendar.HOUR_OF_DAY));
+        Log.d("timeFrom MINUTE", ">>" + timeFrom.get(Calendar.MINUTE));
+
+        Log.d("timeTo HOUR_OF_DAY", ">>" + timeTo.get(Calendar.HOUR_OF_DAY));
+        Log.d("timeTo MINUTE", ">>" + timeTo.get(Calendar.MINUTE));
+
+        if (hourOfDay < timeFrom.get(Calendar.HOUR_OF_DAY) || hourOfDay > timeTo.get(Calendar.HOUR_OF_DAY)) {
+
+            Log.d("Problem", "select time under restaurant opening and closing hours");
+            myBasketMvpPresenter.onError(R.string.invalid_time);
+//            getMvpView().onError("Restaurant don/'t open on this time");
+
+        } else if (hourOfDay == timeFrom.get(Calendar.HOUR_OF_DAY) && minute < timeFrom.get(Calendar.MINUTE)) {
+
+            Log.d("Problem", "select time under restaurant opening and closing hours");
+            myBasketMvpPresenter.onError(R.string.invalid_time);
+//            getMvpView().onError("select time under restaurant opening and closing hours");
+
+        } else if (hourOfDay == timeTo.get(Calendar.HOUR_OF_DAY) && minute > timeTo.get(Calendar.MINUTE)) {
+
+            Log.d("Problem", "select time under restaurant opening and closing hours");
+            myBasketMvpPresenter.onError(R.string.invalid_time);
+//            getMvpView().onError("select time under restaurant opening and closing hours");
+
+        } else {
+
+            selectedCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            selectedCalendar.set(Calendar.MINUTE, minute);
+
+            SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("hh:mm a");
+
+            tvScheduledTime.setText(simpleDateFormatDate.format(selectedCalendar.getTime()) + " at " + simpleDateFormatTime.format(selectedCalendar.getTime()));
+
+            timePickerDialog.dismiss();
+        }
+    }
+
+
+//
+//    public void dateTimePickerDialog() {
+//
+//        final Calendar selectedCalendar = Calendar.getInstance();
+//
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+//
+//        final Calendar timeFrom = Calendar.getInstance();
+//        final Calendar timeTo = Calendar.getInstance();
+//
+//        try {
+//            timeFrom.setTime(simpleDateFormat.parse(viewCartResponse.getResponse().getOpeningTime()));
+//            timeTo.setTime(simpleDateFormat.parse(viewCartResponse.getResponse().getClosingTime()));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Calendar fromCalendar = Calendar.getInstance();
+//        Calendar toCalendar = Calendar.getInstance();
+//
+//        toCalendar.setTimeInMillis(fromCalendar.getTimeInMillis() + (24 * 60 * 60 * 1000 * 7));
+//
+//        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+//            @Override
+//            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//
+//                Log.d("hourOfDay", ">>" + hourOfDay);
+//
+//                if (hourOfDay < timeFrom.get(Calendar.HOUR_OF_DAY) || minute < timeFrom.get(Calendar.MINUTE)
+//                        || hourOfDay >= timeTo.get(Calendar.HOUR_OF_DAY) || minute >= timeTo.get(Calendar.MINUTE)) {
+//
+//                    Log.d("Problem", "select time under restaurant opening and closing hours");
+//
+//                } else {
+//
+//                    selectedCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//                    selectedCalendar.set(Calendar.MINUTE, minute);
+//
+//                }
+//            }
+//        };
+//
+//        final TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, fromCalendar.get(Calendar.HOUR_OF_DAY), fromCalendar.get(Calendar.MINUTE), false);
+//
+//        DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//
+//                Calendar tempCalendar = Calendar.getInstance();
+//
+//                tempCalendar.set(Calendar.YEAR, year);
+//                tempCalendar.set(Calendar.MONTH, month);
+//                tempCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//
+//                boolean isOk = false;
+//                String[] selectedWeekDays = viewCartResponse.getResponse().getWorkingDays().split(",");
+//
+//                for (int i = 0; i < weekDays.length; i++) {
+//
+//                    if (weekDays[tempCalendar.get(Calendar.DAY_OF_WEEK) - 1].equalsIgnoreCase(selectedWeekDays[i])) {
+//                        isOk = true;
+//                        break;
+//                    }
+//                }
+//
+//                if (isOk) {
+//
+//                    selectedCalendar.set(Calendar.YEAR, year);
+//                    selectedCalendar.set(Calendar.MONTH, month);
+//                    selectedCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//
+//                    timePickerDialog.show();
+//
+//
+//                } else {
+//                    Log.d("Problem", "Restaurant don't open on this week day");
+//                }
+//            }
+//        };
+//
+//        DatePickerDialog datePickerDialog = new DatePickerDialog(this, onDateSetListener, fromCalendar.get(Calendar.YEAR), fromCalendar.get(Calendar.MONTH), fromCalendar.get(Calendar.DAY_OF_MONTH));
+//
+//        datePickerDialog.getDatePicker().setMinDate(fromCalendar.getTimeInMillis());
+//        datePickerDialog.getDatePicker().setMaxDate(toCalendar.getTimeInMillis());
+//    }
 }

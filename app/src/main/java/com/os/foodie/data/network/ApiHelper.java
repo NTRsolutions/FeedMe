@@ -61,6 +61,10 @@ import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuRe
 import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuResponse;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemRequest;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemResponse;
+import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderRequest;
+import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderResponse;
+import com.os.foodie.data.network.model.orderlist.show.GetOrderListRequest;
+import com.os.foodie.data.network.model.orderlist.show.GetOrderListResponse;
 import com.os.foodie.data.network.model.otp.OtpVerificationRequest;
 import com.os.foodie.data.network.model.otp.OtpVerificationResponse;
 import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardRequest;
@@ -168,6 +172,10 @@ public interface ApiHelper {
     Observable<DeletePaymentCardResponse> deletePaymentCard(DeletePaymentCardRequest deletePaymentCardRequest);
 
     Observable<CheckoutResponse> checkoout(CheckoutRequest checkoutRequest);
+
+    Observable<GetOrderListResponse> getOrderList(GetOrderListRequest getOrderListRequest);
+
+    Observable<AcceptRejectOrderResponse> acceptRejectOrder(AcceptRejectOrderRequest acceptRejectOrderRequest);
 
 //    Observable<CustomerSignUpResponse> getFacebookDetail(CustomerSignUpRequest customerSignUpRequest);
 }

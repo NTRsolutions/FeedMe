@@ -20,6 +20,9 @@ public class Response implements Parcelable
     @SerializedName("restaurant_name")
     @Expose
     private String restaurantName;
+    @SerializedName("working_days")
+    @Expose
+    private String workingDays;
     @SerializedName("opening_time")
     @Expose
     private String openingTime;
@@ -55,9 +58,10 @@ public class Response implements Parcelable
         })
         public Response createFromParcel(Parcel in) {
             Response instance = new Response();
-            in.readList(instance.cartList, (com.os.foodie.data.network.model.cart.view.CartList.class.getClassLoader()));
+            in.readList(instance.cartList, (CartList.class.getClassLoader()));
             instance.restaurantId = ((String) in.readValue((String.class.getClassLoader())));
             instance.restaurantName = ((String) in.readValue((String.class.getClassLoader())));
+            instance.workingDays = ((String) in.readValue((String.class.getClassLoader())));
             instance.openingTime = ((String) in.readValue((String.class.getClassLoader())));
             instance.closingTime = ((String) in.readValue((String.class.getClassLoader())));
             instance.deliveryTime = ((String) in.readValue((String.class.getClassLoader())));
@@ -93,17 +97,19 @@ public class Response implements Parcelable
      * @param deliveryType
      * @param cartList
      * @param closingTime
+     * @param workingDays
      * @param minOrderAmount
      * @param openingTime
      * @param deliveryCharge
      * @param restaurantName
      * @param restaurantId
      */
-    public Response(List<CartList> cartList, String restaurantId, String restaurantName, String openingTime, String closingTime, String deliveryTime, String deliveryType, String deliveryCharge, String minOrderAmount, Integer cartCount, Integer status, String message) {
+    public Response(List<CartList> cartList, String restaurantId, String restaurantName, String workingDays, String openingTime, String closingTime, String deliveryTime, String deliveryType, String deliveryCharge, String minOrderAmount, Integer cartCount, Integer status, String message) {
         super();
         this.cartList = cartList;
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
+        this.workingDays = workingDays;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
         this.deliveryTime = deliveryTime;
@@ -137,6 +143,14 @@ public class Response implements Parcelable
 
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
+    }
+
+    public String getWorkingDays() {
+        return workingDays;
+    }
+
+    public void setWorkingDays(String workingDays) {
+        this.workingDays = workingDays;
     }
 
     public String getOpeningTime() {
@@ -215,6 +229,7 @@ public class Response implements Parcelable
         dest.writeList(cartList);
         dest.writeValue(restaurantId);
         dest.writeValue(restaurantName);
+        dest.writeValue(workingDays);
         dest.writeValue(openingTime);
         dest.writeValue(closingTime);
         dest.writeValue(deliveryTime);

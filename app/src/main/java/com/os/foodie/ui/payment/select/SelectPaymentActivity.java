@@ -160,6 +160,8 @@ public class SelectPaymentActivity extends BaseActivity implements SelectPayment
     @Override
     public void onClick(View v) {
 
+        hideKeyboard();
+
         if (btPay.getId() == v.getId()) {
 
         } else if (fabAddCard.getId() == v.getId()) {

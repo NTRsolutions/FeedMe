@@ -135,7 +135,7 @@ public class RestaurantMenuFragment extends BaseFragment implements RestaurantMe
         this.dishArrayList.addAll(dishArrayList);
 
         restaurantMenuAdapter.notifyDataSetChanged();
-        restaurantMenuMvpPresenter.getRestaurantMenuList();
+//        restaurantMenuMvpPresenter.getRestaurantMenuList();
     }
 
     @Override

@@ -207,6 +207,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     @Override
     public void onClick(View v) {
 
+        hideKeyboard();
+
         if (v.getId() == ivPhotos.getId()) {
 
             if (((RestaurantMainActivity) getActivity()).hasPermission(Manifest.permission.CAMERA) && ((RestaurantMainActivity) getActivity()).hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE) && ((RestaurantMainActivity) getActivity()).hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {

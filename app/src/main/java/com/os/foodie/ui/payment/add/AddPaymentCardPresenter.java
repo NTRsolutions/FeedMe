@@ -27,8 +27,6 @@ public class AddPaymentCardPresenter<V extends AddPaymentCardMvpView> extends Ba
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
-            getMvpView().showLoading();
-
             if (addPaymentCardRequest.getFirstName() == null || addPaymentCardRequest.getFirstName().isEmpty()) {
                 getMvpView().onError(R.string.empty_first_name);
                 return;
@@ -58,6 +56,8 @@ public class AddPaymentCardPresenter<V extends AddPaymentCardMvpView> extends Ba
                 getMvpView().onError(R.string.empty_cvv);
                 return;
             }
+
+            getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
                     .addPaymentCard(addPaymentCardRequest)

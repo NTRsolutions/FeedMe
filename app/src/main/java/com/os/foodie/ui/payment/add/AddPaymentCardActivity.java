@@ -99,6 +99,8 @@ public class AddPaymentCardActivity extends BaseActivity implements AddPaymentCa
     @Override
     public void onClick(View v) {
 
+        hideKeyboard();
+
         if (btAdd.getId() == v.getId()) {
 
             AddPaymentCardRequest addPaymentCardRequest = createAddPaymentCardRequest();

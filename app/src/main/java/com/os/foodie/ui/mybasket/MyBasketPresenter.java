@@ -1,7 +1,14 @@
 package com.os.foodie.ui.mybasket;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.util.Log;
+import android.widget.DatePicker;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
@@ -18,12 +25,25 @@ import com.os.foodie.data.network.model.checkout.CheckoutResponse;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.utils.NetworkUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.schedulers.TestScheduler;
 
 public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<V> implements MyBasketMvpPresenter<V> {
+
+//    private TextView tvScheduledTime;
+//    private Calendar selectedCalendar;
+//
+//    private final String[] weekDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+//
+//    private DatePickerDialog datePickerDialog;
+//    private TimePickerDialog timePickerDialog;
 
     public MyBasketPresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
         super(dataManager, compositeDisposable);
@@ -254,4 +274,157 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
     public void dispose() {
         getCompositeDisposable().dispose();
     }
+
+    @Override
+    public void onError(@StringRes int resId) {
+        getMvpView().onError(resId);
+    }
+
+
+//
+//    @Override
+//    public void dateTimePickerDialog(Context context, final ViewCartResponse viewCartResponse, TextView tvScheduledTime) {
+//
+//        this.tvScheduledTime = tvScheduledTime;
+//
+//        selectedCalendar = Calendar.getInstance();
+//
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+//
+//        final Calendar timeFrom = Calendar.getInstance();
+//        final Calendar timeTo = Calendar.getInstance();
+//
+//        try {
+//            timeFrom.setTime(simpleDateFormat.parse(viewCartResponse.getResponse().getOpeningTime()));
+//            timeTo.setTime(simpleDateFormat.parse(viewCartResponse.getResponse().getClosingTime()));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Calendar fromCalendar = Calendar.getInstance();
+//        Calendar toCalendar = Calendar.getInstance();
+//
+//        toCalendar.setTimeInMillis(fromCalendar.getTimeInMillis() + (24 * 60 * 60 * 1000 * 7));
+//
+//        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+//            @Override
+//            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//
+//                setTimePickerDialogListenerAction(MyBasketPresenter.this.tvScheduledTime, selectedCalendar, timeFrom, timeTo, hourOfDay, minute);
+//            }
+//        };
+//
+//        timePickerDialog = new TimePickerDialog(context, onTimeSetListener, fromCalendar.get(Calendar.HOUR_OF_DAY), fromCalendar.get(Calendar.MINUTE), false);
+//
+//        timePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+//                context.getString(R.string.alert_dialog_bt_ok),
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (which == DialogInterface.BUTTON_POSITIVE) {
+////                            dialog.cancel();
+//                            setTimePickerDialogListenerAction(MyBasketPresenter.this.tvScheduledTime, selectedCalendar, timeFrom, timeTo, selectedCalendar.get(Calendar.HOUR_OF_DAY), selectedCalendar.get(Calendar.MINUTE));
+//                        }
+//                    }
+//                });
+//
+//
+//        DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//
+//                setDatePickerDialogListenerAction(viewCartResponse, selectedCalendar, year, month, dayOfMonth);
+//            }
+//        };
+//
+//        datePickerDialog = new DatePickerDialog(context, onDateSetListener, fromCalendar.get(Calendar.YEAR), fromCalendar.get(Calendar.MONTH), fromCalendar.get(Calendar.DAY_OF_MONTH));
+//
+//        datePickerDialog.getDatePicker().setMinDate(fromCalendar.getTimeInMillis());
+//        datePickerDialog.getDatePicker().setMaxDate(toCalendar.getTimeInMillis());
+//
+//        datePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+//                context.getString(R.string.alert_dialog_bt_ok),
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (which == DialogInterface.BUTTON_POSITIVE) {
+////                            dialog.cancel();
+//                            setDatePickerDialogListenerAction(viewCartResponse, selectedCalendar, selectedCalendar.get(Calendar.YEAR), selectedCalendar.get(Calendar.MONTH), selectedCalendar.get(Calendar.DAY_OF_MONTH));
+//                        }
+//                    }
+//                });
+//
+//        datePickerDialog.show();
+//    }
+//
+//    public void setDatePickerDialogListenerAction(ViewCartResponse viewCartResponse, Calendar selectedCalendar, int year, int month, int dayOfMonth) {
+//
+//
+//        Calendar tempCalendar = Calendar.getInstance();
+//
+//        tempCalendar.set(Calendar.YEAR, year);
+//        tempCalendar.set(Calendar.MONTH, month);
+//        tempCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//
+//        boolean isOk = false;
+//        String[] selectedWeekDays = viewCartResponse.getResponse().getWorkingDays().split(",");
+//
+//        for (int i = 0; i < weekDays.length; i++) {
+//
+//            if (weekDays[tempCalendar.get(Calendar.DAY_OF_WEEK) - 1].equalsIgnoreCase(selectedWeekDays[i])) {
+//                isOk = true;
+//                break;
+//            }
+//        }
+//
+//        if (isOk) {
+//
+//            selectedCalendar.set(Calendar.YEAR, year);
+//            selectedCalendar.set(Calendar.MONTH, month);
+//            selectedCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//
+//            datePickerDialog.dismiss();
+//            timePickerDialog.show();
+//
+//        } else {
+//            Log.d("Problem", "Restaurant don't open on this week day");
+//            getMvpView().onError("Restaurant don't open on this week day");
+//        }
+//    }
+//
+//    public void setTimePickerDialogListenerAction(TextView tvScheduledTime, Calendar selectedCalendar, Calendar timeFrom, Calendar timeTo, int hourOfDay, int minute) {
+//
+//        Log.d("hourOfDay", ">>" + hourOfDay);
+//        Log.d("minute", ">>" + minute);
+//        Log.d("timeFrom HOUR_OF_DAY", ">>" + timeFrom.get(Calendar.HOUR_OF_DAY));
+//        Log.d("timeFrom MINUTE", ">>" + timeFrom.get(Calendar.MINUTE));
+//        Log.d("timeTo HOUR_OF_DAY", ">>" + timeTo.get(Calendar.HOUR_OF_DAY));
+//        Log.d("timeTo MINUTE", ">>" + timeTo.get(Calendar.MINUTE));
+//
+//        if (hourOfDay < timeFrom.get(Calendar.HOUR_OF_DAY) || hourOfDay > timeTo.get(Calendar.HOUR_OF_DAY)) {
+//
+//            Log.d("Problem", "select time under restaurant opening and closing hours");
+//            getMvpView().onError("select time under restaurant opening and closing hours");
+//
+//        } else if (hourOfDay == timeFrom.get(Calendar.HOUR_OF_DAY) && minute < timeFrom.get(Calendar.MINUTE)) {
+//
+//            Log.d("Problem", "select time under restaurant opening and closing hours");
+//            getMvpView().onError("select time under restaurant opening and closing hours");
+//
+//        } else if (hourOfDay == timeTo.get(Calendar.HOUR_OF_DAY) && minute > timeTo.get(Calendar.MINUTE)) {
+//
+//            Log.d("Problem", "select time under restaurant opening and closing hours");
+//            getMvpView().onError("select time under restaurant opening and closing hours");
+//
+//        } else {
+//
+//            selectedCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//            selectedCalendar.set(Calendar.MINUTE, minute);
+//
+//            SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
+//            SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("hh:mm a");
+//
+//            tvScheduledTime.setText(simpleDateFormatDate.format(selectedCalendar.getTime()) + " at " + simpleDateFormatTime.format(selectedCalendar.getTime()));
+//
+//            timePickerDialog.dismiss();
+//        }
+//    }
 }

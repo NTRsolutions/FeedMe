@@ -58,6 +58,7 @@
                 </LinearLayout>
 
                 <RelativeLayout
+                    android:id="@+id/activity_my_basket_rl_schedule"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/my_basket_rl_order_schedule_margin_bottom"
@@ -79,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/activity_my_basket_tv_ordering_for"
-                        android:text="02-05-2017 at 09:00"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="@dimen/my_basket_tv_date_time_text_size" />
 

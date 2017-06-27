@@ -2,8 +2,8 @@ package com.os.foodie.data.network;
 
 public class ApiConstants {
 
-            public static final String BASE_URL = "http://67.205.96.105:8080/foodi/web_services/";
-//    public static final String BASE_URL = "http://192.168.1.69/foodi/web_services/";
+//            public static final String BASE_URL = "http://67.205.96.105:8080/foodi/web_services/";
+    public static final String BASE_URL = "http://192.168.1.69/foodi/web_services/";
 
     public static final String LOGIN = "login";
     public static final String FB_LOGIN = "fb_login";
@@ -63,4 +63,7 @@ public class ApiConstants {
     public static final String DELETE_PAYMENT_CARD = "card_delete";
 
     public static final String CHECKOUT = "checkout";
+
+    public static final String ORDER_LIST = "order_list";
+    public static final String ACCEPT_REJECT_ORDER = "accept_order";
 }

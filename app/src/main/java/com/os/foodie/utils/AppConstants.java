@@ -45,6 +45,10 @@ public class AppConstants {
     public static final String CARD = "CARD";
     public static final String CHECKOUT = "CHECKOUT";
 
+    //    Order Status
+    public static final String ORDER_DECLINE = "decline";
+    public static final String ORDER_UNDER_PREPARATION = "under preparation";
+
 //    public static final String CUSTOMER_SIGN_UP_REQUEST = "CUSTOMER_SIGN_UP_REQUEST";
 //    public static final String RESTAURANT_SIGN_UP_REQUEST = "RESTAURANT_SIGN_UP_REQUEST";
 //

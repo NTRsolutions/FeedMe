@@ -1,7 +1,6 @@
 package com.os.foodie.ui.order.restaurant.list;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,19 +11,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.os.foodie.R;
-import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.network.model.orderlist.show.GetOrderListResponse;
+import com.os.foodie.data.network.model.orderlist.show.OrderList;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
-import com.os.foodie.model.TempModelRestaurantOrder;
-import com.os.foodie.ui.adapter.recyclerview.RestaurantMenuAdapter;
 import com.os.foodie.ui.adapter.recyclerview.RestaurantOrderListAdapter;
 import com.os.foodie.ui.base.BaseFragment;
-import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
-import com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment;
-import com.os.foodie.ui.menu.show.fragment.RestaurantMenuMvpPresenter;
-import com.os.foodie.ui.menu.show.fragment.RestaurantMenuMvpView;
 import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
@@ -38,7 +32,7 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
     private TextView tvAlert;
 
     private RecyclerView recyclerView;
-    private ArrayList<TempModelRestaurantOrder> tempModelRestaurantOrders;
+    private ArrayList<OrderList> orderLists;
 
     private RestaurantOrderListAdapter restaurantOrderListAdapter;
     private RestaurantOrderListMvpPresenter<RestaurantOrderListMvpView> restaurantOrderListMvpPresenter;
@@ -66,23 +60,23 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_restaurant_order_list_recyclerview);
         tvAlert = (TextView) view.findViewById(R.id.fragment_restaurant_order_list_tv_alert);
 
-        tempModelRestaurantOrders = new ArrayList<TempModelRestaurantOrder>();
+        orderLists = new ArrayList<OrderList>();
 
-        for (int i = 0; i < 10; i++) {
+//        for (int i = 0; i < 10; i++) {
+//
+//            TempModelRestaurantOrder tempModelRestaurantOrder = new TempModelRestaurantOrder();
+//
+//            tempModelRestaurantOrder.setOrderId("10" + i);
+//            tempModelRestaurantOrder.setItemName("Chicken Tanduri");
+//            tempModelRestaurantOrder.setDeliveryTime("0" + i + ":30 pm");
+//            tempModelRestaurantOrder.setOrderType("Chicken Tanduri");
+//            tempModelRestaurantOrder.setDiscount("5%");
+//            tempModelRestaurantOrder.setPrice("$100");
+//
+//            tempModelRestaurantOrders.add(tempModelRestaurantOrder);
+//        }
 
-            TempModelRestaurantOrder tempModelRestaurantOrder = new TempModelRestaurantOrder();
-
-            tempModelRestaurantOrder.setOrderId("10" + i);
-            tempModelRestaurantOrder.setItemName("Chicken Tanduri");
-            tempModelRestaurantOrder.setDeliveryTime("0" + i + ":30 pm");
-            tempModelRestaurantOrder.setOrderType("Chicken Tanduri");
-            tempModelRestaurantOrder.setDiscount("5%");
-            tempModelRestaurantOrder.setPrice("$100");
-
-            tempModelRestaurantOrders.add(tempModelRestaurantOrder);
-        }
-
-        restaurantOrderListAdapter = new RestaurantOrderListAdapter(getContext(), tempModelRestaurantOrders);
+        restaurantOrderListAdapter = new RestaurantOrderListAdapter(getContext(), orderLists, restaurantOrderListMvpPresenter);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
 
@@ -92,10 +86,12 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(restaurantOrderListAdapter);
 
+        restaurantOrderListMvpPresenter.getOrderList();
+
         return view;
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -109,7 +105,6 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
     @Override
     public void onResume() {
         super.onResume();
-//        restaurantMenuMvpPresenter.getRestaurantMenuList();
         ((RestaurantMainActivity) getActivity()).setTitle(getString(R.string.title_fragment_restaurant_order_list));
     }
 
@@ -122,5 +117,25 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
 
     @Override
     protected void setUp(View view) {
+    }
+
+    @Override
+    public void onOrderListReceived(GetOrderListResponse getOrderListResponse) {
+
+        for (int i = 0; i < getOrderListResponse.getResponse().getOrderList().size(); i++) {
+            getOrderListResponse.getResponse().getOrderList().get(i).setDeliveryTime(getOrderListResponse.getResponse().getDeliveryTime());
+        }
+
+        orderLists.clear();
+        orderLists.addAll(getOrderListResponse.getResponse().getOrderList());
+
+        restaurantOrderListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onAcceptReject(int position) {
+
+        orderLists.remove(position);
+        restaurantOrderListAdapter.notifyDataSetChanged();
     }
 }

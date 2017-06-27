@@ -64,6 +64,10 @@ import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuRe
 import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuResponse;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemRequest;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemResponse;
+import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderRequest;
+import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderResponse;
+import com.os.foodie.data.network.model.orderlist.show.GetOrderListRequest;
+import com.os.foodie.data.network.model.orderlist.show.GetOrderListResponse;
 import com.os.foodie.data.network.model.otp.OtpVerificationRequest;
 import com.os.foodie.data.network.model.otp.OtpVerificationResponse;
 import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardRequest;
@@ -857,5 +861,45 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(CheckoutResponse.class);
+    }
+
+    @Override
+    public Observable<GetOrderListResponse> getOrderList(GetOrderListRequest getOrderListRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(getOrderListRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.ORDER_LIST)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(GetOrderListResponse.class);
+    }
+
+    @Override
+    public Observable<AcceptRejectOrderResponse> acceptRejectOrder(AcceptRejectOrderRequest acceptRejectOrderRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(acceptRejectOrderRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.ACCEPT_REJECT_ORDER)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(AcceptRejectOrderResponse.class);
     }
 }

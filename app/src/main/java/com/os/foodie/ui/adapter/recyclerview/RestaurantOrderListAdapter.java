@@ -9,21 +9,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.os.foodie.R;
-import com.os.foodie.data.network.model.menu.show.restaurant.Dish;
-import com.os.foodie.model.TempModelRestaurantOrder;
-import com.os.foodie.ui.menu.show.fragment.RestaurantMenuMvpPresenter;
-import com.os.foodie.ui.menu.show.fragment.RestaurantMenuMvpView;
+import com.os.foodie.data.network.model.orderlist.show.OrderList;
+import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpPresenter;
+import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpView;
+import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
 
 public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantOrderListAdapter.RestaurantOrderListViewHolder> {
 
     private Context context;
-    private ArrayList<TempModelRestaurantOrder> tempModelRestaurantOrders;
+    private ArrayList<OrderList> orderLists;
+    private RestaurantOrderListMvpPresenter<RestaurantOrderListMvpView> restaurantOrderListMvpPresenter;
+//    private String deliveryTime;
 
-    public RestaurantOrderListAdapter(Context context, ArrayList<TempModelRestaurantOrder> tempModelRestaurantOrders) {
+    public RestaurantOrderListAdapter(Context context, ArrayList<OrderList> orderLists, RestaurantOrderListMvpPresenter<RestaurantOrderListMvpView> restaurantOrderListMvpPresenter/*, String deliveryTime*/) {
         this.context = context;
-        this.tempModelRestaurantOrders = tempModelRestaurantOrders;
+        this.orderLists = orderLists;
+        this.restaurantOrderListMvpPresenter = restaurantOrderListMvpPresenter;
+//        this.deliveryTime = deliveryTime;
     }
 
     class RestaurantOrderListViewHolder extends RecyclerView.ViewHolder {
@@ -53,20 +57,34 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
     }
 
     @Override
-    public void onBindViewHolder(RestaurantOrderListViewHolder holder, int position) {
+    public void onBindViewHolder(RestaurantOrderListViewHolder holder, final int position) {
 
-        TempModelRestaurantOrder tempModelRestaurantOrder = tempModelRestaurantOrders.get(position);
+        final OrderList order = orderLists.get(position);
 
-        holder.tvOrderId.setText(tempModelRestaurantOrder.getOrderId());
-        holder.tvItemName.setText(tempModelRestaurantOrder.getItemName());
-        holder.tvDeliveryTime.setText(tempModelRestaurantOrder.getDeliveryTime());
-        holder.tvOrderType.setText(tempModelRestaurantOrder.getOrderType());
-        holder.tvDiscount.setText(tempModelRestaurantOrder.getDiscount());
-        holder.tvPrice.setText(tempModelRestaurantOrder.getPrice());
+        holder.tvOrderId.setText(order.getOrderId());
+        holder.tvItemName.setText(order.getDishName());
+        holder.tvDeliveryTime.setText(order.getDeliveryTime());
+        holder.tvOrderType.setText(order.getOrderType());
+        holder.tvDiscount.setText(order.getDiscount() + "%");
+        holder.tvPrice.setText("$" + order.getTotalAmount());
+
+        holder.ivAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restaurantOrderListMvpPresenter.acceptRejectOrder(orderLists.get(position).getOrderId(), AppConstants.ORDER_UNDER_PREPARATION, position);
+            }
+        });
+
+        holder.ivReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restaurantOrderListMvpPresenter.acceptRejectOrder(orderLists.get(position).getOrderId(), AppConstants.ORDER_DECLINE, position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return tempModelRestaurantOrders.size();
+        return orderLists.size();
     }
 }
