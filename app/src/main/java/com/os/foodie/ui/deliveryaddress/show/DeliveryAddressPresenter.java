@@ -44,7 +44,8 @@ public class DeliveryAddressPresenter<V extends DeliveryAddressMvpView> extends 
                                 getMvpView().setAddressList(getAllAddressResponse);
 
                             } else {
-                                getMvpView().onError(getAllAddressResponse.getResponse().getMessage());
+//                                getMvpView().onError(getAllAddressResponse.getResponse().getMessage());
+                                getMvpView().setAddressList(getAllAddressResponse);
                             }
 
                         }

@@ -7,9 +7,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
@@ -30,6 +32,7 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class DeliveryAddressActivity extends BaseActivity implements DeliveryAddressMvpView, View.OnClickListener {
 
+    private TextView tvAlert;
     private FloatingActionButton fabAddAddress;
 //    private Button btPayment;
 
@@ -53,6 +56,7 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
 //        deliveryAddressMvpPresenter = new DeliveryAddressPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         deliveryAddressMvpPresenter.onAttach(this);
 
+        tvAlert = (TextView) findViewById(R.id.activity_delivery_address_tv_empty_alert);
         fabAddAddress = (FloatingActionButton) findViewById(R.id.activity_delivery_address_fab_add_address);
 //        btPayment = (Button) findViewById(R.id.activity_delivery_address_bt_payment);
 
@@ -73,7 +77,7 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
         deliveryAddressMvpPresenter.getAddressList();
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -109,6 +113,14 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
     protected void setUp() {
     }
 
+    public void setVisibility(int visibility1, int visibility2) {
+        recyclerView.setVisibility(visibility1);
+        tvAlert.setVisibility(visibility2);
+
+        Log.d("visibility1", ">>" + visibility1);
+        Log.d("visibility2", ">>" + visibility2);
+    }
+
     @Override
     protected void onDestroy() {
         deliveryAddressMvpPresenter.dispose();
@@ -120,15 +132,33 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
     public void setAddressList(GetAllAddressResponse getAllAddressResponse) {
 
         addresses.clear();
-        addresses.addAll(getAllAddressResponse.getResponse().getAddress());
+
+        if (getAllAddressResponse.getResponse().getAddress() != null && !getAllAddressResponse.getResponse().getAddress().isEmpty()) {
+
+            addresses.addAll(getAllAddressResponse.getResponse().getAddress());
+
+            setVisibility(View.VISIBLE, View.GONE);
+
+        } else {
+            setVisibility(View.GONE, View.VISIBLE);
+        }
 
         deliveryAddressAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onAddressDelete(int position) {
+
         addresses.remove(position);
         deliveryAddressAdapter.notifyDataSetChanged();
+
+        if (addresses != null && !addresses.isEmpty()) {
+
+            setVisibility(View.VISIBLE, View.GONE);
+
+        } else {
+            setVisibility(View.GONE, View.VISIBLE);
+        }
     }
 
     @Override
@@ -142,6 +172,14 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
 
             addresses.add(address);
             deliveryAddressAdapter.notifyDataSetChanged();
+
+            if (addresses != null && !addresses.isEmpty()) {
+
+                setVisibility(View.VISIBLE, View.GONE);
+
+            } else {
+                setVisibility(View.GONE, View.VISIBLE);
+            }
 
         } else if (resultCode == 2 && data != null) {
 

@@ -1,6 +1,7 @@
 package com.os.foodie.ui.deliveryaddress.select;
 
 import android.content.Intent;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.os.foodie.R;
@@ -39,6 +41,8 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class SelectDeliveryAddressActivity extends BaseActivity implements SelectDeliveryAddressMvpView, View.OnClickListener {
 
+//    private CoordinatorLayout clMain;
+    private TextView tvAlert;
     private FloatingActionButton fabAddAddress;
     private Button btPayment;
 
@@ -65,6 +69,9 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
         initPresenter();
 //        selectDeliveryAddressMvpPresenter = new SelectDeliveryAddressPresenter<>(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         selectDeliveryAddressMvpPresenter.onAttach(this);
+
+//        clMain = (CoordinatorLayout) findViewById(R.id.activity_select_delivery_address_cl_main);
+        tvAlert = (TextView) findViewById(R.id.activity_select_delivery_address_tv_empty_alert);
 
         fabAddAddress = (FloatingActionButton) findViewById(R.id.activity_select_delivery_address_fab_add_address);
         btPayment = (Button) findViewById(R.id.activity_select_delivery_address_bt_payment);
@@ -176,7 +183,22 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
     public void setAddressList(GetAllAddressResponse getAllAddressResponse) {
 
         addresses.clear();
-        addresses.addAll(getAllAddressResponse.getResponse().getAddress());
+
+        if (getAllAddressResponse.getResponse().getAddress() != null && !getAllAddressResponse.getResponse().getAddress().isEmpty()) {
+
+            addresses.addAll(getAllAddressResponse.getResponse().getAddress());
+
+//            recyclerView.setVisibility(View.VISIBLE);
+//            btPayment.setVisibility(View.VISIBLE);
+//            tvAlert.setVisibility(View.GONE);
+            setVisibility(View.VISIBLE, View.VISIBLE, View.GONE);
+
+        } else {
+//                recyclerView.setVisibility(View.GONE);
+//                btPayment.setVisibility(View.GONE);
+//                tvAlert.setVisibility(View.VISIBLE);
+            setVisibility(View.GONE, View.INVISIBLE, View.VISIBLE);
+        }
 
         selectDeliveryAddressAdapter.notifyDataSetChanged();
     }
@@ -190,6 +212,20 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
 
         addresses.remove(position);
         selectDeliveryAddressAdapter.notifyDataSetChanged();
+
+        if (addresses != null && !addresses.isEmpty()) {
+
+//            recyclerView.setVisibility(View.VISIBLE);
+//            btPayment.setVisibility(View.VISIBLE);
+//            tvAlert.setVisibility(View.GONE);
+            setVisibility(View.VISIBLE, View.VISIBLE, View.GONE);
+
+        } else {
+//                recyclerView.setVisibility(View.GONE);
+//                btPayment.setVisibility(View.GONE);
+//                tvAlert.setVisibility(View.VISIBLE);
+            setVisibility(View.GONE, View.INVISIBLE, View.VISIBLE);
+        }
     }
 
     @Override
@@ -210,6 +246,20 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
             addresses.add(address);
             selectDeliveryAddressAdapter.notifyDataSetChanged();
 
+            if (addresses != null && !addresses.isEmpty()) {
+
+//                recyclerView.setVisibility(View.VISIBLE);
+//                btPayment.setVisibility(View.VISIBLE);
+//                tvAlert.setVisibility(View.GONE);
+                setVisibility(View.VISIBLE, View.VISIBLE, View.GONE);
+
+            } else {
+//                recyclerView.setVisibility(View.GONE);
+//                btPayment.setVisibility(View.GONE);
+//                tvAlert.setVisibility(View.VISIBLE);
+                setVisibility(View.GONE, View.INVISIBLE, View.VISIBLE);
+            }
+
         } else if (resultCode == 2 && data != null) {
 
             int position = data.getIntExtra(AppConstants.POSITION, -1);
@@ -218,6 +268,16 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
             addresses.set(position, address);
             selectDeliveryAddressAdapter.notifyDataSetChanged();
         }
+    }
+
+    public void setVisibility(int visibility1, int visibility2, int visibility3) {
+        recyclerView.setVisibility(visibility1);
+        btPayment.setVisibility(visibility2);
+        tvAlert.setVisibility(visibility3);
+
+        Log.d("visibility1", ">>" + visibility1);
+        Log.d("visibility2", ">>" + visibility2);
+        Log.d("visibility2", ">>" + visibility3);
     }
 
     @Override

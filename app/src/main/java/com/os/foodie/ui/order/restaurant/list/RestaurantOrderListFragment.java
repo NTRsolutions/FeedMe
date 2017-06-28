@@ -129,9 +129,9 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
             recyclerView.setVisibility(View.VISIBLE);
             tvAlert.setVisibility(View.GONE);
 
-            for (int i = 0; i < getOrderListResponse.getResponse().getOrderList().size(); i++) {
-                getOrderListResponse.getResponse().getOrderList().get(i).setDeliveryTime(getOrderListResponse.getResponse().getDeliveryTime());
-            }
+//            for (int i = 0; i < getOrderListResponse.getResponse().getOrderList().size(); i++) {
+//                getOrderListResponse.getResponse().getOrderList().get(i).setDeliveryTime(getOrderListResponse.getResponse().getDeliveryTime());
+//            }
 
             orderLists.addAll(getOrderListResponse.getResponse().getOrderList());
         } else {

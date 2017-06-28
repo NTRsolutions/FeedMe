@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.os.foodie.R;
 import com.os.foodie.data.network.model.home.customer.RestaurantList;
 import com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity;
+import com.os.foodie.ui.search.RestaurantSearchActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.ScreenUtils;
 import com.wefika.flowlayout.FlowLayout;
@@ -98,7 +99,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         String cuisines[] = restaurantList.getCuisineType().split(",");
 
-        for (String cuisine : cuisines) {
+        for (final String cuisine : cuisines) {
 
             TextView tvCuisine = new TextView(context);
 
@@ -118,6 +119,15 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             tvCuisine.setTextColor(ContextCompat.getColor(context, R.color.dark_grey));
             tvCuisine.setTypeface(Typeface.SERIF);
             tvCuisine.setText(cuisine);
+
+            tvCuisine.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, RestaurantSearchActivity.class);
+                    intent.putExtra(AppConstants.CUISINE_SEARCH, cuisine);
+                    context.startActivity(intent);
+                }
+            });
 
             holder.flCuisines.addView(tvCuisine);
         }

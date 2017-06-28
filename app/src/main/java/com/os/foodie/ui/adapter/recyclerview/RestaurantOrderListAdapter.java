@@ -63,7 +63,7 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
 
         holder.tvOrderId.setText(order.getOrderId());
 //        holder.tvItemName.setText(order.getDishName());
-        holder.tvDeliveryTime.setText(order.getDeliveryTime()+" min.");
+        holder.tvDeliveryTime.setText("Ordered on " + order.getOrderDelieveryDate() + " at " + order.getOrderDelieveryTime().replace(":00", ""));
         holder.tvOrderType.setText(order.getOrderType());
         holder.tvDiscount.setText(order.getDiscount() + "%");
         holder.tvPrice.setText("$" + order.getTotalAmount());

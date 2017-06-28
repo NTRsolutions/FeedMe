@@ -189,8 +189,8 @@
 
     <string-array name="order_types">
         <item>Pick Only</item>
-        <!--<item>Deliver</item>-->
-        <item>Pick and Delivery Both</item>
+        <item>Delivery</item>
+        <item>Both</item>
         <!--<item>Pick and Delivery Both</item>-->
     </string-array>
 
@@ -341,7 +341,7 @@
     <!--Restaurant Order List-->
     <string name="title_fragment_restaurant_order_list">Orders</string>
     <string name="fragment_restaurant_order_list_tv_no_order_text">No Order</string>
-    <string name="recyclerview_restaurant_order_tv_delivery_time_tag_text">Delivery Time:</string>
+    <string name="recyclerview_restaurant_order_tv_delivery_time_tag_text">Ordered On</string>
     <string name="recyclerview_restaurant_order_tv_order_type_tag_text">Order Type:</string>
 
     <!--Change Password-->
@@ -462,5 +462,14 @@
     <string name="select_delivery_address_activity_title">Delivery Address</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="order_detail">Order Detail</string>
+    <string name="order_number">Order Number</string>
+    <string name="order_type">Order Type</string>
+    <string name="payment">Payment</string>
+    <string name="date">Date</string>
+    <string name="deliver_to">Deliver To</string>
+    <string name="order_summary">Order Summry</string>
+    <string name="contact_detail">Contact Detail</string>
+    <string name="order_status">Order Status</string>
 
 </resources>

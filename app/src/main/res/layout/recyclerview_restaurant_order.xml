@@ -36,16 +36,16 @@
             android:layout_marginTop="@dimen/restaurant_order_ll_delivery_time_margin_top"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="@string/recyclerview_restaurant_order_tv_delivery_time_tag_text"
-                android:textColor="@color/dark_grey"
-                android:textSize="@dimen/restaurant_order_tv_delivery_type_tag_text_size"
-                android:typeface="serif" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:ellipsize="end"-->
+                <!--android:maxLines="2"-->
+                <!--android:text="@string/recyclerview_restaurant_order_tv_delivery_time_tag_text"-->
+                <!--android:textColor="@color/dark_grey"-->
+                <!--android:textSize="@dimen/restaurant_order_tv_delivery_type_tag_text_size"-->
+                <!--android:typeface="serif" />-->
 
             <TextView
                 android:id="@+id/recyclerview_restaurant_order_tv_delivery_time"

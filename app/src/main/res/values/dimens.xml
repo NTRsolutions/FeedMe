@@ -395,7 +395,7 @@
     <!--Restaurant Order List-->
     <dimen name="restaurant_order_ll_padding">15dp</dimen>
     <dimen name="restaurant_order_tv_item_name_margin_top">5dp</dimen>
-    <dimen name="restaurant_order_ll_delivery_time_margin_top">15dp</dimen>
+    <dimen name="restaurant_order_ll_delivery_time_margin_top">25dp</dimen>
     <dimen name="restaurant_order_tv_delivery_type_tag_text_size">14sp</dimen>
     <dimen name="restaurant_order_delivery_type_text_size">14sp</dimen>
     <dimen name="restaurant_order_ll_order_type_margin_bottom">15dp</dimen>

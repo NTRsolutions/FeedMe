@@ -159,6 +159,13 @@
         <!--<item name="android:textStyle">bold</item>-->
     </style>
 
+    <style name="TextView8">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:typeface">normal</item>
+    </style>
+
+
     <style name="TextButton">
         <item name="android:textSize">@dimen/style_text_button_size</item>
         <item name="android:textColor">@color/dark_grey</item>

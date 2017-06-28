@@ -236,7 +236,7 @@
                 android:layout_marginStart="@dimen/setup_restaurant_profile_spinner_margin_start_end"
                 android:layout_marginTop="@dimen/setup_restaurant_profile_spinner_margin_top"
                 android:background="@drawable/rectangle_round_corner_spinner"
-                android:entries="@array/delivery_type"
+                android:entries="@array/order_types"
                 android:spinnerMode="dialog"
                 android:theme="@style/SpinnerTextGrey" />
             <!--android:entries="@array/order_types"-->

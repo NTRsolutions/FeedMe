@@ -624,11 +624,18 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 checkoutRequest.setPaymentMethod(AppConstants.ONLINE);
 
                 if (tvScheduledTime.getText().toString().isEmpty()) {
-                    checkoutRequest.setOrderDelieveryDate("");
-                    checkoutRequest.setOrderDelieveryTime("");
+//                    checkoutRequest.setOrderDelieveryDate("");
+//                    checkoutRequest.setOrderDelieveryTime("");
+
+//                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
+
+                    checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(Calendar.getInstance().getTime()));
+                    checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(Calendar.getInstance().getTime()));
                 } else {
 
-                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
                     SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
 
                     checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(selectedCalendar.getTime()));
@@ -646,11 +653,18 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 checkoutRequest.setPaymentMethod(AppConstants.ONLINE);
 
                 if (tvScheduledTime.getText().toString().isEmpty()) {
-                    checkoutRequest.setOrderDelieveryDate("");
-                    checkoutRequest.setOrderDelieveryTime("");
+//                    checkoutRequest.setOrderDelieveryDate("");
+//                    checkoutRequest.setOrderDelieveryTime("");
+
+                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
+
+                    checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(Calendar.getInstance().getTime()));
+                    checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(Calendar.getInstance().getTime()));
+
                 } else {
 
-                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
                     SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
 
                     checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(selectedCalendar.getTime()));
@@ -673,11 +687,18 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 //                TODO Date and Time
 
                 if (tvScheduledTime.getText().toString().isEmpty()) {
-                    checkoutRequest.setOrderDelieveryDate("");
-                    checkoutRequest.setOrderDelieveryTime("");
+//                    checkoutRequest.setOrderDelieveryDate("");
+//                    checkoutRequest.setOrderDelieveryTime("");
+
+                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
+
+                    checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(Calendar.getInstance().getTime()));
+                    checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(Calendar.getInstance().getTime()));
+
                 } else {
 
-                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
                     SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
 
                     checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(selectedCalendar.getTime()));
@@ -695,11 +716,17 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 //                TODO Date and Time
 
                 if (tvScheduledTime.getText().toString().isEmpty()) {
-                    checkoutRequest.setOrderDelieveryDate("");
-                    checkoutRequest.setOrderDelieveryTime("");
+//                    checkoutRequest.setOrderDelieveryDate("");
+//                    checkoutRequest.setOrderDelieveryTime("");
+
+                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
+
+                    checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(Calendar.getInstance().getTime()));
+                    checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(Calendar.getInstance().getTime()));
                 } else {
 
-                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
                     SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
 
                     checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(selectedCalendar.getTime()));

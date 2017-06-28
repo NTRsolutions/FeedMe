@@ -48,6 +48,7 @@ import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.Floatin
 import com.os.foodie.ui.deliveryaddress.addedit.AddEditDeliveryAddressPresenter;
 import com.os.foodie.ui.info.RestaurantInfoActivity;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
+import com.os.foodie.ui.search.RestaurantSearchActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.DialogUtils;
 import com.wefika.flowlayout.FlowLayout;
@@ -292,7 +293,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         String cuisines[] = restaurantDetailsResponse.getResponse().getCuisineType().split(",");
 
-        for (String cuisine : cuisines) {
+        for (final String cuisine : cuisines) {
 
             TextView tvCuisine = new TextView(this);
 
@@ -312,6 +313,15 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
             tvCuisine.setTextColor(getResources().getColor(R.color.black));
             tvCuisine.setTypeface(Typeface.SERIF);
             tvCuisine.setText(cuisine);
+
+            tvCuisine.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RestaurantDetailsActivity.this, RestaurantSearchActivity.class);
+                    intent.putExtra(AppConstants.CUISINE_SEARCH, cuisine);
+                    startActivity(intent);
+                }
+            });
 
             flCuisines.addView(tvCuisine);
         }

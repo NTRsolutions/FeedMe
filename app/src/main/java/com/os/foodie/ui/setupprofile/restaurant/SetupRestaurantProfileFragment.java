@@ -196,7 +196,6 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         AppDataManager appDataManager = new AppDataManager(getActivity(), appPreferencesHelper, appApiHelpter);
         setupRestaurantProfileMvpPresenter = new SetupRestaurantProfilePresenter(appDataManager, compositeDisposable);
-
     }
 
     @Override
@@ -649,9 +648,12 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         restaurantProfileRequest.setDeliveryZipcode(etDeliveryZipCodes.getText().toString());
         restaurantProfileRequest.setDescription(etDescription.getText().toString());
 
-        restaurantProfileRequest.setDeliveryType((spinnerDeliveryType.getSelectedItem()) + "");
+//        restaurantProfileRequest.setDeliveryType((spinnerDeliveryType.getSelectedItem()) + "");
 //        restaurantProfileRequest.setDeliveryType((spinnerDeliveryType.getSelectedItemPosition() + 1) + "");
-        restaurantProfileRequest.setPaymentMethod((spinnerPaymentMethods.getSelectedItemPosition() + 1) + "");
+//        restaurantProfileRequest.setPaymentMethod((spinnerPaymentMethods.getSelectedItemPosition() + 1) + "");
+
+        restaurantProfileRequest.setDeliveryType(getOrderType());
+        restaurantProfileRequest.setPaymentMethod(getPaymentType());
 
         restaurantProfileRequest.setLatitude(latLng.latitude + "");
         restaurantProfileRequest.setLongitude(latLng.longitude + "");
@@ -977,12 +979,13 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
                 if (restaurantDetail.getDeliveryType().equalsIgnoreCase("Pick Only"))
                     spinnerDeliveryType.setSelection(0);
+
                 else if (restaurantDetail.getDeliveryType().equalsIgnoreCase("Deliver"))
                     spinnerDeliveryType.setSelection(1);
                 else
                     spinnerDeliveryType.setSelection(2);
 
-                if (restaurantDetail.getPaymentMethod().equalsIgnoreCase("ONLINE"))
+                if (restaurantDetail.getPaymentMethod().equalsIgnoreCase("Online"))
                     spinnerPaymentMethods.setSelection(0);
                 else if (restaurantDetail.getPaymentMethod().equalsIgnoreCase("Cash On Delivery"))
                     spinnerPaymentMethods.setSelection(1);
@@ -1066,6 +1069,36 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         imageView.setTag(glPhotos.getChildCount() - 2);
         Log.d("idList", ">>" + idList.size());
         Log.d("fileMap", ">>" + fileMap.size());
+    }
+
+    public String getOrderType() {
+        String orderType = "";
+
+
+        if (spinnerDeliveryType.getSelectedItemPosition() == 0) {
+            orderType = "Pick only";
+        } else if (spinnerDeliveryType.getSelectedItemPosition() == 1) {
+            orderType = "Deliver";
+        } else {
+            orderType = "Pick and deliver";
+        }
+
+        return orderType;
+    }
+
+    public String getPaymentType() {
+        String paymentType = "";
+
+
+        if (spinnerDeliveryType.getSelectedItemPosition() == 0) {
+            paymentType = "Online";
+        } else if (spinnerDeliveryType.getSelectedItemPosition() == 1) {
+            paymentType = "Cash on delivery";
+        } else {
+            paymentType = "Online, Cash on delivery";
+        }
+
+        return paymentType;
     }
 
     @Override

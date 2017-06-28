@@ -43,7 +43,7 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
     private ArrayList<RestaurantList> restaurantList;
     private RestaurantSearchAdapter restaurantSearchAdapter;
 
-    private boolean isCuisine = true;
+    private boolean isCuisine;
     private String searchText;
 
     private RestaurantSearchMvpPresenter<RestaurantSearchMvpView> restaurantSearchMvpPresenter;
@@ -124,11 +124,9 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
 
         if (isCuisine) {
             isCuisine = false;
-            et.setText("Indian");
-            onQueryTextSubmit("Indian");
-//            goButton.callOnClick();
-            Log.d("isCuisine", "Indian");
-//            et.setText(searchText);
+            et.setText(searchText);
+            onQueryTextSubmit(searchText);
+            Log.d("isCuisine", "searchText");
         }
 
         searchView.setOnQueryTextListener(this);

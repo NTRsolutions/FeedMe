@@ -47,7 +47,9 @@ public class SelectDeliveryAddressPresenter<V extends SelectDeliveryAddressMvpVi
                                 getMvpView().setAddressList(getAllAddressResponse);
 
                             } else {
-                                getMvpView().onError(getAllAddressResponse.getResponse().getMessage());
+//                                getMvpView().onError(getAllAddressResponse.getResponse().getMessage());
+//                                getMvpView().setAddressList(null);
+                                getMvpView().setAddressList(getAllAddressResponse);
                             }
 
                         }

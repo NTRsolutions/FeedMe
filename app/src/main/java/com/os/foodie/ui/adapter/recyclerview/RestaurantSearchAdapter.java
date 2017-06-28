@@ -1,6 +1,7 @@
 package com.os.foodie.ui.adapter.recyclerview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,9 @@ import com.bumptech.glide.Glide;
 import com.joooonho.SelectableRoundedImageView;
 import com.os.foodie.R;
 import com.os.foodie.data.network.model.home.customer.RestaurantList;
+import com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity;
+import com.os.foodie.ui.search.RestaurantSearchActivity;
+import com.os.foodie.utils.AppConstants;
 import com.wefika.flowlayout.FlowLayout;
 
 import java.util.ArrayList;
@@ -54,7 +58,7 @@ public class RestaurantSearchAdapter extends RecyclerView.Adapter<RestaurantSear
     }
 
     @Override
-    public void onBindViewHolder(RestaurantSearchViewHolder holder, int position) {
+    public void onBindViewHolder(RestaurantSearchViewHolder holder, final int position) {
 
         RestaurantList restaurantList = restaurantLists.get(position);
 
@@ -83,7 +87,7 @@ public class RestaurantSearchAdapter extends RecyclerView.Adapter<RestaurantSear
             layoutParams.setMargins(0, marginTop, 0, 0);
 
             tvCuisine.setLayoutParams(layoutParams);
-            tvCuisine.setBackground(ContextCompat.getDrawable(context,R.drawable.rectangle_round_corner_white_outline_black));
+            tvCuisine.setBackground(ContextCompat.getDrawable(context, R.drawable.rectangle_round_corner_white_outline_black));
 
             float padding = context.getResources().getDimension(R.dimen.restaurant_tv_cuisine_padding);
 
@@ -94,6 +98,15 @@ public class RestaurantSearchAdapter extends RecyclerView.Adapter<RestaurantSear
 
             holder.flCuisines.addView(tvCuisine);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RestaurantDetailsActivity.class);
+                intent.putExtra(AppConstants.RESTAURANT_ID, restaurantLists.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
