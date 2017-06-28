@@ -23,7 +23,7 @@
     <string name="alert_dialog_title_deactivate_dish">Deactive Item</string>
     <string name="alert_dialog_text_deactivate_dish">Do you want to deactivate this item ?</string>
     <string name="alert_dialog_title_clear_basket">Clear Basket</string>
-    <string name="alert_dialog_text_clear_basket">Your basket will be cleared ?</string>
+    <string name="alert_dialog_text_clear_basket">You already added dish of another restaurent in your cart.\nAre you sure, you want to clear your cart?</string>
     <string name="alert_dialog_title_delete_address">Delete Address</string>
     <string name="alert_dialog_text_delete_address">Are you sure, address will be deleted permanently ?</string>
     <string name="alert_dialog_title_payment_method">Select Payment Method</string>
@@ -104,6 +104,7 @@
     <string name="empty_cvv">Please provide cvv number</string>
     <string name="invalid_weekday">Restaurant don\'t open on this week day</string>
     <string name="invalid_time">Restaurant don\'t open on this time</string>
+    <string name="past_time">Order can\'t be placed for past time</string>
 
     <!--Slide-->
     <array name="slide_title_text">
@@ -188,7 +189,9 @@
 
     <string-array name="order_types">
         <item>Pick Only</item>
+        <!--<item>Deliver</item>-->
         <item>Pick and Delivery Both</item>
+        <!--<item>Pick and Delivery Both</item>-->
     </string-array>
 
     <string-array name="payment_types">

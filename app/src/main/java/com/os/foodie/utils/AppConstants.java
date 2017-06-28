@@ -44,6 +44,7 @@ public class AppConstants {
     public static final String POSITION = "POSITION";
     public static final String CARD = "CARD";
     public static final String CHECKOUT = "CHECKOUT";
+    public static final String CUISINE_SEARCH = "CUISINE_SEARCH";
 
     //    Order Status
     public static final String ORDER_DECLINE = "decline";

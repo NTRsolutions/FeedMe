@@ -68,14 +68,14 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
         holder.tvStreetNumber.setText(address.getFlatNumber());
         holder.tvColony.setText(address.getColony());
 
-        if (address.getLandmark() != null && !address.getLandmark().isEmpty()) {
-            holder.tvColony.setText(address.getLandmark() + "\n" + holder.tvColony.getText());
-        }
-
         holder.tvCityStatePin.setText(address.getCity() + " " + address.getState() + " " + address.getPincode());
 
         holder.tvCountry.setText(address.getCountry());
         holder.tvMobileNumber.setText("Mobile Number: " + address.getMobileNumber());
+
+        if (address.getLandmark() != null && !address.getLandmark().isEmpty()) {
+            holder.tvMobileNumber.setText("Landmark: " + address.getLandmark() + "\n" + holder.tvMobileNumber.getText());
+        }
 
         holder.btDelete.setOnClickListener(new View.OnClickListener() {
             @Override

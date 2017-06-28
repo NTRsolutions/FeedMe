@@ -46,6 +46,7 @@ public class RestaurantSearchPresenter<V extends RestaurantSearchMvpView> extend
 
                                 if (getRestaurantListResponse.getResponse().getRestaurantList() != null) {
                                     Log.d("size", ">>" + getRestaurantListResponse.getResponse().getRestaurantList().size());
+                                    Log.d("getMessage", ">>" + getRestaurantListResponse.getResponse().getMessage());
                                     getMvpView().notifyDataSetChanged((ArrayList<RestaurantList>) getRestaurantListResponse.getResponse().getRestaurantList());
 
                                 } else {

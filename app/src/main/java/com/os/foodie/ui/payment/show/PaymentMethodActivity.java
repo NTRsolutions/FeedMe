@@ -68,7 +68,7 @@ public class PaymentMethodActivity extends BaseActivity implements PaymentMethod
         paymentMethodMvpPresenter.getAllPaymentCard();
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -136,6 +136,13 @@ public class PaymentMethodActivity extends BaseActivity implements PaymentMethod
     public void onPaymentCardDeleted(int position) {
 
         cardArrayList.remove(position);
+
+        if (cardArrayList == null || cardArrayList.isEmpty()) {
+
+            tvAlert.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
+
         paymentMethodAdapter.notifyDataSetChanged();
     }
 
@@ -151,6 +158,9 @@ public class PaymentMethodActivity extends BaseActivity implements PaymentMethod
 
             cardArrayList.add((Card) data.getParcelableExtra(AppConstants.CARD));
             paymentMethodAdapter.notifyDataSetChanged();
+
+            tvAlert.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
         }
     }
 

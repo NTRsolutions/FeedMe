@@ -134,7 +134,7 @@
             android:name=".ui.mybasket.MyBasketActivity"
             android:label="@string/my_basket_activity_title"
             android:theme="@style/AppTheme2"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.deliveryaddress.show.DeliveryAddressActivity"
             android:label="@string/delivery_address_activity_title"

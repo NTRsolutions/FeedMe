@@ -143,7 +143,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         btViewBasket.setOnClickListener(this);
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -252,6 +252,11 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         Log.d("getDishList size", ">>" + restaurantDetailsResponse.getResponse().getMenu().size());
 //        Log.d("keySet", ">>" + restaurantDetailsResponse.getResponse().getDishes().keySet().toString());
 
+        if (restaurantDetailsResponse.getResponse().getMenu().get(0).getDish().size() <= 0) {
+
+            restaurantDetailsResponse.getResponse().getMenu().remove(0);
+        }
+
         ArrayList<String> urls = new ArrayList<String>();
 
         for (int i = 0; i < restaurantDetailsResponse.getResponse().getImages().size(); i++) {
@@ -342,7 +347,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 //            tvTotalQuantity.setText(String.valueOf(courseAdapter.getTotalQuantity()));
 //            tvTotalAmount.setText("$" + courseAdapter.getTotalAmount());
 
-            tvTotalQuantity.setText(restaurantDetailsResponse.getResponse().getTotalQuantity());
+            tvTotalQuantity.setText("Quantity: " + restaurantDetailsResponse.getResponse().getTotalQuantity());
             tvTotalAmount.setText("$" + restaurantDetailsResponse.getResponse().getTotalAmount());
 
             Log.d("VISIBLE", ">>Yes" + restaurantDetailsMvpPresenter.getCustomerRestaurantId());
@@ -443,7 +448,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         if (!restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() && !restaurantDetailsResponse.getResponse().getTotalQuantity().equals("0") && restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)) {
 //        if (courseAdapter.getTotalQuantity() > 0) {
 
-            tvTotalQuantity.setText(restaurantDetailsResponse.getResponse().getTotalQuantity());
+            tvTotalQuantity.setText("Quantity: " + restaurantDetailsResponse.getResponse().getTotalQuantity());
             tvTotalAmount.setText("$" + restaurantDetailsResponse.getResponse().getTotalAmount());
 
             rlBasketDetails.setVisibility(View.VISIBLE);
@@ -459,7 +464,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
             @Override
             public void onClick(View view, final int position) {
 
-                Log.d("getCustomerRestaurantId",">>"+restaurantDetailsMvpPresenter.getCustomerRestaurantId());
+                Log.d("getCustomerRestaurantId", ">>" + restaurantDetailsMvpPresenter.getCustomerRestaurantId());
 
                 if (objectArrayList.get(position) instanceof Dish) {
 
@@ -627,8 +632,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                         mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
                         mBottomSheetDialog.show();
-                    }
-                    else {
+                    } else {
 
                         DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
                             @Override
@@ -764,7 +768,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         if (Integer.parseInt(totalQuantity) > 0) {
 
-            tvTotalQuantity.setText(totalQuantity);
+            tvTotalQuantity.setText("Quantity: " + totalQuantity);
             tvTotalAmount.setText("$" + totalAmount);
 
             rlBasketDetails.setVisibility(View.VISIBLE);
@@ -792,7 +796,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         if (Integer.parseInt(totalQuantity) > 0) {
 
-            tvTotalQuantity.setText(totalQuantity);
+            tvTotalQuantity.setText("Quantity: " + totalQuantity);
             tvTotalAmount.setText("$" + totalAmount);
 
             rlBasketDetails.setVisibility(View.VISIBLE);

@@ -6,12 +6,19 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -55,25 +62,23 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, View.OnClickListener {
 
-    //    private TextView tvScheduledTime;
     private Calendar selectedCalendar;
-
-//    private final String[] weekDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
 
-
     private RelativeLayout rlMain, rlSchedule;
     private CheckedTextView ctvPickup, ctvDeliver;
     private EditText etNote;
-    private LinearLayout llDeliveryType, llDeliveryCharges;
-    private TextView tvDiscountAmount, tvDeliveryCharges, tvTotalAmount, tvScheduledTime, tvEmptyBasket;
+    private LinearLayout llSubtotal, llDeliveryType, llDeliveryCharges;
+    private TextView tvDiscountAmount, tvDeliveryCharges, tvSubtotalAmount, tvTotalAmount, tvScheduledTime, tvEmptyBasket;
     private Button btCheckout;
 
     private RecyclerView recyclerView;
     private MyBasketAdapter myBasketAdapter;
     private ArrayList<CartList> cartLists;
+
+    private Paint p = new Paint();
 
     private ViewCartResponse viewCartResponse;
 
@@ -109,8 +114,10 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
         tvDiscountAmount = (TextView) findViewById(R.id.activity_my_basket_tv_discount_amount);
         tvDeliveryCharges = (TextView) findViewById(R.id.activity_my_basket_tv_delivery_charges);
+        tvSubtotalAmount = (TextView) findViewById(R.id.activity_my_basket_tv_subtotal);
         tvTotalAmount = (TextView) findViewById(R.id.activity_my_basket_tv_total_amount);
 
+        llSubtotal = (LinearLayout) findViewById(R.id.activity_my_basket_ll_subtotal);
         llDeliveryType = (LinearLayout) findViewById(R.id.activity_my_basket_ll_delivery_type);
         llDeliveryCharges = (LinearLayout) findViewById(R.id.activity_my_basket_ll_delivery_charges);
 
@@ -264,6 +271,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, clickListener));
 
         myBasketMvpPresenter.getMyBasketDetails(AppController.get(this).getAppDataManager().getCurrentUserId());
+
+        initSwipe();
     }
 
     public void initPresenter() {
@@ -322,7 +331,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 //        if (viewCartResponse.getResponse().getDeliveryCharge().contains(".00")) {
 //            tvDeliveryCharges.setText("$" + viewCartResponse.getResponse().getDeliveryCharge().replace(".00", ""));
 //        } else {
-        tvDeliveryCharges.setText("$" + viewCartResponse.getResponse().getDeliveryCharge().replace(".00", ""));
+        tvDeliveryCharges.setText("$" + viewCartResponse.getResponse().getDeliveryCharge().replace(".00", ".0"));
 //        }
 //        tvDiscountAmount.setText(viewCartResponse.getResponse().());
 
@@ -416,7 +425,14 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         }
 
         if (llDeliveryCharges.getVisibility() == View.VISIBLE) {
+
+            tvSubtotalAmount.setText("$" + totalAmount);
+
             totalAmount += Float.parseFloat(viewCartResponse.getResponse().getDeliveryCharge());
+            llSubtotal.setVisibility(View.VISIBLE);
+
+        } else {
+            llSubtotal.setVisibility(View.GONE);
         }
 
         tvTotalAmount.setText("$" + totalAmount);
@@ -454,7 +470,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
     @Override
     public void itemRemovedFromBasket(int position) {
-        cartLists.remove(position);
+//        cartLists.remove(position);
+        myBasketAdapter.removeItem(position);
         myBasketAdapter.notifyDataSetChanged();
         updateTotalAmount();
     }
@@ -471,10 +488,16 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         if (Integer.parseInt(totalQuantity) > 0) {
 
             if (llDeliveryCharges.getVisibility() == View.VISIBLE) {
+
+                tvSubtotalAmount.setText("$" + totalAmount.replace(".00", ".0"));
                 totalAmount = Float.parseFloat(totalAmount) + Float.parseFloat(viewCartResponse.getResponse().getDeliveryCharge()) + "";
+                llSubtotal.setVisibility(View.VISIBLE);
+
+            } else {
+                llSubtotal.setVisibility(View.GONE);
             }
 
-            tvTotalAmount.setText("$" + totalAmount);
+            tvTotalAmount.setText("$" + totalAmount.replace(".00", ".0"));
 
 //            rlBasketDetails.setVisibility(View.VISIBLE);
         }
@@ -502,6 +525,49 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         myBasketMvpPresenter.dispose();
 //        myBasketMvpPresenter.onDetach();
         super.onDestroy();
+    }
+
+    private void initSwipe() {
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT/* | ItemTouchHelper.RIGHT*/) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+
+                if (direction == ItemTouchHelper.LEFT) {
+                    myBasketMvpPresenter.removeFromMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(),cartLists.get(position).getDishId(),viewCartResponse.getResponse().getRestaurantId(),position);
+                }
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+                Bitmap icon;
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+
+                    View itemView = viewHolder.itemView;
+                    float height = (float) itemView.getBottom() - (float) itemView.getTop();
+                    float width = height / 3;
+
+                    if (dX <= 0) {
+                        p.setColor(ContextCompat.getColor(MyBasketActivity.this, R.color.orange));
+                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
+                        c.drawRect(background, p);
+                        icon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_delete_2);
+                        RectF icon_dest = new RectF((float) itemView.getRight() - 2 * width, (float) itemView.getTop() + width, (float) itemView.getRight() - width, (float) itemView.getBottom() - width);
+                        c.drawBitmap(icon, null, icon_dest, p);
+                    }
+                }
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override
@@ -557,10 +623,10 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                 checkoutRequest.setPaymentMethod(AppConstants.ONLINE);
 
-                if(tvScheduledTime.getText().toString().isEmpty()) {
+                if (tvScheduledTime.getText().toString().isEmpty()) {
                     checkoutRequest.setOrderDelieveryDate("");
                     checkoutRequest.setOrderDelieveryTime("");
-                }else {
+                } else {
 
                     SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
                     SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
@@ -579,10 +645,10 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                 checkoutRequest.setPaymentMethod(AppConstants.ONLINE);
 
-                if(tvScheduledTime.getText().toString().isEmpty()) {
+                if (tvScheduledTime.getText().toString().isEmpty()) {
                     checkoutRequest.setOrderDelieveryDate("");
                     checkoutRequest.setOrderDelieveryTime("");
-                }else {
+                } else {
 
                     SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
                     SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
@@ -606,10 +672,10 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 checkoutRequest.setUserAddressId("");
 //                TODO Date and Time
 
-                if(tvScheduledTime.getText().toString().isEmpty()) {
+                if (tvScheduledTime.getText().toString().isEmpty()) {
                     checkoutRequest.setOrderDelieveryDate("");
                     checkoutRequest.setOrderDelieveryTime("");
-                }else {
+                } else {
 
                     SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
                     SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
@@ -617,7 +683,6 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                     checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(selectedCalendar.getTime()));
                     checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(selectedCalendar.getTime()));
                 }
-
 
 
                 myBasketMvpPresenter.checkout(checkoutRequest);
@@ -629,10 +694,10 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 checkoutRequest.setPaymentMethod(AppConstants.COD);
 //                TODO Date and Time
 
-                if(tvScheduledTime.getText().toString().isEmpty()) {
+                if (tvScheduledTime.getText().toString().isEmpty()) {
                     checkoutRequest.setOrderDelieveryDate("");
                     checkoutRequest.setOrderDelieveryTime("");
-                }else {
+                } else {
 
                     SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
                     SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
@@ -791,6 +856,12 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
             SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
             SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("hh:mm a");
+
+            if(selectedCalendar.getTimeInMillis()<Calendar.getInstance().getTimeInMillis()){
+                myBasketMvpPresenter.onError(R.string.past_time);
+                timePickerDialog.dismiss();
+                return;
+            }
 
             tvScheduledTime.setText(simpleDateFormatDate.format(selectedCalendar.getTime()) + " at " + simpleDateFormatTime.format(selectedCalendar.getTime()));
 

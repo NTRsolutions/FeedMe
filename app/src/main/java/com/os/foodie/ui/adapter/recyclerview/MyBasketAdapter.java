@@ -65,4 +65,10 @@ public class MyBasketAdapter extends RecyclerView.Adapter<MyBasketAdapter.MyBask
     public int getItemCount() {
         return cartLists.size();
     }
+
+    public void removeItem(int position) {
+        cartLists.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, cartLists.size());
+    }
 }

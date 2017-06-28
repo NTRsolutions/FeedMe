@@ -74,7 +74,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         }
 
         holder.ivRestaurantImage.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtils.getScreenHeight(context) / 4));
-        holder.ivRestaurantImage.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, RestaurantDetailsActivity.class);
@@ -86,13 +86,13 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         holder.tvRestaurantName.setText(restaurantList.getRestaurantName());
         holder.tvMinutes.setText(restaurantList.getDeliveryTime());
 
-        holder.rbRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-
-                ratingBar.setRating(rating);
-            }
-        });
+//        holder.rbRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+//            @Override
+//            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+//
+//                ratingBar.setRating(rating);
+//            }
+//        });
 
         holder.flCuisines.removeAllViews();
 

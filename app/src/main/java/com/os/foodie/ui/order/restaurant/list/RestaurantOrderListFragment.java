@@ -122,12 +122,22 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
     @Override
     public void onOrderListReceived(GetOrderListResponse getOrderListResponse) {
 
-        for (int i = 0; i < getOrderListResponse.getResponse().getOrderList().size(); i++) {
-            getOrderListResponse.getResponse().getOrderList().get(i).setDeliveryTime(getOrderListResponse.getResponse().getDeliveryTime());
-        }
-
         orderLists.clear();
-        orderLists.addAll(getOrderListResponse.getResponse().getOrderList());
+
+        if (getOrderListResponse.getResponse().getOrderList() != null && !getOrderListResponse.getResponse().getOrderList().isEmpty()) {
+
+            recyclerView.setVisibility(View.VISIBLE);
+            tvAlert.setVisibility(View.GONE);
+
+            for (int i = 0; i < getOrderListResponse.getResponse().getOrderList().size(); i++) {
+                getOrderListResponse.getResponse().getOrderList().get(i).setDeliveryTime(getOrderListResponse.getResponse().getDeliveryTime());
+            }
+
+            orderLists.addAll(getOrderListResponse.getResponse().getOrderList());
+        } else {
+            recyclerView.setVisibility(View.GONE);
+            tvAlert.setVisibility(View.VISIBLE);
+        }
 
         restaurantOrderListAdapter.notifyDataSetChanged();
     }
@@ -137,5 +147,15 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
 
         orderLists.remove(position);
         restaurantOrderListAdapter.notifyDataSetChanged();
+
+        if (orderLists != null && !orderLists.isEmpty()) {
+
+            recyclerView.setVisibility(View.VISIBLE);
+            tvAlert.setVisibility(View.GONE);
+
+        } else {
+            recyclerView.setVisibility(View.GONE);
+            tvAlert.setVisibility(View.VISIBLE);
+        }
     }
 }

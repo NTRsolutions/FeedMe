@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:numStars="5"
-                    android:rating="4"
+                    android:rating="0"
                     android:theme="@style/RatingBar"
                     android:stepSize="1" />
 

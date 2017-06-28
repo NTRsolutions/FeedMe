@@ -39,13 +39,14 @@ public class PaymentMethodPresenter<V extends PaymentMethodMvpView> extends Base
 
                             getMvpView().hideLoading();
 
-                            if (getAllPaymentCardResponse.getResponse().getStatus() == 1) {
+//                            if (getAllPaymentCardResponse.getResponse().getStatus() == 1) {
 
-                                getMvpView().notifyDataSetChanged(getAllPaymentCardResponse);
+                            getMvpView().notifyDataSetChanged(getAllPaymentCardResponse);
+                            Log.d("Error", ">>" + getAllPaymentCardResponse.getResponse().getMessage());
 
-                            } else {
-                                getMvpView().onError(getAllPaymentCardResponse.getResponse().getMessage());
-                            }
+//                            } else {
+//                                getMvpView().onError(getAllPaymentCardResponse.getResponse().getMessage());
+//                            }
 
                         }
                     }, new Consumer<Throwable>() {

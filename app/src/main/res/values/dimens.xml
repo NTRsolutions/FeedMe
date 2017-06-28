@@ -315,7 +315,7 @@
     <dimen name="course_title_tv_title_margin">10dp</dimen>
     <dimen name="course_content_ll_main_margin_bottom">5dp</dimen>
     <dimen name="course_content_ll_main_margin_top">5dp</dimen>
-    <dimen name="course_content_rl_course_quantity_width">60dp</dimen>
+    <dimen name="course_content_rl_course_quantity_width">40dp</dimen>
     <dimen name="course_content_tv_course_quantity_text_size">20sp</dimen>
     <dimen name="course_content_tv_x_text_size">20sp</dimen>
     <dimen name="course_content_ll_main_course_margin">10dp</dimen>

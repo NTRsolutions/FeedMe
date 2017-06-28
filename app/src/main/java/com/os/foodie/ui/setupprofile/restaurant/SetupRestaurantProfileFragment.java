@@ -113,7 +113,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     public static AddCuisineTypeCallback addCuisineTypeCallback;
     private SetupRestaurantProfileMvpPresenter<SetupRestaurantProfileMvpView> setupRestaurantProfileMvpPresenter;
 
-    boolean isEditProfile=false;
+    boolean isEditProfile = false;
 
     public static SetupRestaurantProfileFragment newInstance(RestaurantProfileResponse restaurantProfileResponse) {
 
@@ -188,7 +188,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         return view;
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -206,8 +206,6 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
     @Override
     public void onClick(View v) {
-
-        hideKeyboard();
 
         if (v.getId() == ivPhotos.getId()) {
 
@@ -299,7 +297,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
             HashMap<String, File> fileHashMap = createFileHashMap();
             SetupRestaurantProfileRequest restaurantProfileRequest = createRestaurantProfileRequest();
 
-            setupRestaurantProfileMvpPresenter.saveRestaurantProfile(restaurantProfileRequest, fileHashMap,isEditProfile);
+            setupRestaurantProfileMvpPresenter.saveRestaurantProfile(restaurantProfileRequest, fileHashMap, isEditProfile);
 
         } else if (v.getId() == btCancel.getId()) {
             restaurantMainActivity.navigateToShowRestaurantProfile();
@@ -651,7 +649,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         restaurantProfileRequest.setDeliveryZipcode(etDeliveryZipCodes.getText().toString());
         restaurantProfileRequest.setDescription(etDescription.getText().toString());
 
-        restaurantProfileRequest.setDeliveryType((spinnerDeliveryType.getSelectedItemPosition() + 1) + "");
+        restaurantProfileRequest.setDeliveryType((spinnerDeliveryType.getSelectedItem()) + "");
+//        restaurantProfileRequest.setDeliveryType((spinnerDeliveryType.getSelectedItemPosition() + 1) + "");
         restaurantProfileRequest.setPaymentMethod((spinnerPaymentMethods.getSelectedItemPosition() + 1) + "");
 
         restaurantProfileRequest.setLatitude(latLng.latitude + "");
@@ -944,8 +943,11 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         if (extra != null) {
 
             restaurantProfileResponse = (RestaurantProfileResponse) extra.getSerializable("profileResponse");
+
             if (restaurantProfileResponse != null) {
-                isEditProfile=true;
+
+                isEditProfile = true;
+
                 RestaurantProfileResponse.RestaurantDetail restaurantDetail = restaurantProfileResponse.getResponse().getRestaurantDetail();
 
                 restaurantImage.addAll(restaurantDetail.getImages());
@@ -975,8 +977,10 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
                 if (restaurantDetail.getDeliveryType().equalsIgnoreCase("Pick Only"))
                     spinnerDeliveryType.setSelection(0);
-                else
+                else if (restaurantDetail.getDeliveryType().equalsIgnoreCase("Deliver"))
                     spinnerDeliveryType.setSelection(1);
+                else
+                    spinnerDeliveryType.setSelection(2);
 
                 if (restaurantDetail.getPaymentMethod().equalsIgnoreCase("ONLINE"))
                     spinnerPaymentMethods.setSelection(0);

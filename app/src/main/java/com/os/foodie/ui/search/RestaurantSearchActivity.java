@@ -43,6 +43,9 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
     private ArrayList<RestaurantList> restaurantList;
     private RestaurantSearchAdapter restaurantSearchAdapter;
 
+    private boolean isCuisine = true;
+    private String searchText;
+
     private RestaurantSearchMvpPresenter<RestaurantSearchMvpView> restaurantSearchMvpPresenter;
 
     @Override
@@ -76,16 +79,9 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
         restaurantSearchMvpPresenter.getRestaurantList("", AppController.get(this).getFilters());
 
         setUp();
-
-//        ImageView ivRes = (ImageView) findViewById(R.id.image);
-//
-//        Glide.with(this)
-//                .load("http://192.168.1.69/foodi/app/webroot//uploads/restaurant_images/restaurant_image_11494918033.9151.jpg")
-//                .asBitmap()
-//                .into(ivRes);
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -93,7 +89,6 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
 
         AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
         restaurantSearchMvpPresenter = new RestaurantSearchPresenter(appDataManager, compositeDisposable);
-
     }
 
     @Override
@@ -126,6 +121,15 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
         EditText et = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         et.setTextColor(Color.BLACK);
         et.setHintTextColor(ContextCompat.getColor(this, R.color.grey));
+
+        if (isCuisine) {
+            isCuisine = false;
+            et.setText("Indian");
+            onQueryTextSubmit("Indian");
+//            goButton.callOnClick();
+            Log.d("isCuisine", "Indian");
+//            et.setText(searchText);
+        }
 
         searchView.setOnQueryTextListener(this);
 
@@ -179,17 +183,17 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
 
     @Override
     public void notifyDataSetChanged() {
-        setUp();
         this.restaurantList.clear();
+        setUp();
         restaurantSearchAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void notifyDataSetChanged(ArrayList<RestaurantList> restaurantList) {
 
-        setUp();
         this.restaurantList.clear();
         this.restaurantList.addAll(restaurantList);
+        setUp();
 
         restaurantSearchAdapter.notifyDataSetChanged();
     }
@@ -197,10 +201,18 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
     @Override
     protected void setUp() {
 
+        if (getIntent().hasExtra(AppConstants.CUISINE_SEARCH)) {
+            isCuisine = true;
+            searchText = getIntent().getStringExtra(AppConstants.CUISINE_SEARCH);
+        }
+
         if (restaurantList.isEmpty()) {
-            tvNoResult.setVisibility(View.GONE);
-        } else {
             tvNoResult.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+
+        } else {
+            tvNoResult.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
         }
     }
 
