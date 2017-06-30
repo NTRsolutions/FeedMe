@@ -43,6 +43,12 @@ import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressRequ
 import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressResponse;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsRequest;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
+import com.os.foodie.data.network.model.discount.add.AddDiscountRequest;
+import com.os.foodie.data.network.model.discount.add.AddDiscountResponse;
+import com.os.foodie.data.network.model.discount.dishlist.DishListRequest;
+import com.os.foodie.data.network.model.discount.dishlist.DishListResponse;
+import com.os.foodie.data.network.model.discount.list.DeleteDiscountRequest;
+import com.os.foodie.data.network.model.discount.list.DiscountListResponse;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordRequest;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordResponse;
 import com.os.foodie.data.network.model.home.customer.GetRestaurantListRequest;
@@ -64,6 +70,7 @@ import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuRe
 import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuResponse;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemRequest;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemResponse;
+import com.os.foodie.data.network.model.order.detail.OrderHistoryDetail;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderRequest;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderResponse;
 import com.os.foodie.data.network.model.orderlist.show.GetOrderListRequest;
@@ -901,5 +908,118 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(AcceptRejectOrderResponse.class);
+    }
+
+    //Abhinav
+    @Override
+    public Observable<DishListResponse> showDishlist(DishListRequest dishListRequest) {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(dishListRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.GET_DISH_LIST)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(DishListResponse.class);
+    }
+
+    @Override
+    public Observable<AddDiscountResponse> addDiscount(AddDiscountRequest addDiscountRequest) {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(addDiscountRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.ADD_DISCOUNT)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(AddDiscountResponse.class);
+    }
+
+    @Override
+    public Observable<DiscountListResponse> DiscountList(DishListRequest dishListRequest) {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(dishListRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.DISCOUNT_LIST)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(DiscountListResponse.class);
+    }
+
+    @Override
+    public Observable<AddDiscountResponse> deleteDiscount(DeleteDiscountRequest deleteDiscountRequest) {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(deleteDiscountRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.DELETE_DISCOUNT)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(AddDiscountResponse.class);
+    }
+
+    //    Monika
+    @Override
+    public Observable<GetOrderListResponse> getOrderHistoryList(GetOrderListRequest getOrderListRequest) {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(getOrderListRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.ORDER_HISTORY)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(GetOrderListResponse.class);
+    }
+
+    @Override
+    public Observable<OrderHistoryDetail> getOrderHistoryDetail(String orderId) {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("order_id",orderId);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.ORDER_DETAIL)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(OrderHistoryDetail.class);
     }
 }

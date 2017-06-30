@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_clear_basket"
+        android:icon="@mipmap/ic_clear_basket"
         android:title="Clear"
         app:showAsAction="always" />
-    <!--android:icon="@mipmap/ic_edit"-->
 </menu>

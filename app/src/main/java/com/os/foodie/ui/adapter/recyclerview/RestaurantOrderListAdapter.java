@@ -1,6 +1,7 @@
 package com.os.foodie.ui.adapter.recyclerview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.data.network.model.orderlist.show.OrderList;
+import com.os.foodie.ui.order.restaurant.detail.OrderHistoryDetailActivity;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpPresenter;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpView;
 import com.os.foodie.utils.AppConstants;
@@ -63,7 +65,7 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
 
         holder.tvOrderId.setText(order.getOrderId());
 //        holder.tvItemName.setText(order.getDishName());
-        holder.tvDeliveryTime.setText("Ordered on " + order.getOrderDelieveryDate() + " at " + order.getOrderDelieveryTime().replace(":00", ""));
+        holder.tvDeliveryTime.setText("Ordered on: " + order.getOrderDelieveryDate() + " at " + order.getOrderDelieveryTime().replace(":00", ""));
         holder.tvOrderType.setText(order.getOrderType());
         holder.tvDiscount.setText(order.getDiscount() + "%");
         holder.tvPrice.setText("$" + order.getTotalAmount());
@@ -79,6 +81,18 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
             @Override
             public void onClick(View v) {
                 restaurantOrderListMvpPresenter.acceptRejectOrder(orderLists.get(position).getOrderId(), AppConstants.ORDER_DECLINE, position);
+            }
+        });
+        holder.itemView.setTag(position);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int pos = (int) v.getTag();
+                Intent i = new Intent(context, OrderHistoryDetailActivity.class);
+                i.putExtra("order_id", orderLists.get(pos).getOrderId());
+                context.startActivity(i);
             }
         });
     }

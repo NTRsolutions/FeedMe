@@ -565,16 +565,16 @@
     <dimen name="add_edit_delivery_address_bt_save_margin_top">20dp</dimen>
 
     <!--Customer Search-->
-    <dimen name="customer_search_sriv_restaurant_image_height_width">100dp</dimen>
+    <dimen name="customer_search_sriv_restaurant_image_height_width">80dp</dimen>
     <dimen name="customer_search_sriv_restaurant_image_margin_bottom">25dp</dimen>
     <dimen name="customer_search_sriv_restaurant_image_margin_end">25dp</dimen>
     <dimen name="customer_search_sriv_restaurant_image_radius">5dip</dimen>
-    <dimen name="customer_search_ll_minutes_height_width">50dp</dimen>
-    <dimen name="customer_search_ll_minutes_margin_bottom">-25dp</dimen>
-    <dimen name="customer_search_ll_minutes_margin_end">-25dp</dimen>
-    <dimen name="customer_search_tv_minutes_text_size">22sp</dimen>
+    <dimen name="customer_search_ll_minutes_height_width">45dp</dimen>
+    <dimen name="customer_search_ll_minutes_margin_bottom">-20dp</dimen>
+    <dimen name="customer_search_ll_minutes_margin_end">-20dp</dimen>
+    <dimen name="customer_search_tv_minutes_text_size">20sp</dimen>
     <dimen name="customer_search_tv_minutes_tag_margin_top">-5dp</dimen>
-    <dimen name="customer_search_tv_minutes_tag_text_size">16sp</dimen>
+    <dimen name="customer_search_tv_minutes_tag_text_size">14sp</dimen>
     <dimen name="customer_search_ll_info_margin_start">5dp</dimen>
     <dimen name="customer_search_tv_restaurant_name_margin_bottom">5dp</dimen>
     <dimen name="customer_search_tv_restuarant_name_margin_start">5dp</dimen>
@@ -649,5 +649,8 @@
     <dimen name="select_delivery_address_rb_margin_end">10dp</dimen>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <dimen name="add_discount_padding">5dp</dimen>
+    <dimen name="discount_list_padding">10dp</dimen>
+    <dimen name="add_discount_layout_padding">10dp</dimen>
 
 </resources>

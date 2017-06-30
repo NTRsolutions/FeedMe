@@ -40,6 +40,12 @@ import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressRequ
 import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressResponse;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsRequest;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
+import com.os.foodie.data.network.model.discount.add.AddDiscountRequest;
+import com.os.foodie.data.network.model.discount.add.AddDiscountResponse;
+import com.os.foodie.data.network.model.discount.dishlist.DishListRequest;
+import com.os.foodie.data.network.model.discount.dishlist.DishListResponse;
+import com.os.foodie.data.network.model.discount.list.DeleteDiscountRequest;
+import com.os.foodie.data.network.model.discount.list.DiscountListResponse;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordRequest;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordResponse;
 import com.os.foodie.data.network.model.home.customer.GetRestaurantListRequest;
@@ -61,6 +67,7 @@ import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuRe
 import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuResponse;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemRequest;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemResponse;
+import com.os.foodie.data.network.model.order.detail.OrderHistoryDetail;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderRequest;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderResponse;
 import com.os.foodie.data.network.model.orderlist.show.GetOrderListRequest;
@@ -176,6 +183,21 @@ public interface ApiHelper {
     Observable<GetOrderListResponse> getOrderList(GetOrderListRequest getOrderListRequest);
 
     Observable<AcceptRejectOrderResponse> acceptRejectOrder(AcceptRejectOrderRequest acceptRejectOrderRequest);
+
+//    Abhi
+
+    Observable<DishListResponse> showDishlist(DishListRequest dishListRequest);
+
+    Observable<AddDiscountResponse> addDiscount(AddDiscountRequest addDiscountRequest);
+
+    Observable<DiscountListResponse> DiscountList(DishListRequest dishListRequest);
+
+    Observable<AddDiscountResponse> deleteDiscount(DeleteDiscountRequest deleteDiscountRequest);
+
+//    Monika
+Observable<GetOrderListResponse> getOrderHistoryList(GetOrderListRequest getOrderListRequest);
+
+    Observable<OrderHistoryDetail> getOrderHistoryDetail(String orderId);
 
 //    Observable<CustomerSignUpResponse> getFacebookDetail(CustomerSignUpRequest customerSignUpRequest);
 }

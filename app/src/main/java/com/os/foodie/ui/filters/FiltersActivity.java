@@ -2,18 +2,15 @@ package com.os.foodie.ui.filters;
 
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.RatingBar;
-import android.widget.TextView;
 
 //import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 //import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
@@ -26,7 +23,6 @@ import com.os.foodie.data.network.model.home.customer.Filters;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.dialogfragment.cuisine.list.CuisineTypeDialogFragment;
-import com.os.foodie.ui.home.customer.CustomerHomePresenter;
 import com.os.foodie.utils.AppConstants;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;

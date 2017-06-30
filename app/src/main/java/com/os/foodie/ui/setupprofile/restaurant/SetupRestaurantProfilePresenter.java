@@ -3,7 +3,6 @@ package com.os.foodie.ui.setupprofile.restaurant;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.location.Address;
-import android.location.Location;
 import android.support.annotation.StringRes;
 import android.util.Log;
 import android.widget.EditText;
@@ -27,7 +26,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -107,12 +105,14 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                         @Override
                         public void accept(CuisineTypeResponse cuisineTypeResponse) throws Exception {
 
-                            Log.d("Message", ">>" + cuisineTypeResponse.getResponse().getMessage());
                             getMvpView().hideLoading();
+                            Log.d("Message", ">>" + cuisineTypeResponse.getResponse().getMessage());
 
                             if (cuisineTypeResponse.getResponse().getStatus() == 0) {
-                                getMvpView().onError(cuisineTypeResponse.getResponse().getMessage());
+                                getMvpView().onCuisineTypeListReceive(new ArrayList<CuisineType>());
+//                                getMvpView().onError(cuisineTypeResponse.getResponse().getMessage());
                             } else {
+//                                getMvpView().onCuisineTypeListReceive(cuisineTypeResponse.getResponse().getData().getCourses());
                                 getMvpView().onCuisineTypeListReceive((ArrayList<CuisineType>) cuisineTypeResponse.getResponse().getData().get(0).getCuisineType());
                             }
                         }
@@ -121,6 +121,7 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                         public void accept(Throwable throwable) throws Exception {
 
                             getMvpView().hideLoading();
+                            Log.d("Message", ">>" + throwable.getMessage());
                             getMvpView().onError(R.string.api_default_error);
                         }
                     }));
@@ -130,7 +131,7 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
     }
 
     @Override
-    public void saveRestaurantProfile(SetupRestaurantProfileRequest restaurantProfileRequest, HashMap<String, File> fileMap,boolean isEditProfile) {
+    public void saveRestaurantProfile(SetupRestaurantProfileRequest restaurantProfileRequest, HashMap<String, File> fileMap, boolean isEditProfile) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -194,7 +195,7 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                 return;
             }
 
-            if(!isEditProfile) {
+            if (!isEditProfile) {
                 if (fileMap.size() == 0) {
                     getMvpView().onError(R.string.mandatory_image);
                     return;
@@ -253,7 +254,7 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
 
         if (etTimeToSet.getText().toString() != null && !etTimeToSet.getText().toString().isEmpty()) {
 
-            String convertTimeIn12Format=TimeFormatUtils.changeTimeFormat(etTimeToSet.getText().toString(),"hh:mm a","HH:mm");
+            String convertTimeIn12Format = TimeFormatUtils.changeTimeFormat(etTimeToSet.getText().toString(), "hh:mm a", "HH:mm");
 
             String time[] = convertTimeIn12Format.split(":");
 
@@ -331,7 +332,7 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                         }
 
 
-                        etTimeToSet.setText(TimeFormatUtils.changeTimeFormat(hour + ":" + min,"HH:mm","hh:mm a"));
+                        etTimeToSet.setText(TimeFormatUtils.changeTimeFormat(hour + ":" + min, "HH:mm", "hh:mm a"));
                     }
                 }, hour, minute, false);
 

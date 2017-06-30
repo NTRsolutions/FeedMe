@@ -78,7 +78,12 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
 
         restaurantSearchMvpPresenter.getRestaurantList("", AppController.get(this).getFilters());
 
-        setUp();
+        if (getIntent().hasExtra(AppConstants.CUISINE_SEARCH)) {
+            isCuisine = true;
+            searchText = getIntent().getStringExtra(AppConstants.CUISINE_SEARCH);
+        }
+
+//        setUp();
     }
 
     public void initPresenter() {
@@ -198,11 +203,6 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
 
     @Override
     protected void setUp() {
-
-        if (getIntent().hasExtra(AppConstants.CUISINE_SEARCH)) {
-            isCuisine = true;
-            searchText = getIntent().getStringExtra(AppConstants.CUISINE_SEARCH);
-        }
 
         if (restaurantList.isEmpty()) {
             tvNoResult.setVisibility(View.VISIBLE);

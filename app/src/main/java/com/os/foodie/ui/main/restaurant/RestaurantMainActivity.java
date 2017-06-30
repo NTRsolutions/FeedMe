@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,8 +25,9 @@ import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileR
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.account.restaurant.RestaurantAccountFragment;
 import com.os.foodie.ui.base.BaseActivity;
-import com.os.foodie.ui.filters.FiltersPresenter;
+import com.os.foodie.ui.discount.list.DiscountListFragment;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment;
+import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryFragment;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
 import com.os.foodie.ui.setting.SettingsFragment;
 import com.os.foodie.ui.setupprofile.restaurant.SetupRestaurantProfileFragment;
@@ -77,7 +77,7 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
         setCustomerName();
 
         if (AppController.get(this).getAppDataManager().isCurrentUserInfoInitialized())
-            replaceFragment(RestaurantMenuFragment.newInstance(), RestaurantMenuFragment.TAG);
+            replaceFragment(RestaurantOrderListFragment.newInstance(), RestaurantOrderListFragment.TAG);
         else
             replaceFragment(SetupRestaurantProfileFragment.newInstance(null), SetupRestaurantProfileFragment.TAG);
     }
@@ -106,7 +106,7 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.restaurant_home, menu);
+        getMenuInflater().inflate(R.menu.menu_restaurant_home, menu);
         return true;
     }
 
@@ -142,6 +142,10 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
                 replaceFragment(SetupRestaurantProfileFragment.newInstance(null), SetupRestaurantProfileFragment.TAG);
             }
 
+        } else if (id == R.id.nav_order_history) {
+
+            replaceFragment(RestaurantOrderHistoryFragment.newInstance(), RestaurantOrderHistoryFragment.TAG);
+
         } else if (id == R.id.nav_order_list) {
 
             replaceFragment(RestaurantOrderListFragment.newInstance(), RestaurantOrderListFragment.TAG);
@@ -149,6 +153,10 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
         } else if (id == R.id.nav_menu_management) {
 
             replaceFragment(RestaurantMenuFragment.newInstance(), RestaurantMenuFragment.TAG);
+
+        } else if (id == R.id.nav_discount_management) {
+
+            replaceFragment(DiscountListFragment.newInstance(), DiscountListFragment.TAG);
 
         } else if (id == R.id.nav_settings) {
 
@@ -222,8 +230,10 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
 
     @Override
     public void onFragmentDetached(String tag) {
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
+
         if (fragment != null) {
             fragmentManager
                     .beginTransaction()

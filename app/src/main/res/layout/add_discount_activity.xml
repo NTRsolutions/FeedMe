@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/add_discount_layout_padding">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/min_type_radio_bt"
+                        android:layout_width="wrap_content"
+                        android:checked="true"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        style="@style/TextView2"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/add_payment_card_et_height"
+                        android:layout_weight=".6"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/add_discount_padding"
+                        android:text="@string/minimum_amount"
+                        android:textSize="@dimen/add_payment_card_et_text_size" />
+
+                    <LinearLayout
+                        android:layout_width="@dimen/density_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/add_payment_card_ll_last_name_margin_start"
+                        android:layout_weight=".4"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <EditText
+                            android:id="@+id/min_amount_et"
+                            style="@style/EditTextGreySingleLine"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/add_payment_card_et_height"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:hint="$0"
+                            android:inputType="numberDecimal"
+                            android:maxLength="10"
+                            android:padding="@dimen/add_payment_card_et_padding"
+                            android:textSize="@dimen/add_payment_card_et_text_size" />
+
+
+                        <EditText
+                            android:id="@+id/min_percent_et"
+                            style="@style/EditTextGreySingleLine"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/add_payment_card_et_height"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:hint="0.0%"
+                            android:inputType="numberDecimal"
+                            android:maxLength="5"
+                            android:padding="@dimen/add_payment_card_et_padding"
+                            android:textSize="@dimen/add_payment_card_et_text_size" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/add_payment_card_et_card_number_margin_top"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/course_type_radio_bt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/food_type_tv"
+                        style="@style/EditTextGreySingleLine"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/add_payment_card_et_height"
+                        android:layout_weight="0.8"
+                        android:digits="1234567890"
+                        android:drawableRight="@mipmap/ic_arrow_down"
+                        android:gravity="center_vertical"
+                        android:hint="@string/food_corse_type"
+                        android:enabled="false"
+                        android:inputType="number"
+                        android:maxLength="16"
+                        android:padding="@dimen/add_payment_card_et_padding"
+                        android:textSize="@dimen/add_payment_card_et_text_size" />
+
+                    <EditText
+                        android:id="@+id/food_percent_et"
+                        style="@style/EditTextGreySingleLine"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/add_payment_card_et_height"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="0.2"
+                        android:gravity="center"
+                        android:hint="0.0%"
+                        android:enabled="false"
+                        android:inputType="numberDecimal"
+                        android:maxLength="5"
+                        android:padding="@dimen/add_payment_card_et_padding"
+                        android:textSize="@dimen/add_payment_card_et_text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/add_payment_card_et_card_number_margin_top"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/start_date_tv"
+                        style="@style/EditTextGreySingleLine"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/add_payment_card_et_height"
+                        android:layout_weight="0.5"
+                        android:digits="1234567890"
+                        android:drawableRight="@mipmap/calender"
+                        android:gravity="center_vertical"
+                        android:hint="@string/start"
+                        android:inputType="text"
+                        android:maxLength="16"
+                        android:padding="@dimen/add_payment_card_et_padding"
+                        android:textSize="@dimen/add_payment_card_et_text_size" />
+
+                    <TextView
+                        style="@style/TextView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/add_payment_card_et_height"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/add_payment_card_et_padding"
+                        android:text="@string/to"
+                        android:textSize="@dimen/add_payment_card_et_text_size" />
+
+                    <TextView
+                        android:id="@+id/end_date_tv"
+                        style="@style/EditTextGreySingleLine"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/add_payment_card_et_height"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="0.5"
+                        android:drawableRight="@mipmap/calender"
+                        android:hint="@string/end"
+                        android:inputType="text"
+                        android:maxLength="15"
+                        android:padding="@dimen/add_payment_card_et_padding"
+                        android:textSize="@dimen/add_payment_card_et_text_size" />
+
+                </LinearLayout>
+
+                <com.os.foodie.ui.custom.RippleAppCompatButton
+                    android:id="@+id/discount_add_button"
+                    style="@style/ButtonOrange"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/add_payment_card_bt_height"
+                    android:layout_marginTop="@dimen/add_payment_card_bt_add_margin_top"
+                    android:gravity="center"
+                    android:text="@string/done"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </RelativeLayout>
+
+</FrameLayout>

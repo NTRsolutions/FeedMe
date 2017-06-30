@@ -1,35 +1,13 @@
 package com.os.foodie.ui.showrestaurantprofile;
 
-import android.app.TimePickerDialog;
-import android.content.Context;
-import android.location.Address;
-import android.support.annotation.StringRes;
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.TimePicker;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
-import com.os.foodie.data.network.model.cuisinetype.list.CuisineType;
-import com.os.foodie.data.network.model.cuisinetype.list.CuisineTypeResponse;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsRequest;
-import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
-import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
-import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
-import com.os.foodie.data.prefs.PreferencesHelper;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.utils.NetworkUtils;
-import com.os.foodie.utils.TimeFormatUtils;
-
-import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

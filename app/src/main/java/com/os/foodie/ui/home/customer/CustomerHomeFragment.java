@@ -23,8 +23,8 @@ import com.os.foodie.data.network.model.home.customer.RestaurantList;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.recyclerview.RestaurantListAdapter;
 import com.os.foodie.ui.base.BaseFragment;
-import com.os.foodie.ui.custom.DividerItemLineDecoration;
 import com.os.foodie.ui.filters.FiltersActivity;
+import com.os.foodie.ui.locationinfo.LocationInfoActivity;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.search.RestaurantSearchActivity;
 import com.os.foodie.utils.AppConstants;
@@ -32,8 +32,6 @@ import com.os.foodie.utils.AppConstants;
 import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
-
-import static android.view.View.GONE;
 
 public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMvpView, View.OnClickListener {
 
@@ -107,7 +105,7 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        getActivity().getMenuInflater().inflate(R.menu.customer_home, menu);
+        getActivity().getMenuInflater().inflate(R.menu.menu_customer_home, menu);
 //
 //        getActivity().setTitle("");
 //
@@ -176,6 +174,9 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
 
         if (item.getItemId() == R.id.action_filter) {
             Intent intent = new Intent(getActivity(), FiltersActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.action_location) {
+            Intent intent = new Intent(getActivity(), LocationInfoActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.action_search) {
             Intent intent = new Intent(getActivity(), RestaurantSearchActivity.class);

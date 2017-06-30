@@ -8,6 +8,8 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +64,7 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
     }
 
     @Override
-    public void onBindViewHolder(RestaurantMenuViewHolder holder, final int position) {
+    public void onBindViewHolder(final RestaurantMenuViewHolder holder, final int position) {
 
         final Dish dish = dishArrayList.get(position);
 
@@ -201,9 +203,12 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
                     }
                 });
 
-                popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_popup_background));
+                popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_popup_background));
                 popupWindow.setOutsideTouchable(true);
                 popupWindow.setFocusable(true);
+
+//                Log.d("getMeasuredHeight", ">>" + holder.itemView.getMeasuredHeight());
+//                popupWindow.showAtLocation(v, Gravity.BOTTOM|Gravity.END, 0, 0);
                 popupWindow.showAsDropDown(v);
 
 

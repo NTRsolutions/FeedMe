@@ -41,6 +41,12 @@ import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressRequ
 import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressResponse;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsRequest;
 import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
+import com.os.foodie.data.network.model.discount.add.AddDiscountRequest;
+import com.os.foodie.data.network.model.discount.add.AddDiscountResponse;
+import com.os.foodie.data.network.model.discount.dishlist.DishListRequest;
+import com.os.foodie.data.network.model.discount.dishlist.DishListResponse;
+import com.os.foodie.data.network.model.discount.list.DeleteDiscountRequest;
+import com.os.foodie.data.network.model.discount.list.DiscountListResponse;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordRequest;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordResponse;
 import com.os.foodie.data.network.model.home.customer.GetRestaurantListRequest;
@@ -62,6 +68,7 @@ import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuRe
 import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuResponse;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemRequest;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemResponse;
+import com.os.foodie.data.network.model.order.detail.OrderHistoryDetail;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderRequest;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderResponse;
 import com.os.foodie.data.network.model.orderlist.show.GetOrderListRequest;
@@ -398,6 +405,37 @@ public class AppDataManager implements DataManager {
         return apiHelper.acceptRejectOrder(acceptRejectOrderRequest);
     }
 
+//    Abhinav
+
+    @Override
+    public Observable<DishListResponse> showDishlist(DishListRequest dishListRequest) {
+        return apiHelper.showDishlist(dishListRequest);
+    }
+
+    @Override
+    public Observable<AddDiscountResponse> addDiscount(AddDiscountRequest addDiscountRequest) {
+        return apiHelper.addDiscount(addDiscountRequest);
+    }
+
+    @Override
+    public Observable<DiscountListResponse> DiscountList(DishListRequest dishListRequest) {
+        return apiHelper.DiscountList(dishListRequest);
+    }
+
+    @Override
+    public Observable<AddDiscountResponse> deleteDiscount(DeleteDiscountRequest deleteDiscountRequest) {
+        return apiHelper.deleteDiscount(deleteDiscountRequest);
+    }
+
+    @Override
+    public Observable<GetOrderListResponse> getOrderHistoryList(GetOrderListRequest getOrderListRequest) {
+        return  apiHelper.getOrderHistoryList(getOrderListRequest);
+    }
+
+    @Override
+    public Observable<OrderHistoryDetail> getOrderHistoryDetail(String orderId) {
+        return  apiHelper.getOrderHistoryDetail(orderId);
+    }
 
     //    private final Context mContext;
 //    private final DbHelper mDbHelper;

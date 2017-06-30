@@ -321,6 +321,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
             tvEmptyBasket.setVisibility(View.GONE);
         }
 
+        tvScheduledTime.setText(new SimpleDateFormat("dd-MM-yyyy").format(selectedCalendar.getTime()) + " at " + new SimpleDateFormat("hh:mm a").format(selectedCalendar.getTime()));
+
         this.viewCartResponse = viewCartResponse;
 
         cartLists.clear();
@@ -396,6 +398,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
     @Override
     public void onBasketClear() {
+        finish();
         rlMain.setVisibility(View.GONE);
         tvEmptyBasket.setVisibility(View.VISIBLE);
     }
@@ -540,7 +543,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.LEFT) {
-                    myBasketMvpPresenter.removeFromMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(),cartLists.get(position).getDishId(),viewCartResponse.getResponse().getRestaurantId(),position);
+                    myBasketMvpPresenter.removeFromMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(), viewCartResponse.getResponse().getRestaurantId(), position);
                 }
             }
 
@@ -635,6 +638,14 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                     checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(Calendar.getInstance().getTime()));
                 } else {
 
+
+                    if (selectedCalendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
+                        myBasketMvpPresenter.onError(R.string.past_time);
+                        return;
+                    } else if (openingClosingTimeCheck()) {
+                        return;
+                    }
+
                     SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
                     SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
 
@@ -663,6 +674,13 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                     checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(Calendar.getInstance().getTime()));
 
                 } else {
+
+                    if (selectedCalendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
+                        myBasketMvpPresenter.onError(R.string.past_time);
+                        return;
+                    } else if (openingClosingTimeCheck()) {
+                        return;
+                    }
 
                     SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
                     SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
@@ -698,6 +716,13 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                 } else {
 
+                    if (selectedCalendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
+                        myBasketMvpPresenter.onError(R.string.past_time);
+                        return;
+                    } else if (openingClosingTimeCheck()) {
+                        return;
+                    }
+
                     SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
                     SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
 
@@ -724,7 +749,15 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                     checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(Calendar.getInstance().getTime()));
                     checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(Calendar.getInstance().getTime()));
+
                 } else {
+
+                    if (selectedCalendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
+                        myBasketMvpPresenter.onError(R.string.past_time);
+                        return;
+                    } else if (openingClosingTimeCheck()) {
+                        return;
+                    }
 
                     SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
                     SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
@@ -884,7 +917,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
             SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
             SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("hh:mm a");
 
-            if(selectedCalendar.getTimeInMillis()<Calendar.getInstance().getTimeInMillis()){
+            if (selectedCalendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
                 myBasketMvpPresenter.onError(R.string.past_time);
                 timePickerDialog.dismiss();
                 return;
@@ -896,6 +929,46 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         }
     }
 
+    public boolean openingClosingTimeCheck() {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+
+        final Calendar timeFrom = Calendar.getInstance();
+        final Calendar timeTo = Calendar.getInstance();
+
+        try {
+            timeFrom.setTime(simpleDateFormat.parse(viewCartResponse.getResponse().getOpeningTime()));
+            timeTo.setTime(simpleDateFormat.parse(viewCartResponse.getResponse().getClosingTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (selectedCalendar.get(Calendar.HOUR_OF_DAY) < timeFrom.get(Calendar.HOUR_OF_DAY) || selectedCalendar.get(Calendar.HOUR_OF_DAY) > timeTo.get(Calendar.HOUR_OF_DAY)) {
+
+            Log.d("Problem", "select time under restaurant opening and closing hours");
+            myBasketMvpPresenter.onError(R.string.invalid_time);
+//            getMvpView().onError("Restaurant don/'t open on this time");
+
+            return true;
+
+        } else if (selectedCalendar.get(Calendar.HOUR_OF_DAY) == timeFrom.get(Calendar.HOUR_OF_DAY) && selectedCalendar.get(Calendar.MINUTE) < timeFrom.get(Calendar.MINUTE)) {
+
+            Log.d("Problem", "select time under restaurant opening and closing hours");
+            myBasketMvpPresenter.onError(R.string.invalid_time);
+//            getMvpView().onError("select time under restaurant opening and closing hours");
+
+            return true;
+
+        } else if (selectedCalendar.get(Calendar.HOUR_OF_DAY) == timeTo.get(Calendar.HOUR_OF_DAY) && selectedCalendar.get(Calendar.MINUTE) > timeTo.get(Calendar.MINUTE)) {
+
+            Log.d("Problem", "select time under restaurant opening and closing hours");
+            myBasketMvpPresenter.onError(R.string.invalid_time);
+
+            return true;
+        }
+
+        return false;
+    }
 
 //
 //    public void dateTimePickerDialog() {

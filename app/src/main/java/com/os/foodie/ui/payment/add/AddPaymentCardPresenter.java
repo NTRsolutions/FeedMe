@@ -9,6 +9,8 @@ import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardResponse;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.utils.NetworkUtils;
 
+import java.util.Calendar;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -54,6 +56,21 @@ public class AddPaymentCardPresenter<V extends AddPaymentCardMvpView> extends Ba
 
             if (addPaymentCardRequest.getCvv2() == null || addPaymentCardRequest.getCvv2().isEmpty()) {
                 getMvpView().onError(R.string.empty_cvv);
+                return;
+            }
+
+            if (Calendar.getInstance().get(Calendar.YEAR) > Integer.parseInt(addPaymentCardRequest.getExpiryYear())) {
+                getMvpView().onError(R.string.invalid_expiry_year);
+                return;
+            }
+
+            if (12 < Integer.parseInt(addPaymentCardRequest.getExpiryMonth())) {
+                getMvpView().onError(R.string.invalid_expiry_month);
+                return;
+            }
+
+            if (Calendar.getInstance().get(Calendar.YEAR) == Integer.parseInt(addPaymentCardRequest.getExpiryYear()) && Calendar.getInstance().get(Calendar.MONTH) > Integer.parseInt(addPaymentCardRequest.getExpiryMonth())) {
+                getMvpView().onError(R.string.invalid_expiry_month);
                 return;
             }
 

@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -74,7 +75,7 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
         replaceFragment(CustomerHomeFragment.newInstance(), CustomerHomeFragment.TAG);
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -209,9 +210,9 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
     }
 
     @Override
-    public void onFragmentDetached(String tag) {
+    public void onFragmentDetached(String TAG) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag(tag);
+        Fragment fragment = fragmentManager.findFragmentByTag(TAG);
         if (fragment != null) {
             fragmentManager
                     .beginTransaction()

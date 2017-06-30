@@ -75,4 +75,22 @@ public final class CommonUtils {
     public static String getTimeStamp() {
         return new SimpleDateFormat(AppConstants.TIMESTAMP_FORMAT, Locale.US).format(new Date());
     }
+
+    public static String ConvertDate(String startdate,String enddate)
+    {
+        String convert_date="";
+        try {
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+            Date date_start = dt.parse(startdate);
+            Date date_end = dt.parse(enddate);
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd MMM");
+            convert_date=dt1.format(date_start)+" to "+dt1.format(date_end);
+
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return convert_date;
+    }
 }

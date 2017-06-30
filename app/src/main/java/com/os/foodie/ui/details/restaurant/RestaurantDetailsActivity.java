@@ -386,6 +386,10 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         tvLikes.setText(restaurantDetailsResponse.getResponse().getLikeCount().toString());
 
+        if (restaurantDetailsResponse.getResponse().getMenu().get(0).getDish().size() <= 0) {
+            restaurantDetailsResponse.getResponse().getMenu().remove(0);
+        }
+
         ArrayList<String> urls = new ArrayList<String>();
 
         for (int i = 0; i < restaurantDetailsResponse.getResponse().getImages().size(); i++) {
@@ -418,7 +422,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         String cuisines[] = restaurantDetailsResponse.getResponse().getCuisineType().split(",");
 
-        for (String cuisine : cuisines) {
+        for (final String cuisine : cuisines) {
 
             TextView tvCuisine = new TextView(this);
 
@@ -438,6 +442,15 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
             tvCuisine.setTextColor(getResources().getColor(R.color.black));
             tvCuisine.setTypeface(Typeface.SERIF);
             tvCuisine.setText(cuisine);
+
+            tvCuisine.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RestaurantDetailsActivity.this, RestaurantSearchActivity.class);
+                    intent.putExtra(AppConstants.CUISINE_SEARCH, cuisine);
+                    startActivity(intent);
+                }
+            });
 
             flCuisines.addView(tvCuisine);
         }

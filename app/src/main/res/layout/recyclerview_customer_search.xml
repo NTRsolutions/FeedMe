@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:numStars="5"
-                android:rating="4"
+                android:rating="0"
                 android:stepSize="1" />
 
             <TextView
@@ -149,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/customer_search_tv_reviews_margin_start"
-                android:text="Reviews(252)"
+                android:text="Reviews(0)"
                 android:textColor="@color/dark_grey"
                 android:typeface="serif" />
 

@@ -43,7 +43,6 @@ import com.os.foodie.model.WorkingDay;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.dialogfragment.cuisine.list.CuisineTypeDialogFragment;
 import com.os.foodie.ui.dialogfragment.workingdays.WorkingDaysDialogFragment;
-import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.ScreenUtils;

@@ -62,20 +62,6 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
 
         orderLists = new ArrayList<OrderList>();
 
-//        for (int i = 0; i < 10; i++) {
-//
-//            TempModelRestaurantOrder tempModelRestaurantOrder = new TempModelRestaurantOrder();
-//
-//            tempModelRestaurantOrder.setOrderId("10" + i);
-//            tempModelRestaurantOrder.setItemName("Chicken Tanduri");
-//            tempModelRestaurantOrder.setDeliveryTime("0" + i + ":30 pm");
-//            tempModelRestaurantOrder.setOrderType("Chicken Tanduri");
-//            tempModelRestaurantOrder.setDiscount("5%");
-//            tempModelRestaurantOrder.setPrice("$100");
-//
-//            tempModelRestaurantOrders.add(tempModelRestaurantOrder);
-//        }
-
         restaurantOrderListAdapter = new RestaurantOrderListAdapter(getContext(), orderLists, restaurantOrderListMvpPresenter);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());

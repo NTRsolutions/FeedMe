@@ -105,6 +105,8 @@
     <string name="invalid_weekday">Restaurant don\'t open on this week day</string>
     <string name="invalid_time">Restaurant don\'t open on this time</string>
     <string name="past_time">Order can\'t be placed for past time</string>
+    <string name="invalid_expiry_month">Invalid expiry month</string>
+    <string name="invalid_expiry_year">Invalid expiry year</string>
 
     <!--Slide-->
     <array name="slide_title_text">
@@ -471,5 +473,27 @@
     <string name="order_summary">Order Summry</string>
     <string name="contact_detail">Contact Detail</string>
     <string name="order_status">Order Status</string>
+
+    <!--Abhinav-->
+    <!--Discount List-->
+    <string name="valid_on">Valid on: </string>
+    <string name="minimum_amount">Minimum Order Amount: </string>
+    <string name="discount_on">Discount on</string>
+    <string name="no_discount_alert">No Discount</string>
+
+    <!--Add Discount-->
+    <string name="done">Done</string>
+    <string name="food_corse_type">Food course type</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="to">To</string>
+    <string name="enter_minimum_amount">Please enter minimum amount</string>
+    <string name="enter_percentage">Please enter discount percentage</string>
+    <string name="enter_start_date">Please enter start date</string>
+    <string name="enter_end_date">Please enter end date</string>
+    <string name="select_dish_name">Please select at least one dish.</string>
+    <string name="select_dish_title">Select Dishes</string>
+    <string name="enter_valid_date">Please enter a valid date.</string>
+    <string name="order_by">Order by:</string>
 
 </resources>

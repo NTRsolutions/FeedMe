@@ -46,6 +46,10 @@ public class AppConstants {
     public static final String CHECKOUT = "CHECKOUT";
     public static final String CUISINE_SEARCH = "CUISINE_SEARCH";
 
+    public static final String DISH_LIST_ARRAYLIST = "DISH_LIST_ARRAYLIST";
+    public static final String DISCOUNT_EDIT_DATA = "discount_edit_data";
+    public static final String EXIST_DISH_IDS = "EXIST_DISH_IDS";
+
     //    Order Status
     public static final String ORDER_DECLINE = "decline";
     public static final String ORDER_UNDER_PREPARATION = "under preparation";

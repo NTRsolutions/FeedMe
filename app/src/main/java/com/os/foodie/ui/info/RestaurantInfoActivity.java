@@ -45,7 +45,7 @@ public class RestaurantInfoActivity extends BaseActivity implements RestaurantIn
         getExtras();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this,R.mipmap.ic_home_up_orange));
+        getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
 
         getSupportActionBar().setTitle(restaurantDetails.getRestaurantName());
 
@@ -65,7 +65,7 @@ public class RestaurantInfoActivity extends BaseActivity implements RestaurantIn
         setUp();
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -127,36 +127,45 @@ public class RestaurantInfoActivity extends BaseActivity implements RestaurantIn
             e.printStackTrace();
         }
 
-        String openingArray[] = restaurantDetails.getOpeningTime().split(":");
-        String closingArray[] = restaurantDetails.getClosingTime().split(":");
+//        String openingArray[] = restaurantDetails.getOpeningTime().split(":");
+//        String closingArray[] = restaurantDetails.getClosingTime().split(":");
+//
+//        String opening;
+//        String closing;
+//
+////        opening = openingArray[0];
+////        closing = closingArray[0];
+//
+//        opening = openingTime.get(Calendar.HOUR) + "";
+//        closing = closingTime.get(Calendar.HOUR) + "";
+//
+//        int openingTemp = openingTime.get(Calendar.MINUTE);
+//        int closingTemp = closingTime.get(Calendar.MINUTE);
+//
+//        if (openingTemp != 0) {
+//            opening += ":" + openingArray[1];
+//        }
+//
+//        if (closingTemp != 0) {
+//            closing += ":" + closingArray[1];
+//        }
+//
+//        openingTemp = openingTime.get(Calendar.AM_PM);
+//        closingTemp = closingTime.get(Calendar.AM_PM);
+//
+//        opening += (openingTemp == 0) ? " AM" : " PM";
+//        closing += (closingTemp == 0) ? " AM" : " PM";
 
-        String opening;
-        String closing;
 
-//        opening = openingArray[0];
-//        closing = closingArray[0];
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("HH:mm a");
 
-        opening = openingTime.get(Calendar.HOUR) + "";
-        closing = closingTime.get(Calendar.HOUR) + "";
+        String opening = "";
+        String closing = "";
 
-        int openingTemp = openingTime.get(Calendar.MINUTE);
-        int closingTemp = closingTime.get(Calendar.MINUTE);
+        opening = simpleDateFormat1.format(openingTime.getTime());
+        closing = simpleDateFormat1.format(closingTime.getTime());
 
-        if (openingTemp != 0) {
-            opening += ":" + openingArray[1];
-        }
-
-        if (closingTemp != 0) {
-            closing += ":" + closingArray[1];
-        }
-
-        openingTemp = openingTime.get(Calendar.AM_PM);
-        closingTemp = closingTime.get(Calendar.AM_PM);
-
-        opening += (openingTemp == 0) ? " AM" : " PM";
-        closing += (closingTemp == 0) ? " AM" : " PM";
-
-        tvTime.setText(opening + " to " + closing);
+        tvTime.setText(opening.toUpperCase() + " to " + closing.toUpperCase());
 
         String minOrderAmount = restaurantDetails.getMinOrderAmount();
 
@@ -168,9 +177,10 @@ public class RestaurantInfoActivity extends BaseActivity implements RestaurantIn
             tvMinimumOrder.setText("$" + minOrderAmount);
         }
 
-   //     tvDeliveryType.setText(getResources().getStringArray(R.array.order_types)[Integer.parseInt(restaurantDetails.getDeliveryType())/* - 1*/]);
+        tvDeliveryType.setText(restaurantDetails.getDeliveryType().replace(".00", ""));
+        //     tvDeliveryType.setText(getResources().getStringArray(R.array.order_types)[Integer.parseInt(restaurantDetails.getDeliveryType())/* - 1*/]);
 
-        if (!restaurantDetails.getDeliveryCharge().isEmpty()) {
+        if (restaurantDetails.getDeliveryCharge() != null && !restaurantDetails.getDeliveryCharge().isEmpty()) {
             tvDeliveryCharge.setText("$" + restaurantDetails.getDeliveryCharge());
         }
 

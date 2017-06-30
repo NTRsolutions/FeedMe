@@ -2,8 +2,14 @@ package com.os.foodie.data.network;
 
 public class ApiConstants {
 
-//            public static final String BASE_URL = "http://67.205.96.105:8080/foodi/web_services/";
+//    OLD
     public static final String BASE_URL = "http://192.168.1.69/foodi/web_services/";
+
+//    OLD LIVE
+//    public static final String BASE_URL = "http://67.205.96.105:8080/foodi/web_services/";
+
+//    NEW LIVE
+//    public static final String BASE_URL = "https://56.octallabs.com/foodi/web_services/";
 
     public static final String LOGIN = "login";
     public static final String FB_LOGIN = "fb_login";
@@ -66,4 +72,12 @@ public class ApiConstants {
 
     public static final String ORDER_LIST = "order_list";
     public static final String ACCEPT_REJECT_ORDER = "accept_order";
+
+    public static final String GET_DISH_LIST = "get_dish_list";
+    public static final String ADD_DISCOUNT = "add_discount";
+    public static final String DISCOUNT_LIST = "discount_list";
+    public static final String DELETE_DISCOUNT = "delete_discount";
+
+    public static final String ORDER_HISTORY = "order_history";
+    public static final String ORDER_DETAIL = "order_detail";
 }

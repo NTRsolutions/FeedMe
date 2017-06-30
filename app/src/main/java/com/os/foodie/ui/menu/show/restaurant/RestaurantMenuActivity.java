@@ -38,6 +38,8 @@ public class RestaurantMenuActivity extends BaseActivity implements RestaurantMe
     private ArrayList<Dish> dishArrayList;
     private RestaurantMenuAdapter restaurantMenuAdapter;
 
+    RecyclerView.LayoutManager layoutManager;
+
     private RestaurantMenuMvpPresenter<RestaurantMenuMvpView> restaurantMenuMvpPresenter;
 
     @Override
@@ -56,7 +58,7 @@ public class RestaurantMenuActivity extends BaseActivity implements RestaurantMe
 
 //        restaurantMenuAdapter = new RestaurantMenuAdapter(getContext(), restaurantMenuMvpPresenter, dishArrayList);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        layoutManager = new LinearLayoutManager(getApplicationContext());
 
 //        recyclerView.addItemDecoration(new DividerItemLineDecoration(RestaurantMenuActivity.this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));

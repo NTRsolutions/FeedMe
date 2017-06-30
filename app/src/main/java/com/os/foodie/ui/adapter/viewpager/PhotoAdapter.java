@@ -1,6 +1,7 @@
 package com.os.foodie.ui.adapter.viewpager;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +46,8 @@ public class PhotoAdapter extends PagerAdapter {
 
         Glide.with(context)
                 .load(urlList.get(position))
+                .placeholder(ContextCompat.getDrawable(context, R.mipmap.img_placeholder))
+                .error(ContextCompat.getDrawable(context, R.mipmap.img_placeholder))
                 .into(ivPhoto);
 
         collection.addView(layout);
