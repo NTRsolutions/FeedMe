@@ -26,6 +26,7 @@ import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.account.restaurant.RestaurantAccountFragment;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.discount.list.DiscountListFragment;
+import com.os.foodie.ui.earning.EarningFragment;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment;
 import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryFragment;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
@@ -157,6 +158,10 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
         } else if (id == R.id.nav_discount_management) {
 
             replaceFragment(DiscountListFragment.newInstance(), DiscountListFragment.TAG);
+
+        } else if (id == R.id.nav_view_earning) {
+
+            replaceFragment(EarningFragment.newInstance(), EarningFragment.TAG);
 
         } else if (id == R.id.nav_settings) {
 

@@ -159,14 +159,13 @@
             android:name=".ui.deliveryaddress.select.SelectDeliveryAddressActivity"
             android:label="@string/select_delivery_address_activity_title"
             android:theme="@style/AppTheme2" />
-
         <activity
             android:name=".ui.discount.add.DiscountAddActivity"
-            android:label="@string/action_discount_mangement"
+            android:label="@string/discount_mangement_activity_title"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.order.restaurant.detail.OrderHistoryDetailActivity"
-            android:label="@string/order_detail"
+            android:label="@string/order_detail_activity_title"
             android:theme="@style/AppTheme2" />
     </application>
 

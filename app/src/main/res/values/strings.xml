@@ -464,7 +464,7 @@
     <string name="select_delivery_address_activity_title">Delivery Address</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="order_detail">Order Detail</string>
+    <string name="order_detail_activity_title">Order Detail</string>
     <string name="order_number">Order Number</string>
     <string name="order_type">Order Type</string>
     <string name="payment">Payment</string>
@@ -476,6 +476,7 @@
 
     <!--Abhinav-->
     <!--Discount List-->
+    <string name="discount_mangement_activity_title">Discount Mangement</string>
     <string name="valid_on">Valid on: </string>
     <string name="minimum_amount">Minimum Order Amount: </string>
     <string name="discount_on">Discount on</string>
@@ -495,5 +496,9 @@
     <string name="select_dish_title">Select Dishes</string>
     <string name="enter_valid_date">Please enter a valid date.</string>
     <string name="order_by">Order by:</string>
+
+    <!--Earning-->
+    <string name="title_fragment_earning">Earning</string>
+    <string name="earning_tv_text_empty_alert">No Earning</string>
 
 </resources>
