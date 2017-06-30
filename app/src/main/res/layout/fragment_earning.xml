@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="@string/earning_tv_text_empty_alert"
+        android:text="@string/earning_tv_empty_alert_text"
         android:visibility="gone" />
 
 </LinearLayout>

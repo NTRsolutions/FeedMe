@@ -2,16 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/course_content_ll_main_margin_bottom"
-    android:layout_marginTop="@dimen/course_content_ll_main_margin_top"
     android:orientation="horizontal">
+    <!--android:layout_marginBottom="@dimen/course_content_ll_main_margin_top_bottom"-->
+    <!--android:layout_marginTop="@dimen/course_content_ll_main_margin_top_bottom"-->
 
     <TextView
         android:id="@+id/recyclerview_course_title_tv_title"
         style="@style/TextView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/course_title_tv_title_margin"
+        android:layout_marginBottom="@dimen/course_title_tv_title_top_bottom_margin"
+        android:layout_marginEnd="@dimen/course_title_tv_title_start_end_margin"
+        android:layout_marginStart="@dimen/course_title_tv_title_start_end_margin"
+        android:layout_marginTop="@dimen/course_title_tv_title_top_bottom_margin"
         android:textColor="@color/orange" />
 
 </LinearLayout>

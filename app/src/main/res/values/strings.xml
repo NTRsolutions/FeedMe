@@ -463,6 +463,12 @@
     <!--Select Delivery Address-->
     <string name="select_delivery_address_activity_title">Delivery Address</string>
 
+    <!--Earning-->
+    <string name="title_fragment_earning">Earning</string>
+    <string name="earning_tv_empty_alert_text">No Earning</string>
+    <string name="recyclerview_earning_tv_transaction_id_tag_text">Transaction Id:</string>
+    <string name="recyclerview_earning_tv_date_tag_text">Date:</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="order_detail_activity_title">Order Detail</string>
     <string name="order_number">Order Number</string>
@@ -478,7 +484,7 @@
     <!--Discount List-->
     <string name="discount_mangement_activity_title">Discount Mangement</string>
     <string name="valid_on">Valid on: </string>
-    <string name="minimum_amount">Minimum Order Amount: </string>
+    <string name="activity_add_discount_tv_minimum_order_amount_tag_text">Minimum Order Amount: </string>
     <string name="discount_on">Discount on</string>
     <string name="no_discount_alert">No Discount</string>
 
@@ -496,9 +502,5 @@
     <string name="select_dish_title">Select Dishes</string>
     <string name="enter_valid_date">Please enter a valid date.</string>
     <string name="order_by">Order by:</string>
-
-    <!--Earning-->
-    <string name="title_fragment_earning">Earning</string>
-    <string name="earning_tv_text_empty_alert">No Earning</string>
 
 </resources>

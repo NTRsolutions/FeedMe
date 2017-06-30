@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="15dp">
+    android:padding="@dimen/recyclerview_earning_ll_main_padding">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -15,25 +15,24 @@
             android:id="@+id/recyclerview_earning_tv_earning_id"
             style="@style/TextView5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="5654521" />
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="@dimen/recyclerview_earning_ll_margin_top_bottom"
+            android:layout_marginTop="@dimen/recyclerview_earning_ll_margin_top_bottom"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_marginEnd="@dimen/recyclerview_earning_tv_tag_margin_end"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="Transaction Id:"
+                android:text="@string/recyclerview_earning_tv_transaction_id_tag_text"
                 android:textColor="@color/dark_grey"
-                android:textSize="16sp"
+                android:textSize="@dimen/recyclerview_earning_tv_text_size"
                 android:typeface="serif" />
 
             <TextView
@@ -42,9 +41,8 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="5461321"
                 android:textColor="@color/dark_grey"
-                android:textSize="16sp"
+                android:textSize="@dimen/recyclerview_earning_tv_text_size"
                 android:typeface="serif" />
 
         </LinearLayout>
@@ -52,18 +50,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="@dimen/recyclerview_earning_ll_margin_top_bottom"
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="@dimen/recyclerview_earning_tv_tag_margin_end"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="Date:"
+                android:text="@string/recyclerview_earning_tv_date_tag_text"
                 android:textColor="@color/dark_grey"
-                android:textSize="16sp"
+                android:textSize="@dimen/recyclerview_earning_tv_text_size"
                 android:typeface="serif" />
 
             <TextView
@@ -72,9 +71,8 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="12 July 2016"
                 android:textColor="@color/dark_grey"
-                android:textSize="16sp"
+                android:textSize="@dimen/recyclerview_earning_tv_text_size"
                 android:typeface="serif" />
 
         </LinearLayout>
@@ -86,7 +84,6 @@
         style="@style/TextView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$55"
         android:textColor="@color/orange" />
 
 </LinearLayout>

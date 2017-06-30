@@ -312,9 +312,9 @@
     <dimen name="restaurant_details_tv_discount_text_text_size">16sp</dimen>
     <dimen name="restaurant_details_recyclerview_margin_start">5dp</dimen>
 
-    <dimen name="course_title_tv_title_margin">10dp</dimen>
-    <dimen name="course_content_ll_main_margin_bottom">5dp</dimen>
-    <dimen name="course_content_ll_main_margin_top">5dp</dimen>
+    <dimen name="course_title_tv_title_top_bottom_margin">5dp</dimen>
+    <dimen name="course_title_tv_title_start_end_margin">10dp</dimen>
+    <dimen name="course_content_ll_main_margin_top_bottom">5dp</dimen>
     <dimen name="course_content_rl_course_quantity_width">40dp</dimen>
     <dimen name="course_content_tv_course_quantity_text_size">20sp</dimen>
     <dimen name="course_content_tv_x_text_size">20sp</dimen>
@@ -648,9 +648,18 @@
     <dimen name="select_payment_tv_card_number_margin_start">10dp</dimen>
     <dimen name="select_delivery_address_rb_margin_end">10dp</dimen>
 
+    <!--Add Discount-->
+    <dimen name="add_discount_tv_minimum_order_amount_tag_padding">5dp</dimen>
+    <dimen name="add_discount_tv_minimum_order_amount_tag_text_size">15sp</dimen>
+    <dimen name="add_discount_rl_padding">10dp</dimen>
+    <dimen name="recyclerview_discount_list_ll_main_padding">10dp</dimen>
+
+    <!--Earning-->
+    <dimen name="recyclerview_earning_ll_main_padding">15dp</dimen>
+    <dimen name="recyclerview_earning_ll_margin_top_bottom">5dp</dimen>
+    <dimen name="recyclerview_earning_tv_tag_margin_end">5dp</dimen>
+    <dimen name="recyclerview_earning_tv_text_size">16sp</dimen>
+
     <!-- TODO: Remove or change this placeholder text -->
-    <dimen name="add_discount_padding">5dp</dimen>
-    <dimen name="discount_list_padding">10dp</dimen>
-    <dimen name="add_discount_layout_padding">10dp</dimen>
 
 </resources>

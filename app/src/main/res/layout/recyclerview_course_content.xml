@@ -3,9 +3,9 @@
     android:id="@+id/recyclerview_course_content_ll_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/course_content_ll_main_margin_bottom"
-    android:layout_marginTop="@dimen/course_content_ll_main_margin_top"
     android:orientation="horizontal">
+    <!--android:layout_marginBottom="@dimen/course_content_ll_main_margin_top_bottom"-->
+    <!--android:layout_marginTop="@dimen/course_content_ll_main_margin_top_bottom"-->
 
     <RelativeLayout
         android:id="@+id/recyclerview_course_content_rl_course_quantity"
@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/course_content_tv_course_quantity_text_size"
+            android:text="20"
             android:textColor="@color/orange" />
 
         <TextView
@@ -47,6 +48,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/recyclerview_course_content_tv_course_name_text_size"
+            android:text="Pizza"
             android:typeface="monospace" />
 
         <TextView
@@ -54,10 +56,11 @@
             style="@style/TextView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/course_content_tv_course_des_margin_top"
             android:ellipsize="end"
+            android:text="Pizza pizze"
             android:textSize="@dimen/course_content_tv_course_des_text_size"
             android:textColor="@color/grey" />
+        <!--android:layout_marginTop="@dimen/course_content_tv_course_des_margin_top"-->
 
     </LinearLayout>
 
@@ -67,6 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/course_content_tv_price_margin"
+        android:text="$55"
         android:textColor="@color/orange" />
 
 </LinearLayout>

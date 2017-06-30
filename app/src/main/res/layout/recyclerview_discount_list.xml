@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="@dimen/discount_list_padding">
+    android:padding="@dimen/recyclerview_discount_list_ll_main_padding">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
                 android:layout_marginRight="5dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@string/minimum_amount"
+                android:text="@string/activity_add_discount_tv_minimum_order_amount_tag_text"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/restaurant_order_tv_order_type_tag_text_size"
                 android:typeface="serif" />
