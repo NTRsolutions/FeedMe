@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -50,6 +52,8 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
 
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
+        setHasOptionsMenu(true);
+
         initPresenter();
 //        settingsMvpPresenter = new SettingsPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         settingsMvpPresenter.onAttach(this);
@@ -94,6 +98,13 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
         } else {
             ((RestaurantMainActivity) getActivity()).setTitle(getActivity().getResources().getString(R.string.title_fragment_settings));
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_blank, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

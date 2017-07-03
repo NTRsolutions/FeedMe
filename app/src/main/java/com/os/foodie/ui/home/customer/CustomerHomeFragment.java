@@ -104,6 +104,7 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         super.onCreateOptionsMenu(menu, inflater);
         getActivity().getMenuInflater().inflate(R.menu.menu_customer_home, menu);
 //

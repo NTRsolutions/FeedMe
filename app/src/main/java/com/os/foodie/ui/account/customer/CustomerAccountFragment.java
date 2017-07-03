@@ -62,7 +62,7 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
         return view;
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -80,6 +80,7 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         super.onCreateOptionsMenu(menu, inflater);
         getActivity().getMenuInflater().inflate(R.menu.menu_with_edit, menu);
     }

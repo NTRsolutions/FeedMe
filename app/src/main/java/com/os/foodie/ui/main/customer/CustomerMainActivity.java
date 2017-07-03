@@ -16,14 +16,12 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.os.foodie.R;
-import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.account.customer.CustomerAccountFragment;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
-import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.home.customer.CustomerHomeFragment;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.ui.payment.show.PaymentMethodActivity;
@@ -42,7 +40,10 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
     private Toolbar toolbar;
 
+    public NavigationView navigationView;
+
     private CustomerMainMvpPresenter<CustomerMainMvpView> customerMainMvpPresenter;
+    private boolean isBackPress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +67,21 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         tvCurrentUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_customer_main_tv_user_name);
         setCustomerName();
 
-        replaceFragment(CustomerHomeFragment.newInstance(), CustomerHomeFragment.TAG);
+        setUp();
+
+//        replaceFragment(CustomerHomeFragment.newInstance(), CustomerHomeFragment.TAG);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .add(R.id.content_customer_main_cl_fragment, CustomerHomeFragment.newInstance(), CustomerHomeFragment.TAG)
+                .commit();
     }
 
     public void initPresenter() {
@@ -92,6 +101,11 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+
+            if (isBackPress) {
+                finish();
+            }
+
             super.onBackPressed();
         }
     }
@@ -121,6 +135,8 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
+
+            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
             replaceFragment(CustomerHomeFragment.newInstance(), CustomerHomeFragment.TAG);
 
@@ -181,16 +197,52 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
     @Override
     protected void setUp() {
+
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+
+                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content_customer_main_cl_fragment);
+
+                if (fragment instanceof CustomerHomeFragment) {
+
+                    isBackPress = true;
+
+                    Log.d("fragment", ">>CustomerHomeFragment");
+
+                    navigationView.setCheckedItem(R.id.nav_home);
+                    getSupportActionBar().setTitle(getString(R.string.action_home));
+
+                } else if (fragment instanceof CustomerAccountFragment) {
+
+                    isBackPress = false;
+
+                    Log.d("fragment", ">>CustomerAccountFragment");
+
+                    navigationView.setCheckedItem(R.id.nav_account);
+                    getSupportActionBar().setTitle(getString(R.string.action_my_account));
+
+                } else if (fragment instanceof SettingsFragment) {
+
+                    isBackPress = false;
+
+                    Log.d("fragment", ">>SettingsFragment");
+
+                    navigationView.setCheckedItem(R.id.nav_settings);
+                    getSupportActionBar().setTitle(getString(R.string.action_settings));
+
+                }
+            }
+        });
     }
 
     public void replaceFragment(Fragment fragment, String TAG) {
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .disallowAddToBackStack()
-//                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .replace(R.id.content_customer_main_cl_fragment, fragment, TAG)
-                .commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.content_customer_main_cl_fragment, fragment, TAG)
+                    .addToBackStack(TAG)
+                    .commit();
     }
 
     @Override
