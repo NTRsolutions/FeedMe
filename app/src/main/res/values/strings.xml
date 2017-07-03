@@ -30,6 +30,10 @@
     <string name="alert_dialog_text_payment_method">How would you like to do the payment ?</string>
     <string name="alert_dialog_bt_online">Online</string>
     <string name="alert_dialog_bt_cod">Cash On Delivery</string>
+    <string name="alert_dialog_title_accept_order">Accept Order</string>
+    <string name="alert_dialog_text_accept_order">Order will be accepted. Are you sure ?</string>
+    <string name="alert_dialog_title_reject_order">Reject Order</string>
+    <string name="alert_dialog_text_reject_order">Order will be rejected. Are you sure ?</string>
 
     <!--Menu-->
     <string name="menu_close">Close</string>

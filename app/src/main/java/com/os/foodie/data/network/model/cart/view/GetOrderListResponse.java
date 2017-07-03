@@ -1,5 +1,5 @@
 
-package com.os.foodie.data.network.model.orderlist.show;
+package com.os.foodie.data.network.model.cart.view;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -12,11 +12,13 @@ public class GetOrderListResponse {
 
     /**
      * No args constructor for use in serialization
+     * 
      */
     public GetOrderListResponse() {
     }
 
     /**
+     * 
      * @param response
      */
     public GetOrderListResponse(Response response) {

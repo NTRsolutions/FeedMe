@@ -487,6 +487,10 @@
     <dimen name="my_basket_ll_checkout_padding_top_bottom">20dp</dimen>
     <dimen name="my_basket_ll_checkout_padding_start_end">30dp</dimen>
     <dimen name="my_basket_bt_checkout_height">45dp</dimen>
+    <dimen name="my_basket_ll_discount_amount_margin_top">5dp</dimen>
+
+    <!--RecyclerView My Basket Item-->
+    <dimen name="mybasket_item_ll_main_padding">10dp</dimen>
 
     <!--Dialog Item Quantity-->
     <dimen name="dialog_item_quantity_tv_item_name_margin_top">20dp</dimen>
@@ -597,9 +601,6 @@
     <dimen name="delivery_address_bt_padding">10dp</dimen>
     <dimen name="delivery_address_bt_text_size">16sp</dimen>
     <dimen name="delivery_address_bt_delete_margin_start">10dp</dimen>
-
-    <!--RecyclerView My Basket Item-->
-    <dimen name="mybasket_item_ll_main_padding">10dp</dimen>
 
     <!--RecyclerView Payment Method-->
     <dimen name="payment_method_rl_main_padding_bottom">10dp</dimen>

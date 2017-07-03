@@ -8,8 +8,11 @@ import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrder
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderResponse;
 import com.os.foodie.data.network.model.orderlist.show.GetOrderListRequest;
 import com.os.foodie.data.network.model.orderlist.show.GetOrderListResponse;
+import com.os.foodie.data.network.model.orderlist.show.OrderList;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.utils.NetworkUtils;
+
+import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -49,7 +52,9 @@ public class RestaurantOrderListPresenter<V extends RestaurantOrderListMvpView> 
                                 getMvpView().onOrderListReceived(getOrderListResponse);
 
                             } else {
-                                getMvpView().onError(getOrderListResponse.getResponse().getMessage());
+
+                                getOrderListResponse.getResponse().setOrderList(new ArrayList<OrderList>());
+//                                getMvpView().onError(getOrderListResponse.getResponse().getMessage());
                             }
                         }
                     }, new Consumer<Throwable>() {

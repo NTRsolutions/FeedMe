@@ -55,7 +55,7 @@ public class MyBasketAdapter extends RecyclerView.Adapter<MyBasketAdapter.MyBask
         float price = Float.parseFloat(cartList.getPrice());
         int quantity = Integer.parseInt(cartList.getQty());
 
-        int totalAmount = 0;
+        float totalAmount = 0;
         totalAmount += price * quantity;
 
         holder.tvAmount.setText("$" + totalAmount);

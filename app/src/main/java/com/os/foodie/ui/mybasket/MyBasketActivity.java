@@ -40,6 +40,7 @@ import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.cart.view.CartList;
+import com.os.foodie.data.network.model.cart.view.MinOrderDiscount;
 import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
 import com.os.foodie.data.network.model.checkout.CheckoutRequest;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
@@ -47,6 +48,7 @@ import com.os.foodie.ui.adapter.recyclerview.MyBasketAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RecyclerTouchListener;
 import com.os.foodie.ui.deliveryaddress.select.SelectDeliveryAddressActivity;
+import com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity;
 import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.payment.select.SelectPaymentActivity;
@@ -57,6 +59,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -70,7 +73,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
     private RelativeLayout rlMain, rlSchedule;
     private CheckedTextView ctvPickup, ctvDeliver;
     private EditText etNote;
-    private LinearLayout llSubtotal, llDeliveryType, llDeliveryCharges;
+    private LinearLayout llSubtotal, llDeliveryType, llDeliveryCharges, llDiscountAmount;
     private TextView tvDiscountAmount, tvDeliveryCharges, tvSubtotalAmount, tvTotalAmount, tvScheduledTime, tvEmptyBasket;
     private Button btCheckout;
 
@@ -82,6 +85,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
     private ViewCartResponse viewCartResponse;
 
+    private String discountId = "";
+    private float discountAmount;
     private final String[] weekDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
     private MyBasketMvpPresenter<MyBasketMvpView> myBasketMvpPresenter;
@@ -120,6 +125,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         llSubtotal = (LinearLayout) findViewById(R.id.activity_my_basket_ll_subtotal);
         llDeliveryType = (LinearLayout) findViewById(R.id.activity_my_basket_ll_delivery_type);
         llDeliveryCharges = (LinearLayout) findViewById(R.id.activity_my_basket_ll_delivery_charges);
+        llDiscountAmount = (LinearLayout) findViewById(R.id.activity_my_basket_ll_discount_amount);
 
         btCheckout = (Button) findViewById(R.id.activity_my_basket_bt_checkout);
 
@@ -302,7 +308,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
 
             if (cartLists != null && cartLists.size() != 0) {
-                myBasketMvpPresenter.clearBasket();
+//                myBasketMvpPresenter.clearBasket();
+                askForClearBasket();
             }
         }
 
@@ -333,7 +340,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 //        if (viewCartResponse.getResponse().getDeliveryCharge().contains(".00")) {
 //            tvDeliveryCharges.setText("$" + viewCartResponse.getResponse().getDeliveryCharge().replace(".00", ""));
 //        } else {
-        tvDeliveryCharges.setText("$" + viewCartResponse.getResponse().getDeliveryCharge().replace(".00", ".0"));
+        tvDeliveryCharges.setText("+$" + viewCartResponse.getResponse().getDeliveryCharge().replace(".00", ".0"));
 //        }
 //        tvDiscountAmount.setText(viewCartResponse.getResponse().());
 
@@ -396,6 +403,84 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         updateTotalAmount();
     }
 
+    public float calcDishDiscount() {
+
+        discountAmount = 0;
+
+        float totalAmount = 0;
+
+//        ArrayList<CartList> cartLists = (ArrayList<CartList>) viewCartResponse.getResponse().getCartList();
+
+        if (cartLists != null && !cartLists.isEmpty()) {
+
+            for (int i = 0; i < cartLists.size(); i++) {
+
+                if (cartLists.get(i).getDiscountId() != null && !cartLists.get(i).getDiscountId().isEmpty()) {
+
+                    float discount = Float.parseFloat(cartLists.get(i).getAvailableMaxDiscount());
+
+                    float dishAmount = Float.parseFloat(cartLists.get(i).getPrice()) * Float.parseFloat(cartLists.get(i).getQty());
+
+                    Log.d("dishAmount Before", ">>" + dishAmount);
+
+                    float discountAmountTemp = dishAmount * discount / 100;
+
+                    totalAmount += (dishAmount - discountAmountTemp);
+
+                    Log.d("dishAmount After", ">>" + (dishAmount - discountAmountTemp));
+
+                    discountAmount += discountAmountTemp;
+
+                } else {
+
+                    Log.d("dishAmount Before", ">>" + (Float.parseFloat(cartLists.get(i).getPrice()) * Float.parseFloat(cartLists.get(i).getQty())));
+
+                    totalAmount += Float.parseFloat(cartLists.get(i).getPrice()) * Float.parseFloat(cartLists.get(i).getQty());
+
+                    Log.d("dishAmount After", ">>" + (Float.parseFloat(cartLists.get(i).getPrice()) * Float.parseFloat(cartLists.get(i).getQty())));
+                }
+            }
+        }
+
+
+        Log.d("totalAmount Basket", ">>" + totalAmount);
+        Log.d("discountAmount Basket", ">>" + discountAmount);
+
+        return calcFinalDiscount(totalAmount);
+    }
+
+    public float calcFinalDiscount(float totalAmount) {
+
+        ArrayList<MinOrderDiscount> minOrderDiscounts = (ArrayList<MinOrderDiscount>) viewCartResponse.getResponse().getMinOrderDiscounts();
+
+        if (minOrderDiscounts != null && !minOrderDiscounts.isEmpty()) {
+
+            float minOrderDiscount = 0;
+            float minOrderDiscountAmount = 0;
+
+            for (int i = 0; i < minOrderDiscounts.size(); i++) {
+
+                if (Float.parseFloat(minOrderDiscounts.get(i).getMinOrderAmount()) <= totalAmount && minOrderDiscountAmount < Float.parseFloat(minOrderDiscounts.get(i).getMinOrderAmount())) {
+
+                    discountId = minOrderDiscounts.get(i).getDiscountId();
+                    minOrderDiscount = Float.parseFloat(minOrderDiscounts.get(i).getDiscountPercentage());
+                    minOrderDiscountAmount = Float.parseFloat(minOrderDiscounts.get(i).getMinOrderAmount());
+                }
+            }
+
+            Log.d("minOrderDiscount Final", ">>" + minOrderDiscount);
+
+            if (minOrderDiscount != 0F) {
+                discountAmount += totalAmount * minOrderDiscount / 100;
+            }
+        }
+
+        Log.d("totalAmount Final", ">>" + totalAmount);
+        Log.d("discountAmount Final", ">>" + discountAmount);
+
+        return discountAmount;
+    }
+
     @Override
     public void onBasketClear() {
         finish();
@@ -417,6 +502,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
         float totalAmount = 0;
 
+        Log.d("Total cartLists size", ">>" + cartLists.size());
+
         for (int i = 0; i < cartLists.size(); i++) {
 
             CartList cartItem = cartLists.get(i);
@@ -427,55 +514,78 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
             totalAmount += price * quantity;
         }
 
-        if (llDeliveryCharges.getVisibility() == View.VISIBLE) {
+        boolean isSubtotal = false;
+        float discountAmount = calcDishDiscount();
+
+        if (discountAmount > 0) {
 
             tvSubtotalAmount.setText("$" + totalAmount);
+
+            isSubtotal = true;
+            llSubtotal.setVisibility(View.VISIBLE);
+            llDiscountAmount.setVisibility(View.VISIBLE);
+
+            tvDiscountAmount.setText("-$" + calcDishDiscount());
+
+            totalAmount -= discountAmount;
+
+        } else {
+            llDiscountAmount.setVisibility(View.GONE);
+        }
+
+        if (llDeliveryCharges.getVisibility() == View.VISIBLE) {
+
+            if (!isSubtotal) {
+                tvSubtotalAmount.setText("$" + totalAmount);
+            }
 
             totalAmount += Float.parseFloat(viewCartResponse.getResponse().getDeliveryCharge());
             llSubtotal.setVisibility(View.VISIBLE);
 
         } else {
-            llSubtotal.setVisibility(View.GONE);
+
+            if (!isSubtotal) {
+                llSubtotal.setVisibility(View.GONE);
+            }
         }
 
         tvTotalAmount.setText("$" + totalAmount);
     }
-//
-//    @Override
-//    public void askForClearBasket() {
-//
-////        DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
-////            @Override
-////            public void onClick(DialogInterface dialog, int which) {
-////
-////                dialog.dismiss();
-//////                                        customerMainMvpPresenter.setUserAsLoggedOut();
-//////
-//////                Intent intent = new Intent(CustomerMainActivity.this, WelcomeActivity.class);
-//////                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//////                startActivity(intent);
-////                clearBasket();
-////            }
-////        };
-////
-////        DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
-////            @Override
-////            public void onClick(DialogInterface dialog, int which) {
-////                dialog.dismiss();
-////            }
-////        };
-////
-////        DialogUtils.showAlert(this, R.mipmap.ic_logout,
-////                R.string.alert_dialog_title_logout, R.string.alert_dialog_text_logout,
-////                getResources().getString(R.string.alert_dialog_bt_yes), positiveButton,
-////                getResources().getString(R.string.alert_dialog_bt_no), negativeButton);
-//    }
+
+    public void askForClearBasket() {
+
+        DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                myBasketMvpPresenter.clearBasket();
+            }
+        };
+
+        DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        };
+
+        DialogUtils.showAlert(this,
+                R.string.alert_dialog_title_clear_basket, R.string.alert_dialog_text_clear_basket,
+                getResources().getString(R.string.alert_dialog_bt_ok), positiveButton,
+                getResources().getString(R.string.alert_dialog_bt_cancel), negativeButton);
+    }
 
     @Override
     public void itemRemovedFromBasket(int position) {
-//        cartLists.remove(position);
-        myBasketAdapter.removeItem(position);
+
+        Log.d("cartLists size Bef", ">>" + cartLists.size());
+
+        cartLists.remove(position);
+//        myBasketAdapter.removeItem(position);
         myBasketAdapter.notifyDataSetChanged();
+
+        Log.d("cartLists size Aft", ">>" + cartLists.size());
+
         updateTotalAmount();
     }
 
@@ -486,27 +596,27 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
         myBasketAdapter.notifyDataSetChanged();
 
-//        updateTotalAmount();
+        updateTotalAmount();
 
-        if (Integer.parseInt(totalQuantity) > 0) {
-
-            if (llDeliveryCharges.getVisibility() == View.VISIBLE) {
-
-                tvSubtotalAmount.setText("$" + totalAmount.replace(".00", ".0"));
-                totalAmount = Float.parseFloat(totalAmount) + Float.parseFloat(viewCartResponse.getResponse().getDeliveryCharge()) + "";
-                llSubtotal.setVisibility(View.VISIBLE);
-
-            } else {
-                llSubtotal.setVisibility(View.GONE);
-            }
-
-            tvTotalAmount.setText("$" + totalAmount.replace(".00", ".0"));
-
-//            rlBasketDetails.setVisibility(View.VISIBLE);
-        }
-//        else {
-//            rlBasketDetails.setVisibility(View.GONE);
+//        if (Integer.parseInt(totalQuantity) > 0) {
+//
+//            if (llDeliveryCharges.getVisibility() == View.VISIBLE) {
+//
+//                tvSubtotalAmount.setText("$" + totalAmount.replace(".00", ".0"));
+//                totalAmount = Float.parseFloat(totalAmount) + Float.parseFloat(viewCartResponse.getResponse().getDeliveryCharge()) + "";
+//                llSubtotal.setVisibility(View.VISIBLE);
+//
+//            } else {
+//                llSubtotal.setVisibility(View.GONE);
+//            }
+//
+//            tvTotalAmount.setText("$" + totalAmount.replace(".00", ".0"));
+//
+////            rlBasketDetails.setVisibility(View.VISIBLE);
 //        }
+////        else {
+////            rlBasketDetails.setVisibility(View.GONE);
+////        }
     }
 
     @Override
@@ -612,9 +722,13 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         String deliveryTypes[] = getResources().getStringArray(R.array.delivery_type);
         String deliveryType = viewCartResponse.getResponse().getDeliveryType();
 
+        checkoutRequest.setDiscountId(discountId);
         checkoutRequest.setUserId(AppController.get(this).getAppDataManager().getCurrentUserId());
         checkoutRequest.setDeliveryType(deliveryType);
 
+        selectedCalendar.set(Calendar.SECOND, 59);
+
+        Log.d("discountId", ">>" + discountId);
         Log.d("deliveryType", ">>" + deliveryType);
         Log.d("method", ">>" + method);
 
@@ -637,7 +751,6 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                     checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(Calendar.getInstance().getTime()));
                     checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(Calendar.getInstance().getTime()));
                 } else {
-
 
                     if (selectedCalendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
                         myBasketMvpPresenter.onError(R.string.past_time);

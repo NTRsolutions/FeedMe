@@ -169,14 +169,15 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/activity_my_basket_ll_discount_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/my_basket_ll_discount_amount_margin_top"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingEnd="@dimen/my_basket_ll_discount_amount_padding_start_end"
-                        android:paddingStart="@dimen/my_basket_ll_discount_amount_padding_start_end"
-                        android:visibility="gone">
+                        android:paddingStart="@dimen/my_basket_ll_discount_amount_padding_start_end">
 
                         <TextView
                             style="@style/TextView2"
@@ -191,7 +192,7 @@
                             style="@style/TextView3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="$20"
                             android:textColor="@color/orange"
                             android:textStyle="bold" />
 
@@ -240,6 +241,7 @@
                         android:paddingStart="@dimen/my_basket_tv_total_amount_padding_start_end">
 
                         <TextView
+                            android:id="@+id/textView4"
                             style="@style/TextView2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

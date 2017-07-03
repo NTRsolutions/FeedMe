@@ -1,6 +1,7 @@
 package com.os.foodie.ui.adapter.recyclerview;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import com.os.foodie.ui.order.restaurant.detail.OrderHistoryDetailActivity;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpPresenter;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpView;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.DialogUtils;
 
 import java.util.ArrayList;
 
@@ -73,16 +75,56 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
         holder.ivAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                restaurantOrderListMvpPresenter.acceptRejectOrder(orderLists.get(position).getOrderId(), AppConstants.ORDER_UNDER_PREPARATION, position);
+
+                DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        restaurantOrderListMvpPresenter.acceptRejectOrder(orderLists.get(position).getOrderId(), AppConstants.ORDER_UNDER_PREPARATION, position);
+                    }
+                };
+
+                DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                };
+
+                DialogUtils.showAlert(context,
+                        R.string.alert_dialog_title_accept_order, R.string.alert_dialog_text_accept_order,
+                        context.getResources().getString(R.string.alert_dialog_bt_yes), positiveButton,
+                        context.getResources().getString(R.string.alert_dialog_bt_no), negativeButton);
             }
         });
 
         holder.ivReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                restaurantOrderListMvpPresenter.acceptRejectOrder(orderLists.get(position).getOrderId(), AppConstants.ORDER_DECLINE, position);
+
+                DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        restaurantOrderListMvpPresenter.acceptRejectOrder(orderLists.get(position).getOrderId(), AppConstants.ORDER_DECLINE, position);
+                    }
+                };
+
+                DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                };
+
+                DialogUtils.showAlert(context,
+                        R.string.alert_dialog_title_reject_order, R.string.alert_dialog_text_reject_order,
+                        context.getResources().getString(R.string.alert_dialog_bt_yes), positiveButton,
+                        context.getResources().getString(R.string.alert_dialog_bt_no), negativeButton);
+
             }
         });
+
         holder.itemView.setTag(position);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

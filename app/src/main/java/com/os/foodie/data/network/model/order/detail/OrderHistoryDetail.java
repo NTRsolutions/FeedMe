@@ -51,7 +51,7 @@ public class OrderHistoryDetail {
         private String deliveryType;
         @SerializedName("discount")
         @Expose
-        private Integer discount;
+        private Float discount;
 
         public String getOrderId() {
             return orderId;
@@ -117,11 +117,11 @@ public class OrderHistoryDetail {
             this.deliveryType = deliveryType;
         }
 
-        public Integer getDiscount() {
+        public Float getDiscount() {
             return discount;
         }
 
-        public void setDiscount(Integer discount) {
+        public void setDiscount(Float discount) {
             this.discount = discount;
         }
 
