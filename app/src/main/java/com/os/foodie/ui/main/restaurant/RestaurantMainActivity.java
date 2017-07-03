@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,10 +24,12 @@ import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
+import com.os.foodie.ui.account.customer.CustomerAccountFragment;
 import com.os.foodie.ui.account.restaurant.RestaurantAccountFragment;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.discount.list.DiscountListFragment;
 import com.os.foodie.ui.earning.EarningFragment;
+import com.os.foodie.ui.home.customer.CustomerHomeFragment;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment;
 import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryFragment;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
@@ -47,7 +50,11 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
     private TextView tvCurrentUserName;
     private CircleImageView ivRestaurantLogo;
 
+    private boolean isBackPress;
+
     private Toolbar toolbar;
+
+    public NavigationView navigationView;
 
     private RestaurantMainMvpPresenter<RestaurantMainMvpView> restaurantMainMvpPresenter;
 
@@ -68,7 +75,7 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         ivRestaurantLogo = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_restaurant_main_civ_profile_pic);
@@ -77,10 +84,33 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
         setRestaurantLogo();
         setCustomerName();
 
-        if (AppController.get(this).getAppDataManager().isCurrentUserInfoInitialized())
-            replaceFragment(RestaurantOrderListFragment.newInstance(), RestaurantOrderListFragment.TAG);
-        else
+        setUp();
+
+        if (AppController.get(this).getAppDataManager().isCurrentUserInfoInitialized()) {
+//            replaceFragment(RestaurantOrderListFragment.newInstance(), RestaurantOrderListFragment.TAG);
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .disallowAddToBackStack()
+                    .add(R.id.content_restaurant_main_cl_fragment, RestaurantOrderListFragment.newInstance(), RestaurantOrderListFragment.TAG)
+                    .commit();
+
+        } else {
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .disallowAddToBackStack()
+                    .add(R.id.content_restaurant_main_cl_fragment, RestaurantOrderListFragment.newInstance(), RestaurantOrderListFragment.TAG)
+                    .commit();
+
             replaceFragment(SetupRestaurantProfileFragment.newInstance(null), SetupRestaurantProfileFragment.TAG);
+
+//            getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .disallowAddToBackStack()
+//                    .add(R.id.content_restaurant_main_cl_fragment, SetupRestaurantProfileFragment.newInstance(null), SetupRestaurantProfileFragment.TAG)
+//                    .commit();
+        }
     }
 
     public void initPresenter() {
@@ -100,6 +130,11 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+
+            if (isBackPress) {
+                finish();
+            }
+
             super.onBackPressed();
         }
     }
@@ -148,6 +183,8 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
             replaceFragment(RestaurantOrderHistoryFragment.newInstance(), RestaurantOrderHistoryFragment.TAG);
 
         } else if (id == R.id.nav_order_list) {
+
+            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
             replaceFragment(RestaurantOrderListFragment.newInstance(), RestaurantOrderListFragment.TAG);
 
@@ -205,16 +242,103 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
     @Override
     protected void setUp() {
 
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+
+                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content_restaurant_main_cl_fragment);
+
+                if (fragment instanceof RestaurantOrderListFragment) {
+
+                    isBackPress = true;
+
+                    Log.d("fragment", ">>RestaurantOrderListFragment");
+
+                    navigationView.setCheckedItem(R.id.nav_order_list);
+                    getSupportActionBar().setTitle(getString(R.string.action_order_list));
+
+                } else if (fragment instanceof RestaurantAccountFragment) {
+
+                    isBackPress = false;
+
+                    Log.d("fragment", ">>RestaurantAccountFragment");
+
+                    navigationView.setCheckedItem(R.id.nav_account);
+                    getSupportActionBar().setTitle(getString(R.string.action_my_account));
+
+                } else if (fragment instanceof ShowRestaurantProfileFragment) {
+
+                    isBackPress = false;
+
+                    Log.d("fragment", ">>ShowRestaurantProfileFragment");
+
+                    navigationView.setCheckedItem(R.id.nav_restaurant_profile);
+                    getSupportActionBar().setTitle(getString(R.string.action_restaurant_profile));
+
+                } else if (fragment instanceof RestaurantOrderHistoryFragment) {
+
+                    isBackPress = false;
+
+                    Log.d("fragment", ">>RestaurantOrderHistoryFragment");
+
+                    navigationView.setCheckedItem(R.id.nav_order_history);
+                    getSupportActionBar().setTitle(getString(R.string.action_order_history));
+
+                } else if (fragment instanceof RestaurantMenuFragment) {
+
+                    isBackPress = false;
+
+                    Log.d("fragment", ">>RestaurantMenuFragment");
+
+                    navigationView.setCheckedItem(R.id.nav_menu_management);
+                    getSupportActionBar().setTitle(getString(R.string.action_menu_management));
+
+                } else if (fragment instanceof DiscountListFragment) {
+
+                    isBackPress = false;
+
+                    Log.d("fragment", ">>DiscountListFragment");
+
+                    navigationView.setCheckedItem(R.id.nav_discount_management);
+                    getSupportActionBar().setTitle(getString(R.string.action_discount_mangement));
+
+                } else if (fragment instanceof EarningFragment) {
+
+                    isBackPress = false;
+
+                    Log.d("fragment", ">>EarningFragment");
+
+                    navigationView.setCheckedItem(R.id.nav_view_earning);
+                    getSupportActionBar().setTitle(getString(R.string.action_view_earning));
+
+                } else if (fragment instanceof SettingsFragment) {
+
+                    isBackPress = false;
+
+                    Log.d("fragment", ">>SettingsFragment");
+
+                    navigationView.setCheckedItem(R.id.nav_settings);
+                    getSupportActionBar().setTitle(getString(R.string.action_settings));
+
+                }
+            }
+        });
     }
 
     public void replaceFragment(Fragment fragment, String TAG) {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .disallowAddToBackStack()
-//                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .replace(R.id.content_restaurant_main_cl_fragment, fragment, TAG)
+                .add(R.id.content_restaurant_main_cl_fragment, fragment, TAG)
+                .addToBackStack(TAG)
                 .commit();
+//
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .disallowAddToBackStack()
+////                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+//                .replace(R.id.content_restaurant_main_cl_fragment, fragment, TAG)
+//                .commit();
     }
 
     @Override

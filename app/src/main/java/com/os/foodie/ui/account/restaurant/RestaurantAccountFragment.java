@@ -105,6 +105,7 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         super.onCreateOptionsMenu(menu, inflater);
         getActivity().getMenuInflater().inflate(R.menu.menu_with_edit, menu);
     }

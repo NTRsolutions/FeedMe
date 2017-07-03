@@ -9,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -61,6 +63,8 @@ public class RestaurantMenuFragment extends BaseFragment implements RestaurantMe
         View view = inflater.inflate(R.layout.fragment_restaurant_menu, container, false);
 
 //        ((RestaurantMainActivity) getActivity()).setTitle(getActivity().getResources().getString(R.string.title_fragment_restaurant_menu));
+
+        setHasOptionsMenu(true);
 
         initPresenter();
 //        restaurantMenuMvpPresenter = new RestaurantMenuPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
@@ -120,6 +124,13 @@ public class RestaurantMenuFragment extends BaseFragment implements RestaurantMe
         super.onResume();
         restaurantMenuMvpPresenter.getRestaurantMenuList();
         ((RestaurantMainActivity) getActivity()).setTitle(getResources().getString(R.string.title_fragment_restaurant_menu));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
+        getActivity().getMenuInflater().inflate(R.menu.menu_blank, menu);
     }
 
     @Override

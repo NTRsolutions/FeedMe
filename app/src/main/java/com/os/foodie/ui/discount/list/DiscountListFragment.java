@@ -9,6 +9,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -27,8 +29,7 @@ import java.util.ArrayList;
  * Created by abhinava on 6/26/2017.
  */
 
-public class DiscountListFragment extends BaseFragment implements DiscountListMvpView,View.OnClickListener
-{
+public class DiscountListFragment extends BaseFragment implements DiscountListMvpView, View.OnClickListener {
     public static final String TAG = "DiscountListFragment";
 
     private TextView tvAlert;
@@ -56,15 +57,18 @@ public class DiscountListFragment extends BaseFragment implements DiscountListMv
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_restaurant_discount_list, container, false);
-        context=getActivity();
+
+        setHasOptionsMenu(true);
+
+        context = getActivity();
+
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_restaurant_discount_list_recyclerview);
-        add_new_discount_fab=(FloatingActionButton)view.findViewById(R.id.add_new_discount_fab);
+        add_new_discount_fab = (FloatingActionButton) view.findViewById(R.id.add_new_discount_fab);
         tvAlert = (TextView) view.findViewById(R.id.fragment_restaurant_discount_list_tv_alert);
 
         discountLists = new ArrayList<DiscountList>();
 
         add_new_discount_fab.setOnClickListener(this);
-
 
         initPresenter();
         discountListMvpPresenter.onAttach(this);
@@ -72,12 +76,12 @@ public class DiscountListFragment extends BaseFragment implements DiscountListMv
         return view;
     }
 
-    public void initPresenter()
-    {
+    public void initPresenter() {
         discountListMvpPresenter = new DiscountListPresenter<>(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         discountListMvpPresenter.onAttach(this);
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -86,34 +90,36 @@ public class DiscountListFragment extends BaseFragment implements DiscountListMv
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
+        getActivity().getMenuInflater().inflate(R.menu.menu_blank, menu);
+    }
+
+    @Override
     public void onDestroyView() {
         discountListMvpPresenter.onDetach();
         super.onDestroyView();
     }
-
 
     @Override
     protected void setUp(View view) {
 
     }
 
-
     @Override
     public void onClick(View v) {
-        if(v==add_new_discount_fab)
-        {
-            Intent intent=new Intent(context, DiscountAddActivity.class);
+        if (v == add_new_discount_fab) {
+            Intent intent = new Intent(context, DiscountAddActivity.class);
             startActivity(intent);
         }
     }
 
     @Override
-    public void onShowDiscountList(ArrayList<DiscountList> discountLists)
-    {
-        this.discountLists=discountLists;
+    public void onShowDiscountList(ArrayList<DiscountList> discountLists) {
+        this.discountLists = discountLists;
 
-        if(discountLists.size()>0)
-        {
+        if (discountLists.size() > 0) {
             discountListAdapter = new DiscountListAdapter(getContext(), discountListMvpPresenter, this.discountLists);
 
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -125,9 +131,7 @@ public class DiscountListFragment extends BaseFragment implements DiscountListMv
             recyclerView.setAdapter(discountListAdapter);
             tvAlert.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
-        }
-        else
-        {
+        } else {
             tvAlert.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         }

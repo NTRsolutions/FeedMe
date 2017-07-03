@@ -7,6 +7,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +55,8 @@ public class EarningFragment extends BaseFragment implements EarningMvpView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_earning, container, false);
+
+        setHasOptionsMenu(true);
 
         initPresenter();
         earningMvpPresenter.onAttach(this);
@@ -106,6 +110,13 @@ public class EarningFragment extends BaseFragment implements EarningMvpView {
     protected void setUp(View view) {
         tvAlert = (TextView) view.findViewById(R.id.activity_earning_tv_empty_alert);
         recyclerView = (RecyclerView) view.findViewById(R.id.activity_earning_recyclerview);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
+        getActivity().getMenuInflater().inflate(R.menu.menu_blank, menu);
     }
 
     @Override

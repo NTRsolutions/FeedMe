@@ -6,6 +6,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -57,6 +59,8 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
 
         View view = inflater.inflate(R.layout.fragment_restaurant_order_list, container, false);
 
+        setHasOptionsMenu(true);
+
         initPresenter();
 //        restaurantOrderListMvpPresenter = new RestaurantOrderListPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         restaurantOrderhistoryMvpPresenter.onAttach(this);
@@ -96,6 +100,13 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
     public void onResume() {
         super.onResume();
         ((RestaurantMainActivity) getActivity()).setTitle(getString(R.string.title_fragment_restaurant_order_list));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
+        getActivity().getMenuInflater().inflate(R.menu.menu_blank, menu);
     }
 
     @Override

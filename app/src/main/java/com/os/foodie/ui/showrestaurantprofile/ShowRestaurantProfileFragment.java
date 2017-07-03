@@ -166,6 +166,7 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         super.onCreateOptionsMenu(menu, inflater);
         getActivity().getMenuInflater().inflate(R.menu.menu_with_edit, menu);
     }

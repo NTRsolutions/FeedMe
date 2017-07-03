@@ -38,12 +38,13 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
     private TextView tvCurrentUserName;
 
+    private boolean isBackPress;
+
     private Toolbar toolbar;
 
     public NavigationView navigationView;
 
     private CustomerMainMvpPresenter<CustomerMainMvpView> customerMainMvpPresenter;
-    private boolean isBackPress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
