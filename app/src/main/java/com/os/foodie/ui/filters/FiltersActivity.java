@@ -89,7 +89,7 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
         setUp();
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -230,6 +230,29 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
             filters.setTime(simpleDateFormat.format(calendar.getTime()));
+
+            String deliveryTypes[] = getResources().getStringArray(R.array.delivery_type);
+
+            if (ctvPickup.isChecked() && ctvDeliver.isChecked()) {
+
+                filters.setDeliveryType(deliveryTypes[2]);
+
+            } else if (ctvDeliver.isChecked()) {
+
+                filters.setDeliveryType(deliveryTypes[1]);
+
+            } else if (ctvPickup.isChecked()) {
+
+                filters.setDeliveryType(deliveryTypes[0]);
+            }
+        }
+
+        if (ctvOffer.isChecked()) {
+
+            filters.setIsDiscount("1");
+
+        } else {
+            filters.setIsDiscount("0");
         }
 
         if (cuisineTypesChecked != null && cuisineTypesChecked.size() > 0) {
@@ -308,6 +331,34 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
                     cuisineType.setChecked(true);
 
                     cuisineTypesChecked.add(cuisineType);
+                }
+            }
+
+            if (filters.getDeliveryType() != null && !filters.getDeliveryType().isEmpty()) {
+
+                String deliveryTypes[] = getResources().getStringArray(R.array.delivery_type);
+
+                if (filters.getDeliveryType().equalsIgnoreCase(deliveryTypes[2])) {
+
+                    ctvDeliver.setChecked(true);
+                    ctvPickup.setChecked(true);
+
+                } else if (filters.getDeliveryType().equalsIgnoreCase(deliveryTypes[1])) {
+
+                    ctvDeliver.setChecked(true);
+                    ctvPickup.setChecked(false);
+
+                } else if (filters.getDeliveryType().equalsIgnoreCase(deliveryTypes[0])) {
+
+                    ctvDeliver.setChecked(false);
+                    ctvPickup.setChecked(true);
+                }
+            }
+
+            if (filters.getIsDiscount() != null && !filters.getIsDiscount().isEmpty()) {
+
+                if(filters.getIsDiscount().equals("1")){
+                    ctvOffer.setChecked(true);
                 }
             }
         }

@@ -31,6 +31,9 @@ public class Filters implements Parcelable {
     @SerializedName("cuisine_type")
     @Expose
     private String cuisineTypes;
+    @SerializedName("is_discount")
+    @Expose
+    private String isDiscount;
     @Expose(serialize = false, deserialize = false)
     private transient String cuisineNames;
     @Expose(serialize = false, deserialize = false)
@@ -51,6 +54,7 @@ public class Filters implements Parcelable {
             instance.minDistance = ((String) in.readValue((String.class.getClassLoader())));
             instance.maxDistance = ((String) in.readValue((String.class.getClassLoader())));
             instance.cuisineTypes = ((String) in.readValue((String.class.getClassLoader())));
+            instance.isDiscount = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -74,8 +78,9 @@ public class Filters implements Parcelable {
      * @param deliveryType
      * @param minOrderAmount
      * @param cuisineTypes
+     * @param isDiscount
      */
-    public Filters(String minOrderAmount, String maxOrderAmount, String deliveryType, String time, String minDistance, String maxDistance, String cuisineTypes) {
+    public Filters(String minOrderAmount, String maxOrderAmount, String deliveryType, String time, String minDistance, String maxDistance, String cuisineTypes, String isDiscount) {
         super();
         this.minOrderAmount = minOrderAmount;
         this.maxOrderAmount = maxOrderAmount;
@@ -84,6 +89,7 @@ public class Filters implements Parcelable {
         this.minDistance = minDistance;
         this.maxDistance = maxDistance;
         this.cuisineTypes = cuisineTypes;
+        this.isDiscount = isDiscount;
     }
 
     public String getMinOrderAmount() {
@@ -150,6 +156,14 @@ public class Filters implements Parcelable {
         this.cuisineNames = cuisineNames;
     }
 
+    public String getIsDiscount() {
+        return isDiscount;
+    }
+
+    public void setIsDiscount(String isDiscount) {
+        this.isDiscount = isDiscount;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(minOrderAmount);
         dest.writeValue(maxOrderAmount);
@@ -158,6 +172,7 @@ public class Filters implements Parcelable {
         dest.writeValue(minDistance);
         dest.writeValue(maxDistance);
         dest.writeValue(cuisineTypes);
+        dest.writeValue(isDiscount);
     }
 
     public int describeContents() {
@@ -185,6 +200,9 @@ public class Filters implements Parcelable {
             isClear = false;
             return false;
         } else if (cuisineTypes == null || cuisineTypes.isEmpty()) {
+            isClear = false;
+            return false;
+        } else if (isDiscount == null || cuisineTypes.isEmpty()) {
             isClear = false;
             return false;
         }
