@@ -70,7 +70,9 @@ import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuRe
 import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuResponse;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemRequest;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemResponse;
-import com.os.foodie.data.network.model.order.detail.OrderHistoryDetail;
+import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryRequest;
+import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryResponse;
+import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderRequest;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderResponse;
 import com.os.foodie.data.network.model.orderlist.show.GetOrderListRequest;
@@ -436,12 +438,18 @@ public class AppDataManager implements DataManager {
 
     @Override
     public Observable<GetOrderListResponse> getOrderHistoryList(GetOrderListRequest getOrderListRequest) {
-        return  apiHelper.getOrderHistoryList(getOrderListRequest);
+        return apiHelper.getOrderHistoryList(getOrderListRequest);
+    }
+
+    @Override
+    public Observable<GetOrderListResponse> getCustomerOrderHistoryList(CustomerOrderHistoryRequest customerOrderHistoryRequest) {
+//    public Observable<CustomerOrderHistoryResponse> getCustomerOrderHistoryList(CustomerOrderHistoryRequest customerOrderHistoryRequest) {
+        return apiHelper.getCustomerOrderHistoryList(customerOrderHistoryRequest);
     }
 
     @Override
     public Observable<OrderHistoryDetail> getOrderHistoryDetail(String orderId) {
-        return  apiHelper.getOrderHistoryDetail(orderId);
+        return apiHelper.getOrderHistoryDetail(orderId);
     }
 
     //    private final Context mContext;

@@ -72,7 +72,9 @@ import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuRe
 import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuResponse;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemRequest;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemResponse;
-import com.os.foodie.data.network.model.order.detail.OrderHistoryDetail;
+import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryRequest;
+import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryResponse;
+import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderRequest;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderResponse;
 import com.os.foodie.data.network.model.orderlist.show.GetOrderListRequest;
@@ -1020,6 +1022,27 @@ public class AppApiHelpter implements ApiHelper {
         Log.d("jsonObject", ">>" + jsonObject.toString());
 
         return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.ORDER_HISTORY)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(GetOrderListResponse.class);
+    }
+
+    @Override
+    public Observable<GetOrderListResponse> getCustomerOrderHistoryList(CustomerOrderHistoryRequest customerOrderHistoryRequest) {
+//    public Observable<CustomerOrderHistoryResponse> getCustomerOrderHistoryList(CustomerOrderHistoryRequest customerOrderHistoryRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(customerOrderHistoryRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.CUSTOMER_ORDER_HISTORY)
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(GetOrderListResponse.class);

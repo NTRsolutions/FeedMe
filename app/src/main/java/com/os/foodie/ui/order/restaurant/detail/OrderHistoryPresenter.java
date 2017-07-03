@@ -4,16 +4,8 @@ import android.util.Log;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
-import com.os.foodie.data.network.model.deliveryaddress.delete.DeleteAddressRequest;
-import com.os.foodie.data.network.model.deliveryaddress.delete.DeleteAddressResponse;
-import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressRequest;
-import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressResponse;
-import com.os.foodie.data.network.model.order.detail.OrderHistoryDetail;
-import com.os.foodie.data.network.model.orderlist.show.GetOrderListRequest;
-import com.os.foodie.data.network.model.orderlist.show.GetOrderListResponse;
+import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
 import com.os.foodie.ui.base.BasePresenter;
-import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressMvpPresenter;
-import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressMvpView;
 import com.os.foodie.utils.NetworkUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

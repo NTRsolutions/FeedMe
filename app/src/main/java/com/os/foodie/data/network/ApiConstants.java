@@ -79,6 +79,7 @@ public class ApiConstants {
     public static final String DELETE_DISCOUNT = "delete_discount";
 
     public static final String ORDER_HISTORY = "order_history";
+    public static final String CUSTOMER_ORDER_HISTORY = "customer_order_history";
     public static final String ORDER_DETAIL = "order_detail";
 
     public static final String LOGOUT = "logout";

@@ -21,6 +21,7 @@ import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.recyclerview.RestaurantOrderHistoryAdapter;
 import com.os.foodie.ui.adapter.recyclerview.RestaurantOrderListAdapter;
 import com.os.foodie.ui.base.BaseFragment;
+import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpPresenter;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpView;
@@ -99,7 +100,12 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
     @Override
     public void onResume() {
         super.onResume();
-        ((RestaurantMainActivity) getActivity()).setTitle(getString(R.string.title_fragment_restaurant_order_list));
+
+        if (getActivity() instanceof RestaurantMainActivity) {
+            ((RestaurantMainActivity) getActivity()).setTitle(getString(R.string.title_fragment_restaurant_order_list));
+        } else {
+            ((CustomerMainActivity) getActivity()).setTitle(getString(R.string.title_fragment_restaurant_order_list));
+        }
     }
 
     @Override

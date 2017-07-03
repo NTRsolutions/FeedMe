@@ -19,7 +19,7 @@ import com.os.foodie.R;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.cart.view.CartList;
-import com.os.foodie.data.network.model.order.detail.OrderHistoryDetail;
+import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.recyclerview.MyBasketAdapter;
 import com.os.foodie.ui.base.BaseActivity;

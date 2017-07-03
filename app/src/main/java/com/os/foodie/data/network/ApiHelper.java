@@ -69,7 +69,9 @@ import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuRe
 import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuResponse;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemRequest;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemResponse;
-import com.os.foodie.data.network.model.order.detail.OrderHistoryDetail;
+import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryRequest;
+import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryResponse;
+import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderRequest;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderResponse;
 import com.os.foodie.data.network.model.orderlist.show.GetOrderListRequest;
@@ -200,6 +202,9 @@ public interface ApiHelper {
 
 //    Monika
 Observable<GetOrderListResponse> getOrderHistoryList(GetOrderListRequest getOrderListRequest);
+
+Observable<GetOrderListResponse> getCustomerOrderHistoryList(CustomerOrderHistoryRequest customerOrderHistoryRequest);
+//Observable<CustomerOrderHistoryResponse> getCustomerOrderHistoryList(CustomerOrderHistoryRequest customerOrderHistoryRequest);
 
     Observable<OrderHistoryDetail> getOrderHistoryDetail(String orderId);
 

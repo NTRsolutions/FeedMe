@@ -24,6 +24,7 @@ import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
 import com.os.foodie.ui.home.customer.CustomerHomeFragment;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
+import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryFragment;
 import com.os.foodie.ui.payment.show.PaymentMethodActivity;
 import com.os.foodie.ui.setting.SettingsFragment;
 import com.os.foodie.ui.welcome.WelcomeActivity;
@@ -147,6 +148,8 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
         } else if (id == R.id.nav_order_history) {
 
+            replaceFragment(RestaurantOrderHistoryFragment.newInstance(), RestaurantOrderHistoryFragment.TAG);
+
         } else if (id == R.id.nav_payment) {
 
             Intent intent = new Intent(this, PaymentMethodActivity.class);
@@ -213,6 +216,15 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
                     navigationView.setCheckedItem(R.id.nav_home);
                     getSupportActionBar().setTitle(getString(R.string.action_home));
+
+                } else if (fragment instanceof RestaurantOrderHistoryFragment) {
+
+                    isBackPress = false;
+
+                    Log.d("fragment", ">>RestaurantOrderHistoryFragment");
+
+                    navigationView.setCheckedItem(R.id.nav_order_history);
+                    getSupportActionBar().setTitle(getString(R.string.action_order_history));
 
                 } else if (fragment instanceof CustomerAccountFragment) {
 
