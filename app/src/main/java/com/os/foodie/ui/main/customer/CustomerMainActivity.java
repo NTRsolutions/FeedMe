@@ -156,11 +156,8 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
                 public void onClick(DialogInterface dialog, int which) {
 
                     dialog.dismiss();
-                    customerMainMvpPresenter.setUserAsLoggedOut();
 
-                    Intent intent = new Intent(CustomerMainActivity.this, WelcomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    customerMainMvpPresenter.logout();
                 }
             };
 
@@ -231,5 +228,14 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
     public void setCustomerName() {
         tvCurrentUserName.setText(customerMainMvpPresenter.getCurrentUserName());
+    }
+
+    @Override
+    public void doLogout() {
+//        customerMainMvpPresenter.setUserAsLoggedOut();
+
+        Intent intent = new Intent(CustomerMainActivity.this, WelcomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

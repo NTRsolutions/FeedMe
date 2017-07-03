@@ -6,5 +6,7 @@ public interface CustomerMainMvpPresenter<V extends CustomerMainMvpView> extends
 
     String getCurrentUserName();
 
+    void logout();
+
     void dispose();
 }

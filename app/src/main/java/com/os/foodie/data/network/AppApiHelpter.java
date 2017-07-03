@@ -62,6 +62,8 @@ import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationRequest;
 import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationResponse;
 import com.os.foodie.data.network.model.login.LoginRequest;
 import com.os.foodie.data.network.model.login.LoginResponse;
+import com.os.foodie.data.network.model.logout.LogoutRequest;
+import com.os.foodie.data.network.model.logout.LogoutResponse;
 import com.os.foodie.data.network.model.menu.add.AddMenuItemRequest;
 import com.os.foodie.data.network.model.menu.add.AddMenuItemResponse;
 import com.os.foodie.data.network.model.menu.delete.DeleteMenuItemRequest;
@@ -908,6 +910,26 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(AcceptRejectOrderResponse.class);
+    }
+
+    @Override
+    public Observable<LogoutResponse> logout(LogoutRequest logoutRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(logoutRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.LOGOUT)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(LogoutResponse.class);
     }
 
     //Abhinav

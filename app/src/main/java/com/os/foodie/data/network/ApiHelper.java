@@ -59,6 +59,8 @@ import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationRequest;
 import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationResponse;
 import com.os.foodie.data.network.model.login.LoginRequest;
 import com.os.foodie.data.network.model.login.LoginResponse;
+import com.os.foodie.data.network.model.logout.LogoutRequest;
+import com.os.foodie.data.network.model.logout.LogoutResponse;
 import com.os.foodie.data.network.model.menu.add.AddMenuItemRequest;
 import com.os.foodie.data.network.model.menu.add.AddMenuItemResponse;
 import com.os.foodie.data.network.model.menu.delete.DeleteMenuItemRequest;
@@ -183,6 +185,8 @@ public interface ApiHelper {
     Observable<GetOrderListResponse> getOrderList(GetOrderListRequest getOrderListRequest);
 
     Observable<AcceptRejectOrderResponse> acceptRejectOrder(AcceptRejectOrderRequest acceptRejectOrderRequest);
+
+    Observable<LogoutResponse> logout(LogoutRequest logoutRequest);
 
 //    Abhi
 

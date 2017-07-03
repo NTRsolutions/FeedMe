@@ -174,11 +174,8 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
                 public void onClick(DialogInterface dialog, int which) {
 
                     dialog.dismiss();
-                    restaurantMainMvpPresenter.setUserAsLoggedOut();
 
-                    Intent intent = new Intent(RestaurantMainActivity.this, WelcomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    restaurantMainMvpPresenter.logout();
                 }
             };
 
@@ -281,5 +278,15 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
 
     public void navigateToShowRestaurantProfile() {
         replaceFragment(ShowRestaurantProfileFragment.newInstance(), ShowRestaurantProfileFragment.TAG);
+    }
+
+    @Override
+    public void doLogout() {
+
+//        restaurantMainMvpPresenter.setUserAsLoggedOut();
+
+        Intent intent = new Intent(RestaurantMainActivity.this, WelcomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

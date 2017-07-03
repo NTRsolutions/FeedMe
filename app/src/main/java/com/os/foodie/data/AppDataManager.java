@@ -60,6 +60,8 @@ import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationRequest;
 import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationResponse;
 import com.os.foodie.data.network.model.login.LoginRequest;
 import com.os.foodie.data.network.model.login.LoginResponse;
+import com.os.foodie.data.network.model.logout.LogoutRequest;
+import com.os.foodie.data.network.model.logout.LogoutResponse;
 import com.os.foodie.data.network.model.menu.add.AddMenuItemRequest;
 import com.os.foodie.data.network.model.menu.add.AddMenuItemResponse;
 import com.os.foodie.data.network.model.menu.delete.DeleteMenuItemRequest;
@@ -403,6 +405,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<AcceptRejectOrderResponse> acceptRejectOrder(AcceptRejectOrderRequest acceptRejectOrderRequest) {
         return apiHelper.acceptRejectOrder(acceptRejectOrderRequest);
+    }
+
+    @Override
+    public Observable<LogoutResponse> logout(LogoutRequest logoutRequest) {
+        return apiHelper.logout(logoutRequest);
     }
 
 //    Abhinav

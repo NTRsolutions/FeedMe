@@ -8,5 +8,7 @@ public interface RestaurantMainMvpPresenter<V extends RestaurantMainMvpView> ext
 
     String getRestaurantLogoURL();
 
+    void logout();
+
     void dispose();
 }
