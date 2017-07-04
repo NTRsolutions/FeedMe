@@ -82,5 +82,8 @@ public class ApiConstants {
     public static final String CUSTOMER_ORDER_HISTORY = "customer_order_history";
     public static final String ORDER_DETAIL = "order_detail";
 
+    public static final String SET_MERCHANT_DETAIL = "set_restaurant_account_detail";
+    public static final String GET_MERCHANT_DETAIL = "get_restaurant_account_detail";
+
     public static final String LOGOUT = "logout";
 }

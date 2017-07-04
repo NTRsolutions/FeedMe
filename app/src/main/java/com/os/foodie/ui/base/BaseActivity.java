@@ -21,6 +21,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
 
     private ProgressDialog mProgressDialog;
 
+//    @Override
+//    protected void attachBaseContext(Context newBase) {
+//        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+//    }
+
     @Override
     public void showLoading() {
         hideLoading();

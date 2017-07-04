@@ -111,6 +111,12 @@
     <string name="past_time">Order can\'t be placed for past time</string>
     <string name="invalid_expiry_month">Invalid expiry month</string>
     <string name="invalid_expiry_year">Invalid expiry year</string>
+    <string name="empty_account_holder_name">Please provide account holder name</string>
+    <string name="empty_bank_name">Please provide bank name</string>
+    <string name="empty_account_number">Please provide account number</string>
+    <string name="empty_confirm_account_number">Please confirm account number</string>
+    <string name="not_match_account_number">Account number do not match</string>
+    <string name="empty_ifsc">Please provide ifsc code</string>
 
     <!--Slide-->
     <array name="slide_title_text">

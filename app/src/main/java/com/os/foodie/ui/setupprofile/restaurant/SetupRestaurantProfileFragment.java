@@ -13,6 +13,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -72,7 +74,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class SetupRestaurantProfileFragment extends BaseFragment implements AddCuisineTypeCallback, SetupRestaurantProfileMvpView, View.OnClickListener {
 
-    public static final String TAG = "ShowRestaurantProfileFragment";
+    public static final String TAG = "SetupRestaurantProfileFragment";
 
     private ImageView ivPhotos;
     private GridLayout glPhotos;
@@ -128,6 +130,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_setup_restaurant_profile, container, false);
+
+        setHasOptionsMenu(true);
 
         restaurantMainActivity = (RestaurantMainActivity) getActivity();
 
@@ -300,6 +304,13 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         } else if (v.getId() == btCancel.getId()) {
             restaurantMainActivity.navigateToShowRestaurantProfile();
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_blank, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

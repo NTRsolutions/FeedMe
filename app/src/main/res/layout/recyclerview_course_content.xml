@@ -2,6 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recyclerview_course_content_ll_main"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
     <!--android:layout_marginBottom="@dimen/course_content_ll_main_margin_top_bottom"-->

@@ -59,6 +59,10 @@ public class AppController extends MultiDexApplication {
         FontOverride.setDefaultFont(this, "SERIF", "fonts/dosis_medium.ttf");
         FontOverride.setDefaultFont(this, "SANS_SERIF", "fonts/dosis_light.ttf");
 
+//        Typekit.getInstance()
+//                .addNormal(Typekit.createFromAsset(this, "fonts/dosis_book.ttf"))
+//                .addCustom1(Typekit.createFromAsset(this, "fonts/dosis_semibold.ttf"));
+
         appApiHelpter = new AppApiHelpter();
         compositeDisposable = new CompositeDisposable();
         appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);

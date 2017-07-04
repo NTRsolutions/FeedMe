@@ -251,11 +251,13 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
     public void replaceFragment(Fragment fragment, String TAG) {
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.content_customer_main_cl_fragment, fragment, TAG)
-                    .addToBackStack(TAG)
-                    .commit();
+        getSupportFragmentManager().popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.content_customer_main_cl_fragment, fragment, TAG)
+                .addToBackStack(TAG)
+                .commit();
     }
 
     @Override

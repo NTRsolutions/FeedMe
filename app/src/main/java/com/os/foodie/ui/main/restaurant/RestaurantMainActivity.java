@@ -269,6 +269,15 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
                     navigationView.setCheckedItem(R.id.nav_account);
                     getSupportActionBar().setTitle(getString(R.string.action_my_account));
 
+                } else if (fragment instanceof SetupRestaurantProfileFragment) {
+
+                    isBackPress = false;
+
+                    Log.d("fragment", ">>SetupRestaurantProfileFragment");
+
+                    navigationView.setCheckedItem(R.id.nav_restaurant_profile);
+                    getSupportActionBar().setTitle(getString(R.string.action_restaurant_profile));
+
                 } else if (fragment instanceof ShowRestaurantProfileFragment) {
 
                     isBackPress = false;
@@ -331,13 +340,14 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
 
                     navigationView.setCheckedItem(R.id.nav_settings);
                     getSupportActionBar().setTitle(getString(R.string.action_settings));
-
                 }
             }
         });
     }
 
     public void replaceFragment(Fragment fragment, String TAG) {
+
+        getSupportFragmentManager().popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
         getSupportFragmentManager()
                 .beginTransaction()

@@ -13,6 +13,10 @@ import android.widget.EditText;
 import com.os.foodie.R;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailResponse;
+import com.os.foodie.data.network.model.merchantdetails.get.Response;
+import com.os.foodie.data.network.model.merchantdetails.get.Restaurant;
+import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailRequest;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
@@ -25,8 +29,10 @@ public class MerchantDetailFragments extends BaseFragment implements MerchantDet
 
     public static final String TAG = "MerchantDetailFragments";
 
-    private EditText etAccountHolderName, etBankName, etAccountNumber, etIFSC;
+    private EditText etAccountHolderName, etBankName, etAccountNumber, etConfirmAccountNumber, etIFSC;
     private Button btSave, btCancel;
+
+    private GetMerchantDetailResponse merchantDetailResponse;
 
     private MerchantDetailMvpPresenter<MerchantDetailMvpView> merchantDetailMvpPresenter;
 
@@ -53,6 +59,8 @@ public class MerchantDetailFragments extends BaseFragment implements MerchantDet
 
         initView(view);
 
+        merchantDetailMvpPresenter.getMerchantDetails();
+
         return view;
     }
 
@@ -71,6 +79,7 @@ public class MerchantDetailFragments extends BaseFragment implements MerchantDet
         etAccountHolderName = (EditText) view.findViewById(R.id.fragment_merchant_details_et_account_holder_name);
         etBankName = (EditText) view.findViewById(R.id.fragment_merchant_details_et_bank_name);
         etAccountNumber = (EditText) view.findViewById(R.id.fragment_merchant_details_et_account_number);
+        etConfirmAccountNumber = (EditText) view.findViewById(R.id.fragment_merchant_details_et_confirm_account_number);
         etIFSC = (EditText) view.findViewById(R.id.fragment_merchant_details_et_ifsc_code);
 
         btSave = (Button) view.findViewById(R.id.activity_merchant_details_bt_save);
@@ -111,6 +120,7 @@ public class MerchantDetailFragments extends BaseFragment implements MerchantDet
             etAccountHolderName.setEnabled(true);
             etBankName.setEnabled(true);
             etAccountNumber.setEnabled(true);
+            etConfirmAccountNumber.setEnabled(true);
             etIFSC.setEnabled(true);
         }
 
@@ -120,11 +130,24 @@ public class MerchantDetailFragments extends BaseFragment implements MerchantDet
     @Override
     public void onClick(View v) {
 
+        hideKeyboard();
+
         if (v.getId() == btSave.getId()) {
+
+            SetMerchantDetailRequest merchantDetailRequest = new SetMerchantDetailRequest();
+
+            merchantDetailRequest.setAccountHolderName(etAccountHolderName.getText().toString());
+            merchantDetailRequest.setBankName(etBankName.getText().toString());
+            merchantDetailRequest.setAccountNumber(etAccountNumber.getText().toString());
+            merchantDetailRequest.setIfscCode(etIFSC.getText().toString());
+
+            merchantDetailMvpPresenter.setMerchantDetails(merchantDetailRequest, etConfirmAccountNumber.getText().toString());
 
         } else if (v.getId() == btCancel.getId()) {
 
             setHasOptionsMenu(true);
+
+            setMerchantDetail(merchantDetailResponse);
 
             btSave.setVisibility(View.GONE);
             btCancel.setVisibility(View.GONE);
@@ -132,18 +155,66 @@ public class MerchantDetailFragments extends BaseFragment implements MerchantDet
             etAccountHolderName.setEnabled(false);
             etBankName.setEnabled(false);
             etAccountNumber.setEnabled(false);
+            etConfirmAccountNumber.setEnabled(false);
             etIFSC.setEnabled(false);
         }
     }
 
     @Override
     protected void setUp(View view) {
-
     }
 
     @Override
     public void onDestroyView() {
         merchantDetailMvpPresenter.dispose();
         super.onDestroyView();
+    }
+
+    @Override
+    public void setMerchantDetail(GetMerchantDetailResponse merchantDetailResponse) {
+
+        this.merchantDetailResponse = merchantDetailResponse;
+
+        etAccountHolderName.setText(merchantDetailResponse.getResponse().getRestaurant().getAccountHolderName());
+        etBankName.setText(merchantDetailResponse.getResponse().getRestaurant().getBankName());
+        etAccountNumber.setText(merchantDetailResponse.getResponse().getRestaurant().getAccountNumber());
+        etConfirmAccountNumber.setText(merchantDetailResponse.getResponse().getRestaurant().getAccountNumber());
+        etIFSC.setText(merchantDetailResponse.getResponse().getRestaurant().getIfscCode());
+    }
+
+    @Override
+    public void onMerchantDetailUpdationSuccess() {
+
+        if (this.merchantDetailResponse == null) {
+            merchantDetailResponse = new GetMerchantDetailResponse();
+
+            merchantDetailResponse.setResponse(new Response());
+            merchantDetailResponse.getResponse().setRestaurant(new Restaurant());
+        }
+
+        merchantDetailResponse.getResponse().getRestaurant().setAccountHolderName(etAccountHolderName.getText().toString());
+        merchantDetailResponse.getResponse().getRestaurant().setBankName(etBankName.getText().toString());
+        merchantDetailResponse.getResponse().getRestaurant().setAccountNumber(etAccountNumber.getText().toString());
+        merchantDetailResponse.getResponse().getRestaurant().setIfscCode(etIFSC.getText().toString());
+
+
+        setHasOptionsMenu(true);
+
+        setMerchantDetail(merchantDetailResponse);
+
+        btSave.setVisibility(View.GONE);
+        btCancel.setVisibility(View.GONE);
+
+        etAccountHolderName.setEnabled(false);
+        etBankName.setEnabled(false);
+        etAccountNumber.setEnabled(false);
+        etConfirmAccountNumber.setEnabled(false);
+        etIFSC.setEnabled(false);
+    }
+
+    @Override
+    public void onMerchantDetailUpdationFail() {
+
+        setMerchantDetail(merchantDetailResponse);
     }
 }

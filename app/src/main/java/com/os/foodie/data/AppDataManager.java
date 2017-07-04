@@ -70,6 +70,10 @@ import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuRe
 import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuResponse;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemRequest;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemResponse;
+import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailRequest;
+import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailResponse;
+import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailRequest;
+import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailResponse;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryRequest;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryResponse;
 import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
@@ -412,6 +416,16 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<LogoutResponse> logout(LogoutRequest logoutRequest) {
         return apiHelper.logout(logoutRequest);
+    }
+
+    @Override
+    public Observable<SetMerchantDetailResponse> setMerchantDetail(SetMerchantDetailRequest merchantDetailRequest) {
+        return apiHelper.setMerchantDetail(merchantDetailRequest);
+    }
+
+    @Override
+    public Observable<GetMerchantDetailResponse> getMerchantDetail(GetMerchantDetailRequest merchantDetailRequest) {
+        return apiHelper.getMerchantDetail(merchantDetailRequest);
     }
 
 //    Abhinav

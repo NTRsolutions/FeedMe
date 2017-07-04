@@ -72,6 +72,10 @@ import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuRe
 import com.os.foodie.data.network.model.menu.show.restaurant.GetRestaurantMenuResponse;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemRequest;
 import com.os.foodie.data.network.model.menu.status.StatusMenuItemResponse;
+import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailRequest;
+import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailResponse;
+import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailRequest;
+import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailResponse;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryRequest;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryResponse;
 import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
@@ -932,6 +936,46 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(LogoutResponse.class);
+    }
+
+    @Override
+    public Observable<SetMerchantDetailResponse> setMerchantDetail(SetMerchantDetailRequest merchantDetailRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(merchantDetailRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.SET_MERCHANT_DETAIL)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(SetMerchantDetailResponse.class);
+    }
+
+    @Override
+    public Observable<GetMerchantDetailResponse> getMerchantDetail(GetMerchantDetailRequest merchantDetailRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(merchantDetailRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.GET_MERCHANT_DETAIL)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(GetMerchantDetailResponse.class);
     }
 
     //Abhinav
