@@ -33,30 +33,29 @@ public class DiscountListAdapter extends RecyclerView.Adapter<DiscountListAdapte
     private ArrayList<DiscountList> discountLists;
     DiscountListMvpPresenter<DiscountListMvpView> discountListMvpPresenter;
 
-    public DiscountListAdapter(Context context,DiscountListMvpPresenter<DiscountListMvpView> discountListMvpPresenter, ArrayList<DiscountList> discountLists)
-    {
+    public DiscountListAdapter(Context context, DiscountListMvpPresenter<DiscountListMvpView> discountListMvpPresenter, ArrayList<DiscountList> discountLists) {
         this.context = context;
         this.discountLists = discountLists;
-        this.discountListMvpPresenter=discountListMvpPresenter;
+        this.discountListMvpPresenter = discountListMvpPresenter;
     }
 
     class DiscountListAdapterViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView discount_tv, products_names_tv, dis_date_tv, dis_min_amount_tv;
-        LinearLayout min_amount_ll;
+        public TextView tvDiscount, tvProductsNames, tvDiscountDate, tvDiscountMinimumAmount;
+        public LinearLayout llMinAmount;
         public ImageView ivOverflow;
-
 
         public DiscountListAdapterViewHolder(View itemView) {
             super(itemView);
 
-            discount_tv = (TextView) itemView.findViewById(R.id.discount_tv);
-            products_names_tv = (TextView) itemView.findViewById(R.id.products_names_tv);
-            dis_date_tv = (TextView) itemView.findViewById(R.id.dis_date_tv);
-            dis_min_amount_tv = (TextView) itemView.findViewById(R.id.dis_min_amount_tv);
-            min_amount_ll = (LinearLayout) itemView.findViewById(R.id.min_amount_ll);
-            ivOverflow = (ImageView) itemView.findViewById(R.id.recyclerview_restaurant_discount_iv_overflow);
+            tvDiscount = (TextView) itemView.findViewById(R.id.recyclerview_discount_list_tv_discount);
+            tvProductsNames = (TextView) itemView.findViewById(R.id.recyclerview_discount_list_tv_products_names);
+            tvDiscountDate = (TextView) itemView.findViewById(R.id.recyclerview_discount_list_tv_discount_date);
+            tvDiscountMinimumAmount = (TextView) itemView.findViewById(R.id.recyclerview_discount_list_tv_discount_min_amount);
 
+            llMinAmount = (LinearLayout) itemView.findViewById(R.id.min_amount_ll);
+
+            ivOverflow = (ImageView) itemView.findViewById(R.id.recyclerview_discount_list_iv_overflow);
         }
     }
 
@@ -71,31 +70,31 @@ public class DiscountListAdapter extends RecyclerView.Adapter<DiscountListAdapte
 
         final DiscountList discountList = discountLists.get(position);
 
-        holder.discount_tv.setText(discountList.getDiscountPercentage() + "%");
+        holder.tvDiscount.setText(discountList.getDiscountPercentage() + "%");
 
-        String names="";
-        for(int i=0;i<discountList.getDishes().size();i++)
-        {
-            names=names+","+discountList.getDishes().get(i).getName();
+        String names = "";
+
+        for (int i = 0; i < discountList.getDishes().size(); i++) {
+            names = names + "," + discountList.getDishes().get(i).getName();
         }
 
-        if(names.length()>0) {
+        if (names.length() > 0) {
+
             names = names.substring(1);
-            holder.products_names_tv.setVisibility(View.VISIBLE);
-            holder.min_amount_ll.setVisibility(View.GONE);
-        }
-        else
-        {
-            holder.products_names_tv.setVisibility(View.GONE);
-            holder.min_amount_ll.setVisibility(View.VISIBLE);
+            holder.tvProductsNames.setVisibility(View.VISIBLE);
+            holder.llMinAmount.setVisibility(View.GONE);
+
+        } else {
+
+            holder.tvProductsNames.setVisibility(View.GONE);
+            holder.llMinAmount.setVisibility(View.VISIBLE);
         }
 
-        holder.products_names_tv.setText(names);
-        holder.dis_date_tv.setText(CommonUtils.ConvertDate(discountList.getStartDate(),discountList.getEndDate()));
-        holder.dis_min_amount_tv.setText(discountList.getMinOrderAmount());
+        holder.tvProductsNames.setText(names);
+        holder.tvDiscountDate.setText(CommonUtils.ConvertDate(discountList.getStartDate(), discountList.getEndDate()));
+        holder.tvDiscountMinimumAmount.setText(discountList.getMinOrderAmount());
 
-        holder.ivOverflow.setOnClickListener(new View.OnClickListener()
-        {
+        holder.ivOverflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -113,14 +112,13 @@ public class DiscountListAdapter extends RecyclerView.Adapter<DiscountListAdapte
 
                 ivStatus.setVisibility(View.GONE);
 
-
                 ivEdit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                         popupWindow.dismiss();
                         Intent intent = new Intent(context, DiscountAddActivity.class);
-                        Bundle bundle=new Bundle();
+                        Bundle bundle = new Bundle();
                         bundle.putSerializable(AppConstants.DISCOUNT_EDIT_DATA, discountList);
                         intent.putExtras(bundle);
                         context.startActivity(intent);
@@ -133,8 +131,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<DiscountListAdapte
 
                         DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which)
-                            {
+                            public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                                 popupWindow.dismiss();
                                 discountListMvpPresenter.deleteDiscountList(discountList.getDiscountId());
@@ -155,13 +152,12 @@ public class DiscountListAdapter extends RecyclerView.Adapter<DiscountListAdapte
                     }
                 });
 
-                popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_popup_background_bottom));
+                popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_popup_background_bottom));
                 popupWindow.setOutsideTouchable(true);
                 popupWindow.setFocusable(true);
                 popupWindow.showAsDropDown(v);
             }
         });
-
     }
 
     @Override

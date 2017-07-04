@@ -26,10 +26,9 @@ public class DiscountListPresenter<V extends DiscountListMvpView> extends BasePr
     }
 
     @Override
-    public void DiscountListing()
-    {
-        if (NetworkUtils.isNetworkConnected(getMvpView().getContext()))
-        {
+    public void DiscountListing() {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
             getMvpView().showLoading();
 
@@ -43,11 +42,10 @@ public class DiscountListPresenter<V extends DiscountListMvpView> extends BasePr
 
                             getMvpView().hideLoading();
 
-                            if (discountListResponse.getResponse().getStatus() == 1)
-                            {
+                            if (discountListResponse.getResponse().getStatus() == 1) {
                                 Log.d("getMessage", ">>" + discountListResponse.getResponse().getMessage());
                                 //getMvpView().onPasswordReset(forgotPasswordResponse.getResponse().getMessage());
-                                ArrayList<DiscountList> discountList=discountListResponse.getResponse().getDiscountList();
+                                ArrayList<DiscountList> discountList = discountListResponse.getResponse().getDiscountList();
                                 getMvpView().onShowDiscountList(discountList);
 
                             } else {
@@ -68,10 +66,9 @@ public class DiscountListPresenter<V extends DiscountListMvpView> extends BasePr
     }
 
     @Override
-    public void deleteDiscountList(String discount_id)
-    {
-        if (NetworkUtils.isNetworkConnected(getMvpView().getContext()))
-        {
+    public void deleteDiscountList(String discount_id) {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
             getMvpView().showLoading();
 
@@ -85,11 +82,10 @@ public class DiscountListPresenter<V extends DiscountListMvpView> extends BasePr
 
                             getMvpView().hideLoading();
 
-                            if (addDiscountResponse.getResponse().getStatus() == 1)
-                            {
+                            if (addDiscountResponse.getResponse().getStatus() == 1) {
                                 Log.d("getMessage", ">>" + addDiscountResponse.getResponse().getMessage());
                                 //getMvpView().onPasswordReset(forgotPasswordResponse.getResponse().getMessage());
-                               getMvpView().onRefreshList();
+                                getMvpView().onRefreshList();
 
                             } else {
                                 getMvpView().onError(addDiscountResponse.getResponse().getMessage());
@@ -106,5 +102,10 @@ public class DiscountListPresenter<V extends DiscountListMvpView> extends BasePr
         } else {
             getMvpView().onError(R.string.connection_error);
         }
+    }
+
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
     }
 }

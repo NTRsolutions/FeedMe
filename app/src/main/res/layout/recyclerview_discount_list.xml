@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="@dimen/recyclerview_discount_list_ll_main_padding">
+    android:padding="@dimen/discount_list_ll_main_padding">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,55 +18,54 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/discount_tv"
-                style="@style/TextView3B"
+                android:id="@+id/recyclerview_discount_list_tv_discount"
+                style="@style/TextView9"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="25%" />
+                android:layout_height="wrap_content" />
 
             <TextView
-                style="@style/TextView3B"
+                style="@style/TextView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="@string/discount_on" />
+                android:layout_marginStart="@dimen/discount_list_tv_discount_tag_margin_start"
+                android:text="@string/discount_list_tv_discount_on_tag_text" />
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/products_names_tv"
+            android:id="@+id/recyclerview_discount_list_tv_products_names"
             style="@style/TextView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/restaurant_order_tv_item_name_margin_top"
+            android:layout_marginTop="@dimen/discount_list_ll_margin_top"
             android:text="Pizza,Ice-cream,Grill Sendwich"
             android:textColor="@color/dark_grey2" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/discount_list_ll_margin_top"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="@dimen/discount_list_tv_margin_top"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@string/valid_on"
+                android:text="@string/discount_list_tv_valid_on_tag_text"
                 android:textColor="@color/dark_grey"
-                android:textSize="@dimen/restaurant_order_tv_delivery_type_tag_text_size"
+                android:textSize="@dimen/discount_list_tv_text_size"
                 android:typeface="serif" />
 
             <TextView
-                android:id="@+id/dis_date_tv"
+                android:id="@+id/recyclerview_discount_list_tv_discount_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:textColor="@color/dark_grey"
-                android:textSize="@dimen/restaurant_order_delivery_type_text_size"
+                android:textSize="@dimen/discount_list_tv_text_size"
                 android:typeface="serif" />
 
         </LinearLayout>
@@ -75,28 +74,28 @@
             android:id="@+id/min_amount_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/restaurant_order_ll_order_type_margin_top"
+            android:layout_marginTop="@dimen/discount_list_ll_margin_top"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="@dimen/discount_list_tv_margin_top"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@string/activity_add_discount_tv_minimum_order_amount_tag_text"
+                android:text="@string/discount_list_tv_minimum_order_amount_tag_text"
                 android:textColor="@color/dark_grey"
-                android:textSize="@dimen/restaurant_order_tv_order_type_tag_text_size"
+                android:textSize="@dimen/discount_list_tv_text_size"
                 android:typeface="serif" />
 
             <TextView
-                android:id="@+id/dis_min_amount_tv"
+                android:id="@+id/recyclerview_discount_list_tv_discount_min_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:textColor="@color/dark_grey"
-                android:textSize="@dimen/restaurant_order_tv_order_type_text_size"
+                android:textSize="@dimen/discount_list_tv_text_size"
                 android:typeface="serif" />
 
         </LinearLayout>
@@ -104,12 +103,12 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/recyclerview_restaurant_discount_iv_overflow"
+        android:id="@+id/recyclerview_discount_list_iv_overflow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:paddingBottom="@dimen/restaurant_menu_iv_overflow_padding_bottom"
-        android:paddingTop="@dimen/restaurant_menu_iv_overflow_padding_top"
+        android:paddingBottom="@dimen/discount_list_iv_overflow_padding_bottom"
+        android:paddingTop="@dimen/discount_list_iv_overflow_padding_top"
         android:src="@mipmap/ic_overflow" />
 
 </LinearLayout>

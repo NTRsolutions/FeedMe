@@ -17,21 +17,18 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class DiscountAddPresenter<V extends DiscountAddMvpView> extends BasePresenter<V> implements DiscountAddMvpPresenter<V>
-{
+public class DiscountAddPresenter<V extends DiscountAddMvpView> extends BasePresenter<V> implements DiscountAddMvpPresenter<V> {
 
-    public DiscountAddPresenter(DataManager dataManager, CompositeDisposable compositeDisposable)
-    {
+    public DiscountAddPresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
         super(dataManager, compositeDisposable);
     }
 
     @Override
-    public void addDiscount(AddDiscountRequest addDiscountRequest)
-    {
+    public void addDiscount(AddDiscountRequest addDiscountRequest) {
+
         addDiscountRequest.setRestaurantId(getDataManager().getCurrentUserId());
 
-        if (NetworkUtils.isNetworkConnected(getMvpView().getContext()))
-        {
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
             getMvpView().showLoading();
 
@@ -45,8 +42,7 @@ public class DiscountAddPresenter<V extends DiscountAddMvpView> extends BasePres
 
                             getMvpView().hideLoading();
 
-                            if (addDiscountResponse.getResponse().getStatus() == 1)
-                            {
+                            if (addDiscountResponse.getResponse().getStatus() == 1) {
                                 Log.d("getMessage", ">>" + addDiscountResponse.getResponse().getMessage());
                                 //getMvpView().onPasswordReset(forgotPasswordResponse.getResponse().getMessage());
                                 getMvpView().onFinish();
@@ -69,10 +65,10 @@ public class DiscountAddPresenter<V extends DiscountAddMvpView> extends BasePres
     }
 
     @Override
-    public void showDishList()
-    {
-        if (NetworkUtils.isNetworkConnected(getMvpView().getContext()))
-        {
+    public void showDishList() {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
@@ -84,16 +80,15 @@ public class DiscountAddPresenter<V extends DiscountAddMvpView> extends BasePres
                         public void accept(DishListResponse dishListResponse) throws Exception {
 
                             getMvpView().hideLoading();
-                            if (dishListResponse.getResponse().getStatus() == 1)
-                            {
+
+                            if (dishListResponse.getResponse().getStatus() == 1) {
                                 getMvpView().onShowDishList(dishListResponse.getResponse().getDishData());
 
                             } else {
                                 getMvpView().onError(dishListResponse.getResponse().getMessage());
                             }
                         }
-                    }, new Consumer<Throwable>()
-                    {
+                    }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
                             getMvpView().hideLoading();
@@ -107,16 +102,7 @@ public class DiscountAddPresenter<V extends DiscountAddMvpView> extends BasePres
     }
 
     @Override
-    public void showStartDate()
-    {
-
+    public void dispose() {
+        getCompositeDisposable().dispose();
     }
-
-    @Override
-    public void showEndDate()
-    {
-
-    }
-
-
 }

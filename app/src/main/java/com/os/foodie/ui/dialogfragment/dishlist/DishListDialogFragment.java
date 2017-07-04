@@ -56,7 +56,7 @@ public class DishListDialogFragment extends DialogFragment implements View.OnCli
         recyclerView = (RecyclerView) rootView.findViewById(R.id.dialog_fragment_working_days_recycler_view);
         title = (TextView) rootView.findViewById(R.id.title);
 
-        title.setText(getString(R.string.select_dish_title));
+        title.setText(getString(R.string.add_discount_tv_select_dish_text));
 //        initializeWorkingDays();
         dishData = getArguments().getParcelableArrayList(AppConstants.DISH_LIST_ARRAYLIST);
         dish_ids = getArguments().getString(AppConstants.EXIST_DISH_IDS);

@@ -649,12 +649,6 @@
     <dimen name="select_payment_tv_card_number_margin_start">10dp</dimen>
     <dimen name="select_delivery_address_rb_margin_end">10dp</dimen>
 
-    <!--Add Discount-->
-    <dimen name="add_discount_tv_minimum_order_amount_tag_padding">5dp</dimen>
-    <dimen name="add_discount_tv_minimum_order_amount_tag_text_size">15sp</dimen>
-    <dimen name="add_discount_rl_padding">10dp</dimen>
-    <dimen name="recyclerview_discount_list_ll_main_padding">10dp</dimen>
-
     <!--Earning-->
     <dimen name="recyclerview_earning_ll_main_padding">15dp</dimen>
     <dimen name="recyclerview_earning_ll_margin_top_bottom">5dp</dimen>
@@ -664,6 +658,34 @@
     <!--Static Page-->
     <dimen name="static_page_tv_data_padding">10dp</dimen>
     <dimen name="static_page_tv_data_text_size">16sp</dimen>
+
+    <!--Discount List-->
+    <dimen name="restaurant_discount_list_fab_add_discount_margin">16dp</dimen>
+    <dimen name="discount_list_tv_discount_tag_margin_start">5dp</dimen>
+    <dimen name="discount_list_ll_margin_top">5dp</dimen>
+    <dimen name="discount_list_tv_margin_top">5dp</dimen>
+    <dimen name="discount_list_tv_text_size">14sp</dimen>
+    <dimen name="discount_list_iv_overflow_padding_bottom">15dp</dimen>
+    <dimen name="discount_list_iv_overflow_padding_top">20dp</dimen>
+    <dimen name="discount_list_ll_main_padding">10dp</dimen>
+
+    <!--Add Discount-->
+    <dimen name="add_discount_tv_minimum_order_amount_tag_padding">5dp</dimen>
+    <dimen name="add_discount_tv_minimum_order_amount_tag_text_size">15sp</dimen>
+    <dimen name="add_discount_rl_padding">10dp</dimen>
+    <dimen name="add_discount_tv_height">45dp</dimen>
+    <dimen name="add_discount_tv_margin_start">5dp</dimen>
+    <dimen name="add_discount_ll_min_order_amount_margin_start">10dp</dimen>
+    <dimen name="add_discount_et_height">45dp</dimen>
+    <dimen name="add_discount_et_padding">10dp</dimen>
+    <dimen name="add_discount_et_text_size">15sp</dimen>
+    <dimen name="add_discount_et_margin_start">5dp</dimen>
+    <dimen name="add_discount_et_margin_top">10dp</dimen>
+    <dimen name="add_discount_tv_text_size">15sp</dimen>
+    <dimen name="add_discount_tv_to_padding">10dp</dimen>
+    <dimen name="add_discount_bt_height">50dp</dimen>
+    <dimen name="add_discount_bt_add_discount_margin_top">20dp</dimen>
+    <dimen name="add_discount_tv_padding">10dp</dimen>
 
     <!-- TODO: Remove or change this placeholder text -->
 

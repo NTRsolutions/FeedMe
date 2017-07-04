@@ -117,6 +117,12 @@
     <string name="empty_confirm_account_number">Please confirm account number</string>
     <string name="not_match_account_number">Account number do not match</string>
     <string name="empty_ifsc">Please provide ifsc code</string>
+    <string name="empty_minimum_amount">Please enter minimum amount</string>
+    <string name="empty_percentage">Please enter discount percentage</string>
+    <string name="empty_start_date">Please enter start date</string>
+    <string name="empty_end_date">Please enter end date</string>
+    <string name="empty_valid_date">Please enter a valid date.</string>
+    <string name="select_dish_name">Please select at least one dish.</string>
 
     <!--Slide-->
     <array name="slide_title_text">
@@ -336,6 +342,8 @@
     <string name="settings_tv_privacy_policy_tag_text">Privacy Policy</string>
     <string name="settings_tv_faq_tag_text">FAQ</string>
     <string name="settings_tv_rate_us_tag_text">Rate Us</string>
+    <string name="settings_client_email">support@foodi.com</string>
+    <string name="settings_rate_us_play_store_url">https://play.google.com/store/apps/details?id=com.facebook.katana</string>
 
     <!--Change Password-->
     <string name="change_password_activity_title">Change Password</string>
@@ -480,6 +488,26 @@
     <string name="recyclerview_earning_tv_transaction_id_tag_text">Transaction Id:</string>
     <string name="recyclerview_earning_tv_date_tag_text">Date:</string>
 
+    <!--Discount List-->
+    <string name="discount_mangement_activity_title">Discount Mangement</string>
+    <string name="discount_list_tv_discount_on_tag_text">Discount on</string>
+    <string name="discount_list_tv_valid_on_tag_text">Valid on: </string>
+    <string name="discount_list_tv_minimum_order_amount_tag_text">Minimum Order Amount: </string>
+    <string name="restaurant_discount_list_tv_no_discount_alert_text">No Discount</string>
+
+    <!--Add Discount-->
+    <string name="add_discount_tv_minimum_order_amount_tag_text">Minimum Order Amount: </string>
+    <string name="add_discount_bt_add_discount_text">Done</string>
+    <string name="add_discount_tv_food_course_type_hint">Food course type</string>
+    <string name="add_discount_tv_start_date_hint">Start</string>
+    <string name="add_discount_tv_end_date_hint">End</string>
+    <string name="add_discount_tv_to_text">To</string>
+    <string name="add_discount_et_min_amount_hint">$0</string>
+    <string name="add_discount_et_min_percent_hint">0.0%</string>
+    <string name="add_discount_et_food_percent_hint">0.0%</string>
+    <string name="add_discount_tv_select_dish_text">Select Dishes</string>
+    <string name="add_discount_tv_order_by_text_tag">Order by:</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="order_detail_activity_title">Order Detail</string>
     <string name="order_number">Order Number</string>
@@ -492,29 +520,5 @@
     <string name="order_status">Order Status</string>
 
     <!--Abhinav-->
-    <!--Discount List-->
-    <string name="discount_mangement_activity_title">Discount Mangement</string>
-    <string name="valid_on">Valid on: </string>
-    <string name="activity_add_discount_tv_minimum_order_amount_tag_text">Minimum Order Amount: </string>
-    <string name="discount_on">Discount on</string>
-    <string name="no_discount_alert">No Discount</string>
-
-    <!--Add Discount-->
-    <string name="done">Done</string>
-    <string name="food_corse_type">Food course type</string>
-    <string name="start">Start</string>
-    <string name="end">End</string>
-    <string name="to">To</string>
-    <string name="enter_minimum_amount">Please enter minimum amount</string>
-    <string name="enter_percentage">Please enter discount percentage</string>
-    <string name="enter_start_date">Please enter start date</string>
-    <string name="enter_end_date">Please enter end date</string>
-    <string name="select_dish_name">Please select at least one dish.</string>
-    <string name="select_dish_title">Select Dishes</string>
-    <string name="enter_valid_date">Please enter a valid date.</string>
-    <string name="order_by">Order by:</string>
-
-    <string name="client_email">support@foodi.com</string>
-    <string name="play_store_url">https://play.google.com/store/apps/details?id=com.facebook.katana</string>
 
 </resources>

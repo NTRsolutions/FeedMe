@@ -984,6 +984,7 @@ public class AppApiHelpter implements ApiHelper {
     //Abhinav
     @Override
     public Observable<DishListResponse> showDishlist(DishListRequest dishListRequest) {
+
         JSONObject jsonObject = null;
 
         try {
@@ -1002,6 +1003,7 @@ public class AppApiHelpter implements ApiHelper {
 
     @Override
     public Observable<AddDiscountResponse> addDiscount(AddDiscountRequest addDiscountRequest) {
+
         JSONObject jsonObject = null;
 
         try {
@@ -1020,6 +1022,7 @@ public class AppApiHelpter implements ApiHelper {
 
     @Override
     public Observable<DiscountListResponse> DiscountList(DishListRequest dishListRequest) {
+
         JSONObject jsonObject = null;
 
         try {
@@ -1038,6 +1041,7 @@ public class AppApiHelpter implements ApiHelper {
 
     @Override
     public Observable<AddDiscountResponse> deleteDiscount(DeleteDiscountRequest deleteDiscountRequest) {
+
         JSONObject jsonObject = null;
 
         try {
@@ -1055,8 +1059,8 @@ public class AppApiHelpter implements ApiHelper {
     }
 
     @Override
-    public Observable<StaticPageResponse> staticPage(StaticPageRequest staticPageRequest)
-    {
+    public Observable<StaticPageResponse> staticPage(StaticPageRequest staticPageRequest) {
+
         JSONObject jsonObject = null;
 
         try {
@@ -1076,11 +1080,12 @@ public class AppApiHelpter implements ApiHelper {
 
     @Override
     public Observable<SetNotificationResponse> setNotification(String user_id) {
+
         JSONObject jsonObject = null;
 
         try {
             jsonObject = new JSONObject();
-            jsonObject.put("user_id",user_id);
+            jsonObject.put("user_id", user_id);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1097,6 +1102,7 @@ public class AppApiHelpter implements ApiHelper {
     //    Monika
     @Override
     public Observable<GetOrderListResponse> getOrderHistoryList(GetOrderListRequest getOrderListRequest) {
+
         JSONObject jsonObject = null;
 
         try {
@@ -1141,7 +1147,7 @@ public class AppApiHelpter implements ApiHelper {
 
         try {
             jsonObject = new JSONObject();
-            jsonObject.put("order_id",orderId);
+            jsonObject.put("order_id", orderId);
 
         } catch (JSONException e) {
             e.printStackTrace();

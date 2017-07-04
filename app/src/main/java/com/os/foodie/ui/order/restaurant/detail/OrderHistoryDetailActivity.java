@@ -143,7 +143,7 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         if (appDataManager.getCurrentUserId().equals(orderHistoryDetail.getResponse().getRestaurantId())) {
 
-            ivName.setText(getString(R.string.order_by) + " " + orderHistoryDetail.getResponse().getUserDetail().getFirstName() + " " + orderHistoryDetail.getResponse().getUserDetail().getLastName());
+            ivName.setText(getString(R.string.add_discount_tv_order_by_text_tag) + " " + orderHistoryDetail.getResponse().getUserDetail().getFirstName() + " " + orderHistoryDetail.getResponse().getUserDetail().getLastName());
             ivUserImage.setVisibility(View.GONE);
             tvPhoneNumber.setText(orderHistoryDetail.getResponse().getUserDetail().getMobileNumber());
 

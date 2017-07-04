@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
@@ -25,8 +24,6 @@ import com.os.foodie.ui.setting.staticpages.StaticPageActivity;
 import com.os.foodie.utils.AppConstants;
 
 import io.reactivex.disposables.CompositeDisposable;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class SettingsFragment extends BaseFragment implements SettingsMvpView, View.OnClickListener {
 
@@ -137,7 +134,7 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
 
             intent1.setType("plain/text");
 
-            intent1.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.client_email)});
+            intent1.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.settings_client_email)});
             intent1.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.settings_tv_contact_us_tag_text));
             intent1.putExtra(Intent.EXTRA_TEXT, "");
 
@@ -173,7 +170,7 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
         } else if (llRateUs.getId() == v.getId()) {
 
             try {
-                Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse(getString(R.string.play_store_url)));
+                Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse(getString(R.string.settings_rate_us_play_store_url)));
                 startActivity(viewIntent);
             } catch (Exception e) {
 //                Toast.makeText(getApplicationContext(), "Unable to Connect Try Again...", Toast.LENGTH_LONG).show();

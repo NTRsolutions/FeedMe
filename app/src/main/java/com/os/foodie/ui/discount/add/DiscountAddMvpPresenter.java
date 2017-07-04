@@ -9,7 +9,5 @@ public interface DiscountAddMvpPresenter<V extends DiscountAddMvpView> extends M
 
     void showDishList();
 
-    void showStartDate();
-
-    void showEndDate();
+    void dispose();
 }

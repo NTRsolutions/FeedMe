@@ -1,6 +1,5 @@
 package com.os.foodie.ui.discount.list;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,31 +15,32 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.os.foodie.R;
-import com.os.foodie.application.AppController;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.discount.list.DiscountList;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.recyclerview.DiscountListAdapter;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.discount.add.DiscountAddActivity;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
+import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
 
-/**
- * Created by abhinava on 6/26/2017.
- */
+import io.reactivex.disposables.CompositeDisposable;
 
 public class DiscountListFragment extends BaseFragment implements DiscountListMvpView, View.OnClickListener {
+
     public static final String TAG = "DiscountListFragment";
 
     private TextView tvAlert;
     private RecyclerView recyclerView;
 
     private ArrayList<DiscountList> discountLists;
-    private FloatingActionButton add_new_discount_fab;
+    private FloatingActionButton fabAddNewDiscount;
 
     private DiscountListAdapter discountListAdapter;
     private DiscountListMvpPresenter<DiscountListMvpView> discountListMvpPresenter;
-    Context context;
 
     public DiscountListFragment() {
         // Required empty public constructor
@@ -60,26 +60,28 @@ public class DiscountListFragment extends BaseFragment implements DiscountListMv
 
         setHasOptionsMenu(true);
 
-        context = getActivity();
+        initPresenter();
+        discountListMvpPresenter.onAttach(this);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_restaurant_discount_list_recyclerview);
-        add_new_discount_fab = (FloatingActionButton) view.findViewById(R.id.add_new_discount_fab);
+        fabAddNewDiscount = (FloatingActionButton) view.findViewById(R.id.fragment_restaurant_discount_list_fab_add_discount);
         tvAlert = (TextView) view.findViewById(R.id.fragment_restaurant_discount_list_tv_alert);
 
         discountLists = new ArrayList<DiscountList>();
 
-        add_new_discount_fab.setOnClickListener(this);
-
-        initPresenter();
-        discountListMvpPresenter.onAttach(this);
+        fabAddNewDiscount.setOnClickListener(this);
 
         return view;
     }
 
     public void initPresenter() {
-        discountListMvpPresenter = new DiscountListPresenter<>(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
-        discountListMvpPresenter.onAttach(this);
 
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(getActivity(), AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(getActivity(), appPreferencesHelper, appApiHelpter);
+        discountListMvpPresenter = new DiscountListPresenter(appDataManager, compositeDisposable);
     }
 
     @Override
@@ -98,44 +100,46 @@ public class DiscountListFragment extends BaseFragment implements DiscountListMv
 
     @Override
     public void onDestroyView() {
-        discountListMvpPresenter.onDetach();
+        discountListMvpPresenter.dispose();
         super.onDestroyView();
     }
 
     @Override
     protected void setUp(View view) {
-
     }
 
     @Override
     public void onClick(View v) {
-        if (v == add_new_discount_fab) {
-            Intent intent = new Intent(context, DiscountAddActivity.class);
+
+        if (v == fabAddNewDiscount) {
+            Intent intent = new Intent(getActivity(), DiscountAddActivity.class);
             startActivity(intent);
         }
     }
 
     @Override
     public void onShowDiscountList(ArrayList<DiscountList> discountLists) {
+
         this.discountLists = discountLists;
 
         if (discountLists.size() > 0) {
+
             discountListAdapter = new DiscountListAdapter(getContext(), discountListMvpPresenter, this.discountLists);
 
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
 
-//        recyclerView.addItemDecoration(new DividerItemLineDecoration(getActivity()));
             recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
             recyclerView.setAdapter(discountListAdapter);
             tvAlert.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
+
         } else {
+
             tvAlert.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         }
-
     }
 
     @Override
