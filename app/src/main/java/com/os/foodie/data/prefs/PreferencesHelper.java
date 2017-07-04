@@ -32,6 +32,10 @@ public interface PreferencesHelper {
 
     void setCustomerRestaurantId(String restaurantId);
 
+    String getNotificationStatus();
+
+    void setNotificationStatus(String status);
+
 //    String getCurrentUserEmail();
 //
 //    void setCurrentUserEmail(String email);

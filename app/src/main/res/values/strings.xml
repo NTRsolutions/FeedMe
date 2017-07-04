@@ -514,4 +514,7 @@
     <string name="enter_valid_date">Please enter a valid date.</string>
     <string name="order_by">Order by:</string>
 
+    <string name="client_email">support@foodi.com</string>
+    <string name="play_store_url">https://play.google.com/store/apps/details?id=com.facebook.katana</string>
+
 </resources>

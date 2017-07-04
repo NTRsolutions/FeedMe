@@ -85,5 +85,8 @@ public class ApiConstants {
     public static final String SET_MERCHANT_DETAIL = "set_restaurant_account_detail";
     public static final String GET_MERCHANT_DETAIL = "get_restaurant_account_detail";
 
+    public static final String GET_PAGE = "get_page";
+    public static final String SET_NOTIFICATION = "set_notification";
+
     public static final String LOGOUT = "logout";
 }

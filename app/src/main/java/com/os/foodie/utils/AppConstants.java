@@ -50,6 +50,18 @@ public class AppConstants {
     public static final String DISCOUNT_EDIT_DATA = "discount_edit_data";
     public static final String EXIST_DISH_IDS = "EXIST_DISH_IDS";
 
+    public static final String SLUG = "slug";
+    public static final String PAGE_NAME = "page_name";
+
+    public static final String TERMS_AND_CONDITION_SLUG = "terms-and-conditions";
+    public static final String TERMS_AND_CONDITION_PAGE_NAME = "Terms of Use";
+
+    public static final String PRIVACY_POLICY_SLUG = "privacy-policy";
+    public static final String PRIVACY_POLICY_PAGE_NAME = "Privacy Policy";
+
+    public static final String FAQ_SLUG = "faq";
+    public static final String FAQ_PAGE_NAME = "FAQ";
+
     //    Order Status
     public static final String ORDER_DECLINE = "decline";
     public static final String ORDER_UNDER_PREPARATION = "under preparation";

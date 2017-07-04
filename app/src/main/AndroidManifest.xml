@@ -167,6 +167,10 @@
             android:name=".ui.order.restaurant.detail.OrderHistoryDetailActivity"
             android:label="@string/order_detail_activity_title"
             android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".ui.setting.staticpages.StaticPageActivity"
+            android:label="@string/settings_tv_terms_of_use_tag_text"
+            android:theme="@style/AppTheme2" />
     </application>
 
 </manifest>

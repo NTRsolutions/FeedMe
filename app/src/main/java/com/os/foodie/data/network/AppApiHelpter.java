@@ -76,6 +76,7 @@ import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailReq
 import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailResponse;
 import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailRequest;
 import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailResponse;
+import com.os.foodie.data.network.model.notification.SetNotificationResponse;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryRequest;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryResponse;
 import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
@@ -100,6 +101,8 @@ import com.os.foodie.data.network.model.fblogin.FacebookLoginRequest;
 import com.os.foodie.data.network.model.fblogin.FacebookLoginResponse;
 import com.os.foodie.data.network.model.signup.restaurant.RestaurantSignUpRequest;
 import com.os.foodie.data.network.model.signup.restaurant.RestaurantSignUpResponse;
+import com.os.foodie.data.network.model.staticpage.StaticPageRequest;
+import com.os.foodie.data.network.model.staticpage.StaticPageResponse;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import org.json.JSONException;
@@ -1049,6 +1052,46 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(AddDiscountResponse.class);
+    }
+
+    @Override
+    public Observable<StaticPageResponse> staticPage(StaticPageRequest staticPageRequest)
+    {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(staticPageRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.GET_PAGE)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(StaticPageResponse.class);
+    }
+
+    @Override
+    public Observable<SetNotificationResponse> setNotification(String user_id) {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("user_id",user_id);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.SET_NOTIFICATION)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(SetNotificationResponse.class);
     }
 
     //    Monika

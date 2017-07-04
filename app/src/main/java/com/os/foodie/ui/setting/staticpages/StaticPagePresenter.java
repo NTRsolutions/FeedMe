@@ -1,11 +1,11 @@
-package com.os.foodie.ui.setting;
+package com.os.foodie.ui.setting.staticpages;
 
-import android.support.annotation.StringRes;
 import android.util.Log;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
-import com.os.foodie.data.network.model.notification.SetNotificationResponse;
+import com.os.foodie.data.network.model.staticpage.StaticPageRequest;
+import com.os.foodie.data.network.model.staticpage.StaticPageResponse;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.utils.NetworkUtils;
 
@@ -14,44 +14,35 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<V> implements SettingsMvpPresenter<V> {
+public class StaticPagePresenter<V extends StaticPageMvpView> extends BasePresenter<V> implements StaticPageMvpPresenter<V> {
 
-    public SettingsPresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
+    public StaticPagePresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
         super(dataManager, compositeDisposable);
     }
 
     @Override
-    public void dispose() {
-        getCompositeDisposable().dispose();
-    }
-
-    @Override
-    public void onError(@StringRes int resId){
-        getMvpView().onError(resId);
-    }
-
-    @Override
-    public void SetNotificationStaus() {
-
+    public void GetStaticData(String pageslug)
+    {
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
-                    .setNotification(getDataManager().getCurrentUserId())
+                    .staticPage(new StaticPageRequest(pageslug))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<SetNotificationResponse>() {
+                    .subscribe(new Consumer<StaticPageResponse>() {
                         @Override
-                        public void accept(SetNotificationResponse setNotificationResponse) throws Exception {
+                        public void accept(StaticPageResponse staticPageResponse) throws Exception {
 
                             getMvpView().hideLoading();
 
-                            if (setNotificationResponse.getResponse().getStatus() == 1) {
-                                getMvpView().getNotificationStatus(setNotificationResponse.getResponse().getIsNotification());
+                            if (staticPageResponse.getResponse().getStatus() == 1)
+                            {
+                                getMvpView().onStaticData(staticPageResponse.getResponse().getDescription());
 
                             } else {
-                                getMvpView().onError(setNotificationResponse.getResponse().getMessage());
+                                getMvpView().onError(staticPageResponse.getResponse().getMessage());
                             }
                         }
                     }, new Consumer<Throwable>() {

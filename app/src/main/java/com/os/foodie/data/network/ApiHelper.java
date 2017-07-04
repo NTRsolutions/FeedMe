@@ -73,6 +73,7 @@ import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailReq
 import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailResponse;
 import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailRequest;
 import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailResponse;
+import com.os.foodie.data.network.model.notification.SetNotificationResponse;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryRequest;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryResponse;
 import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
@@ -97,6 +98,8 @@ import com.os.foodie.data.network.model.fblogin.FacebookLoginRequest;
 import com.os.foodie.data.network.model.fblogin.FacebookLoginResponse;
 import com.os.foodie.data.network.model.signup.restaurant.RestaurantSignUpRequest;
 import com.os.foodie.data.network.model.signup.restaurant.RestaurantSignUpResponse;
+import com.os.foodie.data.network.model.staticpage.StaticPageRequest;
+import com.os.foodie.data.network.model.staticpage.StaticPageResponse;
 
 import java.io.File;
 import java.util.HashMap;
@@ -207,6 +210,10 @@ public interface ApiHelper {
     Observable<DiscountListResponse> DiscountList(DishListRequest dishListRequest);
 
     Observable<AddDiscountResponse> deleteDiscount(DeleteDiscountRequest deleteDiscountRequest);
+
+    Observable<StaticPageResponse> staticPage(StaticPageRequest staticPageRequest);
+
+    Observable<SetNotificationResponse> setNotification(String user_id);
 
 //    Monika
 Observable<GetOrderListResponse> getOrderHistoryList(GetOrderListRequest getOrderListRequest);

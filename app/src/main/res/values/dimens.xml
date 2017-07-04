@@ -661,6 +661,10 @@
     <dimen name="recyclerview_earning_tv_tag_margin_end">5dp</dimen>
     <dimen name="recyclerview_earning_tv_text_size">16sp</dimen>
 
+    <!--Static Page-->
+    <dimen name="static_page_tv_data_padding">10dp</dimen>
+    <dimen name="static_page_tv_data_text_size">16sp</dimen>
+
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

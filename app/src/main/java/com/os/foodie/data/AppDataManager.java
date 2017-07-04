@@ -74,6 +74,7 @@ import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailReq
 import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailResponse;
 import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailRequest;
 import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailResponse;
+import com.os.foodie.data.network.model.notification.SetNotificationResponse;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryRequest;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryResponse;
 import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
@@ -98,6 +99,8 @@ import com.os.foodie.data.network.model.fblogin.FacebookLoginRequest;
 import com.os.foodie.data.network.model.fblogin.FacebookLoginResponse;
 import com.os.foodie.data.network.model.signup.restaurant.RestaurantSignUpRequest;
 import com.os.foodie.data.network.model.signup.restaurant.RestaurantSignUpResponse;
+import com.os.foodie.data.network.model.staticpage.StaticPageRequest;
+import com.os.foodie.data.network.model.staticpage.StaticPageResponse;
 import com.os.foodie.data.prefs.PreferencesHelper;
 
 import java.io.File;
@@ -196,6 +199,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setCustomerRestaurantId(String restaurantId) {
         preferencesHelper.setCustomerRestaurantId(restaurantId);
+    }
+
+    @Override
+    public String getNotificationStatus() {
+        return preferencesHelper.getNotificationStatus();
+    }
+
+    @Override
+    public void setNotificationStatus(String status) {
+        preferencesHelper.setNotificationStatus(status);
     }
 
     @Override
@@ -464,6 +477,16 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<OrderHistoryDetail> getOrderHistoryDetail(String orderId) {
         return apiHelper.getOrderHistoryDetail(orderId);
+    }
+
+    @Override
+    public Observable<StaticPageResponse> staticPage(StaticPageRequest staticPageRequest) {
+        return apiHelper.staticPage(staticPageRequest);
+    }
+
+    @Override
+    public Observable<SetNotificationResponse> setNotification(String user_id) {
+        return apiHelper.setNotification(user_id);
     }
 
     //    private final Context mContext;

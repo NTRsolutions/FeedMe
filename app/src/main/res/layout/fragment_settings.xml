@@ -26,7 +26,8 @@
             android:id="@+id/fragment_settings_switch_notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true" />
+            android:checked="true"
+            android:clickable="false" />
 
     </LinearLayout>
 
