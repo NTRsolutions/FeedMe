@@ -101,7 +101,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<DiscountListAdapte
 
                 LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
 
-                final View popupView = layoutInflater.inflate(R.layout.menu_popup_restaurant_menu_item, null);
+                final View popupView = layoutInflater.inflate(R.layout.menu_popup_restaurant_menu_item_bottom, null);
                 final PopupWindow popupWindow = new PopupWindow(
                         popupView,
                         RecyclerView.LayoutParams.WRAP_CONTENT,
@@ -155,7 +155,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<DiscountListAdapte
                     }
                 });
 
-                popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_popup_background));
+                popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_popup_background_bottom));
                 popupWindow.setOutsideTouchable(true);
                 popupWindow.setFocusable(true);
                 popupWindow.showAsDropDown(v);

@@ -24,13 +24,12 @@ import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
-import com.os.foodie.ui.account.customer.CustomerAccountFragment;
 import com.os.foodie.ui.account.restaurant.RestaurantAccountFragment;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.discount.list.DiscountListFragment;
 import com.os.foodie.ui.earning.EarningFragment;
-import com.os.foodie.ui.home.customer.CustomerHomeFragment;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment;
+import com.os.foodie.ui.merchantdetail.MerchantDetailFragments;
 import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryFragment;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
 import com.os.foodie.ui.setting.SettingsFragment;
@@ -200,6 +199,10 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
 
             replaceFragment(EarningFragment.newInstance(), EarningFragment.TAG);
 
+        } else if (id == R.id.nav_merchant_details) {
+
+            replaceFragment(MerchantDetailFragments.newInstance(), MerchantDetailFragments.TAG);
+
         } else if (id == R.id.nav_settings) {
 
             replaceFragment(SettingsFragment.newInstance(), SettingsFragment.TAG);
@@ -310,6 +313,15 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
 
                     navigationView.setCheckedItem(R.id.nav_view_earning);
                     getSupportActionBar().setTitle(getString(R.string.action_view_earning));
+
+                } else if (fragment instanceof MerchantDetailFragments) {
+
+                    isBackPress = false;
+
+                    Log.d("fragment", ">>MerchantDetailFragments");
+
+                    navigationView.setCheckedItem(R.id.nav_merchant_details);
+                    getSupportActionBar().setTitle(getString(R.string.action_merchant_details));
 
                 } else if (fragment instanceof SettingsFragment) {
 

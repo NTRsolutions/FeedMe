@@ -76,9 +76,11 @@ public class RestaurantMenuFragment extends BaseFragment implements RestaurantMe
 
         dishArrayList = new ArrayList<Dish>();
 
-        restaurantMenuAdapter = new RestaurantMenuAdapter(getContext(), restaurantMenuMvpPresenter, dishArrayList);
+//        restaurantMenuAdapter = new RestaurantMenuAdapter(getContext(), restaurantMenuMvpPresenter, dishArrayList);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+
+        restaurantMenuAdapter = new RestaurantMenuAdapter(getContext(), restaurantMenuMvpPresenter, dishArrayList, layoutManager);
 
 //        recyclerView.addItemDecoration(new DividerItemLineDecoration(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));

@@ -263,6 +263,7 @@
     <string name="action_my_bucket">My Basket</string>
     <string name="action_payment">Payment Methods</string>
     <string name="action_delivery_address">Delivery Address</string>
+    <string name="action_merchant_details">Merchant Details</string>
 
     <!--Customer Home-->
     <string name="title_activity_customer_home">Customer Home</string>

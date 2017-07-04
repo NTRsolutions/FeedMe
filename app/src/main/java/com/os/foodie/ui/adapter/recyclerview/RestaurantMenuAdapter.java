@@ -3,10 +3,8 @@ package com.os.foodie.ui.adapter.recyclerview;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,6 +22,7 @@ import com.os.foodie.ui.menu.show.fragment.RestaurantMenuMvpPresenter;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuMvpView;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.DialogUtils;
+import com.os.foodie.utils.ScreenUtils;
 
 import java.util.ArrayList;
 
@@ -33,12 +32,16 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
 
     private Context context;
     private ArrayList<Dish> dishArrayList;
+
+    private LinearLayoutManager layoutManager;
+
     private RestaurantMenuMvpPresenter<RestaurantMenuMvpView> restaurantMenuMvpPresenter;
 
-    public RestaurantMenuAdapter(Context context, RestaurantMenuMvpPresenter<RestaurantMenuMvpView> restaurantMenuMvpPresenter, ArrayList<Dish> dishArrayList) {
+    public RestaurantMenuAdapter(Context context, RestaurantMenuMvpPresenter<RestaurantMenuMvpView> restaurantMenuMvpPresenter, ArrayList<Dish> dishArrayList, LinearLayoutManager layoutManager) {
         this.context = context;
         this.dishArrayList = dishArrayList;
         this.restaurantMenuMvpPresenter = restaurantMenuMvpPresenter;
+        this.layoutManager = layoutManager;
     }
 
     class RestaurantMenuViewHolder extends RecyclerView.ViewHolder {
@@ -89,11 +92,58 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
 
                 LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
 
-                final View popupView = layoutInflater.inflate(R.layout.menu_popup_restaurant_menu_item, null);
-                final PopupWindow popupWindow = new PopupWindow(
-                        popupView,
-                        RecyclerView.LayoutParams.WRAP_CONTENT,
-                        RecyclerView.LayoutParams.WRAP_CONTENT);
+                int vX = (int) v.getX();
+
+                int itemViewY = (int) holder.itemView.getY();
+                int itemViewMeasuredHeight = (int) holder.itemView.getMeasuredHeight();
+
+                int vY = (int) v.getY();
+
+                int itemViewX = (int) holder.itemView.getX();
+                int itemViewMeasuredWidth = (int) holder.itemView.getMeasuredWidth();
+
+                int screenHeight = ScreenUtils.getScreenHeight(context);
+                int clickPosition = (int) (itemViewY + vY);
+                int limit = screenHeight - (itemViewMeasuredHeight * 3);
+
+//                Log.d("getScreenHeight", ">>" + ScreenUtils.getScreenHeight(context));
+//                Log.d("getMeasuredHeight", ">>" + holder.itemView.getMeasuredHeight());
+//
+//                Log.d("v.clickPosition", ">>" + clickPosition);
+//                Log.d("v.limit", ">>" + limit);
+//
+////                Log.d("getScreenHeight", ">>" + ScreenUtils.getScreenHeight(context));
+////                Log.d("getMeasuredHeight", ">>" + holder.itemView.getMeasuredHeight());
+//                Log.d("getMeasuredWidth", ">>" + holder.itemView.getMeasuredWidth());
+////                Log.d("itemView.getY", ">>" + holder.itemView.getY());
+//                Log.d("itemView.getX", ">>" + holder.itemView.getX());
+//                Log.d("v.getX", ">>" + v.getX());
+////                Log.d("v.getY", ">>" + v.getY());
+
+                final View popupView;
+                final PopupWindow popupWindow;
+
+                if (clickPosition > limit) {
+
+                    popupView = layoutInflater.inflate(R.layout.menu_popup_restaurant_menu_item_top, null);
+                    popupWindow = new PopupWindow(
+                            popupView,
+                            RecyclerView.LayoutParams.WRAP_CONTENT,
+                            RecyclerView.LayoutParams.WRAP_CONTENT);
+
+
+                    popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_popup_background_top));
+
+                } else {
+
+                    popupView = layoutInflater.inflate(R.layout.menu_popup_restaurant_menu_item_bottom, null);
+                    popupWindow = new PopupWindow(
+                            popupView,
+                            RecyclerView.LayoutParams.WRAP_CONTENT,
+                            RecyclerView.LayoutParams.WRAP_CONTENT);
+
+                    popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_popup_background_bottom));
+                }
 
 //                Button btnDismiss = (Button)popupView.findViewById(R.id.dismiss);
 //                btnDismiss.setOnClickListener(new Button.OnClickListener(){
@@ -203,28 +253,17 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
                     }
                 });
 
-                popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_popup_background));
                 popupWindow.setOutsideTouchable(true);
                 popupWindow.setFocusable(true);
 
-//                Log.d("getMeasuredHeight", ">>" + holder.itemView.getMeasuredHeight());
-//                popupWindow.showAtLocation(v, Gravity.BOTTOM|Gravity.END, 0, 0);
-                popupWindow.showAsDropDown(v);
+                if (clickPosition > limit) {
 
+                    popupWindow.showAtLocation(v, Gravity.TOP, (int) (itemViewMeasuredWidth - (itemViewX + vX)), (int) (itemViewY + vY));
 
-//                IconizedMenu  popup = new IconizedMenu(context, v);
-//
-//                popup.getMenuInflater().inflate(R.menu.menu_with_close, popup.getMenu());
-//
-//                popup.setOnMenuItemClickListener(new IconizedMenu.OnMenuItemClickListener() {
-//
-//                    public boolean onMenuItemClick(MenuItem item) {
-//
-//                        Toast.makeText(context, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-//                        return true;
-//                    }
-//                });
-//                popup.show();//showing popup menu
+                } else {
+
+                    popupWindow.showAsDropDown(v);
+                }
             }
         });
     }
