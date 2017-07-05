@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/restaurant_account_ll_profile_image"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/restaurant_rating_userimage_iv"
+            android:layout_width="@dimen/restaurant_account_civ_height_width"
+            android:layout_height="@dimen/restaurant_account_civ_height_width"
+            android:src="@mipmap/img_profile_default" />
+
+        <TextView
+            android:id="@+id/restaurant_rating_username_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="@dimen/customer_main_header_tv_margin_end"
+            android:layout_marginStart="@dimen/customer_main_header_tv_margin_start"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Mike Brown"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textSize="@dimen/customer_main_header_tv_user_name_text_size" />
+
+        <EditText
+            android:id="@+id/restaurant_rating_comment_et"
+            style="@style/EditTextGrey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/add_payment_card_et_card_number_margin_top"
+            android:gravity="left|top"
+            android:hint="@string/comment"
+            android:lines="5"
+            android:padding="@dimen/add_payment_card_et_padding"
+            android:text=""
+            android:textSize="@dimen/add_payment_card_et_text_size" />
+
+        <android.support.v7.widget.AppCompatRatingBar
+            android:id="@+id/restaurant_rating_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:scaleX="1"
+            android:scaleY="1"
+            android:stepSize="1" />
+
+        <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/restaurant_rating_done_bt"
+            style="@style/ButtonOrange"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_bt_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="@dimen/login_bt_margin_end"
+            android:layout_marginStart="@dimen/login_bt_margin_start"
+            android:layout_marginTop="@dimen/login_bt_log_in_margin_top"
+            android:gravity="center"
+            android:text="@string/done" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

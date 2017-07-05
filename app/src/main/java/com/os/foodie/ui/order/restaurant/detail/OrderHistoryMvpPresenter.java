@@ -7,5 +7,5 @@ public interface OrderHistoryMvpPresenter<V extends OrderHistoryMvpView> extends
 
     public void getOrderHistoryDetail(String orderId);
 
-
+    public void ChangeOrderStatus(String orderId, String status);
 }

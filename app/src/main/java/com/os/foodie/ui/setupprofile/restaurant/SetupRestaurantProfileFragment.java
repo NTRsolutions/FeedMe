@@ -536,7 +536,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     @Override
     public void onResume() {
         super.onResume();
-        ((RestaurantMainActivity) getActivity()).setTitle(getResources().getString(R.string.restaurant_profile));
+        ((RestaurantMainActivity) getActivity()).setTitle(getResources().getString(R.string.title_fragment_restaurant_profile));
     }
 
     @Override

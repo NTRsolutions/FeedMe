@@ -20,6 +20,7 @@ import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
 import com.os.foodie.data.network.model.cart.update.UpdateCartResponse;
 import com.os.foodie.data.network.model.cart.view.ViewCartRequest;
 import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
+import com.os.foodie.data.network.model.changeorderstatus.ChangeOrderStatusResponse;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
 import com.os.foodie.data.network.model.checkout.CheckoutRequest;
@@ -46,6 +47,8 @@ import com.os.foodie.data.network.model.discount.dishlist.DishListRequest;
 import com.os.foodie.data.network.model.discount.dishlist.DishListResponse;
 import com.os.foodie.data.network.model.discount.list.DeleteDiscountRequest;
 import com.os.foodie.data.network.model.discount.list.DiscountListResponse;
+import com.os.foodie.data.network.model.earning.GetEarningRequest;
+import com.os.foodie.data.network.model.earning.GetEarningResponse;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordRequest;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordResponse;
 import com.os.foodie.data.network.model.home.customer.GetRestaurantListRequest;
@@ -89,6 +92,8 @@ import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardRequest;
 import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardResponse;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardRequest;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardResponse;
+import com.os.foodie.data.network.model.restaurantreview.RestaurantReviewRequest;
+import com.os.foodie.data.network.model.restaurantreview.RestaurantReviewResponse;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
@@ -215,13 +220,17 @@ public interface ApiHelper {
 
     Observable<SetNotificationResponse> setNotification(String user_id);
 
-//    Monika
-Observable<GetOrderListResponse> getOrderHistoryList(GetOrderListRequest getOrderListRequest);
+    Observable<GetEarningResponse> getEarnings(GetEarningRequest earningRequest);
 
-Observable<GetOrderListResponse> getCustomerOrderHistoryList(CustomerOrderHistoryRequest customerOrderHistoryRequest);
+    //    Monika
+    Observable<GetOrderListResponse> getOrderHistoryList(GetOrderListRequest getOrderListRequest);
+
+    Observable<GetOrderListResponse> getCustomerOrderHistoryList(CustomerOrderHistoryRequest customerOrderHistoryRequest);
 //Observable<CustomerOrderHistoryResponse> getCustomerOrderHistoryList(CustomerOrderHistoryRequest customerOrderHistoryRequest);
 
     Observable<OrderHistoryDetail> getOrderHistoryDetail(String orderId);
 
-//    Observable<CustomerSignUpResponse> getFacebookDetail(CustomerSignUpRequest customerSignUpRequest);
+    Observable<ChangeOrderStatusResponse> changeOrderStatus(String orderId, String orderStatus);
+
+    Observable<RestaurantReviewResponse> sendRestaurantReview(RestaurantReviewRequest restaurantReviewRequest);
 }

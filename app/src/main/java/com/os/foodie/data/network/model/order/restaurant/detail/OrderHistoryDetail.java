@@ -51,7 +51,7 @@ public class OrderHistoryDetail {
         private String deliveryType;
         @SerializedName("discount")
         @Expose
-        private Float discount;
+        private Integer discount;
 
         public String getOrderId() {
             return orderId;
@@ -117,11 +117,11 @@ public class OrderHistoryDetail {
             this.deliveryType = deliveryType;
         }
 
-        public Float getDiscount() {
+        public Integer getDiscount() {
             return discount;
         }
 
-        public void setDiscount(Float discount) {
+        public void setDiscount(Integer discount) {
             this.discount = discount;
         }
 
@@ -177,6 +177,44 @@ public class OrderHistoryDetail {
         @SerializedName("mobile_number")
         @Expose
         private String mobileNumber1;
+
+        @SerializedName("delivery_address")
+        @Expose
+        private String deliveryAddress;
+
+        @SerializedName("delivery_mobile_number")
+        @Expose
+        private String delivery_mobile_number;
+
+        @SerializedName("landmark")
+        @Expose
+        private String landmark;
+
+
+        public String getDeliveryAddress() {
+            return deliveryAddress;
+        }
+
+        public void setDeliveryAddress(String deliveryAddress) {
+            this.deliveryAddress = deliveryAddress;
+        }
+
+        public String getDelivery_mobile_number() {
+            return delivery_mobile_number;
+        }
+
+        public void setDelivery_mobile_number(String delivery_mobile_number) {
+            this.delivery_mobile_number = delivery_mobile_number;
+        }
+
+        public String getLandmark() {
+            return landmark;
+        }
+
+        public void setLandmark(String landmark) {
+            this.landmark = landmark;
+        }
+
         public String getMobileNumber1() {
             return mobileNumber1;
         }

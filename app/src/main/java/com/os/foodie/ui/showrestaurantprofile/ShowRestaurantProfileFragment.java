@@ -31,7 +31,6 @@ import com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingAc
 import com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingActionImageViewBehavior;
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout;
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayoutBehavior;
-import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.TimeFormatUtils;
@@ -153,7 +152,7 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
     @Override
     public void onResume() {
         super.onResume();
-        (restaurantMainActivity).setTitle(getString(R.string.restaurant_profile));
+        (restaurantMainActivity).setTitle(getString(R.string.title_fragment_restaurant_profile));
     }
 
     @Override

@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.os.foodie.R;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.network.model.earning.Earning;
+import com.os.foodie.data.network.model.earning.GetEarningResponse;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.model.TempEarningModel;
 import com.os.foodie.ui.adapter.recyclerview.EarningAdapter;
@@ -35,8 +37,9 @@ public class EarningFragment extends BaseFragment implements EarningMvpView {
 
     private TextView tvAlert;
     private RecyclerView recyclerView;
+
     private EarningAdapter earningAdapter;
-    private ArrayList<TempEarningModel> tempEarningModels;
+    private ArrayList<Earning> earnings;
 
     private EarningMvpPresenter<EarningMvpView> earningMvpPresenter;
 
@@ -63,8 +66,8 @@ public class EarningFragment extends BaseFragment implements EarningMvpView {
 
         setUp(view);
 
-        tempEarningModels = new ArrayList<TempEarningModel>();
-        earningAdapter = new EarningAdapter(getActivity(), tempEarningModels);
+        earnings = new ArrayList<Earning>();
+        earningAdapter = new EarningAdapter(getActivity(), earnings);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
 
@@ -73,19 +76,21 @@ public class EarningFragment extends BaseFragment implements EarningMvpView {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(earningAdapter);
 
-        for (int i = 0; i < 10; i++) {
+//        for (int i = 0; i < 10; i++) {
+//
+//            Earning earning = new Earning();
+//
+//            earning.setOrderId("5465654" + i);
+////            earning.set("1654" + i);
+//            earning.setPaymentDate("12 June 2017");
+//            earning.setAmount("50");
+//
+//            earnings.add(earning);
+//        }
+//
+//        earningAdapter.notifyDataSetChanged();
 
-            TempEarningModel tempEarningModel = new TempEarningModel();
-
-            tempEarningModel.setEarningId("5465654" + i);
-            tempEarningModel.setTransactionId("1654" + i);
-            tempEarningModel.setDate("12 June 2017");
-            tempEarningModel.setAmount("50");
-
-            tempEarningModels.add(tempEarningModel);
-        }
-
-        earningAdapter.notifyDataSetChanged();
+        earningMvpPresenter.getEarnings();
 
         return view;
     }
@@ -123,5 +128,25 @@ public class EarningFragment extends BaseFragment implements EarningMvpView {
     public void onDestroyView() {
         earningMvpPresenter.dispose();
         super.onDestroyView();
+    }
+
+    @Override
+    public void setEarnings(GetEarningResponse earningResponse) {
+
+        earnings.clear();
+
+        if (earningResponse.getResponse().getEarnings() != null && !earningResponse.getResponse().getEarnings().isEmpty()) {
+
+            recyclerView.setVisibility(View.VISIBLE);
+            tvAlert.setVisibility(View.GONE);
+
+            earnings.addAll(earningResponse.getResponse().getEarnings());
+
+        } else{
+            recyclerView.setVisibility(View.GONE);
+            tvAlert.setVisibility(View.VISIBLE);
+        }
+
+        earningAdapter.notifyDataSetChanged();
     }
 }

@@ -8,30 +8,30 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.os.foodie.R;
-import com.os.foodie.model.TempEarningModel;
+import com.os.foodie.data.network.model.earning.Earning;
 
 import java.util.ArrayList;
 
 public class EarningAdapter extends RecyclerView.Adapter<EarningAdapter.EarningViewHolder> {
 
     private Context context;
-    public ArrayList<TempEarningModel> tempEarningModels = new ArrayList<>();
+    public ArrayList<Earning> earnings = new ArrayList<>();
 
-    public EarningAdapter(Context context, ArrayList<TempEarningModel> tempEarningModels) {
+    public EarningAdapter(Context context, ArrayList<Earning> earnings) {
         this.context = context;
-        this.tempEarningModels = tempEarningModels;
+        this.earnings = earnings;
     }
 
     class EarningViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvEarningId, tvTransactionId, tvDate, tvAmount;
+        public TextView tvOrderId, tvDate, tvPaymentMethod, tvAmount;
 
         public EarningViewHolder(View itemView) {
             super(itemView);
 
-            tvEarningId = (TextView) itemView.findViewById(R.id.recyclerview_earning_tv_earning_id);
-            tvTransactionId = (TextView) itemView.findViewById(R.id.recyclerview_earning_tv_transaction_id);
+            tvOrderId = (TextView) itemView.findViewById(R.id.recyclerview_earning_tv_order_id);
             tvDate = (TextView) itemView.findViewById(R.id.recyclerview_earning_tv_date);
+            tvPaymentMethod = (TextView) itemView.findViewById(R.id.recyclerview_earning_tv_payment_method);
             tvAmount = (TextView) itemView.findViewById(R.id.recyclerview_earning_tv_amount);
         }
     }
@@ -45,16 +45,16 @@ public class EarningAdapter extends RecyclerView.Adapter<EarningAdapter.EarningV
     @Override
     public void onBindViewHolder(EarningViewHolder holder, int position) {
 
-        TempEarningModel tempEarningModel = tempEarningModels.get(position);
+        Earning earning = earnings.get(position);
 
-        holder.tvEarningId.setText(tempEarningModel.getEarningId());
-        holder.tvTransactionId.setText(tempEarningModel.getTransactionId());
-        holder.tvDate.setText(tempEarningModel.getDate());
-        holder.tvAmount.setText("$" + tempEarningModel.getAmount());
+        holder.tvOrderId.setText(earning.getOrderId());
+        holder.tvPaymentMethod.setText(earning.getPaymentType());
+        holder.tvDate.setText(earning.getPaymentDate());
+        holder.tvAmount.setText("$" + earning.getAmount());
     }
 
     @Override
     public int getItemCount() {
-        return tempEarningModels.size();
+        return earnings.size();
     }
 }

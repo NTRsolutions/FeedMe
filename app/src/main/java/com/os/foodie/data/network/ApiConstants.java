@@ -2,7 +2,7 @@ package com.os.foodie.data.network;
 
 public class ApiConstants {
 
-//    OLD
+    //    OLD
     public static final String BASE_URL = "http://192.168.1.69/foodi/web_services/";
 
 //    OLD LIVE
@@ -81,6 +81,11 @@ public class ApiConstants {
     public static final String ORDER_HISTORY = "order_history";
     public static final String CUSTOMER_ORDER_HISTORY = "customer_order_history";
     public static final String ORDER_DETAIL = "order_detail";
+
+    public static final String EARNING = "get_earnings";
+
+    public static final String CHANGE_ORDER_STATUS = "change_order_status";
+    public static final String GIVE_REVIEW = "give_review";
 
     public static final String SET_MERCHANT_DETAIL = "set_restaurant_account_detail";
     public static final String GET_MERCHANT_DETAIL = "get_restaurant_account_detail";

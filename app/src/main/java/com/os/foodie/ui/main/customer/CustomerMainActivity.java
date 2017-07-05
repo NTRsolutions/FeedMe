@@ -215,7 +215,7 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
                     Log.d("fragment", ">>CustomerHomeFragment");
 
                     navigationView.setCheckedItem(R.id.nav_home);
-                    getSupportActionBar().setTitle(getString(R.string.action_home));
+                    getSupportActionBar().setTitle(getString(R.string.title_fragment_customer_home));
 
                 } else if (fragment instanceof RestaurantOrderHistoryFragment) {
 
@@ -224,7 +224,7 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
                     Log.d("fragment", ">>RestaurantOrderHistoryFragment");
 
                     navigationView.setCheckedItem(R.id.nav_order_history);
-                    getSupportActionBar().setTitle(getString(R.string.action_order_history));
+                    getSupportActionBar().setTitle(getString(R.string.title_fragment_restaurant_order_list));
 
                 } else if (fragment instanceof CustomerAccountFragment) {
 
@@ -242,7 +242,7 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
                     Log.d("fragment", ">>SettingsFragment");
 
                     navigationView.setCheckedItem(R.id.nav_settings);
-                    getSupportActionBar().setTitle(getString(R.string.action_settings));
+                    getSupportActionBar().setTitle(getString(R.string.title_fragment_settings));
 
                 }
             }

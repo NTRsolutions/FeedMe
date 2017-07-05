@@ -3,12 +3,12 @@ package com.os.foodie.ui.order.restaurant.detail;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,58 +19,85 @@ import com.os.foodie.R;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.cart.view.CartList;
+import com.os.foodie.data.network.model.changeorderstatus.ChangeOrderStatusResponse;
 import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.recyclerview.MyBasketAdapter;
 import com.os.foodie.ui.base.BaseActivity;
+import com.os.foodie.ui.custom.RippleAppCompatButton;
+import com.os.foodie.ui.dialogfragment.orderstatus.OrderStatusCallback;
+import com.os.foodie.ui.dialogfragment.orderstatus.OrderStatusDialogFragment;
 import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class OrderHistoryDetailActivity extends BaseActivity implements OrderHistoryMvpView {
+/**
+ * Created by monikab on 6/26/2017.
+ */
 
-    private ImageView ivUserImage;
+public class OrderHistoryDetailActivity extends BaseActivity implements OrderHistoryMvpView, View.OnClickListener, OrderStatusCallback {
 
-    private TextView ivName, ivOrderNumber, tvOrderType, tvPaymentType, tvDate;
-    private TextView tvDeliveryAddress, tvOrderStatus, tvDiscountAmount, tvSubtotal;
-    private TextView tvDeliveryCharges, tvTotalAmount, tvPhoneNumber;
-
-    private LinearLayout llDeliverAddress, llCheckout;
-    private LinearLayout llDeliveryCharges, llSubtotal;
-
-    Context mContext;
-    AppDataManager appDataManager;
-
-    String orderId = "";
-
-    private ArrayList<CartList> cartLists;
-
-    OrderHistoryDetail orderHistoryDetail;
-
-    private RecyclerView recyclerView;
-    private MyBasketAdapter myBasketAdapter;
-
+    private ImageView userImageIv;
+    private TextView nameTv;
+    private TextView orderNumberTv;
+    private TextView orderTypeTv;
+    private TextView paymentTypeTv;
+    private TextView dateTv;
+    private LinearLayout deliverAddressTv;
+    private TextView deliveryAddressTv;
+    private TextView orderStatusTv;
+    private RecyclerView activityMyBasketRecyclerView;
+    private LinearLayout activityMyBasketLlCheckout;
+    private TextView activityMyBasketTvDiscountAmount;
+    private LinearLayout activityMyBasketLlDeliveryCharges;
+    private TextView activityMyBasketTvDeliveryCharges;
+    private TextView activityMyBasketTvTotalAmount;
+    private TextView phoneNumberTv;
     private OrderHistoryMvpPresenter<OrderHistoryMvpView> orderHistoryMvpPresenter;
+    String orderId = "";
+    AppDataManager appDataManager;
+    Context mContext;
+    private ArrayList<CartList> cartLists;
+    private MyBasketAdapter myBasketAdapter;
+    private LinearLayout activityMyBasketLlSubtotal;
+    private TextView activityMyBasketTvSubtotal;
+    OrderHistoryDetail orderHistoryDetail;
+    private LinearLayout customerMoreOptionLl;
+    private RippleAppCompatButton reviewBt;
+    private RippleAppCompatButton repeatOrderBt;
+    private TextView changeStatusTv;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_history_detail);
+        setContentView(R.layout.layout_order_history_detail);
+        initView();
+    }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
-
+    private void initView() {
         mContext = this;
-
         initPresenter();
         orderHistoryMvpPresenter.onAttach(OrderHistoryDetailActivity.this);
 
-        initView();
+        userImageIv = (ImageView) findViewById(R.id.user_image_iv);
+        nameTv = (TextView) findViewById(R.id.name_tv);
+        orderNumberTv = (TextView) findViewById(R.id.order_number_tv);
+        orderTypeTv = (TextView) findViewById(R.id.order_type_tv);
+        paymentTypeTv = (TextView) findViewById(R.id.payment_type_tv);
+        dateTv = (TextView) findViewById(R.id.date_tv);
+        deliverAddressTv = (LinearLayout) findViewById(R.id.deliver_address_tv);
+        deliveryAddressTv = (TextView) findViewById(R.id.delivery_address_tv);
+        orderStatusTv = (TextView) findViewById(R.id.order_status_tv);
+        activityMyBasketRecyclerView = (RecyclerView) findViewById(R.id.activity_my_basket_recyclerview);
+        activityMyBasketLlCheckout = (LinearLayout) findViewById(R.id.activity_my_basket_ll_checkout);
+        activityMyBasketTvDiscountAmount = (TextView) findViewById(R.id.activity_my_basket_tv_discount_amount);
+        activityMyBasketLlDeliveryCharges = (LinearLayout) findViewById(R.id.activity_my_basket_ll_delivery_charges);
+        activityMyBasketTvDeliveryCharges = (TextView) findViewById(R.id.activity_my_basket_tv_delivery_charges);
+        activityMyBasketTvTotalAmount = (TextView) findViewById(R.id.activity_my_basket_tv_total_amount);
+        phoneNumberTv = (TextView) findViewById(R.id.phone_number_tv);
 
-        recyclerView = (RecyclerView) findViewById(R.id.activity_order_history_detail_recyclerview);
 
         cartLists = new ArrayList<CartList>();
 
@@ -78,37 +105,24 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(myBasketAdapter);
+        activityMyBasketRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        activityMyBasketRecyclerView.setLayoutManager(layoutManager);
+        activityMyBasketRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        activityMyBasketRecyclerView.setAdapter(myBasketAdapter);
 
         orderId = getIntent().getExtras().getString("order_id");
 
         orderHistoryMvpPresenter.getOrderHistoryDetail(orderId);
-    }
 
-    private void initView() {
-
-        ivUserImage = (ImageView) findViewById(R.id.activity_order_history_detail_iv_user_image);
-
-        ivName = (TextView) findViewById(R.id.activity_order_history_detail_tv_name);
-        ivOrderNumber = (TextView) findViewById(R.id.activity_order_history_detail_tv_order_number);
-        tvOrderType = (TextView) findViewById(R.id.activity_order_history_detail_tv_order_type);
-        tvPaymentType = (TextView) findViewById(R.id.activity_order_history_detail_tv_payment_type);
-        tvDate = (TextView) findViewById(R.id.activity_order_history_detail_tv_date);
-        tvDeliveryAddress = (TextView) findViewById(R.id.activity_order_history_detail_tv_delivery_address);
-        tvOrderStatus = (TextView) findViewById(R.id.activity_order_history_detail_tv_order_status);
-        tvDiscountAmount = (TextView) findViewById(R.id.activity_order_history_detail_tv_discount_amount);
-        tvTotalAmount = (TextView) findViewById(R.id.activity_order_history_detail_tv_total_amount);
-        tvDeliveryCharges = (TextView) findViewById(R.id.activity_order_history_detail_tv_delivery_charges);
-        tvPhoneNumber = (TextView) findViewById(R.id.activity_order_history_detail_tv_phone_number);
-        tvSubtotal = (TextView) findViewById(R.id.activity_order_history_detail_tv_subtotal);
-
-        llCheckout = (LinearLayout) findViewById(R.id.activity_order_history_detail_ll_checkout);
-        llDeliveryCharges = (LinearLayout) findViewById(R.id.activity_order_history_detail_ll_delivery_charges);
-        llDeliverAddress = (LinearLayout) findViewById(R.id.activity_order_history_detail_tv_deliver_address);
-        llSubtotal = (LinearLayout) findViewById(R.id.activity_order_history_detail_ll_subtotal);
+        activityMyBasketLlSubtotal = (LinearLayout) findViewById(R.id.activity_my_basket_ll_subtotal);
+        activityMyBasketTvSubtotal = (TextView) findViewById(R.id.activity_my_basket_tv_subtotal);
+        customerMoreOptionLl = (LinearLayout) findViewById(R.id.customer_more_option_ll);
+        reviewBt = (RippleAppCompatButton) findViewById(R.id.review_bt);
+        repeatOrderBt = (RippleAppCompatButton) findViewById(R.id.repeat_order_bt);
+        changeStatusTv = (TextView) findViewById(R.id.change_status_tv);
+        changeStatusTv.setOnClickListener(this);
+        repeatOrderBt.setOnClickListener(this);
+        reviewBt.setOnClickListener(this);
     }
 
     public void initPresenter() {
@@ -127,80 +141,89 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return true;
-    }
-
-    @Override
     public void setOrderHistoryDetail(OrderHistoryDetail orderHistoryDetail) {
 
         this.orderHistoryDetail = orderHistoryDetail;
-        ivOrderNumber.setText(orderHistoryDetail.getResponse().getOrderDetail().getOrderId());
+        orderNumberTv.setText(orderHistoryDetail.getResponse().getOrderDetail().getOrderId());
 
         if (appDataManager.getCurrentUserId().equals(orderHistoryDetail.getResponse().getRestaurantId())) {
 
-            ivName.setText(getString(R.string.add_discount_tv_order_by_text_tag) + " " + orderHistoryDetail.getResponse().getUserDetail().getFirstName() + " " + orderHistoryDetail.getResponse().getUserDetail().getLastName());
-            ivUserImage.setVisibility(View.GONE);
-            tvPhoneNumber.setText(orderHistoryDetail.getResponse().getUserDetail().getMobileNumber());
+            nameTv.setText(getString(R.string.order_by) + " " + orderHistoryDetail.getResponse().getUserDetail().getFirstName() + " " + orderHistoryDetail.getResponse().getUserDetail().getLastName());
+            userImageIv.setVisibility(View.GONE);
+            phoneNumberTv.setText(orderHistoryDetail.getResponse().getUserDetail().getMobileNumber());
+      /*      Glide.with(mContext)
+                    .load(orderHistoryDetail.getResponse().getUserDetail().)
+                    .placeholder(ContextCompat.getDrawable(mContext, R.mipmap.img_placeholder))
+                    .error(ContextCompat.getDrawable(mContext, R.mipmap.img_placeholder))
+                    .into(userImageIv);*/
+            reviewBt.setVisibility(View.GONE);
+            repeatOrderBt.setVisibility(View.GONE);
 
-//      /*      Glide.with(mContext)
-//                    .load(orderHistoryDetail.getResponse().getUserDetail().)
-//                    .placeholder(ContextCompat.getDrawable(mContext, R.mipmap.img_placeholder))
-//                    .error(ContextCompat.getDrawable(mContext, R.mipmap.img_placeholder))
-//                    .into(ivUserImage);*/
 
         } else {
-
-            tvPhoneNumber.setText(orderHistoryDetail.getResponse().getMobileNumber1());
-            ivName.setText(orderHistoryDetail.getResponse().getRestaurantName());
-
-            ivUserImage.setVisibility(View.VISIBLE);
-
+            phoneNumberTv.setText(orderHistoryDetail.getResponse().getMobileNumber1());
+            nameTv.setText(orderHistoryDetail.getResponse().getRestaurantName());
+            userImageIv.setVisibility(View.VISIBLE);
             Glide.with(mContext)
                     .load(orderHistoryDetail.getResponse().getLogo())
                     .placeholder(ContextCompat.getDrawable(mContext, R.mipmap.img_placeholder))
                     .error(ContextCompat.getDrawable(mContext, R.mipmap.img_placeholder))
-                    .into(ivUserImage);
+                    .into(userImageIv);
+
         }
 
-        tvOrderType.setText(orderHistoryDetail.getResponse().getOrderDetail().getDeliveryType());
-        tvPaymentType.setText(orderHistoryDetail.getResponse().getOrderDetail().getPaymentMethod());
+        orderTypeTv.setText(orderHistoryDetail.getResponse().getOrderDetail().getDeliveryType());
 
-        tvDate.setText(orderHistoryDetail.getResponse().getOrderDetail().getOrderDelieveryDate() + " at " + orderHistoryDetail.getResponse().getOrderDetail().getOrderDelieveryTime());
-
+        paymentTypeTv.setText(orderHistoryDetail.getResponse().getOrderDetail().getPaymentMethod());
+        dateTv.setText(orderHistoryDetail.getResponse().getOrderDetail().getOrderDelieveryDate() + " at " + orderHistoryDetail.getResponse().getOrderDetail().getOrderDelieveryTime());
         if (orderHistoryDetail.getResponse().getOrderDetail().getDeliveryType().equalsIgnoreCase("Deliver")) {
-
-            tvDeliveryAddress.setText(orderHistoryDetail.getResponse().getOrderDetail().getPaymentMethod());
+            deliveryAddressTv.setText(orderHistoryDetail.getResponse().getDeliveryAddress() + "\n" + getString(R.string.landmark) + ": " + orderHistoryDetail.getResponse().getLandmark());
+            phoneNumberTv.setText(orderHistoryDetail.getResponse().getDelivery_mobile_number());
         } else {
-            llDeliverAddress.setVisibility(View.GONE);
+            deliverAddressTv.setVisibility(View.GONE);
         }
 
-        tvOrderStatus.setText(orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus());
+        orderStatusTv.setText(orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus());
 
         cartLists.clear();
         cartLists.addAll(orderHistoryDetail.getResponse().getItemList());
 
         myBasketAdapter.notifyDataSetChanged();
 
-        tvDeliveryCharges.setText("$" + orderHistoryDetail.getResponse().getDeliveryCharge().replace(".00", ".0"));
+
+        activityMyBasketTvDeliveryCharges.setText("$" + orderHistoryDetail.getResponse().getDeliveryCharge().replace(".00", ".0"));
 
         final String deliveryTypes[] = getResources().getStringArray(R.array.delivery_type);
 
+
         if (orderHistoryDetail.getResponse().getOrderDetail().getDeliveryType().equalsIgnoreCase(deliveryTypes[0])) {
 
-            llDeliveryCharges.setVisibility(View.GONE);
+            activityMyBasketLlDeliveryCharges.setVisibility(View.GONE);
 
         } else if (orderHistoryDetail.getResponse().getOrderDetail().getDeliveryType().equalsIgnoreCase(deliveryTypes[1])) {
-
-            llDeliveryCharges.setVisibility(View.VISIBLE);
+            activityMyBasketLlDeliveryCharges.setVisibility(View.VISIBLE);
         }
 
+        if (orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("decline") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("Picked") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("delivered"))
+            changeStatusTv.setVisibility(View.GONE);
+        else
+            changeStatusTv.setVisibility(View.VISIBLE);
+
         updateTotalAmount();
+
     }
+
+    @Override
+    public void setOrderStatus(ChangeOrderStatusResponse changeOrderStatusResponse) {
+        orderStatusTv.setText(changeOrderStatusResponse.getResponse().getCurrentStatus());
+        changeOrderStatusResponse.getResponse().setCurrentStatus(changeOrderStatusResponse.getResponse().getCurrentStatus());
+
+        if (orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("decline") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("Picked") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("delivered"))
+            changeStatusTv.setVisibility(View.GONE);
+        else
+            changeStatusTv.setVisibility(View.VISIBLE);
+    }
+
 
     public void updateTotalAmount() {
 
@@ -216,18 +239,33 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
             totalAmount += price * quantity;
         }
 
-        if (llDeliveryCharges.getVisibility() == View.VISIBLE) {
+        if (activityMyBasketLlDeliveryCharges.getVisibility() == View.VISIBLE) {
 
-            tvSubtotal.setText("$" + totalAmount);
+            activityMyBasketTvSubtotal.setText("$" + totalAmount);
 
             totalAmount += Float.parseFloat(orderHistoryDetail.getResponse().getDeliveryCharge());
-            llSubtotal.setVisibility(View.VISIBLE);
+            activityMyBasketLlSubtotal.setVisibility(View.VISIBLE);
 
         } else {
-
-            llSubtotal.setVisibility(View.GONE);
+            activityMyBasketLlSubtotal.setVisibility(View.GONE);
         }
 
-        tvTotalAmount.setText("$" + totalAmount);
+        activityMyBasketTvTotalAmount.setText("$" + totalAmount);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.change_status_tv:
+                OrderStatusDialogFragment dishListDialogFragment = new OrderStatusDialogFragment(orderHistoryDetail.getResponse().getOrderDetail().getDeliveryType(), orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus());
+                dishListDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogFragment);
+                dishListDialogFragment.show(getSupportFragmentManager(), "OrderStatusDialogFragment");
+                break;
+        }
+    }
+
+    @Override
+    public void OrderStatusReturn(String status) {
+        orderHistoryMvpPresenter.ChangeOrderStatus(orderId, status);
     }
 }

@@ -347,9 +347,9 @@
 
     <!--Change Password-->
     <string name="change_password_activity_title">Change Password</string>
-    <string name="restaurant_profile">Restaurant Profile</string>
 
     <!--Restaurant Show Profile-->
+    <string name="title_fragment_restaurant_profile">Restaurant Profile</string>
     <string name="fragment_show_restaurant_profile_content_tv_opening_closing_hour_text">Opening Closing Hour:</string>
     <string name="fragment_show_restaurant_profile_content_tv_delivery_charges_text">Delivery Charges:</string>
     <string name="fragment_show_restaurant_profile_content_tv_delivery_areas_text">Delivery Areas:</string>
@@ -485,7 +485,7 @@
     <!--Earning-->
     <string name="title_fragment_earning">Earning</string>
     <string name="earning_tv_empty_alert_text">No Earning</string>
-    <string name="recyclerview_earning_tv_transaction_id_tag_text">Transaction Id:</string>
+    <string name="recyclerview_earning_tv_payment_method_tag_text">Payment Method:</string>
     <string name="recyclerview_earning_tv_date_tag_text">Date:</string>
 
     <!--Discount List-->
@@ -508,6 +508,9 @@
     <string name="add_discount_tv_select_dish_text">Select Dishes</string>
     <string name="add_discount_tv_order_by_text_tag">Order by:</string>
 
+    <!--Merchant Details-->
+    <string name="title_fragment_merchant_detail">Merchant Details</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="order_detail_activity_title">Order Detail</string>
     <string name="order_number">Order Number</string>
@@ -518,6 +521,41 @@
     <string name="order_summary">Order Summry</string>
     <string name="contact_detail">Contact Detail</string>
     <string name="order_status">Order Status</string>
+    <string name="order_by">Order by:</string>
+    <string name="give_feedback">Give Feedback</string>
+    <string name="repeat_order">Repeat Order</string>
+    <string name="change_status">Change Status</string>
+    <string name="order_detail">Order Detail</string>
+
+    <!--order status dialog-->
+    <string name="set_order_status">Set Order Status</string>
+    <string name="under_preparation">Under Preparation</string>
+    <string name="ready_to_pick_or_deliver">Ready to Pick or Deliver</string>
+    <string name="in_transit">In Transit</string>
+    <string name="delivery_or_picked">Delivery or Picked</string>
+    <string name="done">Done</string>
+    <string name="comment">Comment</string>
+
+
+    <!--RestaurantReview-->
+    <string name="comment_error">Enter your valuable comment.</string>
+    <string name="rate_error">Please rate at least one.</string>
+    <string name="landmark">Landmark</string>
+
+    <string-array name="pick_order_status">
+        <item>Under Preparation</item>
+        <item>Ready to Pick</item>
+        <item>Picked</item>
+    </string-array>
+
+
+    <string-array name="delivery_order_status">
+        <item>Under Preparation</item>
+        <item>Ready to Deliver</item>
+        <item>In Transit</item>
+        <item>Delivered</item>
+    </string-array>
+
 
     <!--Abhinav-->
 

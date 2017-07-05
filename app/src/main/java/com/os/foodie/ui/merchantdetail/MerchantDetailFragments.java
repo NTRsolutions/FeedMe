@@ -93,11 +93,7 @@ public class MerchantDetailFragments extends BaseFragment implements MerchantDet
     public void onResume() {
         super.onResume();
 
-        if (getActivity() instanceof CustomerMainActivity) {
-            ((CustomerMainActivity) getActivity()).setTitle(getActivity().getResources().getString(R.string.title_fragment_settings));
-        } else {
-            ((RestaurantMainActivity) getActivity()).setTitle(getActivity().getResources().getString(R.string.title_fragment_settings));
-        }
+        ((RestaurantMainActivity) getActivity()).setTitle(getActivity().getResources().getString(R.string.title_fragment_merchant_detail));
     }
 
     @Override

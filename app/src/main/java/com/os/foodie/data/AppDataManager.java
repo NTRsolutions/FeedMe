@@ -21,6 +21,7 @@ import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
 import com.os.foodie.data.network.model.cart.update.UpdateCartResponse;
 import com.os.foodie.data.network.model.cart.view.ViewCartRequest;
 import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
+import com.os.foodie.data.network.model.changeorderstatus.ChangeOrderStatusResponse;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
 import com.os.foodie.data.network.model.checkout.CheckoutRequest;
@@ -47,6 +48,8 @@ import com.os.foodie.data.network.model.discount.dishlist.DishListRequest;
 import com.os.foodie.data.network.model.discount.dishlist.DishListResponse;
 import com.os.foodie.data.network.model.discount.list.DeleteDiscountRequest;
 import com.os.foodie.data.network.model.discount.list.DiscountListResponse;
+import com.os.foodie.data.network.model.earning.GetEarningRequest;
+import com.os.foodie.data.network.model.earning.GetEarningResponse;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordRequest;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordResponse;
 import com.os.foodie.data.network.model.home.customer.GetRestaurantListRequest;
@@ -90,6 +93,8 @@ import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardRequest;
 import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardResponse;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardRequest;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardResponse;
+import com.os.foodie.data.network.model.restaurantreview.RestaurantReviewRequest;
+import com.os.foodie.data.network.model.restaurantreview.RestaurantReviewResponse;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
@@ -488,6 +493,22 @@ public class AppDataManager implements DataManager {
     public Observable<SetNotificationResponse> setNotification(String user_id) {
         return apiHelper.setNotification(user_id);
     }
+
+    @Override
+    public Observable<GetEarningResponse> getEarnings(GetEarningRequest earningRequest) {
+        return apiHelper.getEarnings(earningRequest);
+    }
+
+    @Override
+    public Observable<ChangeOrderStatusResponse> changeOrderStatus(String orderId, String orderStatus) {
+        return apiHelper.changeOrderStatus(orderId, orderStatus);
+    }
+
+    @Override
+    public Observable<RestaurantReviewResponse> sendRestaurantReview(RestaurantReviewRequest restaurantReviewRequest) {
+        return apiHelper.sendRestaurantReview(restaurantReviewRequest);
+    }
+
 
     //    private final Context mContext;
 //    private final DbHelper mDbHelper;

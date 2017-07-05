@@ -23,7 +23,7 @@ public class OrderList {
     private String orderType;
     @SerializedName("discount")
     @Expose
-    private Integer discount;
+    private String discount;
     @SerializedName("dish_name")
     @Expose
     private String dishName;
@@ -45,7 +45,7 @@ public class OrderList {
      * @param orderId
      * @param discount
      */
-    public OrderList(String orderId, String totalAmount, String orderStatus, String paymentStatus, String orderType, Integer discount, String dishName) {
+    public OrderList(String orderId, String totalAmount, String orderStatus, String paymentStatus, String orderType, String discount, String dishName) {
         super();
         this.orderId = orderId;
         this.totalAmount = totalAmount;
@@ -96,11 +96,11 @@ public class OrderList {
         this.orderType = orderType;
     }
 
-    public Integer getDiscount() {
+    public String getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Integer discount) {
+    public void setDiscount(String discount) {
         this.discount = discount;
     }
 

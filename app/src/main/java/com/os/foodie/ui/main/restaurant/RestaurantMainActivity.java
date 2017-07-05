@@ -258,7 +258,7 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
                     Log.d("fragment", ">>RestaurantOrderListFragment");
 
                     navigationView.setCheckedItem(R.id.nav_order_list);
-                    getSupportActionBar().setTitle(getString(R.string.action_order_list));
+                    getSupportActionBar().setTitle(getString(R.string.title_fragment_restaurant_order_list));
 
                 } else if (fragment instanceof RestaurantAccountFragment) {
 
@@ -276,7 +276,7 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
                     Log.d("fragment", ">>SetupRestaurantProfileFragment");
 
                     navigationView.setCheckedItem(R.id.nav_restaurant_profile);
-                    getSupportActionBar().setTitle(getString(R.string.action_restaurant_profile));
+                    getSupportActionBar().setTitle(getString(R.string.title_fragment_restaurant_profile));
 
                 } else if (fragment instanceof ShowRestaurantProfileFragment) {
 
@@ -285,7 +285,7 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
                     Log.d("fragment", ">>ShowRestaurantProfileFragment");
 
                     navigationView.setCheckedItem(R.id.nav_restaurant_profile);
-                    getSupportActionBar().setTitle(getString(R.string.action_restaurant_profile));
+                    getSupportActionBar().setTitle(getString(R.string.title_fragment_restaurant_profile));
 
                 } else if (fragment instanceof RestaurantOrderHistoryFragment) {
 
@@ -303,7 +303,7 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
                     Log.d("fragment", ">>RestaurantMenuFragment");
 
                     navigationView.setCheckedItem(R.id.nav_menu_management);
-                    getSupportActionBar().setTitle(getString(R.string.action_menu_management));
+                    getSupportActionBar().setTitle(getString(R.string.title_fragment_restaurant_menu));
 
                 } else if (fragment instanceof DiscountListFragment) {
 
@@ -321,7 +321,7 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
                     Log.d("fragment", ">>EarningFragment");
 
                     navigationView.setCheckedItem(R.id.nav_view_earning);
-                    getSupportActionBar().setTitle(getString(R.string.action_view_earning));
+                    getSupportActionBar().setTitle(getString(R.string.title_fragment_earning));
 
                 } else if (fragment instanceof MerchantDetailFragments) {
 

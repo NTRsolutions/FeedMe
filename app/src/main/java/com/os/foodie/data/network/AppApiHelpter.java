@@ -23,6 +23,7 @@ import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
 import com.os.foodie.data.network.model.cart.update.UpdateCartResponse;
 import com.os.foodie.data.network.model.cart.view.ViewCartRequest;
 import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
+import com.os.foodie.data.network.model.changeorderstatus.ChangeOrderStatusResponse;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
 import com.os.foodie.data.network.model.checkout.CheckoutRequest;
@@ -49,6 +50,8 @@ import com.os.foodie.data.network.model.discount.dishlist.DishListRequest;
 import com.os.foodie.data.network.model.discount.dishlist.DishListResponse;
 import com.os.foodie.data.network.model.discount.list.DeleteDiscountRequest;
 import com.os.foodie.data.network.model.discount.list.DiscountListResponse;
+import com.os.foodie.data.network.model.earning.GetEarningRequest;
+import com.os.foodie.data.network.model.earning.GetEarningResponse;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordRequest;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordResponse;
 import com.os.foodie.data.network.model.home.customer.GetRestaurantListRequest;
@@ -92,6 +95,8 @@ import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardRequest;
 import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardResponse;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardRequest;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardResponse;
+import com.os.foodie.data.network.model.restaurantreview.RestaurantReviewRequest;
+import com.os.foodie.data.network.model.restaurantreview.RestaurantReviewResponse;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
@@ -1099,6 +1104,26 @@ public class AppApiHelpter implements ApiHelper {
                 .getObjectObservable(SetNotificationResponse.class);
     }
 
+    @Override
+    public Observable<GetEarningResponse> getEarnings(GetEarningRequest earningRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(earningRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.EARNING)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(GetEarningResponse.class);
+    }
+
     //    Monika
     @Override
     public Observable<GetOrderListResponse> getOrderHistoryList(GetOrderListRequest getOrderListRequest) {
@@ -1159,5 +1184,46 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(OrderHistoryDetail.class);
+    }
+
+    @Override
+    public Observable<ChangeOrderStatusResponse> changeOrderStatus(String orderId, String orderStatus) {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("order_id",orderId);
+            jsonObject.put("order_status",orderStatus);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.CHANGE_ORDER_STATUS)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(ChangeOrderStatusResponse.class);
+    }
+
+
+    @Override
+    public Observable<RestaurantReviewResponse> sendRestaurantReview(RestaurantReviewRequest restaurantReviewRequest)
+    {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(restaurantReviewRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.GIVE_REVIEW)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(RestaurantReviewResponse.class);
     }
 }
