@@ -10,10 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.os.foodie.R;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.orderlist.show.OrderList;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.order.restaurant.detail.OrderHistoryDetailActivity;
-import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpPresenter;
-import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpView;
 import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
@@ -22,12 +23,13 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
 
     private Context context;
     private ArrayList<OrderList> orderLists;
+    AppDataManager appDataManager;
 //    private String deliveryTime;
 
-    public RestaurantOrderHistoryAdapter(Context context, ArrayList<OrderList> orderLists/*, String deliveryTime*/) {
+    public RestaurantOrderHistoryAdapter(Context context, ArrayList<OrderList> orderLists) {
         this.context = context;
         this.orderLists = orderLists;
-//        this.deliveryTime = deliveryTime;
+        initPresenter();
     }
 
     class RestaurantOrderListViewHolder extends RecyclerView.ViewHolder {
@@ -80,6 +82,10 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
                 int pos = (int) v.getTag();
                 Intent i = new Intent(context, OrderHistoryDetailActivity.class);
                 i.putExtra("order_id", orderLists.get(pos).getOrderId());
+                if (appDataManager.getCurrentUserType().equals(AppConstants.RESTAURANT))
+                    i.putExtra("showUpdateButton", true);
+                else
+                    i.putExtra("showUpdateButton", false);
                 context.startActivity(i);
             }
         });
@@ -88,5 +94,14 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
     @Override
     public int getItemCount() {
         return orderLists.size();
+    }
+
+
+    public void initPresenter() {
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(context, AppConstants.PREFERENCE_DEFAULT);
+        appDataManager = new AppDataManager(context, appPreferencesHelper, appApiHelpter);
+
     }
 }

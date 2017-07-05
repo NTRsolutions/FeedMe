@@ -134,6 +134,7 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
                 int pos = (int) v.getTag();
                 Intent i = new Intent(context, OrderHistoryDetailActivity.class);
                 i.putExtra("order_id", orderLists.get(pos).getOrderId());
+                i.putExtra("showUpdateButton", false);
                 context.startActivity(i);
             }
         });

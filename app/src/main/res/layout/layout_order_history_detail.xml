@@ -189,35 +189,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
-                <TextView
-                    style="@style/TextView8"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/order_status" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/order_status" />
+
+                    <TextView
+                        android:id="@+id/order_status_tv"
+                        style="@style/TextView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="name" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/order_status_tv"
-                    style="@style/TextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="name" />
-
-            </LinearLayout>
-
-                <TextView
-                    android:padding="8dp"
-                    android:textColor="@color/orange"
-                    android:background="@drawable/rectangle_round_corner_white_outline_orange"
                     android:id="@+id/change_status_tv"
-                    android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/change_status"/>
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/rectangle_round_corner_white_outline_orange"
+                    android:padding="8dp"
+                    android:text="@string/change_status"
+                    android:textColor="@color/orange" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -404,7 +405,8 @@
                 android:layout_height="@dimen/restaurant_menu_add_update_bt_height"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="@string/give_feedback" />
+                android:text="@string/give_feedback"
+                android:visibility="gone" />
 
             <com.os.foodie.ui.custom.RippleAppCompatButton
                 android:id="@+id/repeat_order_bt"
@@ -414,7 +416,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="@string/repeat_order" />
+                android:text="@string/repeat_order"
+                android:visibility="gone" />
 
         </LinearLayout>
     </LinearLayout>

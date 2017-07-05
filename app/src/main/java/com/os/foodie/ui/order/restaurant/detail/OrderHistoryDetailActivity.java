@@ -27,6 +27,7 @@ import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
 import com.os.foodie.ui.dialogfragment.orderstatus.OrderStatusCallback;
 import com.os.foodie.ui.dialogfragment.orderstatus.OrderStatusDialogFragment;
+import com.os.foodie.ui.dialogfragment.restaurantreview.RestaurantReviewDialogFragment;
 import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
@@ -68,6 +69,7 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
     private RippleAppCompatButton reviewBt;
     private RippleAppCompatButton repeatOrderBt;
     private TextView changeStatusTv;
+    boolean showUpdateButton=false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,6 +113,8 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
         activityMyBasketRecyclerView.setAdapter(myBasketAdapter);
 
         orderId = getIntent().getExtras().getString("order_id");
+
+        showUpdateButton=getIntent().getExtras().getBoolean("showUpdateButton");
 
         orderHistoryMvpPresenter.getOrderHistoryDetail(orderId);
 
@@ -156,8 +160,7 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
                     .placeholder(ContextCompat.getDrawable(mContext, R.mipmap.img_placeholder))
                     .error(ContextCompat.getDrawable(mContext, R.mipmap.img_placeholder))
                     .into(userImageIv);*/
-            reviewBt.setVisibility(View.GONE);
-            repeatOrderBt.setVisibility(View.GONE);
+
 
 
         } else {
@@ -204,10 +207,28 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
             activityMyBasketLlDeliveryCharges.setVisibility(View.VISIBLE);
         }
 
-        if (orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("decline") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("Picked") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("delivered"))
-            changeStatusTv.setVisibility(View.GONE);
-        else
+        if (orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("decline") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("Picked") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("delivered")) {
+           if (showUpdateButton)
             changeStatusTv.setVisibility(View.VISIBLE);
+            else
+               changeStatusTv.setVisibility(View.GONE);
+
+        }
+        else {
+            if (showUpdateButton)
+                changeStatusTv.setVisibility(View.VISIBLE);
+            else
+                changeStatusTv.setVisibility(View.GONE);
+        }
+
+
+        if (appDataManager.getCurrentUserType().equals(AppConstants.CUSTOMER) && (orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("Picked") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("delivered")) ){
+
+            reviewBt.setVisibility(View.VISIBLE);
+            repeatOrderBt.setVisibility(View.VISIBLE);
+
+        }
+
 
         updateTotalAmount();
 
@@ -261,11 +282,26 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
                 dishListDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogFragment);
                 dishListDialogFragment.show(getSupportFragmentManager(), "OrderStatusDialogFragment");
                 break;
+
+            case R.id.review_bt:
+                RestaurantReviewDialogFragment restaurantReviewDialogFragment = new RestaurantReviewDialogFragment();
+
+                Bundle bundle=new Bundle();
+                bundle.putString("restaurant_image",orderHistoryDetail.getResponse().getLogo());
+                bundle.putString("restaurant_name",orderHistoryDetail.getResponse().getRestaurantName());
+                bundle.putString("restaurant_id",orderHistoryDetail.getResponse().getRestaurantId());
+                bundle.putString("order_id",orderHistoryDetail.getResponse().getOrderDetail().getOrderId());
+                restaurantReviewDialogFragment.setArguments(bundle);
+
+                restaurantReviewDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogFragment);
+                restaurantReviewDialogFragment.show(getSupportFragmentManager(), "RestaurantReviewDialogFragment");
+                break;
         }
     }
 
     @Override
     public void OrderStatusReturn(String status) {
         orderHistoryMvpPresenter.ChangeOrderStatus(orderId, status);
+
     }
 }
