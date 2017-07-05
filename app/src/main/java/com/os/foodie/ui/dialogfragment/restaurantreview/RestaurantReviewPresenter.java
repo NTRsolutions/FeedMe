@@ -21,10 +21,10 @@ public class RestaurantReviewPresenter<V extends RestaurantReviewMvpView> extend
     }
 
     @Override
-    public void SendRestaurantReview(RestaurantReviewRequest restaurantReviewRequest)
-    {
-        if (NetworkUtils.isNetworkConnected(getMvpView().getContext()))
-        {
+    public void SendRestaurantReview(RestaurantReviewRequest restaurantReviewRequest) {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
             restaurantReviewRequest.setUserId(getDataManager().getCurrentUserId());
 
             getMvpView().showLoading();
@@ -39,8 +39,8 @@ public class RestaurantReviewPresenter<V extends RestaurantReviewMvpView> extend
 
                             getMvpView().hideLoading();
 
-                            if (restaurantReviewResponse.getResponse().getStatus() == 1)
-                            {
+                            if (restaurantReviewResponse.getResponse().getStatus() == 1) {
+
                                 getMvpView().onError(restaurantReviewResponse.getResponse().getMessage());
                                 getMvpView().finish();
 
@@ -59,6 +59,10 @@ public class RestaurantReviewPresenter<V extends RestaurantReviewMvpView> extend
         } else {
             getMvpView().onError(R.string.connection_error);
         }
+    }
 
+    @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
     }
 }

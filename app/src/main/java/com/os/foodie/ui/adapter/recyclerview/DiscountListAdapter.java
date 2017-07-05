@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import com.os.foodie.ui.discount.list.DiscountListMvpView;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.DialogUtils;
+import com.os.foodie.utils.ScreenUtils;
 
 import java.util.ArrayList;
 
@@ -66,7 +69,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<DiscountListAdapte
     }
 
     @Override
-    public void onBindViewHolder(DiscountListAdapterViewHolder holder, final int position) {
+    public void onBindViewHolder(final DiscountListAdapterViewHolder holder, final int position) {
 
         final DiscountList discountList = discountLists.get(position);
 
@@ -100,11 +103,58 @@ public class DiscountListAdapter extends RecyclerView.Adapter<DiscountListAdapte
 
                 LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
 
-                final View popupView = layoutInflater.inflate(R.layout.menu_popup_restaurant_menu_item_bottom, null);
-                final PopupWindow popupWindow = new PopupWindow(
+                int vY = (int) v.getY();
+
+                int itemViewY = (int) holder.itemView.getY();
+                int itemViewMeasuredHeight = (int) holder.itemView.getMeasuredHeight();
+
+                int vX = (int) v.getX();
+
+                int itemViewX = (int) holder.itemView.getX();
+                int itemViewMeasuredWidth = (int) holder.itemView.getMeasuredWidth();
+
+                int screenHeight = ScreenUtils.getScreenHeight(context);
+                int clickPosition = (int) (itemViewY + vY);
+                int limit = screenHeight - (itemViewMeasuredHeight * 3);
+
+                Log.d("getScreenHeight", ">>" + ScreenUtils.getScreenHeight(context));
+                Log.d("getMeasuredHeight", ">>" + holder.itemView.getMeasuredHeight());
+
+                Log.d("v.clickPosition", ">>" + clickPosition);
+                Log.d("v.clickPosition X", ">>" + (itemViewX + vX));
+                Log.d("v.limit", ">>" + limit);
+//
+//                Log.d("getScreenHeight", ">>" + ScreenUtils.getScreenHeight(context));
+//                Log.d("getMeasuredHeight", ">>" + holder.itemView.getMeasuredHeight());
+                Log.d("getMeasuredWidth", ">>" + holder.itemView.getMeasuredWidth());
+//                Log.d("itemView.getY", ">>" + holder.itemView.getY());
+                Log.d("itemView.getX", ">>" + holder.itemView.getX());
+                Log.d("v.getX", ">>" + v.getX());
+//                Log.d("v.getY", ">>" + v.getY());
+
+                final View popupView;
+                final PopupWindow popupWindow;
+
+                if (clickPosition > limit) {
+
+                popupView = layoutInflater.inflate(R.layout.menu_popup_restaurant_menu_item_top, null);
+                popupWindow = new PopupWindow(
                         popupView,
                         RecyclerView.LayoutParams.WRAP_CONTENT,
                         RecyclerView.LayoutParams.WRAP_CONTENT);
+
+                    popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_popup_background_top));
+
+                } else {
+
+                    popupView = layoutInflater.inflate(R.layout.menu_popup_restaurant_menu_item_bottom, null);
+                    popupWindow = new PopupWindow(
+                            popupView,
+                            RecyclerView.LayoutParams.WRAP_CONTENT,
+                            RecyclerView.LayoutParams.WRAP_CONTENT);
+
+                    popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_popup_background_bottom));
+                }
 
                 ImageView ivStatus = (ImageView) popupView.findViewById(R.id.menu_popup_restaurant_menu_item_iv_status);
                 ImageView ivEdit = (ImageView) popupView.findViewById(R.id.menu_popup_restaurant_menu_item_iv_edit);
@@ -152,10 +202,18 @@ public class DiscountListAdapter extends RecyclerView.Adapter<DiscountListAdapte
                     }
                 });
 
-                popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_popup_background_bottom));
                 popupWindow.setOutsideTouchable(true);
                 popupWindow.setFocusable(true);
-                popupWindow.showAsDropDown(v);
+//                popupWindow.showAsDropDown(v);
+
+                if (clickPosition > limit) {
+
+                    popupWindow.showAtLocation(v, Gravity.TOP, (int) (itemViewMeasuredWidth/* - (itemViewX + vX)*/), (int) (itemViewY + vY));
+
+                } else {
+
+                    popupWindow.showAsDropDown(v);
+                }
             }
         });
     }

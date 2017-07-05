@@ -23,7 +23,8 @@
     <string name="alert_dialog_title_deactivate_dish">Deactive Item</string>
     <string name="alert_dialog_text_deactivate_dish">Do you want to deactivate this item ?</string>
     <string name="alert_dialog_title_clear_basket">Clear Basket</string>
-    <string name="alert_dialog_text_clear_basket">You already added dish of another restaurent in your cart.\nAre you sure, you want to clear your cart?</string>
+    <string name="alert_dialog_text_clear_basket">You already added dish of another restaurent in your basket.\nAre you sure, you want to clear basket?</string>
+    <string name="alert_dialog_text_clear_basket_2">Are you sure, you want to clear basket?</string>
     <string name="alert_dialog_title_delete_address">Delete Address</string>
     <string name="alert_dialog_text_delete_address">Are you sure, address will be deleted permanently ?</string>
     <string name="alert_dialog_title_payment_method">Select Payment Method</string>

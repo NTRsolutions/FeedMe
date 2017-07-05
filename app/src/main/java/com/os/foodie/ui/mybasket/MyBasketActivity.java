@@ -570,7 +570,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         };
 
         DialogUtils.showAlert(this,
-                R.string.alert_dialog_title_clear_basket, R.string.alert_dialog_text_clear_basket,
+                R.string.alert_dialog_title_clear_basket, R.string.alert_dialog_text_clear_basket_2,
                 getResources().getString(R.string.alert_dialog_bt_ok), positiveButton,
                 getResources().getString(R.string.alert_dialog_bt_cancel), negativeButton);
     }
