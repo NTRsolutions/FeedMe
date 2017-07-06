@@ -41,6 +41,8 @@
     <string name="alert_dialog_text_accept_order">Order will be accepted. Are you sure ?</string>
     <string name="alert_dialog_title_reject_order">Reject Order</string>
     <string name="alert_dialog_text_reject_order">Order will be rejected. Are you sure ?</string>
+    <string name="alert_dialog_title_reorder">Reorder</string>
+    <string name="alert_dialog_text_reorder">Are you sure, current items will be cleared from basket?</string>
 
     <!--Menu-->
     <string name="menu_close">Close</string>
@@ -518,6 +520,17 @@
 
     <!--Merchant Details-->
     <string name="title_fragment_merchant_detail">Merchant Details</string>
+    <string name="merchant_details_tv_account_holder_name_tag_text">Account Holder Name</string>
+    <string name="merchant_details_et_bank_name_tag_text">Bank Name</string>
+    <string name="merchant_details_tv_account_number_tag_text">Account Number</string>
+    <string name="merchant_details_et_confirm_account_number_tag_text">Confirm Account Number</string>
+    <string name="merchant_details_et_ifsc_code_tag_text">IFSC Code</string>
+    <string name="merchant_details_bt_save_text">Save</string>
+    <string name="merchant_details_bt_cancel_text">Cancel</string>
+
+    <!-- Review-->
+    <string name="review_activity_title">Reviews</string>
+    <string name="review_tv_alert_text">No Reviews</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="order_detail_activity_title">Order Detail</string>
@@ -563,8 +576,5 @@
         <item>In Transit</item>
         <item>Delivered</item>
     </string-array>
-
-
-    <!--Abhinav-->
 
 </resources>

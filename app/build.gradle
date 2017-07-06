@@ -55,6 +55,8 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;
     }
+    //    compile 'com.tsengvn:Typekit:1.0.0'
+//    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
@@ -72,7 +74,5 @@ dependencies {
     compile 'com.wefika:flowlayout:0.4.1'
     compile 'com.google.android.gms:play-services-analytics:10.2.4'
     compile 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
-//    compile 'com.tsengvn:Typekit:1.0.0'
-//    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     testCompile 'junit:junit:4.12'
 }

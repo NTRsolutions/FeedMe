@@ -92,8 +92,12 @@ import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardRequest;
 import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardResponse;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardRequest;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardResponse;
+import com.os.foodie.data.network.model.reorder.ReorderRequest;
+import com.os.foodie.data.network.model.reorder.ReorderResponse;
 import com.os.foodie.data.network.model.restaurantreview.RestaurantReviewRequest;
 import com.os.foodie.data.network.model.restaurantreview.RestaurantReviewResponse;
+import com.os.foodie.data.network.model.reviews.GetReviewsRequest;
+import com.os.foodie.data.network.model.reviews.GetReviewsResponse;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
@@ -205,6 +209,10 @@ public interface ApiHelper {
     Observable<SetMerchantDetailResponse> setMerchantDetail(SetMerchantDetailRequest merchantDetailRequest);
 
     Observable<GetMerchantDetailResponse> getMerchantDetail(GetMerchantDetailRequest merchantDetailRequest);
+
+    Observable<ReorderResponse> reorder(ReorderRequest reorderRequest);
+
+    Observable<GetReviewsResponse> getReviews(GetReviewsRequest reviewsRequest);
 
 //    Abhi
 

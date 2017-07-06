@@ -1,6 +1,8 @@
 package com.os.foodie.ui.order.restaurant.detail;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -27,10 +29,13 @@ import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.adapter.recyclerview.MyBasketAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
+import com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity;
 import com.os.foodie.ui.dialogfragment.orderstatus.OrderStatusCallback;
 import com.os.foodie.ui.dialogfragment.orderstatus.OrderStatusDialogFragment;
 import com.os.foodie.ui.dialogfragment.restaurantreview.RestaurantReviewDialogFragment;
+import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.DialogUtils;
 
 import java.util.ArrayList;
 
@@ -238,15 +243,19 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         if (orderHistoryMvpPresenter.isCustomer() && ((orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("Picked") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("delivered")))) {
 
-            if (orderHistoryDetail.getResponse().getOrderDetail().getIsReviewed().equalsIgnoreCase("yes")) {
+            if (!orderHistoryDetail.getResponse().getOrderDetail().getIsReviewed().equalsIgnoreCase("yes")) {
                 btReview.setVisibility(View.VISIBLE);
             } else {
                 btReview.setVisibility(View.GONE);
             }
-
-            btRepeatOrder.setVisibility(View.VISIBLE);
-
         }
+
+        if (orderHistoryMvpPresenter.isCustomer()) {
+            btRepeatOrder.setVisibility(View.VISIBLE);
+        } else {
+            btRepeatOrder.setVisibility(View.GONE);
+        }
+
 //        else {
 //
 //            if (orderHistoryDetail.getResponse().getOrderDetail().getIsReviewed().equalsIgnoreCase("yes")) {
@@ -270,6 +279,13 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
             tvChangeStatus.setVisibility(View.GONE);
         else
             tvChangeStatus.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onReorderComplete() {
+
+        Intent intent = new Intent(this, MyBasketActivity.class);
+        startActivity(intent);
     }
 
     public void updateTotalAmount() {
@@ -307,12 +323,32 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
             case R.id.repeat_order_bt:
 
-//                AddToCartRequest addToCartRequest = new AddToCartRequest();
-//
-//                addToCartRequest.setUserId();
-//                addToCartRequest.setQty(orderHistoryDetail.getResponse().get);
-//
-//                orderHistoryMvpPresenter.addItemToCart();
+                if (orderHistoryMvpPresenter.getCustomerRestaurantId().isEmpty()) {
+
+                    orderHistoryMvpPresenter.reorder(orderHistoryDetail.getResponse().getOrderDetail().getOrderId(), orderHistoryDetail.getResponse().getRestaurantId());
+
+                } else {
+
+                    DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            orderHistoryMvpPresenter.reorder(orderHistoryDetail.getResponse().getOrderDetail().getOrderId(), orderHistoryDetail.getResponse().getRestaurantId());
+                        }
+                    };
+
+                    DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    };
+
+                    DialogUtils.showAlert(this,
+                            R.string.alert_dialog_title_reorder, R.string.alert_dialog_text_reorder,
+                            getResources().getString(R.string.alert_dialog_bt_ok), positiveButton,
+                            getResources().getString(R.string.alert_dialog_bt_cancel), negativeButton);
+                }
 
                 break;
 

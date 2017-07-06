@@ -8,5 +8,8 @@ import com.os.foodie.ui.base.MvpView;
 public interface OrderHistoryMvpView extends MvpView {
 
     public void setOrderHistoryDetail(OrderHistoryDetail orderHistoryDetail);
+
     public void setOrderStatus(ChangeOrderStatusResponse changeOrderStatusResponse);
+
+    public void onReorderComplete();
 }

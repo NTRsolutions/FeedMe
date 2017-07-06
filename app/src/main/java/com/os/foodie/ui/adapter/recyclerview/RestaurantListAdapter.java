@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.os.foodie.R;
 import com.os.foodie.data.network.model.home.customer.RestaurantList;
 import com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity;
+import com.os.foodie.ui.review.ReviewActivity;
 import com.os.foodie.ui.search.RestaurantSearchActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.ScreenUtils;
@@ -86,6 +87,16 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         holder.tvRestaurantName.setText(restaurantList.getRestaurantName());
         holder.tvMinutes.setText(restaurantList.getDeliveryTime());
+
+        holder.tvReviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(context, ReviewActivity.class);
+                intent.putExtra(AppConstants.RESTAURANT_ID, restaurantLists.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
 
 //        holder.rbRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 //            @Override

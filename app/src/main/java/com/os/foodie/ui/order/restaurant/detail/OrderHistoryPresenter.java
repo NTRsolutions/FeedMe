@@ -8,6 +8,8 @@ import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
 import com.os.foodie.data.network.model.cart.add.AddToCartResponse;
 import com.os.foodie.data.network.model.changeorderstatus.ChangeOrderStatusResponse;
 import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
+import com.os.foodie.data.network.model.reorder.ReorderRequest;
+import com.os.foodie.data.network.model.reorder.ReorderResponse;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
@@ -64,6 +66,7 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
 
     @Override
     public void ChangeOrderStatus(String orderId, String status) {
+
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
             getMvpView().showLoading();
@@ -97,6 +100,50 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
         } else {
             getMvpView().onError(R.string.connection_error);
         }
+    }
+
+    @Override
+    public void reorder(String orderId, final String restaurantId) {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
+            getMvpView().showLoading();
+
+            getCompositeDisposable().add(getDataManager()
+                    .reorder(new ReorderRequest(orderId))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<ReorderResponse>() {
+                        @Override
+                        public void accept(ReorderResponse reorderResponse) throws Exception {
+
+                            getMvpView().hideLoading();
+
+                            if (reorderResponse.getResponse().getStatus() == 1) {
+
+                                getDataManager().setCustomerRestaurantId(restaurantId);
+                                getMvpView().onReorderComplete();
+
+                            } else {
+                                getMvpView().onError(reorderResponse.getResponse().getMessage());
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            getMvpView().hideLoading();
+                            getMvpView().onError(R.string.api_default_error);
+                            Log.d("Error", ">>Err" + throwable.getMessage());
+                        }
+                    }));
+        } else {
+            getMvpView().onError(R.string.connection_error);
+        }
+    }
+
+    @Override
+    public String getCustomerRestaurantId() {
+        return getDataManager().getCustomerRestaurantId();
     }
 
     @Override

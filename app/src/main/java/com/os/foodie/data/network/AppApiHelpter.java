@@ -95,8 +95,12 @@ import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardRequest;
 import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardResponse;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardRequest;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardResponse;
+import com.os.foodie.data.network.model.reorder.ReorderRequest;
+import com.os.foodie.data.network.model.reorder.ReorderResponse;
 import com.os.foodie.data.network.model.restaurantreview.RestaurantReviewRequest;
 import com.os.foodie.data.network.model.restaurantreview.RestaurantReviewResponse;
+import com.os.foodie.data.network.model.reviews.GetReviewsRequest;
+import com.os.foodie.data.network.model.reviews.GetReviewsResponse;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
@@ -984,6 +988,46 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(GetMerchantDetailResponse.class);
+    }
+
+    @Override
+    public Observable<ReorderResponse> reorder(ReorderRequest reorderRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(reorderRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.REORDER)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(ReorderResponse.class);
+    }
+
+    @Override
+    public Observable<GetReviewsResponse> getReviews(GetReviewsRequest reviewsRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(reviewsRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.REVIEW)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(GetReviewsResponse.class);
     }
 
     //Abhinav

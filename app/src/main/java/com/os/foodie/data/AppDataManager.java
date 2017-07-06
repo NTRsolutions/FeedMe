@@ -93,8 +93,12 @@ import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardRequest;
 import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardResponse;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardRequest;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardResponse;
+import com.os.foodie.data.network.model.reorder.ReorderRequest;
+import com.os.foodie.data.network.model.reorder.ReorderResponse;
 import com.os.foodie.data.network.model.restaurantreview.RestaurantReviewRequest;
 import com.os.foodie.data.network.model.restaurantreview.RestaurantReviewResponse;
+import com.os.foodie.data.network.model.reviews.GetReviewsRequest;
+import com.os.foodie.data.network.model.reviews.GetReviewsResponse;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
@@ -444,6 +448,16 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<GetMerchantDetailResponse> getMerchantDetail(GetMerchantDetailRequest merchantDetailRequest) {
         return apiHelper.getMerchantDetail(merchantDetailRequest);
+    }
+
+    @Override
+    public Observable<ReorderResponse> reorder(ReorderRequest reorderRequest) {
+        return apiHelper.reorder(reorderRequest);
+    }
+
+    @Override
+    public Observable<GetReviewsResponse> getReviews(GetReviewsRequest reviewsRequest) {
+        return apiHelper.getReviews(reviewsRequest);
     }
 
 //    Abhinav

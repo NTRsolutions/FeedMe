@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.os.foodie.ui.review.ReviewActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_review_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/activity_review_tv_alert"
+        style="@style/TextView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/review_tv_alert_text"
+        android:textColor="@color/black"
+        android:visibility="gone" />
+
+</LinearLayout>

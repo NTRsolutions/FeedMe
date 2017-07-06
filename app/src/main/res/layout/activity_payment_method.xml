@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/manage_payment_card_tv_alert_text"
+            style="@style/TextView1"
             android:textColor="@color/black"
             android:visibility="gone" />
 

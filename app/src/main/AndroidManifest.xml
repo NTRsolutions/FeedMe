@@ -171,6 +171,10 @@
             android:name=".ui.setting.staticpages.StaticPageActivity"
             android:label="@string/settings_tv_terms_of_use_tag_text"
             android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".ui.review.ReviewActivity"
+            android:label="@string/review_activity_title"
+            android:theme="@style/AppTheme3" />
     </application>
 
 </manifest>

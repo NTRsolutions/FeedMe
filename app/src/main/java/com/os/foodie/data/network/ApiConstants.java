@@ -81,6 +81,9 @@ public class ApiConstants {
     public static final String ORDER_HISTORY = "order_history";
     public static final String CUSTOMER_ORDER_HISTORY = "customer_order_history";
     public static final String ORDER_DETAIL = "order_detail";
+    public static final String REORDER = "reorder";
+
+    public static final String REVIEW = "review_list";
 
     public static final String EARNING = "get_earnings";
 

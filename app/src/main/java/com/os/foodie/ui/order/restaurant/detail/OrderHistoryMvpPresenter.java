@@ -10,5 +10,9 @@ public interface OrderHistoryMvpPresenter<V extends OrderHistoryMvpView> extends
 
     void ChangeOrderStatus(String orderId, String status);
 
+    void reorder(String orderId, String restaurantId);
+
     boolean isCustomer();
+
+    String getCustomerRestaurantId();
 }
