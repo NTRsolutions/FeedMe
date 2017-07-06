@@ -41,7 +41,7 @@ public class RestaurantReviewPresenter<V extends RestaurantReviewMvpView> extend
 
                             if (restaurantReviewResponse.getResponse().getStatus() == 1) {
 
-                                getMvpView().onError(restaurantReviewResponse.getResponse().getMessage());
+//                                getMvpView().onError(restaurantReviewResponse.getResponse().getMessage());
                                 getMvpView().finish();
 
                             } else {

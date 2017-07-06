@@ -23,6 +23,7 @@ import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.restaurantreview.RestaurantReviewRequest;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
+import com.os.foodie.ui.order.restaurant.detail.OrderHistoryDetailActivity;
 import com.os.foodie.ui.order.restaurant.detail.OrderHistoryPresenter;
 import com.os.foodie.utils.AppConstants;
 
@@ -191,6 +192,9 @@ public class RestaurantReviewDialogFragment extends DialogFragment implements Vi
 
     @Override
     public void finish() {
+
+        ((OrderHistoryDetailActivity) getActivity()).feedbackComplete();
+
         dismiss();
     }
 

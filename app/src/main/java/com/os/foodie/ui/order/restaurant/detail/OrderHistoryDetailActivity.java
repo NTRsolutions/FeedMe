@@ -238,12 +238,23 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         if (orderHistoryMvpPresenter.isCustomer() && ((orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("Picked") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("delivered")))) {
 
-            btReview.setVisibility(View.VISIBLE);
-            btRepeatOrder.setVisibility(View.VISIBLE);
-        }
+            if (orderHistoryDetail.getResponse().getOrderDetail().getIsReviewed().equalsIgnoreCase("yes")) {
+                btReview.setVisibility(View.VISIBLE);
+            } else {
+                btReview.setVisibility(View.GONE);
+            }
 
-//        if(orderHistoryDetail.getResponse().get)
-//        btReview.setVisibility(View.GONE);
+            btRepeatOrder.setVisibility(View.VISIBLE);
+
+        }
+//        else {
+//
+//            if (orderHistoryDetail.getResponse().getOrderDetail().getIsReviewed().equalsIgnoreCase("yes")) {
+//                btReview.setVisibility(View.VISIBLE);
+//            } else {
+//                btReview.setVisibility(View.GONE);
+//            }
+//        }
 
         updateTotalAmount();
     }
@@ -337,5 +348,10 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
     @Override
     public void OrderStatusReturn(String status) {
         orderHistoryMvpPresenter.ChangeOrderStatus(orderId, status);
+    }
+
+    public void feedbackComplete() {
+        btReview.setVisibility(View.GONE);
+        orderHistoryDetail.getResponse().getOrderDetail().setIsReviewed("yes");
     }
 }

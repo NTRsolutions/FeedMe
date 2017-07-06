@@ -52,6 +52,9 @@ public class OrderHistoryDetail {
         @SerializedName("discount")
         @Expose
         private Integer discount;
+        @SerializedName("is_reviewed")
+        @Expose
+        private String isReviewed;
 
         public String getOrderId() {
             return orderId;
@@ -125,6 +128,13 @@ public class OrderHistoryDetail {
             this.discount = discount;
         }
 
+        public String getIsReviewed() {
+            return isReviewed;
+        }
+
+        public void setIsReviewed(String isReviewed) {
+            this.isReviewed = isReviewed;
+        }
     }
 
 

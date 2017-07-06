@@ -1,7 +1,9 @@
 package com.os.foodie.ui.splash;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
@@ -15,6 +17,9 @@ import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.ui.locationinfo.LocationInfoActivity;
 import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
+
+import java.util.Currency;
+import java.util.Locale;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -128,6 +133,19 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
 //        Locale swedishLocale = new Locale("en", "IN");
 //        Currency currency = Currency.getInstance(swedishLocale);
 //        Log.d("Currency", "Symbol: " + currency.getSymbol());
+//        Log.d("Currency", "Currency Code: " + currency.getCurrencyCode());
+//
+//        String locale = getResources().getConfiguration().locale.getCountry();
+//        Log.d("locale", ">>" + locale);
+//        Log.d("getDisplayLanguage", ">>" + Locale.getDefault().getDisplayLanguage());
+//
+//        Locale localeTemp = new Locale("", locale);
+////        Locale localeTemp = new Locale(Locale.getDefault().getDisplayLanguage(),locale);
+//        Currency currencyTemp = Currency.getInstance(localeTemp);
+//        Log.d("Currency", "Symbol: " + currencyTemp.getSymbol());
+//
+////        String locale = getResources().getConfiguration().locale.getCountry();
+////        Log.d("getLocales size", ">>" + getResources().getConfiguration().getLocales().size());
 
         splashMvpPresenter.dispose();
 //        splashMvpPresenter.onDetach();
