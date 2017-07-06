@@ -726,6 +726,9 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         checkoutRequest.setUserId(AppController.get(this).getAppDataManager().getCurrentUserId());
         checkoutRequest.setDeliveryType(deliveryType);
 
+        checkoutRequest.setCardId("");
+        checkoutRequest.setUserAddressId("");
+
         selectedCalendar.set(Calendar.SECOND, 59);
 
         Log.d("discountId", ">>" + discountId);
@@ -803,6 +806,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 }
 
                 Intent intent = new Intent(MyBasketActivity.this, SelectDeliveryAddressActivity.class);
+                intent.putExtra(AppConstants.CHECKOUT, checkoutRequest);
                 startActivity(intent);
             }
 
@@ -813,8 +817,6 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 Log.d("Pick only", "COD");
 
                 checkoutRequest.setPaymentMethod(AppConstants.COD);
-                checkoutRequest.setCardId("");
-                checkoutRequest.setUserAddressId("");
 //                TODO Date and Time
 
                 if (tvScheduledTime.getText().toString().isEmpty()) {
@@ -842,7 +844,6 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                     checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(selectedCalendar.getTime()));
                     checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(selectedCalendar.getTime()));
                 }
-
 
                 myBasketMvpPresenter.checkout(checkoutRequest);
 

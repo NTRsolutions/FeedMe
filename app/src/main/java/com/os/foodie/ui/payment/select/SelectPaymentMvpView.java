@@ -6,4 +6,6 @@ import com.os.foodie.ui.base.MvpView;
 public interface SelectPaymentMvpView extends MvpView {
 
     void notifyDataSetChanged(GetAllPaymentCardResponse getAllPaymentCardResponse);
+
+    void onCheckoutComplete(String message);
 }

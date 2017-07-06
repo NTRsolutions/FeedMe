@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,12 +19,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.cart.view.CartList;
+import com.os.foodie.data.network.model.checkout.CheckoutRequest;
 import com.os.foodie.data.network.model.payment.getall.Card;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardResponse;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
@@ -31,6 +34,7 @@ import com.os.foodie.ui.adapter.recyclerview.SelectPaymentAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RecyclerTouchListener;
 import com.os.foodie.ui.filters.FiltersPresenter;
+import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.ui.payment.add.AddPaymentCardActivity;
 import com.os.foodie.ui.payment.show.PaymentMethodActivity;
@@ -56,6 +60,8 @@ public class SelectPaymentActivity extends BaseActivity implements SelectPayment
     private ArrayList<Card> cardArrayList;
     private SelectPaymentAdapter selectPaymentAdapter;
 
+    private CheckoutRequest checkoutRequest;
+
     private SelectPaymentMvpPresenter<SelectPaymentMvpView> selectPaymentMvpPresenter;
 
     @Override
@@ -71,9 +77,8 @@ public class SelectPaymentActivity extends BaseActivity implements SelectPayment
 //        selectPaymentMvpPresenter = new SelectPaymentPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         selectPaymentMvpPresenter.onAttach(this);
 
-        initView();
-
         cardArrayList = new ArrayList<Card>();
+        checkoutRequest = new CheckoutRequest();
 
 //        for (int i = 0; i < 20; i++) {
 //
@@ -87,15 +92,20 @@ public class SelectPaymentActivity extends BaseActivity implements SelectPayment
 //            cardArrayList.add(card);
 //        }
 
+        initView();
+
         selectPaymentAdapter = new SelectPaymentAdapter(this, cardArrayList);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(selectPaymentAdapter);
+
+        setUp();
 
         selectPaymentMvpPresenter.getAllPaymentCard();
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -136,18 +146,13 @@ public class SelectPaymentActivity extends BaseActivity implements SelectPayment
             @Override
             public void onClick(View view, final int position) {
 
-                if (/*radioButton != null && */selectedPosition >= 0) {
-//                    radioButton.setChecked(false);
+                if (selectedPosition >= 0) {
                     cardArrayList.get(selectedPosition).setChecked(false);
                     selectedPosition = -1;
                 }
 
-//                radioButton = (RadioButton) view.findViewById(R.id.recyclerview_select_payment_rb_select);
-//                radioButton.setChecked(true);
                 selectedPosition = position;
-
                 cardArrayList.get(position).setChecked(true);
-
                 selectPaymentAdapter.notifyDataSetChanged();
             }
 
@@ -164,6 +169,16 @@ public class SelectPaymentActivity extends BaseActivity implements SelectPayment
 
         if (btPay.getId() == v.getId()) {
 
+            if (selectedPosition == -1) {
+                selectPaymentMvpPresenter.setError(R.string.select_payment_card);
+            } else {
+
+                checkoutRequest.setCardId(cardArrayList.get(selectedPosition).getCardId());
+//                checkoutRequest.setUserAddressId("");
+
+                selectPaymentMvpPresenter.checkout(checkoutRequest);
+            }
+
         } else if (fabAddCard.getId() == v.getId()) {
 
             Intent i = new Intent(SelectPaymentActivity.this, AddPaymentCardActivity.class);
@@ -174,6 +189,33 @@ public class SelectPaymentActivity extends BaseActivity implements SelectPayment
     @Override
     protected void setUp() {
 
+        if (getIntent().hasExtra(AppConstants.CHECKOUT)) {
+            checkoutRequest = getIntent().getParcelableExtra(AppConstants.CHECKOUT);
+        }
+
+//        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {
+//
+//            @Override
+//            public void onClick(View view, final int position) {
+//
+//                Log.d("selectedPosition Before", ">>" + selectedPosition);
+//
+//                if (selectedPosition >= 0) {
+//                    cardArrayList.get(selectedPosition).setChecked(false);
+//                    selectedPosition = -1;
+//                }
+//
+//                selectedPosition = position;
+//                cardArrayList.get(position).setChecked(true);
+//                selectPaymentAdapter.notifyDataSetChanged();
+//
+//                Log.d("selectedPosition After", ">>" + selectedPosition);
+//            }
+//
+//            @Override
+//            public void onLongClick(View view, int position) {
+//            }
+//        }));
     }
 
     @Override
@@ -202,13 +244,43 @@ public class SelectPaymentActivity extends BaseActivity implements SelectPayment
     }
 
     @Override
+    public void onCheckoutComplete(String message) {
+
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, CustomerMainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (selectedPosition != -1) {
+            cardArrayList.get(selectedPosition).setChecked(false);
+            selectPaymentAdapter.notifyItemChanged(selectedPosition);
+            selectedPosition = -1;
+        }
 
         if (requestCode == ADD_CARD_REQUEST_CODE && resultCode == ADD_CARD_RESPONSE_CODE) {
 
             cardArrayList.add((Card) data.getParcelableExtra(AppConstants.CARD));
             selectPaymentAdapter.notifyDataSetChanged();
+
+            if (cardArrayList != null && !cardArrayList.isEmpty()) {
+
+                tvAlert.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+                btPay.setVisibility(View.VISIBLE);
+
+            } else {
+
+                tvAlert.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+                btPay.setVisibility(View.GONE);
+            }
         }
     }
 

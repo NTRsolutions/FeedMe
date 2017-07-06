@@ -1,9 +1,12 @@
 package com.os.foodie.ui.payment.select;
 
+import android.support.annotation.StringRes;
 import android.util.Log;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
+import com.os.foodie.data.network.model.checkout.CheckoutRequest;
+import com.os.foodie.data.network.model.checkout.CheckoutResponse;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardRequest;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardResponse;
 import com.os.foodie.ui.base.BasePresenter;
@@ -42,7 +45,8 @@ public class SelectPaymentPresenter<V extends SelectPaymentMvpView> extends Base
                                 getMvpView().notifyDataSetChanged(getAllPaymentCardResponse);
 
                             } else {
-                                getMvpView().onError(getAllPaymentCardResponse.getResponse().getMessage());
+                                getMvpView().notifyDataSetChanged(getAllPaymentCardResponse);
+//                                getMvpView().onError(getAllPaymentCardResponse.getResponse().getMessage());
                             }
 
                         }
@@ -58,6 +62,53 @@ public class SelectPaymentPresenter<V extends SelectPaymentMvpView> extends Base
         } else {
             getMvpView().onError(R.string.connection_error);
         }
+    }
+
+    @Override
+    public void checkout(CheckoutRequest checkoutRequest) {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
+            getMvpView().showLoading();
+
+            getCompositeDisposable().add(getDataManager()
+                    .checkoout(checkoutRequest)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<CheckoutResponse>() {
+                        @Override
+                        public void accept(CheckoutResponse checkoutResponse) throws Exception {
+
+                            getMvpView().hideLoading();
+
+                            if (checkoutResponse.getResponse().getStatus() == 1) {
+
+                                getDataManager().setCustomerRestaurantId("");
+
+                                Log.d("getResponse", ">>" + checkoutResponse.getResponse().getMessage());
+
+                                getMvpView().onCheckoutComplete(checkoutResponse.getResponse().getMessage());
+
+                            } else {
+                                getMvpView().onError(checkoutResponse.getResponse().getMessage());
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            getMvpView().hideLoading();
+                            getMvpView().onError(R.string.api_default_error);
+                            Log.d("Error", ">>Err" + throwable.getMessage());
+                        }
+                    }));
+        } else {
+            getMvpView().onError(R.string.connection_error);
+        }
+    }
+
+    @Override
+    public void setError(@StringRes int resId) {
+        getMvpView().onError(resId);
     }
 
     @Override

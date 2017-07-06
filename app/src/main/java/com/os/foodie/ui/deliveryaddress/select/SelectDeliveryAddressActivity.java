@@ -33,6 +33,7 @@ import com.os.foodie.ui.deliveryaddress.addedit.AddEditDeliveryAddressPresenter;
 import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
+import com.os.foodie.ui.payment.select.SelectPaymentActivity;
 import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class SelectDeliveryAddressActivity extends BaseActivity implements SelectDeliveryAddressMvpView, View.OnClickListener {
 
-//    private CoordinatorLayout clMain;
+    //    private CoordinatorLayout clMain;
     private TextView tvAlert;
     private FloatingActionButton fabAddAddress;
     private Button btPayment;
@@ -139,10 +140,21 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
                 selectDeliveryAddressMvpPresenter.setError(R.string.select_address);
             } else {
 
-                checkoutRequest.setCardId("");
-                checkoutRequest.setUserAddressId(addresses.get(selectedPosition).getId());
+                String paymentMethod = checkoutRequest.getPaymentMethod();
 
-                selectDeliveryAddressMvpPresenter.checkout(checkoutRequest);
+                if (paymentMethod.equalsIgnoreCase(AppConstants.COD)) {
+
+//                checkoutRequest.setCardId("");
+                    checkoutRequest.setUserAddressId(addresses.get(selectedPosition).getId());
+
+                    selectDeliveryAddressMvpPresenter.checkout(checkoutRequest);
+
+                } else {
+
+                    Intent intent = new Intent(this, SelectPaymentActivity.class);
+                    intent.putExtra(AppConstants.CHECKOUT, checkoutRequest);
+                    startActivity(intent);
+                }
             }
         }
     }

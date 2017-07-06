@@ -17,7 +17,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/activity_select_delivery_address_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <TextView
             android:id="@+id/activity_select_delivery_address_tv_empty_alert"

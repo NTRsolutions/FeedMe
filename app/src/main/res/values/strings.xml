@@ -5,6 +5,12 @@
     <string name="facebook_app_id">796924880472669</string>
     <string name="google_api_key">AIzaSyCjLgWHur6zYob1QkVTeeqUNHuqbcm7puU</string>
 
+    <!--Fonts-->
+    <string name="font_default">fonts/dosis_book.ttf</string>
+    <string name="font_monospace">fonts/dosis_semibold.ttf</string>
+    <string name="font_serif">fonts/dosis_medium.ttf</string>
+    <string name="font_sans_serif">fonts/dosis_light.ttf</string>
+
     <!--Progress Dialog-->
     <string name="progress_dialog_tv_message_text_default">Please Wait</string>
 
@@ -51,6 +57,7 @@
     <string name="no_restaurant">No Restaurant</string>
     <string name="fb_user_already_exist">User already exist</string>
     <string name="select_address">Please select a address</string>
+    <string name="select_payment_card">Please select a card</string>
 
     <!--Validation Message-->
     <string name="empty_first_name">Please provide your first name</string>

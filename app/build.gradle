@@ -73,5 +73,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-analytics:10.2.4'
     compile 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
 //    compile 'com.tsengvn:Typekit:1.0.0'
+//    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     testCompile 'junit:junit:4.12'
 }

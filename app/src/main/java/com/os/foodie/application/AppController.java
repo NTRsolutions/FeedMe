@@ -22,6 +22,7 @@ import com.os.foodie.utils.FontOverride;
 
 import io.fabric.sdk.android.Fabric;
 import io.reactivex.disposables.CompositeDisposable;
+//import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -62,6 +63,11 @@ public class AppController extends MultiDexApplication {
 //        Typekit.getInstance()
 //                .addNormal(Typekit.createFromAsset(this, "fonts/dosis_book.ttf"))
 //                .addCustom1(Typekit.createFromAsset(this, "fonts/dosis_semibold.ttf"));
+
+//        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+//                .setDefaultFontPath("fonts/Roboto-RobotoRegular.ttf")
+//                .setFontAttrId(R.attr.fontPath)
+//                .build());
 
         appApiHelpter = new AppApiHelpter();
         compositeDisposable = new CompositeDisposable();
