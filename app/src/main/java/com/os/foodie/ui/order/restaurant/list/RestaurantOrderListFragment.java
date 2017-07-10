@@ -5,6 +5,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -108,6 +109,7 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
     @Override
     public void onDestroyView() {
         restaurantOrderListMvpPresenter.dispose();
+        Log.d("restaurantOrderListMvpPresenter", ">>dispose");
 //        restaurantOrderListMvpPresenter.onDetach();
         super.onDestroyView();
     }

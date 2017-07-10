@@ -344,6 +344,7 @@
             android:id="@+id/activity_restaurant_details_tv_total_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            fontPath="@string/font_default"
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@+id/activity_restaurant_details_bt_view_basket"
             android:text=""

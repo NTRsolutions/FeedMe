@@ -18,6 +18,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                fontPath="@string/font_default"
                 android:text="@string/add_edit_delivery_address_tv_full_name_tag_text" />
 
             <EditText
@@ -38,6 +39,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                fontPath="@string/font_default"
                 android:text="@string/add_edit_delivery_address_tv_phone_number_tag_text" />
 
             <EditText
@@ -60,6 +62,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                fontPath="@string/font_default"
                 android:text="@string/add_edit_delivery_address_tv_pin_code_tag_text" />
 
             <EditText
@@ -80,6 +83,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                fontPath="@string/font_default"
                 android:text="@string/add_edit_delivery_address_tv_flat_no_tag_text" />
 
             <EditText
@@ -100,6 +104,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                fontPath="@string/font_default"
                 android:text="@string/add_edit_delivery_address_tv_colony_tag_text" />
 
             <EditText
@@ -120,6 +125,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                fontPath="@string/font_default"
                 android:text="@string/add_edit_delivery_address_tv_landmark_tag_text" />
 
             <EditText
@@ -140,6 +146,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                fontPath="@string/font_default"
                 android:text="@string/add_edit_delivery_address_tv_city_tag_text" />
 
             <EditText
@@ -159,6 +166,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
+                fontPath="@string/font_default"
                 android:layout_height="wrap_content"
                 android:text="@string/add_edit_delivery_address_et_state_tag_text" />
 
@@ -180,6 +188,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                fontPath="@string/font_default"
                 android:text="@string/add_edit_delivery_address_tv_country_tag_text" />
 
             <EditText

@@ -90,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/restaurant_menu_add_update_rbt_veg_margin_start"
                 android:text="@string/restaurant_menu_add_update_rbt_veg_text"
+                fontPath="@string/font_default"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/restaurant_menu_add_update_rbt_veg_text_size" />
 
@@ -99,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/restaurant_menu_add_update_rbt_nonveg_margin_start"
                 android:text="@string/restaurant_menu_add_update_rbt_nonveg_text"
+                fontPath="@string/font_default"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/restaurant_menu_add_update_rbt_nonveg_text_size" />
 

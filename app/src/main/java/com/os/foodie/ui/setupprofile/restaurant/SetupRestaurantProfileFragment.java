@@ -186,6 +186,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         btSave.setOnClickListener(this);
         btCancel.setOnClickListener(this);
 
+        setupRestaurantProfileMvpPresenter.dismissDialog();
+
         setProfileData();
 
         return view;

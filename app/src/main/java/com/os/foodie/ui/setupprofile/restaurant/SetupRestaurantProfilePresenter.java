@@ -350,6 +350,11 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
     }
 
     @Override
+    public void dismissDialog() {
+        getMvpView().hideLoading();
+    }
+
+    @Override
     public void getGeocoderLocationAddress(Context context, LatLng latLng) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {

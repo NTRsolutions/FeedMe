@@ -36,6 +36,7 @@ public class RestaurantOrderListPresenter<V extends RestaurantOrderListMvpView> 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
             getMvpView().showLoading();
+            Log.d("getOrderList", ">>Called");
 
             getCompositeDisposable().add(getDataManager()
                     .getOrderList(new GetOrderListRequest(getDataManager().getCurrentUserId()))
@@ -46,6 +47,7 @@ public class RestaurantOrderListPresenter<V extends RestaurantOrderListMvpView> 
                         public void accept(GetOrderListResponse getOrderListResponse) throws Exception {
 
                             getMvpView().hideLoading();
+                            Log.d("getOrderList", ">>hideLoading");
 
                             if (getOrderListResponse.getResponse().getStatus() == 1) {
 
@@ -54,6 +56,7 @@ public class RestaurantOrderListPresenter<V extends RestaurantOrderListMvpView> 
                             } else {
 
                                 getOrderListResponse.getResponse().setOrderList(new ArrayList<OrderList>());
+                                getMvpView().onOrderListReceived(getOrderListResponse);
 //                                getMvpView().onError(getOrderListResponse.getResponse().getMessage());
                             }
                         }

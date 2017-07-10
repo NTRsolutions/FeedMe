@@ -32,6 +32,8 @@ public interface SetupRestaurantProfileMvpPresenter<V extends SetupRestaurantPro
 
     void setError(String message);
 
+    void dismissDialog();
+
 //    TODO Temp Development
     boolean isCurrentUserInfoInitialized();
 

@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/merchant_details_tv_tag_padding_start"
+            fontPath="@string/font_default"
             android:text="@string/merchant_details_tv_account_holder_name_tag_text"
             android:textColor="@color/orange" />
 
@@ -22,6 +23,7 @@
             android:id="@+id/fragment_merchant_details_et_account_holder_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            fontPath="@string/font_default"
             android:enabled="false"
             android:inputType="text"
             android:lines="1"
@@ -33,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/merchant_details_tv_tag_margin_top"
             android:paddingStart="@dimen/merchant_details_tv_tag_padding_start"
+            fontPath="@string/font_default"
             android:text="@string/merchant_details_et_bank_name_tag_text"
             android:textColor="@color/orange" />
 
@@ -41,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:enabled="false"
+            fontPath="@string/font_default"
             android:inputType="text"
             android:lines="1"
             android:textColor="@color/dark_grey"
@@ -51,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/merchant_details_tv_tag_margin_top"
             android:paddingStart="@dimen/merchant_details_tv_tag_padding_start"
+            fontPath="@string/font_default"
             android:text="@string/merchant_details_tv_account_number_tag_text"
             android:textColor="@color/orange" />
 
@@ -60,6 +65,7 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:inputType="number"
+            fontPath="@string/font_default"
             android:lines="1"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/merchant_details_et_text_size" />
@@ -69,6 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/merchant_details_tv_tag_margin_top"
             android:paddingStart="@dimen/merchant_details_tv_tag_padding_start"
+            fontPath="@string/font_default"
             android:text="@string/merchant_details_et_confirm_account_number_tag_text"
             android:textColor="@color/orange" />
 
@@ -76,6 +83,7 @@
             android:id="@+id/fragment_merchant_details_et_confirm_account_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            fontPath="@string/font_default"
             android:enabled="false"
             android:inputType="number"
             android:lines="1"
@@ -88,6 +96,7 @@
             android:layout_marginTop="@dimen/merchant_details_tv_tag_margin_top"
             android:paddingStart="@dimen/merchant_details_tv_tag_padding_start"
             android:text="@string/merchant_details_et_ifsc_code_tag_text"
+            fontPath="@string/font_default"
             android:textColor="@color/orange" />
 
         <EditText
@@ -96,6 +105,7 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:inputType="text"
+            fontPath="@string/font_default"
             android:lines="1"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/merchant_details_et_text_size" />

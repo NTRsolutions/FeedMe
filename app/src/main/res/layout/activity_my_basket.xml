@@ -44,6 +44,7 @@
                         android:layout_height="wrap_content"
                         android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
                         android:gravity="center"
+                        fontPath="@string/font_default"
                         android:text="@string/my_basket_ctv_pickup_text" />
 
                     <CheckedTextView
@@ -51,6 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/my_basket_ctv_deliver_margin_start"
+                        fontPath="@string/font_default"
                         android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
                         android:gravity="center"
                         android:text="@string/my_basket_ctv_deliver_text" />
@@ -72,6 +74,7 @@
                         android:id="@+id/activity_my_basket_tv_ordering_for"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        fontPath="@string/font_default"
                         android:text="@string/my_basket_tv_ordering_for_text" />
 
                     <TextView
@@ -112,6 +115,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
+                    fontPath="@string/font_default"
                     android:layout_marginTop="@dimen/my_basket_et_note_margin_top"
                     android:background="@drawable/rectangle_outline_grey"
                     android:gravity="top|start"

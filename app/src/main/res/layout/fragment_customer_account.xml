@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/customer_account_tv_tag_padding_start"
                 android:text="@string/customer_account_tv_first_name_tag_text"
+                fontPath="@string/font_default"
                 android:textColor="@color/orange" />
 
             <EditText
@@ -34,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:inputType="text"
+                fontPath="@string/font_default"
                 android:paddingTop="@dimen/customer_account_et_padding_top"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/customer_account_et_text_size" />
@@ -53,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/customer_account_tv_tag_padding_start"
                 android:text="@string/customer_account_ll_last_name_tag_text"
+                fontPath="@string/font_default"
                 android:textColor="@color/orange" />
 
             <EditText
@@ -63,6 +66,7 @@
                 android:inputType="text"
                 android:maxLength="10"
                 android:paddingTop="@dimen/customer_account_et_padding_top"
+                fontPath="@string/font_default"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/customer_account_et_text_size" />
 
@@ -80,6 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/customer_account_tv_tag_padding_start"
+                fontPath="@string/font_default"
                 android:text="@string/customer_account_tv_email_tag_text"
                 android:textColor="@color/orange" />
 
@@ -87,6 +92,7 @@
                 android:id="@+id/fragment_customer_account_et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                fontPath="@string/font_default"
                 android:enabled="false"
                 android:inputType="textEmailAddress"
                 android:paddingTop="@dimen/customer_account_et_padding_top"
@@ -108,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/customer_account_tv_tag_padding_start"
                 android:text="@string/customer_account_tv_phone_number_tag_text"
+                fontPath="@string/font_default"
                 android:textColor="@color/orange" />
 
             <EditText
@@ -117,6 +124,7 @@
                 android:enabled="false"
                 android:inputType="number"
                 android:maxLength="10"
+                fontPath="@string/font_default"
                 android:paddingTop="@dimen/customer_account_et_padding_top"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/customer_account_et_text_size" />

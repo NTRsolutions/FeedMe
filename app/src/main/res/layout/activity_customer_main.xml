@@ -23,6 +23,7 @@
         app:headerLayout="@layout/nav_header_customer_main"
         app:itemBackground="@drawable/navigation_drawer_item_background_selector"
         app:itemIconTint="@drawable/navigation_drawer_item_icon_tint_selector"
+        app:itemTextAppearance="@style/NavigationDrawerStyle"
         app:itemTextColor="@drawable/navigation_drawer_item_text_color_selector"
         app:menu="@menu/activity_customer_main_drawer" />
     <!--app:itemTextAppearance="@style/NavigationDrawerStyle"-->

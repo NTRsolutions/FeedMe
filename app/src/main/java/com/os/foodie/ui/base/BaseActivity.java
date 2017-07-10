@@ -17,6 +17,8 @@ import com.os.foodie.R;
 import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.NetworkUtils;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public abstract class BaseActivity extends AppCompatActivity implements MvpView, BaseFragment.Callback {
 
     private ProgressDialog mProgressDialog;
@@ -25,6 +27,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
 //    protected void attachBaseContext(Context newBase) {
 //        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
 //    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public void showLoading() {

@@ -61,25 +61,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <!--<style name="NavigationDrawerStyle">-->
-        <!--&lt;!&ndash;<item name="android:textSize">18sp</item>&ndash;&gt;-->
-        <!--<item name="android:typeface">monospace</item>-->
-    <!--</style>-->
-
-    <!--&lt;!&ndash;SearchView&ndash;&gt;-->
-
-    <!--<style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">-->
-    <!--&lt;!&ndash; Gets rid of the search icon &ndash;&gt;-->
-    <!--<item name="searchIcon">@mipmap/ic_filter</item>-->
-    <!--<item name="closeIcon">@mipmap/ic_close</item>-->
-    <!--&lt;!&ndash; Gets rid of the "underline" in the text &ndash;&gt;-->
-    <!--<item name="queryBackground">@color/black</item>-->
-    <!--&lt;!&ndash; Gets rid of the search icon when the SearchView is expanded &ndash;&gt;-->
-    <!--<item name="searchHintIcon">@null</item>-->
-    <!--&lt;!&ndash; The hint text that appears when the user has not typed anything &ndash;&gt;-->
-    <!--<item name="queryHint">Search</item>-->
-    <!--<item name="android:textColor">@color/grey</item>-->
-    <!--</style>-->
+    <style name="NavigationDrawerStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:typeface">monospace</item>
+    </style>
 
     <!--Drawer-->
 
@@ -142,6 +127,7 @@
     <style name="TextView4">
         <item name="android:textSize">@dimen/style_text_view_3_text_size</item>
         <item name="android:textColor">@color/grey</item>
+        <item name="fontPath">@string/font_default</item>
         <!--<item name="android:typeface">normal</item>-->
     </style>
 
@@ -169,6 +155,7 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/grey</item>
         <item name="android:typeface">normal</item>
+        <item name="fontPath">@string/font_default</item>
     </style>
 
     <!--Abhinav-->
@@ -191,12 +178,14 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/grey</item>
         <item name="android:typeface">normal</item>
+        <item name="fontPath">@string/font_default</item>
     </style>
 
     <style name="TextButton3">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/orange</item>
         <item name="android:typeface">normal</item>
+        <item name="fontPath">@string/font_default</item>
     </style>
 
     <!--Button-->
@@ -239,7 +228,8 @@
         <!--<item name="android:textSize">@dimen/style_button_text_size</item>-->
         <item name="android:textColor">@color/dark_grey</item>
         <item name="android:background">@drawable/rectangle_round_corner_edit_text</item>
-        <item name="android:typeface">normal</item>
+        <!--<item name="android:typeface">normal</item>-->
+        <item name="fontPath">@string/font_default</item>
         <item name="android:singleLine">true</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
@@ -248,7 +238,8 @@
         <!--<item name="android:textSize">@dimen/style_button_text_size</item>-->
         <item name="android:textColor">@color/dark_grey</item>
         <item name="android:background">@drawable/rectangle_round_corner_edit_text</item>
-        <item name="android:typeface">normal</item>
+        <!--<item name="android:typeface">normal</item>-->
+        <item name="fontPath">@string/font_default</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
@@ -259,6 +250,7 @@
         <item name="android:textColor">@color/dark_grey</item>
         <item name="android:padding">6dp</item>
         <item name="android:typeface">normal</item>
+        <item name="fontPath">@string/font_default</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
 
@@ -273,6 +265,7 @@
         <item name="android:gravity">left</item>
         <item name="android:textAppearance">@style/TextAppearance</item>
         <item name="android:typeface">normal</item>
+        <item name="fontPath">@string/font_default</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/dark_grey</item>
         <item name="android:textSize">15dp</item>
