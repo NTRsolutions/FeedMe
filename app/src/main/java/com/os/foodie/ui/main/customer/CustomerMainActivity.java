@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -25,6 +26,7 @@ import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
 import com.os.foodie.ui.home.customer.CustomerHomeFragment;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryFragment;
+import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
 import com.os.foodie.ui.payment.show.PaymentMethodActivity;
 import com.os.foodie.ui.setting.SettingsFragment;
 import com.os.foodie.ui.welcome.WelcomeActivity;
@@ -79,11 +81,17 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
 //        replaceFragment(CustomerHomeFragment.newInstance(), CustomerHomeFragment.TAG);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .disallowAddToBackStack()
-                .add(R.id.content_customer_main_cl_fragment, CustomerHomeFragment.newInstance(), CustomerHomeFragment.TAG)
-                .commit();
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .disallowAddToBackStack()
+//                .add(R.id.content_customer_main_cl_fragment, CustomerHomeFragment.newInstance(), CustomerHomeFragment.TAG)
+//                .commit();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_customer_main_cl_fragment, CustomerHomeFragment.newInstance());
+//            fragmentTransaction .addToBackStack(RestaurantOrderListFragment.TAG);
+        fragmentTransaction.commit();
     }
 
     public void initPresenter() {
@@ -251,13 +259,20 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
     public void replaceFragment(Fragment fragment, String TAG) {
 
-        getSupportFragmentManager().popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//        getSupportFragmentManager().popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .add(R.id.content_customer_main_cl_fragment, fragment, TAG)
+//                .addToBackStack(TAG)
+//                .commit();
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.content_customer_main_cl_fragment, fragment, TAG)
-                .addToBackStack(TAG)
-                .commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        FragmentTransaction fragmentTransaction = fragmentManager .beginTransaction();
+        fragmentTransaction .replace(R.id.content_customer_main_cl_fragment, fragment);
+        fragmentTransaction .addToBackStack(TAG);
+        fragmentTransaction .commit();
     }
 
     @Override

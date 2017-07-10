@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -88,19 +89,31 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
         if (AppController.get(this).getAppDataManager().isCurrentUserInfoInitialized()) {
 //            replaceFragment(RestaurantOrderListFragment.newInstance(), RestaurantOrderListFragment.TAG);
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .disallowAddToBackStack()
-                    .add(R.id.content_restaurant_main_cl_fragment, RestaurantOrderListFragment.newInstance(), RestaurantOrderListFragment.TAG)
-                    .commit();
+//            getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .disallowAddToBackStack()
+//                    .add(R.id.content_restaurant_main_cl_fragment, RestaurantOrderListFragment.newInstance(), RestaurantOrderListFragment.TAG)
+//                    .commit();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager .beginTransaction();
+            fragmentTransaction .replace(R.id.content_restaurant_main_cl_fragment, RestaurantOrderListFragment.newInstance());
+//            fragmentTransaction .addToBackStack(RestaurantOrderListFragment.TAG);
+            fragmentTransaction .commit();
 
         } else {
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .disallowAddToBackStack()
-                    .add(R.id.content_restaurant_main_cl_fragment, RestaurantOrderListFragment.newInstance(), RestaurantOrderListFragment.TAG)
-                    .commit();
+//            getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .disallowAddToBackStack()
+//                    .add(R.id.content_restaurant_main_cl_fragment, RestaurantOrderListFragment.newInstance(), RestaurantOrderListFragment.TAG)
+//                    .commit();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager .beginTransaction();
+            fragmentTransaction .replace(R.id.content_restaurant_main_cl_fragment, RestaurantOrderListFragment.newInstance());
+//            fragmentTransaction .addToBackStack(RestaurantOrderListFragment.TAG);
+            fragmentTransaction .commit();
 
             replaceFragment(SetupRestaurantProfileFragment.newInstance(null), SetupRestaurantProfileFragment.TAG);
 
@@ -347,13 +360,20 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
 
     public void replaceFragment(Fragment fragment, String TAG) {
 
-        getSupportFragmentManager().popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//        getSupportFragmentManager().popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .add(R.id.content_restaurant_main_cl_fragment, fragment, TAG)
+//                .addToBackStack(TAG)
+//                .commit();
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.content_restaurant_main_cl_fragment, fragment, TAG)
-                .addToBackStack(TAG)
-                .commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        FragmentTransaction fragmentTransaction = fragmentManager .beginTransaction();
+        fragmentTransaction .replace(R.id.content_restaurant_main_cl_fragment, fragment);
+        fragmentTransaction .addToBackStack(TAG);
+        fragmentTransaction .commit();
 //
 //        getSupportFragmentManager()
 //                .beginTransaction()
