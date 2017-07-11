@@ -62,6 +62,26 @@ public class AppConstants {
     public static final String FAQ_SLUG = "faq";
     public static final String FAQ_PAGE_NAME = "FAQ";
 
+
+
+
+    public static String PACKAGE_FACEBOOK="com.facebook";
+    public static String PACKAGE_FACEBOOK_KATANA="com.facebook.katana";
+    public static String PACKAGE_TWITTER="com.twitter.android";
+    public static String PACKAGE_GOOGLE_PLUS="com.google.android.apps.plus";
+
+    public static String PACKAGE_GMAIL="com.google.android.gm";
+
+    public  static String playStoreURL="market://details?id=";
+    public  static String SDCARD_PATH="sdcard/Foodi/";
+    public  static String dummyTextShare="Foodi !";
+    public  static String NO_INTERNET_CONNECTION="No Internet Connected";
+    public  static String INTENT_TYPE="image/*";
+
+
+
+
+
     //    Order Status
     public static final String ORDER_DECLINE = "decline";
     public static final String ORDER_UNDER_PREPARATION = "under preparation";

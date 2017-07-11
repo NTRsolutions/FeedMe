@@ -21,6 +21,7 @@ import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
 import com.os.foodie.ui.home.customer.CustomerHomePresenter;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
+import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.utils.AppConstants;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -30,7 +31,7 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
     public static final String TAG = "CustomerAccountFragment";
 
     private EditText etFirstName, etLastName, etEmail, etPhoneNum;
-    private RippleAppCompatButton btSave;
+    private RippleAppCompatButton btSave, btCancel;
 
     private CustomerAccountMvpPresenter<CustomerAccountMvpView> customerAccountMvpPresenter;
 
@@ -89,7 +90,10 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.action_edit) {
+
             btSave.setVisibility(View.VISIBLE);
+            btCancel.setVisibility(View.VISIBLE);
+
             setHasOptionsMenu(false);
             setEditTextEnable(true);
         }
@@ -112,6 +116,17 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
             editCustomerAccountRequest.setUserId(AppController.get(getActivity()).getAppDataManager().getCurrentUserId());
 
             customerAccountMvpPresenter.editCustomerAccountDetail(editCustomerAccountRequest);
+
+        } else if (v.getId() == btCancel.getId()) {
+
+            setHasOptionsMenu(true);
+
+            btSave.setVisibility(View.GONE);
+            btCancel.setVisibility(View.GONE);
+
+            ((CustomerMainActivity) getActivity()).setCustomerName();
+
+            setEditTextEnable(false);
         }
     }
 
@@ -121,6 +136,7 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
 
     @Override
     public void setAccountDetail(GetAccountDetailResponse getAccountDetailResponse) {
+
         etFirstName.setText(getAccountDetailResponse.getResponse().getFirstName());
         etLastName.setText(getAccountDetailResponse.getResponse().getLastName());
         etEmail.setText(getAccountDetailResponse.getResponse().getEmail());
@@ -129,9 +145,14 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
 
     @Override
     public void editCustomerAccountDetail(EditCustomerAccountDetailResponse editCustomerAccountDetailResponse) {
+
         setHasOptionsMenu(true);
+
         btSave.setVisibility(View.GONE);
+        btCancel.setVisibility(View.GONE);
+
         ((CustomerMainActivity) getActivity()).setCustomerName();
+
         setEditTextEnable(false);
     }
 
@@ -145,7 +166,10 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
         etPhoneNum = (EditText) view.findViewById(R.id.fragment_customer_account_et_phone_number);
 
         btSave = (RippleAppCompatButton) view.findViewById(R.id.activity_customer_bt_save_profile);
+        btCancel = (RippleAppCompatButton) view.findViewById(R.id.activity_customer_bt_cancel);
+
         btSave.setOnClickListener(this);
+        btCancel.setOnClickListener(this);
     }
 
     private void setEditTextEnable(boolean setEnable) {

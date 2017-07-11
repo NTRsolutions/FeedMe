@@ -16,6 +16,12 @@ public class Response {
     @SerializedName("id")
     @Expose
     private String id;
+    @SerializedName("avg_rating")
+    @Expose
+    private String avgRating;
+    @SerializedName("review_count")
+    @Expose
+    private Integer reviewCount;
     @SerializedName("like_count")
     @Expose
     private Integer likeCount;
@@ -131,13 +137,17 @@ public class Response {
      * @param latitude
      * @param mobileNumber
      * @param openingTime
+     * @param avgRating
+     * @param reviewCount
      */
-    public Response(Integer isLike, Integer inCart, String id, Integer likeCount, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String deliveryZipcode, List<Image> images, String logo, List<Menu> menu, Integer status, String message, String totalQuantity, String totalAmount) {
+    public Response(Integer isLike, Integer inCart, String id, String avgRating, Integer reviewCount, Integer likeCount, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String deliveryZipcode, List<Image> images, String logo, List<Menu> menu, Integer status, String message, String totalQuantity, String totalAmount) {
         super();
         this.isLike = isLike;
         this.inCart = inCart;
         this.id = id;
+        this.avgRating = avgRating;
         this.likeCount = likeCount;
+        this.reviewCount = reviewCount;
         this.restaurantName = restaurantName;
         this.minOrderAmount = minOrderAmount;
         this.contactPersonName = contactPersonName;
@@ -187,6 +197,22 @@ public class Response {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(String avgRating) {
+        this.avgRating = avgRating;
+    }
+
+    public Integer getReviewCount() {
+        return reviewCount;
+    }
+
+    public void setReviewCount(Integer reviewCount) {
+        this.reviewCount = reviewCount;
     }
 
     public Integer getLikeCount() {

@@ -3,6 +3,7 @@
 
     <!--Third Party API Integration-->
     <string name="facebook_app_id">796924880472669</string>
+    <string name="facebook_provider_app_id">com.facebook.app.FacebookContentProvider796924880472669</string>
     <string name="google_api_key">AIzaSyCjLgWHur6zYob1QkVTeeqUNHuqbcm7puU</string>
 
     <!--Fonts-->
@@ -430,6 +431,7 @@
     <string name="customer_account_tv_phone_number_tag_text">Phone Number</string>
     <string name="customer_account_ll_last_name_tag_text">Last Name</string>
     <string name="customer_account_bt_save_profile_text">Save</string>
+    <string name="customer_account_bt_cancel_text">Cancel</string>
 
     <!--Restaurant Account-->
     <string name="restaurant_account_tv_restaurant_name_text">Restaurant Name</string>

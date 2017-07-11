@@ -71,6 +71,9 @@ public class RestaurantDetails implements Parcelable {
     @SerializedName("total_cart_amount")
     @Expose
     private String totalAmount;
+    @SerializedName("image_url")
+    @Expose
+    private String imageUrl;
     public final static Parcelable.Creator<RestaurantDetails> CREATOR = new Creator<RestaurantDetails>() {
 
 
@@ -327,6 +330,14 @@ public class RestaurantDetails implements Parcelable {
 
     public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public void writeToParcel(Parcel dest, int flags) {

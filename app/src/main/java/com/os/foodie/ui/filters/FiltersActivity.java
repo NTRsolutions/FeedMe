@@ -75,7 +75,7 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
         btSearch = (Button) findViewById(R.id.activity_filters_bt_search);
 
-        setOnRatingChangedListener();
+//        setOnRatingChangedListener();
 
         ctvOpen.setOnClickListener(this);
         ctvClose.setOnClickListener(this);
@@ -225,11 +225,30 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
         filters.setClear(false);
 
-        if (ctvPickup.isChecked() || ctvDeliver.isChecked()) {
+        if (ctvOpen.isChecked() || ctvClose.isChecked()) {
 
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
             filters.setTime(simpleDateFormat.format(calendar.getTime()));
+
+            if (ctvOpen.isChecked() && ctvClose.isChecked()) {
+
+                filters.setOpenClose("3");
+
+            } else if (ctvClose.isChecked()) {
+
+                filters.setOpenClose("2");
+
+            } else if (ctvOpen.isChecked()) {
+
+                filters.setOpenClose("1");
+            }
+        } else {
+
+            filters.setOpenClose("");
+        }
+
+        if (ctvPickup.isChecked() || ctvDeliver.isChecked()) {
 
             String deliveryTypes[] = getResources().getStringArray(R.array.delivery_type);
 
@@ -245,6 +264,17 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
                 filters.setDeliveryType(deliveryTypes[0]);
             }
+
+        } else {
+
+            filters.setDeliveryType("");
+        }
+
+        if (ratingBar.getRating() != 0f) {
+            filters.setRating(ratingBar.getRating() + "");
+        } else {
+
+            filters.setRating("");
         }
 
         if (ctvOffer.isChecked()) {
@@ -252,7 +282,7 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
             filters.setIsDiscount("1");
 
         } else {
-            filters.setIsDiscount("0");
+            filters.setIsDiscount("");
         }
 
         if (cuisineTypesChecked != null && cuisineTypesChecked.size() > 0) {
@@ -273,6 +303,11 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
             filters.setCuisineTypes(cuisineTypes);
             filters.setCuisineNames(cuisineNames);
+
+        } else {
+
+            filters.setCuisineTypes("");
+            filters.setCuisineNames("");
         }
 
         AppController.get(this).setFilters(filters);
@@ -334,6 +369,34 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
                 }
             }
 
+            if (filters != null && filters.getRating() != null && !filters.getRating().isEmpty() && !filters.getRating().equals("0.0f")) {
+
+                ratingBar.setRating(Float.parseFloat(filters.getRating()));
+                Log.d("ratingBar",">>ratingset");
+            } else {
+                ratingBar.setRating(0f);
+                Log.d("ratingBar",">>0f");
+            }
+
+            if (filters.getOpenClose() != null && !filters.getOpenClose().isEmpty()) {
+
+                if (filters.getOpenClose().equalsIgnoreCase("3")) {
+
+                    ctvOpen.setChecked(true);
+                    ctvClose.setChecked(true);
+
+                } else if (filters.getOpenClose().equalsIgnoreCase("2")) {
+
+                    ctvOpen.setChecked(false);
+                    ctvClose.setChecked(true);
+
+                } else if (filters.getOpenClose().equalsIgnoreCase("1")) {
+
+                    ctvOpen.setChecked(true);
+                    ctvClose.setChecked(false);
+                }
+            }
+
             if (filters.getDeliveryType() != null && !filters.getDeliveryType().isEmpty()) {
 
                 String deliveryTypes[] = getResources().getStringArray(R.array.delivery_type);
@@ -357,7 +420,7 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 
             if (filters.getIsDiscount() != null && !filters.getIsDiscount().isEmpty()) {
 
-                if(filters.getIsDiscount().equals("1")){
+                if (filters.getIsDiscount().equals("1")) {
                     ctvOffer.setChecked(true);
                 }
             }
@@ -426,13 +489,13 @@ public class FiltersActivity extends BaseActivity implements FiltersMvpView, Vie
 //        });
     }
 
-    public void setOnRatingChangedListener() {
-
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                Log.d("rating", ">>" + rating);
-            }
-        });
-    }
+//    public void setOnRatingChangedListener() {
+//
+//        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+//            @Override
+//            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+//                Log.d("rating", ">>" + rating);
+//            }
+//        });
+//    }
 }

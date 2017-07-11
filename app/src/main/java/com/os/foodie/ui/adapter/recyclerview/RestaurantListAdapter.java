@@ -88,6 +88,14 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         holder.tvRestaurantName.setText(restaurantList.getRestaurantName());
         holder.tvMinutes.setText(restaurantList.getDeliveryTime());
 
+        if (restaurantList.getAvgRating() != null && !restaurantList.getAvgRating().isEmpty()) {
+            holder.rbRating.setRating(Float.parseFloat(restaurantList.getAvgRating()));
+        } else {
+            holder.rbRating.setRating(0f);
+        }
+
+        holder.tvReviews.setText("Reviews(" + restaurantList.getReviewCount() + ")");
+
         holder.tvReviews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

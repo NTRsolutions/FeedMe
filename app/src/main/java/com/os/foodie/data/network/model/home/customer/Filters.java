@@ -34,6 +34,12 @@ public class Filters implements Parcelable {
     @SerializedName("is_discount")
     @Expose
     private String isDiscount;
+    @SerializedName("rating")
+    @Expose
+    private String rating;
+    @SerializedName("open_close")
+    @Expose
+    private String openClose;
     @Expose(serialize = false, deserialize = false)
     private transient String cuisineNames;
     @Expose(serialize = false, deserialize = false)
@@ -55,6 +61,8 @@ public class Filters implements Parcelable {
             instance.maxDistance = ((String) in.readValue((String.class.getClassLoader())));
             instance.cuisineTypes = ((String) in.readValue((String.class.getClassLoader())));
             instance.isDiscount = ((String) in.readValue((String.class.getClassLoader())));
+            instance.rating = ((String) in.readValue((String.class.getClassLoader())));
+            instance.openClose = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -79,8 +87,10 @@ public class Filters implements Parcelable {
      * @param minOrderAmount
      * @param cuisineTypes
      * @param isDiscount
+     * @param rating
+     * @param openClose
      */
-    public Filters(String minOrderAmount, String maxOrderAmount, String deliveryType, String time, String minDistance, String maxDistance, String cuisineTypes, String isDiscount) {
+    public Filters(String minOrderAmount, String maxOrderAmount, String deliveryType, String time, String minDistance, String maxDistance, String cuisineTypes, String isDiscount, String rating, String openClose) {
         super();
         this.minOrderAmount = minOrderAmount;
         this.maxOrderAmount = maxOrderAmount;
@@ -90,6 +100,8 @@ public class Filters implements Parcelable {
         this.maxDistance = maxDistance;
         this.cuisineTypes = cuisineTypes;
         this.isDiscount = isDiscount;
+        this.rating = rating;
+        this.openClose = openClose;
     }
 
     public String getMinOrderAmount() {
@@ -164,6 +176,22 @@ public class Filters implements Parcelable {
         this.isDiscount = isDiscount;
     }
 
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getOpenClose() {
+        return openClose;
+    }
+
+    public void setOpenClose(String openClose) {
+        this.openClose = openClose;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(minOrderAmount);
         dest.writeValue(maxOrderAmount);
@@ -173,6 +201,8 @@ public class Filters implements Parcelable {
         dest.writeValue(maxDistance);
         dest.writeValue(cuisineTypes);
         dest.writeValue(isDiscount);
+        dest.writeValue(rating);
+        dest.writeValue(openClose);
     }
 
     public int describeContents() {
@@ -203,6 +233,12 @@ public class Filters implements Parcelable {
             isClear = false;
             return false;
         } else if (isDiscount == null || cuisineTypes.isEmpty()) {
+            isClear = false;
+            return false;
+        } else if (rating == null || rating.isEmpty()) {
+            isClear = false;
+            return false;
+        } else if (openClose == null || openClose.isEmpty()) {
             isClear = false;
             return false;
         }

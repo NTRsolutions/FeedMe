@@ -271,7 +271,7 @@
         </com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout>
 
         <com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingActionImageView
-            android:id="@+id/activity_restautant_details_faiv_website"
+            android:id="@+id/activity_restautant_details_faiv_share"
             android:layout_width="@dimen/restautant_details_fall_height_width"
             android:layout_height="@dimen/restautant_details_fall_height_width"
             android:layout_marginEnd="@dimen/restautant_details_faiv_website_margin_end"

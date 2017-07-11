@@ -4,8 +4,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -22,11 +28,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.share.ShareApi;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareContent;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.ShareMedia;
+import com.facebook.share.model.ShareMediaContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareDialog;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
@@ -45,15 +69,21 @@ import com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingAc
 import com.os.foodie.ui.custom.floatingaction.floatingactionimageview.FloatingActionImageViewBehavior;
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout;
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayoutBehavior;
-import com.os.foodie.ui.deliveryaddress.addedit.AddEditDeliveryAddressPresenter;
 import com.os.foodie.ui.info.RestaurantInfoActivity;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.ui.search.RestaurantSearchActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.DialogUtils;
+import com.os.foodie.utils.GetPathFromUrl;
 import com.wefika.flowlayout.FlowLayout;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -64,11 +94,12 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
     private Button btViewBasket;
 
     private LinearLayout llPage, llDiscount;
-    private FloatingActionImageView faivProfilePic, faivWebsite;
+    private FloatingActionImageView faivProfilePic, faivShare;
 
     private FloatingActionLinearLayout fallDeliveryTime, fallLikes;
     private FlowLayout flCuisines;
-    private TextView tvRestaurantName, tvDiscount, tvDeliveryTime, tvLikes;
+    private RatingBar ratingBar;
+    private TextView tvRestaurantName, tvReview, tvDiscount, tvDeliveryTime, tvLikes;
     private ImageView ivLikes;
 
     private String restaurantId;
@@ -87,6 +118,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
     private RestaurantDetails restaurantDetails;
 
     private RestaurantDetailsMvpPresenter<RestaurantDetailsMvpView> restaurantDetailsMvpPresenter;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +133,9 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_white));
 
         Fresco.initialize(this);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
 
         if (getIntent().hasExtra(AppConstants.RESTAURANT_ID)) {
             restaurantId = getIntent().getStringExtra(AppConstants.RESTAURANT_ID);
@@ -130,9 +165,12 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         flCuisines = (FlowLayout) findViewById(R.id.content_restaurant_details_fl_cuisine_types);
 
+        ratingBar = (RatingBar) findViewById(R.id.content_restaurant_details_rb_rating);
         tvRestaurantName = (TextView) findViewById(R.id.content_restaurant_details_tv_restaurant_name);
 
         tvDeliveryTime = (TextView) findViewById(R.id.activity_restautant_details_fall_delivery_time_text);
+        tvReview = (TextView) findViewById(R.id.content_restaurant_details_tv_reviews);
+
         tvLikes = (TextView) findViewById(R.id.activity_restautant_details_faiv_likes_text);
         ivLikes = (ImageView) findViewById(R.id.activity_restautant_details_faiv_likes_image);
 
@@ -171,8 +209,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 //        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) imageView.getLayoutParams();
 //        params.setBehavior(new FloatingActionImageViewBehavior(ADJUST_PADDING_DP));
 
-        faivWebsite = (FloatingActionImageView) findViewById(R.id.activity_restautant_details_faiv_website);
-        ((CoordinatorLayout.LayoutParams) faivWebsite.getLayoutParams()).setBehavior(new FloatingActionImageViewBehavior(ADJUST_PADDING_MIN));
+        faivShare = (FloatingActionImageView) findViewById(R.id.activity_restautant_details_faiv_share);
+        ((CoordinatorLayout.LayoutParams) faivShare.getLayoutParams()).setBehavior(new FloatingActionImageViewBehavior(ADJUST_PADDING_MIN));
 
 //        CoordinatorLayout.LayoutParams params2 = (CoordinatorLayout.LayoutParams) imageView2.getLayoutParams();
 //        params2.setBehavior(new FloatingActionImageViewBehavior(ADJUST_PADDING_MIN));
@@ -190,6 +228,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 //        params3.setBehavior(new FloatingActionLinearLayoutBehavior(ADJUST_PADDING_MIN));
 
         fallLikes.setOnClickListener(this);
+        faivShare.setOnClickListener(this);
     }
 
     @Override
@@ -224,6 +263,9 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         } else if (v.getId() == btViewBasket.getId()) {
             Intent intent = new Intent(RestaurantDetailsActivity.this, MyBasketActivity.class);
             startActivity(intent);
+        } else if (v.getId() == faivShare.getId()) {
+            Log.d("faivShare", ">>OnClick");
+//            SharingImageToGmail("Title", "Description", restaurantDetails.getImageUrl());
         }
     }
 
@@ -249,6 +291,16 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         }
 
         tvLikes.setText(restaurantDetailsResponse.getResponse().getLikeCount().toString());
+
+        if (restaurantDetailsResponse.getResponse().getAvgRating() != null && !restaurantDetailsResponse.getResponse().getAvgRating().isEmpty()) {
+
+            ratingBar.setRating(Float.parseFloat(restaurantDetailsResponse.getResponse().getAvgRating()));
+        }
+
+
+        tvReview.setText("Reviews(" + restaurantDetailsResponse.getResponse().getReviewCount() + ")");
+
+//        tvReview.setText(restaurantDetailsResponse.getResponse().getLikeCount().toString());
 
         Log.d("getDishList size", ">>" + restaurantDetailsResponse.getResponse().getMenu().size());
 //        Log.d("keySet", ">>" + restaurantDetailsResponse.getResponse().getDishes().keySet().toString());
@@ -728,6 +780,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         restaurantDetails.setDeliveryCharge(restaurantDetailsResponse.getResponse().getDeliveryCharge());
         restaurantDetails.setDeliveryType(restaurantDetailsResponse.getResponse().getDeliveryType());
         restaurantDetails.setDeliveryZipcode(restaurantDetailsResponse.getResponse().getDeliveryZipcode());
+        restaurantDetails.setImageUrl(restaurantDetailsResponse.getResponse().getLogo());
     }
 
     @Override
@@ -841,5 +894,282 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 //        } else {
 //            rlBasketDetails.setVisibility(View.GONE);
 //        }
+    }
+
+
+    public void shareToFb(final String title, String fbDescription, final String imageUrl) {
+//       /* try {
+//            byte[] data = Base64.decode(fbDescription);
+//
+//            fbDescription = new String(data, "UTF-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }*/
+        List<String> permissionNeeds = Arrays.asList("publish_actions");
+//        List<String> permissionNeeds = Arrays.asList("email","media","href");
+        // Set permissions
+
+        LoginManager loginManager = LoginManager.getInstance();
+
+        loginManager.logInWithPublishPermissions(this, permissionNeeds);
+//        LoginManager.getInstance().logInWithReadPermissions(RestaurantDetailsActivity.this, permissionNeeds);
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+
+
+        Log.d("permissionNeeds", ">>" + permissionNeeds.toArray());
+
+        if (accessToken == null) {
+
+            final String finalFbDescription = fbDescription;
+            loginManager.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    Log.d("accessToken onSuccess", "shareOnFacebook");
+                    shareOnFacebook(title, finalFbDescription, imageUrl);
+//                    sharePhotoToFacebook(title, finalFbDescription, imageUrl);
+                }
+
+                @Override
+                public void onCancel() {
+                    Log.d("accessToken onCancel", "Called");
+                }
+
+                @Override
+                public void onError(FacebookException exception) {
+                    Log.d("accessToken onError", "Called");
+                    LoginManager.getInstance().logOut();
+                }
+            });
+        } else {
+            Log.d("shareOnFacebook", "Called");
+            shareOnFacebook(title, fbDescription, imageUrl);
+//            sharePhotoToFacebook(title, fbDescription, imageUrl);
+        }
+    }
+//
+//    private void sharePhotoToFacebook(String title, String fbDescription, String imageUrl) {
+//
+////        Bitmap image = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+//
+////        SharePhoto photo = new SharePhoto.Builder()
+////                .setImageUrl(Uri.parse(imageUrl))
+////                .setCaption(title + "\n\n" + fbDescription)
+////                .build();
+////
+////        SharePhotoContent content = new SharePhotoContent.Builder()
+////                .addPhoto(photo)
+////                .build();
+////
+////        ShareApi.share(content, null);
+//        Log.d("sharePhotoToFacebook", "Called");
+//
+//        if (ShareDialog.canShow(ShareLinkContent.class)) {
+//
+//            Log.d("canShow", "Called");
+//
+////            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+//////                    .setContentTitle(title)
+//////                    .setImageUrl(Uri.parse(imageUrl))
+//////                    .setContentDescription(fbDescription)
+////                            .setContentUrl(Uri.parse(imageUrl))
+////                    .build();
+//
+//            SharePhoto photo = new SharePhoto.Builder()
+//                    .setCaption(title)
+//                    .setImageUrl(Uri.parse(imageUrl))
+//                    .build();
+////
+////            ShareContent content = new SharePhotoContent.Builder()
+////                    .addPhoto(photo)
+////                    .build();
+////
+////            ShareDialog shareDialog = new ShareDialog(RestaurantDetailsActivity.this);
+////            shareDialog.show(content, ShareDialog.Mode.FEED);
+//
+//
+//            ShareContent shareContent = new ShareMediaContent.Builder()
+//                    .addMedium(photo)
+//                    .build();
+//
+//            ShareDialog shareDialog = new ShareDialog(RestaurantDetailsActivity.this);
+//            shareDialog.show(shareContent, ShareDialog.Mode.AUTOMATIC);
+//        }
+//    }
+
+    private void shareOnFacebook(String title, String fbDescription, String imageUrl) {
+
+        //imageUrl = GetPathFromUrl.get_Path(imageUrl);
+        com.facebook.share.widget.ShareDialog shareDialog = new com.facebook.share.widget.ShareDialog(RestaurantDetailsActivity.this);
+        ShareLinkContent shareContent;
+
+        if (imageUrl.length() > 0) {
+            Log.d("imageUrl", "yes");
+            shareContent = new ShareLinkContent.Builder()
+                    .setContentTitle(title)
+                    .setContentDescription(fbDescription)
+                    .setContentUrl(Uri.parse("https://media.treehugger.com/assets/images/2016/03/woodland_trail.jpg.662x0_q70_crop-scale.jpg"))
+                    //.setImageUrl(Uri.parse(imageUrl))
+                    .build();
+        } else {
+            Log.d("imageUrl", "no");
+            shareContent = new ShareLinkContent.Builder()
+                    .setContentTitle(title)
+                    .setContentDescription(fbDescription)
+                    .setContentUrl(Uri.parse("https://media.treehugger.com/assets/images/2016/03/woodland_trail.jpg.662x0_q70_crop-scale.jpg"))
+                    .build();
+        }
+
+        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+                Log.d("registerCallback onSuccess", "Called");
+                Toast.makeText(RestaurantDetailsActivity.this, "success", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d("registerCallback onCancel", "Called");
+                Toast.makeText(RestaurantDetailsActivity.this, "cancel", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Log.d("registerCallback onError", ">>" + exception.getMessage());
+                Toast.makeText(RestaurantDetailsActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    //.setImageUrl()
+                    .setContentUrl(Uri.parse("http://developers.facebook.com/android"))
+                    .build();
+            shareDialog.show(shareContent);
+        }
+
+        //shareDialog.show(shareContent, com.facebook.share.widget.ShareDialog.Mode.FEED);
+    }
+
+//
+//    public void SharingImageToGmail(String title, String description, String imageUrl) {
+//
+////        String imagepath = GetPathFromUrl.get_Path(imageUrl);
+//
+//        String imagepath = imageUrl;
+//        String shareTripStr = description;
+//
+//        Intent shareIntent = new Intent();
+//        shareIntent.setAction(Intent.ACTION_SEND);
+//        shareIntent.setPackage(AppConstants.PACKAGE_GMAIL);
+//        try {
+////            Uri bmpUri = getLocalBitmapUri(faivProfilePic);
+////            if (bmpUri != null) {
+//
+//            if(imagepath.length()>0){
+//                shareIntent.setAction(Intent.ACTION_SEND);
+//                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Foodi: " + tvRestaurantName.getText().toString() + "");
+//                shareIntent.putExtra(Intent.EXTRA_TEXT, "Hey! we're going to " + tvRestaurantName.getText().toString() + " please visit: " + restaurantDetails.getImageUrl());
+//                shareIntent.putExtra(Intent.EXTRA_STREAM, imagepath);
+//                shareIntent.setType("image/*");
+//                startActivity(shareIntent);
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//
+//        }
+//    }
+//
+//
+//    public Uri getLocalBitmapUri(ImageView imageView) {
+//        // Extract Bitmap from ImageView drawable
+//        Drawable drawable = imageView.getDrawable();
+//        Bitmap bmp = null;
+//        if (drawable instanceof BitmapDrawable) {
+//            bmp = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+//        } else {
+//            return null;
+//        }
+//        // Store image to default external storage directory
+//        Uri bmpUri = null;
+//        try {
+//            File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png");
+//            FileOutputStream out = new FileOutputStream(file);
+//            bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
+//            out.close();
+//            bmpUri = Uri.fromFile(file);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return bmpUri;
+//    }
+//
+//
+//    public void SharingImageToTwitter(String title, String description, String imageUrl) {
+//
+//        String imagepath = GetPathFromUrl.get_Path(imageUrl);
+//        String shareTripStr = description;
+//
+//        boolean isAppinstalled = CommonUtils.isAppInstalled(AppConstants.PACKAGE_TWITTER, RestaurantDetailsActivity.this);
+//        if (isAppinstalled) {
+//            Intent shareIntent = new Intent();
+//            shareIntent.setAction(Intent.ACTION_SEND);
+//            shareIntent.setPackage(AppConstants.PACKAGE_TWITTER);
+//            try {
+//
+//                Uri bmpUri = getLocalBitmapUri(faivProfilePic);
+//                if (bmpUri != null) {
+//                    shareIntent.setAction(Intent.ACTION_SEND);
+//                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Foodi: " + tvRestaurantName.getText().toString() + "");
+//                    shareIntent.putExtra(Intent.EXTRA_TEXT, "Hey! we're going to " + tvRestaurantName.getText().toString() + " please visit: " + restaurantDetails.getImageUrl());
+//                    shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
+//                    shareIntent.setType("image/*");
+//                    startActivity(shareIntent);
+//                }
+//
+//            } catch (Exception e) {
+//                Toast.makeText(RestaurantDetailsActivity.this, "Please Install Twitter App", Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//
+//        } else {
+//
+//            Toast.makeText(RestaurantDetailsActivity.this, "Please Install Twitter App", Toast.LENGTH_SHORT).show();
+//            Intent shareIntent = new Intent();
+//            shareIntent = new Intent(Intent.ACTION_VIEW);
+//            shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            shareIntent.setData(Uri.parse(AppConstants.playStoreURL + AppConstants.PACKAGE_TWITTER));
+//
+//            startActivity(shareIntent);
+//        }
+//
+//    }
+//
+//
+//    public void SharingImageToMessage(String title, String description, String imageUrl) {
+//        String imagepath = GetPathFromUrl.get_Path(imageUrl);
+//        String shareTripStr = description;
+//        try {
+//            Uri bmpUri = getLocalBitmapUri(faivProfilePic);
+//            String uri = "smsto:";
+//            Intent sendIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse(uri));
+//            sendIntent.putExtra("sms_body", "Hey! we're going to " + tvRestaurantName.getText().toString() + " please visit: " + restaurantDetails.getImageUrl());
+//            sendIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
+//            startActivity(sendIntent);
+//
+//        } catch (Exception e) {
+//
+//        }
+//
+//    }
+//
+
+    @Override
+    protected void onActivityResult(int requestCode, int responseCode, Intent data) {
+        super.onActivityResult(requestCode, responseCode, data);
+        callbackManager.onActivityResult(requestCode, responseCode, data);
     }
 }

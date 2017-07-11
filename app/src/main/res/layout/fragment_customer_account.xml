@@ -135,13 +135,26 @@
             android:id="@+id/activity_customer_bt_save_profile"
             style="@style/ButtonOrange"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/customer_account_bt_save_profile_height"
+            android:layout_height="@dimen/customer_account_bt_height"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/customer_account_bt_save_profile_margin_start_end"
-            android:layout_marginEnd="@dimen/customer_account_bt_save_profile_margin_start_end"
-            android:layout_marginTop="@dimen/customer_account_bt_save_profile_margin_top"
+            android:layout_marginStart="@dimen/customer_account_bt_margin_start_end"
+            android:layout_marginEnd="@dimen/customer_account_bt_margin_start_end"
+            android:layout_marginTop="@dimen/customer_account_bt_margin_top"
             android:gravity="center"
             android:text="@string/customer_account_bt_save_profile_text"
+            android:visibility="gone" />
+
+        <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/activity_customer_bt_cancel"
+            style="@style/ButtonLightGrey"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/customer_account_bt_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/customer_account_bt_margin_start_end"
+            android:layout_marginEnd="@dimen/customer_account_bt_margin_start_end"
+            android:layout_marginTop="@dimen/customer_account_bt_margin_top"
+            android:gravity="center"
+            android:text="@string/customer_account_bt_cancel_text"
             android:visibility="gone" />
 
     </LinearLayout>

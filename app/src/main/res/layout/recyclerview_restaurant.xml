@@ -112,7 +112,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/restaurant_tv_reviews_margin_start"
-                    android:text="Reviews(0)"
                     android:textColor="@color/dark_grey"
                     android:typeface="serif" />
 

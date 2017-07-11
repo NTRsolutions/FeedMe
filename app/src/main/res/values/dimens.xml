@@ -517,9 +517,9 @@
     <dimen name="customer_account_tv_tag_padding_start">3dp</dimen>
     <dimen name="customer_account_et_padding_top">2dp</dimen>
     <dimen name="customer_account_ll_phone_number_margin_top">5dp</dimen>
-    <dimen name="customer_account_bt_save_profile_height">45dp</dimen>
-    <dimen name="customer_account_bt_save_profile_margin_start_end">10dp</dimen>
-    <dimen name="customer_account_bt_save_profile_margin_top">10dp</dimen>
+    <dimen name="customer_account_bt_height">45dp</dimen>
+    <dimen name="customer_account_bt_margin_start_end">10dp</dimen>
+    <dimen name="customer_account_bt_margin_top">10dp</dimen>
 
     <!--Restaurant Account-->
     <dimen name="restaurant_account_ll_main_padding">10dp</dimen>

@@ -17,6 +17,12 @@ public class RestaurantList implements Parcelable
     @SerializedName("id")
     @Expose
     private String id;
+    @SerializedName("avg_rating")
+    @Expose
+    private String avgRating;
+    @SerializedName("review_count")
+    @Expose
+    private Integer reviewCount;
     @SerializedName("restaurant_name")
     @Expose
     private String restaurantName;
@@ -87,6 +93,8 @@ public class RestaurantList implements Parcelable
             RestaurantList instance = new RestaurantList();
             instance.isLike = ((Integer) in.readValue((Integer.class.getClassLoader())));
             instance.id = ((String) in.readValue((String.class.getClassLoader())));
+            instance.avgRating = ((String) in.readValue((String.class.getClassLoader())));
+            instance.reviewCount = ((Integer) in.readValue((Integer.class.getClassLoader())));
             instance.restaurantName = ((String) in.readValue((String.class.getClassLoader())));
             instance.contactPersonName = ((String) in.readValue((String.class.getClassLoader())));
             instance.minOrderAmount = ((String) in.readValue((String.class.getClassLoader())));
@@ -132,6 +140,7 @@ public class RestaurantList implements Parcelable
      * @param deliveryType
      * @param minOrderAmount
      * @param deliveryCharge
+     * @param reviewCount
      * @param id
      * @param deliveryTime
      * @param email
@@ -149,10 +158,12 @@ public class RestaurantList implements Parcelable
      * @param openingTime
      * @param restaurantName
      */
-    public RestaurantList(Integer isLike, String id, String restaurantName, String contactPersonName, String minOrderAmount, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String deliveryZipcode, List<Image> images, String logo) {
+    public RestaurantList(Integer isLike, String id, String avgRating, Integer reviewCount, String restaurantName, String contactPersonName, String minOrderAmount, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String deliveryZipcode, List<Image> images, String logo) {
         super();
         this.isLike = isLike;
         this.id = id;
+        this.avgRating = avgRating;
+        this.reviewCount = reviewCount;
         this.restaurantName = restaurantName;
         this.contactPersonName = contactPersonName;
         this.minOrderAmount = minOrderAmount;
@@ -189,6 +200,22 @@ public class RestaurantList implements Parcelable
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(String avgRating) {
+        this.avgRating = avgRating;
+    }
+
+    public Integer getReviewCount() {
+        return reviewCount;
+    }
+
+    public void setReviewCount(Integer reviewCount) {
+        this.reviewCount = reviewCount;
     }
 
     public String getRestaurantName() {
@@ -354,6 +381,8 @@ public class RestaurantList implements Parcelable
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(isLike);
         dest.writeValue(id);
+        dest.writeValue(avgRating);
+        dest.writeValue(reviewCount);
         dest.writeValue(restaurantName);
         dest.writeValue(contactPersonName);
         dest.writeValue(minOrderAmount);

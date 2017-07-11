@@ -32,6 +32,11 @@
             android:name="io.fabric.ApiKey"
             android:value="aea43dd828cd9f836b47f84c4e07333b9b153d03" />
 
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="@string/facebook_provider_app_id"
+            android:exported="true" />
+
         <receiver
             android:name="com.google.android.gms.analytics.AnalyticsReceiver"
             android:enabled="true">
