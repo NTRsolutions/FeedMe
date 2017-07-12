@@ -24,14 +24,12 @@
             style="@style/TextView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sara Thomas"
             android:textColor="@color/dark_grey2" />
 
         <TextView
             android:id="@+id/recyclerview_select_delivery_address_tv_street_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="10 B, Near Calgery Marg"
             android:textColor="@color/grey2"
             android:textSize="@dimen/delivery_address_tv_street_number_text_size"
             android:typeface="sans" />
@@ -40,7 +38,6 @@
             android:id="@+id/recyclerview_select_delivery_address_tv_colony"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Malviya Nagar"
             android:textColor="@color/grey2"
             android:textSize="@dimen/delivery_address_tv_colony_text_size"
             android:typeface="sans" />
@@ -49,7 +46,6 @@
             android:id="@+id/recyclerview_select_delivery_address_tv_city_state_pin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Jaipur, Rajasthan 302004"
             android:textColor="@color/grey2"
             android:textSize="@dimen/delivery_address_tv_city_state_pin_text_size"
             android:typeface="sans" />
@@ -58,7 +54,6 @@
             android:id="@+id/recyclerview_select_delivery_address_tv_country"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="India"
             android:textColor="@color/grey2"
             android:textSize="@dimen/delivery_address_tv_country_text_size"
             android:typeface="sans" />
@@ -67,7 +62,6 @@
             android:id="@+id/recyclerview_select_delivery_address_tv_mobile_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mobile Number: 9969598985"
             android:textColor="@color/grey2"
             android:textSize="@dimen/delivery_address_tv_mobile_number_text_size"
             android:typeface="sans" />

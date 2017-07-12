@@ -14,12 +14,12 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="@dimen/order_history_detail_ll_header_padding">
 
             <ImageView
                 android:id="@+id/user_image_iv"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/order_history_detail_iv_image_height_width"
+                android:layout_height="@dimen/order_history_detail_iv_image_height_width"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
@@ -27,8 +27,7 @@
                 style="@style/TextView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="5dp"
-                android:text="name"
+                android:paddingStart="@dimen/order_history_detail_tv_name_padding_start"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -37,7 +36,7 @@
             style="@style/TextView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="@dimen/order_history_detail_tv_order_detail_tag_padding"
             android:text="@string/order_detail" />
 
         <LinearLayout
@@ -50,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="@dimen/order_history_detail_ll_padding">
 
                 <TextView
                     style="@style/TextView8"
@@ -62,22 +61,21 @@
                     android:id="@+id/order_number_tv"
                     style="@style/TextView1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="name" />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
+                android:layout_height="@dimen/density_1"
+                android:layout_marginStart="@dimen/order_history_detail_view_margin_start"
                 android:background="@color/divider_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="@dimen/order_history_detail_ll_padding">
 
                 <TextView
                     style="@style/TextView8"
@@ -89,15 +87,14 @@
                     android:id="@+id/order_type_tv"
                     style="@style/TextView1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="name" />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
+                android:layout_height="@dimen/density_1"
+                android:layout_marginStart="@dimen/order_history_detail_view_margin_start"
                 android:background="@color/divider_color" />
 
 
@@ -105,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="@dimen/order_history_detail_ll_padding">
 
                 <TextView
                     style="@style/TextView8"
@@ -117,22 +114,21 @@
                     android:id="@+id/payment_type_tv"
                     style="@style/TextView1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="name" />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
+                android:layout_height="@dimen/density_1"
+                android:layout_marginStart="@dimen/order_history_detail_view_margin_start"
                 android:background="@color/divider_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="@dimen/order_history_detail_ll_padding">
 
                 <TextView
                     style="@style/TextView8"
@@ -144,15 +140,14 @@
                     android:id="@+id/date_tv"
                     style="@style/TextView1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="name" />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
+                android:layout_height="@dimen/density_1"
+                android:layout_marginStart="@dimen/order_history_detail_view_margin_start"
                 android:background="@color/divider_color" />
 
             <LinearLayout
@@ -160,7 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="@dimen/order_history_detail_ll_padding">
 
                 <TextView
                     style="@style/TextView8"
@@ -172,21 +167,20 @@
                     android:id="@+id/delivery_address_tv"
                     style="@style/TextView1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="name" />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
+                android:layout_height="@dimen/density_1"
+                android:layout_marginStart="@dimen/order_history_detail_view_margin_start"
                 android:background="@color/divider_color" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="@dimen/order_history_detail_ll_padding">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -203,8 +197,7 @@
                         android:id="@+id/order_status_tv"
                         style="@style/TextView1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="name" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
@@ -214,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/rectangle_round_corner_white_outline_orange"
-                    android:padding="8dp"
+                    android:padding="@dimen/order_history_detail_tv_change_status_padding"
                     android:text="@string/change_status"
                     android:textColor="@color/orange" />
 
@@ -226,7 +219,7 @@
             style="@style/TextView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="@dimen/order_history_detail_tv_tag_padding"
             android:text="@string/order_summary" />
 
         <LinearLayout
@@ -234,7 +227,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/order_history_detail_ll_padding">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/activity_my_basket_recyclerview"
@@ -245,7 +238,7 @@
                 android:id="@+id/activity_my_basket_ll_checkout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/order_history_detail_ll_payment_details_margin_top"
                 android:background="@color/white"
                 android:orientation="vertical">
 
@@ -262,7 +255,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Subtotal"
+                        android:text="@string/order_history_detail_tv_subtotal_tag_text"
                         android:textSize="@dimen/my_basket_tv_discount_amount_text_size" />
 
                     <TextView
@@ -270,7 +263,6 @@
                         style="@style/TextView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
                         android:textColor="@color/orange"
                         android:textStyle="bold" />
 
@@ -296,7 +288,6 @@
                         style="@style/TextView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$10"
                         android:textColor="@color/orange"
                         android:textStyle="bold" />
 
@@ -325,7 +316,6 @@
                         style="@style/TextView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$10"
                         android:textColor="@color/orange"
                         android:textStyle="bold" />
 
@@ -353,7 +343,6 @@
                         style="@style/TextView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$250"
                         android:textColor="@color/orange"
                         android:textStyle="bold" />
 
@@ -364,10 +353,11 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/textView5"
             style="@style/TextView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="@dimen/order_history_detail_tv_tag_padding"
             android:text="@string/contact_detail" />
 
         <LinearLayout
@@ -375,14 +365,13 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/order_history_detail_ll_padding">
 
             <TextView
                 android:id="@+id/phone_number_tv"
                 style="@style/TextView1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="name" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -392,10 +381,10 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingTop="10dp">
+            android:paddingBottom="@dimen/order_history_detail_ll_top_bottom"
+            android:paddingEnd="@dimen/order_history_detail_ll_start_end"
+            android:paddingStart="@dimen/order_history_detail_ll_start_end"
+            android:paddingTop="@dimen/order_history_detail_ll_top_bottom">
 
             <com.os.foodie.ui.custom.RippleAppCompatButton
                 android:id="@+id/review_bt"
@@ -413,7 +402,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/restaurant_menu_add_update_bt_height"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/order_history_detail_bt_repeat_order_margin_top"
                 android:gravity="center"
                 android:text="@string/repeat_order"
                 android:visibility="gone" />

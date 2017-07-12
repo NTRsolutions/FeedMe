@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="@dimen/dialog_fragment_order_status_rg_padding">
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/under_preparation_rb"
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:padding="10dp"
+            android:padding="@dimen/dialog_fragment_order_status_rb_padding"
             android:text="@string/under_preparation" />
 
         <android.support.v7.widget.AppCompatRadioButton
@@ -48,7 +48,7 @@
             style="@style/TextView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="@dimen/dialog_fragment_order_status_rb_padding"
             android:text="@string/ready_to_pick_or_deliver" />
 
         <android.support.v7.widget.AppCompatRadioButton
@@ -56,7 +56,7 @@
             style="@style/TextView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="@dimen/dialog_fragment_order_status_rb_padding"
             android:text="@string/in_transit" />
 
         <android.support.v7.widget.AppCompatRadioButton
@@ -64,7 +64,7 @@
             style="@style/TextView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="@dimen/dialog_fragment_order_status_rb_padding"
             android:text="@string/delivery_or_picked" />
 
     </RadioGroup>

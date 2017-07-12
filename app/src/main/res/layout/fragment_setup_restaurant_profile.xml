@@ -315,17 +315,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/fragment_setup_restaurant_profile_tv_ud"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="70dp"
-            android:gravity="center"
-            android:text="Under Development"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:visibility="gone" />
-
     </LinearLayout>
 
 </ScrollView>

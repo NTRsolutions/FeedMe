@@ -16,6 +16,7 @@ import com.joooonho.SelectableRoundedImageView;
 import com.os.foodie.R;
 import com.os.foodie.data.network.model.home.customer.RestaurantList;
 import com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity;
+import com.os.foodie.ui.review.ReviewActivity;
 import com.os.foodie.ui.search.RestaurantSearchActivity;
 import com.os.foodie.utils.AppConstants;
 import com.wefika.flowlayout.FlowLayout;
@@ -47,7 +48,7 @@ public class RestaurantSearchAdapter extends RecyclerView.Adapter<RestaurantSear
             tvReviews = (TextView) itemView.findViewById(R.id.recyclerview_customer_search_tv_reviews);
             tvMinutes = (TextView) itemView.findViewById(R.id.recyclerview_customer_search_tv_minutes);
             flCuisines = (FlowLayout) itemView.findViewById(R.id.recyclerview_customer_search_fl_cuisine_types);
-            rbRating = (RatingBar) itemView.findViewById(R.id.recyclerview_restaurant_rb_rating);
+            rbRating = (RatingBar) itemView.findViewById(R.id.recyclerview_customer_search_rb_rating);
         }
     }
 
@@ -103,6 +104,24 @@ public class RestaurantSearchAdapter extends RecyclerView.Adapter<RestaurantSear
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, RestaurantDetailsActivity.class);
+                intent.putExtra(AppConstants.RESTAURANT_ID, restaurantLists.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
+
+        if (restaurantList.getAvgRating() != null && !restaurantList.getAvgRating().isEmpty()) {
+            holder.rbRating.setRating(Float.parseFloat(restaurantList.getAvgRating()));
+        } else {
+            holder.rbRating.setRating(0f);
+        }
+
+        holder.tvReviews.setText("Reviews(" + restaurantList.getReviewCount() + ")");
+
+        holder.tvReviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(context, ReviewActivity.class);
                 intent.putExtra(AppConstants.RESTAURANT_ID, restaurantLists.get(position).getId());
                 context.startActivity(intent);
             }

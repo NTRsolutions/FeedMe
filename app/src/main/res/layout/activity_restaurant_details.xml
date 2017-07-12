@@ -157,7 +157,6 @@
                                 android:layout_gravity="center_horizontal"
                                 android:paddingEnd="@dimen/restaurant_details_tv_discount_padding_end"
                                 android:paddingStart="@dimen/restaurant_details_tv_discount_padding_start"
-                                android:text="30%"
                                 android:textColor="@color/grey2"
                                 android:textSize="@dimen/restaurant_details_tv_discount_text_size" />
 
@@ -223,7 +222,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="20"
                 android:textColor="@color/white"
                 android:textSize="@dimen/restautant_details_fall_delivery_time_text_size"
                 android:typeface="serif" />
@@ -231,7 +229,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-7dp"
+                android:layout_marginTop="@dimen/restautant_details_fall_delivery_time_min_margin_top"
                 android:gravity="center"
                 android:text="@string/restautant_details_fall_delivery_time_min_text"
                 android:textColor="@color/white"
@@ -334,11 +332,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/rectangle_white_top_outline_light_grey"
-        android:paddingBottom="10dp"
-        android:paddingEnd="20dp"
+        android:paddingBottom="@dimen/restaurant_details_rl_basket_padding_bottom"
+        android:paddingEnd="@dimen/restaurant_details_rl_basket_padding_end"
         android:visibility="gone"
-        android:paddingStart="20dp"
-        android:paddingTop="10dp">
+        android:paddingStart="@dimen/restaurant_details_rl_basket_padding_start"
+        android:paddingTop="@dimen/restaurant_details_rl_basket_padding_top">
 
         <TextView
             android:id="@+id/activity_restaurant_details_tv_total_quantity"
@@ -347,7 +345,6 @@
             fontPath="@string/font_default"
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@+id/activity_restaurant_details_bt_view_basket"
-            android:text=""
             android:textColor="@color/grey" />
 
         <TextView
@@ -358,7 +355,6 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/activity_restaurant_details_tv_total_quantity"
             android:layout_toLeftOf="@+id/activity_restaurant_details_bt_view_basket"
-            android:text=""
             android:textStyle="bold" />
 
         <com.os.foodie.ui.custom.RippleAppCompatButton
@@ -367,12 +363,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:paddingBottom="10dp"
-            android:paddingEnd="15dp"
-            android:paddingStart="15dp"
-            android:paddingTop="10dp"
-            android:text="View Basket"
-            android:textSize="16sp" />
+            android:paddingBottom="@dimen/restaurant_details_bt_view_basket_top_bottom"
+            android:paddingEnd="@dimen/restaurant_details_bt_view_basket_start_end"
+            android:paddingStart="@dimen/restaurant_details_bt_view_basket_start_end"
+            android:paddingTop="@dimen/restaurant_details_bt_view_basket_top_bottom"
+            android:text="@string/restaurant_details_bt_view_basket_text"
+            android:textSize="@dimen/restaurant_details_bt_view_basket_text_size" />
 
     </RelativeLayout>
 

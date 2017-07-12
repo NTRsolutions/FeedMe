@@ -174,8 +174,8 @@
 
         <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="@dimen/density_1"
+        android:layout_marginTop="@dimen/show_restaurant_profile_content_view_margin_top"
         android:background="@color/divider_color" />
 
         <TextView
@@ -189,7 +189,7 @@
 
         <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+            android:layout_height="@dimen/density_1"
         android:background="@color/divider_color" />
 
         <LinearLayout

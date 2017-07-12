@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dialog_share_ll_main_padding_bottom"
+    android:paddingEnd="@dimen/dialog_share_ll_main_padding_end"
+    android:paddingStart="@dimen/dialog_share_ll_main_padding_start"
+    android:paddingTop="@dimen/dialog_share_ll_main_padding_top"
+    tools:ignore="MissingPrefix">
+
+    <TextView
+        android:id="@+id/dialog_share_tv_facebook"
+        style="@style/TextView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dialog_share_tv_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/dialog_share_tv_facebook_text"
+        android:textColor="@color/orange"
+        android:textSize="@dimen/dialog_share_tv_text_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/dialog_share_tv_twitter"
+        style="@style/TextView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dialog_share_tv_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/dialog_share_tv_twitter_text"
+        android:textColor="@color/orange"
+        android:textSize="@dimen/dialog_share_tv_text_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/dialog_share_tv_gmail"
+        style="@style/TextView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dialog_share_tv_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/dialog_share_tv_gmail_text"
+        android:textColor="@color/orange"
+        android:textSize="@dimen/dialog_share_tv_text_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/dialog_share_tv_message"
+        style="@style/TextView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dialog_share_tv_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/dialog_share_tv_message_text"
+        android:textColor="@color/orange"
+        android:textSize="@dimen/dialog_share_tv_text_size"
+        android:textStyle="bold" />
+
+</LinearLayout>

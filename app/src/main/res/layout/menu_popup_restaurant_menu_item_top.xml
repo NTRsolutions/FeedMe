@@ -11,7 +11,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginEnd="@dimen/popup_restaurant_menu_ll_margin_end"
         android:layout_marginStart="@dimen/popup_restaurant_menu_ll_margin_start"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/popup_restaurant_menu_ll_margin_top"
         android:orientation="horizontal">
 
         <ImageView

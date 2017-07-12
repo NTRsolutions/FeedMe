@@ -24,8 +24,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/activity_facebook_sign_up_civ_restaurant_logo"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="@dimen/facebook_sign_up_civ_restaurant_logo_height_width"
+                    android:layout_height="@dimen/facebook_sign_up_civ_restaurant_logo_height_width"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/slide_subtitle_margin_top"
                     android:src="@mipmap/img_profile_default" />

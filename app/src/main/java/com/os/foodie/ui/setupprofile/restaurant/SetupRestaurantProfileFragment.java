@@ -869,6 +869,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
             Log.d("getCountryName", ">>" + addresses.get(i).getCountryName());
             Log.d("getSubAdminArea", ">>" + addresses.get(i).getSubAdminArea());
+            Log.d("getLocality", ">>" + addresses.get(i).getLocality());
             Log.d("getPostalCode", ">>" + addresses.get(i).getPostalCode());
 //            Log.d("getAddressLine", ">>" + addresses.get(i).getAddressLine(addresses.get(i).getMaxAddressLineIndex()-1));
         }
@@ -888,6 +889,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
             else
                 break;
         }
+
+        latLng = new LatLng(address.getLatitude(), address.getLongitude());
 
         etAddress.setText(fullAddress);
 
@@ -913,15 +916,23 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
             etCity.setClickable(true);
             etCity.setEnabled(false);
+            etCity.setText(address.getSubAdminArea());
+
 //            etCity.setFocusable(false);
 //            etCity.setLongClickable(false);
 
-            etCity.setText(address.getSubAdminArea());
+        } else if (address.getLocality() != null && !address.getLocality().isEmpty()) {
+
+            etCity.setClickable(true);
+            etCity.setEnabled(false);
+            etCity.setText(address.getLocality());
+
         } else {
 
             etCity.setClickable(false);
             etCity.setEnabled(true);
             etCity.setText("");
+
 //            etCity.setFocusable(true);
 //            etCity.setLongClickable(true);
         }

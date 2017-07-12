@@ -415,9 +415,17 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
         }
 
         if (address.getSubAdminArea() != null && !address.getSubAdminArea().isEmpty()) {
+
             etCity.setEnabled(false);
             etCity.setText(address.getSubAdminArea());
+
+        } else if (address.getLocality() != null && !address.getLocality().isEmpty()) {
+
+            etCity.setEnabled(false);
+            etCity.setText(address.getLocality());
+
         } else {
+
             etCity.setEnabled(true);
             etCity.setText("");
         }

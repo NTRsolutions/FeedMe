@@ -1,6 +1,7 @@
 <resources>
     <!--Common-->
     <dimen name="density_0">0dp</dimen>
+    <dimen name="density_1">1dp</dimen>
     <dimen name="fab_default_margin">16dp</dimen>
 
     <!--Style-->
@@ -210,6 +211,7 @@
     <dimen name="customer_main_header_tv_margin_end">20dp</dimen>
     <dimen name="customer_main_header_tv_margin_start">20dp</dimen>
     <dimen name="customer_main_header_tv_user_name_text_size">25sp</dimen>
+    <dimen name="customer_main_header_tv_user_name_margin_top">10dp</dimen>
 
     <!--Restaurant Main-->
     <dimen name="restaurant_main_toolbar_content_inset_start">0dp</dimen>
@@ -311,6 +313,14 @@
     <dimen name="restaurant_details_tv_discount_text_padding_start">5dp</dimen>
     <dimen name="restaurant_details_tv_discount_text_text_size">16sp</dimen>
     <dimen name="restaurant_details_recyclerview_margin_start">5dp</dimen>
+    <dimen name="restaurant_details_bt_view_basket_start_end">15dp</dimen>
+    <dimen name="restaurant_details_bt_view_basket_top_bottom">10dp</dimen>
+    <dimen name="restaurant_details_bt_view_basket_text_size">16sp</dimen>
+    <dimen name="restaurant_details_rl_basket_padding_bottom">10dp</dimen>
+    <dimen name="restaurant_details_rl_basket_padding_end">20dp</dimen>
+    <dimen name="restaurant_details_rl_basket_padding_start">20dp</dimen>
+    <dimen name="restaurant_details_rl_basket_padding_top">10dp</dimen>
+    <dimen name="restautant_details_fall_delivery_time_min_margin_top">-7dp</dimen>
 
     <dimen name="course_title_tv_title_top_bottom_margin">5dp</dimen>
     <dimen name="course_title_tv_title_start_end_margin">10dp</dimen>
@@ -341,7 +351,7 @@
     <dimen name="popup_restaurant_menu_ll_main_padding">15dp</dimen>
     <dimen name="popup_restaurant_menu_ll_margin_end">10dp</dimen>
     <dimen name="popup_restaurant_menu_ll_margin_start">10dp</dimen>
-    <dimen name="popup_restaurant_menu_ll_margin_top">18dp</dimen>
+    <dimen name="popup_restaurant_menu_ll_margin_top">5dp</dimen>
     <dimen name="popup_restaurant_menu_iv_status_padding">10dp</dimen>
     <dimen name="popup_restaurant_menu_iv_edit_padding">10dp</dimen>
     <dimen name="popup_restaurant_menu_iv_delete_padding">10dp</dimen>
@@ -391,6 +401,7 @@
     <dimen name="show_restaurant_profile_content_tv_city_padding_top">10dp</dimen>
     <dimen name="show_restaurant_profile_content_tv_country_padding_top">10dp</dimen>
     <dimen name="show_restaurant_profile_content_tv_zip_padding_top">10dp</dimen>
+    <dimen name="show_restaurant_profile_content_view_margin_top">10dp</dimen>
 
     <!--Restaurant Order List-->
     <dimen name="restaurant_order_ll_padding">15dp</dimen>
@@ -587,6 +598,7 @@
     <dimen name="customer_search_ll_other_info_margin_top">5dp</dimen>
     <dimen name="customer_search_tv_rating_tag_margin_end">5dp</dimen>
     <dimen name="customer_search_tv_reviews_margin_start">5dp</dimen>
+    <dimen name="customer_search_ll_main_padding">15dp</dimen>
 
     <!--Delivery Address RecyclerView-->
     <dimen name="delivery_address_ll_main_margin">10dp</dimen>
@@ -702,6 +714,32 @@
     <dimen name="merchant_details_bt_margin_start_end">10dp</dimen>
     <dimen name="merchant_details_bt_save_margin_top">15dp</dimen>
     <dimen name="merchant_details_bt_cancel_margin_top">10dp</dimen>
+
+    <!--Order Histroy Details-->
+    <dimen name="order_history_detail_ll_header_padding">10dp</dimen>
+    <dimen name="order_history_detail_iv_image_height_width">50dp</dimen>
+    <dimen name="order_history_detail_tv_name_padding_start">5dp</dimen>
+    <dimen name="order_history_detail_tv_order_detail_tag_padding">10dp</dimen>
+    <dimen name="order_history_detail_ll_padding">10dp</dimen>
+    <dimen name="order_history_detail_view_margin_start">10dp</dimen>
+    <dimen name="order_history_detail_tv_change_status_padding">8dp</dimen>
+    <dimen name="order_history_detail_tv_tag_padding">10dp</dimen>
+    <dimen name="order_history_detail_ll_payment_details_margin_top">10dp</dimen>
+    <dimen name="order_history_detail_ll_start_end">30dp</dimen>
+    <dimen name="order_history_detail_ll_top_bottom">10dp</dimen>
+    <dimen name="order_history_detail_bt_repeat_order_margin_top">10dp</dimen>
+
+    <dimen name="dialog_fragment_feedback_restaurant_ll_main_padding">20dp</dimen>
+    <dimen name="dialog_fragment_order_status_rg_padding">10dp</dimen>
+    <dimen name="dialog_fragment_order_status_rb_padding">10dp</dimen>
+
+    <!--Dialog Share-->
+    <dimen name="dialog_share_ll_main_padding_bottom">30dp</dimen>
+    <dimen name="dialog_share_ll_main_padding_end">10dp</dimen>
+    <dimen name="dialog_share_ll_main_padding_start">10dp</dimen>
+    <dimen name="dialog_share_ll_main_padding_top">10dp</dimen>
+    <dimen name="dialog_share_tv_margin">5dp</dimen>
+    <dimen name="dialog_share_tv_text_size">20sp</dimen>
 
     <!-- TODO: Remove or change this placeholder text -->
 

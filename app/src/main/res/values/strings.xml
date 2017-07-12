@@ -315,6 +315,7 @@
     <string name="restautant_details_fall_delivery_time_min_text">min</string>
     <string name="restaurant_details_tv_rating_text_rating">Rating</string>
     <string name="restaurant_details_tv_discount_text_discount">Discount</string>
+    <string name="restaurant_details_bt_view_basket_text">View Basket</string>
     <string name="recyclerview_course_content_tv_x_text">x</string>
 
     <!--Restaurant List-->
@@ -485,6 +486,7 @@
     <!--Delivery Address-->
     <string name="delivery_address_activity_title">Delivery Address</string>
     <string name="delivery_address_bt_payment_text">Make Payment</string>
+    <string name="delivery_address_tv_empty_alert_text">No Address</string>
 
     <!--Select Payment-->
     <string name="select_payment_activity_title">Payment</string>
@@ -493,6 +495,7 @@
 
     <!--Select Delivery Address-->
     <string name="select_delivery_address_activity_title">Delivery Address</string>
+    <string name="select_delivery_address_tv_empty_alert_text">No Address</string>
 
     <!--Earning-->
     <string name="title_fragment_earning">Earning</string>
@@ -534,6 +537,12 @@
     <string name="review_activity_title">Reviews</string>
     <string name="review_tv_alert_text">No Reviews</string>
 
+    <!--Dialog Share-->
+    <string name="dialog_share_tv_facebook_text">Facebook</string>
+    <string name="dialog_share_tv_twitter_text">Twitter</string>
+    <string name="dialog_share_tv_gmail_text">Gmail</string>
+    <string name="dialog_share_tv_message_text">Message</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="order_detail_activity_title">Order Detail</string>
     <string name="order_number">Order Number</string>
@@ -549,6 +558,7 @@
     <string name="repeat_order">Repeat Order</string>
     <string name="change_status">Change Status</string>
     <string name="order_detail">Order Detail</string>
+    <string name="order_history_detail_tv_subtotal_tag_text">Subtotal</string>
 
     <!--order status dialog-->
     <string name="set_order_status">Set Order Status</string>
@@ -560,7 +570,7 @@
     <string name="comment">Comment</string>
 
 
-    <!--RestaurantReview-->
+    <!--Restaurant Review-->
     <string name="comment_error">Enter your valuable comment.</string>
     <string name="rate_error">Please rate at least one.</string>
     <string name="landmark">Landmark</string>

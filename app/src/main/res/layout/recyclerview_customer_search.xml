@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingPrefix"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="horizontal"
-    android:padding="15dp">
+    android:padding="@dimen/customer_search_ll_main_padding"
+    tools:ignore="MissingPrefix">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -43,7 +43,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="30"
                 android:textColor="@color/white"
                 android:textSize="@dimen/customer_search_tv_minutes_text_size" />
 
@@ -75,8 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/customer_search_tv_restaurant_name_margin_bottom"
-            android:layout_marginStart="@dimen/customer_search_tv_restuarant_name_margin_start"
-            android:text="Res" />
+            android:layout_marginStart="@dimen/customer_search_tv_restuarant_name_margin_start" />
 
         <com.wefika.flowlayout.FlowLayout
             android:id="@+id/recyclerview_customer_search_fl_cuisine_types"
@@ -152,7 +150,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/customer_search_tv_reviews_margin_start"
-                android:text="Reviews(0)"
                 android:textColor="@color/dark_grey"
                 android:typeface="serif" />
 

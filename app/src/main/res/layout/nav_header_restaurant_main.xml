@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/customer_main_header_tv_user_name_margin_top"
         android:typeface="monospace"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
