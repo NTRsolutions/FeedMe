@@ -97,7 +97,7 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
         return view;
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -193,7 +193,16 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
                 .error(ContextCompat.getDrawable(getActivity(), R.mipmap.ic_launcher))
                 .into(faivProfilePic);
 
-        tvDeliveryTime.setText(restaurantDetail.getDeliveryTime());
+        if (restaurantDetail.getDeliveryTime() != null && !restaurantDetail.getDeliveryTime().isEmpty()) {
+
+            tvDeliveryTime.setText(restaurantDetail.getDeliveryTime());
+
+        } else {
+
+            fallDeliveryTime.setVisibility(View.GONE);
+//            tvDeliveryTime.setText("0");
+        }
+
         tvRestaurantName.setText(restaurantDetail.getRestaurantName());
         tvOpeningClosingHours.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getOpeningTime(), "HH:mm:ss", "hh:mm a") + " - " + TimeFormatUtils.changeTimeFormat(restaurantDetail.getClosingTime(), "HH:mm:ss", "hh:mm a"));
         tvDeliveryCharges.setText(restaurantDetail.getDeliveryCharge());

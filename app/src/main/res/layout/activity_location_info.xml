@@ -81,12 +81,12 @@
             android:layout_height="@dimen/location_info_et_height"
             android:layout_marginTop="@dimen/location_info_et_country_margin_top"
             android:clickable="true"
-            android:enabled="false"
             android:hint="@string/location_info_et_country_hint"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:paddingEnd="@dimen/location_info_et_padding_end"
             android:paddingStart="@dimen/location_info_et_padding_start" />
+        <!--android:enabled="false"-->
 
         <EditText
             android:id="@+id/activity_location_info_et_city"
@@ -95,29 +95,47 @@
             android:layout_height="@dimen/location_info_et_height"
             android:layout_marginTop="@dimen/location_info_et_margin_top"
             android:clickable="true"
-            android:enabled="false"
             android:hint="@string/location_info_et_city_hint"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:paddingEnd="@dimen/location_info_et_padding_end"
             android:paddingStart="@dimen/location_info_et_padding_start" />
+        <!--android:enabled="false"-->
 
-        <EditText
-            android:id="@+id/activity_location_info_et_current_location"
-            style="@style/EditTextGreySingleLine"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/location_info_et_height"
-            android:layout_marginTop="@dimen/location_info_et_margin_top"
-            android:clickable="true"
-            android:drawableEnd="@mipmap/ic_gps"
-            android:drawablePadding="5dp"
-            android:focusable="false"
-            android:hint="@string/location_info_et_current_location_hint"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:longClickable="false"
-            android:paddingEnd="@dimen/location_info_et_padding_end"
-            android:paddingStart="@dimen/location_info_et_padding_start" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/activity_location_info_et_current_location"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/location_info_et_height"
+                android:layout_marginTop="@dimen/location_info_et_margin_top"
+                android:layout_weight="1"
+                android:background="@drawable/rectangle_round_corner_left_light_grey"
+                android:hint="@string/location_info_et_current_location_hint"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:paddingStart="@dimen/location_info_et_padding_start" />
+
+            <ImageView
+                android:id="@+id/activity_location_info_iv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/location_info_et_height"
+                android:layout_marginTop="@dimen/location_info_et_margin_top"
+                android:background="@drawable/rectangle_round_corner_right_orange"
+                android:padding="5dp"
+                android:src="@mipmap/ic_gps" />
+
+            <!--android:clickable="true"-->
+            <!--android:focusable="false"-->
+            <!--android:longClickable="false"-->
+            <!--android:drawableEnd="@mipmap/ic_gps"-->
+            <!--android:drawablePadding="5dp"-->
+
+        </LinearLayout>
 
         <com.os.foodie.ui.custom.RippleAppCompatButton
             android:id="@+id/activity_location_info_bt_submit"

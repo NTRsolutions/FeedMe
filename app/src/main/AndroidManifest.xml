@@ -56,6 +56,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.splash.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -65,120 +66,148 @@
         </activity>
         <activity
             android:name=".ui.welcome.WelcomeActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/login_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.signup.customer.CustomerSignUpActivity"
             android:label="@string/customer_sign_up_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.signup.restaurant.RestaurantSignUpActivity"
             android:label="@string/restaurant_sign_up_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.otp.OtpActivity"
             android:label="@string/otp_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.forgotpassword.ForgotPasswordActivity"
             android:label="@string/forgot_password_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.locationinfo.LocationInfoActivity"
             android:label="@string/location_info_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.fbsignup.FacebookSignUpActivity"
             android:label="@string/facebook_sign_up_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.main.restaurant.RestaurantMainActivity"
             android:label=""
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.menu.show.restaurant.RestaurantMenuActivity"
             android:label="@string/title_restaurant_menu_activity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.menu.add.RestaurantMenuAddUpdateDishActivity"
             android:label="@string/restaurant_menu_add_update_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.main.customer.CustomerMainActivity"
             android:label=""
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.details.restaurant.RestaurantDetailsActivity"
             android:label=""
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar2" />
         <activity
             android:name=".ui.info.RestaurantInfoActivity"
             android:label=""
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.setting.changepassword.ChangePasswordActivity"
             android:label="@string/change_password_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.filters.FiltersActivity"
             android:label="@string/filters_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme3" />
         <activity
             android:name=".ui.search.RestaurantSearchActivity"
             android:label=""
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme3" />
         <activity
             android:name=".ui.mybasket.MyBasketActivity"
             android:label="@string/my_basket_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.deliveryaddress.show.DeliveryAddressActivity"
             android:label="@string/delivery_address_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.deliveryaddress.addedit.AddEditDeliveryAddressActivity"
             android:label="@string/add_delivery_address_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.payment.show.PaymentMethodActivity"
             android:label="@string/manage_cards_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.payment.add.AddPaymentCardActivity"
             android:label="@string/add_payment_card_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.payment.select.SelectPaymentActivity"
             android:label="@string/select_payment_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.deliveryaddress.select.SelectDeliveryAddressActivity"
             android:label="@string/select_delivery_address_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.discount.add.DiscountAddActivity"
             android:label="@string/discount_mangement_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.order.restaurant.detail.OrderHistoryDetailActivity"
             android:label="@string/order_detail_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.setting.staticpages.StaticPageActivity"
             android:label="@string/settings_tv_terms_of_use_tag_text"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".ui.review.ReviewActivity"
             android:label="@string/review_activity_title"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme3" />
     </application>
 

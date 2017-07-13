@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -36,6 +37,7 @@ public class RestaurantSearchAdapter extends RecyclerView.Adapter<RestaurantSear
 
         public SelectableRoundedImageView ivRestaurantImage;
         public TextView tvRestaurantName, tvReviews, tvMinutes;
+        public LinearLayout llDeliveryTime;
         public FlowLayout flCuisines;
         public RatingBar rbRating;
 
@@ -46,6 +48,7 @@ public class RestaurantSearchAdapter extends RecyclerView.Adapter<RestaurantSear
             tvRestaurantName = (TextView) itemView.findViewById(R.id.recyclerview_customer_search_tv_restaurant_name);
             tvReviews = (TextView) itemView.findViewById(R.id.recyclerview_customer_search_tv_reviews);
             tvMinutes = (TextView) itemView.findViewById(R.id.recyclerview_customer_search_tv_minutes);
+            llDeliveryTime = (LinearLayout) itemView.findViewById(R.id.recyclerview_customer_search_ll_delivery_time);
             flCuisines = (FlowLayout) itemView.findViewById(R.id.recyclerview_customer_search_fl_cuisine_types);
             rbRating = (RatingBar) itemView.findViewById(R.id.recyclerview_customer_search_rb_rating);
         }
@@ -69,7 +72,20 @@ public class RestaurantSearchAdapter extends RecyclerView.Adapter<RestaurantSear
                 .into(holder.ivRestaurantImage);
 
         holder.tvRestaurantName.setText(restaurantList.getRestaurantName());
-        holder.tvMinutes.setText(restaurantList.getDeliveryTime());
+
+        if (restaurantList.getDeliveryTime() != null && !restaurantList.getDeliveryTime().isEmpty()) {
+
+            holder.llDeliveryTime.setVisibility(View.VISIBLE);
+            holder.tvMinutes.setText(restaurantList.getDeliveryTime());
+
+        } else {
+
+//            ((ViewGroup) fallDeliveryTime.getParent()).removeView(fallDeliveryTime);
+
+            holder.llDeliveryTime.setVisibility(View.INVISIBLE);
+//            holder.tvMinutes.setText("0");
+        }
+//        holder.tvMinutes.setText(restaurantList.getDeliveryTime());
 
         holder.flCuisines.removeAllViews();
 

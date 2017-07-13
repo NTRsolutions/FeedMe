@@ -257,11 +257,43 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
 
                 if (clickPosition > limit) {
 
-                    popupWindow.showAtLocation(v, Gravity.TOP, (int) (itemViewMeasuredWidth - (itemViewX + vX)), (int) (itemViewY + vY));
+
+                    if (context.getResources().getBoolean(R.bool.is_rtl)) {
+
+                        Log.d("X", "Bottom RTL>>" + -(itemViewMeasuredWidth - (itemViewX + vX)));
+                        Log.d("Y", "Bottom RTL>>" + (itemViewY + vY));
+
+                        popupWindow.showAtLocation(v, Gravity.TOP, -(itemViewMeasuredWidth - (itemViewX + vX)), (int) (itemViewY + vY));
+
+                    } else {
+
+                        Log.d("X", "Bottom >>" + (itemViewMeasuredWidth - (itemViewX + vX)));
+                        Log.d("Y", "Bottom >>" + (itemViewY + vY));
+
+                        popupWindow.showAtLocation(v, Gravity.TOP, (int) (itemViewMeasuredWidth - (itemViewX + vX)), (int) (itemViewY + vY));
+                    }
 
                 } else {
 
-                    popupWindow.showAsDropDown(v);
+                    if (context.getResources().getBoolean(R.bool.is_rtl)) {
+
+                        Log.d("X", "RTL>>" + (itemViewMeasuredWidth - (itemViewX + vX)));
+                        Log.d("vY", ">>" + vY);
+                        Log.d("itemViewY", ">>" + itemViewY);
+                        Log.d("Y", "RTL>>" + (vY - (itemViewY)));
+
+//                        if()
+//                        popupWindow.showAtLocation(v, Gravity.BOTTOM, -(itemViewMeasuredWidth - (itemViewX + vX)), (int) ((itemViewY) + vY));
+//                        popupWindow.showAsDropDown(v, -(itemViewMeasuredWidth - (itemViewX + vX)), (int) (/*(itemViewY) + vY - */(itemViewY)), Gravity.BOTTOM);
+                        popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, -(itemViewMeasuredWidth - (itemViewX + vX)), clickPosition + itemViewMeasuredHeight);
+
+                    } else {
+
+                        Log.d("X", ">>" + 0);
+                        Log.d("Y", ">>" + (itemViewY + vY));
+
+                        popupWindow.showAsDropDown(v);
+                    }
                 }
             }
         });

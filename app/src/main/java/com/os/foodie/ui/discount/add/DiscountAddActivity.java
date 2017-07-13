@@ -30,8 +30,6 @@ import com.os.foodie.utils.AppConstants;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -70,7 +68,7 @@ public class DiscountAddActivity extends BaseActivity implements DiscountAddMvpV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_discount_activity);
+        setContentView(R.layout.activity_add_discount);
 
         initPresenter();
         discountAddMvpPresenter.onAttach(DiscountAddActivity.this);
@@ -462,7 +460,9 @@ public class DiscountAddActivity extends BaseActivity implements DiscountAddMvpV
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-        Calendar cal = new GregorianCalendar(year, month, dayOfMonth);
+        Calendar cal = Calendar.getInstance();
+
+//        cal.set(year, month, dayOfMonth, 0, 0, 0);
 
         if (dateTag.equals("start")) {
             setDate(cal);
@@ -471,12 +471,42 @@ public class DiscountAddActivity extends BaseActivity implements DiscountAddMvpV
         }
     }
 
-    public void setDate(Calendar calender) {
+    public void setDate(Calendar selected) {
 
-        Date current = calender.getTime();
-        int diff1 = new Date().compareTo(current);
+        Calendar current = Calendar.getInstance();
 
-        if (diff1 > 0) {
+        current.set(current.get(Calendar.YEAR), current.get(Calendar.MONTH), current.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+        selected.set(selected.get(Calendar.YEAR), selected.get(Calendar.MONTH), selected.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+
+        current.set(Calendar.MILLISECOND, 0);
+        selected.set(Calendar.MILLISECOND, 0);
+
+        Log.d("current", ">>" + current.getTimeInMillis());
+        Log.d("selected", ">>" + selected.getTimeInMillis());
+
+        Log.d("current", "YEAR>>" + current.get(Calendar.YEAR));
+        Log.d("selected", "YEAR>>" + selected.get(Calendar.YEAR));
+
+        Log.d("current", "MONTH>>" + current.get(Calendar.MONTH));
+        Log.d("selected", "MONTH>>" + selected.get(Calendar.MONTH));
+
+        Log.d("current", "DAY_OF_MONTH>>" + current.get(Calendar.DAY_OF_MONTH));
+        Log.d("selected", "DAY_OF_MONTH>>" + selected.get(Calendar.DAY_OF_MONTH));
+
+        Log.d("current", "HOUR_OF_DAY>>" + current.get(Calendar.HOUR_OF_DAY));
+        Log.d("selected", "HOUR_OF_DAY>>" + selected.get(Calendar.HOUR_OF_DAY));
+
+        Log.d("current", "MINUTE>>" + current.get(Calendar.MINUTE));
+        Log.d("selected", "MINUTE>>" + selected.get(Calendar.MINUTE));
+
+        Log.d("current", "SECOND>>" + current.get(Calendar.SECOND));
+        Log.d("selected", "SECOND>>" + selected.get(Calendar.SECOND));
+
+        Log.d("current", "MILLISECOND>>" + current.get(Calendar.MILLISECOND));
+        Log.d("selected", "MILLISECOND>>" + selected.get(Calendar.MILLISECOND));
+
+        if (current.getTimeInMillis() > selected.getTimeInMillis()) {
+//        if (diff1 > 0) {
 
             Snackbar snackbar = Snackbar.make(tvStartDate, getString(R.string.empty_valid_date), Snackbar.LENGTH_LONG);
             snackbar.show();
@@ -484,16 +514,25 @@ public class DiscountAddActivity extends BaseActivity implements DiscountAddMvpV
         } else {
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            tvStartDate.setText(dateFormat.format(calender.getTime()));
+            tvStartDate.setText(dateFormat.format(selected.getTime()));
         }
     }
 
-    public void setDateend(Calendar calender) {
+    public void setDateend(Calendar selected) {
 
-        Date current = calender.getTime();
-        int diff1 = new Date().compareTo(current);
+        Calendar current = Calendar.getInstance();
 
-        if (diff1 > 0) {
+        current.set(current.get(Calendar.YEAR), current.get(Calendar.MONTH), current.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+        selected.set(selected.get(Calendar.YEAR), selected.get(Calendar.MONTH), selected.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+
+        current.set(Calendar.MILLISECOND, 0);
+        selected.set(Calendar.MILLISECOND, 0);
+
+//        Date current = calender.getTime();
+//        int diff1 = new Date().compareTo(current);
+
+        if (current.getTimeInMillis() > selected.getTimeInMillis()) {
+//        if (diff1 > 0) {
 
             Snackbar snackbar = Snackbar.make(tvEndDate, getString(R.string.empty_valid_date), Snackbar.LENGTH_LONG);
             snackbar.show();
@@ -501,7 +540,7 @@ public class DiscountAddActivity extends BaseActivity implements DiscountAddMvpV
         } else {
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            tvEndDate.setText(dateFormat.format(calender.getTime()));
+            tvEndDate.setText(dateFormat.format(selected.getTime()));
         }
     }
 }

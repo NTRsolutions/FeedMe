@@ -97,6 +97,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/recyclerview_restaurant_ll_delivery_time"
             android:layout_width="@dimen/restaurant_ll_minutes_height_width"
             android:layout_height="@dimen/restaurant_ll_minutes_height_width"
             android:layout_margin="@dimen/restaurant_ll_minutes_margin"

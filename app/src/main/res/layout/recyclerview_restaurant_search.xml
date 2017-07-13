@@ -27,6 +27,7 @@
             app:sriv_right_top_corner_radius="@dimen/customer_search_sriv_restaurant_image_radius" />
 
         <LinearLayout
+            android:id="@+id/recyclerview_customer_search_ll_delivery_time"
             android:layout_width="@dimen/customer_search_ll_minutes_height_width"
             android:layout_height="@dimen/customer_search_ll_minutes_height_width"
             android:layout_alignBottom="@+id/recyclerview_customer_search_sriv_restaurant_image"

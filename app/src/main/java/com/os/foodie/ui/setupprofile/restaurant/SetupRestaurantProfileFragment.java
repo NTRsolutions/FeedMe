@@ -87,7 +87,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     private Button btSave, btCancel;
 
     private Random random;
-    private LatLng latLng;
+//    private LatLng latLng;
 
     private ArrayList<Integer> idList;
     private HashMap<Integer, File> fileMap;
@@ -143,7 +143,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         random = new Random();
 
-        latLng = new LatLng(0, 0);
+//        latLng = new LatLng(0, 0);
         idList = new ArrayList<Integer>();
         fileMap = new HashMap<Integer, File>();
 
@@ -667,8 +667,12 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         restaurantProfileRequest.setDeliveryType(getOrderType());
         restaurantProfileRequest.setPaymentMethod(getPaymentType());
 
-        restaurantProfileRequest.setLatitude(latLng.latitude + "");
-        restaurantProfileRequest.setLongitude(latLng.longitude + "");
+        restaurantProfileRequest.setLatitude(restaurantProfileResponse.getResponse().getRestaurantDetail().getLatitude());
+        restaurantProfileRequest.setLongitude(restaurantProfileResponse.getResponse().getRestaurantDetail().getLongitude());
+//
+//        restaurantProfileRequest.setLatitude(latLng.latitude + "");
+//        restaurantProfileRequest.setLongitude(latLng.longitude + "");
+
         restaurantProfileRequest.setDeleteImageId(deleteImageIds);
 
         return restaurantProfileRequest;
@@ -890,7 +894,9 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                 break;
         }
 
-        latLng = new LatLng(address.getLatitude(), address.getLongitude());
+        restaurantProfileResponse.getResponse().getRestaurantDetail().setLatitude(address.getLatitude() + "");
+        restaurantProfileResponse.getResponse().getRestaurantDetail().setLongitude(address.getLongitude() + "");
+//        latLng = new LatLng(address.getLatitude(), address.getLongitude());
 
         etAddress.setText(fullAddress);
 

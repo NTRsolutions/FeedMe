@@ -28,6 +28,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -119,7 +120,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
     private RestaurantDetailsMvpPresenter<RestaurantDetailsMvpView> restaurantDetailsMvpPresenter;
     private CallbackManager callbackManager;
     private Bitmap logoBitmap;
-    String logPath="";
+    String logPath = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -346,16 +348,27 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                     public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
                         faivProfilePic.setImageBitmap(resource);
                         // Bitmap Action Here
-                        logoBitmap=resource;
+                        logoBitmap = resource;
 
                     }
                 });
 
 
         tvRestaurantName.setText(restaurantDetailsResponse.getResponse().getRestaurantName());
-        tvDeliveryTime.setText(restaurantDetailsResponse.getResponse().getDeliveryTime());
-//        tvLikes.setText(restaurantDetailsResponse.getResponse().getLatitude());
-//        tvDiscount.setText(restaurantDetailsResponse.getResponse().g());
+
+        if (restaurantDetailsResponse.getResponse().getDeliveryTime() != null && !restaurantDetailsResponse.getResponse().getDeliveryTime().isEmpty()) {
+
+            tvDeliveryTime.setText(restaurantDetailsResponse.getResponse().getDeliveryTime());
+
+        } else {
+
+            ((ViewGroup) fallDeliveryTime.getParent()).removeView(fallDeliveryTime);
+
+//            fallDeliveryTime.setVisibility(View.GONE);
+//            holder.tvMinutes.setText("0");
+        }
+
+//        tvDeliveryTime.setText(restaurantDetailsResponse.getResponse().getDeliveryTime());
 
         flCuisines.removeAllViews();
 
@@ -490,7 +503,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                     public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
                         faivProfilePic.setImageBitmap(resource);
                         // Bitmap Action Here
-                        logoBitmap=resource;
+                        logoBitmap = resource;
 
 
                     }
@@ -969,30 +982,30 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         if (hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE) && hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
-       if(logPath.length()==0 && logoBitmap!=null) {
-           String root = Environment.getExternalStorageDirectory().toString();
-           File myDir = new File(root + "/Android/data/com.os.foodie/cache/image");
-           myDir.mkdirs();
+            if (logPath.length() == 0 && logoBitmap != null) {
+                String root = Environment.getExternalStorageDirectory().toString();
+                File myDir = new File(root + "/Android/data/com.os.foodie/cache/image");
+                myDir.mkdirs();
 
-           Long tsLong = System.currentTimeMillis() / 1000;
-           String timeStamp = tsLong.toString();
-           String fname = timeStamp + "_" + ".jpg";
-           File file = new File(myDir, fname);
-           Log.i("file ", "" + file);
-           if (file.exists())
-               file.delete();
-           try {
-               FileOutputStream out = new FileOutputStream(file);
-               logoBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-               out.flush();
-               out.close();
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
+                Long tsLong = System.currentTimeMillis() / 1000;
+                String timeStamp = tsLong.toString();
+                String fname = timeStamp + "_" + ".jpg";
+                File file = new File(myDir, fname);
+                Log.i("file ", "" + file);
+                if (file.exists())
+                    file.delete();
+                try {
+                    FileOutputStream out = new FileOutputStream(file);
+                    logoBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                    out.flush();
+                    out.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-           logPath = myDir + "/" + fname;
+                logPath = myDir + "/" + fname;
 
-       }
+            }
 
 
             LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -1143,15 +1156,12 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                 shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), logPath, getString(R.string.app_name), description)));
                 shareIntent.setType(ShareAppConstant.INTENT_TYPE);
                 shareIntent.putExtra(Intent.EXTRA_TEXT, description);
-               startActivity(shareIntent);
+                startActivity(shareIntent);
 
             } catch (Exception e) {
                 //Toast.makeText(mContext, mContext.getString(R.string.install_whatsapp), Toast.LENGTH_SHORT).show();
 
             }
-
-
-
 
 
         } else {

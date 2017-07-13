@@ -29,7 +29,9 @@ public class RestaurantSearchPresenter<V extends RestaurantSearchMvpView> extend
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
-            getMvpView().showLoading();
+//            getMvpView().showLoading();
+
+            getCompositeDisposable().clear();
 
             getCompositeDisposable().add(getDataManager()
                     .getRestaurantList(
@@ -40,7 +42,7 @@ public class RestaurantSearchPresenter<V extends RestaurantSearchMvpView> extend
                         @Override
                         public void accept(GetRestaurantListResponse getRestaurantListResponse) throws Exception {
 
-                            getMvpView().hideLoading();
+//                            getMvpView().hideLoading();
 
                             if (getRestaurantListResponse.getResponse().getStatus() == 1) {
 
@@ -64,7 +66,7 @@ public class RestaurantSearchPresenter<V extends RestaurantSearchMvpView> extend
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
-                            getMvpView().hideLoading();
+//                            getMvpView().hideLoading();
                             Log.d("Error", ">>ErrThorwed");
                             getMvpView().onError(R.string.api_default_error);
                             Log.d("Error", ">>Err" + throwable.getMessage());

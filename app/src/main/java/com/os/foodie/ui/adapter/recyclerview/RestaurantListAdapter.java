@@ -39,6 +39,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
         public ImageView ivRestaurantImage;
         public TextView tvRestaurantName, tvReviews, tvMinutes, tvTime;
+        public LinearLayout llDeliveryTime;
         public FlowLayout flCuisines;
         public RatingBar rbRating;
 
@@ -49,6 +50,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             tvRestaurantName = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_tv_restaurant_name);
             tvReviews = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_tv_reviews);
             tvMinutes = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_tv_minutes);
+            llDeliveryTime = (LinearLayout) itemView.findViewById(R.id.recyclerview_restaurant_ll_delivery_time);
             tvTime = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_tv_time);
             flCuisines = (FlowLayout) itemView.findViewById(R.id.recyclerview_restaurant_fl_cuisine_types);
             rbRating = (RatingBar) itemView.findViewById(R.id.recyclerview_restaurant_rb_rating);
@@ -86,7 +88,19 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         });
 
         holder.tvRestaurantName.setText(restaurantList.getRestaurantName());
-        holder.tvMinutes.setText(restaurantList.getDeliveryTime());
+
+        if (restaurantList.getDeliveryTime() != null && !restaurantList.getDeliveryTime().isEmpty()) {
+
+            holder.llDeliveryTime.setVisibility(View.VISIBLE);
+            holder.tvMinutes.setText(restaurantList.getDeliveryTime());
+
+        } else {
+
+            holder.llDeliveryTime.setVisibility(View.GONE);
+//            holder.tvMinutes.setText("0");
+        }
+//
+//        holder.tvMinutes.setText(restaurantList.getDeliveryTime());
 
         if (restaurantList.getAvgRating() != null && !restaurantList.getAvgRating().isEmpty()) {
             holder.rbRating.setRating(Float.parseFloat(restaurantList.getAvgRating()));

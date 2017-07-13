@@ -4,11 +4,14 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.location.Address;
 import android.location.Location;
 import android.location.LocationManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -48,6 +52,7 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
     private EditText etCountry, etCity;
     private EditText etCurrentLocation;
+    private ImageView ivLocation;
     private Button btSubmit;
 
     //    private ArrayList<String> countries;
@@ -76,19 +81,23 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
         initPresenter();
         locationInfoMvpPresenter.onAttach(LocationInfoActivity.this);
-        locationInfoMvpPresenter.setCurrentUserInfoInitialized(false);
+//        locationInfoMvpPresenter.setCurrentUserInfoInitialized(false);
 
         gpsLocation = new GpsLocation(this, this);
 
         etCountry = (EditText) findViewById(R.id.activity_location_info_et_country);
         etCity = (EditText) findViewById(R.id.activity_location_info_et_city);
-
         etCurrentLocation = (EditText) findViewById(R.id.activity_location_info_et_current_location);
+
+        ivLocation = (ImageView) findViewById(R.id.activity_location_info_iv_location);
+        ivLocation.bringToFront();
+        ivLocation.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+
         btSubmit = (Button) findViewById(R.id.activity_location_info_bt_submit);
 
 //        locationInfoMvpPresenter.getCountryList();
 
-        etCurrentLocation.setOnClickListener(this);
+        ivLocation.setOnClickListener(this);
         btSubmit.setOnClickListener(this);
     }
 
@@ -131,7 +140,9 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == etCurrentLocation.getId()) {
+        hideKeyboard();
+
+        if (v.getId() == ivLocation.getId()) {
 
             openPlaceAutocomplete();
 
@@ -311,14 +322,17 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
             if (resultCode == RESULT_OK) {
 
                 Place place = PlaceAutocomplete.getPlace(this, data);
+
                 Log.i("onActivityResult", "getName: " + place.getName());
                 Log.i("onActivityResult", "getAddress: " + place.getAddress());
                 Log.i("onActivityResult", "getLocale: " + place.getLocale());
                 Log.i("onActivityResult", "getLatLng: " + place.getLatLng().toString());
 
-                etCurrentLocation.setText(place.getAddress());
-//                etCurrentLocation.setSelection(etCurrentLocation.getText().length());
-//                etCurrentLocation.clearFocus();
+
+                latLng = new LatLng(place.getLatLng().latitude, place.getLatLng().longitude);
+
+                locationInfoMvpPresenter.getGeocoderLocationAddress(this, place.getLatLng());
+//                etCurrentLocation.setText(place.getAddress());
 
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
 
@@ -407,26 +421,26 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
         etCurrentLocation.setText(fullAddress);
 
         if (address.getCountryName() != null && !address.getCountryName().isEmpty()) {
-            etCountry.setEnabled(false);
+//            etCountry.setEnabled(false);
             etCountry.setText(address.getCountryName());
         } else {
-            etCountry.setEnabled(true);
+//            etCountry.setEnabled(true);
             etCountry.setText("");
         }
 
         if (address.getSubAdminArea() != null && !address.getSubAdminArea().isEmpty()) {
 
-            etCity.setEnabled(false);
+//            etCity.setEnabled(false);
             etCity.setText(address.getSubAdminArea());
 
         } else if (address.getLocality() != null && !address.getLocality().isEmpty()) {
 
-            etCity.setEnabled(false);
+//            etCity.setEnabled(false);
             etCity.setText(address.getLocality());
 
         } else {
 
-            etCity.setEnabled(true);
+//            etCity.setEnabled(true);
             etCity.setText("");
         }
     }
