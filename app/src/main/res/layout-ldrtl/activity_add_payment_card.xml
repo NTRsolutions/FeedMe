@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/add_payment_card_ll_main_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_width="@dimen/density_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/activity_add_payment_card_et_first_name"
+                        style="@style/EditTextGreySingleLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/add_payment_card_et_height"
+                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                        android:gravity="end|right|center_vertical"
+                        android:hint="@string/add_payment_card_et_first_name_hint"
+                        android:maxLength="15"
+                        android:padding="@dimen/add_payment_card_et_padding"
+                        android:textSize="@dimen/add_payment_card_et_text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/density_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/add_payment_card_ll_last_name_margin_start"
+                    android:layout_weight=".5"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/activity_add_payment_card_et_last_name"
+                        style="@style/EditTextGreySingleLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/add_payment_card_et_height"
+                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                        android:gravity="end|right|center_vertical"
+                        android:hint="@string/add_payment_card_et_last_name_hint"
+                        android:maxLength="15"
+                        android:padding="@dimen/add_payment_card_et_padding"
+                        android:textSize="@dimen/add_payment_card_et_text_size" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/activity_add_payment_card_et_card_number"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/add_payment_card_et_height"
+                android:layout_marginTop="@dimen/add_payment_card_et_card_number_margin_top"
+                android:digits="1234567890"
+                android:gravity="end|right|center_vertical"
+                android:hint="@string/add_payment_card_et_card_number_hint"
+                android:inputType="number"
+                android:maxLength="16"
+                android:padding="@dimen/add_payment_card_et_padding"
+                android:textSize="@dimen/add_payment_card_et_text_size" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/add_payment_card_ll_expiry_year_margin_top"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/activity_add_payment_card_et_month"
+                        style="@style/EditTextGreySingleLine"
+                        android:layout_width="@dimen/add_payment_card_et_month_width"
+                        android:layout_height="@dimen/add_payment_card_et_height"
+                        android:gravity="end|right|center_vertical"
+                        android:hint="@string/add_payment_card_et_month_hint"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:padding="@dimen/add_payment_card_et_padding"
+                        android:textSize="@dimen/add_payment_card_et_text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/add_payment_card_ll_year_margin_start"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/activity_add_payment_card_et_year"
+                        style="@style/EditTextGreySingleLine"
+                        android:layout_width="@dimen/add_payment_card_et_year_width"
+                        android:layout_height="@dimen/add_payment_card_et_height"
+                        android:gravity="end|right|center_vertical"
+                        android:hint="@string/add_payment_card_et_year_hint"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        android:padding="@dimen/add_payment_card_et_padding"
+                        android:textSize="@dimen/add_payment_card_et_text_size" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/activity_add_payment_card_et_cvv"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="@dimen/add_payment_card_et_cvv_width"
+                android:layout_height="@dimen/add_payment_card_et_height"
+                android:layout_marginTop="@dimen/add_payment_card_et_cvv_margin_top"
+                android:digits="1234567890"
+                android:gravity="end|right|center_vertical"
+                android:hint="@string/add_payment_card_et_cvv_hint"
+                android:inputType="number"
+                android:maxLength="3"
+                android:padding="@dimen/add_payment_card_et_padding"
+                android:textSize="@dimen/add_payment_card_et_text_size" />
+
+            <CheckedTextView
+                android:id="@+id/activity_add_payment_card_ctv_terms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/add_payment_card_ctv_terms_margin_top"
+                android:drawablePadding="@dimen/add_payment_card_ctv_terms_drawable_padding"
+                android:drawableStart="?android:attr/listChoiceIndicatorMultiple"
+                android:ellipsize="end"
+                android:text="@string/add_payment_card_ctv_terms_text"
+                android:visibility="gone" />
+
+            <com.os.foodie.ui.custom.RippleAppCompatButton
+                android:id="@+id/activity_add_payment_card_bt_add"
+                style="@style/ButtonOrange"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/add_payment_card_bt_height"
+                android:layout_marginTop="@dimen/add_payment_card_bt_add_margin_top"
+                android:gravity="center"
+                android:text="@string/add_payment_card_bt_add_text"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

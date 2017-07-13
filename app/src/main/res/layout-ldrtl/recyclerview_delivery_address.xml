@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/delivery_address_ll_main_margin"
+    android:background="@drawable/rectangle_round_corner_white_outline_light_grey"
+    android:orientation="vertical"
+    android:padding="@dimen/delivery_address_ll_main_padding">
+
+    <TextView
+        android:id="@+id/recyclerview_delivery_address_tv_name"
+        style="@style/TextView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textColor="@color/dark_grey2" />
+
+    <TextView
+        android:id="@+id/recyclerview_delivery_address_tv_street_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey2"
+        android:textSize="@dimen/delivery_address_tv_street_number_text_size"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/recyclerview_delivery_address_tv_colony"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey2"
+        android:gravity="end"
+        android:textSize="@dimen/delivery_address_tv_colony_text_size"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/recyclerview_delivery_address_tv_city_state_pin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey2"
+        android:gravity="end"
+        android:textSize="@dimen/delivery_address_tv_city_state_pin_text_size"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/recyclerview_delivery_address_tv_country"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textColor="@color/grey2"
+        android:textSize="@dimen/delivery_address_tv_country_text_size"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/recyclerview_delivery_address_tv_mobile_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textColor="@color/grey2"
+        android:textSize="@dimen/delivery_address_tv_mobile_number_text_size"
+        android:typeface="sans" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/delivery_address_ll_edit_delete_margin_top"
+        android:orientation="horizontal">
+
+        <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/recyclerview_delivery_address_bt_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rectangle_round_corner_orange"
+            android:drawableLeft="@mipmap/ic_edit_2"
+            android:drawablePadding="@dimen/delivery_address_bt_drawable_padding"
+            android:gravity="center"
+            android:padding="@dimen/delivery_address_bt_padding"
+            android:text="@string/delivery_address_bt_edit_text"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/delivery_address_bt_text_size"
+            android:typeface="serif" />
+
+        <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/recyclerview_delivery_address_bt_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/delivery_address_bt_delete_margin_start"
+            android:background="@drawable/rectangle_round_corner_dark_grey"
+            android:drawableLeft="@mipmap/ic_delete_2"
+            android:drawablePadding="@dimen/delivery_address_bt_drawable_padding"
+            android:gravity="center"
+            android:padding="@dimen/delivery_address_bt_padding"
+            android:text="@string/delivery_address_bt_delete_text"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/delivery_address_bt_text_size"
+            android:typeface="serif" />
+
+    </LinearLayout>
+
+</LinearLayout>

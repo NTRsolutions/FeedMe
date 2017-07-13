@@ -37,6 +37,7 @@
                 app:thumbPressed="@drawable/seekbar_thumb_pressed"
                 rsb:absoluteMaxValue="5000"
                 rsb:absoluteMinValue="0"
+                fontPath="@string/font_default"
                 rsb:textAboveThumbsColor="@color/orange"
                 rsb:thumbShadow="true" />
             <!--rsb:thumbDisabled="@drawable/custom_slider_thumb"-->
@@ -142,6 +143,7 @@
                 app:thumbPressed="@drawable/seekbar_thumb_pressed"
                 rsb:absoluteMaxValue="10"
                 rsb:absoluteMinValue="0"
+                fontPath="@string/font_default"
                 rsb:textAboveThumbsColor="@color/orange"
                 rsb:thumbShadow="true" />
 

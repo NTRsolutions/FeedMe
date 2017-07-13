@@ -63,13 +63,17 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
                                 getMvpView().setMyBasket(viewCartResponse);
 
                             } else if (viewCartResponse.getResponse().getStatus() == 2) {
-                                getMvpView().onError(viewCartResponse.getResponse().getMessage());
+
+//                                getMvpView().onError(viewCartResponse.getResponse().getMessage());
+                                getMvpView().setMyBasket(viewCartResponse);
 
 //                                TODO Clear Basket
 //                                getMvpView().askForClearBasket();
 
                             } else {
-                                getMvpView().onError(viewCartResponse.getResponse().getMessage());
+
+//                                getMvpView().onError(viewCartResponse.getResponse().getMessage());
+                                getMvpView().setMyBasket(viewCartResponse);
 //                                getMvpView().onError("No Restaurant found");
                             }
                         }

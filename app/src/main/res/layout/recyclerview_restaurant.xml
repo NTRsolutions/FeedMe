@@ -54,29 +54,6 @@
                 <!--android:textColor="@color/black"-->
                 <!--android:typeface="serif" />-->
 
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:layout_marginTop="5dp"-->
-                <!--android:background="@drawable/rectangle_round_corner_white_outline_black"-->
-                <!--android:padding="8dp"-->
-                <!--android:text="South Indian"-->
-                <!--android:textColor="@color/black"-->
-                <!--android:typeface="serif" />-->
-
-
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:layout_marginTop="5dp"-->
-                <!--android:background="@drawable/rectangle_round_corner_white_outline_black"-->
-                <!--android:padding="8dp"-->
-                <!--android:text="Bangali"-->
-                <!--android:textColor="@color/black"-->
-                <!--android:typeface="serif" />-->
-
             </com.wefika.flowlayout.FlowLayout>
 
             <LinearLayout

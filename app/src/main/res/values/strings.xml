@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Feedme</string>
 
+    <!--RTL Check-->
+    <bool name="is_rtl">false</bool>
+
     <!--Third Party API Integration-->
     <string name="facebook_app_id">796924880472669</string>
     <string name="facebook_provider_app_id">com.facebook.app.FacebookContentProvider796924880472669</string>
@@ -423,7 +426,7 @@
     <string name="customer_search_tv_no_result_text">No Result Found</string>
 
     <!--Dialog Item Quantity-->
-    <string name="dialog_item_quantity_tv_price_tag_text">Price: $</string>
+    <string name="dialog_item_quantity_tv_price_tag_text">Price: </string>
     <string name="dialog_item_quantity_bt_update_text">Update</string>
 
     <!--Customer Account-->
@@ -574,6 +577,8 @@
     <string name="comment_error">Enter your valuable comment.</string>
     <string name="rate_error">Please rate at least one.</string>
     <string name="landmark">Landmark</string>
+
+    <string name="install_twitter">Please install Twitter application</string>
 
     <string-array name="pick_order_status">
         <item>Under Preparation</item>

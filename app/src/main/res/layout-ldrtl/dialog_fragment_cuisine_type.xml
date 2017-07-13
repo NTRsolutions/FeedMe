@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/dialog_fragment_cuisine_type_ll_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/cuisine_type_ll_title_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:textDirection="rtl"
+                android:layout_weight="1"
+                android:text="@string/fragment_cuisine_type_tv_select_cuisine_types_text" />
+
+            <ImageView
+                android:id="@+id/dialog_fragment_cuisine_type_iv_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_green_tick" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/dialog_fragment_cuisine_type_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/cuisine_type_recyclerview_padding_bottom" />
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/dialog_fragment_cuisine_type_fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/cuisine_type_fab_add_margin"
+        android:src="@drawable/ic_add_white_24dp"
+        app:layout_behavior="com.os.foodie.ui.custom.FABScrollingBehavior"
+        app:backgroundTint="@color/green"
+        app:rippleColor="@color/light_green" />
+
+    <!--android:backgroundTint="@color/orange"-->
+    <!--app:layout_anchor="@id/dialog_fragment_cuisine_type_recycler_view"-->
+    <!--app:layout_anchorGravity="bottom|right|end"-->
+
+</android.support.design.widget.CoordinatorLayout>

@@ -65,6 +65,14 @@
             android:textSize="@dimen/dialog_item_quantity_tv_price_tag_text_size" />
 
         <TextView
+            style="@style/TextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="$"
+            android:textSize="@dimen/dialog_item_quantity_tv_price_tag_text_size" />
+
+        <TextView
             android:id="@+id/dialog_item_quantity_tv_price"
             style="@style/TextView1"
             android:layout_width="wrap_content"

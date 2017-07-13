@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/restaurant_account_ll_main_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/restaurant_account_ll_profile_image"
+            android:gravity="center_horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/fragment_restaurant_account_civ_profile_image"
+                android:layout_width="@dimen/restaurant_account_civ_height_width"
+                android:layout_height="@dimen/restaurant_account_civ_height_width"
+                android:src="@mipmap/img_profile_default" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/restaurant_account_ll_margin_start_end"
+            android:layout_marginStart="@dimen/restaurant_account_ll_margin_start_end"
+            android:layout_marginTop="@dimen/restaurant_account_ll_restaurant_name_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/font_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/restaurant_account_tv_padding_start"
+                android:text="@string/restaurant_account_tv_restaurant_name_text"
+                android:textColor="@color/orange" />
+
+            <EditText
+                android:id="@+id/fragment_restaurant_account_et_restaurant_name"
+                fontPath="@string/font_default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:gravity="end|right|center_vertical"
+                android:inputType="text"
+                android:lines="1"
+                android:paddingTop="@dimen/restaurant_account_et_padding_top"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/restaurant_account_et_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/restaurant_account_ll_margin_start_end"
+            android:layout_marginStart="@dimen/restaurant_account_ll_margin_start_end"
+            android:layout_marginTop="@dimen/restaurant_account_ll_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/font_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/restaurant_account_tv_padding_start"
+                android:text="@string/restaurant_account_tv_contact_person_name_text"
+                android:textColor="@color/orange" />
+
+            <EditText
+                android:id="@+id/fragment_restaurant_account_et_contact_person_name"
+                fontPath="@string/font_default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:gravity="end|right|center_vertical"
+                android:inputType="textPersonName"
+                android:lines="1"
+                android:paddingTop="@dimen/restaurant_account_et_padding_top"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/restaurant_account_et_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/restaurant_account_ll_margin_start_end"
+            android:layout_marginStart="@dimen/restaurant_account_ll_margin_start_end"
+            android:layout_marginTop="@dimen/restaurant_account_ll_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/font_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/restaurant_account_tv_padding_start"
+                android:text="@string/restaurant_account_tv_email_text"
+                android:textColor="@color/orange" />
+
+            <EditText
+                android:id="@+id/fragment_restaurant_account_et_email"
+                fontPath="@string/font_default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:gravity="end|right|center_vertical"
+                android:inputType="textEmailAddress"
+                android:lines="1"
+                android:paddingTop="@dimen/restaurant_account_et_padding_top"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/restaurant_account_et_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/restaurant_account_ll_margin_start_end"
+            android:layout_marginStart="@dimen/restaurant_account_ll_margin_start_end"
+            android:layout_marginTop="@dimen/restaurant_account_ll_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/font_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/restaurant_account_tv_padding_start"
+                android:text="@string/restaurant_account_tv_phone_number_text"
+                android:textColor="@color/orange" />
+
+            <EditText
+                android:id="@+id/fragment_restaurant_account_et_phone_number"
+                fontPath="@string/font_default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLength="10"
+                android:paddingTop="@dimen/restaurant_account_et_padding_top"
+                android:layoutDirection="ltr"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/restaurant_account_et_text_size" />
+        </LinearLayout>
+
+        <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/activity_restaurant_account_bt_save_profile"
+            style="@style/ButtonOrange"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/restaurant_account_bt_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="@dimen/restaurant_account_bt_margin_start_end"
+            android:layout_marginStart="@dimen/restaurant_account_bt_margin_start_end"
+            android:layout_marginTop="@dimen/restaurant_account_bt_margin_top"
+            android:gravity="center"
+            android:text="@string/restaurant_account_bt_save_profile_text"
+            android:visibility="gone" />
+
+        <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/fragment_restaurant_account_bt_cancel"
+            style="@style/ButtonLightGrey"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/restaurant_account_bt_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="@dimen/restaurant_account_bt_margin_start_end"
+            android:layout_marginStart="@dimen/restaurant_account_bt_margin_start_end"
+            android:layout_marginTop="@dimen/restaurant_account_bt_margin_top"
+            android:gravity="center"
+            android:text="@string/restaurant_account_bt_cancel_text"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>

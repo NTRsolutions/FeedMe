@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/merchant_details_ll_main_padding">
+
+        <TextView
+            fontPath="@string/font_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingStart="@dimen/merchant_details_tv_tag_padding_start"
+            android:text="@string/merchant_details_tv_account_holder_name_tag_text"
+            android:textColor="@color/orange" />
+
+        <EditText
+            android:id="@+id/fragment_merchant_details_et_account_holder_name"
+            fontPath="@string/font_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:inputType="text"
+            android:lines="1"
+            android:gravity="center_vertical|end"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/merchant_details_et_text_size" />
+
+        <TextView
+            fontPath="@string/font_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/merchant_details_tv_tag_margin_top"
+            android:gravity="end"
+            android:paddingStart="@dimen/merchant_details_tv_tag_padding_start"
+            android:text="@string/merchant_details_et_bank_name_tag_text"
+            android:textColor="@color/orange" />
+
+        <EditText
+            android:id="@+id/fragment_merchant_details_et_bank_name"
+            fontPath="@string/font_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:gravity="center_vertical|end"
+            android:inputType="text"
+            android:lines="1"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/merchant_details_et_text_size" />
+
+        <TextView
+            fontPath="@string/font_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/merchant_details_tv_tag_margin_top"
+            android:gravity="end"
+            android:paddingStart="@dimen/merchant_details_tv_tag_padding_start"
+            android:text="@string/merchant_details_tv_account_number_tag_text"
+            android:textColor="@color/orange" />
+
+        <EditText
+            android:id="@+id/fragment_merchant_details_et_account_number"
+            fontPath="@string/font_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:layoutDirection="ltr"
+            android:textAlignment="viewEnd"
+            android:inputType="number"
+            android:lines="1"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/merchant_details_et_text_size" />
+
+        <TextView
+            fontPath="@string/font_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/merchant_details_tv_tag_margin_top"
+            android:gravity="end"
+            android:paddingStart="@dimen/merchant_details_tv_tag_padding_start"
+            android:text="@string/merchant_details_et_confirm_account_number_tag_text"
+            android:textColor="@color/orange" />
+
+        <EditText
+            android:id="@+id/fragment_merchant_details_et_confirm_account_number"
+            fontPath="@string/font_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:inputType="number"
+            android:lines="1"
+            android:layoutDirection="ltr"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/merchant_details_et_text_size" />
+
+        <TextView
+            fontPath="@string/font_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/merchant_details_tv_tag_margin_top"
+            android:gravity="end"
+            android:paddingStart="@dimen/merchant_details_tv_tag_padding_start"
+            android:text="@string/merchant_details_et_ifsc_code_tag_text"
+            android:textColor="@color/orange" />
+
+        <EditText
+            android:id="@+id/fragment_merchant_details_et_ifsc_code"
+            fontPath="@string/font_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:inputType="text"
+            android:lines="1"
+            android:layoutDirection="ltr"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/merchant_details_et_text_size" />
+
+        <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/activity_merchant_details_bt_save"
+            style="@style/ButtonOrange"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/merchant_details_bt_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="@dimen/merchant_details_bt_margin_start_end"
+            android:layout_marginStart="@dimen/merchant_details_bt_margin_start_end"
+            android:layout_marginTop="@dimen/merchant_details_bt_save_margin_top"
+            android:gravity="center"
+            android:text="@string/merchant_details_bt_save_text"
+            android:visibility="gone" />
+
+        <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/activity_merchant_details_bt_cancel"
+            style="@style/ButtonLightGrey"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/merchant_details_bt_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="@dimen/merchant_details_bt_margin_start_end"
+            android:layout_marginStart="@dimen/merchant_details_bt_margin_start_end"
+            android:layout_marginTop="@dimen/merchant_details_bt_cancel_margin_top"
+            android:gravity="center"
+            android:text="@string/merchant_details_bt_cancel_text"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>

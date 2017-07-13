@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
+
+    <ImageView
+        android:id="@+id/recyclerview_restaurant_iv_restaurant_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/restaurant_ll_info_margin_bottom"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/restaurant_ll_sub_info_margin_start"
+            android:layout_marginTop="@dimen/restaurant_ll_sub_info_margin_top"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/recyclerview_restaurant_tv_restaurant_name"
+                style="@style/TextView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/restaurant_tv_restaurant_name_margin_bottom"
+                android:layout_marginStart="@dimen/restaurant_tv_restaurant_name_margin_start"
+                android:gravity="end|right" />
+
+            <com.wefika.flowlayout.FlowLayout
+                android:id="@+id/recyclerview_restaurant_fl_cuisine_types"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/restaurant_fl_cuisine_types_margin_bottom"
+                android:gravity="end|right">
+
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="@dimen/recyclerview_restaurant_tv_cuisine_margin_start"-->
+                <!--android:layout_marginTop="@dimen/recyclerview_restaurant_tv_cuisine_margin_top"-->
+                <!--android:background="@drawable/rectangle_round_corner_white_outline_black"-->
+                <!--android:padding="@dimen/recyclerview_restaurant_tv_cuisine_padding"-->
+                <!--android:text="Maxican"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:typeface="serif" />-->
+
+            </com.wefika.flowlayout.FlowLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/restaurant_ll_rating_review_margin_start"
+                android:layout_marginTop="@dimen/restaurant_ll_rating_review_margin_top"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/restaurant_tv_rating_tag_margin_end"
+                    android:text="@string/restaurant_tv_rating_tag_text"
+                    android:textColor="@color/dark_grey"
+                    android:typeface="serif" />
+
+                <RatingBar
+                    android:id="@+id/recyclerview_restaurant_rb_rating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:numStars="5"
+                    android:rating="0"
+                    android:stepSize="1"
+                    android:theme="@style/RatingBar" />
+
+                <TextView
+                    android:id="@+id/recyclerview_restaurant_tv_reviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/restaurant_tv_reviews_margin_start"
+                    android:textColor="@color/dark_grey"
+                    android:typeface="serif" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/restaurant_ll_minutes_height_width"
+            android:layout_height="@dimen/restaurant_ll_minutes_height_width"
+            android:layout_margin="@dimen/restaurant_ll_minutes_margin"
+            android:background="@drawable/circular_image_view_white_orange_outline"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/recyclerview_restaurant_tv_minutes"
+                style="@style/TextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingEnd="@dimen/restaurant_tv_minutes_padding_start_end"
+                android:paddingStart="@dimen/restaurant_tv_minutes_padding_start_end"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/restaurant_tv_minutes_text_size" />
+
+            <TextView
+                android:id="@+id/recyclerview_restaurant_tv_time"
+                style="@style/TextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingEnd="@dimen/restaurant_tv_time_padding_start_end"
+                android:paddingStart="@dimen/restaurant_tv_time_padding_start_end"
+                android:text="@string/restaurant_tv_time_text"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/restaurant_tv_time_text_size" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingPrefix">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/add_edit_delivery_address_ll_main_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/font_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_edit_delivery_address_tv_full_name_tag_text" />
+
+            <EditText
+                android:id="@+id/activity_add_edit_delivery_address_et_full_name"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="@dimen/add_edit_delivery_address_et_padding" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/add_edit_delivery_address_ll_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/font_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_edit_delivery_address_tv_phone_number_tag_text" />
+
+            <EditText
+                android:id="@+id/activity_add_edit_delivery_address_et_phone_number"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="10"
+                android:padding="@dimen/add_edit_delivery_address_et_padding" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/add_edit_delivery_address_ll_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/font_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_edit_delivery_address_tv_pin_code_tag_text" />
+
+            <EditText
+                android:id="@+id/activity_add_edit_delivery_address_et_pin_code"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/add_edit_delivery_address_et_padding" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/add_edit_delivery_address_ll_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/font_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_edit_delivery_address_tv_flat_no_tag_text" />
+
+            <EditText
+                android:id="@+id/activity_add_edit_delivery_address_et_flat_no"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/add_edit_delivery_address_et_padding" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/add_edit_delivery_address_ll_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/font_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_edit_delivery_address_tv_colony_tag_text" />
+
+            <EditText
+                android:id="@+id/activity_add_edit_delivery_address_et_colony"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="@dimen/add_edit_delivery_address_et_padding" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/add_edit_delivery_address_ll_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/font_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_edit_delivery_address_tv_landmark_tag_text" />
+
+            <EditText
+                android:id="@+id/activity_add_edit_delivery_address_et_landmark"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="@dimen/add_edit_delivery_address_et_padding" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/add_edit_delivery_address_ll_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/font_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_edit_delivery_address_tv_city_tag_text" />
+
+            <EditText
+                android:id="@+id/activity_add_edit_delivery_address_et_city"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="@dimen/add_edit_delivery_address_et_padding" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/add_edit_delivery_address_ll_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/font_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_edit_delivery_address_et_state_tag_text" />
+
+            <EditText
+                android:id="@+id/activity_add_edit_delivery_address_et_state"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="@dimen/add_edit_delivery_address_et_padding" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/add_edit_delivery_address_ll_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/font_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_edit_delivery_address_tv_country_tag_text" />
+
+            <EditText
+                android:id="@+id/activity_add_edit_delivery_address_et_country"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="@dimen/add_edit_delivery_address_et_padding" />
+
+        </LinearLayout>
+
+        <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/activity_add_delivery_address_bt_save"
+            style="@style/ButtonOrange"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/add_edit_delivery_address_bt_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/add_edit_delivery_address_bt_save_margin_bottom"
+            android:layout_marginTop="@dimen/add_edit_delivery_address_bt_save_margin_top"
+            android:gravity="center"
+            android:text="@string/add_edit_delivery_address_bt_save_text" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -10,7 +10,7 @@
         style="@style/TextView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
+        android:drawableStart="?android:attr/listChoiceIndicatorMultiple"
         android:drawablePadding="@dimen/cuisine_type_working_days_ctv_drawable_padding"
         android:ellipsize="end"
         android:singleLine="true" />

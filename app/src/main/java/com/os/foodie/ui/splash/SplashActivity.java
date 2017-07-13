@@ -1,6 +1,7 @@
 package com.os.foodie.ui.splash;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,20 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+//        String languageToLoad = "ar"; // your language
+//        Locale locale = new Locale(languageToLoad);
+//        Locale.setDefault(locale);
+//        Configuration config = new Configuration();
+//
+//        config.locale = locale;
+//
+//        Log.d("locale",">"+locale);
+//        Log.d("locale",">"+locale.toString());
+//
+////        getResources().getConfiguration().setLocale(locale);
+//        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+
 
         initPresenter();
         splashMvpPresenter.onAttach(SplashActivity.this);

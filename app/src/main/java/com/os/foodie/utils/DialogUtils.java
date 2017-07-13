@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
+import android.widget.TextView;
 
 import com.os.foodie.R;
 
@@ -17,7 +19,16 @@ public class DialogUtils {
      * @param messageId
      */
     public static void showAlert(Context context, int titleId, int messageId) {
-        Dialog dlg = new AlertDialog.Builder(context, R.style.AlertDialog)
+
+        int AlertDialogStyle;
+
+        if (context.getResources().getBoolean(R.bool.is_rtl)) {
+            AlertDialogStyle = R.style.AlertDialogRTL;
+        } else {
+            AlertDialogStyle = R.style.AlertDialog;
+        }
+
+        Dialog dlg = new AlertDialog.Builder(context, AlertDialogStyle)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(titleId)
                 .setPositiveButton(android.R.string.ok, null)
@@ -35,7 +46,16 @@ public class DialogUtils {
      * @param messageId
      */
     public static void showAlert(Context context, int iconId, int titleId, int messageId) {
-        Dialog dlg = new AlertDialog.Builder(context, R.style.AlertDialog)
+
+        int AlertDialogStyle;
+
+        if (context.getResources().getBoolean(R.bool.is_rtl)) {
+            AlertDialogStyle = R.style.AlertDialogRTL;
+        } else {
+            AlertDialogStyle = R.style.AlertDialog;
+        }
+
+        Dialog dlg = new AlertDialog.Builder(context, AlertDialogStyle)
                 .setIcon(iconId)
                 .setTitle(titleId)
                 .setPositiveButton(android.R.string.ok, null)
@@ -54,7 +74,15 @@ public class DialogUtils {
      */
     public static void showAlert(Context context, int titleId, String message) {
 
-        Dialog dlg = new AlertDialog.Builder(context, R.style.AlertDialog)
+        int AlertDialogStyle;
+
+        if (context.getResources().getBoolean(R.bool.is_rtl)) {
+            AlertDialogStyle = R.style.AlertDialogRTL;
+        } else {
+            AlertDialogStyle = R.style.AlertDialog;
+        }
+
+        Dialog dlg = new AlertDialog.Builder(context, AlertDialogStyle)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(titleId)
                 .setPositiveButton(android.R.string.ok, null)
@@ -73,7 +101,15 @@ public class DialogUtils {
      */
     public static void showAlert(Context context, int iconId, int titleId, String message) {
 
-        Dialog dlg = new AlertDialog.Builder(context, R.style.AlertDialog)
+        int AlertDialogStyle;
+
+        if (context.getResources().getBoolean(R.bool.is_rtl)) {
+            AlertDialogStyle = R.style.AlertDialogRTL;
+        } else {
+            AlertDialogStyle = R.style.AlertDialog;
+        }
+
+        Dialog dlg = new AlertDialog.Builder(context, AlertDialogStyle)
                 .setIcon(iconId)
                 .setTitle(titleId)
                 .setPositiveButton(android.R.string.ok, null)
@@ -94,7 +130,16 @@ public class DialogUtils {
      */
     public static void showAlert(Context context, int titleId, String message,
                                  CharSequence positiveButtontxt, DialogInterface.OnClickListener positiveListener) {
-        Dialog dlg = new AlertDialog.Builder(context, R.style.AlertDialog)
+
+        int AlertDialogStyle;
+
+        if (context.getResources().getBoolean(R.bool.is_rtl)) {
+            AlertDialogStyle = R.style.AlertDialogRTL;
+        } else {
+            AlertDialogStyle = R.style.AlertDialog;
+        }
+
+        Dialog dlg = new AlertDialog.Builder(context, AlertDialogStyle)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(titleId)
                 .setPositiveButton(positiveButtontxt, positiveListener)
@@ -116,7 +161,16 @@ public class DialogUtils {
      */
     public static void showAlert(Context context, int iconId, int titleId, String message,
                                  CharSequence positiveButtontxt, DialogInterface.OnClickListener positiveListener) {
-        Dialog dlg = new AlertDialog.Builder(context, R.style.AlertDialog)
+
+        int AlertDialogStyle;
+
+        if (context.getResources().getBoolean(R.bool.is_rtl)) {
+            AlertDialogStyle = R.style.AlertDialogRTL;
+        } else {
+            AlertDialogStyle = R.style.AlertDialog;
+        }
+
+        Dialog dlg = new AlertDialog.Builder(context, AlertDialogStyle)
                 .setIcon(iconId)
                 .setTitle(titleId)
                 .setPositiveButton(positiveButtontxt, positiveListener)
@@ -141,7 +195,16 @@ public class DialogUtils {
     public static void showAlert(Context context, int titleId, int messageId,
                                  CharSequence positiveButtontxt, DialogInterface.OnClickListener positiveListener,
                                  CharSequence negativeButtontxt, DialogInterface.OnClickListener negativeListener) {
-        Dialog dlg = new AlertDialog.Builder(context, R.style.AlertDialog)
+
+        int AlertDialogStyle;
+
+        if (context.getResources().getBoolean(R.bool.is_rtl)) {
+            AlertDialogStyle = R.style.AlertDialogRTL;
+        } else {
+            AlertDialogStyle = R.style.AlertDialog;
+        }
+
+        Dialog dlg = new AlertDialog.Builder(context, AlertDialogStyle)
                 //.setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(titleId)
                 .setPositiveButton(positiveButtontxt, positiveListener)
@@ -167,7 +230,16 @@ public class DialogUtils {
     public static void showAlert(Context context, int iconId, int titleId, int messageId,
                                  CharSequence positiveButtontxt, DialogInterface.OnClickListener positiveListener,
                                  CharSequence negativeButtontxt, DialogInterface.OnClickListener negativeListener) {
-        Dialog dlg = new AlertDialog.Builder(context, R.style.AlertDialog)
+
+        int AlertDialogStyle;
+
+        if (context.getResources().getBoolean(R.bool.is_rtl)) {
+            AlertDialogStyle = R.style.AlertDialogRTL;
+        } else {
+            AlertDialogStyle = R.style.AlertDialog;
+        }
+
+        Dialog dlg = new AlertDialog.Builder(context, AlertDialogStyle)
                 .setIcon(iconId)
                 .setTitle(titleId)
                 .setPositiveButton(positiveButtontxt, positiveListener)
@@ -196,7 +268,16 @@ public class DialogUtils {
                                  CharSequence positiveButtontxt, DialogInterface.OnClickListener positiveListener,
                                  CharSequence negativeButtontxt, DialogInterface.OnClickListener negativeListener,
                                  CharSequence neutralButtontxt, DialogInterface.OnClickListener neutralListener) {
-        Dialog dlg = new AlertDialog.Builder(context, R.style.AlertDialog)
+
+        int AlertDialogStyle;
+
+        if (context.getResources().getBoolean(R.bool.is_rtl)) {
+            AlertDialogStyle = R.style.AlertDialogRTL;
+        } else {
+            AlertDialogStyle = R.style.AlertDialog;
+        }
+
+        Dialog dlg = new AlertDialog.Builder(context, AlertDialogStyle)
                 //.setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(titleId)
                 .setPositiveButton(positiveButtontxt, positiveListener)
@@ -226,7 +307,16 @@ public class DialogUtils {
                                  CharSequence positiveButtontxt, DialogInterface.OnClickListener positiveListener,
                                  CharSequence negativeButtontxt, DialogInterface.OnClickListener negativeListener,
                                  CharSequence neutralButtontxt, DialogInterface.OnClickListener neutralListener) {
-        Dialog dlg = new AlertDialog.Builder(context, R.style.AlertDialog)
+
+        int AlertDialogStyle;
+
+        if (context.getResources().getBoolean(R.bool.is_rtl)) {
+            AlertDialogStyle = R.style.AlertDialogRTL;
+        } else {
+            AlertDialogStyle = R.style.AlertDialog;
+        }
+
+        Dialog dlg = new AlertDialog.Builder(context, AlertDialogStyle)
                 .setIcon(iconId)
                 .setTitle(titleId)
                 .setPositiveButton(positiveButtontxt, positiveListener)

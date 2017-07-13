@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.os.foodie.ui.info.RestaurantInfoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_bottom_line_light_grey"
+            android:orientation="horizontal"
+            android:padding="@dimen/restaurant_info_ll_padding">
+
+            <TextView
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end|right"
+                android:text="@string/restaurant_info_tv_time_title_text" />
+
+            <TextView
+                android:id="@+id/activity_restaurant_info_tv_time"
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_bottom_line_light_grey"
+            android:orientation="horizontal"
+            android:padding="@dimen/restaurant_info_ll_padding">
+
+            <TextView
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end|right"
+                android:text="@string/restaurant_info_tv_minimum_order_title_text" />
+
+            <TextView
+                android:id="@+id/activity_restaurant_info_tv_minimum_order"
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_bottom_line_light_grey"
+            android:orientation="horizontal"
+            android:padding="@dimen/restaurant_info_ll_padding">
+
+            <TextView
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end|right"
+                android:layout_weight="1"
+                android:text="@string/restaurant_info_tv_delivery_type_title_text" />
+
+            <TextView
+                android:id="@+id/activity_restaurant_info_tv_delivery_type"
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_bottom_line_light_grey"
+            android:orientation="horizontal"
+            android:padding="@dimen/restaurant_info_ll_padding">
+
+            <TextView
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:gravity="end|right"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/restaurant_info_tv_delivery_charge_title_text" />
+
+            <TextView
+                android:id="@+id/activity_restaurant_info_tv_delivery_charges"
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_bottom_line_light_grey"
+            android:orientation="horizontal"
+            android:padding="@dimen/restaurant_info_ll_padding">
+
+            <TextView
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:gravity="end|right"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/restaurant_info_tv_expected_delivery_time_title_text" />
+
+            <TextView
+                android:id="@+id/activity_restaurant_info_tv_delivery_time"
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_bottom_line_light_grey"
+            android:orientation="vertical"
+            android:padding="@dimen/restaurant_info_ll_padding">
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/TextView5"
+                android:layout_width="match_parent"
+                android:gravity="end|right"
+                android:layout_height="wrap_content"
+                android:text="@string/restaurant_info_tv_contact_info_title_text"
+                android:typeface="serif" />
+
+            <TextView
+                android:id="@+id/activity_restaurant_info_tv_email"
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text=""
+                android:textColor="@color/orange" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/restaurant_info_ll_padding">
+
+            <TextView
+                android:id="@+id/activity_restaurant_info_tv_about"
+                style="@style/TextView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/restaurant_info_tv_about_title_text"
+                android:gravity="end|right"
+                android:typeface="serif" />
+
+            <TextView
+                android:id="@+id/activity_restaurant_info_tv_description"
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </LinearLayout>
+
+        <!--<com.os.foodie.ui.custom.RippleAppCompatButton-->
+            <!--android:id="@+id/activity_otp_bt_submit"-->
+            <!--style="@style/ButtonOrange"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="45dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_marginBottom="20dp"-->
+            <!--android:layout_marginEnd="80dp"-->
+            <!--android:layout_marginStart="80dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="Give Feedback" />-->
+
+    </LinearLayout>
+
+</ScrollView>

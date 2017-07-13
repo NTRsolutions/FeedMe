@@ -98,6 +98,8 @@ public class FacebookSignUpActivity extends BaseActivity implements FacebookSign
     @Override
     public void onClick(View v) {
 
+        hideKeyboard();
+
         if (v.getId() == btSubmit.getId()) {
 
             if (hasPermission(Manifest.permission.READ_PHONE_STATE)) {

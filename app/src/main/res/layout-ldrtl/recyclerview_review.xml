@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/recyclerview_review_ll_main_padding">
+
+    <TextView
+        android:id="@+id/recyclerview_review_tv_user_name"
+        style="@style/TextView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textColor="@color/orange"
+        android:textSize="@dimen/review_tv_review_text_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/recyclerview_review_tv_review"
+        style="@style/TextView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="end"
+        android:textColor="@color/grey2"
+        android:textSize="@dimen/review_tv_review_text_size" />
+
+    <TextView
+        android:id="@+id/recyclerview_review_tv_time"
+        style="@style/TextView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/review_tv_time_margin_top"
+        android:gravity="end"
+        android:textColor="@color/orange"
+        android:textSize="@dimen/review_tv_time_text_size" />
+
+</LinearLayout>

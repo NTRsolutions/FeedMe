@@ -17,7 +17,6 @@ import com.os.foodie.R;
 import com.os.foodie.data.network.model.home.customer.RestaurantList;
 import com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity;
 import com.os.foodie.ui.review.ReviewActivity;
-import com.os.foodie.ui.search.RestaurantSearchActivity;
 import com.os.foodie.utils.AppConstants;
 import com.wefika.flowlayout.FlowLayout;
 
@@ -54,7 +53,7 @@ public class RestaurantSearchAdapter extends RecyclerView.Adapter<RestaurantSear
 
     @Override
     public RestaurantSearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_customer_search, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_restaurant_search, parent, false);
         return new RestaurantSearchAdapter.RestaurantSearchViewHolder(view);
     }
 

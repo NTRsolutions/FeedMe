@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/fragment_settings_ll_notification"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_bottom_line_light_grey"
+        android:orientation="horizontal"
+        android:padding="@dimen/settings_ll_padding">
+
+        <TextView
+            style="@style/TextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end|right"
+            android:text="@string/settings_tv_notification_tag_text"
+            android:textColor="@color/black" />
+
+        <Switch
+            android:id="@+id/fragment_settings_switch_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:clickable="false" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_settings_ll_change_password"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_bottom_line_light_grey"
+        android:orientation="horizontal"
+        android:padding="@dimen/settings_ll_padding">
+
+        <TextView
+            style="@style/TextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end|right"
+            android:text="@string/settings_ll_change_password_tag_text"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/settings_iv_arrow_margin_end"
+            android:rotation="180"
+            android:src="@mipmap/ic_arrow_right" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_settings_ll_contact_us"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_bottom_line_light_grey"
+        android:orientation="horizontal"
+        android:padding="@dimen/settings_ll_padding">
+
+        <TextView
+            style="@style/TextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end|right"
+            android:text="@string/settings_tv_contact_us_tag_text"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/settings_iv_arrow_margin_end"
+            android:rotation="180"
+            android:src="@mipmap/ic_arrow_right" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_settings_ll_terms_of_use"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_bottom_line_light_grey"
+        android:orientation="horizontal"
+        android:padding="@dimen/settings_ll_padding">
+
+        <TextView
+            style="@style/TextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end|right"
+            android:text="@string/settings_tv_terms_of_use_tag_text"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/settings_iv_arrow_margin_end"
+            android:rotation="180"
+            android:src="@mipmap/ic_arrow_right" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_settings_ll_privacy_policy"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_bottom_line_light_grey"
+        android:orientation="horizontal"
+        android:padding="@dimen/settings_ll_padding">
+
+        <TextView
+            style="@style/TextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end|right"
+            android:text="@string/settings_tv_privacy_policy_tag_text"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/settings_iv_arrow_margin_end"
+            android:rotation="180"
+            android:src="@mipmap/ic_arrow_right" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_settings_ll_faq"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_bottom_line_light_grey"
+        android:orientation="horizontal"
+        android:padding="@dimen/settings_ll_padding">
+
+        <TextView
+            style="@style/TextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end|right"
+            android:text="@string/settings_tv_faq_tag_text"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/settings_iv_arrow_margin_end"
+            android:rotation="180"
+            android:src="@mipmap/ic_arrow_right" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_settings_ll_rate_us"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_bottom_line_light_grey"
+        android:orientation="horizontal"
+        android:padding="@dimen/settings_ll_padding">
+
+        <TextView
+            style="@style/TextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end|right"
+            android:text="@string/settings_tv_rate_us_tag_text"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/settings_iv_arrow_margin_end"
+            android:rotation="180"
+            android:src="@mipmap/ic_arrow_right" />
+
+    </LinearLayout>
+
+</LinearLayout>
