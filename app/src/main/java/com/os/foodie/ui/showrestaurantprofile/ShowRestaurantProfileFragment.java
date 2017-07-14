@@ -199,7 +199,8 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 
         } else {
 
-            fallDeliveryTime.setVisibility(View.GONE);
+            ((ViewGroup) fallDeliveryTime.getParent()).removeView(fallDeliveryTime);
+//            fallDeliveryTime.setVisibility(View.GONE);
 //            tvDeliveryTime.setText("0");
         }
 

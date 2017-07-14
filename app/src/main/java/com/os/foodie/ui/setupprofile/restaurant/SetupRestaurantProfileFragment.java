@@ -1,11 +1,17 @@
 package com.os.foodie.ui.setupprofile.restaurant;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.location.Address;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
@@ -40,13 +46,16 @@ import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantP
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.data.prefs.PreferencesHelper;
+import com.os.foodie.feature.GpsLocation;
 import com.os.foodie.feature.callback.AddCuisineTypeCallback;
+import com.os.foodie.feature.callback.GpsLocationCallback;
 import com.os.foodie.model.WorkingDay;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.dialogfragment.cuisine.list.CuisineTypeDialogFragment;
 import com.os.foodie.ui.dialogfragment.workingdays.WorkingDaysDialogFragment;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.ScreenUtils;
 import com.os.foodie.utils.TimeFormatUtils;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
@@ -72,7 +81,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 
 import static android.app.Activity.RESULT_OK;
 
-public class SetupRestaurantProfileFragment extends BaseFragment implements AddCuisineTypeCallback, SetupRestaurantProfileMvpView, View.OnClickListener {
+public class SetupRestaurantProfileFragment extends BaseFragment implements AddCuisineTypeCallback, SetupRestaurantProfileMvpView, View.OnClickListener, GpsLocationCallback {
 
     public static final String TAG = "SetupRestaurantProfileFragment";
 
@@ -83,10 +92,13 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     private EditText etOpeningTime, etClosingTime, etMinimumOrderAmount, etDeliveryTime;
     private EditText etDeliveryCharges, etDeliveryZipCodes, etDescription;
 
+    private ImageView ivLocation;
+
     private Spinner spinnerDeliveryType, spinnerPaymentMethods;
     private Button btSave, btCancel;
 
     private Random random;
+    private ProgressDialog progressDialog;
 //    private LatLng latLng;
 
     private ArrayList<Integer> idList;
@@ -105,6 +117,9 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     private static final String PLUS_IMAGE = "PLUS_IMAGE";
     private static final String REMOVE_IMAGE = "REMOVE_IMAGE";
 
+    private LatLng latLng;
+    private GpsLocation gpsLocation;
+
     private String cuisionTypesId = "", deleteImageIds = "";
     private RestaurantMainActivity restaurantMainActivity;
 
@@ -115,6 +130,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     private SetupRestaurantProfileMvpPresenter<SetupRestaurantProfileMvpView> setupRestaurantProfileMvpPresenter;
 
     boolean isEditProfile = false;
+    private static final int GPS_REQUEST_CODE = 10;
 
     public static SetupRestaurantProfileFragment newInstance(RestaurantProfileResponse restaurantProfileResponse) {
 
@@ -142,6 +158,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         setupRestaurantProfileMvpPresenter.onAttach(this);
 
         random = new Random();
+        gpsLocation = new GpsLocation(getActivity(), this);
 
 //        latLng = new LatLng(0, 0);
         idList = new ArrayList<Integer>();
@@ -169,6 +186,10 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         etDeliveryZipCodes = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_delivery_areas);
         etDescription = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_description);
 
+        ivLocation = (ImageView) view.findViewById(R.id.fragment_setup_restaurant_profile_iv_address);
+        ivLocation.bringToFront();
+        ivLocation.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+
         spinnerDeliveryType = (Spinner) view.findViewById(R.id.fragment_setup_restaurant_profile_spinner_order_type);
         spinnerPaymentMethods = (Spinner) view.findViewById(R.id.fragment_setup_restaurant_profile_spinner_payment_type);
 
@@ -178,7 +199,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         ivPhotos.setOnClickListener(this);
         etCuisineType.setOnClickListener(this);
         etWorkingDays.setOnClickListener(this);
-        etAddress.setOnClickListener(this);
+//        etAddress.setOnClickListener(this);
+        ivLocation.setOnClickListener(this);
 
         etOpeningTime.setOnClickListener(this);
         etClosingTime.setOnClickListener(this);
@@ -219,7 +241,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                 ((RestaurantMainActivity) getActivity()).requestPermissionsSafely(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
 
-        } else if (v.getId() == etAddress.getId()) {
+        } else if (v.getId() == ivLocation.getId()) {
+//        } else if (v.getId() == etAddress.getId()) {
 
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
@@ -667,11 +690,15 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         restaurantProfileRequest.setDeliveryType(getOrderType());
         restaurantProfileRequest.setPaymentMethod(getPaymentType());
 
-        restaurantProfileRequest.setLatitude(restaurantProfileResponse.getResponse().getRestaurantDetail().getLatitude());
-        restaurantProfileRequest.setLongitude(restaurantProfileResponse.getResponse().getRestaurantDetail().getLongitude());
-//
-//        restaurantProfileRequest.setLatitude(latLng.latitude + "");
-//        restaurantProfileRequest.setLongitude(latLng.longitude + "");
+        if (restaurantProfileResponse != null) {
+
+            restaurantProfileRequest.setLatitude(restaurantProfileResponse.getResponse().getRestaurantDetail().getLatitude());
+            restaurantProfileRequest.setLongitude(restaurantProfileResponse.getResponse().getRestaurantDetail().getLongitude());
+
+        } else {
+            restaurantProfileRequest.setLatitude(latLng.latitude + "");
+            restaurantProfileRequest.setLongitude(latLng.longitude + "");
+        }
 
         restaurantProfileRequest.setDeleteImageId(deleteImageIds);
 
@@ -894,16 +921,22 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                 break;
         }
 
-        restaurantProfileResponse.getResponse().getRestaurantDetail().setLatitude(address.getLatitude() + "");
-        restaurantProfileResponse.getResponse().getRestaurantDetail().setLongitude(address.getLongitude() + "");
-//        latLng = new LatLng(address.getLatitude(), address.getLongitude());
+        if (restaurantProfileResponse != null) {
+
+            restaurantProfileResponse.getResponse().getRestaurantDetail().setLatitude(address.getLatitude() + "");
+            restaurantProfileResponse.getResponse().getRestaurantDetail().setLongitude(address.getLongitude() + "");
+
+        } else {
+
+            latLng = new LatLng(address.getLatitude(), address.getLongitude());
+        }
 
         etAddress.setText(fullAddress);
 
         if (address.getCountryName() != null && !address.getCountryName().isEmpty()) {
 
-            etCountry.setClickable(true);
-            etCountry.setEnabled(false);
+//            etCountry.setClickable(true);
+//            etCountry.setEnabled(false);
 //            etCountry.setFocusable(false);
 //            etCountry.setLongClickable(false);
 
@@ -911,8 +944,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         } else {
 
-            etCountry.setClickable(false);
-            etCountry.setEnabled(true);
+//            etCountry.setClickable(false);
+//            etCountry.setEnabled(true);
             etCountry.setText("");
 //            etCountry.setFocusable(true);
 //            etCountry.setLongClickable(true);
@@ -920,8 +953,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         if (address.getSubAdminArea() != null && !address.getSubAdminArea().isEmpty()) {
 
-            etCity.setClickable(true);
-            etCity.setEnabled(false);
+//            etCity.setClickable(true);
+//            etCity.setEnabled(false);
             etCity.setText(address.getSubAdminArea());
 
 //            etCity.setFocusable(false);
@@ -929,14 +962,14 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         } else if (address.getLocality() != null && !address.getLocality().isEmpty()) {
 
-            etCity.setClickable(true);
-            etCity.setEnabled(false);
+//            etCity.setClickable(true);
+//            etCity.setEnabled(false);
             etCity.setText(address.getLocality());
 
         } else {
 
-            etCity.setClickable(false);
-            etCity.setEnabled(true);
+//            etCity.setClickable(false);
+//            etCity.setEnabled(true);
             etCity.setText("");
 
 //            etCity.setFocusable(true);
@@ -945,8 +978,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         if (address.getPostalCode() != null && !address.getPostalCode().isEmpty()) {
 
-            etZipCode.setClickable(true);
-            etZipCode.setEnabled(false);
+//            etZipCode.setClickable(true);
+//            etZipCode.setEnabled(false);
 //            etZipCode.setFocusable(false);
 //            etZipCode.setLongClickable(false);
 
@@ -956,8 +989,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         } else {
 
-            etZipCode.setClickable(false);
-            etZipCode.setEnabled(true);
+//            etZipCode.setClickable(false);
+//            etZipCode.setEnabled(true);
             etZipCode.setText("");
 //            etZipCode.setFocusable(true);
 //            etZipCode.setLongClickable(true);
@@ -1037,8 +1070,56 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                     if (restaurantDetail.getWorkingDays().contains(workingDays.get(i).getDay()))
                         workingDays.get(i).setChecked(true);
                 }
+
+            } else {
+
+                checkAndRequestGpsLocation();
             }
         }
+    }
+
+    public void checkAndRequestGpsLocation() {
+
+        if (gpsLocation.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+
+            if (((RestaurantMainActivity) getActivity()).hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                requestGpsLocation();
+
+            } else {
+                ((RestaurantMainActivity) getActivity()).requestPermissionsSafely(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, GPS_REQUEST_CODE);
+            }
+
+        } else {
+            showGpsRequest();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == GPS_REQUEST_CODE) {
+            requestGpsLocation();
+        }
+    }
+
+    public void showGpsRequest() {
+
+        AlertDialog.Builder mAlertDialog = new AlertDialog.Builder(getActivity());
+        mAlertDialog.setTitle("Location Service Disabled")
+                .setMessage("Please enable location service")
+                .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+                }).show();
+    }
+
+    public void requestGpsLocation() {
+        progressDialog = CommonUtils.showLoadingDialog(getActivity(), "Getting Your Address");
+        gpsLocation.requestGpsLocation();
     }
 
     void addImageView(String url) {
@@ -1135,5 +1216,23 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         setupRestaurantProfileMvpPresenter.dispose();
 //        setupRestaurantProfileMvpPresenter.onDetach();
         super.onDestroyView();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        Log.d("Now Observe Location", ">>" + location.toString());
+
+        progressDialog.dismiss();
+        progressDialog.cancel();
+
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        setupRestaurantProfileMvpPresenter.getGeocoderLocationAddress(getActivity(), latLng);
+    }
+
+    @Override
+    public void onFailed() {
+        progressDialog.dismiss();
+        progressDialog.cancel();
     }
 }
