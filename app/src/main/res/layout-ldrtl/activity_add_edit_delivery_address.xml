@@ -19,7 +19,7 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/add_edit_delivery_address_tv_full_name_tag_text" />
 
@@ -28,7 +28,8 @@
                 style="@style/EditTextGreySingleLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
                 android:padding="@dimen/add_edit_delivery_address_et_padding" />
 
         </LinearLayout>
@@ -41,7 +42,7 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/add_edit_delivery_address_tv_phone_number_tag_text" />
 
@@ -50,6 +51,9 @@
                 style="@style/EditTextGreySingleLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
+                android:textAlignment="viewStart"
                 android:inputType="number"
                 android:maxLength="10"
                 android:padding="@dimen/add_edit_delivery_address_et_padding" />
@@ -64,7 +68,7 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/add_edit_delivery_address_tv_pin_code_tag_text" />
 
@@ -73,6 +77,8 @@
                 style="@style/EditTextGreySingleLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
                 android:padding="@dimen/add_edit_delivery_address_et_padding" />
 
         </LinearLayout>
@@ -85,7 +91,7 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/add_edit_delivery_address_tv_flat_no_tag_text" />
 
@@ -94,6 +100,8 @@
                 style="@style/EditTextGreySingleLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
                 android:padding="@dimen/add_edit_delivery_address_et_padding" />
 
         </LinearLayout>
@@ -106,7 +114,7 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/add_edit_delivery_address_tv_colony_tag_text" />
 
@@ -115,7 +123,8 @@
                 style="@style/EditTextGreySingleLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
                 android:padding="@dimen/add_edit_delivery_address_et_padding" />
 
         </LinearLayout>
@@ -128,7 +137,7 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/add_edit_delivery_address_tv_landmark_tag_text" />
 
@@ -137,7 +146,8 @@
                 style="@style/EditTextGreySingleLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
                 android:padding="@dimen/add_edit_delivery_address_et_padding" />
 
         </LinearLayout>
@@ -150,7 +160,7 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/add_edit_delivery_address_tv_city_tag_text" />
 
@@ -159,7 +169,8 @@
                 style="@style/EditTextGreySingleLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
                 android:padding="@dimen/add_edit_delivery_address_et_padding" />
 
         </LinearLayout>
@@ -172,7 +183,7 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/add_edit_delivery_address_et_state_tag_text" />
 
@@ -181,7 +192,8 @@
                 style="@style/EditTextGreySingleLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
                 android:padding="@dimen/add_edit_delivery_address_et_padding" />
 
         </LinearLayout>
@@ -194,7 +206,7 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/add_edit_delivery_address_tv_country_tag_text" />
 
@@ -203,7 +215,8 @@
                 style="@style/EditTextGreySingleLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
                 android:padding="@dimen/add_edit_delivery_address_et_padding" />
 
         </LinearLayout>

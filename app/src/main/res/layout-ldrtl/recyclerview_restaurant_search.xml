@@ -75,8 +75,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/customer_search_tv_restaurant_name_margin_bottom"
-            android:layout_marginStart="@dimen/customer_search_tv_restuarant_name_margin_start"
-            android:gravity="end|right" />
+            android:gravity="left"
+            android:layout_marginStart="@dimen/customer_search_tv_restuarant_name_margin_start" />
 
         <com.wefika.flowlayout.FlowLayout
             android:id="@+id/recyclerview_customer_search_fl_cuisine_types"

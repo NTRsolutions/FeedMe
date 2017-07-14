@@ -25,8 +25,9 @@
             <TextView
                 android:id="@+id/textView"
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
                 android:paddingStart="@dimen/customer_account_tv_tag_padding_start"
                 android:text="@string/customer_account_tv_first_name_tag_text"
                 android:textColor="@color/orange" />
@@ -37,7 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:gravity="end|right|center_vertical"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
                 android:inputType="text"
                 android:paddingTop="@dimen/customer_account_et_padding_top"
                 android:textColor="@color/dark_grey"
@@ -55,8 +57,9 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
                 android:paddingStart="@dimen/customer_account_tv_tag_padding_start"
                 android:text="@string/customer_account_ll_last_name_tag_text"
                 android:textColor="@color/orange" />
@@ -67,7 +70,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:gravity="end|right|center_vertical"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
                 android:inputType="text"
                 android:maxLength="10"
                 android:paddingTop="@dimen/customer_account_et_padding_top"
@@ -86,8 +90,9 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
                 android:paddingStart="@dimen/customer_account_tv_tag_padding_start"
                 android:text="@string/customer_account_tv_email_tag_text"
                 android:textColor="@color/orange" />
@@ -98,10 +103,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:gravity="end|right|center_vertical"
+                android:gravity="start|center_vertical"
                 android:inputType="textEmailAddress"
+                android:layoutDirection="rtl"
                 android:paddingTop="@dimen/customer_account_et_padding_top"
-                android:text="dsafsdf"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/customer_account_et_text_size" />
 
@@ -117,9 +122,10 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/customer_account_tv_tag_padding_start"
+                android:layoutDirection="rtl"
+                android:paddingStart="@dimen/customer_account_tv_tag_padding_start"
                 android:text="@string/customer_account_tv_phone_number_tag_text"
                 android:textColor="@color/orange" />
 
@@ -128,10 +134,12 @@
                 fontPath="@string/font_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:enabled="false"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="locale"
+                android:textAlignment="viewStart"
                 android:inputType="number"
-                android:layoutDirection="ltr"
-                android:textAlignment="viewEnd"
                 android:maxLength="10"
                 android:paddingTop="@dimen/customer_account_et_padding_top"
                 android:textColor="@color/dark_grey"

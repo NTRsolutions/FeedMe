@@ -19,7 +19,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end|right"
             android:text="@string/settings_tv_notification_tag_text"
             android:textColor="@color/black" />
 
@@ -46,7 +45,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end|right"
             android:text="@string/settings_ll_change_password_tag_text"
             android:textColor="@color/black" />
 
@@ -73,7 +71,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end|right"
             android:text="@string/settings_tv_contact_us_tag_text"
             android:textColor="@color/black" />
 
@@ -100,7 +97,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end|right"
             android:text="@string/settings_tv_terms_of_use_tag_text"
             android:textColor="@color/black" />
 
@@ -127,7 +123,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end|right"
             android:text="@string/settings_tv_privacy_policy_tag_text"
             android:textColor="@color/black" />
 
@@ -154,7 +149,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end|right"
             android:text="@string/settings_tv_faq_tag_text"
             android:textColor="@color/black" />
 
@@ -181,7 +175,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end|right"
             android:text="@string/settings_tv_rate_us_tag_text"
             android:textColor="@color/black" />
 

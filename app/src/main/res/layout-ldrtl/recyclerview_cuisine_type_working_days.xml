@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layoutDirection="rtl"
         android:textDirection="rtl"
-        android:text="sda fsda fs a"
+        android:text="مرحبا"
         android:drawableStart="?android:attr/listChoiceIndicatorMultiple"
         android:drawablePadding="@dimen/cuisine_type_working_days_ctv_drawable_padding"
         android:ellipsize="end"

@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/restaurant_tv_restaurant_name_margin_bottom"
                 android:layout_marginStart="@dimen/restaurant_tv_restaurant_name_margin_start"
-                android:gravity="end|right" />
+                android:gravity="right" />
 
             <com.wefika.flowlayout.FlowLayout
                 android:id="@+id/recyclerview_restaurant_fl_cuisine_types"

@@ -25,7 +25,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/filters_tv_minimum_order_amount_margin"
-                android:gravity="end"
                 android:text="@string/filters_tv_minimum_order_amount_text"
                 android:textColor="@color/black" />
 
@@ -99,7 +98,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/filters_tv_cuisine_type_margin"
-                android:gravity="end"
                 android:text="@string/filters_tv_cuisine_type_text"
                 android:textColor="@color/black" />
 
@@ -113,9 +111,10 @@
                 android:drawableEnd="@mipmap/ic_arrow_down"
                 android:drawablePadding="@dimen/filters_tv_cuisine_type_drawable_padding"
                 android:focusable="false"
-                android:gravity="center_vertical|end"
+                android:gravity="right|center_vertical"
                 android:hint="@string/filters_tv_cuisine_type_hint"
                 android:inputType="none"
+                android:layoutDirection="rtl"
                 android:longClickable="false"
                 android:paddingEnd="@dimen/filters_tv_cuisine_type_padding_start_end"
                 android:paddingStart="@dimen/filters_tv_cuisine_type_padding_start_end" />
@@ -130,11 +129,11 @@
             android:padding="@dimen/filters_ll_distance_padding">
 
             <TextView
+                android:id="@+id/textView7"
                 style="@style/TextView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/filters_tv_distance_margin"
-                android:gravity="end"
                 android:text="@string/filters_tv_distance_text"
                 android:textColor="@color/black" />
 
@@ -232,7 +231,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/filters_tv_open_now_margin"
-                android:gravity="end"
                 android:text="@string/filters_tv_open_now_text"
                 android:textColor="@color/black" />
 
@@ -275,7 +273,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/filters_tv_delivery_type_margin"
-                android:gravity="end"
                 android:text="@string/filters_tv_delivery_type_text"
                 android:textColor="@color/black" />
 
@@ -318,7 +315,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/filters_tv_rating_margin"
-                android:gravity="end"
                 android:text="@string/filters_tv_rating_text"
                 android:textColor="@color/black" />
 
@@ -354,7 +350,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/filters_tv_offer_margin"
-                android:gravity="end"
                 android:text="@string/filters_tv_offer_text"
                 android:textColor="@color/black" />
 

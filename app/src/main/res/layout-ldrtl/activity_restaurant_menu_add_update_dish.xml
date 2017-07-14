@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:ignore="MissingPrefix"
     tools:context="com.os.foodie.ui.menu.add.RestaurantMenuAddUpdateDishActivity">
 
     <LinearLayout
@@ -26,8 +27,8 @@
             android:drawableEnd="@mipmap/ic_arrow_down"
             android:drawablePadding="@dimen/restaurant_menu_add_update_et_course_type_drawable_padding"
             android:focusable="false"
-            android:gravity="center_vertical|end"
             android:focusableInTouchMode="false"
+            android:gravity="center_vertical|right"
             android:hint="@string/restaurant_menu_add_update_et_course_type_hint"
             android:paddingEnd="@dimen/restaurant_menu_add_update_et_padding_end"
             android:paddingStart="@dimen/restaurant_menu_add_update_et_padding_start" />
@@ -40,7 +41,6 @@
             android:layout_marginTop="@dimen/restaurant_menu_add_update_et_margin_top"
             android:hint="@string/restaurant_menu_add_update_et_item_name_hint"
             android:imeOptions="actionNext"
-            android:gravity="center_vertical|end"
             android:inputType="text"
             android:paddingEnd="@dimen/restaurant_menu_add_update_et_padding_end"
             android:paddingStart="@dimen/restaurant_menu_add_update_et_padding_start" />
@@ -53,12 +53,12 @@
             android:layout_marginTop="@dimen/restaurant_menu_add_update_et_margin_top"
             android:hint="@string/restaurant_menu_add_update_et_item_price_hint"
             android:imeOptions="actionNext"
-            android:layoutDirection="ltr"
-            android:textAlignment="viewEnd"
             android:inputType="numberDecimal"
+            android:layoutDirection="ltr"
             android:maxLength="5"
             android:paddingEnd="@dimen/restaurant_menu_add_update_et_padding_end"
-            android:paddingStart="@dimen/restaurant_menu_add_update_et_padding_start" />
+            android:paddingStart="@dimen/restaurant_menu_add_update_et_padding_start"
+            android:textAlignment="viewEnd" />
 
         <EditText
             android:id="@+id/activity_restaurant_menu_add_update_dish_et_ingredients_details"
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/restaurant_menu_add_update_et_margin_top"
-            android:gravity="end|top"
+            android:gravity="top"
             android:hint="@string/restaurant_menu_add_update_et_details_hint"
             android:inputType="textMultiLine"
             android:lines="6"
@@ -90,21 +90,21 @@
 
             <RadioButton
                 android:id="@+id/activity_restaurant_menu_add_update_dish_rbt_veg"
+                fontPath="@string/font_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/restaurant_menu_add_update_rbt_veg_margin_start"
                 android:text="@string/restaurant_menu_add_update_rbt_veg_text"
-                fontPath="@string/font_default"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/restaurant_menu_add_update_rbt_veg_text_size" />
 
             <RadioButton
                 android:id="@+id/activity_restaurant_menu_add_update_dish_rbt_non_veg"
+                fontPath="@string/font_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/restaurant_menu_add_update_rbt_nonveg_margin_start"
                 android:text="@string/restaurant_menu_add_update_rbt_nonveg_text"
-                fontPath="@string/font_default"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/restaurant_menu_add_update_rbt_nonveg_text_size" />
 

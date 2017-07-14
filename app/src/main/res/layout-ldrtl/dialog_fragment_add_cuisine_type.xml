@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/add_cuisine_type_tv_title_margin"
-        android:gravity="end"
         android:text="@string/fragment_add_cuisine_type_tv_title_text" />
 
     <EditText
@@ -21,7 +20,6 @@
         style="@style/EditTextGreySingleLine"
         android:layout_width="match_parent"
         android:layout_height="@dimen/add_cuisine_type_et_height"
-        android:gravity="center_vertical|end"
         android:layout_marginEnd="@dimen/add_cuisine_type_et_margin_end"
         android:layout_marginStart="@dimen/add_cuisine_type_et_margin_start"
         android:layout_marginTop="@dimen/add_cuisine_type_et_margin_top"

@@ -37,9 +37,8 @@
             style="@style/TextView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
+            android:gravity="right"
             android:layout_marginTop="@dimen/discount_list_ll_margin_top"
-            android:text="Pizza,Ice-cream,Grill Sendwich"
             android:textColor="@color/dark_grey2" />
 
         <LinearLayout

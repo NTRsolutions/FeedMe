@@ -30,6 +30,7 @@
                         android:id="@+id/activity_add_discount_rb_min_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:checked="true" />
 
                     <TextView
@@ -38,7 +39,9 @@
                         android:layout_height="@dimen/add_discount_tv_height"
                         android:layout_weight=".6"
                         android:ellipsize="end"
-                        android:gravity="center_vertical|end"
+                        android:gravity="start|center_vertical"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="viewStart"
                         android:padding="@dimen/add_discount_tv_minimum_order_amount_tag_padding"
                         android:text="@string/add_discount_tv_minimum_order_amount_tag_text"
                         android:textSize="@dimen/add_discount_tv_minimum_order_amount_tag_text_size" />
@@ -57,12 +60,13 @@
                             android:layout_width="@dimen/density_0"
                             android:layout_height="@dimen/add_discount_et_height"
                             android:layout_weight="1"
-                            android:layoutDirection="ltr"
-                            android:textAlignment="center"
                             android:hint="@string/add_discount_et_min_amount_hint"
                             android:inputType="numberDecimal"
+                            android:gravity="start|center_vertical"
+                            android:layoutDirection="rtl"
                             android:maxLength="10"
                             android:padding="@dimen/add_discount_et_padding"
+                            android:textAlignment="center"
                             android:textSize="@dimen/add_discount_et_text_size" />
 
                         <EditText
@@ -72,7 +76,8 @@
                             android:layout_height="@dimen/add_discount_et_height"
                             android:layout_marginStart="@dimen/add_discount_et_margin_start"
                             android:layout_weight="1"
-                            android:layoutDirection="ltr"
+                            android:gravity="start|center_vertical"
+                            android:layoutDirection="rtl"
                             android:textAlignment="center"
                             android:hint="@string/add_discount_et_min_percent_hint"
                             android:inputType="numberDecimal"
@@ -105,7 +110,9 @@
                         android:digits="1234567890"
                         android:drawableEnd="@mipmap/ic_arrow_down"
                         android:enabled="false"
-                        android:gravity="end|center_vertical"
+                        android:gravity="start|center_vertical"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="viewStart"
                         android:hint="@string/add_discount_tv_food_course_type_hint"
                         android:inputType="number"
                         android:maxLength="16"
@@ -120,7 +127,8 @@
                         android:layout_marginStart="@dimen/add_discount_et_margin_start"
                         android:layout_weight="0.2"
                         android:enabled="false"
-                        android:layoutDirection="ltr"
+                        android:gravity="start|center_vertical"
+                        android:layoutDirection="rtl"
                         android:textAlignment="center"
                         android:hint="@string/add_discount_et_food_percent_hint"
                         android:inputType="numberDecimal"
@@ -152,9 +160,9 @@
                         android:drawableStart="@mipmap/calender"
                         android:hint="@string/add_discount_tv_start_date_hint"
                         android:inputType="text"
-                        android:layoutDirection="ltr"
                         android:maxLength="16"
                         android:padding="@dimen/add_discount_tv_padding"
+                        android:layoutDirection="ltr"
                         android:textAlignment="viewEnd"
                         android:textSize="@dimen/add_discount_tv_text_size" />
 
@@ -175,12 +183,12 @@
                         android:layout_marginStart="@dimen/add_discount_tv_margin_start"
                         android:layout_weight="0.5"
                         android:drawableStart="@mipmap/calender"
+                        android:layoutDirection="ltr"
+                        android:textAlignment="viewEnd"
                         android:hint="@string/add_discount_tv_end_date_hint"
                         android:inputType="text"
-                        android:layoutDirection="ltr"
                         android:maxLength="15"
                         android:padding="@dimen/add_discount_tv_padding"
-                        android:textAlignment="viewEnd"
                         android:textSize="@dimen/add_discount_tv_text_size" />
 
                 </LinearLayout>

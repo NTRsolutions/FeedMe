@@ -320,6 +320,7 @@
     <string name="restaurant_details_tv_discount_text_discount">Discount</string>
     <string name="restaurant_details_bt_view_basket_text">View Basket</string>
     <string name="recyclerview_course_content_tv_x_text">x</string>
+    <string name="restaurant_details_tv_total_quantity_tag_text">Quantity:</string>
 
     <!--Restaurant List-->
     <string name="title_fragment_customer_home">Home</string>

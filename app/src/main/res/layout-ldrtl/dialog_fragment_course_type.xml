@@ -27,7 +27,6 @@
             style="@style/TextView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
             android:layout_margin="@dimen/course_type_tv_title_margin"
             android:text="@string/fragment_course_type_tv_select_course_type_text" />
 

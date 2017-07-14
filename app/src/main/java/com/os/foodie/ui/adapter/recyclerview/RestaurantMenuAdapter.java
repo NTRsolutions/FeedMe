@@ -282,9 +282,6 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
                         Log.d("itemViewY", ">>" + itemViewY);
                         Log.d("Y", "RTL>>" + (vY - (itemViewY)));
 
-//                        if()
-//                        popupWindow.showAtLocation(v, Gravity.BOTTOM, -(itemViewMeasuredWidth - (itemViewX + vX)), (int) ((itemViewY) + vY));
-//                        popupWindow.showAsDropDown(v, -(itemViewMeasuredWidth - (itemViewX + vX)), (int) (/*(itemViewY) + vY - */(itemViewY)), Gravity.BOTTOM);
                         popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, -(itemViewMeasuredWidth - (itemViewX + vX)), clickPosition + itemViewMeasuredHeight);
 
                     } else {

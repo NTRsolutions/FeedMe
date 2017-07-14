@@ -38,8 +38,9 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
                 android:paddingStart="@dimen/restaurant_account_tv_padding_start"
                 android:text="@string/restaurant_account_tv_restaurant_name_text"
                 android:textColor="@color/orange" />
@@ -50,8 +51,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:gravity="end|right|center_vertical"
-                android:inputType="text"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
                 android:lines="1"
                 android:paddingTop="@dimen/restaurant_account_et_padding_top"
                 android:textColor="@color/dark_grey"
@@ -69,10 +70,11 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/restaurant_account_tv_padding_start"
                 android:text="@string/restaurant_account_tv_contact_person_name_text"
+                android:layoutDirection="rtl"
                 android:textColor="@color/orange" />
 
             <EditText
@@ -81,7 +83,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:gravity="end|right|center_vertical"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
                 android:inputType="textPersonName"
                 android:lines="1"
                 android:paddingTop="@dimen/restaurant_account_et_padding_top"
@@ -99,10 +102,11 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/restaurant_account_tv_padding_start"
                 android:text="@string/restaurant_account_tv_email_text"
+                android:layoutDirection="rtl"
                 android:textColor="@color/orange" />
 
             <EditText
@@ -111,7 +115,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:gravity="end|right|center_vertical"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
                 android:inputType="textEmailAddress"
                 android:lines="1"
                 android:paddingTop="@dimen/restaurant_account_et_padding_top"
@@ -129,9 +134,10 @@
 
             <TextView
                 fontPath="@string/font_default"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/restaurant_account_tv_padding_start"
+                android:layoutDirection="rtl"
                 android:text="@string/restaurant_account_tv_phone_number_text"
                 android:textColor="@color/orange" />
 
@@ -145,8 +151,9 @@
                 android:lines="1"
                 android:maxLength="10"
                 android:paddingTop="@dimen/restaurant_account_et_padding_top"
-                android:layoutDirection="ltr"
-                android:textAlignment="viewEnd"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
+                android:textAlignment="viewStart"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/restaurant_account_et_text_size" />
         </LinearLayout>

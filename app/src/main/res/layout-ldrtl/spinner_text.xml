@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:paddingEnd="@dimen/spinner_text_tv_text_padding_end"
         android:paddingTop="@dimen/spinner_text_tv_text_padding_top"
-        android:gravity="end"
+        android:gravity="right"
+        android:text="مرحبا"
         android:paddingBottom="@dimen/spinner_text_tv_text_padding_bottom"
         android:paddingStart="@dimen/spinner_text_tv_text_padding_start"
         android:textSize="@dimen/spinner_text_tv_text_size" />

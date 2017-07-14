@@ -21,7 +21,6 @@
             android:id="@+id/recyclerview_restaurant_menu_tv_dish_name"
             style="@style/TextView5"
             android:layout_width="match_parent"
-            android:gravity="end"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -29,7 +28,7 @@
             style="@style/TextView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
+            android:gravity="right"
             android:layout_marginTop="@dimen/restaurant_menu_tv_vegnonveg_margin_top" />
 
         <TextView
@@ -38,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/restaurant_menu_tv_description_margin_bottom"
             android:layout_marginTop="@dimen/restaurant_menu_tv_description_margin_top"
-            android:gravity="end"
+            android:gravity="right"
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="@color/grey"

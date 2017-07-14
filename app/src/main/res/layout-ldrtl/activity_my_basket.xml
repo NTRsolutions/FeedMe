@@ -42,7 +42,7 @@
                         android:id="@+id/activity_my_basket_ctv_pickup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
+                        android:drawableStart="?android:attr/listChoiceIndicatorSingle"
                         android:gravity="center"
                         fontPath="@string/font_default"
                         android:text="@string/my_basket_ctv_pickup_text" />
@@ -53,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/my_basket_ctv_deliver_margin_start"
                         fontPath="@string/font_default"
-                        android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
+                        android:drawableStart="?android:attr/listChoiceIndicatorSingle"
                         android:gravity="center"
                         android:text="@string/my_basket_ctv_deliver_text" />
 

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    tools:ignore="MissingPrefix"
     tools:context="com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity">
 
     <android.support.design.widget.CoordinatorLayout
@@ -80,7 +81,7 @@
                             <TextView
                                 android:id="@+id/content_restaurant_details_tv_restaurant_name"
                                 style="@style/TextView6"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
                                 android:layout_marginBottom="@dimen/restaurant_details_tv_restaurant_name_margin_bottom"
@@ -135,7 +136,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginStart="@dimen/restaurant_details_tv_reviews_margin_start"
-                                    android:text="Reviews(0)"
                                     android:textColor="@color/black"
                                     android:typeface="serif" />
 
@@ -337,18 +337,36 @@
         android:background="@drawable/rectangle_white_top_outline_light_grey"
         android:paddingBottom="@dimen/restaurant_details_rl_basket_padding_bottom"
         android:paddingEnd="@dimen/restaurant_details_rl_basket_padding_end"
+        android:visibility="gone"
         android:paddingStart="@dimen/restaurant_details_rl_basket_padding_start"
         android:paddingTop="@dimen/restaurant_details_rl_basket_padding_top">
+
+        <LinearLayout
+            android:id="@+id/activity_restaurant_details_ll_total_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/activity_restaurant_details_bt_view_basket"
+            android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fontPath="@string/font_default"
+            android:gravity="right|end"
+            android:text="@string/restaurant_details_tv_total_quantity_tag_text"
+            android:textColor="@color/grey" />
 
         <TextView
             android:id="@+id/activity_restaurant_details_tv_total_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fontPath="@string/font_default"
+            android:layout_marginStart="@dimen/restaurant_details_tv_total_quantity_margin_start"
             android:gravity="right|end"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/activity_restaurant_details_bt_view_basket"
             android:textColor="@color/grey" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/activity_restaurant_details_tv_total_amount"
@@ -356,7 +374,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/activity_restaurant_details_tv_total_quantity"
+            android:layout_below="@+id/activity_restaurant_details_ll_total_quantity"
             android:layout_toStartOf="@+id/activity_restaurant_details_bt_view_basket"
             android:textStyle="bold" />
 

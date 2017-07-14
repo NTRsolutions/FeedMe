@@ -23,7 +23,7 @@
             android:id="@+id/recyclerview_select_delivery_address_tv_name"
             style="@style/TextView1"
             android:layout_width="match_parent"
-            android:gravity="end"
+            android:gravity="right"
             android:layout_height="wrap_content"
             android:textColor="@color/dark_grey2" />
 
@@ -32,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/grey2"
+            android:gravity="right"
             android:textSize="@dimen/delivery_address_tv_street_number_text_size"
             android:typeface="sans" />
 
@@ -39,7 +40,7 @@
             android:id="@+id/recyclerview_select_delivery_address_tv_colony"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
+            android:gravity="right"
             android:textColor="@color/grey2"
             android:textSize="@dimen/delivery_address_tv_colony_text_size"
             android:typeface="sans" />
@@ -47,7 +48,7 @@
         <TextView
             android:id="@+id/recyclerview_select_delivery_address_tv_city_state_pin"
             android:layout_width="match_parent"
-            android:gravity="end"
+            android:gravity="right"
             android:layout_height="wrap_content"
             android:textColor="@color/grey2"
             android:textSize="@dimen/delivery_address_tv_city_state_pin_text_size"
@@ -58,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/grey2"
-            android:gravity="end"
+            android:gravity="right"
             android:textSize="@dimen/delivery_address_tv_country_text_size"
             android:typeface="sans" />
 
@@ -66,7 +67,7 @@
             android:id="@+id/recyclerview_select_delivery_address_tv_mobile_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
+            android:gravity="right"
             android:textColor="@color/grey2"
             android:textSize="@dimen/delivery_address_tv_mobile_number_text_size"
             android:typeface="sans" />

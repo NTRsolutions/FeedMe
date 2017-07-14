@@ -80,9 +80,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/location_info_et_height"
             android:layout_marginTop="@dimen/location_info_et_country_margin_top"
-            android:clickable="true"
-            android:enabled="false"
-            android:gravity="end|right|center_vertical"
             android:hint="@string/location_info_et_country_hint"
             android:imeOptions="actionDone"
             android:inputType="text"
@@ -95,14 +92,12 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/location_info_et_height"
             android:layout_marginTop="@dimen/location_info_et_margin_top"
-            android:clickable="true"
-            android:enabled="false"
-            android:gravity="end|right|center_vertical"
             android:hint="@string/location_info_et_city_hint"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:paddingEnd="@dimen/location_info_et_padding_end"
             android:paddingStart="@dimen/location_info_et_padding_start" />
+        <!--android:gravity="start|center_vertical"-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,7 +112,6 @@
                 android:layout_marginTop="@dimen/location_info_et_margin_top"
                 android:layout_weight="1"
                 android:background="@drawable/rectangle_round_corner_right_light_grey"
-                android:gravity="center_vertical|end"
                 android:hint="@string/location_info_et_current_location_hint"
                 android:imeOptions="actionDone"
                 android:inputType="text"

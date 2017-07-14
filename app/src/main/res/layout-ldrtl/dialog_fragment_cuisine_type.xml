@@ -23,8 +23,6 @@
                 style="@style/TextView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                android:textDirection="rtl"
                 android:layout_weight="1"
                 android:text="@string/fragment_cuisine_type_tv_select_cuisine_types_text" />
 

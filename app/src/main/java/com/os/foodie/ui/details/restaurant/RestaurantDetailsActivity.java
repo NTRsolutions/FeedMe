@@ -438,7 +438,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 //            tvTotalQuantity.setText(String.valueOf(courseAdapter.getTotalQuantity()));
 //            tvTotalAmount.setText("$" + courseAdapter.getTotalAmount());
 
-            tvTotalQuantity.setText("Quantity: " + restaurantDetailsResponse.getResponse().getTotalQuantity());
+            tvTotalQuantity.setText(restaurantDetailsResponse.getResponse().getTotalQuantity());
+//            tvTotalQuantity.setText("Quantity: " + restaurantDetailsResponse.getResponse().getTotalQuantity());
             tvTotalAmount.setText("$" + restaurantDetailsResponse.getResponse().getTotalAmount());
 
             Log.d("VISIBLE", ">>Yes" + restaurantDetailsMvpPresenter.getCustomerRestaurantId());
