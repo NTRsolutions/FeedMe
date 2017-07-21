@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class EarningAdapter extends RecyclerView.Adapter<EarningAdapter.EarningViewHolder> {
 
     private Context context;
+    private String currency;
     public ArrayList<Earning> earnings = new ArrayList<>();
 
     public EarningAdapter(Context context, ArrayList<Earning> earnings) {
@@ -50,11 +51,15 @@ public class EarningAdapter extends RecyclerView.Adapter<EarningAdapter.EarningV
         holder.tvOrderId.setText(earning.getOrderId());
         holder.tvPaymentMethod.setText(earning.getPaymentType());
         holder.tvDate.setText(earning.getPaymentDate());
-        holder.tvAmount.setText("$" + earning.getAmount());
+        holder.tvAmount.setText(currency + earning.getAmount());
     }
 
     @Override
     public int getItemCount() {
         return earnings.size();
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

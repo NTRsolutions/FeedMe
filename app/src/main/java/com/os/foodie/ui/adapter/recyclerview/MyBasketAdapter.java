@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class MyBasketAdapter extends RecyclerView.Adapter<MyBasketAdapter.MyBasketViewHolder> {
 
     private Context context;
+    private String currency;
     private ArrayList<CartList> cartLists;
 
     public MyBasketAdapter(Context context, ArrayList<CartList> cartLists) {
@@ -58,7 +59,7 @@ public class MyBasketAdapter extends RecyclerView.Adapter<MyBasketAdapter.MyBask
         float totalAmount = 0;
         totalAmount += price * quantity;
 
-        holder.tvAmount.setText("$" + totalAmount);
+        holder.tvAmount.setText(currency + totalAmount);
     }
 
     @Override
@@ -70,5 +71,13 @@ public class MyBasketAdapter extends RecyclerView.Adapter<MyBasketAdapter.MyBask
         cartLists.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, cartLists.size());
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

@@ -50,7 +50,7 @@ public class OtpActivity extends BaseActivity implements OtpMvpView, View.OnClic
         btSubmit.setOnClickListener(this);
 
 //                                TODO OTP
-        if(getIntent().hasExtra("OTP")){
+        if (getIntent().hasExtra("OTP")) {
             etOtp.setText(getIntent().getStringExtra("OTP"));
         }
 //        getExtras();

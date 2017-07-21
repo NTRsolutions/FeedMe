@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantOrderListAdapter.RestaurantOrderListViewHolder> {
 
     private Context context;
+    private String currency;
     private ArrayList<OrderList> orderLists;
     private RestaurantOrderListMvpPresenter<RestaurantOrderListMvpView> restaurantOrderListMvpPresenter;
 //    private String deliveryTime;
@@ -70,7 +71,7 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
         holder.tvDeliveryTime.setText("Ordered on: " + order.getOrderDelieveryDate() + " at " + order.getOrderDelieveryTime().replace(":00", ""));
         holder.tvOrderType.setText(order.getOrderType());
         holder.tvDiscount.setText(order.getDiscount() + "%");
-        holder.tvPrice.setText("$" + order.getTotalAmount());
+        holder.tvPrice.setText(currency + " " + order.getTotalAmount());
 
         holder.ivAccept.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,5 +144,9 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
     @Override
     public int getItemCount() {
         return orderLists.size();
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

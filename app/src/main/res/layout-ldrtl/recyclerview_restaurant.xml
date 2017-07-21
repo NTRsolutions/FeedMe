@@ -72,6 +72,7 @@
                     android:layout_marginEnd="@dimen/restaurant_tv_rating_tag_margin_end"
                     android:text="@string/restaurant_tv_rating_tag_text"
                     android:textColor="@color/dark_grey"
+                    fontPath="@string/font_serif"
                     android:typeface="serif" />
 
                 <RatingBar
@@ -91,6 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/restaurant_tv_reviews_margin_start"
+                    fontPath="@string/font_serif"
                     android:textColor="@color/dark_grey"
                     android:typeface="serif" />
 

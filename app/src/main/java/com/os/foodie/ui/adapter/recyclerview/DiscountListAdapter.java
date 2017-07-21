@@ -95,7 +95,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<DiscountListAdapte
 
         holder.tvProductsNames.setText(names);
         holder.tvDiscountDate.setText(CommonUtils.ConvertDate(discountList.getStartDate(), discountList.getEndDate()));
-        holder.tvDiscountMinimumAmount.setText(discountList.getMinOrderAmount());
+        holder.tvDiscountMinimumAmount.setText(discountListMvpPresenter.getCurrency() + " " + discountList.getMinOrderAmount());
 
         holder.ivOverflow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,11 +137,11 @@ public class DiscountListAdapter extends RecyclerView.Adapter<DiscountListAdapte
 
                 if (clickPosition > limit) {
 
-                popupView = layoutInflater.inflate(R.layout.menu_popup_restaurant_menu_item_top, null);
-                popupWindow = new PopupWindow(
-                        popupView,
-                        RecyclerView.LayoutParams.WRAP_CONTENT,
-                        RecyclerView.LayoutParams.WRAP_CONTENT);
+                    popupView = layoutInflater.inflate(R.layout.menu_popup_restaurant_menu_item_top, null);
+                    popupWindow = new PopupWindow(
+                            popupView,
+                            RecyclerView.LayoutParams.WRAP_CONTENT,
+                            RecyclerView.LayoutParams.WRAP_CONTENT);
 
                     popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_popup_background_top));
 
@@ -208,12 +208,50 @@ public class DiscountListAdapter extends RecyclerView.Adapter<DiscountListAdapte
 
                 if (clickPosition > limit) {
 
-                    popupWindow.showAtLocation(v, Gravity.TOP, (int) (itemViewMeasuredWidth/* - (itemViewX + vX)*/), (int) (itemViewY + vY));
+
+                    if (context.getResources().getBoolean(R.bool.is_rtl)) {
+
+                        Log.d("X", "Bottom RTL>>" + -(itemViewMeasuredWidth - (itemViewX + vX)));
+                        Log.d("Y", "Bottom RTL>>" + (itemViewY + vY));
+
+                        popupWindow.showAtLocation(v, Gravity.TOP, -(itemViewMeasuredWidth/* - (itemViewX + vX)*/), (int) (itemViewY + vY));
+
+                    } else {
+
+                        Log.d("X", "Bottom >>" + (itemViewMeasuredWidth - (itemViewX + vX)));
+                        Log.d("Y", "Bottom >>" + (itemViewY + vY));
+
+                        popupWindow.showAtLocation(v, Gravity.TOP, (int) (itemViewMeasuredWidth), (int) (itemViewY + vY));
+                    }
 
                 } else {
 
-                    popupWindow.showAsDropDown(v);
+                    if (context.getResources().getBoolean(R.bool.is_rtl)) {
+
+                        Log.d("X", "RTL>>" + (itemViewMeasuredWidth - (itemViewX + vX)));
+                        Log.d("vY", ">>" + vY);
+                        Log.d("itemViewY", ">>" + itemViewY);
+                        Log.d("Y", "RTL>>" + (vY - (itemViewY)));
+
+                        popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, -(itemViewMeasuredWidth/* - (itemViewX + vX)*/), clickPosition + itemViewMeasuredHeight + vY /*+(itemViewY + vY)*/);
+
+                    } else {
+
+                        Log.d("X", ">>" + 0);
+                        Log.d("Y", ">>" + (itemViewY + vY));
+
+                        popupWindow.showAsDropDown(v);
+                    }
                 }
+
+//                if (clickPosition > limit) {
+//
+//                    popupWindow.showAtLocation(v, Gravity.TOP, (int) (itemViewMeasuredWidth/* - (itemViewX + vX)*/), (int) (itemViewY + vY));
+//
+//                } else {
+//
+//                    popupWindow.showAsDropDown(v);
+//                }
             }
         });
     }

@@ -22,14 +22,18 @@
             android:title="@string/action_my_bucket" />
         <item
             android:id="@+id/nav_payment"
-            android:icon="@mipmap/ic_payment"
             android:checkable="false"
+            android:icon="@mipmap/ic_payment"
             android:title="@string/action_payment" />
         <item
             android:id="@+id/nav_delivery_address"
-            android:icon="@mipmap/ic_delivery_address"
             android:checkable="false"
+            android:icon="@mipmap/ic_delivery_address"
             android:title="@string/action_delivery_address" />
+        <item
+            android:id="@+id/nav_notification"
+            android:icon="@mipmap/ic_notification"
+            android:title="@string/notification" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@mipmap/ic_settings"

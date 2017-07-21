@@ -1,48 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.os.foodie.ui.otp.OtpActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/otp_iv_logo_margin_top"
-        android:src="@mipmap/ic_logo" />
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/activity_otp_et_otp"
-        style="@style/EditTextGreySingleLine"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/otp_et_height"
-        android:layout_marginEnd="@dimen/otp_et_otp_margin_end"
-        android:layout_marginStart="@dimen/otp_et_otp_margin_start"
-        android:layout_marginTop="@dimen/otp_et_otp_margin_top"
-        android:hint="@string/otp_et_otp_hint"
-        android:gravity="start|center_vertical"
-        android:layoutDirection="rtl"
-        android:textAlignment="viewStart"
-        android:imeOptions="actionDone"
-        android:inputType="number"
-        android:maxLength="6"
-        android:paddingEnd="@dimen/otp_et_otp_padding_end"
-        android:paddingStart="@dimen/otp_et_otp_padding_start" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/all_step_padding"
+            android:background="@drawable/rectangle_bottom_line_light_grey"
+            android:src="@mipmap/ic_step_two" />
 
-    <com.os.foodie.ui.custom.RippleAppCompatButton
-        android:id="@+id/activity_otp_bt_submit"
-        style="@style/ButtonOrange"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/otp_bt_height"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginEnd="@dimen/otp_bt_submit_margin_end"
-        android:layout_marginStart="@dimen/otp_bt_submit_margin_start"
-        android:layout_marginTop="@dimen/otp_bt_submit_margin_top"
-        android:gravity="center"
-        android:text="@string/otp_bt_submit_text" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/otp_iv_logo_margin_top"
+            android:src="@mipmap/ic_logo" />
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/activity_otp_et_otp"
+            style="@style/EditTextGreySingleLine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/otp_et_height"
+            android:layout_marginEnd="@dimen/otp_et_otp_margin_end"
+            android:layout_marginStart="@dimen/otp_et_otp_margin_start"
+            android:layout_marginTop="@dimen/otp_et_otp_margin_top"
+            android:gravity="start|center_vertical"
+            android:hint="@string/otp_et_otp_hint"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:layoutDirection="rtl"
+            android:maxLength="6"
+            android:paddingEnd="@dimen/otp_et_otp_padding_end"
+            android:paddingStart="@dimen/otp_et_otp_padding_start"
+            android:textAlignment="viewStart" />
+
+        <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/activity_otp_bt_submit"
+            style="@style/ButtonOrange"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/otp_bt_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="@dimen/otp_bt_submit_margin_end"
+            android:layout_marginStart="@dimen/otp_bt_submit_margin_start"
+            android:layout_marginTop="@dimen/otp_bt_submit_margin_top"
+            android:gravity="center"
+            android:text="@string/otp_bt_submit_text" />
+
+    </LinearLayout>
+
+</ScrollView>

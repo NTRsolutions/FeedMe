@@ -74,6 +74,11 @@ public class RestaurantDetails implements Parcelable {
     @SerializedName("image_url")
     @Expose
     private String imageUrl;
+
+
+    @SerializedName("currency")
+    @Expose
+    private String currency;
     public final static Parcelable.Creator<RestaurantDetails> CREATOR = new Creator<RestaurantDetails>() {
 
 
@@ -103,6 +108,7 @@ public class RestaurantDetails implements Parcelable {
             instance.deliveryZipcode = ((String) in.readValue((String.class.getClassLoader())));
             instance.totalQuantity = ((String) in.readValue((String.class.getClassLoader())));
             instance.totalAmount = ((String) in.readValue((String.class.getClassLoader())));
+            instance.currency = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -340,6 +346,15 @@ public class RestaurantDetails implements Parcelable {
         this.imageUrl = imageUrl;
     }
 
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);
         dest.writeValue(restaurantName);
@@ -362,6 +377,7 @@ public class RestaurantDetails implements Parcelable {
         dest.writeValue(deliveryZipcode);
         dest.writeValue(totalQuantity);
         dest.writeValue(totalAmount);
+        dest.writeValue(currency);
     }
 
     public int describeContents() {

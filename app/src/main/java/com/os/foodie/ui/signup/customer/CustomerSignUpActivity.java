@@ -32,7 +32,10 @@ import com.os.foodie.model.FacebookSignUpModel;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.fbsignup.FacebookSignUpActivity;
 import com.os.foodie.ui.filters.FiltersPresenter;
+import com.os.foodie.ui.locationinfo.LocationInfoActivity;
 import com.os.foodie.ui.login.LoginActivity;
+import com.os.foodie.ui.main.customer.CustomerMainActivity;
+import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.ui.otp.OtpActivity;
 import com.os.foodie.ui.signup.restaurant.RestaurantSignUpActivity;
 import com.os.foodie.utils.AppConstants;
@@ -181,7 +184,8 @@ public class CustomerSignUpActivity extends BaseActivity implements CustomerSign
 
     public void callFacebookDetailsAPI() {
 
-        final String deviceId = CommonUtils.getDeviceId(this);
+//        final String deviceId = CommonUtils.getDeviceId(this);
+        final String deviceId = customerSignUpMvpPresenter.getDeviceId();
         final String deviceType = "android";
 
         callbackManager = CallbackManager.Factory.create();
@@ -266,8 +270,9 @@ public class CustomerSignUpActivity extends BaseActivity implements CustomerSign
     @Override
     public void doSignUp() {
 
-        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        final String deviceId = telephonyManager.getDeviceId();
+//        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+//        final String deviceId = telephonyManager.getDeviceId();
+        final String deviceId = customerSignUpMvpPresenter.getDeviceId();
 
         String deviceType = "android";
         String language = "eng";
@@ -311,5 +316,38 @@ public class CustomerSignUpActivity extends BaseActivity implements CustomerSign
         customerSignUpMvpPresenter.dispose();
 //        customerSignUpMvpPresenter.onDetach();
         super.onDestroy();
+    }
+
+
+    @Override
+    public void openLocationInfoActivity() {
+
+        Intent intent = new Intent(CustomerSignUpActivity.this, LocationInfoActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void openSetupRestaurantProfileActivity() {
+
+        Intent intent = new Intent(CustomerSignUpActivity.this, RestaurantMainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void openCustomerHomeActivity() {
+
+        Intent intent = new Intent(CustomerSignUpActivity.this, CustomerMainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void openRestaurantHomeActivity() {
+
+        Intent intent = new Intent(CustomerSignUpActivity.this, RestaurantMainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

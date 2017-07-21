@@ -81,6 +81,7 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/delivery_address_bt_text_size"
+            fontPath="@string/font_serif"
             android:typeface="serif" />
 
         <com.os.foodie.ui.custom.RippleAppCompatButton
@@ -96,6 +97,7 @@
             android:gravity="center"
             android:padding="@dimen/delivery_address_bt_padding"
             android:text="@string/delivery_address_bt_delete_text"
+            fontPath="@string/font_serif"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/delivery_address_bt_text_size"

@@ -19,6 +19,7 @@
         android:layout_marginStart="@dimen/customer_main_header_tv_margin_start"
         android:gravity="center"
         android:typeface="monospace"
+        fontPath="@string/font_monospace"
         android:text="@string/customer_main_header_tv_welcome_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
@@ -31,6 +32,7 @@
         android:layout_marginStart="@dimen/customer_main_header_tv_margin_start"
         android:gravity="center"
         android:typeface="monospace"
+        fontPath="@string/font_monospace"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textSize="@dimen/customer_main_header_tv_user_name_text_size" />
     <!--android:textColor="@color/white"-->

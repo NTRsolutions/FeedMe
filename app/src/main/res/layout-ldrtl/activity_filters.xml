@@ -379,6 +379,7 @@
             android:gravity="center"
             android:padding="@dimen/filters_bt_search_padding"
             android:text="@string/filters_bt_search_text"
+            fontPath="@string/font_serif"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/filters_bt_search_text_size"

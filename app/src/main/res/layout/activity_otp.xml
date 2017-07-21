@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,18 @@
     android:orientation="vertical"
     android:background="@color/white"
     tools:context="com.os.foodie.ui.otp.OtpActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/all_step_padding"
+        android:background="@drawable/rectangle_bottom_line_light_grey"
+        android:src="@mipmap/ic_step_two"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -42,4 +54,6 @@
         android:gravity="center"
         android:text="@string/otp_bt_submit_text" />
 
-</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

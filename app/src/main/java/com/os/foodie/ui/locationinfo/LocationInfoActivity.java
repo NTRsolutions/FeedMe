@@ -11,7 +11,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -29,14 +29,12 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.R;
-import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.feature.callback.GpsLocationCallback;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.feature.GpsLocation;
-import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.CommonUtils;
@@ -50,6 +48,7 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
 //    private Spinner spinnerCountry, spinnerCity;
 
+    private ImageView ivStep;
     private EditText etCountry, etCity;
     private EditText etCurrentLocation;
     private ImageView ivLocation;
@@ -77,13 +76,13 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_info);
 
-        setUp();
-
         initPresenter();
         locationInfoMvpPresenter.onAttach(LocationInfoActivity.this);
 //        locationInfoMvpPresenter.setCurrentUserInfoInitialized(false);
 
         gpsLocation = new GpsLocation(this, this);
+
+        ivStep = (ImageView) findViewById(R.id.activity_location_info_iv_step);
 
         etCountry = (EditText) findViewById(R.id.activity_location_info_et_country);
         etCity = (EditText) findViewById(R.id.activity_location_info_et_city);
@@ -96,6 +95,8 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
         btSubmit = (Button) findViewById(R.id.activity_location_info_bt_submit);
 
 //        locationInfoMvpPresenter.getCountryList();
+
+        setUp();
 
         ivLocation.setOnClickListener(this);
         btSubmit.setOnClickListener(this);
@@ -160,6 +161,10 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
     @Override
     protected void setUp() {
+
+        if (!locationInfoMvpPresenter.getCurrentUserInfoInitialized()) {
+            ivStep.setVisibility(View.VISIBLE);
+        }
 
 //        consumer = new Consumer<Location>() {
 //            @Override
@@ -230,7 +235,12 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
     }
 
     public void requestGpsLocation() {
-        progressDialog = CommonUtils.showLoadingDialog(this, "Getting Your Address");
+        if (progressDialog == null)
+            progressDialog = CommonUtils.showLoadingDialog(this, "Getting Your Address");
+        else {
+            if (!progressDialog.isShowing())
+                progressDialog = CommonUtils.showLoadingDialog(this, "Getting Your Address");
+        }
         gpsLocation.requestGpsLocation();
     }
 
@@ -327,7 +337,6 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
                 Log.i("onActivityResult", "getAddress: " + place.getAddress());
                 Log.i("onActivityResult", "getLocale: " + place.getLocale());
                 Log.i("onActivityResult", "getLatLng: " + place.getLatLng().toString());
-
 
                 latLng = new LatLng(place.getLatLng().latitude, place.getLatLng().longitude);
 

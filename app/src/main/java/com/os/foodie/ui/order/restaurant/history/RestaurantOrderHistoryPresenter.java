@@ -101,4 +101,9 @@ public class RestaurantOrderHistoryPresenter<V extends RestaurantOrderHistoryMvp
             getMvpView().onError(R.string.connection_error);
         }
     }
+
+    @Override
+    public String getCurrentUserType() {
+        return getDataManager().getCurrentUserType();
+    }
 }

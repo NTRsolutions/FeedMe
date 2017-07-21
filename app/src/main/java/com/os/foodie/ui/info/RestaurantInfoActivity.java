@@ -20,6 +20,8 @@ import com.os.foodie.ui.details.restaurant.RestaurantDetailsPresenter;
 import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.utils.AppConstants;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -174,14 +176,22 @@ public class RestaurantInfoActivity extends BaseActivity implements RestaurantIn
                 minOrderAmount = minOrderAmount.replace(".00", "");
             }
 
-            tvMinimumOrder.setText("$" + minOrderAmount);
+            try {
+                tvMinimumOrder.setText(URLDecoder.decode(restaurantDetails.getCurrency(), "UTF-8") + " " + minOrderAmount);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
 
         tvDeliveryType.setText(restaurantDetails.getDeliveryType().replace(".00", ""));
         //     tvDeliveryType.setText(getResources().getStringArray(R.array.order_types)[Integer.parseInt(restaurantDetails.getDeliveryType())/* - 1*/]);
 
         if (restaurantDetails.getDeliveryCharge() != null && !restaurantDetails.getDeliveryCharge().isEmpty()) {
-            tvDeliveryCharge.setText("$" + restaurantDetails.getDeliveryCharge());
+            try {
+                tvDeliveryCharge.setText(URLDecoder.decode(restaurantDetails.getCurrency(),"UTF-8") + " " + restaurantDetails.getDeliveryCharge());
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
 
         tvDeliveryTime.setText(restaurantDetails.getDeliveryTime() + " min.");

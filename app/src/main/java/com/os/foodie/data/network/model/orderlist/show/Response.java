@@ -16,6 +16,9 @@ public class Response {
     @SerializedName("restaurant_name")
     @Expose
     private String restaurantName;
+    @SerializedName("currency")
+    @Expose
+    private String currency;
     @SerializedName("opening_time")
     @Expose
     private String openingTime;
@@ -64,13 +67,15 @@ public class Response {
      * @param orderCount
      * @param deliveryCharge
      * @param restaurantName
+     * @param currency
      * @param restaurantId
      */
-    public Response(List<OrderList> orderList, String restaurantId, String restaurantName, String openingTime, String closingTime, String deliveryTime, String deliveryType, String deliveryCharge, String minOrderAmount, Integer orderCount, Integer status, String message) {
+    public Response(List<OrderList> orderList, String restaurantId, String restaurantName, String currency, String openingTime, String closingTime, String deliveryTime, String deliveryType, String deliveryCharge, String minOrderAmount, Integer orderCount, Integer status, String message) {
         super();
         this.orderList = orderList;
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
+        this.currency = currency;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
         this.deliveryTime = deliveryTime;
@@ -104,6 +109,14 @@ public class Response {
 
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public String getOpeningTime() {

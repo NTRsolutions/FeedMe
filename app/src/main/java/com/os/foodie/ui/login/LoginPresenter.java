@@ -15,6 +15,8 @@ import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.ValidationUtils;
 
+import java.net.URLDecoder;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -72,6 +74,10 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                                 getDataManager().setCurrentUserLoggedIn(true);
                                 getDataManager().setCurrentUserId(loginResponse.getResponse().getUserId());
                                 getDataManager().setCurrentUserType(loginResponse.getResponse().getUserType());
+//                                getDataManager().setCurrency(loginResponse.getResponse().getCurrency());
+//
+//                                URLDecoder.decode(restaurantProfileRequest.getCurrency(),"UTF-8")
+                                getDataManager().setCurrency(URLDecoder.decode(loginResponse.getResponse().getCurrency(),"UTF-8"));
 
                                 if (loginResponse.getResponse().getUserType().equals(AppConstants.CUSTOMER)) {
                                     getDataManager().setCurrentUserName(loginResponse.getResponse().getFirstName() + " " + loginResponse.getResponse().getLastName());
@@ -110,7 +116,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
     }
 
     @Override
-    public void onFacebookLoginClick(String fbId, String first_name, String last_name, String email, String deviceId, String deviceType) {
+    public void onFacebookLoginClick(final String fbId, final String first_name, final String last_name, final String email, String deviceId, String deviceType) {
 
         getMvpView().showLoading();
 
@@ -129,6 +135,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                             getDataManager().setCurrentUserLoggedIn(true);
                             getDataManager().setCurrentUserId(facebookLoginResponse.getResponse().getUserId());
                             getDataManager().setCurrentUserType(facebookLoginResponse.getResponse().getUserType());
+//                            getDataManager().setCurrency(facebookLoginResponse.getResponse().getCurrency());
+                            getDataManager().setCurrency(URLDecoder.decode(facebookLoginResponse.getResponse().getCurrency(),"UTF-8"));
 
                             if (facebookLoginResponse.getResponse().getUserType().equals(AppConstants.CUSTOMER)) {
                                 getDataManager().setCurrentUserName(facebookLoginResponse.getResponse().getFirstName() + " " + facebookLoginResponse.getResponse().getLastName());
@@ -146,12 +154,12 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                             }
 
                             decideNextActivity();
-//                                getMvpView().onLoginSuccess(loginResponse.getResponse().getUserType());
-
-//                            getMvpView().onError(facebookLoginResponse.getResponse().getMessage());
 
                         } else {
-                            getMvpView().onError(facebookLoginResponse.getResponse().getMessage());
+
+                            getMvpView().setFacebookDetails(fbId, first_name,last_name, email);
+//
+//                            getMvpView().onError(facebookLoginResponse.getResponse().getMessage());
                         }
 
                         Log.d("Message", ">>" + facebookLoginResponse.getResponse().getMessage());
@@ -216,6 +224,11 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                 getMvpView().openSetupRestaurantProfileActivity();
             }
         }
+    }
+
+    @Override
+    public String getDeviceId() {
+        return getDataManager().getDeviceId();
     }
 
     @Override

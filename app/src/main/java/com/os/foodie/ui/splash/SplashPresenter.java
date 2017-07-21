@@ -1,11 +1,15 @@
 package com.os.foodie.ui.splash;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.util.Log;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.os.foodie.data.DataManager;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.utils.AppConstants;
 
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -85,7 +89,7 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
     }
 
     @Override
-    public void waitAndGo() {
+    public void waitAndGo(Context context) {
 
 
 //
@@ -112,9 +116,17 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
 //                    public void accept(String s) throws Exception {
 //                    }
 //                }));
-//
-//
 
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        getDataManager().setDeviceId(refreshedToken);
+
+        Locale locale = new Locale(getDataManager().getLanguage());
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.locale = locale;
+
+        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
 
         Observable
                 .timer(AppConstants.SPLASH_DURATION, TimeUnit.SECONDS)

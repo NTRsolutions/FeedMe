@@ -47,6 +47,11 @@ public class LocationInfoPresenter<V extends LocationInfoMvpView> extends BasePr
     }
 
     @Override
+    public boolean getCurrentUserInfoInitialized() {
+        return getDataManager().isCurrentUserInfoInitialized();
+    }
+
+    @Override
     public void setError(@StringRes int resId) {
         getMvpView().onError(resId);
     }

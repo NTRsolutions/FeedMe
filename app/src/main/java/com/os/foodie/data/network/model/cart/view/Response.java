@@ -19,6 +19,9 @@ public class Response {
     @SerializedName("restaurant_name")
     @Expose
     private String restaurantName;
+    @SerializedName("currency")
+    @Expose
+    private String currency;
     @SerializedName("working_days")
     @Expose
     private String workingDays;
@@ -68,14 +71,16 @@ public class Response {
      * @param openingTime
      * @param deliveryCharge
      * @param restaurantName
+     * @param currency
      * @param restaurantId
      */
-    public Response(List<CartList> cartList, List<MinOrderDiscount> minOrderDiscounts, String restaurantId, String restaurantName, String workingDays, String openingTime, String closingTime, String deliveryTime, String deliveryType, String deliveryCharge, String minOrderAmount, Integer status, String message) {
+    public Response(List<CartList> cartList, List<MinOrderDiscount> minOrderDiscounts, String restaurantId, String restaurantName, String currency, String workingDays, String openingTime, String closingTime, String deliveryTime, String deliveryType, String deliveryCharge, String minOrderAmount, Integer status, String message) {
         super();
         this.cartList = cartList;
         this.minOrderDiscounts = minOrderDiscounts;
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
+        this.currency = currency;
         this.workingDays = workingDays;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
@@ -117,6 +122,14 @@ public class Response {
 
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public String getWorkingDays() {

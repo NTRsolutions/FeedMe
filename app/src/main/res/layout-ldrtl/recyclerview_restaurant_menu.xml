@@ -14,6 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_marginEnd="@dimen/restaurant_menu_ll_sub_main_margin_end"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -21,6 +22,7 @@
             android:id="@+id/recyclerview_restaurant_menu_tv_dish_name"
             style="@style/TextView5"
             android:layout_width="match_parent"
+            android:gravity="right"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -40,6 +42,7 @@
             android:gravity="right"
             android:ellipsize="end"
             android:maxLines="2"
+            fontPath="@string/font_serif"
             android:textColor="@color/grey"
             android:textSize="@dimen/restaurant_menu_tv_description_text_size"
             android:typeface="serif" />

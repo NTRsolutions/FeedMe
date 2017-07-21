@@ -30,6 +30,9 @@ public class CartList {
     @SerializedName("price")
     @Expose
     private String price;
+    @SerializedName("discount")
+    @Expose
+    private String discount;
 
     /**
      * No args constructor for use in serialization
@@ -43,11 +46,12 @@ public class CartList {
      * @param description
      * @param name
      * @param qty
+     * @param discount
      * @param cartId
      * @param dishId
      * @param discountId
      */
-    public CartList(String cartId, String qty, String dishId, String discountId, String availableMaxDiscount, String name, String description, String price) {
+    public CartList(String cartId, String qty, String dishId, String discountId, String availableMaxDiscount, String name, String discount, String description, String price) {
         super();
         this.cartId = cartId;
         this.qty = qty;
@@ -55,6 +59,7 @@ public class CartList {
         this.discountId = discountId;
         this.availableMaxDiscount = availableMaxDiscount;
         this.name = name;
+        this.discount = discount;
         this.description = description;
         this.price = price;
     }
@@ -123,4 +128,11 @@ public class CartList {
         this.price = price;
     }
 
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
+    }
 }

@@ -58,6 +58,7 @@
                 android:maxLines="2"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/restaurant_order_delivery_type_text_size"
+                fontPath="@string/font_serif"
                 android:typeface="serif" />
 
         </LinearLayout>
@@ -78,6 +79,7 @@
                 android:text="@string/recyclerview_restaurant_order_tv_order_type_tag_text"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/restaurant_order_tv_order_type_tag_text_size"
+                fontPath="@string/font_serif"
                 android:typeface="serif" />
 
             <TextView
@@ -88,6 +90,7 @@
                 android:maxLines="2"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/restaurant_order_tv_order_type_text_size"
+                fontPath="@string/font_serif"
                 android:typeface="serif" />
 
         </LinearLayout>

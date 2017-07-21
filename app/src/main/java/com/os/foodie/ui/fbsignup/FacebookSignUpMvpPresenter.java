@@ -10,5 +10,7 @@ public interface FacebookSignUpMvpPresenter<V extends FacebookSignUpMvpView> ext
 
     void onSubmit(FacebookSignUpModel facebookSignUpModel, String restaurantName, String phone, String deviceId, String deviceType, String Latitude, String Longitude, String language, HashMap<String, File> fileMap);
 
+    String getDeviceId();
+
     void dispose();
 }

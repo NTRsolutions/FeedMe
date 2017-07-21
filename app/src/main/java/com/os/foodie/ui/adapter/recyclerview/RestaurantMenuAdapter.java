@@ -75,9 +75,9 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
         holder.tvDescription.setText(dish.getDescription());
 
         if (dish.getPrice().contains(".00")) {
-            holder.tvPrice.setText("$" + dish.getPrice().replace(".00", ""));
+            holder.tvPrice.setText( restaurantMenuMvpPresenter.getAppDataManager().getCurrency()+" "+ dish.getPrice().replace(".00", ""));
         } else {
-            holder.tvPrice.setText("$" + dish.getPrice());
+            holder.tvPrice.setText(restaurantMenuMvpPresenter.getAppDataManager().getCurrency()+" "+ dish.getPrice());
         }
 
         if (dish.getVegNonveg().equalsIgnoreCase(AppConstants.VEG)) {

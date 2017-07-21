@@ -1,5 +1,6 @@
 package com.os.foodie.ui.main.restaurant;
 
+import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,6 +32,7 @@ import com.os.foodie.ui.discount.list.DiscountListFragment;
 import com.os.foodie.ui.earning.EarningFragment;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuFragment;
 import com.os.foodie.ui.merchantdetail.MerchantDetailFragments;
+import com.os.foodie.ui.notification.NotificationFragments;
 import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryFragment;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
 import com.os.foodie.ui.setting.SettingsFragment;
@@ -57,6 +59,21 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
     public NavigationView navigationView;
 
     private RestaurantMainMvpPresenter<RestaurantMainMvpView> restaurantMainMvpPresenter;
+
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//
+//        Log.d("onConfigurationChanged","Called");
+//
+//        getSupportFragmentManager().popBackStack(RestaurantOrderListFragment.TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//
+////        FragmentManager fm = getSupportFragmentManager();
+////        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+////            fm.popBackStack();
+////        }
+//
+//        super.onConfigurationChanged(newConfig);
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +128,7 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager .beginTransaction();
-            fragmentTransaction .replace(R.id.content_restaurant_main_cl_fragment, RestaurantOrderListFragment.newInstance());
+            fragmentTransaction.replace(R.id.content_restaurant_main_cl_fragment, RestaurantOrderListFragment.newInstance());
 //            fragmentTransaction .addToBackStack(RestaurantOrderListFragment.TAG);
             fragmentTransaction .commit();
 
@@ -215,6 +232,10 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
         } else if (id == R.id.nav_merchant_details) {
 
             replaceFragment(MerchantDetailFragments.newInstance(), MerchantDetailFragments.TAG);
+
+        } else if (id == R.id.nav_notification) {
+
+            replaceFragment(NotificationFragments.newInstance(), NotificationFragments.TAG);
 
         } else if (id == R.id.nav_settings) {
 
@@ -344,6 +365,15 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
 
                     navigationView.setCheckedItem(R.id.nav_merchant_details);
                     getSupportActionBar().setTitle(getString(R.string.action_merchant_details));
+
+                } else if (fragment instanceof NotificationFragments) {
+
+                    isBackPress = false;
+
+                    Log.d("fragment", ">>NotificationFragments");
+
+                    navigationView.setCheckedItem(R.id.nav_notification);
+                    getSupportActionBar().setTitle(getString(R.string.notification));
 
                 } else if (fragment instanceof SettingsFragment) {
 

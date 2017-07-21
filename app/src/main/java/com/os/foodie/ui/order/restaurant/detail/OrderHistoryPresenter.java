@@ -8,6 +8,8 @@ import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
 import com.os.foodie.data.network.model.cart.add.AddToCartResponse;
 import com.os.foodie.data.network.model.changeorderstatus.ChangeOrderStatusResponse;
 import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
+import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderRequest;
+import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderResponse;
 import com.os.foodie.data.network.model.reorder.ReorderRequest;
 import com.os.foodie.data.network.model.reorder.ReorderResponse;
 import com.os.foodie.ui.base.BasePresenter;
@@ -147,6 +149,16 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
     }
 
     @Override
+    public void dispose() {
+        getCompositeDisposable().dispose();
+    }
+
+    @Override
+    public String getCurrency() {
+        return getDataManager().getCurrency();
+    }
+
+    @Override
     public boolean isCustomer() {
 
         if (getDataManager().getCurrentUserType().equals(AppConstants.CUSTOMER)) {
@@ -155,5 +167,45 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
         }
 
         return false;
+    }
+
+
+    @Override
+    public void acceptRejectOrder(String orderId, String status, final int position) {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
+            getMvpView().showLoading();
+
+            getCompositeDisposable().add(getDataManager()
+                    .acceptRejectOrder(new AcceptRejectOrderRequest(orderId, status))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<AcceptRejectOrderResponse>() {
+                        @Override
+                        public void accept(AcceptRejectOrderResponse acceptRejectOrderResponse) throws Exception {
+
+                            getMvpView().hideLoading();
+
+                            if (acceptRejectOrderResponse.getResponse().getStatus() == 1) {
+
+                                getMvpView().onAcceptReject(position);
+                                getMvpView().onError(acceptRejectOrderResponse.getResponse().getMessage());
+
+                            } else {
+                                getMvpView().onError(acceptRejectOrderResponse.getResponse().getMessage());
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            getMvpView().hideLoading();
+                            getMvpView().onError(R.string.api_default_error);
+                            Log.d("Error", ">>Err" + throwable.getMessage());
+                        }
+                    }));
+        } else {
+            getMvpView().onError(R.string.connection_error);
+        }
     }
 }

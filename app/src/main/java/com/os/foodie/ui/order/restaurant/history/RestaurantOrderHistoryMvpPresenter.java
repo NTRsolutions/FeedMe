@@ -9,4 +9,5 @@ public interface RestaurantOrderHistoryMvpPresenter<V extends RestaurantOrderHis
 
     void getOrderHistory();
 
+    String getCurrentUserType();
 }

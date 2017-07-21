@@ -18,6 +18,8 @@ import com.os.foodie.data.network.model.details.Dish;
 import com.os.foodie.ui.details.restaurant.RestaurantDetailsMvpPresenter;
 import com.os.foodie.ui.details.restaurant.RestaurantDetailsPresenter;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -34,7 +36,9 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private final int TITLE = 1;
     private final int CONTENT = 2;
 
-    public CourseAdapter(Activity activity, ArrayList<Object> objectArrayList, String restaurantId, RestaurantDetailsMvpPresenter restaurantDetailsMvpPresenter) {
+    String currency = "";
+
+    public CourseAdapter(Activity activity, ArrayList<Object> objectArrayList, String restaurantId, RestaurantDetailsMvpPresenter restaurantDetailsMvpPresenter, String currency) {
         this.activity = activity;
         this.objectArrayList = objectArrayList;
 
@@ -42,6 +46,7 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         totalAmount = 0;
 
         this.restaurantId = restaurantId;
+        this.currency = currency;
         this.restaurantDetailsPresenter = (RestaurantDetailsPresenter) restaurantDetailsMvpPresenter;
     }
 
@@ -161,7 +166,11 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             price = price.replace(".00", "");
         }
 
-        holder.tvPrice.setText("$" + price);
+        try {
+            holder.tvPrice.setText(URLDecoder.decode(currency, "UTF-8") + "" + price);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
 //        holder.llMain.setOnClickListener(new View.OnClickListener() {
 //            @Override

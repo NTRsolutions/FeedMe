@@ -51,6 +51,7 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/select_payment_bt_search_text_size"
+        fontPath="@string/font_serif"
         android:typeface="serif" />
 
 </RelativeLayout>

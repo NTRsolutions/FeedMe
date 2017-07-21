@@ -76,20 +76,6 @@ public class EarningFragment extends BaseFragment implements EarningMvpView {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(earningAdapter);
 
-//        for (int i = 0; i < 10; i++) {
-//
-//            Earning earning = new Earning();
-//
-//            earning.setOrderId("5465654" + i);
-////            earning.set("1654" + i);
-//            earning.setPaymentDate("12 June 2017");
-//            earning.setAmount("50");
-//
-//            earnings.add(earning);
-//        }
-//
-//        earningAdapter.notifyDataSetChanged();
-
         earningMvpPresenter.getEarnings();
 
         return view;
@@ -141,8 +127,9 @@ public class EarningFragment extends BaseFragment implements EarningMvpView {
             tvAlert.setVisibility(View.GONE);
 
             earnings.addAll(earningResponse.getResponse().getEarnings());
+            earningAdapter.setCurrency(earningMvpPresenter.getCurrency());
 
-        } else{
+        } else {
             recyclerView.setVisibility(View.GONE);
             tvAlert.setVisibility(View.VISIBLE);
         }

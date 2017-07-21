@@ -24,6 +24,8 @@ import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.utils.AppConstants;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -109,7 +111,6 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
     @Override
     public void onDestroyView() {
         restaurantOrderListMvpPresenter.dispose();
-        Log.d("restaurantOrderListMvpPresenter", ">>dispose");
 //        restaurantOrderListMvpPresenter.onDetach();
         super.onDestroyView();
     }
@@ -133,6 +134,11 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
 //            }
 
             orderLists.addAll(getOrderListResponse.getResponse().getOrderList());
+            try {
+                restaurantOrderListAdapter.setCurrency(URLDecoder.decode(getOrderListResponse.getResponse().getCurrency(),"UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         } else {
             recyclerView.setVisibility(View.GONE);
             tvAlert.setVisibility(View.VISIBLE);

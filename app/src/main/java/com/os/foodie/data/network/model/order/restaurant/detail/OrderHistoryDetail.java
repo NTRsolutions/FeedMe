@@ -182,6 +182,9 @@ public class OrderHistoryDetail {
         @SerializedName("message")
         @Expose
         private String message;
+        @SerializedName("currency")
+        @Expose
+        private String currency;
 
 
         @SerializedName("mobile_number")
@@ -345,6 +348,13 @@ public class OrderHistoryDetail {
             this.message = message;
         }
 
+        public String getCurrency() {
+            return currency;
+        }
+
+        public void setCurrency(String currency) {
+            this.currency = currency;
+        }
     }
 
 

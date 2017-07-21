@@ -25,6 +25,7 @@ import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
 import com.os.foodie.ui.home.customer.CustomerHomeFragment;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
+import com.os.foodie.ui.notification.NotificationFragments;
 import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryFragment;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
 import com.os.foodie.ui.payment.show.PaymentMethodActivity;
@@ -173,6 +174,10 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
             Intent intent = new Intent(this, DeliveryAddressActivity.class);
             startActivity(intent);
 
+        } else if (id == R.id.nav_notification) {
+
+            replaceFragment(NotificationFragments.newInstance(), NotificationFragments.TAG);
+
         } else if (id == R.id.nav_settings) {
 
             replaceFragment(SettingsFragment.newInstance(), SettingsFragment.TAG);
@@ -243,6 +248,15 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
                     navigationView.setCheckedItem(R.id.nav_account);
                     getSupportActionBar().setTitle(getString(R.string.action_my_account));
 
+                } else if (fragment instanceof NotificationFragments) {
+
+                    isBackPress = false;
+
+                    Log.d("fragment", ">>NotificationFragments");
+
+                    navigationView.setCheckedItem(R.id.nav_notification);
+                    getSupportActionBar().setTitle(getString(R.string.notification));
+
                 } else if (fragment instanceof SettingsFragment) {
 
                     isBackPress = false;
@@ -269,10 +283,10 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.popBackStack(TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        FragmentTransaction fragmentTransaction = fragmentManager .beginTransaction();
-        fragmentTransaction .replace(R.id.content_customer_main_cl_fragment, fragment);
-        fragmentTransaction .addToBackStack(TAG);
-        fragmentTransaction .commit();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_customer_main_cl_fragment, fragment);
+        fragmentTransaction.addToBackStack(TAG);
+        fragmentTransaction.commit();
     }
 
     @Override

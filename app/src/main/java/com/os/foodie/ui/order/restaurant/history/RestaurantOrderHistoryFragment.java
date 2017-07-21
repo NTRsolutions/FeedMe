@@ -28,6 +28,8 @@ import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpView;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListPresenter;
 import com.os.foodie.utils.AppConstants;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -71,7 +73,7 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
 
         orderLists = new ArrayList<OrderList>();
 
-        restaurantOrderListAdapter = new RestaurantOrderHistoryAdapter(getContext(), orderLists);
+        restaurantOrderListAdapter = new RestaurantOrderHistoryAdapter(getContext(), orderLists, restaurantOrderhistoryMvpPresenter);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
 
@@ -143,6 +145,15 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
 //            }
 
             orderLists.addAll(getOrderListResponse.getResponse().getOrderList());
+
+            if (getOrderListResponse.getResponse().getCurrency() != null && !getOrderListResponse.getResponse().getCurrency().isEmpty()) {
+                try {
+                    restaurantOrderListAdapter.setCurrency(URLDecoder.decode(getOrderListResponse.getResponse().getCurrency(), "UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+
         } else {
             recyclerView.setVisibility(View.GONE);
             tvAlert.setVisibility(View.VISIBLE);

@@ -1,5 +1,7 @@
 package com.os.foodie.ui.menu.show.fragment;
 
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.DataManager;
 import com.os.foodie.data.network.model.menu.show.restaurant.Dish;
 import com.os.foodie.ui.base.MvpPresenter;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuMvpView;
@@ -13,4 +15,5 @@ public interface RestaurantMenuMvpPresenter<V extends RestaurantMenuMvpView> ext
     void deleteRestaurantMenuList(Dish dish);
 
     void dispose();
+    DataManager getAppDataManager();
 }

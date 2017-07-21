@@ -12,5 +12,7 @@ public interface LoginMvpPresenter<V extends LoginMvpView> extends MvpPresenter<
 
     void setError(String message);
 
+    String getDeviceId();
+
     void dispose();
 }

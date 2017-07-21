@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
@@ -49,7 +50,7 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
 
         initPresenter();
         splashMvpPresenter.onAttach(SplashActivity.this);
-        splashMvpPresenter.waitAndGo();
+        splashMvpPresenter.waitAndGo(this);
 
 //        Observable
 //                .timer(AppConstants.SPLASH_DURATION, TimeUnit.SECONDS)

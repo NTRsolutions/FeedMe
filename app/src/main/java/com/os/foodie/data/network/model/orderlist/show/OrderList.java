@@ -18,6 +18,9 @@ public class OrderList {
     @SerializedName("payment_status")
     @Expose
     private String paymentStatus;
+    @SerializedName("currency")
+    @Expose
+    private String currency;
     @SerializedName("order_type")
     @Expose
     private String orderType;
@@ -51,11 +54,13 @@ public class OrderList {
      * @param orderStatus
      * @param orderDelieveryDate
      * @param orderId
+     * @param currency
      * @param discount
      */
-    public OrderList(String orderId, String totalAmount, String orderStatus, String paymentStatus, String orderType, Float discount, String orderDelieveryDate, String orderDelieveryTime, String dishName) {
+    public OrderList(String orderId, String totalAmount, String orderStatus, String currency, String paymentStatus, String orderType, Float discount, String orderDelieveryDate, String orderDelieveryTime, String dishName) {
         super();
         this.orderId = orderId;
+        this.currency = currency;
         this.totalAmount = totalAmount;
         this.orderStatus = orderStatus;
         this.paymentStatus = paymentStatus;
@@ -138,4 +143,12 @@ public class OrderList {
         this.dishName = dishName;
     }
 
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 }

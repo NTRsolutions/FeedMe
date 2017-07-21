@@ -105,6 +105,11 @@ public class DiscountListPresenter<V extends DiscountListMvpView> extends BasePr
     }
 
     @Override
+    public String getCurrency() {
+        return getDataManager().getCurrency();
+    }
+
+    @Override
     public void dispose() {
         getCompositeDisposable().dispose();
     }

@@ -64,10 +64,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -85,7 +90,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
     public static final String TAG = "SetupRestaurantProfileFragment";
 
-    private ImageView ivPhotos;
+    private ImageView ivStep, ivPhotos;
     private GridLayout glPhotos;
 
     private EditText etCuisineType, etWorkingDays, etAddress, etZipCode, etCountry, etCity;
@@ -131,6 +136,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
     boolean isEditProfile = false;
     private static final int GPS_REQUEST_CODE = 10;
+    String currencySymbol = "";
 
     public static SetupRestaurantProfileFragment newInstance(RestaurantProfileResponse restaurantProfileResponse) {
 
@@ -168,6 +174,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         workingDays = new ArrayList<WorkingDay>();
 
         initializeWorkingDays();
+
+        ivStep = (ImageView) view.findViewById(R.id.fragment_setup_restaurant_profile_iv_step);
 
         ivPhotos = (ImageView) view.findViewById(R.id.fragment_setup_restaurant_profile_iv_photo);
         glPhotos = (GridLayout) view.findViewById(R.id.fragment_setup_restaurant_profile_gl_photos);
@@ -682,7 +690,11 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         restaurantProfileRequest.setDeliveryCharge(etDeliveryCharges.getText().toString());
         restaurantProfileRequest.setDeliveryZipcode(etDeliveryZipCodes.getText().toString());
         restaurantProfileRequest.setDescription(etDescription.getText().toString());
-
+        try {
+            restaurantProfileRequest.setCurrency(URLEncoder.encode(currencySymbol, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 //        restaurantProfileRequest.setDeliveryType((spinnerDeliveryType.getSelectedItem()) + "");
 //        restaurantProfileRequest.setDeliveryType((spinnerDeliveryType.getSelectedItemPosition() + 1) + "");
 //        restaurantProfileRequest.setPaymentMethod((spinnerPaymentMethods.getSelectedItemPosition() + 1) + "");
@@ -933,6 +945,16 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         etAddress.setText(fullAddress);
 
+        if (address.getCountryCode() != null && !address.getCountryCode().isEmpty()) {
+            currencySymbol = Currency.getInstance(new Locale("", address.getCountryCode())).getSymbol();
+//            try {
+//                currencySymbol = URLEncoder.encode(currencySymbol,"UTF-8");
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
+        }
+
+
         if (address.getCountryName() != null && !address.getCountryName().isEmpty()) {
 
 //            etCountry.setClickable(true);
@@ -1012,6 +1034,16 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
                 isEditProfile = true;
 
+                currencySymbol = restaurantProfileResponse.getResponse().getRestaurantDetail().getCurrency();
+//                currencySymbol = "₹";
+
+                try {
+//                    currencySymbol = URLEncoder.encode(currencySymbol,"UTF-8");
+                    currencySymbol = URLDecoder.decode(currencySymbol, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
                 RestaurantProfileResponse.RestaurantDetail restaurantDetail = restaurantProfileResponse.getResponse().getRestaurantDetail();
 
                 restaurantImage.addAll(restaurantDetail.getImages());
@@ -1072,6 +1104,9 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                 }
 
             } else {
+
+                btCancel.setVisibility(View.INVISIBLE);
+                ivStep.setVisibility(View.VISIBLE);
 
                 checkAndRequestGpsLocation();
             }

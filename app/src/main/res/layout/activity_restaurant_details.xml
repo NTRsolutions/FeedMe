@@ -114,6 +114,7 @@
                                     android:layout_marginEnd="@dimen/restaurant_details_tv_rating_text_margin_end"
                                     android:text="@string/restaurant_details_tv_rating_text_rating"
                                     android:textColor="@color/black"
+                                    fontPath="@string/font_serif"
                                     android:typeface="serif" />
 
                                 <RatingBar
@@ -135,6 +136,7 @@
                                     android:layout_marginStart="@dimen/restaurant_details_tv_reviews_margin_start"
                                     android:text="Reviews(0)"
                                     android:textColor="@color/black"
+                                    fontPath="@string/font_serif"
                                     android:typeface="serif" />
 
                             </LinearLayout>
@@ -225,6 +227,7 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/restautant_details_fall_delivery_time_text_size"
+                fontPath="@string/font_serif"
                 android:typeface="serif" />
 
             <TextView
@@ -234,6 +237,7 @@
                 android:gravity="center"
                 android:text="@string/restautant_details_fall_delivery_time_min_text"
                 android:textColor="@color/white"
+                fontPath="@string/font_serif"
                 android:textSize="@dimen/restautant_details_fall_delivery_time_min_text_size"
                 android:typeface="serif" />
 
@@ -264,6 +268,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/white"
+                fontPath="@string/font_serif"
                 android:textSize="@dimen/restautant_details_faiv_likes_text_size"
                 android:typeface="serif" />
 

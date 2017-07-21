@@ -37,6 +37,8 @@ import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.DialogUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -51,7 +53,11 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
     private TextView tvChangeStatus, tvSubtotal;
 
     private LinearLayout llDeliverAddress, llCheckout, llDeliveryCharges;
-    private LinearLayout llCustomerMoreOption, llSubtotal;
+    private LinearLayout llCustomerMoreOption, llDiscountAmount, llSubtotal;
+
+    private LinearLayout restaurantAcceptRejectOptionLl;
+    private RippleAppCompatButton acceptOrderBt;
+    private RippleAppCompatButton rejectOrderBt;
 
     private RippleAppCompatButton btReview, btRepeatOrder;
 
@@ -60,6 +66,7 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
     private Context mContext;
 
     private String orderId = "";
+    private String currency = "";
     private boolean showUpdateButton = false;
 
     private AppDataManager appDataManager;
@@ -125,6 +132,7 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         llDeliverAddress = (LinearLayout) findViewById(R.id.deliver_address_tv);
         llCheckout = (LinearLayout) findViewById(R.id.activity_my_basket_ll_checkout);
+        llDiscountAmount = (LinearLayout) findViewById(R.id.activity_my_basket_ll_discount_amount);
         llDeliveryCharges = (LinearLayout) findViewById(R.id.activity_my_basket_ll_delivery_charges);
         llSubtotal = (LinearLayout) findViewById(R.id.activity_my_basket_ll_subtotal);
         llCustomerMoreOption = (LinearLayout) findViewById(R.id.customer_more_option_ll);
@@ -132,11 +140,17 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
         btReview = (RippleAppCompatButton) findViewById(R.id.review_bt);
         btRepeatOrder = (RippleAppCompatButton) findViewById(R.id.repeat_order_bt);
 
+        restaurantAcceptRejectOptionLl = (LinearLayout) findViewById(R.id.restaurant_accept_reject_option_ll);
+        acceptOrderBt = (RippleAppCompatButton) findViewById(R.id.accept_order_bt);
+        rejectOrderBt = (RippleAppCompatButton) findViewById(R.id.reject_order_bt);
+
         recyclerView = (RecyclerView) findViewById(R.id.activity_my_basket_recyclerview);
 
         tvChangeStatus.setOnClickListener(this);
         btRepeatOrder.setOnClickListener(this);
         btReview.setOnClickListener(this);
+        acceptOrderBt.setOnClickListener(this);
+        rejectOrderBt.setOnClickListener(this);
     }
 
     public void initPresenter() {
@@ -162,6 +176,12 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
         }
 
         return true;
+    }
+
+    @Override
+    public void onAcceptReject(int position) {
+
+        restaurantAcceptRejectOptionLl.setVisibility(View.GONE);
     }
 
     @Override
@@ -214,17 +234,90 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         myBasketAdapter.notifyDataSetChanged();
 
-        tvDeliveryCharges.setText("$" + orderHistoryDetail.getResponse().getDeliveryCharge().replace(".00", ".0"));
+        if (orderHistoryMvpPresenter.getCurrency() != null && !orderHistoryMvpPresenter.getCurrency().isEmpty()) {
 
-        final String deliveryTypes[] = getResources().getStringArray(R.array.delivery_type);
+            try {
+                currency = URLDecoder.decode(orderHistoryMvpPresenter.getCurrency(), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
 
-        if (orderHistoryDetail.getResponse().getOrderDetail().getDeliveryType().equalsIgnoreCase(deliveryTypes[0])) {
+        } else {
+
+            try {
+                currency = URLDecoder.decode(orderHistoryDetail.getResponse().getCurrency(), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        myBasketAdapter.setCurrency(currency);
+
+        float subTotalAmount = 0;
+        float discountAmount = 0;
+
+        for (int i = 0; i < orderHistoryDetail.getResponse().getItemList().size(); i++) {
+
+            float price = Float.parseFloat(orderHistoryDetail.getResponse().getItemList().get(i).getPrice());
+            int quantity = Integer.parseInt(orderHistoryDetail.getResponse().getItemList().get(i).getQty());
+
+            subTotalAmount += price * quantity;
+
+            if (orderHistoryDetail.getResponse().getItemList().get(i).getDiscount() != null && !orderHistoryDetail.getResponse().getItemList().get(i).getDiscount().isEmpty()) {
+
+                discountAmount += Float.parseFloat(orderHistoryDetail.getResponse().getItemList().get(i).getDiscount());
+            }
+        }
+
+//        Float.parseFloat(orderHistoryDetail.getResponse().getOrderDetail().getDiscount());
+
+        discountAmount += orderHistoryDetail.getResponse().getOrderDetail().getDiscount();
+
+        tvDiscountAmount.setText("-" + currency + discountAmount);
+
+        if (discountAmount > 0) {
+
+            llDiscountAmount.setVisibility(View.VISIBLE);
+
+        } else {
+
+            llDiscountAmount.setVisibility(View.GONE);
+        }
+
+        tvDeliveryCharges.setText("+" + currency + orderHistoryDetail.getResponse().getDeliveryCharge().replace(".00", ".0"));
+
+        if (orderHistoryDetail.getResponse().getDeliveryCharge() != null && !orderHistoryDetail.getResponse().getDeliveryCharge().isEmpty()) {
+
+            llDeliveryCharges.setVisibility(View.VISIBLE);
+
+        } else {
 
             llDeliveryCharges.setVisibility(View.GONE);
-
-        } else if (orderHistoryDetail.getResponse().getOrderDetail().getDeliveryType().equalsIgnoreCase(deliveryTypes[1])) {
-            llDeliveryCharges.setVisibility(View.VISIBLE);
         }
+
+        tvSubtotal.setText(currency + subTotalAmount);
+
+        if (llDiscountAmount.getVisibility() == View.VISIBLE || llDeliverAddress.getVisibility() == View.VISIBLE) {
+
+            llSubtotal.setVisibility(View.VISIBLE);
+
+        } else {
+
+            llSubtotal.setVisibility(View.GONE);
+        }
+
+        tvTotalAmount.setText(currency + orderHistoryDetail.getResponse().getOrderDetail().getTotalAmount());
+
+//        final String deliveryTypes[] = getResources().getStringArray(R.array.delivery_type);
+//
+//
+//        if (orderHistoryDetail.getResponse().getOrderDetail().getDeliveryType().equalsIgnoreCase(deliveryTypes[0])) {
+//
+//            llDeliveryCharges.setVisibility(View.GONE);
+//
+//        } else if (orderHistoryDetail.getResponse().getOrderDetail().getDeliveryType().equalsIgnoreCase(deliveryTypes[1])) {
+//            llDeliveryCharges.setVisibility(View.VISIBLE);
+//        }
 
         if (orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("decline") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("Picked") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("delivered")) {
 
@@ -256,6 +349,12 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
             btRepeatOrder.setVisibility(View.GONE);
         }
 
+        if (!orderHistoryMvpPresenter.isCustomer() && orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("order received")) {
+            restaurantAcceptRejectOptionLl.setVisibility(View.VISIBLE);
+        } else {
+            restaurantAcceptRejectOptionLl.setVisibility(View.GONE);
+        }
+
 //        else {
 //
 //            if (orderHistoryDetail.getResponse().getOrderDetail().getIsReviewed().equalsIgnoreCase("yes")) {
@@ -265,7 +364,7 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 //            }
 //        }
 
-        updateTotalAmount();
+//        updateTotalAmount();
     }
 
     @Override
@@ -304,7 +403,7 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         if (llDeliveryCharges.getVisibility() == View.VISIBLE) {
 
-            tvSubtotal.setText("$" + totalAmount);
+            tvSubtotal.setText(currency + totalAmount);
 
             totalAmount += Float.parseFloat(orderHistoryDetail.getResponse().getDeliveryCharge());
             llSubtotal.setVisibility(View.VISIBLE);
@@ -313,7 +412,7 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
             llSubtotal.setVisibility(View.GONE);
         }
 
-        tvTotalAmount.setText("$" + totalAmount);
+        tvTotalAmount.setText(currency + totalAmount);
     }
 
     @Override
@@ -378,6 +477,53 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
                 restaurantReviewDialogFragment.show(getSupportFragmentManager(), "RestaurantReviewDialogFragment");
 
                 break;
+
+            case R.id.accept_order_bt:
+
+                DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        orderHistoryMvpPresenter.acceptRejectOrder(orderHistoryDetail.getResponse().getOrderDetail().getOrderId(), AppConstants.ORDER_UNDER_PREPARATION, 0);
+                    }
+                };
+
+                DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                };
+
+                DialogUtils.showAlert(OrderHistoryDetailActivity.this,
+                        R.string.alert_dialog_title_accept_order, R.string.alert_dialog_text_accept_order,
+                        getResources().getString(R.string.alert_dialog_bt_yes), positiveButton,
+                        getResources().getString(R.string.alert_dialog_bt_no), negativeButton);
+                break;
+
+            case R.id.reject_order_bt:
+
+                DialogInterface.OnClickListener positiveButton1 = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        orderHistoryMvpPresenter.acceptRejectOrder(orderHistoryDetail.getResponse().getOrderDetail().getOrderId(), AppConstants.ORDER_DECLINE, 0);
+                    }
+                };
+
+                DialogInterface.OnClickListener negativeButton1 = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                };
+
+                DialogUtils.showAlert(OrderHistoryDetailActivity.this,
+                        R.string.alert_dialog_title_reject_order, R.string.alert_dialog_text_reject_order,
+                        getString(R.string.alert_dialog_bt_yes), positiveButton1,
+                        getString(R.string.alert_dialog_bt_no), negativeButton1);
+
+                break;
         }
     }
 
@@ -389,5 +535,11 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
     public void feedbackComplete() {
         btReview.setVisibility(View.GONE);
         orderHistoryDetail.getResponse().getOrderDetail().setIsReviewed("yes");
+    }
+
+    @Override
+    public void onDestroy() {
+        orderHistoryMvpPresenter.dispose();
+        super.onDestroy();
     }
 }

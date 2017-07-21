@@ -117,6 +117,7 @@
                                     android:layout_marginEnd="@dimen/restaurant_details_tv_rating_text_margin_end"
                                     android:text="@string/restaurant_details_tv_rating_text_rating"
                                     android:textColor="@color/black"
+                                    fontPath="@string/font_serif"
                                     android:typeface="serif" />
 
                                 <RatingBar
@@ -136,6 +137,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginStart="@dimen/restaurant_details_tv_reviews_margin_start"
+                                    fontPath="@string/font_serif"
                                     android:textColor="@color/black"
                                     android:typeface="serif" />
 
@@ -227,6 +229,7 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/restautant_details_fall_delivery_time_text_size"
+                fontPath="@string/font_serif"
                 android:typeface="serif" />
 
             <TextView
@@ -237,6 +240,7 @@
                 android:text="@string/restautant_details_fall_delivery_time_min_text"
                 android:textColor="@color/white"
                 android:textSize="@dimen/restautant_details_fall_delivery_time_min_text_size"
+                fontPath="@string/font_serif"
                 android:typeface="serif" />
 
         </com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayout>
@@ -265,6 +269,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                fontPath="@string/font_serif"
                 android:textColor="@color/white"
                 android:textSize="@dimen/restautant_details_faiv_likes_text_size"
                 android:typeface="serif" />

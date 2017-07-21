@@ -22,6 +22,7 @@ import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.TimeFormatUtils;
 
 import java.io.File;
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -131,7 +132,7 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
     }
 
     @Override
-    public void saveRestaurantProfile(SetupRestaurantProfileRequest restaurantProfileRequest, HashMap<String, File> fileMap, boolean isEditProfile) {
+    public void saveRestaurantProfile(final SetupRestaurantProfileRequest restaurantProfileRequest, HashMap<String, File> fileMap, boolean isEditProfile) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -219,6 +220,7 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                             } else {
                                 Log.d("Message", "onSuccess>>" + restaurantProfileResponse.getResponse().getMessage());
                                 getDataManager().setCurrentUserInfoInitialized(true);
+                                getDataManager().setCurrency(URLDecoder.decode(restaurantProfileRequest.getCurrency(),"UTF-8"));
                                 getMvpView().onRestaurantProfileSaved();
                             }
 

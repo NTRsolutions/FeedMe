@@ -7,7 +7,7 @@
     <!--Third Party API Integration-->
     <string name="facebook_app_id">796924880472669</string>
     <string name="facebook_provider_app_id">com.facebook.app.FacebookContentProvider796924880472669</string>
-    <string name="google_api_key">AIzaSyCjLgWHur6zYob1QkVTeeqUNHuqbcm7puU</string>
+    <string name="google_api_key_1">AIzaSyCjLgWHur6zYob1QkVTeeqUNHuqbcm7puU</string>
 
     <!--Fonts-->
     <string name="font_default">fonts/dosis_book.ttf</string>
@@ -33,7 +33,7 @@
     <string name="alert_dialog_title_deactivate_dish">Deactive Item</string>
     <string name="alert_dialog_text_deactivate_dish">Do you want to deactivate this item ?</string>
     <string name="alert_dialog_title_clear_basket">Clear Basket</string>
-    <string name="alert_dialog_text_clear_basket">You already added dish of another restaurent in your basket.\nAre you sure, you want to clear basket?</string>
+    <string name="alert_dialog_text_clear_basket">You already added dish of another restaurant in your basket.\nAre you sure, you want to clear basket?</string>
     <string name="alert_dialog_text_clear_basket_2">Are you sure, you want to clear basket?</string>
     <string name="alert_dialog_title_delete_address">Delete Address</string>
     <string name="alert_dialog_text_delete_address">Are you sure, address will be deleted permanently ?</string>
@@ -352,6 +352,7 @@
     <!--Settings-->
     <string name="title_fragment_settings">Settings</string>
     <string name="settings_tv_notification_tag_text">Notification</string>
+    <string name="settings_ll_language_tag_text">Language</string>
     <string name="settings_ll_change_password_tag_text">Change Password</string>
     <string name="settings_tv_contact_us_tag_text">Contact Us</string>
     <string name="settings_tv_terms_of_use_tag_text">Terms of Use</string>
@@ -360,6 +361,10 @@
     <string name="settings_tv_rate_us_tag_text">Rate Us</string>
     <string name="settings_client_email">support@foodi.com</string>
     <string name="settings_rate_us_play_store_url">https://play.google.com/store/apps/details?id=com.facebook.katana</string>
+    <string name="setting_toast_message_language_changed">Language changed to </string>
+    <string name="setting_dialog_title_change_language">Change Language</string>
+    <string name="setting_dialog_change_language_en">English</string>
+    <string name="setting_dialog_change_language_ar">Arabic</string>
 
     <!--Change Password-->
     <string name="change_password_activity_title">Change Password</string>
@@ -521,7 +526,7 @@
     <string name="add_discount_tv_start_date_hint">Start</string>
     <string name="add_discount_tv_end_date_hint">End</string>
     <string name="add_discount_tv_to_text">To</string>
-    <string name="add_discount_et_min_amount_hint">$0</string>
+    <string name="add_discount_et_min_amount_hint">0</string>
     <string name="add_discount_et_min_percent_hint">0.0%</string>
     <string name="add_discount_et_food_percent_hint">0.0%</string>
     <string name="add_discount_tv_select_dish_text">Select Dishes</string>
@@ -580,6 +585,15 @@
     <string name="landmark">Landmark</string>
 
     <string name="install_twitter">Please install Twitter application</string>
+
+    <string name="notification">Notifications</string>
+    <string name="no_notification">No Notification</string>
+
+    <string name="select_registration_type_title">Select registration type</string>
+    <string name="select_registration_type_msg">How would you like to sign up? </string>
+
+    <string name="customer">As a Customer</string>
+    <string name="restaurant">As a Restaurant</string>
 
     <string-array name="pick_order_status">
         <item>Under Preparation</item>

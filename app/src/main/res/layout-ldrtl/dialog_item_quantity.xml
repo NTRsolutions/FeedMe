@@ -75,11 +75,11 @@
             android:textSize="@dimen/dialog_item_quantity_tv_price_text_size" />
 
         <TextView
+            android:id="@+id/dialog_item_quantity_tv_price_currency"
             style="@style/TextView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="$"
             android:textSize="@dimen/dialog_item_quantity_tv_price_tag_text_size" />
 
     </LinearLayout>
@@ -93,6 +93,7 @@
         android:gravity="center"
         android:padding="@dimen/dialog_item_quantity_bt_update_padding"
         android:text="@string/dialog_item_quantity_bt_update_text"
+        fontPath="@string/font_serif"
         android:textAllCaps="false"
         android:textColor="@color/orange"
         android:textSize="@dimen/dialog_item_quantity_bt_update_text_size"

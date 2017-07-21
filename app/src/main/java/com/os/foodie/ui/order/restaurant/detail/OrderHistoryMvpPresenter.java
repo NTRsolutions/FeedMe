@@ -14,5 +14,11 @@ public interface OrderHistoryMvpPresenter<V extends OrderHistoryMvpView> extends
 
     boolean isCustomer();
 
+    String getCurrency();
+
     String getCustomerRestaurantId();
+
+    void acceptRejectOrder(String orderId, String status, int position);
+
+    void dispose();
 }

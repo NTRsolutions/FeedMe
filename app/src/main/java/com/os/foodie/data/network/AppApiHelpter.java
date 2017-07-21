@@ -79,6 +79,7 @@ import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailReq
 import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailResponse;
 import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailRequest;
 import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailResponse;
+import com.os.foodie.data.network.model.notification.NotificationListResponse;
 import com.os.foodie.data.network.model.notification.SetNotificationResponse;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryRequest;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryResponse;
@@ -1270,4 +1271,46 @@ public class AppApiHelpter implements ApiHelper {
                 .build()
                 .getObjectObservable(RestaurantReviewResponse.class);
     }
+
+
+    @Override
+    public Observable<NotificationListResponse> getNotification(String user_id,String restaurant_id) {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("user_id",user_id);
+            jsonObject.put("restaurant_id",restaurant_id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.GET_NOTIFICATION_LIST)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(NotificationListResponse.class);
+    }
+
+    @Override
+    public Observable<NotificationListResponse> readNotification(String notification_id) {
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("notification_id",notification_id);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.READ_NOTIFICATION)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(NotificationListResponse.class);
+    }
+
 }

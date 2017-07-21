@@ -55,6 +55,8 @@ import com.os.foodie.ui.payment.select.SelectPaymentActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.DialogUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -159,6 +161,9 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 TextView tvItemName = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_name);
                 TextView tvItemQuantity = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_quantity);
                 TextView tvPrice = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price);
+                TextView tvCurrency = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price_currency);
+
+                tvCurrency.setText(myBasketAdapter.getCurrency());
 
                 ImageView ivMinus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_minus);
                 ImageView ivPlus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_plus);
@@ -336,11 +341,16 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         cartLists.addAll(viewCartResponse.getResponse().getCartList());
 
         myBasketAdapter.notifyDataSetChanged();
+        try {
+            myBasketAdapter.setCurrency(URLDecoder.decode(viewCartResponse.getResponse().getCurrency(), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
 //        if (viewCartResponse.getResponse().getDeliveryCharge().contains(".00")) {
 //            tvDeliveryCharges.setText("$" + viewCartResponse.getResponse().getDeliveryCharge().replace(".00", ""));
 //        } else {
-        tvDeliveryCharges.setText("+$" + viewCartResponse.getResponse().getDeliveryCharge().replace(".00", ".0"));
+        tvDeliveryCharges.setText("+" + myBasketAdapter.getCurrency() + viewCartResponse.getResponse().getDeliveryCharge().replace(".00", ".0"));
 //        }
 //        tvDiscountAmount.setText(viewCartResponse.getResponse().());
 
@@ -519,13 +529,13 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
         if (discountAmount > 0) {
 
-            tvSubtotalAmount.setText("$" + totalAmount);
+            tvSubtotalAmount.setText(myBasketAdapter.getCurrency() + totalAmount);
 
             isSubtotal = true;
             llSubtotal.setVisibility(View.VISIBLE);
             llDiscountAmount.setVisibility(View.VISIBLE);
 
-            tvDiscountAmount.setText("-$" + calcDishDiscount());
+            tvDiscountAmount.setText("-" + myBasketAdapter.getCurrency() + calcDishDiscount());
 
             totalAmount -= discountAmount;
 
@@ -536,7 +546,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         if (llDeliveryCharges.getVisibility() == View.VISIBLE) {
 
             if (!isSubtotal) {
-                tvSubtotalAmount.setText("$" + totalAmount);
+                tvSubtotalAmount.setText(myBasketAdapter.getCurrency() + totalAmount);
             }
 
             totalAmount += Float.parseFloat(viewCartResponse.getResponse().getDeliveryCharge());
@@ -549,7 +559,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
             }
         }
 
-        tvTotalAmount.setText("$" + totalAmount);
+        tvTotalAmount.setText(myBasketAdapter.getCurrency() + totalAmount);
     }
 
     public void askForClearBasket() {

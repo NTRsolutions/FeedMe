@@ -77,6 +77,7 @@ import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailReq
 import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailResponse;
 import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailRequest;
 import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailResponse;
+import com.os.foodie.data.network.model.notification.NotificationListResponse;
 import com.os.foodie.data.network.model.notification.SetNotificationResponse;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryRequest;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryResponse;
@@ -218,6 +219,36 @@ public class AppDataManager implements DataManager {
     @Override
     public void setNotificationStatus(String status) {
         preferencesHelper.setNotificationStatus(status);
+    }
+
+    @Override
+    public String getCurrency() {
+        return preferencesHelper.getCurrency();
+    }
+
+    @Override
+    public void setCurrency(String currency) {
+        preferencesHelper.setCurrency(currency);
+    }
+
+    @Override
+    public String getDeviceId() {
+        return preferencesHelper.getDeviceId();
+    }
+
+    @Override
+    public void setDeviceId(String status) {
+        preferencesHelper.setDeviceId(status);
+    }
+
+    @Override
+    public String getLanguage() {
+        return preferencesHelper.getLanguage();
+    }
+
+    @Override
+    public void setLanguage(String language) {
+        preferencesHelper.setLanguage(language);
     }
 
     @Override
@@ -521,6 +552,16 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<RestaurantReviewResponse> sendRestaurantReview(RestaurantReviewRequest restaurantReviewRequest) {
         return apiHelper.sendRestaurantReview(restaurantReviewRequest);
+    }
+
+    @Override
+    public Observable<NotificationListResponse> getNotification(String user_id, String restaurant_id) {
+        return apiHelper.getNotification(user_id, restaurant_id);
+    }
+
+    @Override
+    public Observable<NotificationListResponse> readNotification(String notification_id) {
+        return apiHelper.readNotification(notification_id);
     }
 
 

@@ -252,6 +252,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -274,10 +275,12 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/activity_my_basket_ll_discount_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -307,7 +310,7 @@
                     android:layout_marginTop="@dimen/my_basket_ll_delivery_charges_margin_top"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/TextView2"
@@ -414,6 +417,39 @@
                 android:gravity="center"
                 android:text="@string/repeat_order"
                 android:visibility="gone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/restaurant_accept_reject_option_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="10dp"
+            android:visibility="gone">
+
+            <com.os.foodie.ui.custom.RippleAppCompatButton
+                android:id="@+id/accept_order_bt"
+                style="@style/ButtonOrange"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/restaurant_menu_add_update_bt_height"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="@string/alert_dialog_title_accept_order" />
+
+            <com.os.foodie.ui.custom.RippleAppCompatButton
+                android:id="@+id/reject_order_bt"
+                style="@style/ButtonOrange"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/restaurant_menu_add_update_bt_height"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/alert_dialog_title_reject_order" />
 
         </LinearLayout>
 

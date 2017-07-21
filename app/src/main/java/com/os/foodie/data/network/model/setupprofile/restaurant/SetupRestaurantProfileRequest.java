@@ -65,6 +65,10 @@ public class SetupRestaurantProfileRequest {
     @Expose
     private String deleteImageId;
 
+    @SerializedName("currency")
+    @Expose
+    private String currency;
+
     /**
      * No args constructor for use in serialization
      */
@@ -263,5 +267,13 @@ public class SetupRestaurantProfileRequest {
 
     public void setDeleteImageId(String deleteImageId) {
         this.deleteImageId = deleteImageId;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

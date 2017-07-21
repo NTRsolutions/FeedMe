@@ -9,8 +9,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/fragment_setup_restaurant_profile_iv_step"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/all_step_padding"
+            android:visibility="gone"
+            android:background="@drawable/rectangle_bottom_line_light_grey"
+            android:src="@mipmap/ic_step_three"/>
 
         <LinearLayout
             android:id="@+id/fragment_setup_restaurant_profile_ll_main"
@@ -76,24 +87,36 @@
                 android:paddingEnd="@dimen/setup_restaurant_profile_et_padding_start_end"
                 android:paddingStart="@dimen/setup_restaurant_profile_et_padding_start_end" />
 
-            <EditText
-                android:id="@+id/fragment_setup_restaurant_profile_et_address"
-                style="@style/EditTextGreySingleLine"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/setup_restaurant_profile_et_height"
                 android:layout_marginEnd="@dimen/setup_restaurant_profile_et_margin_start_end"
                 android:layout_marginStart="@dimen/setup_restaurant_profile_et_margin_start_end"
-                android:layout_marginTop="@dimen/setup_restaurant_profile_et_margin_top"
-                android:clickable="true"
-                android:gravity="start|center_vertical"
-                android:layoutDirection="rtl"
-                android:focusable="false"
-                android:hint="@string/setup_restaurant_profile_et_address_hint"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:longClickable="false"
-                android:paddingEnd="@dimen/setup_restaurant_profile_et_padding_start_end"
-                android:paddingStart="@dimen/setup_restaurant_profile_et_padding_start_end" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/fragment_setup_restaurant_profile_et_address"
+                    style="@style/EditTextGreySingleLine"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/setup_restaurant_profile_et_height"
+                    android:layout_marginTop="@dimen/setup_restaurant_profile_et_margin_top"
+                    android:background="@drawable/rectangle_round_corner_right_light_grey"
+                    android:hint="@string/setup_restaurant_profile_et_address_hint"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:paddingEnd="@dimen/setup_restaurant_profile_et_padding_start_end"
+                    android:paddingStart="@dimen/setup_restaurant_profile_et_padding_start_end" />
+
+                <ImageView
+                    android:id="@+id/fragment_setup_restaurant_profile_iv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/location_info_et_height"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rectangle_round_corner_left_orange"
+                    android:padding="5dp"
+                    android:src="@mipmap/ic_gps" />
+
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/fragment_setup_restaurant_profile_et_country"
@@ -103,8 +126,6 @@
                 android:layout_marginEnd="@dimen/setup_restaurant_profile_et_margin_start_end"
                 android:layout_marginStart="@dimen/setup_restaurant_profile_et_margin_start_end"
                 android:layout_marginTop="@dimen/setup_restaurant_profile_et_margin_top"
-                android:clickable="true"
-                android:enabled="false"
                 android:gravity="start|center_vertical"
                 android:layoutDirection="rtl"
                 android:hint="@string/setup_restaurant_profile_et_country_hint"
@@ -121,10 +142,8 @@
                 android:layout_marginEnd="@dimen/setup_restaurant_profile_et_margin_start_end"
                 android:layout_marginStart="@dimen/setup_restaurant_profile_et_margin_start_end"
                 android:layout_marginTop="@dimen/setup_restaurant_profile_et_margin_top"
-                android:clickable="true"
                 android:gravity="start|center_vertical"
                 android:layoutDirection="rtl"
-                android:enabled="false"
                 android:hint="@string/setup_restaurant_profile_et_city_hint"
                 android:imeOptions="actionNext"
                 android:inputType="text"
@@ -139,10 +158,8 @@
                 android:layout_marginEnd="@dimen/setup_restaurant_profile_et_margin_start_end"
                 android:layout_marginStart="@dimen/setup_restaurant_profile_et_margin_start_end"
                 android:layout_marginTop="@dimen/setup_restaurant_profile_et_margin_top"
-                android:clickable="true"
                 android:layoutDirection="ltr"
                 android:textAlignment="viewEnd"
-                android:enabled="false"
                 android:hint="@string/setup_restaurant_profile_et_zip_hint"
                 android:imeOptions="actionNext"
                 android:inputType="text"

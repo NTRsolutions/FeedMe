@@ -2,6 +2,8 @@ package com.os.foodie.utils;
 
 import android.content.SharedPreferences;
 
+import org.intellij.lang.annotations.Language;
+
 public class AppConstants {
 
     //    Splash
@@ -45,6 +47,7 @@ public class AppConstants {
     public static final String CARD = "CARD";
     public static final String CHECKOUT = "CHECKOUT";
     public static final String CUISINE_SEARCH = "CUISINE_SEARCH";
+//    public static final String STEP = "STEP";
 
     public static final String DISH_LIST_ARRAYLIST = "DISH_LIST_ARRAYLIST";
     public static final String DISCOUNT_EDIT_DATA = "discount_edit_data";
@@ -62,7 +65,9 @@ public class AppConstants {
     public static final String FAQ_SLUG = "faq";
     public static final String FAQ_PAGE_NAME = "FAQ";
 
-
+//  Languages
+    public static final String LANG_EN = "en";
+    public static final String LANG_AR = "ar";
 
 
     public static String PACKAGE_FACEBOOK="com.facebook";

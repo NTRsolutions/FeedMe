@@ -129,6 +129,11 @@ public class FacebookSignUpPresenter<V extends FacebookSignUpMvpView> extends Ba
     }
 
     @Override
+    public String getDeviceId() {
+        return getDataManager().getDeviceId();
+    }
+
+    @Override
     public void dispose() {
         getCompositeDisposable().dispose();
     }

@@ -2,6 +2,7 @@ package com.os.foodie.ui.login;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -26,7 +27,9 @@ import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
+import com.os.foodie.model.FacebookSignUpModel;
 import com.os.foodie.ui.base.BaseActivity;
+import com.os.foodie.ui.fbsignup.FacebookSignUpActivity;
 import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.forgotpassword.ForgotPasswordActivity;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
@@ -34,6 +37,7 @@ import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.ui.locationinfo.LocationInfoActivity;
 import com.os.foodie.ui.setupprofile.restaurant.SetupRestaurantProfileFragment;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.DialogUtils;
 import com.os.foodie.utils.NetworkUtils;
 
 import org.json.JSONObject;
@@ -157,8 +161,10 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
 
             if (hasPermission(Manifest.permission.READ_PHONE_STATE)) {
 
-                TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-                final String deviceId = telephonyManager.getDeviceId();
+//                TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+//                final String deviceId = telephonyManager.getDeviceId();
+
+                final String deviceId = loginMvpPresenter.getDeviceId();
                 final String deviceType = "android";
 
                 loginMvpPresenter.onLoginClick(etEmail.getText().toString(), etPassword.getText().toString(), deviceId, deviceType);
@@ -192,8 +198,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
 
     public void callFacebookDetailsAPI() {
 
-        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        final String deviceId = telephonyManager.getDeviceId();
+//        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+//        final String deviceId = telephonyManager.getDeviceId();
+        final String deviceId = loginMvpPresenter.getDeviceId();
 
 //        final String deviceId = CommonUtils.getDeviceId(this);
         final String deviceType = "android";
@@ -347,6 +354,43 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
+    @Override
+    public void setFacebookDetails(final String id,final String firstName,final String lastName, final String email) {
+
+        DialogInterface.OnClickListener customer = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                FacebookSignUpModel facebookSignUpModel = new FacebookSignUpModel(id, firstName, lastName, "", email, true);
+
+                Intent intent = new Intent(LoginActivity.this, FacebookSignUpActivity.class);
+                intent.putExtra(AppConstants.FACEBOOK_SIGN_UP_MODEL, facebookSignUpModel);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        };
+
+        DialogInterface.OnClickListener restaurant = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                FacebookSignUpModel facebookSignUpModel = new FacebookSignUpModel(id, "", "", firstName+" "+lastName, email, false);
+
+                Intent intent = new Intent(LoginActivity.this, FacebookSignUpActivity.class);
+                intent.putExtra(AppConstants.FACEBOOK_SIGN_UP_MODEL, facebookSignUpModel);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        };
+
+        DialogUtils.showAlert(LoginActivity.this,
+                R.string.select_registration_type_title, R.string.select_registration_type_msg,
+                getResources().getString(R.string.customer), customer,
+                getResources().getString(R.string.restaurant), restaurant);
+
+    }
+
 
 //    public void printhashkey() {
 //        try {

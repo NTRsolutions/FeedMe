@@ -48,6 +48,7 @@
             android:orientation="horizontal">
 
             <TextView
+                fontPath="@string/font_serif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/discount_list_tv_margin_top"
@@ -60,6 +61,7 @@
 
             <TextView
                 android:id="@+id/recyclerview_discount_list_tv_discount_date"
+                fontPath="@string/font_serif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -78,6 +80,7 @@
             android:orientation="horizontal">
 
             <TextView
+                fontPath="@string/font_serif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/discount_list_tv_margin_top"
@@ -90,6 +93,7 @@
 
             <TextView
                 android:id="@+id/recyclerview_discount_list_tv_discount_min_amount"
+                fontPath="@string/font_serif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"

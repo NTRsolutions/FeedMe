@@ -161,8 +161,9 @@ public class FacebookSignUpActivity extends BaseActivity implements FacebookSign
 
     public void doSignUp() {
 
-        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        final String deviceId = telephonyManager.getDeviceId();
+//        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+//        final String deviceId = telephonyManager.getDeviceId();
+        final String deviceId = facebookSignUpMvpPresenter.getDeviceId();
 
         String deviceType = "android";
         String language = "eng";

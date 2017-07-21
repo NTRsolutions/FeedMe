@@ -13,6 +13,9 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_RESTAURANT_LOGO_URL = "PREF_KEY_RESTAURANT_LOGO_URL";
     private static final String PREF_KEY_CUSTOMER_RESTAURANT_ID = "PREF_KEY_CUSTOMER_RESTAURANT_ID";
     private static final String PREF_KEY_NOTIFICATION_STATUS = "PREF_KEY_NOTIFICATION_STATUS";
+    private static final String PREF_KEY_CURRENCY = "PREF_KEY_CURRENCY";
+    private static final String PREF_KEY_DEVICE_ID = "PREF_KEY_DEVICE_ID";
+    private static final String PREF_KEY_LANGUAGE = "PREF_KEY_LANGUAGE";
 
     private final SharedPreferences sharedPreferences;
 
@@ -100,6 +103,35 @@ public class AppPreferencesHelper implements PreferencesHelper {
         sharedPreferences.edit().putString(PREF_KEY_NOTIFICATION_STATUS, status).apply();
     }
 
+    @Override
+    public String getCurrency() {
+        return sharedPreferences.getString(PREF_KEY_CURRENCY, "");
+    }
+
+    @Override
+    public void setCurrency(String currency) {
+        sharedPreferences.edit().putString(PREF_KEY_CURRENCY, currency).apply();
+    }
+
+    @Override
+    public String getDeviceId() {
+        return sharedPreferences.getString(PREF_KEY_DEVICE_ID, "");
+    }
+
+    @Override
+    public void setDeviceId(String status) {
+        sharedPreferences.edit().putString(PREF_KEY_DEVICE_ID, status).apply();
+    }
+
+    @Override
+    public String getLanguage(){
+        return sharedPreferences.getString(PREF_KEY_LANGUAGE, "en");
+    }
+
+    @Override
+    public void setLanguage(String language){
+        sharedPreferences.edit().putString(PREF_KEY_LANGUAGE, language).apply();
+    }
 
 //    private static final String PREF_KEY_USER_LOGGED_IN_MODE = "PREF_KEY_USER_LOGGED_IN_MODE";
 //    private static final String PREF_KEY_CURRENT_USER_EMAIL = "PREF_KEY_CURRENT_USER_EMAIL";

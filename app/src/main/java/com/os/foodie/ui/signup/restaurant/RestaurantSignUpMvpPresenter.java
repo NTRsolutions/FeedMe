@@ -16,5 +16,7 @@ public interface RestaurantSignUpMvpPresenter<V extends RestaurantSignUpMvpView>
 
     void setError(@StringRes int resId);
 
+    String getDeviceId();
+
     void dispose();
 }

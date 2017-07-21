@@ -68,6 +68,11 @@ public class EarningPresenter<V extends EarningMvpView> extends BasePresenter<V>
     }
 
     @Override
+    public String getCurrency() {
+        return getDataManager().getCurrency();
+    }
+
+    @Override
     public void dispose() {
         getCompositeDisposable().dispose();
     }

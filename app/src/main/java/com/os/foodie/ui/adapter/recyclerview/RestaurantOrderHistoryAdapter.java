@@ -15,21 +15,26 @@ import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.orderlist.show.OrderList;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.order.restaurant.detail.OrderHistoryDetailActivity;
+import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryMvpPresenter;
+import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryMvpView;
 import com.os.foodie.utils.AppConstants;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<RestaurantOrderHistoryAdapter.RestaurantOrderListViewHolder> {
 
     private Context context;
+    private String currency = "";
     private ArrayList<OrderList> orderLists;
-    AppDataManager appDataManager;
+    private RestaurantOrderHistoryMvpPresenter<RestaurantOrderHistoryMvpView> restaurantOrderhistoryMvpPresenter;
 //    private String deliveryTime;
 
-    public RestaurantOrderHistoryAdapter(Context context, ArrayList<OrderList> orderLists) {
+    public RestaurantOrderHistoryAdapter(Context context, ArrayList<OrderList> orderLists, RestaurantOrderHistoryMvpPresenter<RestaurantOrderHistoryMvpView> restaurantOrderhistoryMvpPresenter) {
         this.context = context;
         this.orderLists = orderLists;
-        initPresenter();
+        this.restaurantOrderhistoryMvpPresenter = restaurantOrderhistoryMvpPresenter;
     }
 
     class RestaurantOrderListViewHolder extends RecyclerView.ViewHolder {
@@ -69,7 +74,20 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
 //        holder.tvDeliveryTime.setText(order.getDeliveryTime()+" min.");
         holder.tvOrderType.setText(order.getOrderType());
         holder.tvDiscount.setText(order.getDiscount() + "%");
-        holder.tvPrice.setText("$" + order.getTotalAmount());
+
+        if (order.getCurrency() != null && !order.getCurrency().isEmpty()) {
+
+
+            try {
+                holder.tvPrice.setText(URLDecoder.decode(order.getCurrency(), "UTF-8") + " " + order.getTotalAmount());
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+
+            holder.tvPrice.setText(currency + " " + order.getTotalAmount());
+        }
 
         holder.ivAccept.setVisibility(View.GONE);
         holder.ivReject.setVisibility(View.GONE);
@@ -82,7 +100,7 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
                 int pos = (int) v.getTag();
                 Intent i = new Intent(context, OrderHistoryDetailActivity.class);
                 i.putExtra("order_id", orderLists.get(pos).getOrderId());
-                if (appDataManager.getCurrentUserType().equals(AppConstants.RESTAURANT))
+                if (restaurantOrderhistoryMvpPresenter.getCurrentUserType().equals(AppConstants.RESTAURANT))
                     i.putExtra("showUpdateButton", true);
                 else
                     i.putExtra("showUpdateButton", false);
@@ -96,12 +114,7 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
         return orderLists.size();
     }
 
-
-    public void initPresenter() {
-
-        AppApiHelpter appApiHelpter = new AppApiHelpter();
-        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(context, AppConstants.PREFERENCE_DEFAULT);
-        appDataManager = new AppDataManager(context, appPreferencesHelper, appApiHelpter);
-
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

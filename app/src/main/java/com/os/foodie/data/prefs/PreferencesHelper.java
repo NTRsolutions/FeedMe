@@ -36,6 +36,19 @@ public interface PreferencesHelper {
 
     void setNotificationStatus(String status);
 
+    String getCurrency();
+
+    void setCurrency(String currency);
+
+    String getDeviceId();
+
+    void setDeviceId(String status);
+
+    String getLanguage();
+
+    void setLanguage(String language);
+
+
 //    String getCurrentUserEmail();
 //
 //    void setCurrentUserEmail(String email);

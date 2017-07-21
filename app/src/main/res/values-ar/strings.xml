@@ -276,8 +276,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!--Menu-->
-    <string name="action_home">Arab</string>
-    <string name="action_my_account">My Arab</string>
+    <string name="action_home">الصفحة الرئيسية</string>
+    <string name="action_my_account">حسابي</string>
     <string name="action_restaurant_profile">Restaurant Profile</string>
     <string name="action_order_history">Order History</string>
     <string name="action_order_list">Order List</string>
@@ -520,7 +520,7 @@
     <string name="add_discount_tv_start_date_hint">Start</string>
     <string name="add_discount_tv_end_date_hint">End</string>
     <string name="add_discount_tv_to_text">To</string>
-    <string name="add_discount_et_min_amount_hint">$0</string>
+    <string name="add_discount_et_min_amount_hint">0</string>
     <string name="add_discount_et_min_percent_hint">0.0%</string>
     <string name="add_discount_et_food_percent_hint">0.0%</string>
     <string name="add_discount_tv_select_dish_text">Select Dishes</string>

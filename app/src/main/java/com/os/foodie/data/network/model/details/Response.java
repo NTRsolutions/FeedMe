@@ -100,7 +100,9 @@ public class Response {
     @SerializedName("total_cart_amount")
     @Expose
     private String totalAmount;
-
+    @SerializedName("currency")
+    @Expose
+    private String currency;
     /**
      * No args constructor for use in serialization
      * 
@@ -421,5 +423,14 @@ public class Response {
 
     public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

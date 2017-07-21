@@ -10,6 +10,8 @@ public interface LocationInfoMvpPresenter<V extends LocationInfoMvpView> extends
 
     void setCurrentUserInfoInitialized(boolean initialized);
 
+    boolean getCurrentUserInfoInitialized();
+
     void setError(@StringRes int resId);
 
     void setError(String message);

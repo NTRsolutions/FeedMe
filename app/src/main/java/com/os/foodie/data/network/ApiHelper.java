@@ -76,6 +76,7 @@ import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailReq
 import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailResponse;
 import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailRequest;
 import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailResponse;
+import com.os.foodie.data.network.model.notification.NotificationListResponse;
 import com.os.foodie.data.network.model.notification.SetNotificationResponse;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryRequest;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryResponse;
@@ -241,4 +242,8 @@ public interface ApiHelper {
     Observable<ChangeOrderStatusResponse> changeOrderStatus(String orderId, String orderStatus);
 
     Observable<RestaurantReviewResponse> sendRestaurantReview(RestaurantReviewRequest restaurantReviewRequest);
+
+    Observable<NotificationListResponse> getNotification(String user_id, String restaurant_id);
+
+    Observable<NotificationListResponse> readNotification(String notification_id);
 }

@@ -4,6 +4,7 @@ import android.provider.Settings;
 import android.util.Log;
 
 import com.os.foodie.R;
+import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.DataManager;
 import com.os.foodie.data.network.model.menu.delete.DeleteMenuItemRequest;
 import com.os.foodie.data.network.model.menu.delete.DeleteMenuItemResponse;
@@ -23,9 +24,10 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class RestaurantMenuPresenter<V extends RestaurantMenuMvpView> extends BasePresenter<V> implements RestaurantMenuMvpPresenter<V> {
-
+    DataManager dataManager;
     public RestaurantMenuPresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
         super(dataManager, compositeDisposable);
+        this.dataManager=dataManager;
     }
 
     @Override
@@ -203,5 +205,10 @@ public class RestaurantMenuPresenter<V extends RestaurantMenuMvpView> extends Ba
     @Override
     public void dispose() {
         getCompositeDisposable().dispose();
+    }
+
+    @Override
+    public DataManager getAppDataManager() {
+        return dataManager;
     }
 }

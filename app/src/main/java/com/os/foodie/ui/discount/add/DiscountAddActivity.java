@@ -462,7 +462,7 @@ public class DiscountAddActivity extends BaseActivity implements DiscountAddMvpV
 
         Calendar cal = Calendar.getInstance();
 
-//        cal.set(year, month, dayOfMonth, 0, 0, 0);
+        cal.set(year, month, dayOfMonth, 0, 0, 0);
 
         if (dateTag.equals("start")) {
             setDate(cal);

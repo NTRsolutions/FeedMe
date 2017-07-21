@@ -26,14 +26,21 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
     }
 
     @Override
-    public void onError(@StringRes int resId){
+    public void onError(@StringRes int resId) {
         getMvpView().onError(resId);
     }
 
     @Override
-    public void SetNotificationStaus() {
+    public void setLanguage(String languageCode) {
+        getDataManager().setLanguage(languageCode);
+    }
+
+    @Override
+    public void SetNotificationStatus() {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
+            Log.d("SetNotificationStatus", ">>Called");
 
             getMvpView().showLoading();
 
@@ -44,6 +51,8 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
                     .subscribe(new Consumer<SetNotificationResponse>() {
                         @Override
                         public void accept(SetNotificationResponse setNotificationResponse) throws Exception {
+
+                            Log.d("SetNotificationStatus", ">>Response");
 
                             getMvpView().hideLoading();
 

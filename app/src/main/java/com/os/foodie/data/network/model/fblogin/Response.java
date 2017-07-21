@@ -67,6 +67,10 @@ public class Response implements Parcelable
     @SerializedName("restaurant_id")
     @Expose
     private String restaurantId;
+    @SerializedName("currency")
+    @Expose
+    private String currency;
+
     public final static Creator<Response> CREATOR = new Creator<Response>() {
 
 
@@ -306,6 +310,14 @@ public class Response implements Parcelable
 
     public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public void writeToParcel(Parcel dest, int flags) {

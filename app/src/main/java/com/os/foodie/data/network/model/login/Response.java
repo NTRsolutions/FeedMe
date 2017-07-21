@@ -49,6 +49,10 @@ public class Response {
     @SerializedName("restaurant_id")
     @Expose
     private String restaurantId;
+    @SerializedName("currency")
+    @Expose
+    private String currency;
+
 
     /**
      * No args constructor for use in serialization
@@ -212,5 +216,14 @@ public class Response {
 
     public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

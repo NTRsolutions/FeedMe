@@ -9,6 +9,7 @@ import com.os.foodie.data.network.model.signup.customer.CustomerSignUpResponse;
 import com.os.foodie.data.network.model.fblogin.FacebookLoginRequest;
 import com.os.foodie.data.network.model.fblogin.FacebookLoginResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.ValidationUtils;
 
@@ -139,7 +140,26 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
                             getMvpView().setFacebookDetails(fbId, first_name, last_name, email);
 
                         } else {
-                            getMvpView().onError(R.string.fb_user_already_exist);
+                            getDataManager().setCurrentUserLoggedIn(true);
+                            getDataManager().setCurrentUserId(facebookLoginResponse.getResponse().getUserId());
+                            getDataManager().setCurrentUserType(facebookLoginResponse.getResponse().getUserType());
+                            getDataManager().setCurrency(facebookLoginResponse.getResponse().getCurrency());
+                            if (facebookLoginResponse.getResponse().getUserType().equals(AppConstants.CUSTOMER)) {
+                                getDataManager().setCurrentUserName(facebookLoginResponse.getResponse().getFirstName() + " " + facebookLoginResponse.getResponse().getLastName());
+                                getDataManager().setCustomerRestaurantId(facebookLoginResponse.getResponse().getRestaurantId());
+                            } else {
+                                getDataManager().setCurrentUserName(facebookLoginResponse.getResponse().getRestaurantName());
+                                getDataManager().setRestaurantLogoURL(facebookLoginResponse.getResponse().getProfileImage());
+                                Log.d("getProfileImage", ">>" + getDataManager().getRestaurantLogoURL());
+                            }
+
+                            if (facebookLoginResponse.getResponse().getIsProfileSet().equals("1")) {
+                                getDataManager().setCurrentUserInfoInitialized(true);
+                            } else {
+                                getDataManager().setCurrentUserInfoInitialized(false);
+                            }
+
+                            decideNextActivity();
                         }
 
                     }
@@ -160,7 +180,52 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
     }
 
     @Override
+    public String getDeviceId() {
+        return getDataManager().getDeviceId();
+    }
+
+    @Override
     public void dispose() {
         getCompositeDisposable().dispose();
+    }
+
+    private void decideNextActivity() {
+
+        Log.d("isCurrentUserLoggedIn", "true");
+
+        if (getDataManager().isCurrentUserInfoInitialized()) {
+
+            Log.d("isCurrentUserInfoInit", "true");
+
+            if (getDataManager().getCurrentUserType().equalsIgnoreCase(AppConstants.CUSTOMER)) {
+
+                Log.d("openCustomerHome", "CUSTOMER");
+
+                getMvpView().openCustomerHomeActivity();
+
+            } else {
+
+                Log.d("RestaurantHome", "Res");
+
+                getMvpView().openRestaurantHomeActivity();
+            }
+
+        } else {
+
+            Log.d("isCurrentUserInfoInit", "false");
+
+            if (getDataManager().getCurrentUserType().equalsIgnoreCase(AppConstants.CUSTOMER)) {
+
+                Log.d("openLocationInfo", "CUSTOMER");
+
+                getMvpView().openLocationInfoActivity();
+
+            } else {
+
+                Log.d("SetupRestaurantProfile", "Res");
+
+                getMvpView().openSetupRestaurantProfileActivity();
+            }
+        }
     }
 }

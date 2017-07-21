@@ -36,6 +36,8 @@ import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.TimeFormatUtils;
 import com.wefika.flowlayout.FlowLayout;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -206,8 +208,15 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 
         tvRestaurantName.setText(restaurantDetail.getRestaurantName());
         tvOpeningClosingHours.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getOpeningTime(), "HH:mm:ss", "hh:mm a") + " - " + TimeFormatUtils.changeTimeFormat(restaurantDetail.getClosingTime(), "HH:mm:ss", "hh:mm a"));
-        tvDeliveryCharges.setText(restaurantDetail.getDeliveryCharge());
-        tvMinimumOrderAmount.setText(restaurantDetail.getMinOrderAmount());
+        try {
+
+            tvDeliveryCharges.setText(URLDecoder.decode(restaurantDetail.getCurrency(), "UTF-8") + " " + restaurantDetail.getDeliveryCharge());
+            tvMinimumOrderAmount.setText(URLDecoder.decode(restaurantDetail.getCurrency(), "UTF-8") + " " + restaurantDetail.getMinOrderAmount());
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         tvDeliveryAreas.setText(restaurantDetail.getDeliveryZipcode());
         tvOrderType.setText(restaurantDetail.getDeliveryType());
         tvWorkingDays.setText(restaurantDetail.getWorkingDays());
@@ -216,6 +225,8 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
         tvCity.setText(restaurantDetail.getCityName());
         tvCounty.setText(restaurantDetail.getCountryName());
         tvZipCode.setText(restaurantDetail.getZipCode());
+
+        urlList.clear();
 
         for (int i = 0; i < restaurantDetail.getImages().size(); i++) {
             urlList.add(restaurantDetail.getImages().get(i).getUrl());

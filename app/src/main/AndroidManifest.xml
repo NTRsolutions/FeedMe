@@ -27,7 +27,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_api_key" />
+            android:value="@string/google_api_key_1" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="aea43dd828cd9f836b47f84c4e07333b9b153d03" />
@@ -49,6 +49,20 @@
             android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
             android:exported="false" />
+
+
+        <service android:name=".service.firebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".service.firebase.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -111,6 +125,7 @@
         <activity
             android:name=".ui.main.restaurant.RestaurantMainActivity"
             android:label=""
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

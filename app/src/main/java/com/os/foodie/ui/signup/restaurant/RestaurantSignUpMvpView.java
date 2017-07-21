@@ -17,4 +17,13 @@ public interface RestaurantSignUpMvpView extends MvpView {
     void openCustomerRegistrationActivity();
 
     void setFacebookDetails(String id, String name, String email);
+
+
+    void openLocationInfoActivity();
+
+    void openSetupRestaurantProfileActivity();
+
+    void openCustomerHomeActivity();
+
+    void openRestaurantHomeActivity();
 }

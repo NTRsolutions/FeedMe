@@ -30,6 +30,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/customer_main_header_tv_user_name_margin_top"
         android:typeface="monospace"
+        fontPath="@string/font_monospace"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textSize="@dimen/customer_main_header_tv_user_name_text_size" />

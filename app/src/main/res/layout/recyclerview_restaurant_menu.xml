@@ -39,6 +39,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="@color/grey"
+            fontPath="@string/font_serif"
             android:textSize="@dimen/restaurant_menu_tv_description_text_size"
             android:typeface="serif" />
 

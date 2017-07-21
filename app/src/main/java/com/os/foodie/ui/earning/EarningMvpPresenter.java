@@ -6,5 +6,7 @@ public interface EarningMvpPresenter<V extends EarningMvpView> extends MvpPresen
 
     void getEarnings();
 
+    String getCurrency();
+
     void dispose();
 }

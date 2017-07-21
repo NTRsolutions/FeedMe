@@ -361,6 +361,7 @@
     <dimen name="restaurant_menu_add_update_ll_main_margin_end">30dp</dimen>
     <dimen name="restaurant_menu_add_update_ll_main_margin_start">30dp</dimen>
     <dimen name="restaurant_menu_add_update_ll_main_margin_top">30dp</dimen>
+    <dimen name="restaurant_menu_ll_sub_main_margin_end">10dp</dimen>
     <dimen name="restaurant_menu_add_update_et_height">50dp</dimen>
     <dimen name="restaurant_menu_add_update_et_margin_top">10dp</dimen>
     <dimen name="restaurant_menu_add_update_et_course_type_drawable_padding">10dp</dimen>
@@ -741,6 +742,7 @@
     <dimen name="dialog_share_ll_main_padding_top">10dp</dimen>
     <dimen name="dialog_share_tv_margin">5dp</dimen>
     <dimen name="dialog_share_tv_text_size">20sp</dimen>
+    <dimen name="all_step_padding">10dp</dimen>
 
     <!-- TODO: Remove or change this placeholder text -->
 

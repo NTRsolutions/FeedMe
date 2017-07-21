@@ -10,5 +10,7 @@ public interface CustomerSignUpMvpPresenter<V extends CustomerSignUpMvpView> ext
 
     void setError(int resId);
 
+    String getDeviceId();
+
     void dispose();
 }

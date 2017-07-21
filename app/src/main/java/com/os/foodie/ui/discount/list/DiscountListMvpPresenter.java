@@ -8,5 +8,7 @@ public interface DiscountListMvpPresenter<V extends DiscountListMvpView> extends
 
     void deleteDiscountList(String discount_id);
 
+    String getCurrency();
+
     void dispose();
 }
