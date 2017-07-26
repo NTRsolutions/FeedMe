@@ -95,7 +95,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<DiscountListAdapte
 
         holder.tvProductsNames.setText(names);
         holder.tvDiscountDate.setText(CommonUtils.ConvertDate(discountList.getStartDate(), discountList.getEndDate()));
-        holder.tvDiscountMinimumAmount.setText(discountListMvpPresenter.getCurrency() + " " + discountList.getMinOrderAmount());
+        holder.tvDiscountMinimumAmount.setText(CommonUtils.dataDecode(discountListMvpPresenter.getCurrency()) + " " + discountList.getMinOrderAmount());
 
         holder.ivOverflow.setOnClickListener(new View.OnClickListener() {
             @Override

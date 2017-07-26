@@ -22,12 +22,12 @@ import com.os.foodie.utils.AppConstants;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class NotificationFragments extends BaseFragment implements NotificationMvpView, View.OnClickListener {
+public class NotificationFragments extends BaseFragment implements NotificationMvpView, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String TAG = "NotificationFragments";
 
     private TextView alertTv;
-    private SwipeRefreshLayout notificationSwipeRefresh;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView notificationListRv;
     NotificationAdapter notificationAdapter;
 
@@ -55,10 +55,13 @@ public class NotificationFragments extends BaseFragment implements NotificationM
 
         initPresenter();
         notificationMvpPresenter.onAttach(this);
-        if (appDataManager.getCurrentUserType().equals(AppConstants.CUSTOMER))
-            notificationMvpPresenter.getNotificationList(appDataManager.getCurrentUserId(), "");
-        else
-            notificationMvpPresenter.getNotificationList("", appDataManager.getCurrentUserId());
+
+        if (appDataManager.getCurrentUserType().equals(AppConstants.CUSTOMER)) {
+            notificationMvpPresenter.getNotificationList(appDataManager.getCurrentUserId(), "", null);
+        } else {
+            notificationMvpPresenter.getNotificationList("", appDataManager.getCurrentUserId(), null);
+        }
+
         return view;
     }
 
@@ -96,7 +99,7 @@ public class NotificationFragments extends BaseFragment implements NotificationM
     public void setNotificationList(NotificationListResponse notificationList) {
 
         if (notificationList.getResponse().getNotificationList().size() > 0) {
-            notificationSwipeRefresh.setVisibility(View.VISIBLE);
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
             alertTv.setVisibility(View.GONE);
             notificationAdapter = new NotificationAdapter(getActivity(), notificationList.getResponse().getNotificationList(), notificationMvpPresenter);
             notificationListRv.setAdapter(notificationAdapter);
@@ -105,8 +108,20 @@ public class NotificationFragments extends BaseFragment implements NotificationM
 
     private void initView(View rootView) {
         alertTv = (TextView) rootView.findViewById(R.id.alert_tv);
-        notificationSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.notification_swipe_refresh);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.notification_swipe_refresh);
         notificationListRv = (RecyclerView) rootView.findViewById(R.id.notification_list);
         notificationListRv.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void onRefresh() {
+
+        if (appDataManager.getCurrentUserType().equals(AppConstants.CUSTOMER)) {
+            notificationMvpPresenter.getNotificationList(appDataManager.getCurrentUserId(), "", swipeRefreshLayout);
+        } else {
+            notificationMvpPresenter.getNotificationList("", appDataManager.getCurrentUserId(), swipeRefreshLayout);
+        }
     }
 }

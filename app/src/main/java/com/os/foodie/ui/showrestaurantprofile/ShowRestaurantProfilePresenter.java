@@ -63,6 +63,9 @@ public class ShowRestaurantProfilePresenter<V extends ShowRestaurantProfileMvpVi
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

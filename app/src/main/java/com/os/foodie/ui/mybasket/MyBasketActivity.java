@@ -53,6 +53,7 @@ import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.payment.select.SelectPaymentActivity;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.DialogUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -341,11 +342,12 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         cartLists.addAll(viewCartResponse.getResponse().getCartList());
 
         myBasketAdapter.notifyDataSetChanged();
-        try {
-            myBasketAdapter.setCurrency(URLDecoder.decode(viewCartResponse.getResponse().getCurrency(), "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        myBasketAdapter.setCurrency(CommonUtils.dataDecode(viewCartResponse.getResponse().getCurrency()));
+//        try {
+//            myBasketAdapter.setCurrency(URLDecoder.decode(viewCartResponse.getResponse().getCurrency(), "UTF-8"));
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
 
 //        if (viewCartResponse.getResponse().getDeliveryCharge().contains(".00")) {
 //            tvDeliveryCharges.setText("$" + viewCartResponse.getResponse().getDeliveryCharge().replace(".00", ""));
@@ -714,10 +716,25 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 }
             };
 
-            DialogUtils.showAlert(MyBasketActivity.this,
-                    R.string.alert_dialog_title_payment_method, R.string.alert_dialog_text_payment_method,
-                    getResources().getString(R.string.alert_dialog_bt_online), online,
-                    getResources().getString(R.string.alert_dialog_bt_cod), cod);
+            if (viewCartResponse.getResponse().getPaymentType().equalsIgnoreCase(AppConstants.ONLINE)) {
+
+                DialogUtils.showAlert(MyBasketActivity.this,
+                        R.string.alert_dialog_title_payment_method, R.string.alert_dialog_text_payment_method,
+                        getResources().getString(R.string.alert_dialog_bt_online), online);
+
+            } else if (viewCartResponse.getResponse().getPaymentType().equalsIgnoreCase(AppConstants.COD)) {
+
+                DialogUtils.showAlert(MyBasketActivity.this,
+                        R.string.alert_dialog_title_payment_method, R.string.alert_dialog_text_payment_method,
+                        getResources().getString(R.string.alert_dialog_bt_cod), cod);
+
+            } else {
+
+                DialogUtils.showAlert(MyBasketActivity.this,
+                        R.string.alert_dialog_title_payment_method, R.string.alert_dialog_text_payment_method,
+                        getResources().getString(R.string.alert_dialog_bt_online), online,
+                        getResources().getString(R.string.alert_dialog_bt_cod), cod);
+            }
 
         } else if (v.getId() == rlSchedule.getId()) {
 //            myBasketMvpPresenter.dateTimePickerDialog(this, viewCartResponse, tvScheduledTime);

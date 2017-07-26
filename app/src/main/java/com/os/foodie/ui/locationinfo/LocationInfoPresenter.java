@@ -224,6 +224,9 @@ public class LocationInfoPresenter<V extends LocationInfoMvpView> extends BasePr
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

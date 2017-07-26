@@ -252,8 +252,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:visibility="gone"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/TextView2"
@@ -280,8 +280,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:visibility="gone"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/TextView2"
@@ -426,10 +426,10 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="@dimen/order_history_detail_ll_accept_reject_padding_top_bottom"
+            android:paddingEnd="@dimen/order_history_detail_ll_accept_reject_padding_start_end"
+            android:paddingStart="@dimen/order_history_detail_ll_accept_reject_padding_start_end"
+            android:paddingTop="@dimen/order_history_detail_ll_accept_reject_padding_top_bottom"
             android:visibility="gone">
 
             <com.os.foodie.ui.custom.RippleAppCompatButton

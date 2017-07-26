@@ -88,7 +88,7 @@ public class AddCuisineTypeDialogFragment extends DialogFragment implements View
 
         if (NetworkUtils.isNetworkConnected(getContext())) {
 
-            if (etCuisineType.getText().toString() == null || etCuisineType.getText().toString().isEmpty()) {
+            if (etCuisineType.getText().toString().trim() == null || etCuisineType.getText().toString().trim().isEmpty()) {
 
                 Toast.makeText(getActivity(), getResources().getString(R.string.empty_cuisine_type), Toast.LENGTH_SHORT).show();
                 return;

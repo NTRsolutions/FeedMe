@@ -690,11 +690,14 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         restaurantProfileRequest.setDeliveryCharge(etDeliveryCharges.getText().toString());
         restaurantProfileRequest.setDeliveryZipcode(etDeliveryZipCodes.getText().toString());
         restaurantProfileRequest.setDescription(etDescription.getText().toString());
-        try {
-            restaurantProfileRequest.setCurrency(URLEncoder.encode(currencySymbol, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        restaurantProfileRequest.setCurrency(CommonUtils.dataEncode(currencySymbol));
+
+//        try {
+//            restaurantProfileRequest.setCurrency(URLEncoder.encode(currencySymbol, "UTF-8"));
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+
 //        restaurantProfileRequest.setDeliveryType((spinnerDeliveryType.getSelectedItem()) + "");
 //        restaurantProfileRequest.setDeliveryType((spinnerDeliveryType.getSelectedItemPosition() + 1) + "");
 //        restaurantProfileRequest.setPaymentMethod((spinnerPaymentMethods.getSelectedItemPosition() + 1) + "");
@@ -1037,12 +1040,13 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                 currencySymbol = restaurantProfileResponse.getResponse().getRestaurantDetail().getCurrency();
 //                currencySymbol = "₹";
 
-                try {
-//                    currencySymbol = URLEncoder.encode(currencySymbol,"UTF-8");
-                    currencySymbol = URLDecoder.decode(currencySymbol, "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+                currencySymbol = CommonUtils.dataDecode(currencySymbol);
+//                try {
+////                    currencySymbol = URLEncoder.encode(currencySymbol,"UTF-8");
+//                    currencySymbol = URLDecoder.decode(currencySymbol, "UTF-8");
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
 
                 RestaurantProfileResponse.RestaurantDetail restaurantDetail = restaurantProfileResponse.getResponse().getRestaurantDetail();
 
@@ -1232,17 +1236,18 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     }
 
     public String getPaymentType() {
+
         String paymentType = "";
 
-
-        if (spinnerDeliveryType.getSelectedItemPosition() == 0) {
+        if (spinnerPaymentMethods.getSelectedItemPosition() == 0) {
             paymentType = "Online";
-        } else if (spinnerDeliveryType.getSelectedItemPosition() == 1) {
+        } else if (spinnerPaymentMethods.getSelectedItemPosition() == 1) {
             paymentType = "Cash on delivery";
         } else {
             paymentType = "Online, Cash on delivery";
         }
 
+        Log.d("paymentType", ">>" + paymentType);
         return paymentType;
     }
 

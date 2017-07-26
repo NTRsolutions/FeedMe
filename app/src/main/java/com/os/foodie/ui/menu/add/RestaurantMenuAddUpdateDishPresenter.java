@@ -132,6 +132,9 @@ public class RestaurantMenuAddUpdateDishPresenter<V extends RestaurantMenuAddUpd
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

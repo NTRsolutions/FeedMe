@@ -63,6 +63,9 @@ public class FiltersPresenter<V extends FiltersMvpView> extends BasePresenter<V>
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

@@ -29,7 +29,7 @@ public class ProjectInfo {
 //
 //---------------------------------------
 //
-//    Live>>>
+//    Live Old>>>
 //    http://67.205.96.105:8080/foodi/admin
 //
 //---------------------------------------
@@ -38,6 +38,14 @@ public class ProjectInfo {
 //    http://192.168.1.69/foodi/admin
 //
 //    nishant.jain@octalsoftware.com
+//    123456
+//
+//---------------------------------------
+//
+//    Live New>>>
+//    http://56.octallabs.com/foodi/admin
+//
+//    admin@mailinator.com
 //    123456
 //
 //---------------------------------------

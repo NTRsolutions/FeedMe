@@ -34,18 +34,22 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
-            if (first_name == null || first_name.isEmpty()) {
+            if (first_name == null || first_name.trim().isEmpty()) {
                 getMvpView().onError(R.string.empty_first_name);
                 return;
             }
-            if (last_name == null || last_name.isEmpty()) {
+            if (first_name.trim().length() > 15) {
+                getMvpView().onError(R.string.long_first_name);
+                return;
+            }
+            if (last_name == null || last_name.trim().isEmpty()) {
                 getMvpView().onError(R.string.empty_last_name);
                 return;
             }
-//        if (!ValidationUtils.isNameValid(fname)) {
-//            getMvpView().onError(R.string.invalid_first_name);
-//            return;
-//        }
+            if (last_name.trim().length() > 15) {
+                getMvpView().onError(R.string.long_last_name);
+                return;
+            }
             if (email == null || email.isEmpty()) {
                 getMvpView().onError(R.string.empty_email);
                 return;
@@ -68,6 +72,10 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
             }
             if (password.length() < 6) {
                 getMvpView().onError(R.string.minimum_password);
+                return;
+            }
+            if (!(password.matches(".*[A-Za-z]+.*[0-9]+.*") || password.matches(".*[0-9]+.*[A-Za-z]+.*"))) {
+                getMvpView().onError(R.string.invalid_password);
                 return;
             }
             if (confirm_password == null || confirm_password.isEmpty()) {
@@ -186,6 +194,9 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 

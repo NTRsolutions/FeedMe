@@ -135,6 +135,9 @@ public class FacebookSignUpPresenter<V extends FacebookSignUpMvpView> extends Ba
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

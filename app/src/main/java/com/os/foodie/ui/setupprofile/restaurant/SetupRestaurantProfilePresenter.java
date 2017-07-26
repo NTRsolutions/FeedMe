@@ -18,6 +18,7 @@ import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantP
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
 import com.os.foodie.data.prefs.PreferencesHelper;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.TimeFormatUtils;
 
@@ -220,7 +221,8 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                             } else {
                                 Log.d("Message", "onSuccess>>" + restaurantProfileResponse.getResponse().getMessage());
                                 getDataManager().setCurrentUserInfoInitialized(true);
-                                getDataManager().setCurrency(URLDecoder.decode(restaurantProfileRequest.getCurrency(),"UTF-8"));
+                                getDataManager().setCurrency(CommonUtils.dataDecode(restaurantProfileRequest.getCurrency()));
+//                                getDataManager().setCurrency(URLDecoder.decode(restaurantProfileRequest.getCurrency(),"UTF-8"));
                                 getMvpView().onRestaurantProfileSaved();
                             }
 
@@ -436,6 +438,9 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

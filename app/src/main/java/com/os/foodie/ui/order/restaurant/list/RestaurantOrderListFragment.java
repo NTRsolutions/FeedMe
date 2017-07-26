@@ -1,6 +1,8 @@
 package com.os.foodie.ui.order.restaurant.list;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +25,7 @@ import com.os.foodie.ui.adapter.recyclerview.RestaurantOrderListAdapter;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.CommonUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -30,11 +33,13 @@ import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class RestaurantOrderListFragment extends BaseFragment implements RestaurantOrderListMvpView {
+public class RestaurantOrderListFragment extends BaseFragment implements RestaurantOrderListMvpView, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String TAG = "RestaurantOrderListFragment";
 
     private TextView tvAlert;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private RecyclerView recyclerView;
     private ArrayList<OrderList> orderLists;
@@ -64,8 +69,12 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
 //        restaurantOrderListMvpPresenter = new RestaurantOrderListPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         restaurantOrderListMvpPresenter.onAttach(this);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.fragment_restaurant_order_list_srl);
+
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_restaurant_order_list_recyclerview);
         tvAlert = (TextView) view.findViewById(R.id.fragment_restaurant_order_list_tv_alert);
+
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         orderLists = new ArrayList<OrderList>();
 
@@ -79,7 +88,7 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(restaurantOrderListAdapter);
 
-        restaurantOrderListMvpPresenter.getOrderList();
+        restaurantOrderListMvpPresenter.getOrderList(null);
 
         return view;
     }
@@ -126,7 +135,8 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
 
         if (getOrderListResponse.getResponse().getOrderList() != null && !getOrderListResponse.getResponse().getOrderList().isEmpty()) {
 
-            recyclerView.setVisibility(View.VISIBLE);
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
+//            recyclerView.setVisibility(View.VISIBLE);
             tvAlert.setVisibility(View.GONE);
 
 //            for (int i = 0; i < getOrderListResponse.getResponse().getOrderList().size(); i++) {
@@ -134,13 +144,18 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
 //            }
 
             orderLists.addAll(getOrderListResponse.getResponse().getOrderList());
-            try {
-                restaurantOrderListAdapter.setCurrency(URLDecoder.decode(getOrderListResponse.getResponse().getCurrency(),"UTF-8"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+
+            restaurantOrderListAdapter.setCurrency(CommonUtils.dataDecode(getOrderListResponse.getResponse().getCurrency()));
+//            try {
+//                restaurantOrderListAdapter.setCurrency(URLDecoder.decode(getOrderListResponse.getResponse().getCurrency(), "UTF-8"));
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
+
         } else {
-            recyclerView.setVisibility(View.GONE);
+
+            swipeRefreshLayout.setVisibility(View.GONE);
+//            recyclerView.setVisibility(View.GONE);
             tvAlert.setVisibility(View.VISIBLE);
         }
 
@@ -162,5 +177,46 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
             recyclerView.setVisibility(View.GONE);
             tvAlert.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 20 && resultCode == 21) {
+
+            onAcceptRejectOrderId(data.getStringExtra(AppConstants.ORDER_ID));
+        }
+    }
+
+    public void onAcceptRejectOrderId(String orderId) {
+
+        for (int i = 0; i < orderLists.size(); i++) {
+
+            if (orderLists.get(i).getOrderId().equalsIgnoreCase(orderId)) {
+                orderLists.remove(i);
+            }
+        }
+
+        restaurantOrderListAdapter.notifyDataSetChanged();
+
+        if (orderLists != null && !orderLists.isEmpty()) {
+
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
+//            recyclerView.setVisibility(View.VISIBLE);
+            tvAlert.setVisibility(View.GONE);
+
+        } else {
+
+            swipeRefreshLayout.setVisibility(View.GONE);
+//            recyclerView.setVisibility(View.GONE);
+            tvAlert.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+
+        restaurantOrderListMvpPresenter.getOrderList(swipeRefreshLayout);
     }
 }

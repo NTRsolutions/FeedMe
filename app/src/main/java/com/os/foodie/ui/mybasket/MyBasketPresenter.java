@@ -268,6 +268,9 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 

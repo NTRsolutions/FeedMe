@@ -36,6 +36,9 @@ public class EditRestaurantAccountResponse {
         @SerializedName("restaurant_name")
         @Expose
         private String restaurantName;
+        @SerializedName("contact_person_name")
+        @Expose
+        private String contactPersonName;
         @SerializedName("user_id")
         @Expose
         private String userId;
@@ -102,5 +105,12 @@ public class EditRestaurantAccountResponse {
             this.message = message;
         }
 
+        public String getContactPersonName() {
+            return contactPersonName;
+        }
+
+        public void setContactPersonName(String contactPersonName) {
+            this.contactPersonName = contactPersonName;
+        }
     }
 }

@@ -8,6 +8,7 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.Settings;
+import android.util.Base64;
 import android.widget.TextView;
 
 import com.os.foodie.R;
@@ -77,18 +78,16 @@ public final class CommonUtils {
         return new SimpleDateFormat(AppConstants.TIMESTAMP_FORMAT, Locale.US).format(new Date());
     }
 
-    public static String ConvertDate(String startdate,String enddate)
-    {
-        String convert_date="";
+    public static String ConvertDate(String startdate, String enddate) {
+        String convert_date = "";
         try {
             SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
             Date date_start = dt.parse(startdate);
             Date date_end = dt.parse(enddate);
             SimpleDateFormat dt1 = new SimpleDateFormat("dd MMM");
-            convert_date=dt1.format(date_start)+" to "+dt1.format(date_end);
+            convert_date = dt1.format(date_start) + " to " + dt1.format(date_end);
 
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -106,4 +105,29 @@ public final class CommonUtils {
         }
         return app_installed;
     }
+
+    public static String dataDecode(String textEncoded) {
+        String text = "";
+        try {
+            byte[] data = Base64.decode(textEncoded, Base64.NO_WRAP);
+            text = new String(data, "UTF-8");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return text;
+    }
+
+
+    public static String dataEncode(String textDecode) {
+        String base64 = "";
+        try {
+            byte[] data = textDecode.getBytes("UTF-8");
+            base64 = Base64.encodeToString(data, Base64.NO_WRAP);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return base64;
+    }
+
 }

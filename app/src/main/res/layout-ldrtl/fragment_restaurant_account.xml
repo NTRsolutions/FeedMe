@@ -149,7 +149,7 @@
                 android:enabled="false"
                 android:inputType="number"
                 android:lines="1"
-                android:maxLength="10"
+                android:maxLength="12"
                 android:paddingTop="@dimen/restaurant_account_et_padding_top"
                 android:gravity="start|center_vertical"
                 android:layoutDirection="rtl"

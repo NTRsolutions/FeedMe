@@ -8,9 +8,13 @@ public interface SettingsMvpPresenter<V extends SettingsMvpView> extends MvpPres
 
     void dispose();
 
-    void SetNotificationStatus();
+    void setNotificationStatus();
+
+    String getNotificationStatus();
 
     void onError(@StringRes int resId);
 
     void setLanguage(String languageCode);
+
+    boolean isCustomer();
 }

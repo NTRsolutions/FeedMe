@@ -3,6 +3,8 @@ package com.os.foodie.ui.adapter.recyclerview;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +20,11 @@ import com.os.foodie.ui.order.restaurant.detail.OrderHistoryDetailActivity;
 import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryMvpPresenter;
 import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryMvpView;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.CommonUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<RestaurantOrderHistoryAdapter.RestaurantOrderListViewHolder> {
@@ -75,18 +79,22 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
         holder.tvOrderType.setText(order.getOrderType());
         holder.tvDiscount.setText(order.getDiscount() + "%");
 
+        Log.d("getCurrency", ">>" + order.getCurrency());
+
         if (order.getCurrency() != null && !order.getCurrency().isEmpty()) {
 
-
-            try {
-                holder.tvPrice.setText(URLDecoder.decode(order.getCurrency(), "UTF-8") + " " + order.getTotalAmount());
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-
+            holder.tvPrice.setText(CommonUtils.dataDecode(order.getCurrency()) + " " + order.getTotalAmount());
+//
+////            try {
+////                holder.tvPrice.setText(URLDecoder.decode(order.getCurrency(), "UTF-8") + " " + order.getTotalAmount());
+////
+////            } catch (UnsupportedEncodingException e) {
+////                e.printStackTrace();
+////            }
+//
         } else {
 
-            holder.tvPrice.setText(currency + " " + order.getTotalAmount());
+            holder.tvPrice.setText(CommonUtils.dataDecode(currency) + " " + order.getTotalAmount());
         }
 
         holder.ivAccept.setVisibility(View.GONE);

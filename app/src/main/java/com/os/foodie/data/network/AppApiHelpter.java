@@ -139,7 +139,7 @@ public class AppApiHelpter implements ApiHelper {
             e.printStackTrace();
         }
 
-//        Log.d("jsonObject", ">>" + jsonObject.toString());
+        Log.d("jsonObject", ">>" + jsonObject.toString());
 
         return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.CUSTOMER_SIGNUP)
 //                .addBodyParameter(customerSignUpRequest)

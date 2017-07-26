@@ -62,6 +62,9 @@ public class RestaurantDetails implements Parcelable {
     @SerializedName("delivery_type")
     @Expose
     private String deliveryType;
+    @SerializedName("payment_method")
+    @Expose
+    private String paymentMethod;
     @SerializedName("delivery_zipcode")
     @Expose
     private String deliveryZipcode;
@@ -105,6 +108,7 @@ public class RestaurantDetails implements Parcelable {
             instance.deliveryTime = ((String) in.readValue((String.class.getClassLoader())));
             instance.deliveryCharge = ((String) in.readValue((String.class.getClassLoader())));
             instance.deliveryType = ((String) in.readValue((String.class.getClassLoader())));
+            instance.paymentMethod = ((String) in.readValue((String.class.getClassLoader())));
             instance.deliveryZipcode = ((String) in.readValue((String.class.getClassLoader())));
             instance.totalQuantity = ((String) in.readValue((String.class.getClassLoader())));
             instance.totalAmount = ((String) in.readValue((String.class.getClassLoader())));
@@ -128,6 +132,7 @@ public class RestaurantDetails implements Parcelable {
      * @param cuisineType
      * @param deliveryZipcode
      * @param deliveryType
+     * @param paymentMethod
      * @param minOrderAmount
      * @param deliveryCharge
      * @param id
@@ -145,7 +150,7 @@ public class RestaurantDetails implements Parcelable {
      * @param openingTime
      * @param restaurantName
      */
-    public RestaurantDetails(String id, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String deliveryZipcode, String totalQuantity, String totalAmount) {
+    public RestaurantDetails(String id, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String paymentMethod, String deliveryZipcode, String totalQuantity, String totalAmount) {
         super();
         this.id = id;
         this.restaurantName = restaurantName;
@@ -165,6 +170,7 @@ public class RestaurantDetails implements Parcelable {
         this.deliveryTime = deliveryTime;
         this.deliveryCharge = deliveryCharge;
         this.deliveryType = deliveryType;
+        this.paymentMethod = paymentMethod;
         this.deliveryZipcode = deliveryZipcode;
         this.totalQuantity = totalQuantity;
         this.totalAmount= totalAmount;
@@ -346,13 +352,20 @@ public class RestaurantDetails implements Parcelable {
         this.imageUrl = imageUrl;
     }
 
-
     public String getCurrency() {
         return currency;
     }
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     public void writeToParcel(Parcel dest, int flags) {
@@ -374,6 +387,7 @@ public class RestaurantDetails implements Parcelable {
         dest.writeValue(deliveryTime);
         dest.writeValue(deliveryCharge);
         dest.writeValue(deliveryType);
+        dest.writeValue(paymentMethod);
         dest.writeValue(deliveryZipcode);
         dest.writeValue(totalQuantity);
         dest.writeValue(totalAmount);

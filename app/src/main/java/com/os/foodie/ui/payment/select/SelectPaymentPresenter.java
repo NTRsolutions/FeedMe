@@ -113,6 +113,9 @@ public class SelectPaymentPresenter<V extends SelectPaymentMvpView> extends Base
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

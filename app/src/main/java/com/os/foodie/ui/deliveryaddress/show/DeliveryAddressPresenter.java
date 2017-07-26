@@ -104,6 +104,9 @@ public class DeliveryAddressPresenter<V extends DeliveryAddressMvpView> extends 
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

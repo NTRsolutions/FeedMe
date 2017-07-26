@@ -12,6 +12,7 @@ import com.os.foodie.data.network.model.signup.customer.CustomerSignUpRequest;
 import com.os.foodie.data.network.model.signup.customer.CustomerSignUpResponse;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.ValidationUtils;
 
@@ -77,7 +78,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
 //                                getDataManager().setCurrency(loginResponse.getResponse().getCurrency());
 //
 //                                URLDecoder.decode(restaurantProfileRequest.getCurrency(),"UTF-8")
-                                getDataManager().setCurrency(URLDecoder.decode(loginResponse.getResponse().getCurrency(),"UTF-8"));
+                                getDataManager().setCurrency(loginResponse.getResponse().getCurrency());
+//                                getDataManager().setCurrency(URLDecoder.decode(loginResponse.getResponse().getCurrency(), "UTF-8"));
 
                                 if (loginResponse.getResponse().getUserType().equals(AppConstants.CUSTOMER)) {
                                     getDataManager().setCurrentUserName(loginResponse.getResponse().getFirstName() + " " + loginResponse.getResponse().getLastName());
@@ -136,12 +138,17 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                             getDataManager().setCurrentUserId(facebookLoginResponse.getResponse().getUserId());
                             getDataManager().setCurrentUserType(facebookLoginResponse.getResponse().getUserType());
 //                            getDataManager().setCurrency(facebookLoginResponse.getResponse().getCurrency());
-                            getDataManager().setCurrency(URLDecoder.decode(facebookLoginResponse.getResponse().getCurrency(),"UTF-8"));
 
                             if (facebookLoginResponse.getResponse().getUserType().equals(AppConstants.CUSTOMER)) {
                                 getDataManager().setCurrentUserName(facebookLoginResponse.getResponse().getFirstName() + " " + facebookLoginResponse.getResponse().getLastName());
                                 getDataManager().setCustomerRestaurantId(facebookLoginResponse.getResponse().getRestaurantId());
                             } else {
+
+                                if (facebookLoginResponse.getResponse().getCurrency() != null) {
+                                    getDataManager().setCurrency(facebookLoginResponse.getResponse().getCurrency());
+//                                    getDataManager().setCurrency(URLDecoder.decode(facebookLoginResponse.getResponse().getCurrency(), "UTF-8"));
+                                }
+
                                 getDataManager().setCurrentUserName(facebookLoginResponse.getResponse().getRestaurantName());
                                 getDataManager().setRestaurantLogoURL(facebookLoginResponse.getResponse().getProfileImage());
                                 Log.d("getProfileImage", ">>" + getDataManager().getRestaurantLogoURL());
@@ -157,7 +164,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
 
                         } else {
 
-                            getMvpView().setFacebookDetails(fbId, first_name,last_name, email);
+                            getMvpView().setFacebookDetails(fbId, first_name, last_name, email);
 //
 //                            getMvpView().onError(facebookLoginResponse.getResponse().getMessage());
                         }
@@ -233,6 +240,9 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

@@ -13,5 +13,5 @@ public interface OrderHistoryMvpView extends MvpView {
 
     public void onReorderComplete();
 
-    void onAcceptReject(int position);
+    void onAcceptReject(String orderId);
 }

@@ -1,6 +1,7 @@
 package com.os.foodie.ui.order.restaurant.history;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.os.foodie.R;
@@ -27,6 +29,7 @@ import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpPresenter;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpView;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListPresenter;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.CommonUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -34,11 +37,13 @@ import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class RestaurantOrderHistoryFragment extends BaseFragment implements RestaurantOrderHistoryMvpView {
+public class RestaurantOrderHistoryFragment extends BaseFragment implements RestaurantOrderHistoryMvpView, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String TAG = "RestaurantOrderListFragment";
 
     private TextView tvAlert;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private RecyclerView recyclerView;
     private ArrayList<OrderList> orderLists;
@@ -68,8 +73,11 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
 //        restaurantOrderListMvpPresenter = new RestaurantOrderListPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         restaurantOrderhistoryMvpPresenter.onAttach(this);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.fragment_restaurant_order_list_srl);
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_restaurant_order_list_recyclerview);
         tvAlert = (TextView) view.findViewById(R.id.fragment_restaurant_order_list_tv_alert);
+
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         orderLists = new ArrayList<OrderList>();
 
@@ -83,7 +91,7 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(restaurantOrderListAdapter);
 
-        restaurantOrderhistoryMvpPresenter.getOrderHistory();
+        restaurantOrderhistoryMvpPresenter.getOrderHistory(null);
 
         return view;
     }
@@ -96,7 +104,6 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
 
         AppDataManager appDataManager = new AppDataManager(getActivity(), appPreferencesHelper, appApiHelpter);
         restaurantOrderhistoryMvpPresenter = new RestaurantOrderHistoryPresenter(appDataManager, compositeDisposable);
-
     }
 
     @Override
@@ -128,16 +135,15 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
     protected void setUp(View view) {
     }
 
-
     @Override
     public void onOrderHistoryReceived(GetOrderListResponse getOrderListResponse) {
-
 
         orderLists.clear();
 
         if (getOrderListResponse.getResponse().getOrderList() != null && !getOrderListResponse.getResponse().getOrderList().isEmpty()) {
 
-            recyclerView.setVisibility(View.VISIBLE);
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
+//            recyclerView.setVisibility(View.VISIBLE);
             tvAlert.setVisibility(View.GONE);
 
 //            for (int i = 0; i < getOrderListResponse.getResponse().getOrderList().size(); i++) {
@@ -147,18 +153,26 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
             orderLists.addAll(getOrderListResponse.getResponse().getOrderList());
 
             if (getOrderListResponse.getResponse().getCurrency() != null && !getOrderListResponse.getResponse().getCurrency().isEmpty()) {
-                try {
-                    restaurantOrderListAdapter.setCurrency(URLDecoder.decode(getOrderListResponse.getResponse().getCurrency(), "UTF-8"));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+                restaurantOrderListAdapter.setCurrency(getOrderListResponse.getResponse().getCurrency());
+//                try {
+//                    restaurantOrderListAdapter.setCurrency(URLDecoder.decode(getOrderListResponse.getResponse().getCurrency(), "UTF-8"));
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
             }
 
         } else {
-            recyclerView.setVisibility(View.GONE);
+            swipeRefreshLayout.setVisibility(View.GONE);
+//            recyclerView.setVisibility(View.GONE);
             tvAlert.setVisibility(View.VISIBLE);
         }
 
         restaurantOrderListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRefresh() {
+
+        restaurantOrderhistoryMvpPresenter.getOrderHistory(swipeRefreshLayout);
     }
 }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.data.network.model.earning.Earning;
+import com.os.foodie.utils.CommonUtils;
 
 import java.util.ArrayList;
 
@@ -51,7 +52,7 @@ public class EarningAdapter extends RecyclerView.Adapter<EarningAdapter.EarningV
         holder.tvOrderId.setText(earning.getOrderId());
         holder.tvPaymentMethod.setText(earning.getPaymentType());
         holder.tvDate.setText(earning.getPaymentDate());
-        holder.tvAmount.setText(currency + earning.getAmount());
+        holder.tvAmount.setText(CommonUtils.dataDecode(currency) + earning.getAmount());
     }
 
     @Override

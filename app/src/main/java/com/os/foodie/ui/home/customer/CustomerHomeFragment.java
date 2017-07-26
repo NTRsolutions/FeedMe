@@ -2,6 +2,7 @@ package com.os.foodie.ui.home.customer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,13 +34,15 @@ import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMvpView, View.OnClickListener {
+public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMvpView, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String TAG = "CustomerHomeFragment";
 
     private TextView tvNoResult;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
+
     private ArrayList<RestaurantList> restaurantList;
     private RestaurantListAdapter restaurantListAdapter;
 
@@ -49,7 +52,7 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
     }
 
     public static CustomerHomeFragment newInstance() {
-        Log.d("newInstance","Called");
+        Log.d("newInstance", "Called");
         Bundle args = new Bundle();
         CustomerHomeFragment fragment = new CustomerHomeFragment();
         fragment.setArguments(args);
@@ -68,6 +71,9 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
 
         tvNoResult = (TextView) view.findViewById(R.id.fragment_customer_home_tv_no_result);
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_customer_home_recyclerview);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.fragment_customer_home_srl);
+
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         restaurantList = new ArrayList<RestaurantList>();
 
@@ -84,7 +90,15 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
         return view;
     }
 
-    public void initPresenter(){
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((CustomerMainActivity) getActivity()).setTitle(getResources().getString(R.string.title_fragment_customer_home));
+
+        customerHomeMvpPresenter.getRestaurantList(AppController.get(getActivity()).getFilters(), null);
+    }
+
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -92,14 +106,6 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
 
         AppDataManager appDataManager = new AppDataManager(getActivity(), appPreferencesHelper, appApiHelpter);
         customerHomeMvpPresenter = new CustomerHomePresenter(appDataManager, compositeDisposable);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("getRestaurantList","Called");
-        ((CustomerMainActivity) getActivity()).setTitle(getResources().getString(R.string.title_fragment_customer_home));
-        customerHomeMvpPresenter.getRestaurantList(AppController.get(getActivity()).getFilters());
     }
 
     @Override
@@ -216,18 +222,30 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
     }
 
     public void checkNoResult() {
+
         if (restaurantList != null && !restaurantList.isEmpty()) {
+
             tvNoResult.setVisibility(View.GONE);
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
+
         } else {
+
             tvNoResult.setVisibility(View.VISIBLE);
+            swipeRefreshLayout.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void onDestroyView() {
-        Log.d("onDestroyView","Called");
+        Log.d("onDestroyView", "Called");
 //        customerHomeMvpPresenter.onDetach();
         customerHomeMvpPresenter.dispose();
         super.onDestroyView();
+    }
+
+    @Override
+    public void onRefresh() {
+
+        customerHomeMvpPresenter.getRestaurantList(AppController.get(getActivity()).getFilters(), swipeRefreshLayout);
     }
 }

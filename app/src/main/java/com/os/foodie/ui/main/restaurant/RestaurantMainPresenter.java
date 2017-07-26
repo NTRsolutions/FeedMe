@@ -80,6 +80,9 @@ public class RestaurantMainPresenter<V extends RestaurantMainMvpView> extends Ba
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

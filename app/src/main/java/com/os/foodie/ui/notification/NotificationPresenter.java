@@ -1,5 +1,6 @@
 package com.os.foodie.ui.notification;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 
 import com.os.foodie.R;
@@ -23,29 +24,35 @@ public class NotificationPresenter<V extends NotificationMvpView> extends BasePr
 
     DataManager dataManager;
 
-
     public NotificationPresenter(DataManager dataManager, CompositeDisposable compositeDisposable) {
         super(dataManager, compositeDisposable);
-        this.dataManager=dataManager;
+        this.dataManager = dataManager;
     }
 
-
     @Override
-    public void getNotificationList(String userId,String restaurantId) {
+    public void getNotificationList(String userId, String restaurantId, final SwipeRefreshLayout swipeRefreshLayout) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
-            getMvpView().showLoading();
+            if (swipeRefreshLayout == null) {
+                getMvpView().showLoading();
+            } else {
+                swipeRefreshLayout.setRefreshing(true);
+            }
 
             getCompositeDisposable().add(getDataManager()
-                    .getNotification(userId,restaurantId)
+                    .getNotification(userId, restaurantId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<NotificationListResponse>() {
                         @Override
                         public void accept(NotificationListResponse notificationListResponse) throws Exception {
 
-                            getMvpView().hideLoading();
+                            if (swipeRefreshLayout == null) {
+                                getMvpView().hideLoading();
+                            } else {
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
 
                             if (notificationListResponse.getResponse().getStatus() == 1) {
                                 //getMvpView().onError(notificationListResponse.getResponse().getMessage());
@@ -58,7 +65,13 @@ public class NotificationPresenter<V extends NotificationMvpView> extends BasePr
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
-                            getMvpView().hideLoading();
+
+                            if (swipeRefreshLayout == null) {
+                                getMvpView().hideLoading();
+                            } else {
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
+
                             getMvpView().onError(R.string.api_default_error);
                             Log.d("Error", ">>Err" + throwable.getMessage());
                         }
@@ -72,7 +85,7 @@ public class NotificationPresenter<V extends NotificationMvpView> extends BasePr
     public void readNotification(String notification_id) {
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
-           // getMvpView().showLoading();
+            // getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
                     .readNotification(notification_id)
@@ -86,17 +99,17 @@ public class NotificationPresenter<V extends NotificationMvpView> extends BasePr
 
                             if (notificationListResponse.getResponse().getStatus() == 1) {
                                 //getMvpView().onError(notificationListResponse.getResponse().getMessage());
-                               // getMvpView().setNotificationList(notificationListResponse);
+                                // getMvpView().setNotificationList(notificationListResponse);
 
                             } else {
-                               // getMvpView().onError(notificationListResponse.getResponse().getMessage());
+                                // getMvpView().onError(notificationListResponse.getResponse().getMessage());
                             }
                         }
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
                             //getMvpView().hideLoading();
-                           // getMvpView().onError(R.string.api_default_error);
+                            // getMvpView().onError(R.string.api_default_error);
                             Log.d("Error", ">>Err" + throwable.getMessage());
                         }
                     }));

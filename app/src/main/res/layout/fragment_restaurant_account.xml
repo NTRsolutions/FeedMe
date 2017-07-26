@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,26 +31,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/restaurant_account_ll_margin_start_end"
             android:layout_marginEnd="@dimen/restaurant_account_ll_margin_start_end"
+            android:layout_marginStart="@dimen/restaurant_account_ll_margin_start_end"
             android:layout_marginTop="@dimen/restaurant_account_ll_restaurant_name_margin_top"
             android:orientation="vertical">
 
             <TextView
+                fontPath="@string/font_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/restaurant_account_tv_padding_start"
-                fontPath="@string/font_default"
                 android:text="@string/restaurant_account_tv_restaurant_name_text"
                 android:textColor="@color/orange" />
 
             <EditText
                 android:id="@+id/fragment_restaurant_account_et_restaurant_name"
+                fontPath="@string/font_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:inputType="text"
-                fontPath="@string/font_default"
                 android:lines="1"
                 android:paddingTop="@dimen/restaurant_account_et_padding_top"
                 android:textColor="@color/dark_grey"
@@ -59,26 +61,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/restaurant_account_ll_margin_start_end"
             android:layout_marginEnd="@dimen/restaurant_account_ll_margin_start_end"
+            android:layout_marginStart="@dimen/restaurant_account_ll_margin_start_end"
             android:layout_marginTop="@dimen/restaurant_account_ll_margin_top"
             android:orientation="vertical">
 
             <TextView
+                fontPath="@string/font_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/restaurant_account_tv_padding_start"
-                fontPath="@string/font_default"
                 android:text="@string/restaurant_account_tv_contact_person_name_text"
                 android:textColor="@color/orange" />
 
             <EditText
                 android:id="@+id/fragment_restaurant_account_et_contact_person_name"
+                fontPath="@string/font_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:inputType="textPersonName"
-                fontPath="@string/font_default"
                 android:lines="1"
                 android:paddingTop="@dimen/restaurant_account_et_padding_top"
                 android:textColor="@color/dark_grey"
@@ -88,27 +90,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/restaurant_account_ll_margin_start_end"
             android:layout_marginEnd="@dimen/restaurant_account_ll_margin_start_end"
+            android:layout_marginStart="@dimen/restaurant_account_ll_margin_start_end"
             android:layout_marginTop="@dimen/restaurant_account_ll_margin_top"
             android:orientation="vertical">
 
             <TextView
+                fontPath="@string/font_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/restaurant_account_tv_padding_start"
                 android:text="@string/restaurant_account_tv_email_text"
-                fontPath="@string/font_default"
                 android:textColor="@color/orange" />
 
             <EditText
                 android:id="@+id/fragment_restaurant_account_et_email"
+                fontPath="@string/font_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:inputType="textEmailAddress"
                 android:lines="1"
-                fontPath="@string/font_default"
                 android:paddingTop="@dimen/restaurant_account_et_padding_top"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/restaurant_account_et_text_size" />
@@ -117,28 +119,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/restaurant_account_ll_margin_start_end"
             android:layout_marginEnd="@dimen/restaurant_account_ll_margin_start_end"
+            android:layout_marginStart="@dimen/restaurant_account_ll_margin_start_end"
             android:layout_marginTop="@dimen/restaurant_account_ll_margin_top"
             android:orientation="vertical">
 
             <TextView
+                fontPath="@string/font_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/restaurant_account_tv_padding_start"
-                fontPath="@string/font_default"
                 android:text="@string/restaurant_account_tv_phone_number_text"
                 android:textColor="@color/orange" />
 
             <EditText
                 android:id="@+id/fragment_restaurant_account_et_phone_number"
+                fontPath="@string/font_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:inputType="number"
                 android:lines="1"
-                fontPath="@string/font_default"
-                android:maxLength="10"
+                android:maxLength="12"
                 android:paddingTop="@dimen/restaurant_account_et_padding_top"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/restaurant_account_et_text_size" />
@@ -150,8 +152,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/restaurant_account_bt_height"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/restaurant_account_bt_margin_start_end"
             android:layout_marginEnd="@dimen/restaurant_account_bt_margin_start_end"
+            android:layout_marginStart="@dimen/restaurant_account_bt_margin_start_end"
             android:layout_marginTop="@dimen/restaurant_account_bt_margin_top"
             android:gravity="center"
             android:text="@string/restaurant_account_bt_save_profile_text"
@@ -163,8 +165,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/restaurant_account_bt_height"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/restaurant_account_bt_margin_start_end"
             android:layout_marginEnd="@dimen/restaurant_account_bt_margin_start_end"
+            android:layout_marginStart="@dimen/restaurant_account_bt_margin_start_end"
             android:layout_marginTop="@dimen/restaurant_account_bt_margin_top"
             android:gravity="center"
             android:text="@string/restaurant_account_bt_cancel_text"

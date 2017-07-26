@@ -99,7 +99,7 @@
                     android:gravity="start|center_vertical"
                     android:layoutDirection="rtl"
                     android:textAlignment="viewStart"
-                    android:maxLength="10"
+                    android:maxLength="12"
                     android:paddingEnd="@dimen/restaurant_sign_up_et_phone_padding_end"
                     android:paddingStart="@dimen/restaurant_sign_up_et_phone_padding_start" />
 

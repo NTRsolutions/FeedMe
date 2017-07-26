@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="MissingPrefix"
     android:fitsSystemWindows="true"
-    tools:context="com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity">
+    tools:context="com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity"
+    tools:ignore="MissingPrefix">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -108,13 +108,13 @@
                                 android:orientation="horizontal">
 
                                 <TextView
+                                    fontPath="@string/font_serif"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginEnd="@dimen/restaurant_details_tv_rating_text_margin_end"
                                     android:text="@string/restaurant_details_tv_rating_text_rating"
                                     android:textColor="@color/black"
-                                    fontPath="@string/font_serif"
                                     android:typeface="serif" />
 
                                 <RatingBar
@@ -125,18 +125,18 @@
                                     android:layout_gravity="center_vertical"
                                     android:numStars="5"
                                     android:rating="0"
-                                    android:theme="@style/RatingBar"
-                                    android:stepSize="1" />
+                                    android:stepSize="1"
+                                    android:theme="@style/RatingBar" />
 
                                 <TextView
                                     android:id="@+id/content_restaurant_details_tv_reviews"
+                                    fontPath="@string/font_serif"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginStart="@dimen/restaurant_details_tv_reviews_margin_start"
                                     android:text="Reviews(0)"
                                     android:textColor="@color/black"
-                                    fontPath="@string/font_serif"
                                     android:typeface="serif" />
 
                             </LinearLayout>
@@ -149,6 +149,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="@dimen/restaurant_details_ll_sub_header_2_margin"
+                            android:visibility="gone"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -201,9 +202,9 @@
             android:layout_marginStart="@dimen/restautant_details_faiv_profile_pic_margin_start"
             android:background="@color/white"
             android:cropToPadding="true"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/img_banner"
             android:padding="@dimen/restautant_details_faiv_profile_pic_padding"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_placeholder"
             app:layout_anchor="@id/activity_restaurant_details_viewpager"
             app:layout_anchorGravity="bottom|start" />
 
@@ -222,22 +223,22 @@
 
             <TextView
                 android:id="@+id/activity_restautant_details_fall_delivery_time_text"
+                fontPath="@string/font_serif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/restautant_details_fall_delivery_time_text_size"
-                fontPath="@string/font_serif"
                 android:typeface="serif" />
 
             <TextView
+                fontPath="@string/font_serif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/restautant_details_fall_delivery_time_min_margin_top"
                 android:gravity="center"
                 android:text="@string/restautant_details_fall_delivery_time_min_text"
                 android:textColor="@color/white"
-                fontPath="@string/font_serif"
                 android:textSize="@dimen/restautant_details_fall_delivery_time_min_text_size"
                 android:typeface="serif" />
 
@@ -264,11 +265,11 @@
 
             <TextView
                 android:id="@+id/activity_restautant_details_faiv_likes_text"
+                fontPath="@string/font_serif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/white"
-                fontPath="@string/font_serif"
                 android:textSize="@dimen/restautant_details_faiv_likes_text_size"
                 android:typeface="serif" />
 
@@ -341,6 +342,7 @@
         android:paddingBottom="@dimen/restaurant_details_rl_basket_padding_bottom"
         android:paddingEnd="@dimen/restaurant_details_rl_basket_padding_end"
         android:paddingStart="@dimen/restaurant_details_rl_basket_padding_start"
+        android:visibility="gone"
         android:paddingTop="@dimen/restaurant_details_rl_basket_padding_top">
 
         <LinearLayout
@@ -352,18 +354,18 @@
             android:orientation="horizontal">
 
             <TextView
+                fontPath="@string/font_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fontPath="@string/font_default"
                 android:gravity="right|end"
                 android:text="@string/restaurant_details_tv_total_quantity_tag_text"
                 android:textColor="@color/grey" />
 
             <TextView
                 android:id="@+id/activity_restaurant_details_tv_total_quantity"
+                fontPath="@string/font_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fontPath="@string/font_default"
                 android:layout_marginStart="@dimen/restaurant_details_tv_total_quantity_margin_start"
                 android:gravity="right|end"
                 android:textColor="@color/grey" />

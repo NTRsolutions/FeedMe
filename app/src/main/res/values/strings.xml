@@ -68,12 +68,15 @@
     <!--Validation Message-->
     <string name="empty_first_name">Please provide your first name</string>
     <string name="invalid_first_name">Please provide valid first name</string>
+    <string name="long_first_name">First name should not be longer than 15 characters</string>
     <string name="empty_last_name">Please provide your last name</string>
     <string name="invalid_last_name">Please provide valid last name</string>
+    <string name="long_last_name">Last name should not be longer than 15 characters</string>
     <string name="empty_email">Please provide email address</string>
     <string name="invalid_email">Please provide valid email address</string>
     <string name="empty_password">Please provide password</string>
     <string name="minimum_password">Password must be 6 character long</string>
+    <string name="invalid_password">Password must contain atleast one alphabetic and numeric character</string>
     <string name="empty_confirm_password">Please confirm your password</string>
     <string name="not_match_password">Password do not match</string>
     <string name="empty_phone">Please provide your phone number</string>
@@ -84,8 +87,10 @@
     <string name="minimum_otp">Please enter 6 digit OTP</string>
     <string name="empty_contact_person_name">Please provide contact person name</string>
     <string name="invalid_contact_person_name">Please provide valid contact person name</string>
+    <string name="long_contact_person_name">Contact person name should not be longer than 20 characters</string>
     <string name="empty_restaurant_name">Please provide restaurant name</string>
     <string name="invalid_restaurant_name">Please provide valid restaurant name</string>
+    <string name="long_restaurant_name">Restaurant name should not be longer than 20 characters</string>
     <string name="empty_cuisine_type">Please provide cuisine type</string>
     <string name="empty_working_days">Please provide working days</string>
     <string name="empty_address">Please provide address</string>
@@ -328,7 +333,7 @@
     <!--Restaurant Menu-->
     <string name="title_restaurant_menu_activity">Restaurant Menu</string>
     <string name="title_fragment_restaurant_menu">Restaurant Menu</string>
-    <string name="restaurant_menu_fragment_tv_empty_menu">No menu item</string>
+    <string name="restaurant_menu_fragment_tv_empty_menu">No menu item found</string>
 
     <!--Add Update Restaurant Menu-->
     <string name="restaurant_menu_add_update_activity_title">Menu Management</string>
@@ -381,7 +386,7 @@
     <string name="fragment_show_restaurant_profile_content_tv_payment_type_text">Payment type:</string>
 
     <!--Restaurant Order List-->
-    <string name="title_fragment_restaurant_order_list">Orders</string>
+    <string name="title_fragment_restaurant_order_list">Orders List</string>
     <string name="fragment_restaurant_order_list_tv_no_order_text">No Order</string>
     <string name="recyclerview_restaurant_order_tv_delivery_time_tag_text">Ordered On</string>
     <string name="recyclerview_restaurant_order_tv_order_type_tag_text">Order Type:</string>

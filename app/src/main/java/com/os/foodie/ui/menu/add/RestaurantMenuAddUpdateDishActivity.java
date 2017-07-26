@@ -115,6 +115,8 @@ public class RestaurantMenuAddUpdateDishActivity extends BaseActivity implements
     @Override
     public void onClick(View v) {
 
+        hideKeyboard();
+
         if (v.getId() == etCourseType.getId()) {
 
             restaurantMenuAddUpdateDishMvpPresenter.getCourseTypeList();

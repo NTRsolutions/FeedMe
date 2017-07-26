@@ -3,6 +3,7 @@ package com.os.foodie.ui.discount.add;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatRadioButton;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -23,7 +25,6 @@ import com.os.foodie.data.network.model.discount.dishlist.DishDatum;
 import com.os.foodie.data.network.model.discount.list.DiscountList;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.base.BaseActivity;
-import com.os.foodie.ui.custom.RippleAppCompatButton;
 import com.os.foodie.ui.dialogfragment.dishlist.DishListDialogFragment;
 import com.os.foodie.utils.AppConstants;
 
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class DiscountAddActivity extends BaseActivity implements DiscountAddMvpView, View.OnClickListener, DishNamesCallback, DatePickerDialog.OnDateSetListener {
@@ -48,7 +50,7 @@ public class DiscountAddActivity extends BaseActivity implements DiscountAddMvpV
     public static TextView tvStartDate;
     public static TextView tvEndDate;
 
-    private RippleAppCompatButton btAdd;
+    private Button btAdd;
 
     private ArrayList<DishDatum> dishlist;
 
@@ -64,6 +66,7 @@ public class DiscountAddActivity extends BaseActivity implements DiscountAddMvpV
     private DiscountList discountList;
 
     private DiscountAddMvpPresenter<DiscountAddMvpView> discountAddMvpPresenter;
+    boolean isAddButtonEnabled = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +96,7 @@ public class DiscountAddActivity extends BaseActivity implements DiscountAddMvpV
         tvStartDate = (TextView) findViewById(R.id.activity_add_discount_tv_start_date);
         tvEndDate = (TextView) findViewById(R.id.activity_add_discount_tv_end_date);
 
-        btAdd = (RippleAppCompatButton) findViewById(R.id.activity_add_discount_bt_add_discount);
+        btAdd = (Button) findViewById(R.id.activity_add_discount_bt_add_discount);
 
         tvFoodType.setOnClickListener(this);
         tvStartDate.setOnClickListener(this);
@@ -259,90 +262,104 @@ public class DiscountAddActivity extends BaseActivity implements DiscountAddMvpV
 
         } else if (v.getId() == btAdd.getId()) {
 
-            if (rbMinType.isChecked()) {
+            if (isAddButtonEnabled) {
 
-                if (etMinAmount.getText().toString().trim().length() == 0) {
+                isAddButtonEnabled = false;
+                Log.d("isAddButtonEnabled", "false");
 
-                    Snackbar snackbar = Snackbar.make(btAdd, getString(R.string.empty_minimum_amount), Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                    return;
+                if (rbMinType.isChecked()) {
 
-                } else if (etMinPercent.getText().toString().trim().length() == 0) {
+                    if (etMinAmount.getText().toString().trim().length() == 0) {
 
-                    Snackbar snackbar = Snackbar.make(btAdd, getString(R.string.empty_percentage), Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                    return;
+                        Snackbar snackbar = Snackbar.make(btAdd, getString(R.string.empty_minimum_amount), Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                        setAddButtonEnable();
+                        return;
 
-                } else if (tvStartDate.getText().toString().trim().length() == 0) {
+                    } else if (etMinPercent.getText().toString().trim().length() == 0) {
 
-                    Snackbar snackbar = Snackbar.make(btAdd, getString(R.string.empty_start_date), Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                    return;
+                        Snackbar snackbar = Snackbar.make(btAdd, getString(R.string.empty_percentage), Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                        setAddButtonEnable();
+                        return;
 
-                } else if (tvEndDate.getText().toString().trim().length() == 0) {
+                    } else if (tvStartDate.getText().toString().trim().length() == 0) {
 
-                    Snackbar snackbar = Snackbar.make(btAdd, getString(R.string.empty_end_date), Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                    return;
+                        Snackbar snackbar = Snackbar.make(btAdd, getString(R.string.empty_start_date), Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                        setAddButtonEnable();
+                        return;
 
-                } else {
+                    } else if (tvEndDate.getText().toString().trim().length() == 0) {
 
-                    AddDiscountRequest addDiscountRequest = new AddDiscountRequest();
+                        Snackbar snackbar = Snackbar.make(btAdd, getString(R.string.empty_end_date), Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                        setAddButtonEnable();
+                        return;
 
-                    addDiscountRequest.setDiscountId(discountId);
-                    addDiscountRequest.setDiscountPercentage(etMinPercent.getText().toString().trim());
-                    addDiscountRequest.setDiscountType("min_order");
-                    addDiscountRequest.setDishId(dishIds);
-                    addDiscountRequest.setStartDate(tvStartDate.getText().toString().trim());
-                    addDiscountRequest.setEndDate(tvEndDate.getText().toString().trim());
-                    addDiscountRequest.setMinOrderAmount(etMinAmount.getText().toString().trim());
+                    } else {
 
-                    discountAddMvpPresenter.addDiscount(addDiscountRequest);
-                }
+                        AddDiscountRequest addDiscountRequest = new AddDiscountRequest();
 
-            } else {
+                        addDiscountRequest.setDiscountId(discountId);
+                        addDiscountRequest.setDiscountPercentage(etMinPercent.getText().toString().trim());
+                        addDiscountRequest.setDiscountType("min_order");
+                        addDiscountRequest.setDishId(dishIds);
+                        addDiscountRequest.setStartDate(tvStartDate.getText().toString().trim());
+                        addDiscountRequest.setEndDate(tvEndDate.getText().toString().trim());
+                        addDiscountRequest.setMinOrderAmount(etMinAmount.getText().toString().trim());
 
-                if (dishIds.length() == 0) {
-
-                    Snackbar snackbar = Snackbar
-                            .make(btAdd, getString(R.string.select_dish_name), Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                    return;
-
-                } else if (etFoodPercent.getText().toString().trim().length() == 0) {
-
-                    Snackbar snackbar = Snackbar
-                            .make(btAdd, getString(R.string.empty_percentage), Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                    return;
-
-                } else if (tvStartDate.getText().toString().trim().length() == 0) {
-
-                    Snackbar snackbar = Snackbar
-                            .make(btAdd, getString(R.string.empty_start_date), Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                    return;
-
-                } else if (tvEndDate.getText().toString().trim().length() == 0) {
-
-                    Snackbar snackbar = Snackbar
-                            .make(btAdd, getString(R.string.empty_end_date), Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                    return;
+                        discountAddMvpPresenter.addDiscount(addDiscountRequest);
+                    }
 
                 } else {
 
-                    AddDiscountRequest addDiscountRequest = new AddDiscountRequest();
+                    if (dishIds.length() == 0) {
 
-                    addDiscountRequest.setDiscountId(discountId);
-                    addDiscountRequest.setDiscountPercentage(etFoodPercent.getText().toString().trim());
-                    addDiscountRequest.setDiscountType("course_type");
-                    addDiscountRequest.setDishId(dishIds);
-                    addDiscountRequest.setStartDate(tvStartDate.getText().toString().trim());
-                    addDiscountRequest.setEndDate(tvEndDate.getText().toString().trim());
-                    addDiscountRequest.setMinOrderAmount("");
+                        Snackbar snackbar = Snackbar
+                                .make(btAdd, getString(R.string.select_dish_name), Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                        setAddButtonEnable();
+                        return;
 
-                    discountAddMvpPresenter.addDiscount(addDiscountRequest);
+                    } else if (etFoodPercent.getText().toString().trim().length() == 0) {
+
+                        Snackbar snackbar = Snackbar
+                                .make(btAdd, getString(R.string.empty_percentage), Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                        setAddButtonEnable();
+                        return;
+
+                    } else if (tvStartDate.getText().toString().trim().length() == 0) {
+
+                        Snackbar snackbar = Snackbar
+                                .make(btAdd, getString(R.string.empty_start_date), Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                        setAddButtonEnable();
+                        return;
+
+                    } else if (tvEndDate.getText().toString().trim().length() == 0) {
+
+                        Snackbar snackbar = Snackbar
+                                .make(btAdd, getString(R.string.empty_end_date), Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                        setAddButtonEnable();
+                        return;
+
+                    } else {
+
+                        AddDiscountRequest addDiscountRequest = new AddDiscountRequest();
+
+                        addDiscountRequest.setDiscountId(discountId);
+                        addDiscountRequest.setDiscountPercentage(etFoodPercent.getText().toString().trim());
+                        addDiscountRequest.setDiscountType("course_type");
+                        addDiscountRequest.setDishId(dishIds);
+                        addDiscountRequest.setStartDate(tvStartDate.getText().toString().trim());
+                        addDiscountRequest.setEndDate(tvEndDate.getText().toString().trim());
+                        addDiscountRequest.setMinOrderAmount("");
+
+                        discountAddMvpPresenter.addDiscount(addDiscountRequest);
+                    }
                 }
             }
         }
@@ -372,6 +389,18 @@ public class DiscountAddActivity extends BaseActivity implements DiscountAddMvpV
         }
 
         return true;
+    }
+
+    @Override
+    public void setAddButtonEnable() {
+        Log.d("isAddButtonEnabled", "true");
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isAddButtonEnabled = true;
+            }
+        }, 1000);
     }
 
     @Override

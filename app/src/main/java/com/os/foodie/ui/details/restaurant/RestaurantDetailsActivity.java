@@ -73,6 +73,7 @@ import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.ui.review.ReviewActivity;
 import com.os.foodie.ui.search.RestaurantSearchActivity;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.DialogUtils;
 import com.os.foodie.utils.GetPathFromUrl;
 import com.os.foodie.utils.NetworkUtils;
@@ -442,11 +443,12 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
             tvTotalQuantity.setText(restaurantDetailsResponse.getResponse().getTotalQuantity());
 //            tvTotalQuantity.setText("Quantity: " + restaurantDetailsResponse.getResponse().getTotalQuantity());
-            try {
-                tvTotalAmount.setText(URLDecoder.decode(restaurantDetailsResponse.getResponse().getCurrency(), "UTF-8") + restaurantDetailsResponse.getResponse().getTotalAmount());
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            tvTotalAmount.setText(CommonUtils.dataDecode(restaurantDetailsResponse.getResponse().getCurrency()) + restaurantDetailsResponse.getResponse().getTotalAmount());
+//            try {
+//                tvTotalAmount.setText(URLDecoder.decode(restaurantDetailsResponse.getResponse().getCurrency(), "UTF-8") + restaurantDetailsResponse.getResponse().getTotalAmount());
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
 
             Log.d("VISIBLE", ">>Yes" + restaurantDetailsMvpPresenter.getCustomerRestaurantId());
 
@@ -575,11 +577,12 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 //        if (courseAdapter.getTotalQuantity() > 0) {
 
             tvTotalQuantity.setText("Quantity: " + restaurantDetailsResponse.getResponse().getTotalQuantity());
-            try {
-                tvTotalAmount.setText(URLDecoder.decode(restaurantDetailsResponse.getResponse().getCurrency(), "UTF-8") + restaurantDetailsResponse.getResponse().getTotalAmount());
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            tvTotalAmount.setText(CommonUtils.dataDecode(restaurantDetailsResponse.getResponse().getCurrency()) + restaurantDetailsResponse.getResponse().getTotalAmount());
+//            try {
+//                tvTotalAmount.setText(URLDecoder.decode(restaurantDetailsResponse.getResponse().getCurrency(), "UTF-8") + restaurantDetailsResponse.getResponse().getTotalAmount());
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
 
             rlBasketDetails.setVisibility(View.VISIBLE);
         } else {
@@ -612,11 +615,12 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                         TextView tvPrice = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price);
                         TextView tvCurrency = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price_currency);
 
-                        try {
-                            tvCurrency.setText(URLDecoder.decode(restaurantDetails.getCurrency(), "UTF-8"));
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
+                        tvCurrency.setText(CommonUtils.dataDecode(restaurantDetails.getCurrency()));
+//                        try {
+//                            tvCurrency.setText(URLDecoder.decode(restaurantDetails.getCurrency(), "UTF-8"));
+//                        } catch (UnsupportedEncodingException e) {
+//                            e.printStackTrace();
+//                        }
 
                         ImageView ivMinus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_minus);
                         ImageView ivPlus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_plus);
@@ -841,6 +845,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         restaurantDetails.setDeliveryTime(restaurantDetailsResponse.getResponse().getDeliveryTime());
         restaurantDetails.setDeliveryCharge(restaurantDetailsResponse.getResponse().getDeliveryCharge());
         restaurantDetails.setDeliveryType(restaurantDetailsResponse.getResponse().getDeliveryType());
+        restaurantDetails.setPaymentMethod(restaurantDetailsResponse.getResponse().getPaymentMethod());
         restaurantDetails.setDeliveryZipcode(restaurantDetailsResponse.getResponse().getDeliveryZipcode());
         restaurantDetails.setImageUrl(restaurantDetailsResponse.getResponse().getLogo());
         restaurantDetails.setCurrency(restaurantDetailsResponse.getResponse().getCurrency());
@@ -908,11 +913,12 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         if (Integer.parseInt(totalQuantity) > 0) {
 
             tvTotalQuantity.setText(totalQuantity);
-            try {
-                tvTotalAmount.setText(URLDecoder.decode(restaurantDetails.getCurrency(), "UTF-8") + totalAmount);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            tvTotalAmount.setText(CommonUtils.dataDecode(restaurantDetails.getCurrency()) + totalAmount);
+//            try {
+//                tvTotalAmount.setText(URLDecoder.decode(restaurantDetails.getCurrency(), "UTF-8") + totalAmount);
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
 
             rlBasketDetails.setVisibility(View.VISIBLE);
         } else {
@@ -940,11 +946,12 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         if (Integer.parseInt(totalQuantity) > 0) {
 
             tvTotalQuantity.setText(totalQuantity);
-            try {
-                tvTotalAmount.setText(URLDecoder.decode(restaurantDetails.getCurrency(), "UTF-8") + totalAmount);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            tvTotalAmount.setText(CommonUtils.dataDecode(restaurantDetails.getCurrency()) + totalAmount);
+//            try {
+//                tvTotalAmount.setText(URLDecoder.decode(restaurantDetails.getCurrency(), "UTF-8") + totalAmount);
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
 
             rlBasketDetails.setVisibility(View.VISIBLE);
         } else {

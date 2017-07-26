@@ -3,6 +3,7 @@ package com.os.foodie.ui.adapter.recyclerview;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,22 +22,17 @@ import com.os.foodie.utils.TimeFormatUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * Created by monikab on 8/9/2016.
- */
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.CourseHolder> {
 
     NotificationMvpPresenter<NotificationMvpView> notificationMvpPresenter;
     private Context mContext;
     List<NotificationListResponse.NotificationList> notificationAry = new ArrayList<>();
 
-    public NotificationAdapter(Context context, List<NotificationListResponse.NotificationList> notificationAry,NotificationMvpPresenter<NotificationMvpView> notificationMvpPresenter) {
+    public NotificationAdapter(Context context, List<NotificationListResponse.NotificationList> notificationAry, NotificationMvpPresenter<NotificationMvpView> notificationMvpPresenter) {
         this.mContext = context;
         this.notificationAry = notificationAry;
-        this.notificationMvpPresenter=notificationMvpPresenter;
+        this.notificationMvpPresenter = notificationMvpPresenter;
     }
-
 
     @Override
     public CourseHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -61,21 +57,22 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int pos = (int) v.getTag();
-                if(notificationAry.get(pos).getIsRead().equals("0")) {
+
+                if (notificationAry.get(pos).getIsRead().equals("0")) {
                     notificationAry.get(pos).setIsRead("1");
                     notifyItemChanged(pos);
                     notificationMvpPresenter.readNotification(notificationAry.get(pos).getNotificationId());
                 }
+
                 Intent i = new Intent(mContext, OrderHistoryDetailActivity.class);
                 i.putExtra("order_id", notificationAry.get(pos).getOrderId());
                 i.putExtra("showUpdateButton", setStatusButtonOnOrderHistory(notificationAry.get(pos).getNotificationType()));
                 mContext.startActivity(i);
             }
         });
-
     }
-
 
     @Override
     public int getItemCount() {
@@ -85,7 +82,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public class CourseHolder extends RecyclerView.ViewHolder {
 
         private TextView notification_tv, notification_time_tv;
-        LinearLayout back_ll,front_ll;
+        LinearLayout back_ll, front_ll;
 
         public CourseHolder(View view) {
             super(view);
@@ -94,23 +91,19 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             this.back_ll = (LinearLayout) view.findViewById(R.id.back_ll);
             this.front_ll = (LinearLayout) view.findViewById(R.id.front_ll);
         }
-
     }
 
+    boolean setStatusButtonOnOrderHistory(String notificationType) {
 
-    boolean setStatusButtonOnOrderHistory(String notificationType){
-        boolean showStatus=false;
-        if(notificationMvpPresenter.getDataManager().getCurrentUserType().equalsIgnoreCase(AppConstants.CUSTOMER)){
-            showStatus=false;
-        }
-        else if(notificationType.equalsIgnoreCase("order_received") || notificationType.equalsIgnoreCase("order_reject") || notificationType.equalsIgnoreCase("picked") || notificationType.equalsIgnoreCase("delivered")) {
+        boolean showStatus = false;
+
+        if (notificationMvpPresenter.getDataManager().getCurrentUserType().equalsIgnoreCase(AppConstants.CUSTOMER)) {
             showStatus = false;
-        }else{
+        } else if (/*notificationType.equalsIgnoreCase("order_received") ||*/ notificationType.equalsIgnoreCase("order_reject") || notificationType.equalsIgnoreCase("picked") || notificationType.equalsIgnoreCase("delivered")) {
+            showStatus = false;
+        } else {
             showStatus = true;
         }
-        return  showStatus;
+        return showStatus;
     }
-
-
 }
-

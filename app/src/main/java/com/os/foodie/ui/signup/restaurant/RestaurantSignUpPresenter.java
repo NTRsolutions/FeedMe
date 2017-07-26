@@ -32,16 +32,25 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
     public void onRestaurantSignUpClick(String fbId, String contactPersonName, String restaurantName, String email, String password, String confirm_password, String phone, String deviceId, String deviceType, String latitude, String longitude, String language, HashMap<String, File> fileMap) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
             if (fileMap.size() == 0) {
                 getMvpView().onError(R.string.mandatory_logo);
                 return;
             }
-            if (contactPersonName == null || contactPersonName.isEmpty()) {
+            if (contactPersonName == null || contactPersonName.trim().isEmpty()) {
                 getMvpView().onError(R.string.empty_contact_person_name);
                 return;
             }
-            if (restaurantName == null || restaurantName.isEmpty()) {
+            if (contactPersonName.length()>20) {
+                getMvpView().onError(R.string.long_contact_person_name);
+                return;
+            }
+            if (restaurantName == null || restaurantName.trim().isEmpty()) {
                 getMvpView().onError(R.string.empty_restaurant_name);
+                return;
+            }
+            if (restaurantName.length()>20) {
+                getMvpView().onError(R.string.long_restaurant_name);
                 return;
             }
 //        if (!ValidationUtils.isNameValid(fname)) {
@@ -70,6 +79,10 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
             }
             if (password.length() < 6) {
                 getMvpView().onError(R.string.minimum_password);
+                return;
+            }
+            if (!(password.matches(".*[A-Za-z]+.*[0-9]+.*") || password.matches(".*[0-9]+.*[A-Za-z]+.*"))) {
+                getMvpView().onError(R.string.invalid_password);
                 return;
             }
             if (confirm_password == null || confirm_password.isEmpty()) {
@@ -187,6 +200,9 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 

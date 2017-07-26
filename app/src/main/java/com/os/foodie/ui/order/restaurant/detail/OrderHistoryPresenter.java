@@ -150,6 +150,9 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 
@@ -171,7 +174,7 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
 
 
     @Override
-    public void acceptRejectOrder(String orderId, String status, final int position) {
+    public void acceptRejectOrder(final String orderId, String status, final int position) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -189,7 +192,7 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
 
                             if (acceptRejectOrderResponse.getResponse().getStatus() == 1) {
 
-                                getMvpView().onAcceptReject(position);
+                                getMvpView().onAcceptReject(orderId);
                                 getMvpView().onError(acceptRejectOrderResponse.getResponse().getMessage());
 
                             } else {

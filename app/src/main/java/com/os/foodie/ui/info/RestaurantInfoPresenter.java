@@ -13,6 +13,9 @@ public class RestaurantInfoPresenter<V extends RestaurantInfoMvpView> extends Ba
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

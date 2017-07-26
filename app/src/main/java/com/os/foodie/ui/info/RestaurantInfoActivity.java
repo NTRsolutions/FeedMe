@@ -1,7 +1,6 @@
 package com.os.foodie.ui.info;
 
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -9,30 +8,24 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.os.foodie.R;
-import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
-import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsResponse;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.model.RestaurantDetails;
 import com.os.foodie.ui.base.BaseActivity;
-import com.os.foodie.ui.details.restaurant.RestaurantDetailsPresenter;
-import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.CommonUtils;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import io.reactivex.disposables.CompositeDisposable;
 
 public class RestaurantInfoActivity extends BaseActivity implements RestaurantInfoMvpView, View.OnClickListener {
 
-    private TextView tvTime, tvMinimumOrder, tvDeliveryType, tvAbout;
-    private TextView tvDeliveryCharge, tvDeliveryTime, tvEmail, tvDescription;
+    private TextView tvTime, tvMinimumOrder, tvDeliveryType, tvAbout, tvPaymentType;
+    private TextView tvDeliveryCharge, tvDeliveryTime, tvContactDetails, tvDescription;
 
     private RestaurantDetails restaurantDetails;
 
@@ -58,9 +51,10 @@ public class RestaurantInfoActivity extends BaseActivity implements RestaurantIn
         tvTime = (TextView) findViewById(R.id.activity_restaurant_info_tv_time);
         tvMinimumOrder = (TextView) findViewById(R.id.activity_restaurant_info_tv_minimum_order);
         tvDeliveryType = (TextView) findViewById(R.id.activity_restaurant_info_tv_delivery_type);
+        tvPaymentType = (TextView) findViewById(R.id.activity_restaurant_info_tv_payment_type);
         tvDeliveryCharge = (TextView) findViewById(R.id.activity_restaurant_info_tv_delivery_charges);
         tvDeliveryTime = (TextView) findViewById(R.id.activity_restaurant_info_tv_delivery_time);
-        tvEmail = (TextView) findViewById(R.id.activity_restaurant_info_tv_email);
+        tvContactDetails = (TextView) findViewById(R.id.activity_restaurant_info_tv_email);
         tvAbout = (TextView) findViewById(R.id.activity_restaurant_info_tv_about);
         tvDescription = (TextView) findViewById(R.id.activity_restaurant_info_tv_description);
 
@@ -176,26 +170,29 @@ public class RestaurantInfoActivity extends BaseActivity implements RestaurantIn
                 minOrderAmount = minOrderAmount.replace(".00", "");
             }
 
-            try {
-                tvMinimumOrder.setText(URLDecoder.decode(restaurantDetails.getCurrency(), "UTF-8") + " " + minOrderAmount);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            tvMinimumOrder.setText(CommonUtils.dataDecode(restaurantDetails.getCurrency()) + " " + minOrderAmount);
+//            try {
+//                tvMinimumOrder.setText(URLDecoder.decode(restaurantDetails.getCurrency(), "UTF-8") + " " + minOrderAmount);
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
         }
 
-        tvDeliveryType.setText(restaurantDetails.getDeliveryType().replace(".00", ""));
+        tvDeliveryType.setText(restaurantDetails.getDeliveryType());
+        tvPaymentType.setText(restaurantDetails.getPaymentMethod());
         //     tvDeliveryType.setText(getResources().getStringArray(R.array.order_types)[Integer.parseInt(restaurantDetails.getDeliveryType())/* - 1*/]);
 
         if (restaurantDetails.getDeliveryCharge() != null && !restaurantDetails.getDeliveryCharge().isEmpty()) {
-            try {
-                tvDeliveryCharge.setText(URLDecoder.decode(restaurantDetails.getCurrency(),"UTF-8") + " " + restaurantDetails.getDeliveryCharge());
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            tvDeliveryCharge.setText(CommonUtils.dataDecode(restaurantDetails.getCurrency()) + " " + restaurantDetails.getDeliveryCharge());
+//            try {
+//                tvDeliveryCharge.setText(URLDecoder.decode(restaurantDetails.getCurrency(),"UTF-8") + " " + restaurantDetails.getDeliveryCharge());
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
         }
 
         tvDeliveryTime.setText(restaurantDetails.getDeliveryTime() + " min.");
-        tvEmail.setText(restaurantDetails.getEmail());
+        tvContactDetails.setText(restaurantDetails.getEmail() + "\n" + restaurantDetails.getMobileNumber());
         tvAbout.setText(getResources().getString(R.string.restaurant_info_tv_about_title_text) + " " + restaurantDetails.getRestaurantName());
         tvDescription.setText(restaurantDetails.getDescription());
     }

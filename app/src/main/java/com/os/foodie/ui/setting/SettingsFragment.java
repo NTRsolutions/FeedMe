@@ -16,7 +16,6 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.os.foodie.R;
-import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
@@ -90,7 +89,7 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
 
     private void onLoad() {
 
-        if (AppController.get(getActivity()).getAppDataManager().getNotificationStatus().equals("1")) {
+        if (settingsMvpPresenter.getNotificationStatus().equals("1")) {
             switchNotification.setChecked(true);
         } else {
             switchNotification.setChecked(false);
@@ -129,7 +128,7 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
     public void onClick(View v) {
 
         if (llNotification.getId() == v.getId()) {
-            settingsMvpPresenter.SetNotificationStatus();
+            settingsMvpPresenter.setNotificationStatus();
 
         } else if (llLanguage.getId() == v.getId()) {
 
@@ -230,8 +229,6 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
     @Override
     public void getNotificationStatus(String status) {
 
-        AppController.get(getActivity()).getAppDataManager().setNotificationStatus(status);
-
         if (status.equals("0")) {
             switchNotification.setChecked(false);
         } else {
@@ -255,8 +252,15 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
 
         settingsMvpPresenter.setLanguage(languageCode);
 
-        Intent intent = new Intent(getActivity(), RestaurantMainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        if (settingsMvpPresenter.isCustomer()) {
+
+            Intent intent = new Intent(getActivity(), CustomerMainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getActivity(), RestaurantMainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
     }
 }

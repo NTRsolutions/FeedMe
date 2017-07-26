@@ -110,6 +110,9 @@ public class AddPaymentCardPresenter<V extends AddPaymentCardMvpView> extends Ba
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

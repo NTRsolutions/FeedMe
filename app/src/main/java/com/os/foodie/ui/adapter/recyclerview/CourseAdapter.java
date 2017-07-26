@@ -2,6 +2,7 @@ package com.os.foodie.ui.adapter.recyclerview;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,8 @@ import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
 import com.os.foodie.data.network.model.details.Dish;
 import com.os.foodie.ui.details.restaurant.RestaurantDetailsMvpPresenter;
 import com.os.foodie.ui.details.restaurant.RestaurantDetailsPresenter;
+import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.CommonUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -65,7 +68,7 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         RelativeLayout rlCourseQuantity;
         LinearLayout llMain;
-        TextView tvCourseQuantity, tvCourseName, tvCourseDescription, tvPrice;
+        TextView tvCourseQuantity, tvVeg, tvCourseName, tvCourseDescription, tvPrice;
 
         public CourseContentViewHolder(View itemView) {
             super(itemView);
@@ -73,6 +76,7 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             llMain = (LinearLayout) itemView.findViewById(R.id.recyclerview_course_content_ll_main);
             rlCourseQuantity = (RelativeLayout) itemView.findViewById(R.id.recyclerview_course_content_rl_course_quantity);
             tvCourseQuantity = (TextView) itemView.findViewById(R.id.recyclerview_course_content_tv_course_quantity);
+            tvVeg = (TextView) itemView.findViewById(R.id.recyclerview_course_content_tv_veg);
             tvCourseName = (TextView) itemView.findViewById(R.id.recyclerview_course_content_tv_course_name);
             tvCourseDescription = (TextView) itemView.findViewById(R.id.recyclerview_course_content_tv_course_description);
             tvPrice = (TextView) itemView.findViewById(R.id.recyclerview_course_content_tv_price);
@@ -157,6 +161,13 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             holder.rlCourseQuantity.setVisibility(View.INVISIBLE);
         }
 
+        if (dish.getVegNonveg().equals(AppConstants.VEG)) {
+
+            holder.tvVeg.setBackground(ContextCompat.getDrawable(activity, R.drawable.circular_image_view_green));
+        } else {
+            holder.tvVeg.setBackground(ContextCompat.getDrawable(activity, R.drawable.circular_image_view_orange));
+        }
+
         holder.tvCourseName.setText(dish.getName());
         holder.tvCourseDescription.setText(dish.getDescription());
 
@@ -166,11 +177,12 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             price = price.replace(".00", "");
         }
 
-        try {
-            holder.tvPrice.setText(URLDecoder.decode(currency, "UTF-8") + "" + price);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        holder.tvPrice.setText(CommonUtils.dataDecode(currency) + "" + price);
+//        try {
+//            holder.tvPrice.setText(URLDecoder.decode(currency, "UTF-8") + "" + price);
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
 
 //        holder.llMain.setOnClickListener(new View.OnClickListener() {
 //            @Override

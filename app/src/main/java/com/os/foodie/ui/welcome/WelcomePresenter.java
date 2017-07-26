@@ -20,6 +20,9 @@ public class WelcomePresenter<V extends WelcomeMvpView> extends BasePresenter<V>
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

@@ -2,14 +2,17 @@ package com.os.foodie.data.network;
 
 public class ApiConstants {
 
-    //    OLD
+//
+//        OLD
     public static final String BASE_URL = "http://192.168.1.69/foodi/web_services/";
-
+//
 //    OLD LIVE
 //    public static final String BASE_URL = "http://67.205.96.105:8080/foodi/web_services/";
-
+//
 //    NEW LIVE
-    // public static final String BASE_URL = "https://56.octallabs.com/foodi/web_services/";
+//     public static final String BASE_URL = "https://56.octallabs.com/foodi/web_services/";
+//
+//
 
     public static final String LOGIN = "login";
     public static final String FB_LOGIN = "fb_login";

@@ -76,6 +76,9 @@ public class Response {
     @SerializedName("delivery_type")
     @Expose
     private String deliveryType;
+    @SerializedName("payment_method")
+    @Expose
+    private String paymentMethod;
     @SerializedName("delivery_zipcode")
     @Expose
     private String deliveryZipcode;
@@ -126,6 +129,7 @@ public class Response {
      * @param logo
      * @param status
      * @param deliveryType
+     * @param paymentMethod
      * @param menu
      * @param deliveryCharge
      * @param message
@@ -142,7 +146,7 @@ public class Response {
      * @param avgRating
      * @param reviewCount
      */
-    public Response(Integer isLike, Integer inCart, String id, String avgRating, Integer reviewCount, Integer likeCount, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String deliveryZipcode, List<Image> images, String logo, List<Menu> menu, Integer status, String message, String totalQuantity, String totalAmount) {
+    public Response(Integer isLike, Integer inCart, String id, String avgRating, Integer reviewCount, Integer likeCount, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String paymentMethod, String deliveryZipcode, List<Image> images, String logo, List<Menu> menu, Integer status, String message, String totalQuantity, String totalAmount) {
         super();
         this.isLike = isLike;
         this.inCart = inCart;
@@ -167,6 +171,7 @@ public class Response {
         this.deliveryTime = deliveryTime;
         this.deliveryCharge = deliveryCharge;
         this.deliveryType = deliveryType;
+        this.paymentMethod = paymentMethod;
         this.deliveryZipcode = deliveryZipcode;
         this.images = images;
         this.logo = logo;
@@ -425,12 +430,19 @@ public class Response {
         this.totalAmount = totalAmount;
     }
 
-
     public String getCurrency() {
         return currency;
     }
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 }

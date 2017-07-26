@@ -37,6 +37,9 @@ public class Response {
     @SerializedName("delivery_type")
     @Expose
     private String deliveryType;
+    @SerializedName("payment_type")
+    @Expose
+    private String paymentType;
     @SerializedName("delivery_charge")
     @Expose
     private String deliveryCharge;
@@ -64,6 +67,7 @@ public class Response {
      * @param deliveryTime
      * @param status
      * @param deliveryType
+     * @param paymentType
      * @param cartList
      * @param closingTime
      * @param workingDays
@@ -74,7 +78,7 @@ public class Response {
      * @param currency
      * @param restaurantId
      */
-    public Response(List<CartList> cartList, List<MinOrderDiscount> minOrderDiscounts, String restaurantId, String restaurantName, String currency, String workingDays, String openingTime, String closingTime, String deliveryTime, String deliveryType, String deliveryCharge, String minOrderAmount, Integer status, String message) {
+    public Response(List<CartList> cartList, List<MinOrderDiscount> minOrderDiscounts, String restaurantId, String restaurantName, String currency, String workingDays, String openingTime, String closingTime, String deliveryTime, String deliveryType, String paymentType, String deliveryCharge, String minOrderAmount, Integer status, String message) {
         super();
         this.cartList = cartList;
         this.minOrderDiscounts = minOrderDiscounts;
@@ -86,6 +90,7 @@ public class Response {
         this.closingTime = closingTime;
         this.deliveryTime = deliveryTime;
         this.deliveryType = deliveryType;
+        this.paymentType = paymentType;
         this.deliveryCharge = deliveryCharge;
         this.minOrderAmount = minOrderAmount;
         this.status = status;
@@ -204,4 +209,11 @@ public class Response {
         this.message = message;
     }
 
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
 }

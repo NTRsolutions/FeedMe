@@ -76,11 +76,11 @@ public class CustomerAccountPresenter<V extends CustomerAccountMvpView> extends 
     public void editCustomerAccountDetail(EditCustomerAccountRequest editCustomerAccountRequest) {
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
-            if (editCustomerAccountRequest.getFirstName() == null || editCustomerAccountRequest.getFirstName() .isEmpty()) {
+            if (editCustomerAccountRequest.getFirstName() == null || editCustomerAccountRequest.getFirstName().trim().isEmpty()) {
                 getMvpView().onError(R.string.empty_first_name);
                 return;
             }
-            if (editCustomerAccountRequest.getLastName() == null || editCustomerAccountRequest.getLastName().isEmpty()) {
+            if (editCustomerAccountRequest.getLastName() == null || editCustomerAccountRequest.getLastName().trim().isEmpty()) {
                 getMvpView().onError(R.string.empty_last_name);
                 return;
             }
@@ -145,6 +145,9 @@ public class CustomerAccountPresenter<V extends CustomerAccountMvpView> extends 
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

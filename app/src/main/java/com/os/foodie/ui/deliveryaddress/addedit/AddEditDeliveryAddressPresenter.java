@@ -228,6 +228,9 @@ public class AddEditDeliveryAddressPresenter<V extends AddEditDeliveryAddressMvp
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

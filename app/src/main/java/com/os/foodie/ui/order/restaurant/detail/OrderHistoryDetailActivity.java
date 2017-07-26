@@ -11,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ import com.os.foodie.ui.dialogfragment.orderstatus.OrderStatusDialogFragment;
 import com.os.foodie.ui.dialogfragment.restaurantreview.RestaurantReviewDialogFragment;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.DialogUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -104,7 +106,6 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
         recyclerView.setAdapter(myBasketAdapter);
 
         orderId = getIntent().getExtras().getString("order_id");
-
         showUpdateButton = getIntent().getExtras().getBoolean("showUpdateButton");
 
         orderHistoryMvpPresenter.getOrderHistoryDetail(orderId);
@@ -179,9 +180,15 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
     }
 
     @Override
-    public void onAcceptReject(int position) {
+    public void onAcceptReject(String orderId) {
 
         restaurantAcceptRejectOptionLl.setVisibility(View.GONE);
+
+        Intent intent = new Intent();
+        intent.putExtra(AppConstants.ORDER_ID, orderId);
+
+        setResult(21, intent);
+        finish();
     }
 
     @Override
@@ -201,7 +208,6 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
                     .placeholder(ContextCompat.getDrawable(mContext, R.mipmap.img_placeholder))
                     .error(ContextCompat.getDrawable(mContext, R.mipmap.img_placeholder))
                     .into(ivUserImage);*/
-
 
         } else {
 
@@ -234,24 +240,30 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         myBasketAdapter.notifyDataSetChanged();
 
-        if (orderHistoryMvpPresenter.getCurrency() != null && !orderHistoryMvpPresenter.getCurrency().isEmpty()) {
+//        currency = orderHistoryMvpPresenter.getCurrency();
+        currency = orderHistoryDetail.getResponse().getCurrency();
 
-            try {
-                currency = URLDecoder.decode(orderHistoryMvpPresenter.getCurrency(), "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+//        if (orderHistoryMvpPresenter.getCurrency() != null && !orderHistoryMvpPresenter.getCurrency().isEmpty()) {
+//
+//            currency = CommonUtils.dataDecode(orderHistoryMvpPresenter.getCurrency());
+////            try {
+////                currency = URLDecoder.decode(orderHistoryMvpPresenter.getCurrency(), "UTF-8");
+////            } catch (UnsupportedEncodingException e) {
+////                e.printStackTrace();
+////            }
+//
+//        } else {
+//
+//            currency = CommonUtils.dataDecode(orderHistoryDetail.getResponse().getCurrency());
+////            try {
+////                currency = URLDecoder.decode(orderHistoryDetail.getResponse().getCurrency(), "UTF-8");
+////            } catch (UnsupportedEncodingException e) {
+////                e.printStackTrace();
+////            }
+//        }
 
-        } else {
-
-            try {
-                currency = URLDecoder.decode(orderHistoryDetail.getResponse().getCurrency(), "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        }
-
-        myBasketAdapter.setCurrency(currency);
+        Log.d("currency", ">>" + CommonUtils.dataDecode(currency));
+        myBasketAdapter.setCurrency(CommonUtils.dataDecode(orderHistoryDetail.getResponse().getCurrency()));
 
         float subTotalAmount = 0;
         float discountAmount = 0;
@@ -273,7 +285,8 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         discountAmount += orderHistoryDetail.getResponse().getOrderDetail().getDiscount();
 
-        tvDiscountAmount.setText("-" + currency + discountAmount);
+        tvDiscountAmount.setText("-" + CommonUtils.dataDecode(currency) + discountAmount);
+//        tvDiscountAmount.setText("-" + currency + discountAmount);
 
         if (discountAmount > 0) {
 
@@ -284,7 +297,8 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
             llDiscountAmount.setVisibility(View.GONE);
         }
 
-        tvDeliveryCharges.setText("+" + currency + orderHistoryDetail.getResponse().getDeliveryCharge().replace(".00", ".0"));
+        tvDeliveryCharges.setText("+" + CommonUtils.dataDecode(currency) + orderHistoryDetail.getResponse().getDeliveryCharge().replace(".00", ".0"));
+//        tvDeliveryCharges.setText("+" + currency + orderHistoryDetail.getResponse().getDeliveryCharge().replace(".00", ".0"));
 
         if (orderHistoryDetail.getResponse().getDeliveryCharge() != null && !orderHistoryDetail.getResponse().getDeliveryCharge().isEmpty()) {
 
@@ -295,7 +309,8 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
             llDeliveryCharges.setVisibility(View.GONE);
         }
 
-        tvSubtotal.setText(currency + subTotalAmount);
+        tvSubtotal.setText(CommonUtils.dataDecode(currency) + subTotalAmount);
+//        tvSubtotal.setText(currency + subTotalAmount);
 
         if (llDiscountAmount.getVisibility() == View.VISIBLE || llDeliverAddress.getVisibility() == View.VISIBLE) {
 
@@ -306,7 +321,8 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
             llSubtotal.setVisibility(View.GONE);
         }
 
-        tvTotalAmount.setText(currency + orderHistoryDetail.getResponse().getOrderDetail().getTotalAmount());
+        tvTotalAmount.setText(CommonUtils.dataDecode(currency) + orderHistoryDetail.getResponse().getOrderDetail().getTotalAmount());
+//        tvTotalAmount.setText(currency + orderHistoryDetail.getResponse().getOrderDetail().getTotalAmount());
 
 //        final String deliveryTypes[] = getResources().getStringArray(R.array.delivery_type);
 //
@@ -319,19 +335,21 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 //            llDeliveryCharges.setVisibility(View.VISIBLE);
 //        }
 
+
         if (orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("decline") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("Picked") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("delivered")) {
 
-            if (showUpdateButton)
-                tvChangeStatus.setVisibility(View.VISIBLE);
-            else
-                tvChangeStatus.setVisibility(View.GONE);
+//            if (showUpdateButton)
+//                tvChangeStatus.setVisibility(View.VISIBLE);
+//            else
+            tvChangeStatus.setVisibility(View.GONE);
 
         } else {
 
-            if (showUpdateButton)
+            if (showUpdateButton) {
                 tvChangeStatus.setVisibility(View.VISIBLE);
-            else
+            } else {
                 tvChangeStatus.setVisibility(View.GONE);
+            }
         }
 
         if (orderHistoryMvpPresenter.isCustomer() && ((orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("Picked") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("delivered")))) {
@@ -403,7 +421,8 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         if (llDeliveryCharges.getVisibility() == View.VISIBLE) {
 
-            tvSubtotal.setText(currency + totalAmount);
+            tvSubtotal.setText(CommonUtils.dataDecode(currency) + totalAmount);
+//            tvSubtotal.setText(currency + totalAmount);
 
             totalAmount += Float.parseFloat(orderHistoryDetail.getResponse().getDeliveryCharge());
             llSubtotal.setVisibility(View.VISIBLE);
@@ -412,7 +431,8 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
             llSubtotal.setVisibility(View.GONE);
         }
 
-        tvTotalAmount.setText(currency + totalAmount);
+        tvTotalAmount.setText(CommonUtils.dataDecode(currency) + totalAmount);
+//        tvTotalAmount.setText(currency + totalAmount);
     }
 
     @Override

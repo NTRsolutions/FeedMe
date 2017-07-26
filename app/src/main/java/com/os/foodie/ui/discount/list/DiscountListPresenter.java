@@ -49,7 +49,10 @@ public class DiscountListPresenter<V extends DiscountListMvpView> extends BasePr
                                 getMvpView().onShowDiscountList(discountList);
 
                             } else {
-                                getMvpView().onError(discountListResponse.getResponse().getMessage());
+
+                                ArrayList<DiscountList> discountList = new ArrayList<DiscountList>();
+                                getMvpView().onShowDiscountList(discountList);
+//                                getMvpView().onError(discountListResponse.getResponse().getMessage());
                             }
                         }
                     }, new Consumer<Throwable>() {
@@ -111,6 +114,9 @@ public class DiscountListPresenter<V extends DiscountListMvpView> extends BasePr
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

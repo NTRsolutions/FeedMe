@@ -72,11 +72,11 @@ public class RestaurantAccountPresenter<V extends RestaurantAccountMvpView> exte
     public void editRestaurantAccountDetail(EditRestaurantAccountRequest editRestaurantAccountRequest, HashMap<String, File> fileMapTemp) {
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
-            if (editRestaurantAccountRequest.getRestaurantName() == null || editRestaurantAccountRequest.getRestaurantName().isEmpty()) {
+            if (editRestaurantAccountRequest.getRestaurantName() == null || editRestaurantAccountRequest.getRestaurantName().trim().isEmpty()) {
                 getMvpView().onError(R.string.empty_restaurant_name);
                 return;
             }
-            if (editRestaurantAccountRequest.getContactPersonName() == null || editRestaurantAccountRequest.getContactPersonName().isEmpty()) {
+            if (editRestaurantAccountRequest.getContactPersonName() == null || editRestaurantAccountRequest.getContactPersonName().trim().isEmpty()) {
                 getMvpView().onError(R.string.empty_contact_person_name);
                 return;
             }
@@ -115,17 +115,19 @@ public class RestaurantAccountPresenter<V extends RestaurantAccountMvpView> exte
                             getMvpView().hideLoading();
 
                             if (editCustomerAccountDetailResponse.getResponse().getStatus() == 1) {
-//                                TODO OTP
-//                                getMvpView().verifyOTP();
                                 Log.d("Logo", ">>" + editCustomerAccountDetailResponse.getResponse().getLogo());
-                                getDataManager().setRestaurantLogoURL(editCustomerAccountDetailResponse.getResponse().getLogo());
+
+                                if (editCustomerAccountDetailResponse.getResponse().getLogo() != null && !editCustomerAccountDetailResponse.getResponse().getLogo().isEmpty()) {
+                                    getDataManager().setRestaurantLogoURL(editCustomerAccountDetailResponse.getResponse().getLogo());
+                                }
+
+                                Log.d("getContactPersonName", ">>" + editCustomerAccountDetailResponse.getResponse().getContactPersonName());
                                 getDataManager().setCurrentUserName(editCustomerAccountDetailResponse.getResponse().getRestaurantName());
                                 getMvpView().editRestaurantAccountDetail(editCustomerAccountDetailResponse);
 
                             } else {
                                 getMvpView().onError(editCustomerAccountDetailResponse.getResponse().getMessage());
                             }
-
                         }
                     }, new Consumer<Throwable>() {
                         @Override
@@ -142,7 +144,15 @@ public class RestaurantAccountPresenter<V extends RestaurantAccountMvpView> exte
     }
 
     @Override
+    public String getRestaurantLogoURL() {
+        return getDataManager().getRestaurantLogoURL();
+    }
+
+    @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

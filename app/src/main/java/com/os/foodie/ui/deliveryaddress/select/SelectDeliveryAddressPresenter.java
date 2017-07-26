@@ -155,6 +155,9 @@ public class SelectDeliveryAddressPresenter<V extends SelectDeliveryAddressMvpVi
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

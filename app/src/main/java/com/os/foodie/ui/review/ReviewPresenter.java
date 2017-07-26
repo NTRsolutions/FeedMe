@@ -64,6 +64,9 @@ public class ReviewPresenter<V extends ReviewMvpView> extends BasePresenter<V> i
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

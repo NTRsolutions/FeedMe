@@ -33,6 +33,8 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
     private EditText etFirstName, etLastName, etEmail, etPhoneNum;
     private RippleAppCompatButton btSave, btCancel;
 
+    private GetAccountDetailResponse getAccountDetailResponse;
+
     private CustomerAccountMvpPresenter<CustomerAccountMvpView> customerAccountMvpPresenter;
 
     public CustomerAccountFragment() {
@@ -127,6 +129,8 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
             ((CustomerMainActivity) getActivity()).setCustomerName();
 
             setEditTextEnable(false);
+
+            setAccountDetail(getAccountDetailResponse);
         }
     }
 
@@ -137,14 +141,30 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
     @Override
     public void setAccountDetail(GetAccountDetailResponse getAccountDetailResponse) {
 
-        etFirstName.setText(getAccountDetailResponse.getResponse().getFirstName());
-        etLastName.setText(getAccountDetailResponse.getResponse().getLastName());
-        etEmail.setText(getAccountDetailResponse.getResponse().getEmail());
-        etPhoneNum.setText(getAccountDetailResponse.getResponse().getMobileNumber());
+        this.getAccountDetailResponse = getAccountDetailResponse;
+
+        if (this.getAccountDetailResponse != null) {
+
+            etFirstName.setText(getAccountDetailResponse.getResponse().getFirstName());
+            etLastName.setText(getAccountDetailResponse.getResponse().getLastName());
+            etEmail.setText(getAccountDetailResponse.getResponse().getEmail());
+            etPhoneNum.setText(getAccountDetailResponse.getResponse().getMobileNumber());
+        } else {
+
+            etFirstName.setText("");
+            etLastName.setText("");
+            etEmail.setText("");
+            etPhoneNum.setText("");
+        }
     }
 
     @Override
     public void editCustomerAccountDetail(EditCustomerAccountDetailResponse editCustomerAccountDetailResponse) {
+
+        this.getAccountDetailResponse.getResponse().setFirstName(editCustomerAccountDetailResponse.getResponse().getFirstName());
+        this.getAccountDetailResponse.getResponse().setLastName(editCustomerAccountDetailResponse.getResponse().getLastName());
+        this.getAccountDetailResponse.getResponse().setEmail(editCustomerAccountDetailResponse.getResponse().getEmail());
+        this.getAccountDetailResponse.getResponse().setMobileNumber(editCustomerAccountDetailResponse.getResponse().getMobileNumber());
 
         setHasOptionsMenu(true);
 

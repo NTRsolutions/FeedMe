@@ -31,6 +31,7 @@ public class DiscountAddPresenter<V extends DiscountAddMvpView> extends BasePres
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
             getMvpView().showLoading();
+            Log.d("addDiscount", "called");
 
             getCompositeDisposable().add(getDataManager()
                     .addDiscount(addDiscountRequest)
@@ -41,6 +42,8 @@ public class DiscountAddPresenter<V extends DiscountAddMvpView> extends BasePres
                         public void accept(AddDiscountResponse addDiscountResponse) throws Exception {
 
                             getMvpView().hideLoading();
+                            Log.d("addDiscount", "response");
+                            getMvpView().setAddButtonEnable();
 
                             if (addDiscountResponse.getResponse().getStatus() == 1) {
                                 Log.d("getMessage", ">>" + addDiscountResponse.getResponse().getMessage());
@@ -55,11 +58,13 @@ public class DiscountAddPresenter<V extends DiscountAddMvpView> extends BasePres
                         @Override
                         public void accept(Throwable throwable) throws Exception {
                             getMvpView().hideLoading();
+                            getMvpView().setAddButtonEnable();
                             getMvpView().onError(R.string.api_default_error);
                             Log.d("Error", ">>Err" + throwable.getMessage());
                         }
                     }));
         } else {
+            getMvpView().setAddButtonEnable();
             getMvpView().onError(R.string.connection_error);
         }
     }
@@ -103,6 +108,9 @@ public class DiscountAddPresenter<V extends DiscountAddMvpView> extends BasePres
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

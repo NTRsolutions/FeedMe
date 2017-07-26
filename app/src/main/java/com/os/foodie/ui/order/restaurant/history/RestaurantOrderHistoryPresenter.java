@@ -1,5 +1,6 @@
 package com.os.foodie.ui.order.restaurant.history;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 
 import com.os.foodie.R;
@@ -33,11 +34,15 @@ public class RestaurantOrderHistoryPresenter<V extends RestaurantOrderHistoryMvp
     }
 
     @Override
-    public void getOrderHistory() {
+    public void getOrderHistory(final SwipeRefreshLayout swipeRefreshLayout) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
-            getMvpView().showLoading();
+            if (swipeRefreshLayout == null) {
+                getMvpView().showLoading();
+            } else {
+                swipeRefreshLayout.setRefreshing(true);
+            }
 
             if (getDataManager().getCurrentUserType().equals(AppConstants.RESTAURANT)) {
 
@@ -49,7 +54,11 @@ public class RestaurantOrderHistoryPresenter<V extends RestaurantOrderHistoryMvp
                             @Override
                             public void accept(GetOrderListResponse getOrderListResponse) throws Exception {
 
-                                getMvpView().hideLoading();
+                                if (swipeRefreshLayout == null) {
+                                    getMvpView().hideLoading();
+                                } else {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
 
                                 if (getOrderListResponse.getResponse().getStatus() == 1) {
 
@@ -58,11 +67,18 @@ public class RestaurantOrderHistoryPresenter<V extends RestaurantOrderHistoryMvp
                                 } else {
                                     getMvpView().onError(getOrderListResponse.getResponse().getMessage());
                                 }
+
                             }
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
-                                getMvpView().hideLoading();
+
+                                if (swipeRefreshLayout == null) {
+                                    getMvpView().hideLoading();
+                                } else {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
+
                                 getMvpView().onError(R.string.api_default_error);
                                 Log.d("Error", ">>Err" + throwable.getMessage());
                             }
@@ -77,7 +93,11 @@ public class RestaurantOrderHistoryPresenter<V extends RestaurantOrderHistoryMvp
                             @Override
                             public void accept(GetOrderListResponse getOrderListResponse) throws Exception {
 
-                                getMvpView().hideLoading();
+                                if (swipeRefreshLayout == null) {
+                                    getMvpView().hideLoading();
+                                } else {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
 
                                 if (getOrderListResponse.getResponse().getStatus() == 1) {
 
@@ -90,7 +110,13 @@ public class RestaurantOrderHistoryPresenter<V extends RestaurantOrderHistoryMvp
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
-                                getMvpView().hideLoading();
+
+                                if (swipeRefreshLayout == null) {
+                                    getMvpView().hideLoading();
+                                } else {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
+
                                 getMvpView().onError(R.string.api_default_error);
                                 Log.d("Error", ">>Err" + throwable.getMessage());
                             }

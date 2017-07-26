@@ -102,6 +102,9 @@ public class OtpPresenter<V extends OtpMvpView> extends BasePresenter<V> impleme
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

@@ -79,6 +79,9 @@ public class RestaurantSearchPresenter<V extends RestaurantSearchMvpView> extend
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

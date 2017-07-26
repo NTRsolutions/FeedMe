@@ -12,5 +12,7 @@ public interface RestaurantAccountMvpPresenter<V extends RestaurantAccountMvpVie
 
     void editRestaurantAccountDetail(EditRestaurantAccountRequest editRestaurantAccountRequest, HashMap<String, File> fileMap);
 
+    String getRestaurantLogoURL();
+
     void dispose();
 }

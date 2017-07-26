@@ -44,6 +44,10 @@ public class ChangePasswordPresenter<V extends ChangePasswordMvpView> extends Ba
                 getMvpView().onError(R.string.minimum_password);
                 return;
             }
+            if (!(newPassword.matches(".*[A-Za-z]+.*[0-9]+.*") || newPassword.matches(".*[0-9]+.*[A-Za-z]+.*"))) {
+                getMvpView().onError(R.string.invalid_password);
+                return;
+            }
             if (!newPassword.equals(confirmNewPassword)) {
                 getMvpView().onError(R.string.not_match_new_password);
                 return;
@@ -87,6 +91,9 @@ public class ChangePasswordPresenter<V extends ChangePasswordMvpView> extends Ba
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

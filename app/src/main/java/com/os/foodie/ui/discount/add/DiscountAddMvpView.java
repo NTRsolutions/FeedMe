@@ -5,12 +5,11 @@ import com.os.foodie.ui.base.MvpView;
 
 import java.util.ArrayList;
 
-public interface DiscountAddMvpView extends MvpView
-{
+public interface DiscountAddMvpView extends MvpView {
+
+    void setAddButtonEnable();
+
     void onShowDishList(ArrayList<DishDatum> dishlist);
 
     void onFinish();
-
-
-
 }

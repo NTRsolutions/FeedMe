@@ -74,6 +74,9 @@ public class ForgotPasswordPresenter<V extends ForgotPasswordMvpView> extends Ba
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

@@ -3,6 +3,7 @@ package com.os.foodie.utils;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.widget.TextView;
@@ -124,11 +125,11 @@ public class DialogUtils {
      *
      * @param context
      * @param titleId
-     * @param message
+     * @param messageId
      * @param positiveButtontxt
      * @param positiveListener
      */
-    public static void showAlert(Context context, int titleId, String message,
+    public static void showAlert(Context context, int titleId, int messageId,
                                  CharSequence positiveButtontxt, DialogInterface.OnClickListener positiveListener) {
 
         int AlertDialogStyle;
@@ -140,10 +141,9 @@ public class DialogUtils {
         }
 
         Dialog dlg = new AlertDialog.Builder(context, AlertDialogStyle)
-                .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(titleId)
                 .setPositiveButton(positiveButtontxt, positiveListener)
-                .setMessage(message)
+                .setMessage(messageId)
                 .setCancelable(true)
                 .create();
 

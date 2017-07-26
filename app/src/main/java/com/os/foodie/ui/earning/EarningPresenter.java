@@ -51,7 +51,8 @@ public class EarningPresenter<V extends EarningMvpView> extends BasePresenter<V>
 
                             } else {
 
-                                getMvpView().onError(earningResponse.getResponse().getMessage());
+                                getMvpView().setEarnings(earningResponse);
+//                                getMvpView().onError(earningResponse.getResponse().getMessage());
                             }
                         }
                     }, new Consumer<Throwable>() {
@@ -74,6 +75,9 @@ public class EarningPresenter<V extends EarningMvpView> extends BasePresenter<V>
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

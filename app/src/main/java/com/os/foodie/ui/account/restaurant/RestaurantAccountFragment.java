@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -55,6 +56,8 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
     private String restaurantLogoPath = "", restaurantLogoName = "";
     private File restaurantLogoFile;
 
+    private CustomerRestaurantDetailsResponse customerRestaurantDetailsResponse;
+
     private RestaurantAccountMvpPresenter<RestaurantAccountMvpView> restaurantAccountMvpPresenter;
 
     public RestaurantAccountFragment() {
@@ -87,7 +90,7 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
         return view;
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -145,6 +148,12 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
             profileImageIv.setOnClickListener(null);
             setEditTextEnable(false);
 
+            Glide.with(this)
+                    .load(restaurantAccountMvpPresenter.getRestaurantLogoURL())
+                    .into(profileImageIv);
+
+            setRestaurantAccountDetail(customerRestaurantDetailsResponse);
+
         } else if (v.getId() == btSave.getId()) {
 
             EditRestaurantAccountRequest editRestaurantAccountRequest = new EditRestaurantAccountRequest();
@@ -173,14 +182,33 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
     @Override
     public void setRestaurantAccountDetail(CustomerRestaurantDetailsResponse customerRestaurantDetailsResponse) {
 
-        restaurantNameEt.setText(customerRestaurantDetailsResponse.getResponse().getRestaurantName());
-        contactPersonNameEt.setText(customerRestaurantDetailsResponse.getResponse().getContactPersonName());
-        phoneNumEt.setText(customerRestaurantDetailsResponse.getResponse().getMobileNumber());
-        emailEt.setText(customerRestaurantDetailsResponse.getResponse().getEmail());
+        this.customerRestaurantDetailsResponse = customerRestaurantDetailsResponse;
+
+        if (this.customerRestaurantDetailsResponse != null) {
+
+
+            restaurantNameEt.setText(customerRestaurantDetailsResponse.getResponse().getRestaurantName());
+            contactPersonNameEt.setText(customerRestaurantDetailsResponse.getResponse().getContactPersonName());
+            phoneNumEt.setText(customerRestaurantDetailsResponse.getResponse().getMobileNumber());
+            emailEt.setText(customerRestaurantDetailsResponse.getResponse().getEmail());
+
+        } else {
+
+            restaurantNameEt.setText("");
+            contactPersonNameEt.setText("");
+            phoneNumEt.setText("");
+            emailEt.setText("");
+        }
     }
 
     @Override
     public void editRestaurantAccountDetail(EditRestaurantAccountResponse editRestaurantAccountResponse) {
+
+        this.customerRestaurantDetailsResponse.getResponse().setRestaurantName(editRestaurantAccountResponse.getResponse().getRestaurantName());
+        this.customerRestaurantDetailsResponse.getResponse().setContactPersonName(editRestaurantAccountResponse.getResponse().getContactPersonName());
+        this.customerRestaurantDetailsResponse.getResponse().setMobileNumber(editRestaurantAccountResponse.getResponse().getMobileNumber());
+        this.customerRestaurantDetailsResponse.getResponse().setEmail(editRestaurantAccountResponse.getResponse().getEmail());
+
         setHasOptionsMenu(true);
 
         btSave.setVisibility(View.GONE);

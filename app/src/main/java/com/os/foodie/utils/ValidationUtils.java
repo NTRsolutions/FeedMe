@@ -26,7 +26,7 @@ public class ValidationUtils {
     public static boolean isPhoneValid(String phone) {
         Pattern pattern;
         Matcher matcher;
-        final String PHONE_PATTERN = "^[0-9]{10}$";
+        final String PHONE_PATTERN = "^[0-9]{8,12}$";
         pattern = Pattern.compile(PHONE_PATTERN);
         matcher = pattern.matcher(phone);
         return matcher.matches();

@@ -7,6 +7,7 @@ import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
 import com.os.foodie.data.network.model.notification.SetNotificationResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -22,6 +23,9 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 
@@ -36,11 +40,16 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
     }
 
     @Override
-    public void SetNotificationStatus() {
+    public boolean isCustomer() {
+        return getDataManager().getCurrentUserType().equalsIgnoreCase(AppConstants.CUSTOMER);
+    }
+
+    @Override
+    public void setNotificationStatus() {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
-            Log.d("SetNotificationStatus", ">>Called");
+            Log.d("setNotificationStatus", ">>Called");
 
             getMvpView().showLoading();
 
@@ -52,11 +61,13 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
                         @Override
                         public void accept(SetNotificationResponse setNotificationResponse) throws Exception {
 
-                            Log.d("SetNotificationStatus", ">>Response");
+                            Log.d("setNotificationStatus", ">>Response");
 
                             getMvpView().hideLoading();
 
                             if (setNotificationResponse.getResponse().getStatus() == 1) {
+
+                                getDataManager().setNotificationStatus(setNotificationResponse.getResponse().getIsNotification());
                                 getMvpView().getNotificationStatus(setNotificationResponse.getResponse().getIsNotification());
 
                             } else {
@@ -75,5 +86,10 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
         } else {
             getMvpView().onError(R.string.connection_error);
         }
+    }
+
+    @Override
+    public String getNotificationStatus() {
+        return getDataManager().getNotificationStatus();
     }
 }

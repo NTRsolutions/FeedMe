@@ -21,6 +21,7 @@ import com.os.foodie.ui.menu.add.RestaurantMenuAddUpdateDishActivity;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuMvpPresenter;
 import com.os.foodie.ui.menu.show.fragment.RestaurantMenuMvpView;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.DialogUtils;
 import com.os.foodie.utils.ScreenUtils;
 
@@ -75,9 +76,9 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
         holder.tvDescription.setText(dish.getDescription());
 
         if (dish.getPrice().contains(".00")) {
-            holder.tvPrice.setText( restaurantMenuMvpPresenter.getAppDataManager().getCurrency()+" "+ dish.getPrice().replace(".00", ""));
+            holder.tvPrice.setText(CommonUtils.dataDecode(restaurantMenuMvpPresenter.getAppDataManager().getCurrency())+" "+ dish.getPrice().replace(".00", ""));
         } else {
-            holder.tvPrice.setText(restaurantMenuMvpPresenter.getAppDataManager().getCurrency()+" "+ dish.getPrice());
+            holder.tvPrice.setText(CommonUtils.dataDecode(restaurantMenuMvpPresenter.getAppDataManager().getCurrency())+" "+ dish.getPrice());
         }
 
         if (dish.getVegNonveg().equalsIgnoreCase(AppConstants.VEG)) {

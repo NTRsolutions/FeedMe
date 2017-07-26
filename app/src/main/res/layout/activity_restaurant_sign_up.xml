@@ -25,9 +25,9 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/all_step_padding"
                     android:background="@drawable/rectangle_bottom_line_light_grey"
-                    android:src="@mipmap/ic_step_one"/>
+                    android:padding="@dimen/all_step_padding"
+                    android:src="@mipmap/ic_step_one" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/activity_facebook_sign_up_civ_restaurant_logo"
@@ -90,7 +90,7 @@
                     android:hint="@string/restaurant_sign_up_et_phone_hint"
                     android:imeOptions="actionNext"
                     android:inputType="phone"
-                    android:maxLength="10"
+                    android:maxLength="12"
                     android:paddingEnd="@dimen/restaurant_sign_up_et_phone_padding_end"
                     android:paddingStart="@dimen/restaurant_sign_up_et_phone_padding_start" />
 

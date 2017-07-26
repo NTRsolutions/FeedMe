@@ -1,5 +1,6 @@
 package com.os.foodie.ui.home.customer;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 
 import com.os.foodie.R;
@@ -28,11 +29,15 @@ public class CustomerHomePresenter<V extends CustomerHomeMvpView> extends BasePr
     }
 
     @Override
-    public void getRestaurantList(Filters filters) {
+    public void getRestaurantList(Filters filters, final SwipeRefreshLayout swipeRefreshLayout) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
-            getMvpView().showLoading();
+            if (swipeRefreshLayout == null) {
+                getMvpView().showLoading();
+            } else {
+                swipeRefreshLayout.setRefreshing(true);
+            }
 
             getCompositeDisposable().add(getDataManager()
                     .getRestaurantList(new GetRestaurantListRequest(getDataManager().getCurrentUserId(), "", filters))
@@ -42,7 +47,11 @@ public class CustomerHomePresenter<V extends CustomerHomeMvpView> extends BasePr
                         @Override
                         public void accept(GetRestaurantListResponse getRestaurantListResponse) throws Exception {
 
-                            getMvpView().hideLoading();
+                            if (swipeRefreshLayout == null) {
+                                getMvpView().hideLoading();
+                            } else {
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
 
                             if (getRestaurantListResponse.getResponse().getStatus() == 1) {
 
@@ -65,7 +74,13 @@ public class CustomerHomePresenter<V extends CustomerHomeMvpView> extends BasePr
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
-                            getMvpView().hideLoading();
+
+                            if (swipeRefreshLayout == null) {
+                                getMvpView().hideLoading();
+                            } else {
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
+
                             Log.d("Error", ">>ErrThorwed");
                             getMvpView().onError(R.string.api_default_error);
                             Log.d("Error", ">>Err" + throwable.getMessage());
@@ -78,6 +93,9 @@ public class CustomerHomePresenter<V extends CustomerHomeMvpView> extends BasePr
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

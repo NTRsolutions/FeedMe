@@ -33,6 +33,7 @@ import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.Floatin
 import com.os.foodie.ui.custom.floatingaction.floatingactionlinearlayout.FloatingActionLinearLayoutBehavior;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.TimeFormatUtils;
 import com.wefika.flowlayout.FlowLayout;
 
@@ -208,19 +209,21 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 
         tvRestaurantName.setText(restaurantDetail.getRestaurantName());
         tvOpeningClosingHours.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getOpeningTime(), "HH:mm:ss", "hh:mm a") + " - " + TimeFormatUtils.changeTimeFormat(restaurantDetail.getClosingTime(), "HH:mm:ss", "hh:mm a"));
-        try {
-
-            tvDeliveryCharges.setText(URLDecoder.decode(restaurantDetail.getCurrency(), "UTF-8") + " " + restaurantDetail.getDeliveryCharge());
-            tvMinimumOrderAmount.setText(URLDecoder.decode(restaurantDetail.getCurrency(), "UTF-8") + " " + restaurantDetail.getMinOrderAmount());
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        tvDeliveryCharges.setText(CommonUtils.dataDecode(restaurantDetail.getCurrency()) + " " + restaurantDetail.getDeliveryCharge());
+        tvMinimumOrderAmount.setText(CommonUtils.dataDecode(restaurantDetail.getCurrency()) + " " + restaurantDetail.getMinOrderAmount());
+//        try {
+//
+////            tvDeliveryCharges.setText(URLDecoder.decode(restaurantDetail.getCurrency(), "UTF-8") + " " + restaurantDetail.getDeliveryCharge());
+////            tvMinimumOrderAmount.setText(URLDecoder.decode(restaurantDetail.getCurrency(), "UTF-8") + " " + restaurantDetail.getMinOrderAmount());
+//
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
 
         tvDeliveryAreas.setText(restaurantDetail.getDeliveryZipcode());
         tvOrderType.setText(restaurantDetail.getDeliveryType());
         tvWorkingDays.setText(restaurantDetail.getWorkingDays());
-        //  tvPaymentType.setText(restaurantDetail.ty);
+        tvPaymentType.setText(restaurantDetail.getPaymentMethod());
         tvAddress.setText(restaurantDetail.getAddress());
         tvCity.setText(restaurantDetail.getCityName());
         tvCounty.setText(restaurantDetail.getCountryName());

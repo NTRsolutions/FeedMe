@@ -11,12 +11,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/customer_home_tv_no_result_margin_top"
         android:gravity="center"
+        android:visibility="gone"
         android:text="@string/customer_home_tv_no_result"
         android:textColor="@color/orange" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment_customer_home_recyclerview"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/fragment_customer_home_srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_customer_home_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

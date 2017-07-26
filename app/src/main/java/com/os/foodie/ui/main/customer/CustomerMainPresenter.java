@@ -68,6 +68,9 @@ public class CustomerMainPresenter<V extends CustomerMainMvpView> extends BasePr
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

@@ -132,6 +132,9 @@ public class MerchantDetailPresenter<V extends MerchantDetailMvpView> extends Ba
 
     @Override
     public void dispose() {
+
+        getMvpView().hideLoading();
+
         getCompositeDisposable().dispose();
     }
 }

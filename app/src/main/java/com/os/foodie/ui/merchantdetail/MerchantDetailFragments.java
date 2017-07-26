@@ -143,8 +143,6 @@ public class MerchantDetailFragments extends BaseFragment implements MerchantDet
 
             setHasOptionsMenu(true);
 
-            setMerchantDetail(merchantDetailResponse);
-
             btSave.setVisibility(View.GONE);
             btCancel.setVisibility(View.GONE);
 
@@ -153,6 +151,8 @@ public class MerchantDetailFragments extends BaseFragment implements MerchantDet
             etAccountNumber.setEnabled(false);
             etConfirmAccountNumber.setEnabled(false);
             etIFSC.setEnabled(false);
+
+            setMerchantDetail(merchantDetailResponse);
         }
     }
 
@@ -171,11 +171,22 @@ public class MerchantDetailFragments extends BaseFragment implements MerchantDet
 
         this.merchantDetailResponse = merchantDetailResponse;
 
-        etAccountHolderName.setText(merchantDetailResponse.getResponse().getRestaurant().getAccountHolderName());
-        etBankName.setText(merchantDetailResponse.getResponse().getRestaurant().getBankName());
-        etAccountNumber.setText(merchantDetailResponse.getResponse().getRestaurant().getAccountNumber());
-        etConfirmAccountNumber.setText(merchantDetailResponse.getResponse().getRestaurant().getAccountNumber());
-        etIFSC.setText(merchantDetailResponse.getResponse().getRestaurant().getIfscCode());
+        if (this.merchantDetailResponse != null) {
+
+            etAccountHolderName.setText(merchantDetailResponse.getResponse().getRestaurant().getAccountHolderName());
+            etBankName.setText(merchantDetailResponse.getResponse().getRestaurant().getBankName());
+            etAccountNumber.setText(merchantDetailResponse.getResponse().getRestaurant().getAccountNumber());
+            etConfirmAccountNumber.setText(merchantDetailResponse.getResponse().getRestaurant().getAccountNumber());
+            etIFSC.setText(merchantDetailResponse.getResponse().getRestaurant().getIfscCode());
+
+        } else {
+
+            etAccountHolderName.setText("");
+            etBankName.setText("");
+            etAccountNumber.setText("");
+            etConfirmAccountNumber.setText("");
+            etIFSC.setText("");
+        }
     }
 
     @Override

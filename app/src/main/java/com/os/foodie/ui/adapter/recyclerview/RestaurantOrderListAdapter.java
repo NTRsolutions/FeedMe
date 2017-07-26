@@ -1,5 +1,6 @@
 package com.os.foodie.ui.adapter.recyclerview;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -136,7 +137,8 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
                 Intent i = new Intent(context, OrderHistoryDetailActivity.class);
                 i.putExtra("order_id", orderLists.get(pos).getOrderId());
                 i.putExtra("showUpdateButton", false);
-                context.startActivity(i);
+//                context.startActivity(i);
+                ((Activity) context).startActivityForResult(i, 20);
             }
         });
     }
