@@ -23,6 +23,8 @@ import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
 import com.os.foodie.data.network.model.cart.update.UpdateCartResponse;
 import com.os.foodie.data.network.model.cart.view.ViewCartRequest;
 import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
+import com.os.foodie.data.network.model.changelanguage.ChangeLanguageRequest;
+import com.os.foodie.data.network.model.changelanguage.ChangeLanguageResponse;
 import com.os.foodie.data.network.model.changeorderstatus.ChangeOrderStatusResponse;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
@@ -1311,6 +1313,26 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(NotificationListResponse.class);
+    }
+
+    @Override
+    public Observable<ChangeLanguageResponse> changeLanguage(ChangeLanguageRequest changeLanguageRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(changeLanguageRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.CHANGE_LANGUAGE)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(ChangeLanguageResponse.class);
     }
 
 }

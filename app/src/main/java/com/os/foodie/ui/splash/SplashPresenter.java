@@ -91,31 +91,11 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
     @Override
     public void waitAndGo(Context context) {
 
-
-//
-//        getMvpView().showLoading();
-//
-//        Observable<String> observable = new Observable<String>() {
-//            @Override
-//            protected void subscribeActual(Observer<? super String> observer) {
-//
-//            }
-//        };
-//
-//        getCompositeDisposable().add(observable.subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .doOnDispose(new Action() {
-//                    @Override
-//                    public void run() throws Exception {
-//                        Log.d("onDestroy",">>Disposed Yeeeee");
-//                        getMvpView().hideLoading();
-//                    }
-//                })
-//                .subscribe(new Consumer<String>() {
-//                    @Override
-//                    public void accept(String s) throws Exception {
-//                    }
-//                }));
+        if (getDataManager().getLanguage() == null || getDataManager().getLanguage().isEmpty()) {
+            getDataManager().setLanguage(AppConstants.LANG_EN);
+            Log.d("setLanguage", ">>" + getDataManager().getLanguage());
+        }
+        Log.d("Current Language", ">>" + getDataManager().getLanguage());
 
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         getDataManager().setDeviceId(refreshedToken);

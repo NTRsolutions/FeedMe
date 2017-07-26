@@ -20,6 +20,8 @@ import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
 import com.os.foodie.data.network.model.cart.update.UpdateCartResponse;
 import com.os.foodie.data.network.model.cart.view.ViewCartRequest;
 import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
+import com.os.foodie.data.network.model.changelanguage.ChangeLanguageRequest;
+import com.os.foodie.data.network.model.changelanguage.ChangeLanguageResponse;
 import com.os.foodie.data.network.model.changeorderstatus.ChangeOrderStatusResponse;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
@@ -246,4 +248,6 @@ public interface ApiHelper {
     Observable<NotificationListResponse> getNotification(String user_id, String restaurant_id);
 
     Observable<NotificationListResponse> readNotification(String notification_id);
+
+    Observable<ChangeLanguageResponse> changeLanguage(ChangeLanguageRequest changeLanguageRequest);
 }

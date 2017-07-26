@@ -67,6 +67,7 @@ public class AppConstants {
     public static final String FAQ_PAGE_NAME = "FAQ";
 
 //  Languages
+    public static final String LANG_ENG = "eng";
     public static final String LANG_EN = "en";
     public static final String LANG_AR = "ar";
 

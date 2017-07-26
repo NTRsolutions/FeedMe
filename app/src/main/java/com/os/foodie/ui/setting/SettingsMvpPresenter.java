@@ -14,7 +14,9 @@ public interface SettingsMvpPresenter<V extends SettingsMvpView> extends MvpPres
 
     void onError(@StringRes int resId);
 
-    void setLanguage(String languageCode);
+//    void setLanguage(String languageCode);
+
+    void changeLanguage(String languageCode);
 
     boolean isCustomer();
 }

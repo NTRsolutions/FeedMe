@@ -5,4 +5,6 @@ import com.os.foodie.ui.base.MvpView;
 public interface SettingsMvpView extends MvpView
 {
     void getNotificationStatus(String status);
+
+    void changeLanguage(String languageCode, String language);
 }

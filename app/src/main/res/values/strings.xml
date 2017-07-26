@@ -15,6 +15,10 @@
     <string name="font_serif">fonts/dosis_medium.ttf</string>
     <string name="font_sans_serif">fonts/dosis_light.ttf</string>
 
+    <!--Language-->
+    <string name="language_en">English</string>
+    <string name="language_ar">Arabic</string>
+
     <!--Progress Dialog-->
     <string name="progress_dialog_tv_message_text_default">Please Wait</string>
 
@@ -47,6 +51,7 @@
     <string name="alert_dialog_text_reject_order">Order will be rejected. Are you sure ?</string>
     <string name="alert_dialog_title_reorder">Reorder</string>
     <string name="alert_dialog_text_reorder">Are you sure, current items will be cleared from basket?</string>
+    <string name="setting_dialog_title_change_language">Change Language</string>
 
     <!--Menu-->
     <string name="menu_close">Close</string>
@@ -64,6 +69,7 @@
     <string name="fb_user_already_exist">User already exist</string>
     <string name="select_address">Please select a address</string>
     <string name="select_payment_card">Please select a card</string>
+    <string name="already_selected_language">is already current language</string>
 
     <!--Validation Message-->
     <string name="empty_first_name">Please provide your first name</string>
@@ -367,9 +373,6 @@
     <string name="settings_client_email">support@foodi.com</string>
     <string name="settings_rate_us_play_store_url">https://play.google.com/store/apps/details?id=com.facebook.katana</string>
     <string name="setting_toast_message_language_changed">Language changed to </string>
-    <string name="setting_dialog_title_change_language">Change Language</string>
-    <string name="setting_dialog_change_language_en">English</string>
-    <string name="setting_dialog_change_language_ar">Arabic</string>
 
     <!--Change Password-->
     <string name="change_password_activity_title">Change Password</string>

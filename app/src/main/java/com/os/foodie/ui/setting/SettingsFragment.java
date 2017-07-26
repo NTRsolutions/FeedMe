@@ -136,7 +136,7 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
 
             builder.setTitle(getString(R.string.setting_dialog_title_change_language));
 
-            String[] languages = {getString(R.string.setting_dialog_change_language_en), getString(R.string.setting_dialog_change_language_ar)};
+            String[] languages = {getString(R.string.language_en), getString(R.string.language_ar)};
 
             builder.setItems(languages, new DialogInterface.OnClickListener() {
 
@@ -148,10 +148,12 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
                     switch (which) {
 
                         case 0:
-                            changeLanguage(AppConstants.LANG_EN, getString(R.string.setting_dialog_change_language_en));
+                            settingsMvpPresenter.changeLanguage(AppConstants.LANG_ENG);
+//                            changeLanguage(AppConstants.LANG_ENG, getString(R.string.setting_dialog_change_language_en));
                             break;
                         case 1:
-                            changeLanguage(AppConstants.LANG_AR, getString(R.string.setting_dialog_change_language_ar));
+                            settingsMvpPresenter.changeLanguage(AppConstants.LANG_AR);
+//                            changeLanguage(AppConstants.LANG_AR, getString(R.string.setting_dialog_change_language_ar));
                             break;
                     }
                 }
@@ -236,9 +238,8 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
         }
     }
 
+    @Override
     public void changeLanguage(String languageCode, String language) {
-
-//            String languageToLoad = "ar"; // your language
 
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);
@@ -249,8 +250,6 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
         Toast.makeText(getActivity(), getString(R.string.setting_toast_message_language_changed) + " " + language, Toast.LENGTH_SHORT).show();
-
-        settingsMvpPresenter.setLanguage(languageCode);
 
         if (settingsMvpPresenter.isCustomer()) {
 

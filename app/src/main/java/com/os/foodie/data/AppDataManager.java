@@ -21,6 +21,8 @@ import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
 import com.os.foodie.data.network.model.cart.update.UpdateCartResponse;
 import com.os.foodie.data.network.model.cart.view.ViewCartRequest;
 import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
+import com.os.foodie.data.network.model.changelanguage.ChangeLanguageRequest;
+import com.os.foodie.data.network.model.changelanguage.ChangeLanguageResponse;
 import com.os.foodie.data.network.model.changeorderstatus.ChangeOrderStatusResponse;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
@@ -562,6 +564,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<NotificationListResponse> readNotification(String notification_id) {
         return apiHelper.readNotification(notification_id);
+    }
+
+    @Override
+    public Observable<ChangeLanguageResponse> changeLanguage(ChangeLanguageRequest changeLanguageRequest) {
+        return apiHelper.changeLanguage(changeLanguageRequest);
     }
 
 

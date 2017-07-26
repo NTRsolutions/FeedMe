@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
+import com.os.foodie.data.network.model.changelanguage.ChangeLanguageRequest;
+import com.os.foodie.data.network.model.changelanguage.ChangeLanguageResponse;
 import com.os.foodie.data.network.model.notification.SetNotificationResponse;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.utils.AppConstants;
@@ -35,8 +37,63 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
     }
 
     @Override
-    public void setLanguage(String languageCode) {
-        getDataManager().setLanguage(languageCode);
+    public void changeLanguage(String languageCode) {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
+            Log.d("getLanguage", ">>" + getDataManager().getLanguage());
+
+            if (languageCode.equalsIgnoreCase(AppConstants.LANG_ENG) && getDataManager().getLanguage().equalsIgnoreCase(AppConstants.LANG_EN)) {
+
+                getMvpView().onError(getMvpView().getContext().getString(R.string.language_en) + " " + getMvpView().getContext().getString(R.string.already_selected_language));
+                return;
+
+            } else if (getDataManager().getLanguage().equalsIgnoreCase(languageCode)) {
+
+                getMvpView().onError(getMvpView().getContext().getString(R.string.language_ar) + " " + getMvpView().getContext().getString(R.string.already_selected_language));
+                return;
+            }
+
+            getMvpView().showLoading();
+
+            getCompositeDisposable().add(getDataManager()
+                    .changeLanguage(new ChangeLanguageRequest(getDataManager().getCurrentUserId(), languageCode))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<ChangeLanguageResponse>() {
+                        @Override
+                        public void accept(ChangeLanguageResponse changeLanguageResponse) throws Exception {
+
+                            Log.d("setNotificationStatus", ">>Response");
+
+                            getMvpView().hideLoading();
+
+                            if (changeLanguageResponse.getResponse().getStatus() == 1) {
+
+                                if (changeLanguageResponse.getResponse().getLanguage().equalsIgnoreCase(AppConstants.LANG_ENG)) {
+                                    getDataManager().setLanguage(AppConstants.LANG_EN);
+                                    getMvpView().changeLanguage(AppConstants.LANG_EN, getMvpView().getContext().getString(R.string.language_en));
+                                } else {
+                                    getDataManager().setLanguage(AppConstants.LANG_AR);
+                                    getMvpView().changeLanguage(AppConstants.LANG_AR, getMvpView().getContext().getString(R.string.language_ar));
+                                }
+
+                            } else {
+                                getMvpView().onError(changeLanguageResponse.getResponse().getMessage());
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+
+                            getMvpView().hideLoading();
+                            getMvpView().onError(R.string.api_default_error);
+                            Log.d("Error", ">>Err" + throwable.getMessage());
+                        }
+                    }));
+        } else {
+            getMvpView().onError(R.string.connection_error);
+        }
     }
 
     @Override

@@ -12,7 +12,6 @@ public class ApiConstants {
 //    NEW LIVE
 //     public static final String BASE_URL = "https://56.octallabs.com/foodi/web_services/";
 //
-//
 
     public static final String LOGIN = "login";
     public static final String FB_LOGIN = "fb_login";
@@ -101,6 +100,8 @@ public class ApiConstants {
 
     public static final String GET_NOTIFICATION_LIST = "get_notification_list";
     public static final String READ_NOTIFICATION = "read_notification";
+
+    public static final String CHANGE_LANGUAGE = "change_language";
 
     public static final String LOGOUT = "logout";
 }
