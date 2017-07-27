@@ -336,7 +336,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
             tvEmptyBasket.setVisibility(View.GONE);
         }
 
-        tvScheduledTime.setText(new SimpleDateFormat("dd-MM-yyyy").format(selectedCalendar.getTime()) + " at " + new SimpleDateFormat("hh:mm a").format(selectedCalendar.getTime()));
+        tvScheduledTime.setText(getString(R.string.my_basket_tv_date_time_text));
+//        tvScheduledTime.setText(new SimpleDateFormat("dd-MM-yyyy").format(selectedCalendar.getTime()) + " at " + new SimpleDateFormat("hh:mm a").format(selectedCalendar.getTime()));
 
         this.viewCartResponse = viewCartResponse;
 
@@ -611,26 +612,6 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         myBasketAdapter.notifyDataSetChanged();
 
         updateTotalAmount();
-
-//        if (Integer.parseInt(totalQuantity) > 0) {
-//
-//            if (llDeliveryCharges.getVisibility() == View.VISIBLE) {
-//
-//                tvSubtotalAmount.setText("$" + totalAmount.replace(".00", ".0"));
-//                totalAmount = Float.parseFloat(totalAmount) + Float.parseFloat(viewCartResponse.getResponse().getDeliveryCharge()) + "";
-//                llSubtotal.setVisibility(View.VISIBLE);
-//
-//            } else {
-//                llSubtotal.setVisibility(View.GONE);
-//            }
-//
-//            tvTotalAmount.setText("$" + totalAmount.replace(".00", ".0"));
-//
-////            rlBasketDetails.setVisibility(View.VISIBLE);
-//        }
-////        else {
-////            rlBasketDetails.setVisibility(View.GONE);
-////        }
     }
 
     @Override
@@ -780,7 +761,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                 checkoutRequest.setPaymentMethod(AppConstants.ONLINE);
 
-                if (tvScheduledTime.getText().toString().isEmpty()) {
+                if (tvScheduledTime.getText().toString().isEmpty() || tvScheduledTime.getText().toString().equalsIgnoreCase(getString(R.string.my_basket_tv_date_time_text))) {
 //                    checkoutRequest.setOrderDelieveryDate("");
 //                    checkoutRequest.setOrderDelieveryTime("");
 
@@ -790,6 +771,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                     checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(Calendar.getInstance().getTime()));
                     checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(Calendar.getInstance().getTime()));
+
                 } else {
 
                     if (selectedCalendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
@@ -816,7 +798,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                 checkoutRequest.setPaymentMethod(AppConstants.ONLINE);
 
-                if (tvScheduledTime.getText().toString().isEmpty()) {
+                if (tvScheduledTime.getText().toString().isEmpty() || tvScheduledTime.getText().toString().equalsIgnoreCase(getString(R.string.my_basket_tv_date_time_text))) {
 //                    checkoutRequest.setOrderDelieveryDate("");
 //                    checkoutRequest.setOrderDelieveryTime("");
 
@@ -856,7 +838,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 checkoutRequest.setPaymentMethod(AppConstants.COD);
 //                TODO Date and Time
 
-                if (tvScheduledTime.getText().toString().isEmpty()) {
+                if (tvScheduledTime.getText().toString().isEmpty() || tvScheduledTime.getText().toString().equalsIgnoreCase(getString(R.string.my_basket_tv_date_time_text))) {
 //                    checkoutRequest.setOrderDelieveryDate("");
 //                    checkoutRequest.setOrderDelieveryTime("");
 
@@ -891,7 +873,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 checkoutRequest.setPaymentMethod(AppConstants.COD);
 //                TODO Date and Time
 
-                if (tvScheduledTime.getText().toString().isEmpty()) {
+                if (tvScheduledTime.getText().toString().isEmpty() || tvScheduledTime.getText().toString().equalsIgnoreCase(getString(R.string.my_basket_tv_date_time_text))) {
 //                    checkoutRequest.setOrderDelieveryDate("");
 //                    checkoutRequest.setOrderDelieveryTime("");
 
