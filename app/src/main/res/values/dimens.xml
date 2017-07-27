@@ -322,6 +322,11 @@
     <dimen name="restaurant_details_rl_basket_padding_top">10dp</dimen>
     <dimen name="restautant_details_fall_delivery_time_min_margin_top">-7dp</dimen>
     <dimen name="restaurant_details_tv_total_quantity_margin_start">5dp</dimen>
+    <dimen name="restaurant_details_ll_opening_closing_time_margin_bottom">10dp</dimen>
+    <dimen name="restaurant_details_ll_opening_closing_time_margin_start">5dp</dimen>
+    <dimen name="restaurant_details_tv_tag_opening_closing_time_text_size">16sp</dimen>
+    <dimen name="restaurant_details_tv_opening_closing_time_margin_start">5dp</dimen>
+    <dimen name="restaurant_details_tv_opening_closing_time_text_size">16sp</dimen>
 
     <dimen name="course_title_tv_title_top_bottom_margin">5dp</dimen>
     <dimen name="course_title_tv_title_start_end_margin">10dp</dimen>

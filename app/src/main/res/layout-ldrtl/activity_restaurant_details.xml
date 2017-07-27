@@ -30,6 +30,7 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyle"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <!--<ImageView-->
@@ -52,6 +53,7 @@
                         <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
                             android:id="@+id/activity_restaurant_details_viewpager"
                             android:layout_width="match_parent"
+                            android:background="@mipmap/img_placeholder"
                             android:layout_height="@dimen/app_bar_height" />
 
                         <LinearLayout
@@ -86,6 +88,31 @@
                                 android:layout_marginBottom="@dimen/restaurant_details_tv_restaurant_name_margin_bottom"
                                 android:layout_marginStart="@dimen/restaurant_details_tv_restaurant_name_margin_start"
                                 android:gravity="end" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/restaurant_details_ll_opening_closing_time_margin_bottom"
+                                android:layout_marginStart="@dimen/restaurant_details_ll_opening_closing_time_margin_start"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/TextView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/restaurant_details_tv_tag_opening_closing_time_text"
+                                    android:textSize="@dimen/restaurant_details_tv_tag_opening_closing_time_text_size" />
+
+                                <TextView
+                                    android:id="@+id/content_restaurant_details_tv_opening_closing_time"
+                                    style="@style/TextView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/restaurant_details_tv_opening_closing_time_margin_start"
+                                    android:textColor="@color/orange"
+                                    android:textSize="@dimen/restaurant_details_tv_opening_closing_time_text_size" />
+
+                            </LinearLayout>
 
                             <!--<TextView-->
                             <!--android:id="@+id/recyclerview_restaurant_tv_restaurant_name"-->
@@ -188,6 +215,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:background="@color/orange_transparent"
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
 

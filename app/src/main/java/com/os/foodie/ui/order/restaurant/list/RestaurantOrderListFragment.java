@@ -2,6 +2,7 @@ package com.os.foodie.ui.order.restaurant.list;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -31,7 +32,13 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 public class RestaurantOrderListFragment extends BaseFragment implements RestaurantOrderListMvpView, SwipeRefreshLayout.OnRefreshListener {
 
@@ -40,6 +47,8 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
     private TextView tvAlert;
 
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    public static RestaurantOrderListFragment restaurantOrderListFragment;
 
     private RecyclerView recyclerView;
     private ArrayList<OrderList> orderLists;
@@ -55,7 +64,12 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
         Bundle args = new Bundle();
         RestaurantOrderListFragment fragment = new RestaurantOrderListFragment();
         fragment.setArguments(args);
+        restaurantOrderListFragment = fragment;
         return fragment;
+    }
+
+    public static RestaurantOrderListFragment getInstance() {
+        return restaurantOrderListFragment;
     }
 
     @Override
@@ -218,5 +232,22 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
     public void onRefresh() {
 
         restaurantOrderListMvpPresenter.getOrderList(swipeRefreshLayout);
+    }
+
+    public void newOrder() {
+
+        Fragment fragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.content_restaurant_main_cl_fragment);
+
+        if (fragment instanceof RestaurantOrderListFragment) {
+
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    restaurantOrderListMvpPresenter.getOrderList(null);
+                }
+            });
+
+        }
     }
 }

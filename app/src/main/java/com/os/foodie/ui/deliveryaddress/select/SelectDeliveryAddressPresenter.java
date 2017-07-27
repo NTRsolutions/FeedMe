@@ -129,7 +129,8 @@ public class SelectDeliveryAddressPresenter<V extends SelectDeliveryAddressMvpVi
 
                                 Log.d("getResponse", ">>" + checkoutResponse.getResponse().getMessage());
 
-                                getMvpView().onCheckoutComplete(checkoutResponse.getResponse().getMessage());
+                                getMvpView().onCheckoutComplete(checkoutResponse);
+//                                getMvpView().onCheckoutComplete(checkoutResponse.getResponse().getMessage());
 
                             } else {
                                 getMvpView().onError(checkoutResponse.getResponse().getMessage());

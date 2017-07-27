@@ -15,9 +15,10 @@
 
         <ImageView
             android:id="@+id/fragment_slide_iv_icon"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="true"
+            android:scaleType="fitStart"
             android:src="@mipmap/img_slide_one" />
 
         <TextView
@@ -29,8 +30,6 @@
             android:layout_marginStart="@dimen/slide_text_margin_start"
             android:gravity="center_horizontal" />
 
-        <!--android:layout_marginTop="@dimen/slide_title_margin_top"-->
-
         <TextView
             android:id="@+id/fragment_slide_tv_subtitle"
             style="@style/TextView4"
@@ -41,5 +40,7 @@
             android:layout_marginTop="@dimen/slide_subtitle_margin_top"
             android:gravity="center_horizontal"
             android:lines="3" />
+
     </LinearLayout>
+
 </ScrollView>

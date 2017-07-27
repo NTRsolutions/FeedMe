@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.os.foodie.R;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
+import com.os.foodie.ui.locationinfo.LocationInfoActivity;
 import com.os.foodie.ui.login.LoginActivity;
 import com.os.foodie.ui.setupprofile.restaurant.SetupRestaurantProfileFragment;
 import com.os.foodie.ui.signup.customer.CustomerSignUpActivity;
@@ -20,7 +21,7 @@ import com.os.foodie.utils.AppConstants;
 public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, View.OnClickListener {
 
     private RippleAppCompatButton btLogIn, btSignUp;
-//    private TextView tvSkip;
+    private TextView tvSkip;
 
     private ViewPager viewPager;
     private LinearLayout llDots;
@@ -34,11 +35,6 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-//        for (int i = 0; i < Typeface.class.getDeclaredFields().length; i++) {
-//            Log.d("Typeface Name", ">>" + Typeface.class.getDeclaredFields()[i].getName());
-//            Log.d("Typeface GenericType", ">>" + Typeface.class.getDeclaredFields()[i].getGenericType());
-//        }
-
 //        initPresenter();
 
         slidePagerAdapter = new SlidePagerAdapter(getSupportFragmentManager());
@@ -50,11 +46,11 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
         btLogIn = (RippleAppCompatButton) findViewById(R.id.activity_welcome_bt_log_in);
         btSignUp = (RippleAppCompatButton) findViewById(R.id.activity_welcome_bt_sign_up);
 
-//        tvSkip = (TextView) findViewById(R.id.activity_welcome_tv_skip);
+        tvSkip = (TextView) findViewById(R.id.activity_welcome_tv_skip);
 
         btLogIn.setOnClickListener(this);
         btSignUp.setOnClickListener(this);
-//        tvSkip.setOnClickListener(this);
+        tvSkip.setOnClickListener(this);
 
 //        welcomeMvpPresenter.onAttach(this);
 
@@ -129,12 +125,10 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
             openLogInActivity();
         } else if (v.getId() == btSignUp.getId()) {
             openSignUpActivity();
+        } else if (v.getId() == tvSkip.getId()) {
+            Intent intent = new Intent(WelcomeActivity.this, LocationInfoActivity.class);
+            startActivity(intent);
         }
-//        else if (v.getId() == tvSkip.getId()) {
-////            openSignUpActivity();
-//            Intent intent = new Intent(WelcomeActivity.this, SetupRestaurantProfileFragment.class);
-//            startActivity(intent);
-//        }
     }
 
     @Override

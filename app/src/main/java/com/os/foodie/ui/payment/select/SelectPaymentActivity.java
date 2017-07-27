@@ -27,6 +27,7 @@ import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.cart.view.CartList;
 import com.os.foodie.data.network.model.checkout.CheckoutRequest;
+import com.os.foodie.data.network.model.checkout.CheckoutResponse;
 import com.os.foodie.data.network.model.payment.getall.Card;
 import com.os.foodie.data.network.model.payment.getall.GetAllPaymentCardResponse;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
@@ -36,6 +37,7 @@ import com.os.foodie.ui.custom.RecyclerTouchListener;
 import com.os.foodie.ui.filters.FiltersPresenter;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
+import com.os.foodie.ui.order.restaurant.detail.OrderHistoryDetailActivity;
 import com.os.foodie.ui.payment.add.AddPaymentCardActivity;
 import com.os.foodie.ui.payment.show.PaymentMethodActivity;
 import com.os.foodie.utils.AppConstants;
@@ -174,6 +176,7 @@ public class SelectPaymentActivity extends BaseActivity implements SelectPayment
             } else {
 
                 checkoutRequest.setCardId(cardArrayList.get(selectedPosition).getCardId());
+                Log.d("getUserAddressId", ">>" + checkoutRequest.getUserAddressId());
 //                checkoutRequest.setUserAddressId("");
 
                 selectPaymentMvpPresenter.checkout(checkoutRequest);
@@ -244,13 +247,20 @@ public class SelectPaymentActivity extends BaseActivity implements SelectPayment
     }
 
     @Override
-    public void onCheckoutComplete(String message) {
+    public void onCheckoutComplete(CheckoutResponse checkoutResponse) {
 
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, checkoutResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(this, CustomerMainActivity.class);
+        Intent intent = new Intent(SelectPaymentActivity.this, CustomerMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+
+        Intent intentOrderDetails = new Intent(SelectPaymentActivity.this, OrderHistoryDetailActivity.class);
+        intentOrderDetails.putExtra("order_id", checkoutResponse.getResponse().getOrderId());
+        intentOrderDetails.putExtra("showUpdateButton", false);
+
+        Intent[] intents = {intent, intentOrderDetails};
+        startActivities(intents);
     }
 
     @Override

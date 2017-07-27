@@ -21,6 +21,7 @@ import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.checkout.CheckoutRequest;
+import com.os.foodie.data.network.model.checkout.CheckoutResponse;
 import com.os.foodie.data.network.model.deliveryaddress.getall.Address;
 import com.os.foodie.data.network.model.deliveryaddress.getall.GetAllAddressResponse;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
@@ -33,6 +34,7 @@ import com.os.foodie.ui.deliveryaddress.addedit.AddEditDeliveryAddressPresenter;
 import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
+import com.os.foodie.ui.order.restaurant.detail.OrderHistoryDetailActivity;
 import com.os.foodie.ui.payment.select.SelectPaymentActivity;
 import com.os.foodie.utils.AppConstants;
 
@@ -108,13 +110,20 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
     }
 
     @Override
-    public void onCheckoutComplete(String message) {
+    public void onCheckoutComplete(CheckoutResponse checkoutResponse) {
 
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, checkoutResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(this, CustomerMainActivity.class);
+        Intent intent = new Intent(SelectDeliveryAddressActivity.this, CustomerMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+
+        Intent intentOrderDetails = new Intent(SelectDeliveryAddressActivity.this, OrderHistoryDetailActivity.class);
+        intentOrderDetails.putExtra("order_id", checkoutResponse.getResponse().getOrderId());
+        intentOrderDetails.putExtra("showUpdateButton", false);
+
+        Intent[] intents = {intent, intentOrderDetails};
+        startActivities(intents);
     }
 
     @Override
@@ -150,6 +159,8 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
                     selectDeliveryAddressMvpPresenter.checkout(checkoutRequest);
 
                 } else {
+                    checkoutRequest.setUserAddressId(addresses.get(selectedPosition).getId());
+                    Log.d("getUserAddressId", ">>" + addresses.get(selectedPosition).getId());
 
                     Intent intent = new Intent(this, SelectPaymentActivity.class);
                     intent.putExtra(AppConstants.CHECKOUT, checkoutRequest);

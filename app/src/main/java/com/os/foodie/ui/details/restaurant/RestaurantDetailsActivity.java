@@ -84,7 +84,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -102,7 +105,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
     private FloatingActionLinearLayout fallDeliveryTime, fallLikes;
     private FlowLayout flCuisines;
     private RatingBar ratingBar;
-    private TextView tvRestaurantName, tvReview, tvDiscount, tvDeliveryTime, tvLikes;
+    private TextView tvRestaurantName, tvReview, tvDiscount, tvDeliveryTime, tvLikes, tvOpeningClosingTime;
     private ImageView ivLikes;
 
     private String restaurantId;
@@ -171,6 +174,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         ratingBar = (RatingBar) findViewById(R.id.content_restaurant_details_rb_rating);
         tvRestaurantName = (TextView) findViewById(R.id.content_restaurant_details_tv_restaurant_name);
+
+        tvOpeningClosingTime = (TextView) findViewById(R.id.content_restaurant_details_tv_opening_closing_time);
 
         tvDeliveryTime = (TextView) findViewById(R.id.activity_restautant_details_fall_delivery_time_text);
         tvReview = (TextView) findViewById(R.id.content_restaurant_details_tv_reviews);
@@ -359,6 +364,33 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         tvRestaurantName.setText(restaurantDetailsResponse.getResponse().getRestaurantName());
 
+//        getSupportActionBar().setTitle(restaurantDetailsResponse.getResponse().getRestaurantName());
+
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
+        Calendar openingTime = Calendar.getInstance();
+        Calendar closingTime = Calendar.getInstance();
+
+        try {
+            openingTime.setTime(simpleDateFormat.parse(restaurantDetails.getOpeningTime()));
+            closingTime.setTime(simpleDateFormat.parse(restaurantDetails.getClosingTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("hh:mm a");
+
+        String opening = "";
+        String closing = "";
+
+        opening = simpleDateFormat1.format(openingTime.getTime());
+        closing = simpleDateFormat1.format(closingTime.getTime());
+
+        tvOpeningClosingTime.setText(opening.toUpperCase() + " to " + closing.toUpperCase());
+//        tvOpeningClosingTime.setText();
+
+
+
         if (restaurantDetailsResponse.getResponse().getDeliveryTime() != null && !restaurantDetailsResponse.getResponse().getDeliveryTime().isEmpty()) {
 
             tvDeliveryTime.setText(restaurantDetailsResponse.getResponse().getDeliveryTime());
@@ -519,6 +551,35 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                 });
 
         tvRestaurantName.setText(restaurantDetailsResponse.getResponse().getRestaurantName());
+
+
+//        getSupportActionBar().setTitle(restaurantDetailsResponse.getResponse().getRestaurantName());
+
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        Calendar openingTime = Calendar.getInstance();
+        Calendar closingTime = Calendar.getInstance();
+
+        try {
+            openingTime.setTime(simpleDateFormat.parse(restaurantDetails.getOpeningTime()));
+            closingTime.setTime(simpleDateFormat.parse(restaurantDetails.getClosingTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("HH:mm a");
+
+        String opening = "";
+        String closing = "";
+
+        opening = simpleDateFormat1.format(openingTime.getTime());
+        closing = simpleDateFormat1.format(closingTime.getTime());
+
+        tvOpeningClosingTime.setText(opening.toUpperCase() + " to " + closing.toUpperCase());
+//        tvOpeningClosingTime.setText();
+
+
+
         tvDeliveryTime.setText(restaurantDetailsResponse.getResponse().getDeliveryTime());
 //        tvLikes.setText(restaurantDetailsResponse.getResponse().getLatitude());
 //        tvDiscount.setText(restaurantDetailsResponse.getResponse().g());

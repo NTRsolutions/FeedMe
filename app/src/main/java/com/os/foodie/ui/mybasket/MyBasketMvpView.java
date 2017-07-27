@@ -1,6 +1,7 @@
 package com.os.foodie.ui.mybasket;
 
 import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
+import com.os.foodie.data.network.model.checkout.CheckoutResponse;
 import com.os.foodie.ui.base.MvpView;
 
 public interface MyBasketMvpView extends MvpView {
@@ -15,5 +16,6 @@ public interface MyBasketMvpView extends MvpView {
 
     void updateMyBasket(int position, String quantity, String totalQuantity, String totalAmount);
 
-    void onCheckoutComplete(String message);
+    void onCheckoutComplete(CheckoutResponse checkoutResponse);
+//    void onCheckoutComplete(String message);
 }

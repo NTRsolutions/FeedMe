@@ -24,7 +24,7 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class RestaurantInfoActivity extends BaseActivity implements RestaurantInfoMvpView, View.OnClickListener {
 
-    private TextView tvTime, tvMinimumOrder, tvDeliveryType, tvAbout, tvPaymentType;
+    private TextView /*tvTime,*/ tvMinimumOrder, tvDeliveryType, tvAbout, tvPaymentType;
     private TextView tvDeliveryCharge, tvDeliveryTime, tvContactDetails, tvDescription;
 
     private RestaurantDetails restaurantDetails;
@@ -48,7 +48,7 @@ public class RestaurantInfoActivity extends BaseActivity implements RestaurantIn
 //        restaurantInfoMvpPresenter = new RestaurantInfoPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         restaurantInfoMvpPresenter.onAttach(this);
 
-        tvTime = (TextView) findViewById(R.id.activity_restaurant_info_tv_time);
+//        tvTime = (TextView) findViewById(R.id.activity_restaurant_info_tv_time);
         tvMinimumOrder = (TextView) findViewById(R.id.activity_restaurant_info_tv_minimum_order);
         tvDeliveryType = (TextView) findViewById(R.id.activity_restaurant_info_tv_delivery_type);
         tvPaymentType = (TextView) findViewById(R.id.activity_restaurant_info_tv_payment_type);
@@ -112,56 +112,26 @@ public class RestaurantInfoActivity extends BaseActivity implements RestaurantIn
         Log.d("getEmail", ">>" + restaurantDetails.getEmail());
         Log.d("getDescription", ">>" + restaurantDetails.getDescription());
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-        Calendar openingTime = Calendar.getInstance();
-        Calendar closingTime = Calendar.getInstance();
-
-        try {
-            openingTime.setTime(simpleDateFormat.parse(restaurantDetails.getOpeningTime()));
-            closingTime.setTime(simpleDateFormat.parse(restaurantDetails.getClosingTime()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-//        String openingArray[] = restaurantDetails.getOpeningTime().split(":");
-//        String closingArray[] = restaurantDetails.getClosingTime().split(":");
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+//        Calendar openingTime = Calendar.getInstance();
+//        Calendar closingTime = Calendar.getInstance();
 //
-//        String opening;
-//        String closing;
-//
-////        opening = openingArray[0];
-////        closing = closingArray[0];
-//
-//        opening = openingTime.get(Calendar.HOUR) + "";
-//        closing = closingTime.get(Calendar.HOUR) + "";
-//
-//        int openingTemp = openingTime.get(Calendar.MINUTE);
-//        int closingTemp = closingTime.get(Calendar.MINUTE);
-//
-//        if (openingTemp != 0) {
-//            opening += ":" + openingArray[1];
+//        try {
+//            openingTime.setTime(simpleDateFormat.parse(restaurantDetails.getOpeningTime()));
+//            closingTime.setTime(simpleDateFormat.parse(restaurantDetails.getClosingTime()));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
 //        }
 //
-//        if (closingTemp != 0) {
-//            closing += ":" + closingArray[1];
-//        }
+//        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("HH:mm a");
 //
-//        openingTemp = openingTime.get(Calendar.AM_PM);
-//        closingTemp = closingTime.get(Calendar.AM_PM);
+//        String opening = "";
+//        String closing = "";
 //
-//        opening += (openingTemp == 0) ? " AM" : " PM";
-//        closing += (closingTemp == 0) ? " AM" : " PM";
-
-
-        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("HH:mm a");
-
-        String opening = "";
-        String closing = "";
-
-        opening = simpleDateFormat1.format(openingTime.getTime());
-        closing = simpleDateFormat1.format(closingTime.getTime());
-
-        tvTime.setText(opening.toUpperCase() + " to " + closing.toUpperCase());
+//        opening = simpleDateFormat1.format(openingTime.getTime());
+//        closing = simpleDateFormat1.format(closingTime.getTime());
+//
+//        tvTime.setText(opening.toUpperCase() + " to " + closing.toUpperCase());
 
         String minOrderAmount = restaurantDetails.getMinOrderAmount();
 

@@ -84,7 +84,7 @@
     <string name="minimum_password">Password must be 6 character long</string>
     <string name="invalid_password">Password must contain atleast one alphabetic and numeric character</string>
     <string name="empty_confirm_password">Please confirm your password</string>
-    <string name="not_match_password">Password do not match</string>
+    <string name="not_match_password">Password and confirm password do not match.</string>
     <string name="empty_phone">Please provide your phone number</string>
     <string name="invalid_phone">Please provide a valid phone number</string>
     <string name="mandatory_logo">Please provide your restaurant logo</string>
@@ -332,6 +332,7 @@
     <string name="restaurant_details_bt_view_basket_text">View Basket</string>
     <string name="recyclerview_course_content_tv_x_text">x</string>
     <string name="restaurant_details_tv_total_quantity_tag_text">Quantity:</string>
+    <string name="restaurant_details_tv_tag_opening_closing_time_text">Opening-Closing Time:</string>
 
     <!--Restaurant List-->
     <string name="title_fragment_customer_home">Home</string>

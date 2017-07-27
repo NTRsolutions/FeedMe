@@ -162,10 +162,10 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                 return;
             }
 
-            if (restaurantProfileRequest.getZipCode() == null || restaurantProfileRequest.getZipCode().isEmpty()) {
-                getMvpView().onError(R.string.empty_zip_code);
-                return;
-            }
+//            if (restaurantProfileRequest.getZipCode() == null || restaurantProfileRequest.getZipCode().isEmpty()) {
+//                getMvpView().onError(R.string.empty_zip_code);
+//                return;
+//            }
 
             if (restaurantProfileRequest.getOpeningTime() == null || restaurantProfileRequest.getOpeningTime().isEmpty()) {
                 getMvpView().onError(R.string.empty_opening_hours);

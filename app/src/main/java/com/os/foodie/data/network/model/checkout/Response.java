@@ -6,6 +6,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Response {
 
+    @SerializedName("order_id")
+    @Expose
+    private String orderId;
+
     @SerializedName("status")
     @Expose
     private Integer status;
@@ -24,11 +28,21 @@ public class Response {
      * 
      * @param message
      * @param status
+     * @param orderId
      */
-    public Response(Integer status, String message) {
+    public Response(String orderId, Integer status, String message) {
         super();
+        this.orderId = orderId;
         this.status = status;
         this.message = message;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public Integer getStatus() {

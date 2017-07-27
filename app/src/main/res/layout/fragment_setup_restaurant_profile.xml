@@ -154,6 +154,7 @@
                 android:layout_marginTop="@dimen/setup_restaurant_profile_et_margin_top"
                 android:hint="@string/setup_restaurant_profile_et_zip_hint"
                 android:imeOptions="actionNext"
+                android:visibility="gone"
                 android:inputType="text"
                 android:paddingEnd="@dimen/setup_restaurant_profile_et_padding_start_end"
                 android:paddingStart="@dimen/setup_restaurant_profile_et_padding_start_end" />

@@ -30,6 +30,7 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyle"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <!--<ImageView-->
@@ -52,7 +53,8 @@
                         <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
                             android:id="@+id/activity_restaurant_details_viewpager"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/app_bar_height" />
+                            android:layout_height="@dimen/app_bar_height"
+                            android:background="@mipmap/img_placeholder" />
 
                         <LinearLayout
                             android:id="@+id/activity_restaurant_details_ll_page"
@@ -84,6 +86,31 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/restaurant_details_tv_restaurant_name_margin_bottom"
                                 android:layout_marginStart="@dimen/restaurant_details_tv_restaurant_name_margin_start" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/restaurant_details_ll_opening_closing_time_margin_bottom"
+                                android:layout_marginStart="@dimen/restaurant_details_ll_opening_closing_time_margin_start"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/TextView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/restaurant_details_tv_tag_opening_closing_time_text"
+                                    android:textSize="@dimen/restaurant_details_tv_tag_opening_closing_time_text_size" />
+
+                                <TextView
+                                    android:id="@+id/content_restaurant_details_tv_opening_closing_time"
+                                    style="@style/TextView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/restaurant_details_tv_opening_closing_time_margin_start"
+                                    android:textColor="@color/orange"
+                                    android:textSize="@dimen/restaurant_details_tv_opening_closing_time_text_size" />
+
+                            </LinearLayout>
 
                             <!--<TextView-->
                             <!--android:id="@+id/recyclerview_restaurant_tv_restaurant_name"-->
@@ -149,9 +176,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="@dimen/restaurant_details_ll_sub_header_2_margin"
-                            android:visibility="gone"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <TextView
                                 android:id="@+id/content_restaurant_details_tv_discount"
@@ -179,13 +206,13 @@
 
                     </LinearLayout>
 
-
                 </LinearLayout>
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:background="@color/orange_transparent"
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
 
@@ -342,8 +369,8 @@
         android:paddingBottom="@dimen/restaurant_details_rl_basket_padding_bottom"
         android:paddingEnd="@dimen/restaurant_details_rl_basket_padding_end"
         android:paddingStart="@dimen/restaurant_details_rl_basket_padding_start"
-        android:visibility="gone"
-        android:paddingTop="@dimen/restaurant_details_rl_basket_padding_top">
+        android:paddingTop="@dimen/restaurant_details_rl_basket_padding_top"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/activity_restaurant_details_ll_total_quantity"

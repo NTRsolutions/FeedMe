@@ -17,7 +17,12 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.os.foodie.R;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.order.restaurant.detail.OrderHistoryDetailActivity;
+import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
+import com.os.foodie.ui.setupprofile.restaurant.SetupRestaurantProfilePresenter;
 import com.os.foodie.ui.splash.SplashActivity;
 import com.os.foodie.utils.AppConstants;
 
@@ -26,13 +31,19 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
+
+    AppDataManager appDataManager;
     int id = (int) (System.currentTimeMillis() * (int) (Math.random() * 100));
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+
+        initPresenter();
 
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getData().get("message"));
         checkNotificationType(remoteMessage);
@@ -59,29 +70,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notiMsg = remoteMessage.getData().get("message");
         notiTitle = getResources().getString(R.string.app_name);
 
-        System.out.println("Notification msg is " + notiMsg);
-
-//        int icon = 0;
-//        icon = R.mipmap.ic_launcher;
-        long notificationTime = 0;
-        notificationTime = System.currentTimeMillis();
-
-        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-
-        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        NotificationCompat.Builder notification1 =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_profile)
-                        .setLargeIcon(largeIcon)
-                        .setColor(ContextCompat.getColor(this, R.color.orange))
-                        .setContentTitle(notiTitle)
-                        .setWhen(notificationTime)
-                        .setDefaults(Notification.DEFAULT_ALL);
-
-       /* if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            notification1.setSmallIcon(R.mipmap.noti_logo);
-        }*/
 
         String notificationType = remoteMessage.getData().get("notification_type");
         String payload = remoteMessage.getData().get("payload");
@@ -96,37 +84,69 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             e.printStackTrace();
         }
 
-        Intent notificationIntent;
+        Log.d("orderId", ">>" + orderId);
+        Log.d("userType", ">>" + userType);
+        Log.d("notificationType", ">>" + notificationType);
 
-        notificationIntent = new Intent(this, OrderHistoryDetailActivity.class);
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        System.out.println("Notification msg is " + notiMsg);
 
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(OrderHistoryDetailActivity.class);
+        if (appDataManager.getCurrentUserType().equalsIgnoreCase(userType)) {
 
-        Bundle notification_bundle = new Bundle();
+            if (AppConstants.NOTIFICATION_TYPE_ORDER_RECEIVED.equalsIgnoreCase(notificationType)) {
 
-        notification_bundle.putString("order_id", orderId);
-        notification_bundle.putBoolean("showUpdateButton", setStatusButtonOnOrderHistory(userType, notificationType));
+                if (RestaurantOrderListFragment.getInstance().getActivity() != null) {
+                    RestaurantOrderListFragment.getInstance().newOrder();
+                }
+            }
 
-        notificationIntent.putExtras(notification_bundle);
+            long notificationTime = 0;
+            notificationTime = System.currentTimeMillis();
 
-        int id = (int) (System.currentTimeMillis() * (int) (Math.random() * 100));
-        stackBuilder.addNextIntent(notificationIntent);
-        //int requestID = (int) System.currentTimeMillis();
-        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
+            Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
 
-        notification1
-                .setContentText(notiMsg)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(notiMsg))
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(resultPendingIntent)
-                .setAutoCancel(true)
-                .setContentTitle(notiTitle)
-                .setDefaults(Notification.DEFAULT_SOUND)
-                .setVibrate(new long[]{100L, 100L, 200L, 500L});
+            NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(id, notification1.build());
+            NotificationCompat.Builder notification1 =
+                    new NotificationCompat.Builder(this)
+                            .setSmallIcon(R.mipmap.ic_profile)
+                            .setLargeIcon(largeIcon)
+                            .setColor(ContextCompat.getColor(this, R.color.orange))
+                            .setContentTitle(notiTitle)
+                            .setWhen(notificationTime)
+                            .setDefaults(Notification.DEFAULT_ALL);
+
+            Intent notificationIntent;
+
+            notificationIntent = new Intent(this, OrderHistoryDetailActivity.class);
+            notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+            stackBuilder.addParentStack(OrderHistoryDetailActivity.class);
+
+            Bundle notification_bundle = new Bundle();
+
+            notification_bundle.putString("order_id", orderId);
+            notification_bundle.putBoolean("showUpdateButton", setStatusButtonOnOrderHistory(userType, notificationType));
+
+            notificationIntent.putExtras(notification_bundle);
+
+            int id = (int) (System.currentTimeMillis() * (int) (Math.random() * 100));
+            stackBuilder.addNextIntent(notificationIntent);
+            //int requestID = (int) System.currentTimeMillis();
+            PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
+
+            notification1
+                    .setContentText(notiMsg)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(notiMsg))
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setContentIntent(resultPendingIntent)
+                    .setAutoCancel(true)
+                    .setContentTitle(notiTitle)
+                    .setDefaults(Notification.DEFAULT_SOUND)
+                    .setVibrate(new long[]{100L, 100L, 200L, 500L});
+
+            notificationManager.notify(id, notification1.build());
+        }
     }
 
     boolean setStatusButtonOnOrderHistory(String userType, String notificationType) {
@@ -141,5 +161,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             showStatus = true;
         }
         return showStatus;
+    }
+
+    public void initPresenter() {
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(getBaseContext(), AppConstants.PREFERENCE_DEFAULT);
+
+        appDataManager = new AppDataManager(getBaseContext(), appPreferencesHelper, appApiHelpter);
+//        setupRestaurantProfileMvpPresenter = new SetupRestaurantProfilePresenter(appDataManager, compositeDisposable);
     }
 }

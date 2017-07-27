@@ -66,27 +66,34 @@ public class AppConstants {
     public static final String FAQ_SLUG = "faq";
     public static final String FAQ_PAGE_NAME = "FAQ";
 
-//  Languages
+    //  Languages
     public static final String LANG_ENG = "eng";
     public static final String LANG_EN = "en";
     public static final String LANG_AR = "ar";
 
+    //    Notification Types
+    public static final String NOTIFICATION_TYPE_ORDER_RECEIVED = "order_received";
+    public static final String NOTIFICATION_TYPE_ORDER_ACCEPTED = "order_accept";
+    public static final String NOTIFICATION_TYPE_ORDER_REJECTED = "order_reject";
+    public static final String NOTIFICATION_TYPE_ORDER_READY_PICK = "ready_to_pick";
+    public static final String NOTIFICATION_TYPE_ORDER_READY_DELIVER = "ready_to_deliver";
+    public static final String NOTIFICATION_TYPE_ORDER_IN_TRANSIT = "in_transit";
+    public static final String NOTIFICATION_TYPE_ORDER_PICKED = "picked";
+    public static final String NOTIFICATION_TYPE_ORDER_DELIVERED = "delivered";
 
-    public static String PACKAGE_FACEBOOK="com.facebook";
-    public static String PACKAGE_FACEBOOK_KATANA="com.facebook.katana";
-    public static String PACKAGE_TWITTER="com.twitter.android";
-    public static String PACKAGE_GOOGLE_PLUS="com.google.android.apps.plus";
+    //    Package
+    public static String PACKAGE_FACEBOOK = "com.facebook";
+    public static String PACKAGE_FACEBOOK_KATANA = "com.facebook.katana";
+    public static String PACKAGE_TWITTER = "com.twitter.android";
+    public static String PACKAGE_GOOGLE_PLUS = "com.google.android.apps.plus";
 
-    public static String PACKAGE_GMAIL="com.google.android.gm";
+    public static String PACKAGE_GMAIL = "com.google.android.gm";
 
-    public  static String playStoreURL="market://details?id=";
-    public  static String SDCARD_PATH="sdcard/Foodi/";
-    public  static String dummyTextShare="Foodi !";
-    public  static String NO_INTERNET_CONNECTION="No Internet Connected";
-    public  static String INTENT_TYPE="image/*";
-
-
-
+    public static String playStoreURL = "market://details?id=";
+    public static String SDCARD_PATH = "sdcard/Foodi/";
+    public static String dummyTextShare = "Foodi !";
+    public static String NO_INTERNET_CONNECTION = "No Internet Connected";
+    public static String INTENT_TYPE = "image/*";
 
 
     //    Order Status

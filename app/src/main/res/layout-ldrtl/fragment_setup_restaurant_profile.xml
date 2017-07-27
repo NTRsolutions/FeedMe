@@ -161,6 +161,7 @@
                 android:layoutDirection="ltr"
                 android:textAlignment="viewEnd"
                 android:hint="@string/setup_restaurant_profile_et_zip_hint"
+                android:visibility="gone"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:paddingEnd="@dimen/setup_restaurant_profile_et_padding_start_end"

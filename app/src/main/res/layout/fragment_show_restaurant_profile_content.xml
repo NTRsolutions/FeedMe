@@ -230,15 +230,15 @@
                 android:gravity="center_vertical"
                 android:paddingTop="@dimen/show_restaurant_profile_content_tv_country_padding_top" />
 
-            <TextView
-                android:id="@+id/fragment_show_restaurant_profile_content_tv_zip"
-                fontPath="@string/font_default"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/show_restaurant_profile_content_tv_drawable_padding"
-                android:drawableStart="@mipmap/ic_location"
-                android:gravity="center_vertical"
-                android:paddingTop="@dimen/show_restaurant_profile_content_tv_zip_padding_top" />
+            <!--<TextView-->
+                <!--android:id="@+id/fragment_show_restaurant_profile_content_tv_zip"-->
+                <!--fontPath="@string/font_default"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:drawablePadding="@dimen/show_restaurant_profile_content_tv_drawable_padding"-->
+                <!--android:drawableStart="@mipmap/ic_location"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:paddingTop="@dimen/show_restaurant_profile_content_tv_zip_padding_top" />-->
 
         </LinearLayout>
 

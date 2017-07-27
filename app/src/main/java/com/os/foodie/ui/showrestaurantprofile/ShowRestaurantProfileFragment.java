@@ -59,7 +59,7 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 
     private TextView tvRestaurantName, tvDeliveryTime, tvOpeningClosingHours, tvDeliveryCharges;
     private TextView tvMinimumOrderAmount, tvDeliveryAreas, tvOrderType, tvWorkingDays;
-    private TextView tvPaymentType, tvAddress, tvCity, tvCounty, tvZipCode;
+    private TextView tvPaymentType, tvAddress, tvCity, tvCounty/*, tvZipCode*/;
 
     private PhotoAdapter photoAdapter;
 
@@ -146,7 +146,7 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
         tvAddress = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_other_details);
         tvCity = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_city);
         tvCounty = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_county);
-        tvZipCode = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_zip);
+//        tvZipCode = (TextView) rootView.findViewById(R.id.fragment_show_restaurant_profile_content_tv_zip);
 
         initFloatingActionButtons();
         setHasOptionsMenu(true);
@@ -227,7 +227,7 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
         tvAddress.setText(restaurantDetail.getAddress());
         tvCity.setText(restaurantDetail.getCityName());
         tvCounty.setText(restaurantDetail.getCountryName());
-        tvZipCode.setText(restaurantDetail.getZipCode());
+//        tvZipCode.setText(restaurantDetail.getZipCode());
 
         urlList.clear();
 
