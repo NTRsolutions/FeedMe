@@ -648,6 +648,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
         Intent[] intents = {intent, intentOrderDetails};
         startActivities(intents);
+
     }
 
     @Override
