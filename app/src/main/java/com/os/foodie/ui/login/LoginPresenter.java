@@ -81,6 +81,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                                 getDataManager().setCurrency(loginResponse.getResponse().getCurrency());
 //                                getDataManager().setCurrency(URLDecoder.decode(loginResponse.getResponse().getCurrency(), "UTF-8"));
 
+                                getDataManager().setNotificationStatus(loginResponse.getResponse().getIsNotification());
+
                                 if (loginResponse.getResponse().getUserType().equals(AppConstants.CUSTOMER)) {
                                     getDataManager().setCurrentUserName(loginResponse.getResponse().getFirstName() + " " + loginResponse.getResponse().getLastName());
                                     getDataManager().setCustomerRestaurantId(loginResponse.getResponse().getRestaurantId());
@@ -138,6 +140,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                             getDataManager().setCurrentUserId(facebookLoginResponse.getResponse().getUserId());
                             getDataManager().setCurrentUserType(facebookLoginResponse.getResponse().getUserType());
 //                            getDataManager().setCurrency(facebookLoginResponse.getResponse().getCurrency());
+
+                            getDataManager().setNotificationStatus(facebookLoginResponse.getResponse().getIsNotification());
 
                             if (facebookLoginResponse.getResponse().getUserType().equals(AppConstants.CUSTOMER)) {
                                 getDataManager().setCurrentUserName(facebookLoginResponse.getResponse().getFirstName() + " " + facebookLoginResponse.getResponse().getLastName());

@@ -5,24 +5,32 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/fragment_restaurant_order_list_tv_alert"
-        style="@style/TextView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/fragment_restaurant_order_list_tv_no_order_text"
-        android:visibility="gone" />
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/fragment_restaurant_order_list_srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment_restaurant_order_list_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fragment_restaurant_order_list_tv_alert"
+                style="@style/TextView4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/fragment_restaurant_order_list_tv_no_order_text"
+                android:visibility="gone" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/fragment_restaurant_order_list_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:maxLength="10"
+                android:maxLength="12"
                 android:padding="@dimen/add_edit_delivery_address_et_padding" />
 
         </LinearLayout>

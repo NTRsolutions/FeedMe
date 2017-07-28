@@ -328,7 +328,7 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
                     Log.d("fragment", ">>RestaurantOrderHistoryFragment");
 
                     navigationView.setCheckedItem(R.id.nav_order_history);
-                    getSupportActionBar().setTitle(getString(R.string.action_order_history));
+                    getSupportActionBar().setTitle(getString(R.string.title_fragment_restaurant_order_history));
 
                 } else if (fragment instanceof RestaurantMenuFragment) {
 

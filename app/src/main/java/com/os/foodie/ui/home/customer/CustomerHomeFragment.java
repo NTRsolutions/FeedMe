@@ -226,12 +226,14 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
         if (restaurantList != null && !restaurantList.isEmpty()) {
 
             tvNoResult.setVisibility(View.GONE);
-            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+//            swipeRefreshLayout.setVisibility(View.VISIBLE);
 
         } else {
 
             tvNoResult.setVisibility(View.VISIBLE);
-            swipeRefreshLayout.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
+//            swipeRefreshLayout.setVisibility(View.GONE);
         }
     }
 

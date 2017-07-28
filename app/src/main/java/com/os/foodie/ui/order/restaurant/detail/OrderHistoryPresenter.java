@@ -211,4 +211,9 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
             getMvpView().onError(R.string.connection_error);
         }
     }
+
+    @Override
+    public boolean isLoggedIn() {
+        return getDataManager().isCurrentUserLoggedIn();
+    }
 }

@@ -124,6 +124,8 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
 
                             if (setNotificationResponse.getResponse().getStatus() == 1) {
 
+                                Log.d("getIsNotification", ">>" + setNotificationResponse.getResponse().getIsNotification());
+
                                 getDataManager().setNotificationStatus(setNotificationResponse.getResponse().getIsNotification());
                                 getMvpView().getNotificationStatus(setNotificationResponse.getResponse().getIsNotification());
 

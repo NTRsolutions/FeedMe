@@ -40,6 +40,9 @@ public class Response {
     @SerializedName("is_profile_set")
     @Expose
     private String isProfileSet;
+    @SerializedName("is_notification")
+    @Expose
+    private String isNotification;
     @SerializedName("restaurant_name")
     @Expose
     private String restaurantName;
@@ -74,9 +77,10 @@ public class Response {
      * @param userType
      * @param isProfileSet
      * @param restaurantName
+     * @param isNotification
      * @param contactPersonName
      */
-    public Response(String userId, String firstName, String lastName, String email, String deviceType, String deviceId, String profileImage, Integer status, String message, String userType, String isProfileSet, String restaurantName, String contactPersonName, String restaurantId) {
+    public Response(String userId, String firstName, String lastName, String email, String deviceType, String deviceId, String profileImage, Integer status, String message, String userType, String isProfileSet, String isNotification, String restaurantName, String contactPersonName, String restaurantId) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -88,6 +92,7 @@ public class Response {
         this.message = message;
         this.userType = userType;
         this.isProfileSet = isProfileSet;
+        this.isNotification = isNotification;
         this.restaurantName = restaurantName;
         this.contactPersonName = contactPersonName;
         this.restaurantId = restaurantId;
@@ -225,5 +230,13 @@ public class Response {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public String getIsNotification() {
+        return isNotification;
+    }
+
+    public void setIsNotification(String isNotification) {
+        this.isNotification = isNotification;
     }
 }

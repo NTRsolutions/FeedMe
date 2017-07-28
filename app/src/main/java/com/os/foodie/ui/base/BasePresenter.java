@@ -113,6 +113,8 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
         getDataManager().setCurrentUserId(null);
         getDataManager().setCurrentUserType(null);
         getDataManager().setCurrentUserInfoInitialized(false);
+
+        getDataManager().setNotificationStatus("0");
     }
 
     public static class MvpViewNotAttachedException extends RuntimeException {

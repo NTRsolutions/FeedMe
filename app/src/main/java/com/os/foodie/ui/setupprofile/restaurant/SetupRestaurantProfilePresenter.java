@@ -221,7 +221,8 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                             } else {
                                 Log.d("Message", "onSuccess>>" + restaurantProfileResponse.getResponse().getMessage());
                                 getDataManager().setCurrentUserInfoInitialized(true);
-                                getDataManager().setCurrency(CommonUtils.dataDecode(restaurantProfileRequest.getCurrency()));
+                                getDataManager().setCurrency(restaurantProfileRequest.getCurrency());
+//                                getDataManager().setCurrency(CommonUtils.dataDecode(restaurantProfileRequest.getCurrency()));
 //                                getDataManager().setCurrency(URLDecoder.decode(restaurantProfileRequest.getCurrency(),"UTF-8"));
                                 getMvpView().onRestaurantProfileSaved();
                             }

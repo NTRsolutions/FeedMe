@@ -237,7 +237,7 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
                     Log.d("fragment", ">>RestaurantOrderHistoryFragment");
 
                     navigationView.setCheckedItem(R.id.nav_order_history);
-                    getSupportActionBar().setTitle(getString(R.string.title_fragment_restaurant_order_list));
+                    getSupportActionBar().setTitle(getString(R.string.title_fragment_restaurant_order_history));
 
                 } else if (fragment instanceof CustomerAccountFragment) {
 

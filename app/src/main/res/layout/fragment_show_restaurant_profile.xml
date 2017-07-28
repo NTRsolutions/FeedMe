@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:ignore="MissingPrefix"
     android:background="@color/white"
     android:fitsSystemWindows="true">
 
@@ -45,6 +46,7 @@
                     <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/activity_restaurant_details_viewpager"
                         android:layout_width="match_parent"
+                        android:background="@mipmap/img_placeholder"
                         android:layout_height="@dimen/app_bar_height" />
 
                     <LinearLayout
@@ -146,7 +148,7 @@
         android:cropToPadding="true"
         android:padding="@dimen/restautant_details_faiv_profile_pic_padding"
         android:scaleType="centerCrop"
-        android:src="@mipmap/img_profile_default"
+        android:src="@mipmap/img_placeholder"
         app:layout_anchor="@+id/activity_restaurant_details_viewpager"
         app:layout_anchorGravity="bottom|left" />
 

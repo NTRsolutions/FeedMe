@@ -652,30 +652,12 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
     public SetupRestaurantProfileRequest createRestaurantProfileRequest() {
 
-//        TODO SetupRestaurantProfileRequest
-
         PreferencesHelper preferencesHelper = setupRestaurantProfileMvpPresenter.getPreferencesHelper();
 
         SetupRestaurantProfileRequest restaurantProfileRequest = new SetupRestaurantProfileRequest();
 
         restaurantProfileRequest.setRestaurantId(preferencesHelper.getCurrentUserId());
-
         restaurantProfileRequest.setCuisineType(cuisionTypesId);
-
-//        /*String days = "";
-//
-//        for (int i = 0; i < workingDays.size(); i++) {
-//
-//            if (workingDays.get(i).isChecked()) {
-//
-//                if (i == 0) {
-//                    days = (i + 1) + "";
-//                } else {
-//                    days = days + "," + (i + 1);
-//                }
-//            }
-//        }*/
-
         restaurantProfileRequest.setWorkingDays(etWorkingDays.getText().toString());
         //  restaurantProfileRequest.setWorkingDays(days);
 
@@ -690,6 +672,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         restaurantProfileRequest.setDeliveryCharge(etDeliveryCharges.getText().toString());
         restaurantProfileRequest.setDeliveryZipcode(etDeliveryZipCodes.getText().toString());
         restaurantProfileRequest.setDescription(etDescription.getText().toString());
+//        restaurantProfileRequest.setCurrency(CommonUtils.dataEncode("₹"));
         restaurantProfileRequest.setCurrency(CommonUtils.dataEncode(currencySymbol));
 
 //        try {
@@ -717,6 +700,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         restaurantProfileRequest.setDeleteImageId(deleteImageIds);
 
+        Log.d("deleteImageIds", ">>" + deleteImageIds);
+
         return restaurantProfileRequest;
     }
 
@@ -727,7 +712,10 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         for (int i = 0; i < fileMap.size(); i++) {
             Log.d("idList", ">>" + "restaurant_image_" + (i + 1));
             fileMapTemp.put("restaurant_image_" + (i + 1), fileMap.get(idList.get(i)));
+
+            Log.d("fileMapTemp", ">>" + fileMap.get(idList.get(i)));
         }
+
 
         return fileMapTemp;
     }
@@ -739,18 +727,6 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     public void setError(String message) {
         setupRestaurantProfileMvpPresenter.setError(message);
     }
-
-//    public void callCuisineTypeList() {
-//        setupRestaurantProfileMvpPresenter.onCuisineTypeClick(true);
-//    }
-//
-//    public void saveCuisineTypeList(ArrayList<CuisineType> cuisineTypes) {
-//        this.cuisineTypes = cuisineTypes;
-//    }
-//
-//    public ArrayList<CuisineType> addCuisineType() {
-//        return cuisineTypes;
-//    }
 
     public void just() {
 
@@ -803,7 +779,6 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     }
 
     public Map getMap() {
-
 
         Map<String, File> fileMap = new Map<String, File>() {
             @Override
@@ -950,6 +925,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         if (address.getCountryCode() != null && !address.getCountryCode().isEmpty()) {
             currencySymbol = Currency.getInstance(new Locale("", address.getCountryCode())).getSymbol();
+            Log.d("currencySymbol", ">>" + currencySymbol);
 //            try {
 //                currencySymbol = URLEncoder.encode(currencySymbol,"UTF-8");
 //            } catch (UnsupportedEncodingException e) {

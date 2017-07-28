@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.os.foodie.R;
@@ -34,7 +35,10 @@ import com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity;
 import com.os.foodie.ui.dialogfragment.orderstatus.OrderStatusCallback;
 import com.os.foodie.ui.dialogfragment.orderstatus.OrderStatusDialogFragment;
 import com.os.foodie.ui.dialogfragment.restaurantreview.RestaurantReviewDialogFragment;
+import com.os.foodie.ui.login.LoginActivity;
+import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
+import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.DialogUtils;
@@ -91,6 +95,19 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         initPresenter();
         orderHistoryMvpPresenter.onAttach(OrderHistoryDetailActivity.this);
+
+        if (!orderHistoryMvpPresenter.isLoggedIn()) {
+
+            Toast.makeText(this, getResources().getString(R.string.not_logged_in), Toast.LENGTH_SHORT).show();
+
+            Intent welcomeIntent = new Intent(OrderHistoryDetailActivity.this, WelcomeActivity.class);
+            welcomeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            Intent loginIntent = new Intent(OrderHistoryDetailActivity.this, LoginActivity.class);
+
+            Intent[] intents = {welcomeIntent, loginIntent};
+            startActivities(intents);
+        }
 
         initView();
 

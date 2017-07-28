@@ -20,5 +20,7 @@ public interface OrderHistoryMvpPresenter<V extends OrderHistoryMvpView> extends
 
     void acceptRejectOrder(String orderId, String status, int position);
 
+    boolean isLoggedIn();
+
     void dispose();
 }

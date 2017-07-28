@@ -111,9 +111,9 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
         super.onResume();
 
         if (getActivity() instanceof RestaurantMainActivity) {
-            ((RestaurantMainActivity) getActivity()).setTitle(getString(R.string.title_fragment_restaurant_order_list));
+            ((RestaurantMainActivity) getActivity()).setTitle(getString(R.string.title_fragment_restaurant_order_history));
         } else {
-            ((CustomerMainActivity) getActivity()).setTitle(getString(R.string.title_fragment_restaurant_order_list));
+            ((CustomerMainActivity) getActivity()).setTitle(getString(R.string.title_fragment_restaurant_order_history));
         }
     }
 
@@ -142,8 +142,8 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
 
         if (getOrderListResponse.getResponse().getOrderList() != null && !getOrderListResponse.getResponse().getOrderList().isEmpty()) {
 
-            swipeRefreshLayout.setVisibility(View.VISIBLE);
-//            recyclerView.setVisibility(View.VISIBLE);
+//            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
             tvAlert.setVisibility(View.GONE);
 
 //            for (int i = 0; i < getOrderListResponse.getResponse().getOrderList().size(); i++) {
@@ -162,8 +162,8 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
             }
 
         } else {
-            swipeRefreshLayout.setVisibility(View.GONE);
-//            recyclerView.setVisibility(View.GONE);
+//            swipeRefreshLayout.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
             tvAlert.setVisibility(View.VISIBLE);
         }
 

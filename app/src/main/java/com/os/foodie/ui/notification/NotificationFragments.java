@@ -99,10 +99,17 @@ public class NotificationFragments extends BaseFragment implements NotificationM
     public void setNotificationList(NotificationListResponse notificationList) {
 
         if (notificationList.getResponse().getNotificationList().size() > 0) {
-            swipeRefreshLayout.setVisibility(View.VISIBLE);
+//            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            notificationListRv.setVisibility(View.VISIBLE);
             alertTv.setVisibility(View.GONE);
             notificationAdapter = new NotificationAdapter(getActivity(), notificationList.getResponse().getNotificationList(), notificationMvpPresenter);
             notificationListRv.setAdapter(notificationAdapter);
+        } else {
+//            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            notificationListRv.setVisibility(View.GONE);
+            alertTv.setVisibility(View.VISIBLE);
+//            notificationAdapter = new NotificationAdapter(getActivity(), notificationList.getResponse().getNotificationList(), notificationMvpPresenter);
+//            notificationListRv.setAdapter(notificationAdapter);
         }
     }
 

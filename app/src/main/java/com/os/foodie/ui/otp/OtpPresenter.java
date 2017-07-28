@@ -67,6 +67,9 @@ public class OtpPresenter<V extends OtpMvpView> extends BasePresenter<V> impleme
 
                                 getDataManager().setCurrentUserId(otpVerificationResponse.getResponse().getUserId());
                                 getDataManager().setCurrentUserType(otpVerificationResponse.getResponse().getUserType());
+
+                                getDataManager().setNotificationStatus("1");
+
                                 if (otpVerificationResponse.getResponse().getUserType().equals(AppConstants.CUSTOMER)) {
                                     getDataManager().setCurrentUserName(otpVerificationResponse.getResponse().getFirstName() + " " + otpVerificationResponse.getResponse().getLastName());
                                     getDataManager().setCustomerRestaurantId("");

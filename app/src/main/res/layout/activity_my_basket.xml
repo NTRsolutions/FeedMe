@@ -35,6 +35,7 @@
                     android:layout_marginEnd="@dimen/my_basket_ll_delivery_type_margin_start_end"
                     android:layout_marginStart="@dimen/my_basket_ll_delivery_type_margin_start_end"
                     android:layout_marginTop="@dimen/my_basket_ll_delivery_type_margin_top"
+                    android:visibility="gone"
                     android:gravity="center"
                     android:orientation="horizontal">
 

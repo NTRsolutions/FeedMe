@@ -149,8 +149,8 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
 
         if (getOrderListResponse.getResponse().getOrderList() != null && !getOrderListResponse.getResponse().getOrderList().isEmpty()) {
 
-            swipeRefreshLayout.setVisibility(View.VISIBLE);
-//            recyclerView.setVisibility(View.VISIBLE);
+//            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
             tvAlert.setVisibility(View.GONE);
 
 //            for (int i = 0; i < getOrderListResponse.getResponse().getOrderList().size(); i++) {
@@ -168,8 +168,8 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
 
         } else {
 
-            swipeRefreshLayout.setVisibility(View.GONE);
-//            recyclerView.setVisibility(View.GONE);
+//            swipeRefreshLayout.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
             tvAlert.setVisibility(View.VISIBLE);
         }
 
@@ -216,14 +216,14 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
 
         if (orderLists != null && !orderLists.isEmpty()) {
 
-            swipeRefreshLayout.setVisibility(View.VISIBLE);
-//            recyclerView.setVisibility(View.VISIBLE);
+//            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
             tvAlert.setVisibility(View.GONE);
 
         } else {
 
-            swipeRefreshLayout.setVisibility(View.GONE);
-//            recyclerView.setVisibility(View.GONE);
+//            swipeRefreshLayout.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
             tvAlert.setVisibility(View.VISIBLE);
         }
     }
