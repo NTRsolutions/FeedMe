@@ -25,6 +25,7 @@ import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
 import com.os.foodie.ui.home.customer.CustomerHomeFragment;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
+import com.os.foodie.ui.mybasketlist.MyBasketListActivity;
 import com.os.foodie.ui.notification.NotificationFragments;
 import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryFragment;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
@@ -166,7 +167,8 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
         } else if (id == R.id.nav_my_basket) {
 
-            Intent intent = new Intent(this, MyBasketActivity.class);
+//            Intent intent = new Intent(this, MyBasketActivity.class);
+            Intent intent = new Intent(this, MyBasketListActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_delivery_address) {

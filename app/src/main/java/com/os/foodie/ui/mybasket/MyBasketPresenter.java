@@ -42,14 +42,14 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
     }
 
     @Override
-    public void getMyBasketDetails(String userId) {
+    public void getMyBasketDetails(String userId, String restaurantId) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
-                    .getCartDetails(new ViewCartRequest(userId))
+                    .getCartDetails(new ViewCartRequest(userId, restaurantId))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<ViewCartResponse>() {
@@ -178,14 +178,14 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
     }
 
     @Override
-    public void clearBasket() {
+    public void clearBasket(String restaurantId) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
-                    .clearCart(new ClearCartRequest(getDataManager().getCurrentUserId()))
+                    .clearCart(new ClearCartRequest(getDataManager().getCurrentUserId(),restaurantId))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<ClearCartResponse>() {

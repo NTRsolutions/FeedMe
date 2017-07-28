@@ -90,7 +90,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
     private ViewCartResponse viewCartResponse;
 
-    private String discountId = "";
+    private String discountId = "", restaurantId = "";
     private float discountAmount;
     private final String[] weekDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
@@ -110,6 +110,10 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
 
         selectedCalendar = Calendar.getInstance();
+
+        if (getIntent().hasExtra(AppConstants.RESTAURANT_ID)) {
+            restaurantId = getIntent().getStringExtra(AppConstants.RESTAURANT_ID);
+        }
 
         rlMain = (RelativeLayout) findViewById(R.id.activity_my_basket_rl_main);
         tvEmptyBasket = (TextView) findViewById(R.id.activity_my_basket_tv_empty_basket);
@@ -284,7 +288,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, clickListener));
 
-        myBasketMvpPresenter.getMyBasketDetails(AppController.get(this).getAppDataManager().getCurrentUserId());
+        myBasketMvpPresenter.getMyBasketDetails(AppController.get(this).getAppDataManager().getCurrentUserId(), restaurantId);
 
         initSwipe();
     }
@@ -498,6 +502,11 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
     @Override
     public void onBasketClear() {
+
+        Intent intent = new Intent();
+        intent.putExtra(AppConstants.RESTAURANT_ID, restaurantId);
+
+        setResult(20, intent);
         finish();
         rlMain.setVisibility(View.GONE);
         tvEmptyBasket.setVisibility(View.VISIBLE);
@@ -573,7 +582,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                myBasketMvpPresenter.clearBasket();
+                myBasketMvpPresenter.clearBasket(restaurantId);
             }
         };
 

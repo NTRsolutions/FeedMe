@@ -17,6 +17,8 @@ import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
 import com.os.foodie.data.network.model.cart.add.AddToCartResponse;
 import com.os.foodie.data.network.model.cart.clear.ClearCartRequest;
 import com.os.foodie.data.network.model.cart.clear.ClearCartResponse;
+import com.os.foodie.data.network.model.cart.list.GetCartListRequest;
+import com.os.foodie.data.network.model.cart.list.GetCartListResponse;
 import com.os.foodie.data.network.model.cart.remove.RemoveFromCartRequest;
 import com.os.foodie.data.network.model.cart.remove.RemoveFromCartResponse;
 import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
@@ -1239,8 +1241,8 @@ public class AppApiHelpter implements ApiHelper {
 
         try {
             jsonObject = new JSONObject();
-            jsonObject.put("order_id",orderId);
-            jsonObject.put("order_status",orderStatus);
+            jsonObject.put("order_id", orderId);
+            jsonObject.put("order_status", orderStatus);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -1255,8 +1257,7 @@ public class AppApiHelpter implements ApiHelper {
 
 
     @Override
-    public Observable<RestaurantReviewResponse> sendRestaurantReview(RestaurantReviewRequest restaurantReviewRequest)
-    {
+    public Observable<RestaurantReviewResponse> sendRestaurantReview(RestaurantReviewRequest restaurantReviewRequest) {
         JSONObject jsonObject = null;
 
         try {
@@ -1276,13 +1277,13 @@ public class AppApiHelpter implements ApiHelper {
 
 
     @Override
-    public Observable<NotificationListResponse> getNotification(String user_id,String restaurant_id) {
+    public Observable<NotificationListResponse> getNotification(String user_id, String restaurant_id) {
         JSONObject jsonObject = null;
 
         try {
             jsonObject = new JSONObject();
-            jsonObject.put("user_id",user_id);
-            jsonObject.put("restaurant_id",restaurant_id);
+            jsonObject.put("user_id", user_id);
+            jsonObject.put("restaurant_id", restaurant_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -1301,7 +1302,7 @@ public class AppApiHelpter implements ApiHelper {
 
         try {
             jsonObject = new JSONObject();
-            jsonObject.put("notification_id",notification_id);
+            jsonObject.put("notification_id", notification_id);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1335,4 +1336,23 @@ public class AppApiHelpter implements ApiHelper {
                 .getObjectObservable(ChangeLanguageResponse.class);
     }
 
+    @Override
+    public Observable<GetCartListResponse> getCartList(GetCartListRequest getCartListRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(getCartListRequest));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.CART_LIST)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(GetCartListResponse.class);
+    }
 }

@@ -438,6 +438,7 @@
     <string name="my_basket_tv_total_amount_tag_text">Total Amount</string>
     <string name="my_basket_bt_checkout_text">Checkout</string>
     <string name="my_basket_tv_empty_basket_text">Basket is empty</string>
+    <string name="my_basket_tv_date_time_text">ASAP</string>
 
     <!--Customer_Restaurant Search-->
     <string name="customer_search_tv_no_result_text">No Result Found</string>
@@ -605,7 +606,9 @@
 
     <string name="customer">As a Customer</string>
     <string name="restaurant">As a Restaurant</string>
-    <string name="my_basket_tv_date_time_text">ASAP</string>
+
+    <!--My Basket List-->
+    <string name="my_basket_list_tv_empty_basket_text">No Basket Found</string>
 
     <string-array name="pick_order_status">
         <item>Under Preparation</item>

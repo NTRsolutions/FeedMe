@@ -14,6 +14,8 @@ import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
 import com.os.foodie.data.network.model.cart.add.AddToCartResponse;
 import com.os.foodie.data.network.model.cart.clear.ClearCartRequest;
 import com.os.foodie.data.network.model.cart.clear.ClearCartResponse;
+import com.os.foodie.data.network.model.cart.list.GetCartListRequest;
+import com.os.foodie.data.network.model.cart.list.GetCartListResponse;
 import com.os.foodie.data.network.model.cart.remove.RemoveFromCartRequest;
 import com.os.foodie.data.network.model.cart.remove.RemoveFromCartResponse;
 import com.os.foodie.data.network.model.cart.update.UpdateCartRequest;
@@ -250,4 +252,6 @@ public interface ApiHelper {
     Observable<NotificationListResponse> readNotification(String notification_id);
 
     Observable<ChangeLanguageResponse> changeLanguage(ChangeLanguageRequest changeLanguageRequest);
+
+    Observable<GetCartListResponse> getCartList(GetCartListRequest getCartListRequest);
 }

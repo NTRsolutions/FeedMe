@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_round_corner_top_white"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/recyclerview_my_basket_list_item_iv_restaurant_logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_placeholder" />
+
+        <TextView
+            android:id="@+id/recyclerview_my_basket_list_item_tv_restaurant_name"
+            style="@style/TextView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Cafe Hash"
+            android:textColor="@color/orange" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/recyclerview_my_basket_list_item_tv_view_basket"
+        fontPath="@string/font_default"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_round_corner_bottom_orange"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="View Basket"
+        android:textColor="@color/white" />
+
+</LinearLayout>

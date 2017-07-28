@@ -250,47 +250,47 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
         }
     }
 
-    @Override
-    public void clearBasket() {
-
-        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
-
-            getMvpView().showLoading();
-
-            getCompositeDisposable().add(getDataManager()
-                    .clearCart(new ClearCartRequest(getDataManager().getCurrentUserId()))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<ClearCartResponse>() {
-                        @Override
-                        public void accept(ClearCartResponse clearCartResponse) throws Exception {
-
-                            getMvpView().hideLoading();
-                            getDataManager().setCustomerRestaurantId("");
-
-                            if (clearCartResponse.getResponse().getStatus() == 1) {
-
-                                Log.d("Cart", ">>1");
-                                getMvpView().onError(clearCartResponse.getResponse().getMessage());
-
-                            } else {
-
-                                Log.d("Cart", ">>0");
-                                getMvpView().onError(clearCartResponse.getResponse().getMessage());
-                            }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            getMvpView().hideLoading();
-                            getMvpView().onError(R.string.api_default_error);
-                            Log.d("Error", ">>Err" + throwable.getMessage());
-                        }
-                    }));
-        } else {
-            getMvpView().onError(R.string.connection_error);
-        }
-    }
+//    @Override
+//    public void clearBasket() {
+//
+//        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+//
+//            getMvpView().showLoading();
+//
+//            getCompositeDisposable().add(getDataManager()
+//                    .clearCart(new ClearCartRequest(getDataManager().getCurrentUserId()))
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new Consumer<ClearCartResponse>() {
+//                        @Override
+//                        public void accept(ClearCartResponse clearCartResponse) throws Exception {
+//
+//                            getMvpView().hideLoading();
+//                            getDataManager().setCustomerRestaurantId("");
+//
+//                            if (clearCartResponse.getResponse().getStatus() == 1) {
+//
+//                                Log.d("Cart", ">>1");
+//                                getMvpView().onError(clearCartResponse.getResponse().getMessage());
+//
+//                            } else {
+//
+//                                Log.d("Cart", ">>0");
+//                                getMvpView().onError(clearCartResponse.getResponse().getMessage());
+//                            }
+//                        }
+//                    }, new Consumer<Throwable>() {
+//                        @Override
+//                        public void accept(Throwable throwable) throws Exception {
+//                            getMvpView().hideLoading();
+//                            getMvpView().onError(R.string.api_default_error);
+//                            Log.d("Error", ">>Err" + throwable.getMessage());
+//                        }
+//                    }));
+//        } else {
+//            getMvpView().onError(R.string.connection_error);
+//        }
+//    }
 
     @Override
     public String getCustomerRestaurantId() {

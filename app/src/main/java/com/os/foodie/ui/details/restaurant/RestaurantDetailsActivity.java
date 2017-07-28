@@ -271,6 +271,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
             restaurantDetailsMvpPresenter.doLikeDislike(restaurantId);
         } else if (v.getId() == btViewBasket.getId()) {
             Intent intent = new Intent(RestaurantDetailsActivity.this, MyBasketActivity.class);
+            intent.putExtra(AppConstants.RESTAURANT_ID, restaurantDetails.getId());
             startActivity(intent);
         } else if (v.getId() == faivShare.getId()) {
             Log.d("faivShare", ">>OnClick");
@@ -467,7 +468,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         courseAdapter.notifyDataSetChanged();
 //        courseAdapter.calcBasketDetails();
 
-        if (!restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() && !restaurantDetailsResponse.getResponse().getTotalQuantity().equals("0") && restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)) {
+        if (/*!restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() && */!restaurantDetailsResponse.getResponse().getTotalQuantity().equals("0")/* && restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)*/) {
 //        if (courseAdapter.getTotalQuantity() > 0) {
 //
 //            tvTotalQuantity.setText(String.valueOf(courseAdapter.getTotalQuantity()));
@@ -634,7 +635,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         courseAdapter.notifyDataSetChanged();
 //        courseAdapter.calcBasketDetails();
 
-        if (!restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() && !restaurantDetailsResponse.getResponse().getTotalQuantity().equals("0") && restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)) {
+        if (/*!restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() && */!restaurantDetailsResponse.getResponse().getTotalQuantity().equals("0")/* && restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)*/) {
 //        if (courseAdapter.getTotalQuantity() > 0) {
 
             tvTotalQuantity.setText("Quantity: " + restaurantDetailsResponse.getResponse().getTotalQuantity());
@@ -662,7 +663,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
                 if (objectArrayList.get(position) instanceof Dish) {
 
-                    if (restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() || restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)) {
+//                    if (restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() || restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)) {
 
                         final boolean isUpdate;
 
@@ -834,28 +835,29 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                         mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
                         mBottomSheetDialog.show();
-                    } else {
 
-                        DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                restaurantDetailsMvpPresenter.clearBasket();
-                            }
-                        };
-
-                        DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        };
-
-                        DialogUtils.showAlert(RestaurantDetailsActivity.this,
-                                R.string.alert_dialog_title_clear_basket, R.string.alert_dialog_text_clear_basket,
-                                getResources().getString(R.string.alert_dialog_bt_ok), positiveButton,
-                                getResources().getString(R.string.alert_dialog_bt_cancel), negativeButton);
-                    }
+//                    } else {
+//
+//                        DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                                restaurantDetailsMvpPresenter.clearBasket();
+//                            }
+//                        };
+//
+//                        DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                            }
+//                        };
+//
+//                        DialogUtils.showAlert(RestaurantDetailsActivity.this,
+//                                R.string.alert_dialog_title_clear_basket, R.string.alert_dialog_text_clear_basket,
+//                                getResources().getString(R.string.alert_dialog_bt_ok), positiveButton,
+//                                getResources().getString(R.string.alert_dialog_bt_cancel), negativeButton);
+//                    }
 
                 }
             }

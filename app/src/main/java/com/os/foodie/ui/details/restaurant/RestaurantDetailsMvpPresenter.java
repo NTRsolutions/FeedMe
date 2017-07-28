@@ -15,7 +15,7 @@ public interface RestaurantDetailsMvpPresenter<V extends RestaurantDetailsMvpVie
 
     void updateMyBasket(String userId, String restaurantId, String itemId, String quantity, String price, int position);
 
-    void clearBasket();
+//    void clearBasket();
 
     String getCustomerRestaurantId();
 

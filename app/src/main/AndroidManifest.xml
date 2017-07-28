@@ -17,7 +17,8 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--android:roundIcon="@mipmap/ic_launcher_round"-->
+
+        <!-- android:roundIcon="@mipmap/ic_launcher_round" -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -48,20 +49,16 @@
             android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
             android:exported="false" />
-
-
         <service android:name=".service.firebase.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".service.firebase.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -123,8 +120,8 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.main.restaurant.RestaurantMainActivity"
-            android:label=""
             android:configChanges="locale"
+            android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -221,6 +218,11 @@
         <activity
             android:name=".ui.review.ReviewActivity"
             android:label="@string/review_activity_title"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme3" />
+        <activity
+            android:name=".ui.mybasketlist.MyBasketListActivity"
+            android:label="Select Basket"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme3" />
     </application>

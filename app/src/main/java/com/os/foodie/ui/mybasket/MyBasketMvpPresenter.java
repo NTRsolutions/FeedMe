@@ -11,13 +11,13 @@ import com.os.foodie.ui.base.MvpPresenter;
 
 public interface MyBasketMvpPresenter<V extends MyBasketMvpView> extends MvpPresenter<V> {
 
-    void getMyBasketDetails(String userId);
+    void getMyBasketDetails(String userId, String restaurantId);
 
     void removeFromMyBasket(String userId, String itemId, String restaurantId, int position);
 
     void updateMyBasket(String userId, String itemId, String restaurantId, String qty, String price, final int position);
 
-    void clearBasket();
+    void clearBasket(String restaurantId);
 
     void clearBasketRestaurant();
 
