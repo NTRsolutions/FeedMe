@@ -1,6 +1,7 @@
 package com.os.foodie.ui.notification;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.os.foodie.ui.adapter.recyclerview.NotificationAdapter;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
+import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
 import com.os.foodie.utils.AppConstants;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -29,7 +31,9 @@ public class NotificationFragments extends BaseFragment implements NotificationM
     private TextView alertTv;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView notificationListRv;
-    NotificationAdapter notificationAdapter;
+    private NotificationAdapter notificationAdapter;
+
+    public static NotificationFragments notificationFragments;
 
     AppDataManager appDataManager;
     private NotificationMvpPresenter<NotificationMvpView> notificationMvpPresenter;
@@ -42,7 +46,12 @@ public class NotificationFragments extends BaseFragment implements NotificationM
         Bundle args = new Bundle();
         NotificationFragments fragment = new NotificationFragments();
         fragment.setArguments(args);
+        notificationFragments = fragment;
         return fragment;
+    }
+
+    public static NotificationFragments getInstance() {
+        return notificationFragments;
     }
 
     @Override
@@ -129,6 +138,27 @@ public class NotificationFragments extends BaseFragment implements NotificationM
             notificationMvpPresenter.getNotificationList(appDataManager.getCurrentUserId(), "", swipeRefreshLayout);
         } else {
             notificationMvpPresenter.getNotificationList("", appDataManager.getCurrentUserId(), swipeRefreshLayout);
+        }
+    }
+
+    public void newOrder() {
+
+        Fragment fragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.content_restaurant_main_cl_fragment);
+
+        if (fragment instanceof NotificationFragments) {
+
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    if (appDataManager.getCurrentUserType().equals(AppConstants.CUSTOMER)) {
+                        notificationMvpPresenter.getNotificationList(appDataManager.getCurrentUserId(), "", null);
+                    } else {
+                        notificationMvpPresenter.getNotificationList("", appDataManager.getCurrentUserId(), null);
+                    }
+                }
+            });
+
         }
     }
 }

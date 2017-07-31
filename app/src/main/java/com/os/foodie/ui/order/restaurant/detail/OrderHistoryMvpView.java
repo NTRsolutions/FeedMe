@@ -11,7 +11,7 @@ public interface OrderHistoryMvpView extends MvpView {
 
     public void setOrderStatus(ChangeOrderStatusResponse changeOrderStatusResponse);
 
-    public void onReorderComplete();
+    public void onReorderComplete(String restaurantId);
 
     void onAcceptReject(String orderId);
 }

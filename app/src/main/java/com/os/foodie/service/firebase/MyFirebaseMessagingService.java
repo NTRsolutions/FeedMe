@@ -20,6 +20,7 @@ import com.os.foodie.R;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
+import com.os.foodie.ui.notification.NotificationFragments;
 import com.os.foodie.ui.order.restaurant.detail.OrderHistoryDetailActivity;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
 import com.os.foodie.ui.setupprofile.restaurant.SetupRestaurantProfilePresenter;
@@ -97,6 +98,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 if (RestaurantOrderListFragment.getInstance().getActivity() != null) {
                     RestaurantOrderListFragment.getInstance().newOrder();
                 }
+            }
+
+            if (NotificationFragments.getInstance().getActivity() != null) {
+                Log.d("NotificationFragments", ">>newOrder");
+                NotificationFragments.getInstance().newOrder();
             }
 
             long notificationTime = 0;

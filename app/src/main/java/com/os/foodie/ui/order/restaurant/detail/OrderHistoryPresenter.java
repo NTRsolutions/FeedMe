@@ -124,7 +124,7 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
                             if (reorderResponse.getResponse().getStatus() == 1) {
 
                                 getDataManager().setCustomerRestaurantId(restaurantId);
-                                getMvpView().onReorderComplete();
+                                getMvpView().onReorderComplete(restaurantId);
 
                             } else {
                                 getMvpView().onError(reorderResponse.getResponse().getMessage());

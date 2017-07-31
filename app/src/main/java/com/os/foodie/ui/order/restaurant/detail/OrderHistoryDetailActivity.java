@@ -416,9 +416,10 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
     }
 
     @Override
-    public void onReorderComplete() {
+    public void onReorderComplete(String restaurantId) {
 
         Intent intent = new Intent(this, MyBasketActivity.class);
+        intent.putExtra(AppConstants.RESTAURANT_ID, restaurantId);
         startActivity(intent);
     }
 
@@ -459,32 +460,32 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
             case R.id.repeat_order_bt:
 
-                if (orderHistoryMvpPresenter.getCustomerRestaurantId().isEmpty()) {
+//                if (orderHistoryMvpPresenter.getCustomerRestaurantId().isEmpty()) {
 
                     orderHistoryMvpPresenter.reorder(orderHistoryDetail.getResponse().getOrderDetail().getOrderId(), orderHistoryDetail.getResponse().getRestaurantId());
 
-                } else {
-
-                    DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            orderHistoryMvpPresenter.reorder(orderHistoryDetail.getResponse().getOrderDetail().getOrderId(), orderHistoryDetail.getResponse().getRestaurantId());
-                        }
-                    };
-
-                    DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    };
-
-                    DialogUtils.showAlert(this,
-                            R.string.alert_dialog_title_reorder, R.string.alert_dialog_text_reorder,
-                            getResources().getString(R.string.alert_dialog_bt_ok), positiveButton,
-                            getResources().getString(R.string.alert_dialog_bt_cancel), negativeButton);
-                }
+//                } else {
+//
+//                    DialogInterface.OnClickListener positiveButton = new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                            orderHistoryMvpPresenter.reorder(orderHistoryDetail.getResponse().getOrderDetail().getOrderId(), orderHistoryDetail.getResponse().getRestaurantId());
+//                        }
+//                    };
+//
+//                    DialogInterface.OnClickListener negativeButton = new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    };
+//
+//                    DialogUtils.showAlert(this,
+//                            R.string.alert_dialog_title_reorder, R.string.alert_dialog_text_reorder,
+//                            getResources().getString(R.string.alert_dialog_bt_ok), positiveButton,
+//                            getResources().getString(R.string.alert_dialog_bt_cancel), negativeButton);
+//                }
 
                 break;
 
