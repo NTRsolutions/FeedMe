@@ -119,7 +119,6 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
         AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
         locationInfoMvpPresenter = new LocationInfoPresenter(appDataManager, compositeDisposable);
-
     }
 
     @Override
@@ -149,20 +148,25 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
         } else if (v.getId() == btSubmit.getId()) {
 
-//            String country = ((Country) spinnerCountry.getSelectedItem()).getName();
-//            String city = ((City) spinnerCity.getSelectedItem()).getName();
-            String country = etCountry.getText().toString();
-            String city = etCity.getText().toString();
-            String address = etCurrentLocation.getText().toString();
+            if (locationInfoMvpPresenter.isLoggedIn()) {
 
-            locationInfoMvpPresenter.setUserLocationInfo(latLng, country, city, address);
+                String country = etCountry.getText().toString();
+                String city = etCity.getText().toString();
+                String address = etCurrentLocation.getText().toString();
+
+                locationInfoMvpPresenter.setUserLocationInfo(latLng, country, city, address);
+
+            } else {
+
+                locationInfoMvpPresenter.setCityName(etCity.getText().toString());
+            }
         }
     }
 
     @Override
     protected void setUp() {
 
-        if (!locationInfoMvpPresenter.getCurrentUserInfoInitialized()) {
+        if (locationInfoMvpPresenter.isLoggedIn() && !locationInfoMvpPresenter.getCurrentUserInfoInitialized()) {
             ivStep.setVisibility(View.VISIBLE);
         }
 
@@ -428,6 +432,10 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
         latLng = new LatLng(address.getLatitude(), address.getLongitude());
         etCurrentLocation.setText(fullAddress);
+
+        if (!locationInfoMvpPresenter.isLoggedIn()) {
+            locationInfoMvpPresenter.setLatLng(address.getLatitude() + "", address.getLongitude() + "");
+        }
 
         if (address.getCountryName() != null && !address.getCountryName().isEmpty()) {
 //            etCountry.setEnabled(false);

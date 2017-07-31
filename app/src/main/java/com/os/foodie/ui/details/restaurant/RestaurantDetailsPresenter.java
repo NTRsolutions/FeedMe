@@ -1,5 +1,6 @@
 package com.os.foodie.ui.details.restaurant;
 
+import android.support.annotation.StringRes;
 import android.util.Log;
 
 import com.os.foodie.R;
@@ -39,38 +40,77 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
             getMvpView().showLoading();
 
-            getCompositeDisposable().add(getDataManager()
-                    .getRestaurantDetails(new CustomerRestaurantDetailsRequest(getDataManager().getCurrentUserId(), restaurantId))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<CustomerRestaurantDetailsResponse>() {
-                        @Override
-                        public void accept(CustomerRestaurantDetailsResponse restaurantDetailsResponse) throws Exception {
+            if (getDataManager().isCurrentUserLoggedIn()) {
 
-                            getMvpView().hideLoading();
+                getCompositeDisposable().add(getDataManager()
+                        .getRestaurantDetails(new CustomerRestaurantDetailsRequest(getDataManager().getCurrentUserId(), restaurantId))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<CustomerRestaurantDetailsResponse>() {
+                            @Override
+                            public void accept(CustomerRestaurantDetailsResponse restaurantDetailsResponse) throws Exception {
 
-                            if (restaurantDetailsResponse.getResponse().getStatus() == 1) {
+                                getMvpView().hideLoading();
 
-                                if (isFirstTime) {
-                                    getMvpView().setResponse(restaurantDetailsResponse);
-                                    isFirstTime = false;
+                                if (restaurantDetailsResponse.getResponse().getStatus() == 1) {
+
+                                    if (isFirstTime) {
+                                        getMvpView().setResponse(restaurantDetailsResponse);
+                                        isFirstTime = false;
+                                    } else {
+                                        getMvpView().resetResponse(restaurantDetailsResponse);
+                                    }
+
                                 } else {
-                                    getMvpView().resetResponse(restaurantDetailsResponse);
+                                    Log.d("getMessage", ">>Failed");
+                                    getMvpView().onError(restaurantDetailsResponse.getResponse().getMessage());
                                 }
-
-                            } else {
-                                Log.d("getMessage", ">>Failed");
-                                getMvpView().onError(restaurantDetailsResponse.getResponse().getMessage());
                             }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            getMvpView().hideLoading();
-                            getMvpView().onError(R.string.api_default_error);
-                            Log.d("Error", ">>Err" + throwable.getMessage());
-                        }
-                    }));
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                getMvpView().hideLoading();
+                                getMvpView().onError(R.string.api_default_error);
+                                Log.d("Error", ">>Err" + throwable.getMessage());
+                            }
+                        }));
+
+            } else {
+
+                getCompositeDisposable().add(getDataManager()
+                        .getRestaurantDetails(new CustomerRestaurantDetailsRequest("", restaurantId))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<CustomerRestaurantDetailsResponse>() {
+                            @Override
+                            public void accept(CustomerRestaurantDetailsResponse restaurantDetailsResponse) throws Exception {
+
+                                getMvpView().hideLoading();
+
+                                if (restaurantDetailsResponse.getResponse().getStatus() == 1) {
+
+                                    if (isFirstTime) {
+                                        getMvpView().setResponse(restaurantDetailsResponse);
+                                        isFirstTime = false;
+                                    } else {
+                                        getMvpView().resetResponse(restaurantDetailsResponse);
+                                    }
+
+                                } else {
+                                    Log.d("getMessage", ">>Failed");
+                                    getMvpView().onError(restaurantDetailsResponse.getResponse().getMessage());
+                                }
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                getMvpView().hideLoading();
+                                getMvpView().onError(R.string.api_default_error);
+                                Log.d("Error", ">>Err" + throwable.getMessage());
+                            }
+                        }));
+            }
+
         } else {
             getMvpView().onError(R.string.connection_error);
         }
@@ -78,6 +118,12 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
     @Override
     public void doLikeDislike(String restaurantId) {
+
+        if (!getDataManager().isCurrentUserLoggedIn()) {
+
+            getMvpView().onError(R.string.not_logged_in);
+            return;
+        }
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -300,6 +346,16 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
     @Override
     public void setCustomerRestaurantId(String restaurantId) {
         getDataManager().setCustomerRestaurantId(restaurantId);
+    }
+
+    @Override
+    public boolean isCurrentUserLoggedIn() {
+        return getDataManager().isCurrentUserLoggedIn();
+    }
+
+    @Override
+    public void onError(@StringRes int resId) {
+        getMvpView().onError(resId);
     }
 
     @Override

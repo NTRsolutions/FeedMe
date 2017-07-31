@@ -12,6 +12,12 @@ public interface LocationInfoMvpPresenter<V extends LocationInfoMvpView> extends
 
     boolean getCurrentUserInfoInitialized();
 
+    boolean isLoggedIn();
+
+    void setLatLng(String latitude, String longitude);
+
+    void setCityName(String cityName);
+
     void setError(@StringRes int resId);
 
     void setError(String message);

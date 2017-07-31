@@ -16,6 +16,9 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_CURRENCY = "PREF_KEY_CURRENCY";
     private static final String PREF_KEY_DEVICE_ID = "PREF_KEY_DEVICE_ID";
     private static final String PREF_KEY_LANGUAGE = "PREF_KEY_LANGUAGE";
+    private static final String PREF_KEY_LATITUDE = "PREF_KEY_LATITUDE";
+    private static final String PREF_KEY_LONGITUDE = "PREF_KEY_LONGITUDE";
+    private static final String PREF_KEY_CITY = "PREF_KEY_CITY";
 
     private final SharedPreferences sharedPreferences;
 
@@ -124,13 +127,39 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public String getLanguage(){
+    public String getLanguage() {
         return sharedPreferences.getString(PREF_KEY_LANGUAGE, "en");
     }
 
     @Override
-    public void setLanguage(String language){
+    public void setLanguage(String language) {
         sharedPreferences.edit().putString(PREF_KEY_LANGUAGE, language).apply();
+    }
+
+    @Override
+    public String getLatitude() {
+        return sharedPreferences.getString(PREF_KEY_LATITUDE, "");
+    }
+
+    @Override
+    public String getLongitude() {
+        return sharedPreferences.getString(PREF_KEY_LONGITUDE, "");
+    }
+
+    @Override
+    public String getCityName() {
+        return sharedPreferences.getString(PREF_KEY_CITY, "");
+    }
+
+    @Override
+    public void setLatLng(String latitude, String longitude) {
+        sharedPreferences.edit().putString(PREF_KEY_LATITUDE, latitude).apply();
+        sharedPreferences.edit().putString(PREF_KEY_LONGITUDE, longitude).apply();
+    }
+
+    @Override
+    public void setCityName(String cityName) {
+        sharedPreferences.edit().putString(PREF_KEY_CITY, cityName).apply();
     }
 
 //    private static final String PREF_KEY_USER_LOGGED_IN_MODE = "PREF_KEY_USER_LOGGED_IN_MODE";

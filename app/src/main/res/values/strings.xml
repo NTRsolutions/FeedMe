@@ -282,6 +282,7 @@
 
     <!--Customer Main-->
     <string name="customer_main_header_tv_welcome_text">Welcome</string>
+    <string name="skip_customer_main_tv_or">OR</string>
 
     <!--Main-->
     <string name="navigation_drawer_open">Open navigation drawer</string>

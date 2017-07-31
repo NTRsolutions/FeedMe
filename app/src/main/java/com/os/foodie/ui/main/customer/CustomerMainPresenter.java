@@ -26,6 +26,11 @@ public class CustomerMainPresenter<V extends CustomerMainMvpView> extends BasePr
     }
 
     @Override
+    public boolean isCurrentUserLoggedIn() {
+        return getDataManager().isCurrentUserLoggedIn();
+    }
+
+    @Override
     public void logout() {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {

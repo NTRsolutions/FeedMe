@@ -213,6 +213,15 @@
     <dimen name="customer_main_header_tv_user_name_text_size">25sp</dimen>
     <dimen name="customer_main_header_tv_user_name_margin_top">10dp</dimen>
 
+    <!--Skip Customer Main-->
+    <dimen name="nav_header_skip_customer_main_iv_logo_margin_top">50dp</dimen>
+    <dimen name="nav_header_skip_customer_main_margin_start_end">40dp</dimen>
+    <dimen name="nav_header_skip_customer_main_bt_login_margin_top">30dp</dimen>
+    <dimen name="nav_header_skip_customer_main_bt_signup_margin_top">20dp</dimen>
+    <dimen name="nav_header_skip_customer_main_rl_margin_top">20dp</dimen>
+    <dimen name="nav_header_skip_customer_main_tv_or_padding_start_end">10dp</dimen>
+    <dimen name="nav_header_skip_customer_main_view_line_margin_top">20dp</dimen>
+
     <!--Restaurant Main-->
     <dimen name="restaurant_main_toolbar_content_inset_start">0dp</dimen>
     <dimen name="restaurant_main_divider_height">1dp</dimen>

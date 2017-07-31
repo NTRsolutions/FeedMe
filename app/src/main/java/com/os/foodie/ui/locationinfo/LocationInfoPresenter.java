@@ -52,6 +52,28 @@ public class LocationInfoPresenter<V extends LocationInfoMvpView> extends BasePr
     }
 
     @Override
+    public boolean isLoggedIn() {
+        return getDataManager().isCurrentUserLoggedIn();
+    }
+
+    @Override
+    public void setCityName(String cityName) {
+
+        if (cityName == null || cityName.isEmpty()) {
+            getMvpView().onError(R.string.empty_city);
+            return;
+        }
+
+        getDataManager().setCityName(cityName);
+        getMvpView().onUserLocationInfoSaved();
+    }
+
+    @Override
+    public void setLatLng(String latitude, String longitude) {
+        getDataManager().setLatLng(latitude, longitude);
+    }
+
+    @Override
     public void setError(@StringRes int resId) {
         getMvpView().onError(resId);
     }

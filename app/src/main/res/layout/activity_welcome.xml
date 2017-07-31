@@ -53,13 +53,13 @@
 
     </LinearLayout>
 
-    <!--<TextView-->
-        <!--android:id="@+id/activity_welcome_tv_skip"-->
-        <!--style="@style/TextButton"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center_horizontal"-->
-        <!--android:layout_margin="@dimen/welcome_tv_skip_margin"-->
-        <!--android:text="@string/welcome_tv_skip" />-->
+    <TextView
+        android:id="@+id/activity_welcome_tv_skip"
+        style="@style/TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/welcome_tv_skip_margin"
+        android:text="@string/welcome_tv_skip" />
 
 </LinearLayout>

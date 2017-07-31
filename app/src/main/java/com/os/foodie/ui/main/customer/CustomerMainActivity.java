@@ -14,7 +14,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.data.AppDataManager;
@@ -22,26 +25,31 @@ import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.account.customer.CustomerAccountFragment;
 import com.os.foodie.ui.base.BaseActivity;
+import com.os.foodie.ui.custom.RippleAppCompatButton;
 import com.os.foodie.ui.deliveryaddress.show.DeliveryAddressActivity;
 import com.os.foodie.ui.home.customer.CustomerHomeFragment;
+import com.os.foodie.ui.login.LoginActivity;
 import com.os.foodie.ui.mybasket.MyBasketActivity;
 import com.os.foodie.ui.mybasketlist.MyBasketListActivity;
 import com.os.foodie.ui.notification.NotificationFragments;
+import com.os.foodie.ui.order.restaurant.detail.OrderHistoryDetailActivity;
 import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryFragment;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
 import com.os.foodie.ui.payment.show.PaymentMethodActivity;
 import com.os.foodie.ui.setting.SettingsFragment;
+import com.os.foodie.ui.signup.customer.CustomerSignUpActivity;
 import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.DialogUtils;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class CustomerMainActivity extends BaseActivity implements CustomerMainMvpView, NavigationView.OnNavigationItemSelectedListener {
+public class CustomerMainActivity extends BaseActivity implements CustomerMainMvpView, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private DrawerLayout drawer;
 
     private TextView tvCurrentUserName;
+    private RippleAppCompatButton btLogin, btSignUp;
 
     private boolean isBackPress;
 
@@ -73,11 +81,30 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        if (customerMainMvpPresenter.isCurrentUserLoggedIn()) {
 
-        tvCurrentUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_customer_main_tv_user_name);
-        setCustomerName();
+            ((ViewGroup) findViewById(R.id.nav_view_skip).getParent()).removeView(findViewById(R.id.nav_view_skip));
+
+            navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+
+            tvCurrentUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_customer_main_tv_user_name);
+            setCustomerName();
+
+        } else {
+
+            ((ViewGroup) findViewById(R.id.nav_view).getParent()).removeView(findViewById(R.id.nav_view));
+
+            navigationView = (NavigationView) findViewById(R.id.nav_view_skip);
+
+            btLogin = (RippleAppCompatButton) navigationView.getHeaderView(0).findViewById(R.id.nav_header_skip_customer_main_bt_login);
+            btSignUp = (RippleAppCompatButton) navigationView.getHeaderView(0).findViewById(R.id.nav_header_skip_customer_main_bt_signup);
+
+            btLogin.setOnClickListener(this);
+            btSignUp.setOnClickListener(this);
+
+//            navigationView.setNavigationItemSelectedListener(this);
+        }
 
         setUp();
 
@@ -335,5 +362,30 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
         Intent intent = new Intent(CustomerMainActivity.this, WelcomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if (v.getId() == btLogin.getId()) {
+
+            Intent welcomeIntent = new Intent(CustomerMainActivity.this, WelcomeActivity.class);
+            welcomeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            Intent loginIntent = new Intent(CustomerMainActivity.this, LoginActivity.class);
+
+            Intent[] intents = {welcomeIntent, loginIntent};
+            startActivities(intents);
+
+        } else if (v.getId() == btSignUp.getId()) {
+
+            Intent welcomeIntent = new Intent(CustomerMainActivity.this, WelcomeActivity.class);
+            welcomeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            Intent loginIntent = new Intent(CustomerMainActivity.this, CustomerSignUpActivity.class);
+
+            Intent[] intents = {welcomeIntent, loginIntent};
+            startActivities(intents);
+        }
     }
 }

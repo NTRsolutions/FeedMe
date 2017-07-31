@@ -21,7 +21,7 @@ import com.os.foodie.utils.AppConstants;
 public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, View.OnClickListener {
 
     private RippleAppCompatButton btLogIn, btSignUp;
-//    private TextView tvSkip;
+    private TextView tvSkip;
 
     private ViewPager viewPager;
     private LinearLayout llDots;
@@ -46,11 +46,11 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
         btLogIn = (RippleAppCompatButton) findViewById(R.id.activity_welcome_bt_log_in);
         btSignUp = (RippleAppCompatButton) findViewById(R.id.activity_welcome_bt_sign_up);
 
-//        tvSkip = (TextView) findViewById(R.id.activity_welcome_tv_skip);
+        tvSkip = (TextView) findViewById(R.id.activity_welcome_tv_skip);
 
         btLogIn.setOnClickListener(this);
         btSignUp.setOnClickListener(this);
-//        tvSkip.setOnClickListener(this);
+        tvSkip.setOnClickListener(this);
 
 //        welcomeMvpPresenter.onAttach(this);
 
@@ -125,11 +125,10 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
             openLogInActivity();
         } else if (v.getId() == btSignUp.getId()) {
             openSignUpActivity();
+        } else if (v.getId() == tvSkip.getId()) {
+            Intent intent = new Intent(WelcomeActivity.this, LocationInfoActivity.class);
+            startActivity(intent);
         }
-//        else if (v.getId() == tvSkip.getId()) {
-//            Intent intent = new Intent(WelcomeActivity.this, LocationInfoActivity.class);
-//            startActivity(intent);
-//        }
     }
 
     @Override

@@ -39,53 +39,107 @@ public class CustomerHomePresenter<V extends CustomerHomeMvpView> extends BasePr
                 swipeRefreshLayout.setRefreshing(true);
             }
 
-            getCompositeDisposable().add(getDataManager()
-                    .getRestaurantList(new GetRestaurantListRequest(getDataManager().getCurrentUserId(), "", filters))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<GetRestaurantListResponse>() {
-                        @Override
-                        public void accept(GetRestaurantListResponse getRestaurantListResponse) throws Exception {
+            if (getDataManager().isCurrentUserLoggedIn()) {
 
-                            if (swipeRefreshLayout == null) {
-                                getMvpView().hideLoading();
-                            } else {
-                                swipeRefreshLayout.setRefreshing(false);
-                            }
+                getCompositeDisposable().add(getDataManager()
+                        .getRestaurantList(new GetRestaurantListRequest(getDataManager().getCurrentUserId(), "", "", "", "", filters))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<GetRestaurantListResponse>() {
+                            @Override
+                            public void accept(GetRestaurantListResponse getRestaurantListResponse) throws Exception {
 
-                            if (getRestaurantListResponse.getResponse().getStatus() == 1) {
+                                if (swipeRefreshLayout == null) {
+                                    getMvpView().hideLoading();
+                                } else {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
 
-                                if (getRestaurantListResponse.getResponse().getRestaurantList() != null) {
-                                    Log.d("size", ">>" + getRestaurantListResponse.getResponse().getRestaurantList().size());
-                                    getMvpView().notifyDataSetChanged((ArrayList<RestaurantList>) getRestaurantListResponse.getResponse().getRestaurantList());
+                                if (getRestaurantListResponse.getResponse().getStatus() == 1) {
+
+                                    if (getRestaurantListResponse.getResponse().getRestaurantList() != null) {
+                                        Log.d("size", ">>" + getRestaurantListResponse.getResponse().getRestaurantList().size());
+                                        getMvpView().notifyDataSetChanged((ArrayList<RestaurantList>) getRestaurantListResponse.getResponse().getRestaurantList());
+
+                                    } else {
+                                        Log.d("Error", ">>Err");
+//                                    getMvpView().onError(R.string.no_restaurant);
+                                        getMvpView().notifyDataSetChanged();
+                                    }
 
                                 } else {
-                                    Log.d("Error", ">>Err");
-//                                    getMvpView().onError(R.string.no_restaurant);
+//                                getMvpView().onError("No Restaurant found");
                                     getMvpView().notifyDataSetChanged();
                                 }
 
-                            } else {
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+
+                                if (swipeRefreshLayout == null) {
+                                    getMvpView().hideLoading();
+                                } else {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
+
+                                Log.d("Error", ">>ErrThorwed");
+                                getMvpView().onError(R.string.api_default_error);
+                                Log.d("Error", ">>Err" + throwable.getMessage());
+                            }
+                        }));
+
+            } else {
+
+                getCompositeDisposable().add(getDataManager()
+                        .getRestaurantList(new GetRestaurantListRequest("", "", getDataManager().getLatitude(), getDataManager().getLongitude(), getDataManager().getCityName(), filters))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<GetRestaurantListResponse>() {
+                            @Override
+                            public void accept(GetRestaurantListResponse getRestaurantListResponse) throws Exception {
+
+                                if (swipeRefreshLayout == null) {
+                                    getMvpView().hideLoading();
+                                } else {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
+
+                                if (getRestaurantListResponse.getResponse().getStatus() == 1) {
+
+                                    if (getRestaurantListResponse.getResponse().getRestaurantList() != null) {
+                                        Log.d("size", ">>" + getRestaurantListResponse.getResponse().getRestaurantList().size());
+                                        getMvpView().notifyDataSetChanged((ArrayList<RestaurantList>) getRestaurantListResponse.getResponse().getRestaurantList());
+
+                                    } else {
+                                        Log.d("Error", ">>Err");
+//                                    getMvpView().onError(R.string.no_restaurant);
+                                        getMvpView().notifyDataSetChanged();
+                                    }
+
+                                } else {
 //                                getMvpView().onError("No Restaurant found");
-                                getMvpView().notifyDataSetChanged();
+                                    getMvpView().notifyDataSetChanged();
+                                }
+
                             }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
 
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
+                                if (swipeRefreshLayout == null) {
+                                    getMvpView().hideLoading();
+                                } else {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
 
-                            if (swipeRefreshLayout == null) {
-                                getMvpView().hideLoading();
-                            } else {
-                                swipeRefreshLayout.setRefreshing(false);
+                                Log.d("Error", ">>ErrThorwed");
+                                getMvpView().onError(R.string.api_default_error);
+                                Log.d("Error", ">>Err" + throwable.getMessage());
                             }
+                        }));
+            }
 
-                            Log.d("Error", ">>ErrThorwed");
-                            getMvpView().onError(R.string.api_default_error);
-                            Log.d("Error", ">>Err" + throwable.getMessage());
-                        }
-                    }));
         } else {
             getMvpView().onError(R.string.connection_error);
         }

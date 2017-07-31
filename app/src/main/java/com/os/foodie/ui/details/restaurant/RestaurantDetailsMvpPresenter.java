@@ -1,5 +1,8 @@
 package com.os.foodie.ui.details.restaurant;
 
+import android.support.annotation.IdRes;
+import android.support.annotation.StringRes;
+
 import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
 import com.os.foodie.ui.base.MvpPresenter;
 
@@ -20,6 +23,10 @@ public interface RestaurantDetailsMvpPresenter<V extends RestaurantDetailsMvpVie
     String getCustomerRestaurantId();
 
     void setCustomerRestaurantId(String restaurantId);
+
+    boolean isCurrentUserLoggedIn();
+
+    void onError(@StringRes int resId);
 
     void dispose();
 }

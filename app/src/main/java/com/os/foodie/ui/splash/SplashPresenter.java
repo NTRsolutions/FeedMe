@@ -91,6 +91,9 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
     @Override
     public void waitAndGo(Context context) {
 
+        getDataManager().setLatLng("", "");
+        getDataManager().setCityName("");
+
         if (getDataManager().getLanguage() == null || getDataManager().getLanguage().isEmpty()) {
             getDataManager().setLanguage(AppConstants.LANG_EN);
             Log.d("setLanguage", ">>" + getDataManager().getLanguage());

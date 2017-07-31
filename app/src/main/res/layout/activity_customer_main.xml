@@ -26,6 +26,32 @@
         app:itemTextAppearance="@style/NavigationDrawerStyle"
         app:itemTextColor="@drawable/navigation_drawer_item_text_color_selector"
         app:menu="@menu/activity_customer_main_drawer" />
+
     <!--app:itemTextAppearance="@style/NavigationDrawerStyle"-->
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/light_grey"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_skip_customer_main" />
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_gravity="start"-->
+    <!--android:background="@color/dark_grey2"-->
+    <!--android:fitsSystemWindows="true">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:gravity="center"-->
+    <!--android:text="login please" />-->
+    <!---->
+    <!--</LinearLayout>-->
 
 </android.support.v4.widget.DrawerLayout>

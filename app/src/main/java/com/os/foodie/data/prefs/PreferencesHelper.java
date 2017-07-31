@@ -48,6 +48,16 @@ public interface PreferencesHelper {
 
     void setLanguage(String language);
 
+    String getLatitude();
+
+    String getLongitude();
+
+    String getCityName();
+
+    void setLatLng(String latitude, String longitude);
+
+    void setCityName(String cityName);
+
 
 //    String getCurrentUserEmail();
 //

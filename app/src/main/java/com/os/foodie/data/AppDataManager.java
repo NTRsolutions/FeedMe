@@ -256,6 +256,31 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public String getLatitude() {
+        return preferencesHelper.getLatitude();
+    }
+
+    @Override
+    public String getLongitude() {
+        return preferencesHelper.getLongitude();
+    }
+
+    @Override
+    public String getCityName() {
+        return preferencesHelper.getCityName();
+    }
+
+    @Override
+    public void setLatLng(String latitude, String longitude) {
+        preferencesHelper.setLatLng(latitude, longitude);
+    }
+
+    @Override
+    public void setCityName(String cityName) {
+        preferencesHelper.setCityName(cityName);
+    }
+
+    @Override
     public Observable<CustomerSignUpResponse> doCustomerSignUp(CustomerSignUpRequest customerSignUpRequest) {
         return apiHelper.doCustomerSignUp(customerSignUpRequest);
     }

@@ -90,7 +90,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         System.out.println("Notification msg is " + notiMsg);
 
-        if (appDataManager.getCurrentUserType().equalsIgnoreCase(userType)) {
+        if (appDataManager.getCurrentUserType() != null && appDataManager.getCurrentUserType().equalsIgnoreCase(userType)) {
 
             if (AppConstants.NOTIFICATION_TYPE_ORDER_RECEIVED.equalsIgnoreCase(notificationType)) {
 
