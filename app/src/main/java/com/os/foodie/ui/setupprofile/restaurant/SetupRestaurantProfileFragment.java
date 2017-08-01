@@ -33,7 +33,9 @@ import android.widget.Spinner;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.R;
@@ -53,9 +55,11 @@ import com.os.foodie.model.WorkingDay;
 import com.os.foodie.ui.base.BaseFragment;
 import com.os.foodie.ui.dialogfragment.cuisine.list.CuisineTypeDialogFragment;
 import com.os.foodie.ui.dialogfragment.workingdays.WorkingDaysDialogFragment;
+import com.os.foodie.ui.locationinfo.LocationInfoActivity;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.CommonUtils;
+import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.ScreenUtils;
 import com.os.foodie.utils.TimeFormatUtils;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
@@ -84,6 +88,7 @@ import io.reactivex.schedulers.Schedulers;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 public class SetupRestaurantProfileFragment extends BaseFragment implements AddCuisineTypeCallback, SetupRestaurantProfileMvpView, View.OnClickListener, GpsLocationCallback {
@@ -114,6 +119,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
     private CuisineTypeDialogFragment cuisineTypeDialogFragment;
 
+    private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final int PLACE_PICKER_REQUEST = 1;
     private static final int CAMERA_REQUEST = 2;
     private static final int GALARY_REQUEST = 3;
@@ -252,15 +258,17 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         } else if (v.getId() == ivLocation.getId()) {
 //        } else if (v.getId() == etAddress.getId()) {
 
-            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+//            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+//
+//            try {
+//                startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+//            } catch (GooglePlayServicesRepairableException e) {
+//                e.printStackTrace();
+//            } catch (GooglePlayServicesNotAvailableException e) {
+//                e.printStackTrace();
+//            }
 
-            try {
-                startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
-            } catch (GooglePlayServicesRepairableException e) {
-                e.printStackTrace();
-            } catch (GooglePlayServicesNotAvailableException e) {
-                e.printStackTrace();
-            }
+            openPlaceAutocomplete();
 
         } else if (v.getId() == etCuisineType.getId()) {
 
@@ -339,6 +347,32 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         }
     }
 
+    public void openPlaceAutocomplete() {
+
+        if (NetworkUtils.isNetworkConnected(getActivity())) {
+
+            try {
+
+                Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                        .build(getActivity());
+
+                startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+
+            } catch (GooglePlayServicesRepairableException e) {
+
+                setupRestaurantProfileMvpPresenter.setError(getResources().getString(R.string.google_play_service_reinstall_error));
+                Log.d("RepairableException", ">>" + e.getMessage().toString());
+
+            } catch (GooglePlayServicesNotAvailableException e) {
+                setupRestaurantProfileMvpPresenter.setError(getResources().getString(R.string.google_play_service_not_avail_error));
+                Log.d("NotAvailableException", ">>" + e.getMessage().toString());
+            }
+
+        } else {
+            setupRestaurantProfileMvpPresenter.setError(getResources().getString(R.string.connection_error));
+        }
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
@@ -350,16 +384,42 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PLACE_PICKER_REQUEST) {
+//        if (requestCode == PLACE_PICKER_REQUEST) {
+//
+//            if (resultCode == RESULT_OK) {
+//
+//                Place place = PlacePicker.getPlace(getActivity(), data);
+//
+//                Log.d("place", ">>" + place.getAddress());
+//                Log.d("LatLng", ">>" + place.getLatLng());
+//
+//                setupRestaurantProfileMvpPresenter.getGeocoderLocationAddress(getActivity(), place.getLatLng());
+//            }
+//        }
+
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
 
             if (resultCode == RESULT_OK) {
 
-                Place place = PlacePicker.getPlace(getActivity(), data);
+                Place place = PlaceAutocomplete.getPlace(getActivity(), data);
 
-                Log.d("place", ">>" + place.getAddress());
-                Log.d("LatLng", ">>" + place.getLatLng());
+                Log.i("onActivityResult", "getName: " + place.getName());
+                Log.i("onActivityResult", "getAddress: " + place.getAddress());
+                Log.i("onActivityResult", "getLocale: " + place.getLocale());
+                Log.i("onActivityResult", "getLatLng: " + place.getLatLng().toString());
+
+                latLng = new LatLng(place.getLatLng().latitude, place.getLatLng().longitude);
 
                 setupRestaurantProfileMvpPresenter.getGeocoderLocationAddress(getActivity(), place.getLatLng());
+
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+
+                Status status = PlaceAutocomplete.getStatus(getActivity(), data);
+                Log.i("onActivityResult", status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+
+                Log.i("onActivityResult", ">>RESULT_CANCELED");
             }
         }
 
@@ -1106,6 +1166,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
             }
 
         } else {
+
             showGpsRequest();
         }
     }
