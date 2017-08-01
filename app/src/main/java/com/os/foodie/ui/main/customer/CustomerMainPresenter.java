@@ -7,6 +7,7 @@ import com.os.foodie.data.DataManager;
 import com.os.foodie.data.network.model.logout.LogoutRequest;
 import com.os.foodie.data.network.model.logout.LogoutResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -31,6 +32,11 @@ public class CustomerMainPresenter<V extends CustomerMainMvpView> extends BasePr
     }
 
     @Override
+    public void changeDefaultLanguage() {
+        getDataManager().setLanguage(AppConstants.LANG_EN);
+    }
+
+    @Override
     public void logout() {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
@@ -50,6 +56,9 @@ public class CustomerMainPresenter<V extends CustomerMainMvpView> extends BasePr
                             if (logoutResponse.getResponse().getStatus() == 1) {
 
                                 setUserAsLoggedOut();
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
                                 getMvpView().doLogout();
 
                             } else {

@@ -12,6 +12,7 @@ import com.os.foodie.data.network.model.login.LoginResponse;
 import com.os.foodie.data.network.model.logout.LogoutRequest;
 import com.os.foodie.data.network.model.logout.LogoutResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 
 import java.util.ArrayList;
@@ -57,6 +58,9 @@ public class RestaurantMainPresenter<V extends RestaurantMainMvpView> extends Ba
                             if (logoutResponse.getResponse().getStatus() == 1) {
 
                                 setUserAsLoggedOut();
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
                                 getMvpView().doLogout();
 
                             } else {

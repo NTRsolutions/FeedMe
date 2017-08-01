@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="@dimen/my_basket_list_item_ll_main_padding"
     android:orientation="vertical"
     tools:ignore="MissingPrefix">
 
@@ -12,12 +12,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rectangle_round_corner_top_white"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="@dimen/my_basket_list_item_ll_sub_main_padding">
 
         <ImageView
             android:id="@+id/recyclerview_my_basket_list_item_iv_restaurant_logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/my_basket_list_item_iv_restaurant_logo_height_width"
+            android:layout_height="@dimen/my_basket_list_item_iv_restaurant_logo_height_width"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:src="@mipmap/img_placeholder" />
@@ -27,8 +27,8 @@
             style="@style/TextView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="Cafe Hash"
+            android:layout_marginStart="@dimen/my_basket_list_item_tv_restaurant_name_margin_start"
+            android:gravity="right"
             android:textColor="@color/orange" />
 
     </LinearLayout>
@@ -42,7 +42,7 @@
         android:gravity="center_horizontal"
         android:padding="@dimen/my_basket_list_item_tv_view_basket_padding"
         android:textSize="16sp"
-        android:text="View Basket"
+        android:text="@string/my_basket_list_item_tv_view_basket_text"
         android:textColor="@color/white" />
 
 </LinearLayout>

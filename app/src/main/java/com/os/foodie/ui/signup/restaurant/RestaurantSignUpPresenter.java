@@ -1,5 +1,6 @@
 package com.os.foodie.ui.signup.restaurant;
 
+import android.content.res.Configuration;
 import android.support.annotation.StringRes;
 import android.util.Log;
 
@@ -16,6 +17,7 @@ import com.os.foodie.utils.ValidationUtils;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -166,6 +168,18 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
                                 getDataManager().setRestaurantLogoURL(facebookLoginResponse.getResponse().getProfileImage());
                                 Log.d("getProfileImage", ">>" + getDataManager().getRestaurantLogoURL());
                             }
+
+
+
+                            Locale locale = new Locale(getDataManager().getLanguage());
+                            Locale.setDefault(locale);
+
+                            Configuration config = new Configuration();
+                            config.locale = locale;
+
+                            getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+
 
                             if (facebookLoginResponse.getResponse().getIsProfileSet().equals("1")) {
                                 getDataManager().setCurrentUserInfoInitialized(true);

@@ -1,5 +1,6 @@
 package com.os.foodie.ui.otp;
 
+import android.content.res.Configuration;
 import android.util.Log;
 
 import com.os.foodie.R;
@@ -10,6 +11,8 @@ import com.os.foodie.data.network.model.signup.customer.CustomerSignUpResponse;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
+
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -67,6 +70,20 @@ public class OtpPresenter<V extends OtpMvpView> extends BasePresenter<V> impleme
 
                                 getDataManager().setCurrentUserId(otpVerificationResponse.getResponse().getUserId());
                                 getDataManager().setCurrentUserType(otpVerificationResponse.getResponse().getUserType());
+
+
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                Locale locale = new Locale(getDataManager().getLanguage());
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+
 
                                 getDataManager().setNotificationStatus("1");
 

@@ -70,6 +70,9 @@ public class Response implements Parcelable
     @SerializedName("currency")
     @Expose
     private String currency;
+    @SerializedName("language")
+    @Expose
+    private String language;
 
     public final static Creator<Response> CREATOR = new Creator<Response>() {
 
@@ -98,6 +101,7 @@ public class Response implements Parcelable
             instance.status = ((Integer) in.readValue((Integer.class.getClassLoader())));
             instance.message = ((String) in.readValue((String.class.getClassLoader())));
             instance.restaurantId = ((String) in.readValue((String.class.getClassLoader())));
+            instance.language = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -136,8 +140,9 @@ public class Response implements Parcelable
      * @param deviceId
      * @param restaurantName
      * @param restaurantId
+     * @param language
      */
-    public Response(String userId, String fbId, String firstName, String lastName, String email, String deviceType, String deviceId, String latitude, String longitude, String isProfileSet, String userType, String restaurantName, Object contactPersonName, String isNotification, String profileImage, String isFacebook, Integer status, String message, String restaurantId) {
+    public Response(String userId, String fbId, String firstName, String lastName, String email, String deviceType, String deviceId, String latitude, String longitude, String isProfileSet, String userType, String restaurantName, Object contactPersonName, String isNotification, String profileImage, String isFacebook, Integer status, String message, String restaurantId, String language) {
         super();
         this.userId = userId;
         this.fbId = fbId;
@@ -158,6 +163,7 @@ public class Response implements Parcelable
         this.status = status;
         this.message = message;
         this.restaurantId = restaurantId;
+        this.language = language;
     }
 
     public String getUserId() {
@@ -320,6 +326,14 @@ public class Response implements Parcelable
         this.currency = currency;
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(userId);
         dest.writeValue(fbId);
@@ -340,6 +354,7 @@ public class Response implements Parcelable
         dest.writeValue(status);
         dest.writeValue(message);
         dest.writeValue(restaurantId);
+        dest.writeValue(language);
     }
 
     public int describeContents() {

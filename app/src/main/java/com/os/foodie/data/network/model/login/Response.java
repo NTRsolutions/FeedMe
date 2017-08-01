@@ -55,6 +55,9 @@ public class Response {
     @SerializedName("currency")
     @Expose
     private String currency;
+    @SerializedName("language")
+    @Expose
+    private String language;
 
 
     /**
@@ -79,8 +82,9 @@ public class Response {
      * @param restaurantName
      * @param isNotification
      * @param contactPersonName
+     * @param language
      */
-    public Response(String userId, String firstName, String lastName, String email, String deviceType, String deviceId, String profileImage, Integer status, String message, String userType, String isProfileSet, String isNotification, String restaurantName, String contactPersonName, String restaurantId) {
+    public Response(String userId, String firstName, String lastName, String email, String deviceType, String deviceId, String profileImage, Integer status, String message, String userType, String isProfileSet, String isNotification, String restaurantName, String contactPersonName, String restaurantId, String language) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -96,6 +100,7 @@ public class Response {
         this.restaurantName = restaurantName;
         this.contactPersonName = contactPersonName;
         this.restaurantId = restaurantId;
+        this.language = language;
     }
 
 //    public Response(String userId, String firstName, String lastName, String email, String deviceType, String deviceId, String profileImage, Integer status, String message) {
@@ -238,5 +243,13 @@ public class Response {
 
     public void setIsNotification(String isNotification) {
         this.isNotification = isNotification;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

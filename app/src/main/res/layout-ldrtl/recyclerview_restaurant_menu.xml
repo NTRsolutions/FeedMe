@@ -61,6 +61,7 @@
             android:layout_height="@dimen/restaurant_menu_tv_price_height_width"
             android:background="@drawable/circular_image_view_orange"
             android:gravity="center"
+            android:textDirection="ltr"
             android:textColor="@color/white"
             android:textSize="@dimen/restaurant_menu_tv_price_text_size" />
 

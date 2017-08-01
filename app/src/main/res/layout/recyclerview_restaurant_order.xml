@@ -119,6 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/restaurant_order_tv_price_margin_top"
+            android:textDirection="ltr"
             android:textColor="@color/black"
             android:textSize="@dimen/restaurant_order_tv_price_text_size" />
 

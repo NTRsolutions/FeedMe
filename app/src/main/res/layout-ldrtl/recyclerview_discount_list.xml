@@ -97,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
+                android:textDirection="ltr"
                 android:textColor="@color/dark_grey"
                 fontPath="@string/font_serif"
                 android:textSize="@dimen/discount_list_tv_text_size"

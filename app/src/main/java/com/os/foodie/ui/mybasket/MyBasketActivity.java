@@ -65,6 +65,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -754,6 +755,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         checkoutRequest.setDeliveryType(deliveryType);
 
         checkoutRequest.setCardId("");
+        checkoutRequest.setRestaurantId(restaurantId);
         checkoutRequest.setUserAddressId("");
 
         selectedCalendar.set(Calendar.SECOND, 59);
@@ -921,7 +923,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
 //        selectedCalendar = Calendar.getInstance();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
 
         final Calendar timeFrom = Calendar.getInstance();
         final Calendar timeTo = Calendar.getInstance();
@@ -1056,8 +1058,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
             selectedCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
             selectedCalendar.set(Calendar.MINUTE, minute);
 
-            SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy");
-            SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("hh:mm a");
+            SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("dd-MM-yyyy",Locale.ENGLISH);
+            SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("hh:mm a",Locale.ENGLISH);
 
             if (selectedCalendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
                 myBasketMvpPresenter.onError(R.string.past_time);
@@ -1073,7 +1075,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
     public boolean openingClosingTimeCheck() {
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss",Locale.ENGLISH);
 
         final Calendar timeFrom = Calendar.getInstance();
         final Calendar timeTo = Calendar.getInstance();

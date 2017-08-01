@@ -1,5 +1,6 @@
 package com.os.foodie.ui.login;
 
+import android.content.res.Configuration;
 import android.util.Log;
 
 import com.os.foodie.R;
@@ -17,6 +18,7 @@ import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.ValidationUtils;
 
 import java.net.URLDecoder;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -79,6 +81,24 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
 //
 //                                URLDecoder.decode(restaurantProfileRequest.getCurrency(),"UTF-8")
                                 getDataManager().setCurrency(loginResponse.getResponse().getCurrency());
+
+
+                                if (loginResponse.getResponse().getLanguage().equalsIgnoreCase(AppConstants.LANG_ENG)) {
+                                    getDataManager().setLanguage(AppConstants.LANG_EN);
+                                } else {
+                                    getDataManager().setLanguage(AppConstants.LANG_AR);
+                                }
+
+
+                                Locale locale = new Locale(getDataManager().getLanguage());
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+
 //                                getDataManager().setCurrency(URLDecoder.decode(loginResponse.getResponse().getCurrency(), "UTF-8"));
 
                                 getDataManager().setNotificationStatus(loginResponse.getResponse().getIsNotification());
@@ -139,7 +159,26 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                             getDataManager().setCurrentUserLoggedIn(true);
                             getDataManager().setCurrentUserId(facebookLoginResponse.getResponse().getUserId());
                             getDataManager().setCurrentUserType(facebookLoginResponse.getResponse().getUserType());
-//                            getDataManager().setCurrency(facebookLoginResponse.getResponse().getCurrency());
+
+                            if (facebookLoginResponse.getResponse().getLanguage().equalsIgnoreCase(AppConstants.LANG_ENG)) {
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+                            } else {
+                                getDataManager().setLanguage(AppConstants.LANG_AR);
+                            }
+
+
+
+
+
+                            Locale locale = new Locale(getDataManager().getLanguage());
+                            Locale.setDefault(locale);
+
+                            Configuration config = new Configuration();
+                            config.locale = locale;
+
+                            getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+
 
                             getDataManager().setNotificationStatus(facebookLoginResponse.getResponse().getIsNotification());
 

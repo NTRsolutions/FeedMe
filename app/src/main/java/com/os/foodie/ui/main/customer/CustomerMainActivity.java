@@ -2,6 +2,7 @@ package com.os.foodie.ui.main.customer;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -41,6 +42,8 @@ import com.os.foodie.ui.signup.customer.CustomerSignUpActivity;
 import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.DialogUtils;
+
+import java.util.Locale;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -131,7 +134,6 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
         AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
         customerMainMvpPresenter = new CustomerMainPresenter(appDataManager, compositeDisposable);
-
     }
 
     @Override
@@ -357,7 +359,14 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
 
     @Override
     public void doLogout() {
-//        customerMainMvpPresenter.setUserAsLoggedOut();
+
+        Locale locale = new Locale(AppConstants.LANG_EN);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.locale = locale;
+
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
         Intent intent = new Intent(CustomerMainActivity.this, WelcomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

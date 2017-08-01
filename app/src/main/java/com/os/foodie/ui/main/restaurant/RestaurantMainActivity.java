@@ -42,6 +42,8 @@ import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.DialogUtils;
 
+import java.util.Locale;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -479,7 +481,14 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
     @Override
     public void doLogout() {
 
-//        restaurantMainMvpPresenter.setUserAsLoggedOut();
+        Locale locale = new Locale(AppConstants.LANG_EN);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.locale = locale;
+
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+
 
         Intent intent = new Intent(RestaurantMainActivity.this, WelcomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

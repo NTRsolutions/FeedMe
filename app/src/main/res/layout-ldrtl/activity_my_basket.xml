@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingPrefix"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.os.foodie.ui.mybasket.MyBasketActivity">
+    tools:context="com.os.foodie.ui.mybasket.MyBasketActivity"
+    tools:ignore="MissingPrefix">
 
     <RelativeLayout
         android:id="@+id/activity_my_basket_rl_main"
@@ -35,25 +35,25 @@
                     android:layout_marginEnd="@dimen/my_basket_ll_delivery_type_margin_start_end"
                     android:layout_marginStart="@dimen/my_basket_ll_delivery_type_margin_start_end"
                     android:layout_marginTop="@dimen/my_basket_ll_delivery_type_margin_top"
-                    android:visibility="gone"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <CheckedTextView
                         android:id="@+id/activity_my_basket_ctv_pickup"
+                        fontPath="@string/font_default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="?android:attr/listChoiceIndicatorSingle"
                         android:gravity="center"
-                        fontPath="@string/font_default"
                         android:text="@string/my_basket_ctv_pickup_text" />
 
                     <CheckedTextView
                         android:id="@+id/activity_my_basket_ctv_deliver"
+                        fontPath="@string/font_default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/my_basket_ctv_deliver_margin_start"
-                        fontPath="@string/font_default"
                         android:drawableStart="?android:attr/listChoiceIndicatorSingle"
                         android:gravity="center"
                         android:text="@string/my_basket_ctv_deliver_text" />
@@ -73,9 +73,9 @@
 
                     <TextView
                         android:id="@+id/activity_my_basket_tv_ordering_for"
+                        fontPath="@string/font_default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        fontPath="@string/font_default"
                         android:text="@string/my_basket_tv_ordering_for_text" />
 
                     <TextView
@@ -111,12 +111,12 @@
 
                 <EditText
                     android:id="@+id/activity_my_basket_et_note"
+                    fontPath="@string/font_default"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
-                    fontPath="@string/font_default"
                     android:layout_marginTop="@dimen/my_basket_et_note_margin_top"
                     android:background="@drawable/rectangle_outline_grey"
                     android:gravity="top|start"
@@ -160,7 +160,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:gravity="end|right"
+                            android:gravity="right"
                             android:text="Subtotal"
                             android:textSize="@dimen/my_basket_tv_discount_amount_text_size" />
 
@@ -191,8 +191,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:gravity="right"
                             android:text="@string/my_basket_tv_discount_amount_text"
-                            android:gravity="end|right"
                             android:textSize="@dimen/my_basket_tv_discount_amount_text_size" />
 
                         <TextView
@@ -223,7 +223,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:gravity="end|right"
+                            android:gravity="right"
                             android:text="@string/my_basket_tv_delivery_charges_tag_text"
                             android:textSize="@dimen/my_basket_tv_delivery_charges_tag_text_size" />
 
@@ -255,7 +255,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:gravity="end|right"
+                            android:gravity="right"
                             android:text="@string/my_basket_tv_total_amount_tag_text"
                             android:textSize="@dimen/my_basket_tv_total_amount_tag_text_size" />
 

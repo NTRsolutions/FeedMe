@@ -106,6 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/merchant_details_tv_tag_margin_top"
             android:paddingStart="@dimen/merchant_details_tv_tag_padding_start"
+            android:gravity="right"
             android:text="@string/merchant_details_et_ifsc_code_tag_text"
             android:textColor="@color/orange" />
 

@@ -58,6 +58,7 @@
                     fontPath="@string/font_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textDirection="ltr"
                     android:paddingStart="@dimen/show_restaurant_profile_content_tv_padding_start"
                     android:textColor="@color/orange" />
 
@@ -80,6 +81,7 @@
                     fontPath="@string/font_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textDirection="ltr"
                     android:paddingStart="@dimen/show_restaurant_profile_content_tv_padding_start"
                     android:textColor="@color/orange" />
 

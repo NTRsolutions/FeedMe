@@ -1,5 +1,6 @@
 package com.os.foodie.ui.signup.customer;
 
+import android.content.res.Configuration;
 import android.util.Log;
 
 import com.os.foodie.R;
@@ -12,6 +13,8 @@ import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.ValidationUtils;
+
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -160,6 +163,26 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
                                 getDataManager().setRestaurantLogoURL(facebookLoginResponse.getResponse().getProfileImage());
                                 Log.d("getProfileImage", ">>" + getDataManager().getRestaurantLogoURL());
                             }
+
+
+
+                            if (facebookLoginResponse.getResponse().getLanguage().equalsIgnoreCase(AppConstants.LANG_ENG)) {
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+                            } else {
+                                getDataManager().setLanguage(AppConstants.LANG_AR);
+                            }
+
+
+
+                            Locale locale = new Locale(getDataManager().getLanguage());
+                            Locale.setDefault(locale);
+
+                            Configuration config = new Configuration();
+                            config.locale = locale;
+
+                            getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+
 
                             if (facebookLoginResponse.getResponse().getIsProfileSet().equals("1")) {
                                 getDataManager().setCurrentUserInfoInitialized(true);

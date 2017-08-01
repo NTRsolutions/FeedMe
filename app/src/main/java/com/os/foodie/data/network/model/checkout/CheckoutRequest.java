@@ -8,8 +8,7 @@ import android.os.Parcelable.Creator;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CheckoutRequest implements Parcelable
-{
+public class CheckoutRequest implements Parcelable {
 
     @SerializedName("discount_id")
     @Expose
@@ -20,6 +19,9 @@ public class CheckoutRequest implements Parcelable
     @SerializedName("user_id")
     @Expose
     private String userId;
+    @SerializedName("restaurant_id")
+    @Expose
+    private String restaurantId;
     @SerializedName("delivery_type")
     @Expose
     private String deliveryType;
@@ -46,6 +48,7 @@ public class CheckoutRequest implements Parcelable
             instance.discountId = ((String) in.readValue((String.class.getClassLoader())));
             instance.cardId = ((String) in.readValue((String.class.getClassLoader())));
             instance.userId = ((String) in.readValue((String.class.getClassLoader())));
+            instance.restaurantId = ((String) in.readValue((String.class.getClassLoader())));
             instance.deliveryType = ((String) in.readValue((String.class.getClassLoader())));
             instance.userAddressId = ((String) in.readValue((String.class.getClassLoader())));
             instance.orderDelieveryDate = ((String) in.readValue((String.class.getClassLoader())));
@@ -58,32 +61,31 @@ public class CheckoutRequest implements Parcelable
             return (new CheckoutRequest[size]);
         }
 
-    }
-            ;
+    };
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public CheckoutRequest() {
     }
 
     /**
-     *
      * @param cardId
      * @param deliveryType
      * @param userId
+     * @param restaurantId
      * @param userAddressId
      * @param orderDelieveryTime
      * @param discountId
      * @param paymentMethod
      * @param orderDelieveryDate
      */
-    public CheckoutRequest(String discountId, String cardId, String userId, String deliveryType, String userAddressId, String orderDelieveryDate, String orderDelieveryTime, String paymentMethod) {
+    public CheckoutRequest(String discountId, String cardId, String userId, String restaurantId, String deliveryType, String userAddressId, String orderDelieveryDate, String orderDelieveryTime, String paymentMethod) {
         super();
         this.discountId = discountId;
         this.cardId = cardId;
         this.userId = userId;
+        this.restaurantId = restaurantId;
         this.deliveryType = deliveryType;
         this.userAddressId = userAddressId;
         this.orderDelieveryDate = orderDelieveryDate;
@@ -113,6 +115,14 @@ public class CheckoutRequest implements Parcelable
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(String restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     public String getDeliveryType() {
@@ -159,6 +169,7 @@ public class CheckoutRequest implements Parcelable
         dest.writeValue(discountId);
         dest.writeValue(cardId);
         dest.writeValue(userId);
+        dest.writeValue(restaurantId);
         dest.writeValue(deliveryType);
         dest.writeValue(userAddressId);
         dest.writeValue(orderDelieveryDate);

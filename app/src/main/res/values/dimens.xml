@@ -761,6 +761,11 @@
     <dimen name="all_step_padding">10dp</dimen>
     <dimen name="course_content_tv_veg_height_width">10dp</dimen>
     <dimen name="course_content_tv_veg_margin_end">5dp</dimen>
+    <dimen name="my_basket_list_item_ll_sub_main_padding">10dp</dimen>
+    <dimen name="my_basket_list_item_ll_main_padding">10dp</dimen>
+    <dimen name="my_basket_list_item_iv_restaurant_logo_height_width">50dp</dimen>
+    <dimen name="my_basket_list_item_tv_restaurant_name_margin_start">10dp</dimen>
+    <dimen name="my_basket_list_item_tv_view_basket_padding">10dp</dimen>
 
     <!-- TODO: Remove or change this placeholder text -->
 

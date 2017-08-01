@@ -1,23 +1,23 @@
 <resources>
-    <string name="app_name">Feedme</string>
+    <string name="app_name" translatable="false">Feedme</string>
 
     <!--RTL Check-->
     <bool name="is_rtl">false</bool>
 
     <!--Third Party API Integration-->
-    <string name="facebook_app_id">796924880472669</string>
-    <string name="facebook_provider_app_id">com.facebook.app.FacebookContentProvider796924880472669</string>
-    <string name="google_api_key_1">AIzaSyCjLgWHur6zYob1QkVTeeqUNHuqbcm7puU</string>
+    <string name="facebook_app_id" translatable="false">796924880472669</string>
+    <string name="facebook_provider_app_id" translatable="false">com.facebook.app.FacebookContentProvider796924880472669</string>
+    <string name="google_api_key_1" translatable="false">AIzaSyCjLgWHur6zYob1QkVTeeqUNHuqbcm7puU</string>
 
     <!--Fonts-->
-    <string name="font_default">fonts/dosis_book.ttf</string>
-    <string name="font_monospace">fonts/dosis_semibold.ttf</string>
-    <string name="font_serif">fonts/dosis_medium.ttf</string>
-    <string name="font_sans_serif">fonts/dosis_light.ttf</string>
+    <string name="font_default" translatable="false">fonts/dosis_book.ttf</string>
+    <string name="font_monospace" translatable="false">fonts/dosis_semibold.ttf</string>
+    <string name="font_serif" translatable="false">fonts/dosis_medium.ttf</string>
+    <string name="font_sans_serif" translatable="false">fonts/dosis_light.ttf</string>
 
     <!--Language-->
-    <string name="language_en">English</string>
-    <string name="language_ar">Arabic</string>
+    <string name="language_en" translatable="false">English</string>
+    <string name="language_ar" translatable="false">Arabic</string>
 
     <!--Progress Dialog-->
     <string name="progress_dialog_tv_message_text_default">Please Wait</string>
@@ -269,7 +269,7 @@
     <string name="setup_restaurant_profile_et_address_hint">Address</string>
     <string name="setup_restaurant_profile_et_country_hint">Country</string>
     <string name="setup_restaurant_profile_et_city_hint">City</string>
-    <string name="setup_restaurant_profile_et_zip_hint">ZIP Code</string>
+    <string name="setup_restaurant_profile_et_zip_hint" translatable="false">ZIP Code</string>
     <string name="setup_restaurant_profile_et_closing_hours_hint">Closing Hours</string>
     <string name="setup_restaurant_profile_et_expected_delivery_hint">Expected Delivery Time (Optional)</string>
     <string name="setup_restaurant_profile_et_minimum_order_amount_hint">Minimum Order Amount</string>
@@ -285,8 +285,8 @@
     <string name="skip_customer_main_tv_or">OR</string>
 
     <!--Main-->
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
     <!--Menu-->
     <string name="action_home">Home</string>
@@ -332,7 +332,7 @@
     <string name="restaurant_details_tv_rating_text_rating">Rating</string>
     <string name="restaurant_details_tv_discount_text_discount">Discount</string>
     <string name="restaurant_details_bt_view_basket_text">View Basket</string>
-    <string name="recyclerview_course_content_tv_x_text">x</string>
+    <string name="recyclerview_course_content_tv_x_text" translatable="false">x</string>
     <string name="restaurant_details_tv_total_quantity_tag_text">Quantity:</string>
     <string name="restaurant_details_tv_tag_opening_closing_time_text">Opening-Closing Time:</string>
 
@@ -373,8 +373,8 @@
     <string name="settings_tv_privacy_policy_tag_text">Privacy Policy</string>
     <string name="settings_tv_faq_tag_text">FAQ</string>
     <string name="settings_tv_rate_us_tag_text">Rate Us</string>
-    <string name="settings_client_email">support@foodi.com</string>
-    <string name="settings_rate_us_play_store_url">https://play.google.com/store/apps/details?id=com.facebook.katana</string>
+    <string name="settings_client_email" translatable="false">support@foodi.com</string>
+    <string name="settings_rate_us_play_store_url" translatable="false">https://play.google.com/store/apps/details?id=com.facebook.katana</string>
     <string name="setting_toast_message_language_changed">Language changed to </string>
 
     <!--Change Password-->
@@ -414,7 +414,7 @@
     <string name="filters_tv_cuisine_type_text">Cuisine Type</string>
     <string name="filters_tv_cuisine_type_hint">Cuisine Type</string>
     <string name="filters_tv_distance_text">Distance</string>
-    <string name="filters_tv_in_km_text">*in km</string>
+    <string name="filters_tv_in_km_text" translatable="false">*in km</string>
     <string name="filters_tv_open_now_text">Open Now</string>
     <string name="filters_ctv_open_text">Open</string>
     <string name="filters_ctv_close_text">Close</string>
@@ -439,7 +439,7 @@
     <string name="my_basket_tv_total_amount_tag_text">Total Amount</string>
     <string name="my_basket_bt_checkout_text">Checkout</string>
     <string name="my_basket_tv_empty_basket_text">Basket is empty</string>
-    <string name="my_basket_tv_date_time_text">ASAP</string>
+    <string name="my_basket_tv_date_time_text" translatable="false">ASAP</string>
 
     <!--Customer_Restaurant Search-->
     <string name="customer_search_tv_no_result_text">No Result Found</string>
@@ -467,13 +467,13 @@
     <!--Add Payment Card-->
     <string name="add_payment_card_activity_title">Add Card</string>
     <string name="add_payment_card_et_card_number_hint">Card Number</string>
-    <string name="add_payment_card_et_month_hint">MM</string>
-    <string name="add_payment_card_et_year_hint">YY</string>
-    <string name="add_payment_card_et_cvv_hint">CVV</string>
+    <string name="add_payment_card_et_month_hint" translatable="false">MM</string>
+    <string name="add_payment_card_et_year_hint" translatable="false">YY</string>
+    <string name="add_payment_card_et_cvv_hint" translatable="false">CVV</string>
     <string name="add_payment_card_bt_add_text">Add</string>
     <string name="add_payment_card_et_first_name_hint">First Name</string>
     <string name="add_payment_card_et_last_name_hint">Last Name</string>
-    <string name="add_payment_card_ctv_terms_text"><![CDATA[By adding your debit / credit card, you agree to the Terms & Condition.]]></string>
+    <string name="add_payment_card_ctv_terms_text" translatable="false"><![CDATA[By adding your debit / credit card, you agree to the Terms & Condition.]]></string>
 
     <!--Add Edit Delivery Address-->
     <string name="add_delivery_address_activity_title">Add Address</string>
@@ -539,9 +539,9 @@
     <string name="add_discount_tv_start_date_hint">Start</string>
     <string name="add_discount_tv_end_date_hint">End</string>
     <string name="add_discount_tv_to_text">To</string>
-    <string name="add_discount_et_min_amount_hint">0</string>
-    <string name="add_discount_et_min_percent_hint">0.0%</string>
-    <string name="add_discount_et_food_percent_hint">0.0%</string>
+    <string name="add_discount_et_min_amount_hint" translatable="false">0</string>
+    <string name="add_discount_et_min_percent_hint" translatable="false">0.0%</string>
+    <string name="add_discount_et_food_percent_hint" translatable="false">0.0%</string>
     <string name="add_discount_tv_select_dish_text">Select Dishes</string>
     <string name="add_discount_tv_order_by_text_tag">Order by:</string>
 
@@ -572,7 +572,7 @@
     <string name="payment">Payment</string>
     <string name="date">Date</string>
     <string name="deliver_to">Deliver To</string>
-    <string name="order_summary">Order Summry</string>
+    <string name="order_summary">Order Summary</string>
     <string name="contact_detail">Contact Detail</string>
     <string name="order_status">Order Status</string>
     <string name="order_by">Order by:</string>
@@ -610,6 +610,7 @@
 
     <!--My Basket List-->
     <string name="my_basket_list_tv_empty_basket_text">No Basket Found</string>
+    <string name="my_basket_list_item_tv_view_basket_text">View Basket</string>
 
     <string-array name="pick_order_status">
         <item>Under Preparation</item>

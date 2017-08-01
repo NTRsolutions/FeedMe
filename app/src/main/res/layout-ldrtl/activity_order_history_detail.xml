@@ -260,7 +260,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end"
+                        android:gravity="right"
                         android:text="@string/order_history_detail_tv_subtotal_tag_text"
                         android:textSize="@dimen/my_basket_tv_discount_amount_text_size" />
 
@@ -288,7 +288,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end"
+                        android:gravity="right"
                         android:text="@string/my_basket_tv_discount_amount_text"
                         android:textSize="@dimen/my_basket_tv_discount_amount_text_size" />
 
@@ -297,6 +297,7 @@
                         style="@style/TextView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textDirection="ltr"
                         android:textColor="@color/orange"
                         android:textStyle="bold" />
 
@@ -317,7 +318,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end"
+                        android:gravity="right"
                         android:text="@string/my_basket_tv_delivery_charges_tag_text"
                         android:textSize="@dimen/my_basket_tv_delivery_charges_tag_text_size" />
 
@@ -326,6 +327,7 @@
                         style="@style/TextView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textDirection="ltr"
                         android:textColor="@color/orange"
                         android:textStyle="bold" />
 
@@ -345,7 +347,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end"
+                        android:gravity="right"
                         android:text="@string/my_basket_tv_total_amount_tag_text"
                         android:textSize="@dimen/my_basket_tv_total_amount_tag_text_size" />
 

@@ -8,6 +8,8 @@ public interface CustomerMainMvpPresenter<V extends CustomerMainMvpView> extends
 
     boolean isCurrentUserLoggedIn();
 
+    void changeDefaultLanguage();
+
     void logout();
 
     void dispose();
