@@ -53,7 +53,7 @@
     <dimen name="login_tv_forgot_password_margin_top">15dp</dimen>
     <dimen name="login_bt_login_facebook_margin_end">40dp</dimen>
     <dimen name="login_bt_login_facebook_margin_start">40dp</dimen>
-    <dimen name="login_bt_login_facebook_margin_top">30dp</dimen>
+    <dimen name="login_bt_login_facebook_margin_top_bottom">30dp</dimen>
     <dimen name="login_bt_login_facebook_padding">10dp</dimen>
     <dimen name="login_bt_login_facebook_drawable_padding">20dp</dimen>
 

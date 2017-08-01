@@ -350,4 +350,47 @@ public class CustomerSignUpActivity extends BaseActivity implements CustomerSign
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
+    @Override
+    public void showError(int key, String message) {
+
+        switch (key) {
+
+            case 1:
+
+                etFirstName.setError(message);
+                etFirstName.requestFocus();
+                break;
+
+            case 2:
+
+                etLastName.setError(message);
+                etLastName.requestFocus();
+                break;
+
+            case 3:
+
+                etEmail.setError(message);
+                etEmail.requestFocus();
+                break;
+
+            case 4:
+
+                etPhone.setError(message);
+                etPhone.requestFocus();
+                break;
+
+            case 5:
+
+                etPassword.setError(message);
+                etPassword.requestFocus();
+                break;
+
+            case 6:
+
+                etConfirmPassword.setError(message);
+                etConfirmPassword.requestFocus();
+                break;
+        }
+    }
 }

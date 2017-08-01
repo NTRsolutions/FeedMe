@@ -204,7 +204,8 @@
     <string name="setup_restaurant_profile_et_address_hint">"عنوان "</string>
     <string name="setup_restaurant_profile_et_closing_hours_hint">"ساعات الإغلاق "</string>
     <string name="setup_restaurant_profile_et_cuisine_type_hint">نوع المطبخ</string>
-    <string name="setup_restaurant_profile_et_delivery_areas_hint">مناطق التوصيل</string>
+    <!--<string name="setup_restaurant_profile_et_delivery_areas_hint">مناطق التوصيل</string>-->
+    <string name="setup_restaurant_profile_et_delivery_areas_hint">مناطق التسليم (على سبيل المثال، 1000,1303)</string>
     <string name="setup_restaurant_profile_et_delivery_charges_hint">"رسوم التوصيل "</string>
     <string name="setup_restaurant_profile_et_minimum_order_amount_hint">الحد الأدنى للطلب:</string>
     <string name="setup_restaurant_profile_et_opening_hours_hint">ساعات العمل</string>

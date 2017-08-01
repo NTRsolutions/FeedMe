@@ -68,6 +68,7 @@
     <string name="no_restaurant">No Restaurant</string>
     <string name="fb_user_already_exist">User already exist</string>
     <string name="select_address">Please select a address</string>
+    <string name="not_in_range">Restaurant do not deliver on this address</string>
     <string name="select_payment_card">Please select a card</string>
     <string name="already_selected_language">is already current language</string>
     <string name="not_logged_in">Please log in first</string>
@@ -94,10 +95,10 @@
     <string name="minimum_otp">Please enter 6 digit OTP</string>
     <string name="empty_contact_person_name">Please provide contact person name</string>
     <string name="invalid_contact_person_name">Please provide valid contact person name</string>
-    <string name="long_contact_person_name">Contact person name should not be longer than 20 characters</string>
+    <string name="long_contact_person_name">Contact person name should not be longer than 30 characters</string>
     <string name="empty_restaurant_name">Please provide restaurant name</string>
     <string name="invalid_restaurant_name">Please provide valid restaurant name</string>
-    <string name="long_restaurant_name">Restaurant name should not be longer than 20 characters</string>
+    <string name="long_restaurant_name">Restaurant name should not be longer than 30 characters</string>
     <string name="empty_cuisine_type">Please provide cuisine type</string>
     <string name="empty_working_days">Please provide working days</string>
     <string name="empty_address">Please provide address</string>
@@ -274,7 +275,7 @@
     <string name="setup_restaurant_profile_et_expected_delivery_hint">Expected Delivery Time (Optional)</string>
     <string name="setup_restaurant_profile_et_minimum_order_amount_hint">Minimum Order Amount</string>
     <string name="setup_restaurant_profile_et_delivery_charges_hint">Delivery Charges</string>
-    <string name="setup_restaurant_profile_et_delivery_areas_hint">Delivery Areas</string>
+    <string name="setup_restaurant_profile_et_delivery_areas_hint">Delivery Areas(e.g., 1000,1303)</string>
     <string name="setup_restaurant_profile_bt_save_text">Save</string>
     <string name="setup_restaurant_profile_et_opening_hours_hint">Opening Hours</string>
     <string name="setup_restaurant_profile_bt_cancel_text">Cancel</string>

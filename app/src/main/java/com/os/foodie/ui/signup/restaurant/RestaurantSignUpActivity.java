@@ -532,6 +532,48 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
         startActivity(intent);
     }
 
+    @Override
+    public void showError(int key, String message) {
+
+        switch (key) {
+
+            case 1:
+
+                etContactPersonName.setError(message);
+                etContactPersonName.requestFocus();
+                break;
+
+            case 2:
+
+                etRestaurantName.setError(message);
+                etRestaurantName.requestFocus();
+                break;
+
+            case 3:
+
+                etEmail.setError(message);
+                etEmail.requestFocus();
+                break;
+
+            case 4:
+
+                etPhone.setError(message);
+                etPhone.requestFocus();
+                break;
+
+            case 5:
+
+                etPassword.setError(message);
+                etPassword.requestFocus();
+                break;
+
+            case 6:
+
+                etConfirmPassword.setError(message);
+                etConfirmPassword.requestFocus();
+                break;
+        }
+    }
 
 
 }

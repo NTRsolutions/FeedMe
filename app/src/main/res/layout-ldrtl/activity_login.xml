@@ -82,7 +82,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="@dimen/login_bt_login_facebook_margin_end"
             android:layout_marginStart="@dimen/login_bt_login_facebook_margin_start"
-            android:layout_marginTop="@dimen/login_bt_login_facebook_margin_top"
+            android:layout_marginTop="@dimen/login_bt_login_facebook_margin_top_bottom"
             android:drawableStart="@mipmap/ic_facebook"
             android:drawablePadding="@dimen/login_bt_login_facebook_drawable_padding"
             android:gravity="center_vertical"

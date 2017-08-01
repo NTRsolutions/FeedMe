@@ -18,4 +18,6 @@ public interface LoginMvpView extends MvpView {
     void openRestaurantHomeActivity();
 
     void setFacebookDetails(String id, String fistName, String lastName, String email);
+
+    void showError(int key, String message);
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
@@ -67,33 +68,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        for (int i = 0; i < getSupportActionBar().getClass().getDeclaredFields().length; i++) {
-//            Log.d("Typeface Name", ">>" + getSupportActionBar().getClass().getDeclaredFields()[i].getName());
-//            Log.d("Typeface GenericType", ">>" + getSupportActionBar().getClass().getDeclaredFields()[i].getGenericType());
-//        }
-//
-//        TextView textView = new TextView(this, null, R.style.TextButton);
-//        textView.setText("Log in");
-//        textView.setTextColor(getResources().getColor(R.color.orange));
-//        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-//        textView.setTypeface(Typeface.MONOSPACE);
-
-//        getSupportActionBar().setDisplayShowCustomEnabled(true);
-//        getSupportActionBar().setCustomView(textView);
-
-//        getSupportActionBar().setTitle("Test");
-//
-//        TextView yourTextView = null;
-//        try {
-//            Field f = getSupportActionBar().getClass().getDeclaredField("mTitleTextView");
-//            f.setAccessible(true);
-//            yourTextView = (TextView) f.get(getSupportActionBar());
-//            yourTextView.setTypeface(Typeface.DEFAULT);
-//        } catch (NoSuchFieldException e) {
-//            Log.d("NoSuchFieldException",">>"+e.getMessage());
-//        } catch (IllegalAccessException e) {
-//            Log.d("IllegalAccessException",">>"+e.getMessage());
-//        }
 
         initPresenter();
         loginMvpPresenter.onAttach(LoginActivity.this);
@@ -144,8 +118,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.action_close) {
-//            Intent intent = new Intent(LoginActivity.this, LocationInfoActivity.class);
-//            startActivityForResult(intent, FORGOT_PASSWORD_REQUEST_CODE);
             finish();
         }
 
@@ -356,7 +328,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
     }
 
     @Override
-    public void setFacebookDetails(final String id,final String firstName,final String lastName, final String email) {
+    public void setFacebookDetails(final String id, final String firstName, final String lastName, final String email) {
 
         DialogInterface.OnClickListener customer = new DialogInterface.OnClickListener() {
             @Override
@@ -375,7 +347,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                FacebookSignUpModel facebookSignUpModel = new FacebookSignUpModel(id, "", "", firstName+" "+lastName, email, false);
+                FacebookSignUpModel facebookSignUpModel = new FacebookSignUpModel(id, "", "", firstName + " " + lastName, email, false);
 
                 Intent intent = new Intent(LoginActivity.this, FacebookSignUpActivity.class);
                 intent.putExtra(AppConstants.FACEBOOK_SIGN_UP_MODEL, facebookSignUpModel);
@@ -391,6 +363,24 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
 
     }
 
+    @Override
+    public void showError(int key, String message) {
+
+        switch (key) {
+
+            case 1:
+
+                etEmail.setError(message);
+                etEmail.requestFocus();
+                break;
+
+            case 2:
+
+                etPassword.setError(message);
+                etPassword.requestFocus();
+                break;
+        }
+    }
 
 //    public void printhashkey() {
 //        try {

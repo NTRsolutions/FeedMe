@@ -27,4 +27,6 @@ public interface CustomerSignUpMvpView extends MvpView {
     void openCustomerHomeActivity();
 
     void openRestaurantHomeActivity();
+
+    void showError(int key, String message);
 }

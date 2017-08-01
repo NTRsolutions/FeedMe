@@ -39,6 +39,7 @@ import com.os.foodie.ui.payment.select.SelectPaymentActivity;
 import com.os.foodie.utils.AppConstants;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -57,6 +58,7 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
     private SelectDeliveryAddressAdapter selectDeliveryAddressAdapter;
 
     private CheckoutRequest checkoutRequest;
+    private String deliveryAreas[];
 
     private SelectDeliveryAddressMvpPresenter<SelectDeliveryAddressMvpView> selectDeliveryAddressMvpPresenter;
 
@@ -146,8 +148,25 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
         } else if (v.getId() == btPayment.getId()) {
 
             if (selectedPosition == -1) {
+
                 selectDeliveryAddressMvpPresenter.setError(R.string.select_address);
+
             } else {
+
+                boolean inRange = false;
+
+                for (int i = 0; i < deliveryAreas.length; i++) {
+
+                    if (addresses.get(selectedPosition).getPincode().equalsIgnoreCase(deliveryAreas[i])) {
+                        inRange = true;
+                        break;
+                    }
+                }
+
+                if (!inRange) {
+                    selectDeliveryAddressMvpPresenter.setError(R.string.not_in_range);
+                    return;
+                }
 
                 String paymentMethod = checkoutRequest.getPaymentMethod();
 
@@ -175,6 +194,9 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
 
         if (getIntent().hasExtra(AppConstants.CHECKOUT)) {
             checkoutRequest = getIntent().getParcelableExtra(AppConstants.CHECKOUT);
+
+            deliveryAreas = getIntent().getStringExtra(AppConstants.DELIVERY_ADDRESS).split(",");
+            Log.d("deliveryAreas", ">>" + Arrays.toString(deliveryAreas));
         }
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {

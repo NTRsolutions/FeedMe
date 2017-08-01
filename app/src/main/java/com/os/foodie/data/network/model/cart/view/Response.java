@@ -52,6 +52,9 @@ public class Response {
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("delivery_zipcode")
+    @Expose
+    private String deliveryZipCode;
 
     /**
      * No args constructor for use in serialization
@@ -77,8 +80,9 @@ public class Response {
      * @param restaurantName
      * @param currency
      * @param restaurantId
+     * @param deliveryZipCode
      */
-    public Response(List<CartList> cartList, List<MinOrderDiscount> minOrderDiscounts, String restaurantId, String restaurantName, String currency, String workingDays, String openingTime, String closingTime, String deliveryTime, String deliveryType, String paymentType, String deliveryCharge, String minOrderAmount, Integer status, String message) {
+    public Response(List<CartList> cartList, List<MinOrderDiscount> minOrderDiscounts, String restaurantId, String restaurantName, String currency, String workingDays, String openingTime, String closingTime, String deliveryTime, String deliveryType, String paymentType, String deliveryCharge, String minOrderAmount, Integer status, String message, String deliveryZipCode) {
         super();
         this.cartList = cartList;
         this.minOrderDiscounts = minOrderDiscounts;
@@ -95,6 +99,7 @@ public class Response {
         this.minOrderAmount = minOrderAmount;
         this.status = status;
         this.message = message;
+        this.deliveryZipCode = deliveryZipCode;
     }
 
     public List<CartList> getCartList() {
@@ -215,5 +220,13 @@ public class Response {
 
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public String getDeliveryZipCode() {
+        return deliveryZipCode;
+    }
+
+    public void setDeliveryZipCode(String deliveryZipCode) {
+        this.deliveryZipCode = deliveryZipCode;
     }
 }

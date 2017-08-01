@@ -837,6 +837,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                 Intent intent = new Intent(MyBasketActivity.this, SelectDeliveryAddressActivity.class);
                 intent.putExtra(AppConstants.CHECKOUT, checkoutRequest);
+                intent.putExtra(AppConstants.DELIVERY_ADDRESS, viewCartResponse.getResponse().getDeliveryZipCode());
                 startActivity(intent);
             }
 
@@ -912,6 +913,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
                 Intent intent = new Intent(MyBasketActivity.this, SelectDeliveryAddressActivity.class);
                 intent.putExtra(AppConstants.CHECKOUT, checkoutRequest);
+                intent.putExtra(AppConstants.DELIVERY_ADDRESS, viewCartResponse.getResponse().getDeliveryZipCode());
                 startActivity(intent);
             }
         }

@@ -41,20 +41,30 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
+//            getMvpView().showError(-1, null);
+
             if (email == null || email.isEmpty()) {
-                getMvpView().onError(R.string.empty_email);
+
+                getMvpView().showError(1, getMvpView().getContext().getString(R.string.empty_email));
+//                getMvpView().onError(R.string.empty_email);
                 return;
             }
             if (!ValidationUtils.isEmailValid(email)) {
-                getMvpView().onError(R.string.invalid_email);
+
+                getMvpView().showError(1, getMvpView().getContext().getString(R.string.invalid_email));
+//                getMvpView().onError(R.string.invalid_email);
                 return;
             }
             if (password == null || password.isEmpty()) {
-                getMvpView().onError(R.string.empty_password);
+
+                getMvpView().showError(2, getMvpView().getContext().getString(R.string.empty_password));
+//                getMvpView().onError(R.string.empty_password);
                 return;
             }
             if (password.length() < 6) {
-                getMvpView().onError(R.string.minimum_password);
+
+                getMvpView().showError(2, getMvpView().getContext().getString(R.string.minimum_password));
+//                getMvpView().onError(R.string.minimum_password);
                 return;
             }
 

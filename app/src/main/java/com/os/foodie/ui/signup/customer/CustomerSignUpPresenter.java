@@ -38,55 +38,81 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
             if (first_name == null || first_name.trim().isEmpty()) {
-                getMvpView().onError(R.string.empty_first_name);
+
+                getMvpView().showError(1, getMvpView().getContext().getString(R.string.empty_first_name));
+//                getMvpView().onError(R.string.empty_first_name);
                 return;
             }
             if (first_name.trim().length() > 15) {
-                getMvpView().onError(R.string.long_first_name);
+
+                getMvpView().showError(1, getMvpView().getContext().getString(R.string.long_first_name));
+//                getMvpView().onError(R.string.long_first_name);
                 return;
             }
             if (last_name == null || last_name.trim().isEmpty()) {
-                getMvpView().onError(R.string.empty_last_name);
+
+                getMvpView().showError(2, getMvpView().getContext().getString(R.string.empty_last_name));
+//                getMvpView().onError(R.string.empty_last_name);
                 return;
             }
             if (last_name.trim().length() > 15) {
-                getMvpView().onError(R.string.long_last_name);
+
+                getMvpView().showError(2, getMvpView().getContext().getString(R.string.long_last_name));
+//                getMvpView().onError(R.string.long_last_name);
                 return;
             }
             if (email == null || email.isEmpty()) {
-                getMvpView().onError(R.string.empty_email);
+
+                getMvpView().showError(3, getMvpView().getContext().getString(R.string.empty_email));
+//                getMvpView().onError(R.string.empty_email);
                 return;
             }
             if (!ValidationUtils.isEmailValid(email)) {
-                getMvpView().onError(R.string.invalid_email);
+
+                getMvpView().showError(3, getMvpView().getContext().getString(R.string.invalid_email));
+//                getMvpView().onError(R.string.invalid_email);
                 return;
             }
             if (phone == null || phone.isEmpty()) {
-                getMvpView().onError(R.string.empty_phone);
+
+                getMvpView().showError(4, getMvpView().getContext().getString(R.string.empty_phone));
+//                getMvpView().onError(R.string.empty_phone);
                 return;
             }
             if (!ValidationUtils.isPhoneValid(phone)) {
-                getMvpView().onError(R.string.invalid_phone);
+
+                getMvpView().showError(4, getMvpView().getContext().getString(R.string.invalid_phone));
+//                getMvpView().onError(R.string.invalid_phone);
                 return;
             }
             if (password == null || password.isEmpty()) {
-                getMvpView().onError(R.string.empty_password);
+
+                getMvpView().showError(5, getMvpView().getContext().getString(R.string.empty_password));
+//                getMvpView().onError(R.string.empty_password);
                 return;
             }
             if (password.length() < 6) {
-                getMvpView().onError(R.string.minimum_password);
+
+                getMvpView().showError(5, getMvpView().getContext().getString(R.string.minimum_password));
+//                getMvpView().onError(R.string.minimum_password);
                 return;
             }
             if (!(password.matches(".*[A-Za-z]+.*[0-9]+.*") || password.matches(".*[0-9]+.*[A-Za-z]+.*"))) {
-                getMvpView().onError(R.string.invalid_password);
+
+                getMvpView().showError(5, getMvpView().getContext().getString(R.string.invalid_password));
+//                getMvpView().onError(R.string.invalid_password);
                 return;
             }
             if (confirm_password == null || confirm_password.isEmpty()) {
-                getMvpView().onError(R.string.empty_confirm_password);
+
+                getMvpView().showError(6, getMvpView().getContext().getString(R.string.empty_confirm_password));
+//                getMvpView().onError(R.string.empty_confirm_password);
                 return;
             }
             if (!password.equals(confirm_password)) {
-                getMvpView().onError(R.string.not_match_password);
+
+                getMvpView().showError(6, getMvpView().getContext().getString(R.string.not_match_password));
+//                getMvpView().onError(R.string.not_match_password);
                 return;
             }
 
@@ -165,13 +191,11 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
                             }
 
 
-
                             if (facebookLoginResponse.getResponse().getLanguage().equalsIgnoreCase(AppConstants.LANG_ENG)) {
                                 getDataManager().setLanguage(AppConstants.LANG_EN);
                             } else {
                                 getDataManager().setLanguage(AppConstants.LANG_AR);
                             }
-
 
 
                             Locale locale = new Locale(getDataManager().getLanguage());
@@ -181,7 +205,6 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
                             config.locale = locale;
 
                             getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
-
 
 
                             if (facebookLoginResponse.getResponse().getIsProfileSet().equals("1")) {

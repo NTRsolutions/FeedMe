@@ -36,23 +36,31 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
             if (fileMap.size() == 0) {
-                getMvpView().onError(R.string.mandatory_logo);
+                getMvpView().onErrorLong(R.string.mandatory_logo);
                 return;
             }
             if (contactPersonName == null || contactPersonName.trim().isEmpty()) {
-                getMvpView().onError(R.string.empty_contact_person_name);
+
+                getMvpView().showError(1, getMvpView().getContext().getString(R.string.empty_contact_person_name));
+//                getMvpView().onError(R.string.empty_contact_person_name);
                 return;
             }
-            if (contactPersonName.length()>20) {
-                getMvpView().onError(R.string.long_contact_person_name);
+            if (contactPersonName.length() > 30) {
+
+                getMvpView().showError(1, getMvpView().getContext().getString(R.string.long_contact_person_name));
+//                getMvpView().onError(R.string.long_contact_person_name);
                 return;
             }
             if (restaurantName == null || restaurantName.trim().isEmpty()) {
-                getMvpView().onError(R.string.empty_restaurant_name);
+
+                getMvpView().showError(2, getMvpView().getContext().getString(R.string.empty_restaurant_name));
+//                getMvpView().onError(R.string.empty_restaurant_name);
                 return;
             }
-            if (restaurantName.length()>20) {
-                getMvpView().onError(R.string.long_restaurant_name);
+            if (restaurantName.length() > 30) {
+
+                getMvpView().showError(2, getMvpView().getContext().getString(R.string.long_restaurant_name));
+//                getMvpView().onError(R.string.long_restaurant_name);
                 return;
             }
 //        if (!ValidationUtils.isNameValid(fname)) {
@@ -60,39 +68,57 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
 //            return;
 //        }
             if (email == null || email.isEmpty()) {
-                getMvpView().onError(R.string.empty_email);
+
+                getMvpView().showError(3, getMvpView().getContext().getString(R.string.empty_email));
+//                getMvpView().onError(R.string.empty_email);
                 return;
             }
             if (!ValidationUtils.isEmailValid(email)) {
-                getMvpView().onError(R.string.invalid_email);
+
+                getMvpView().showError(3, getMvpView().getContext().getString(R.string.invalid_email));
+//                getMvpView().onError(R.string.invalid_email);
                 return;
             }
             if (phone == null || phone.isEmpty()) {
-                getMvpView().onError(R.string.empty_phone);
+
+                getMvpView().showError(4, getMvpView().getContext().getString(R.string.empty_phone));
+//                getMvpView().onError(R.string.empty_phone);
                 return;
             }
             if (!ValidationUtils.isPhoneValid(phone)) {
-                getMvpView().onError(R.string.invalid_phone);
+
+                getMvpView().showError(4, getMvpView().getContext().getString(R.string.invalid_phone));
+//                getMvpView().onError(R.string.invalid_phone);
                 return;
             }
             if (password == null || password.isEmpty()) {
-                getMvpView().onError(R.string.empty_password);
+
+                getMvpView().showError(5, getMvpView().getContext().getString(R.string.empty_password));
+//                getMvpView().onError(R.string.empty_password);
                 return;
             }
             if (password.length() < 6) {
-                getMvpView().onError(R.string.minimum_password);
+
+                getMvpView().showError(5, getMvpView().getContext().getString(R.string.minimum_password));
+//                getMvpView().onError(R.string.minimum_password);
                 return;
             }
             if (!(password.matches(".*[A-Za-z]+.*[0-9]+.*") || password.matches(".*[0-9]+.*[A-Za-z]+.*"))) {
-                getMvpView().onError(R.string.invalid_password);
+
+                getMvpView().showError(5, getMvpView().getContext().getString(R.string.invalid_password));
+//                getMvpView().onError(R.string.invalid_password);
                 return;
             }
             if (confirm_password == null || confirm_password.isEmpty()) {
-                getMvpView().onError(R.string.empty_confirm_password);
+
+                getMvpView().showError(6, getMvpView().getContext().getString(R.string.empty_confirm_password));
+//                getMvpView().onError(R.string.empty_confirm_password);
                 return;
             }
             if (!password.equals(confirm_password)) {
-                getMvpView().onError(R.string.not_match_password);
+
+                getMvpView().showError(6, getMvpView().getContext().getString(R.string.not_match_password));
+//                getMvpView().onError(R.string.not_match_password);
                 return;
             }
 
@@ -170,7 +196,6 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
                             }
 
 
-
                             Locale locale = new Locale(getDataManager().getLanguage());
                             Locale.setDefault(locale);
 
@@ -178,7 +203,6 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
                             config.locale = locale;
 
                             getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
-
 
 
                             if (facebookLoginResponse.getResponse().getIsProfileSet().equals("1")) {
