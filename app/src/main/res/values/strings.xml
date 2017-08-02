@@ -21,6 +21,7 @@
 
     <!--Progress Dialog-->
     <string name="progress_dialog_tv_message_text_default">Please Wait</string>
+    <string name="progress_dialog_tv_message_text_address_fetch">Getting Your Address</string>
 
     <!--Alert Dialog-->
     <string name="alert_dialog_bt_yes">Yes</string>
@@ -51,7 +52,7 @@
     <string name="alert_dialog_text_reject_order">Order will be rejected. Are you sure ?</string>
     <string name="alert_dialog_title_reorder">Reorder</string>
     <string name="alert_dialog_text_reorder">Are you sure, current items will be cleared from basket?</string>
-    <string name="setting_dialog_title_change_language">Change Language</string>
+    <string name="alert_dialog_title_change_language">Change Language</string>
 
     <!--Menu-->
     <string name="menu_close">Close</string>
@@ -336,6 +337,7 @@
     <string name="recyclerview_course_content_tv_x_text" translatable="false">x</string>
     <string name="restaurant_details_tv_total_quantity_tag_text">Quantity:</string>
     <string name="restaurant_details_tv_tag_opening_closing_time_text">Opening-Closing Time:</string>
+    <string name="restaurant_details_tv_tag_working_days_text">Working Days:</string>
 
     <!--Restaurant List-->
     <string name="title_fragment_customer_home">Home</string>

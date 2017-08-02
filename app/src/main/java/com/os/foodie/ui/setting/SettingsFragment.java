@@ -134,7 +134,7 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
 
-            builder.setTitle(getString(R.string.setting_dialog_title_change_language));
+            builder.setTitle(getString(R.string.alert_dialog_title_change_language));
 
             String[] languages = {getString(R.string.language_en), getString(R.string.language_ar)};
 

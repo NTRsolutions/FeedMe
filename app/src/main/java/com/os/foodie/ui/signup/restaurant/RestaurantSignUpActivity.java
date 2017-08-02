@@ -91,11 +91,15 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_sign_up);
+
         initPresenter();
         restaurantSignUpMvpPresenter.onAttach(RestaurantSignUpActivity.this);
+
         callbackManager = CallbackManager.Factory.create();
+
         etContactPersonName = (EditText) findViewById(R.id.activity_restaurant_sign_up_et_contact_person_name);
         etRestaurantName = (EditText) findViewById(R.id.activity_restaurant_sign_up_et_restaurant_name);
         etEmail = (EditText) findViewById(R.id.activity_restaurant_sign_up_et_email);

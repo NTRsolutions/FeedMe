@@ -55,6 +55,7 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="actionBarStyle">@style/Theme.AppLib.ActionBar.Solid2</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="actionMenuTextColor">@color/orange</item>
         <item name="android:actionMenuTextColor">@color/dark_grey</item>
     </style>
 

@@ -105,7 +105,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
     private FloatingActionLinearLayout fallDeliveryTime, fallLikes;
     private FlowLayout flCuisines;
     private RatingBar ratingBar;
-    private TextView tvRestaurantName, tvReview, tvDiscount, tvDeliveryTime, tvLikes, tvOpeningClosingTime;
+    private TextView tvRestaurantName, tvReview, tvDiscount, tvDeliveryTime, tvLikes, tvOpeningClosingTime, tvWorkingDays;
     private ImageView ivLikes;
 
     private String restaurantId;
@@ -176,6 +176,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         tvRestaurantName = (TextView) findViewById(R.id.content_restaurant_details_tv_restaurant_name);
 
         tvOpeningClosingTime = (TextView) findViewById(R.id.content_restaurant_details_tv_opening_closing_time);
+        tvWorkingDays = (TextView) findViewById(R.id.content_restaurant_details_tv_working_days);
 
         tvDeliveryTime = (TextView) findViewById(R.id.activity_restautant_details_fall_delivery_time_text);
         tvReview = (TextView) findViewById(R.id.content_restaurant_details_tv_reviews);
@@ -393,6 +394,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         closing = simpleDateFormat1.format(closingTime.getTime());
 
         tvOpeningClosingTime.setText(opening.toUpperCase() + " to " + closing.toUpperCase());
+        tvWorkingDays.setText(restaurantDetailsResponse.getResponse().getWorkingDays());
 //        tvOpeningClosingTime.setText();
 
 
@@ -581,6 +583,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         closing = simpleDateFormat1.format(closingTime.getTime());
 
         tvOpeningClosingTime.setText(opening.toUpperCase() + " to " + closing.toUpperCase());
+        tvWorkingDays.setText(restaurantDetailsResponse.getResponse().getWorkingDays());
 //        tvOpeningClosingTime.setText();
 
 

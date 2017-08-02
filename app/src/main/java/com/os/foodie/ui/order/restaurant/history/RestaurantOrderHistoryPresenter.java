@@ -65,7 +65,8 @@ public class RestaurantOrderHistoryPresenter<V extends RestaurantOrderHistoryMvp
                                     getMvpView().onOrderHistoryReceived(getOrderListResponse);
 
                                 } else {
-                                    getMvpView().onError(getOrderListResponse.getResponse().getMessage());
+                                    getMvpView().onOrderHistoryReceived(getOrderListResponse);
+//                                    getMvpView().onError(getOrderListResponse.getResponse().getMessage());
                                 }
 
                             }

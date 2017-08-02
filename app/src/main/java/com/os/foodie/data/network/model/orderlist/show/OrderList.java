@@ -9,7 +9,9 @@ public class OrderList {
     @SerializedName("order_id")
     @Expose
     private String orderId;
-    @SerializedName("total_amount")
+    //    TODO Amount Changed
+//    @SerializedName("total_amount")
+    @SerializedName("order_amount")
     @Expose
     private String totalAmount;
     @SerializedName("order_status")
@@ -27,6 +29,10 @@ public class OrderList {
     @SerializedName("discount")
     @Expose
     private Float discount;
+    //    TODO Extra Field Added
+    @SerializedName("total_discount")
+    @Expose
+    private Float totalDiscount;
     @SerializedName("order_delievery_date")
     @Expose
     private String orderDelieveryDate;
@@ -39,13 +45,11 @@ public class OrderList {
 
     /**
      * No args constructor for use in serialization
-     * 
      */
     public OrderList() {
     }
 
     /**
-     * 
      * @param dishName
      * @param orderType
      * @param totalAmount
@@ -56,8 +60,9 @@ public class OrderList {
      * @param orderId
      * @param currency
      * @param discount
+     * @param totalDiscount
      */
-    public OrderList(String orderId, String totalAmount, String orderStatus, String currency, String paymentStatus, String orderType, Float discount, String orderDelieveryDate, String orderDelieveryTime, String dishName) {
+    public OrderList(String orderId, String totalAmount, String orderStatus, Float totalDiscount, String currency, String paymentStatus, String orderType, Float discount, String orderDelieveryDate, String orderDelieveryTime, String dishName) {
         super();
         this.orderId = orderId;
         this.currency = currency;
@@ -66,6 +71,7 @@ public class OrderList {
         this.paymentStatus = paymentStatus;
         this.orderType = orderType;
         this.discount = discount;
+        this.totalDiscount = totalDiscount;
         this.orderDelieveryDate = orderDelieveryDate;
         this.orderDelieveryTime = orderDelieveryTime;
         this.dishName = dishName;
@@ -150,5 +156,13 @@ public class OrderList {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public Float getTotalDiscount() {
+        return totalDiscount;
+    }
+
+    public void setTotalDiscount(Float totalDiscount) {
+        this.totalDiscount = totalDiscount;
     }
 }

@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -326,8 +327,10 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                     deleteImageIds = imageId;
                 else
                     deleteImageIds = deleteImageIds + "," + imageId;
+
             }
 
+            Log.d("deleteImageIds", ">>" + deleteImageIds);
             Log.d("idList", ">>" + idList.size());
             Log.d("fileMap", ">>" + fileMap.size());
 
@@ -1162,7 +1165,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                 requestGpsLocation();
 
             } else {
-                ((RestaurantMainActivity) getActivity()).requestPermissionsSafely(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, GPS_REQUEST_CODE);
+//                ((RestaurantMainActivity) getActivity()).requestPermissionsSafely(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, GPS_REQUEST_CODE);
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, GPS_REQUEST_CODE);
             }
 
         } else {
@@ -1175,7 +1179,10 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == GPS_REQUEST_CODE) {
+        Log.d("onRequestPersResult", ">>Called");
+
+        if (grantResults != null && grantResults[0] == PermissionChecker.PERMISSION_GRANTED && requestCode == GPS_REQUEST_CODE) {
+            Log.d("GPS_REQUEST_CODE", ">>" + GPS_REQUEST_CODE);
             requestGpsLocation();
         }
     }
@@ -1194,7 +1201,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     }
 
     public void requestGpsLocation() {
-        progressDialog = CommonUtils.showLoadingDialog(getActivity(), "Getting Your Address");
+        progressDialog = CommonUtils.showLoadingDialog(getActivity(), getString(R.string.progress_dialog_tv_message_text_address_fetch));
         gpsLocation.requestGpsLocation();
     }
 

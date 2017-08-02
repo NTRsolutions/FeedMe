@@ -519,6 +519,13 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
             rlMain.setVisibility(View.GONE);
             tvEmptyBasket.setVisibility(View.VISIBLE);
             myBasketMvpPresenter.clearBasketRestaurant();
+
+            Intent intent = new Intent();
+            intent.putExtra(AppConstants.RESTAURANT_ID, restaurantId);
+
+            setResult(20, intent);
+            finish();
+
             return;
         } else {
             rlMain.setVisibility(View.VISIBLE);

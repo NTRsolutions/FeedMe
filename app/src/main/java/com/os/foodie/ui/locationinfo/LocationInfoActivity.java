@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +41,7 @@ import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.NetworkUtils;
 
+import java.security.Permission;
 import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -63,10 +65,6 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private static final int GPS_REQUEST_CODE = 10;
-
-//    private Consumer consumer;
-//    private Observable observable;
-//    private Disposable disposable;
 
     private ProgressDialog progressDialog;
 
@@ -240,10 +238,10 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
     public void requestGpsLocation() {
         if (progressDialog == null)
-            progressDialog = CommonUtils.showLoadingDialog(this, "Getting Your Address");
+            progressDialog = CommonUtils.showLoadingDialog(this, getString(R.string.progress_dialog_tv_message_text_address_fetch));
         else {
             if (!progressDialog.isShowing())
-                progressDialog = CommonUtils.showLoadingDialog(this, "Getting Your Address");
+                progressDialog = CommonUtils.showLoadingDialog(this, getString(R.string.progress_dialog_tv_message_text_address_fetch));
         }
         gpsLocation.requestGpsLocation();
     }
@@ -304,9 +302,6 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
         if (NetworkUtils.isNetworkConnected(LocationInfoActivity.this)) {
 
             try {
-//                AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
-//                        .setTypeFilter(AutocompleteFilter.TYPE_FILTER_CITIES)
-//                        .build();
 
                 Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
 //                        .setFilter(typeFilter)
@@ -363,7 +358,7 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == GPS_REQUEST_CODE) {
+        if (grantResults != null && grantResults[0] == PermissionChecker.PERMISSION_GRANTED && requestCode == GPS_REQUEST_CODE) {
             requestGpsLocation();
         }
     }

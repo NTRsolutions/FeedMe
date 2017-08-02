@@ -190,7 +190,7 @@
     <string name="select_delivery_address_activity_title">" عنوان التوصيل"</string>
     <string name="select_payment_activity_title">"دفع "</string>
     <string name="set_order_status">تعيين حالة الطلب</string>
-    <string name="setting_dialog_title_change_language">غير اللغة</string>
+    <string name="alert_dialog_title_change_language">غير اللغة</string>
     <string name="settings_ll_change_password_tag_text">تغيير كلمة السر</string>
     <string name="settings_tv_contact_us_tag_text">اتصل بنا</string>
     <string name="settings_tv_faq_tag_text">التعليمات</string>

@@ -53,8 +53,8 @@
                         <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
                             android:id="@+id/activity_restaurant_details_viewpager"
                             android:layout_width="match_parent"
-                            android:background="@mipmap/img_placeholder"
-                            android:layout_height="@dimen/app_bar_height" />
+                            android:layout_height="@dimen/app_bar_height"
+                            android:background="@mipmap/img_placeholder" />
 
                         <LinearLayout
                             android:id="@+id/activity_restaurant_details_ll_page"
@@ -111,6 +111,31 @@
                                     android:layout_marginStart="@dimen/restaurant_details_tv_opening_closing_time_margin_start"
                                     android:textColor="@color/orange"
                                     android:textSize="@dimen/restaurant_details_tv_opening_closing_time_text_size" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/restaurant_details_ll_working_days_margin_bottom"
+                                android:layout_marginStart="@dimen/restaurant_details_ll_working_days_margin_start"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/TextView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/restaurant_details_tv_tag_working_days_text"
+                                    android:textSize="@dimen/restaurant_details_tv_tag_working_days_text_size" />
+
+                                <TextView
+                                    android:id="@+id/content_restaurant_details_tv_working_days"
+                                    style="@style/TextView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/restaurant_details_tv_working_days_margin_start"
+                                    android:textColor="@color/orange"
+                                    android:textSize="@dimen/restaurant_details_tv_working_days_text_size" />
 
                             </LinearLayout>
 

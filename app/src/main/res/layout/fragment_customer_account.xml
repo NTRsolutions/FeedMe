@@ -38,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:inputType="text"
+                android:maxLength="15"
                 android:paddingTop="@dimen/customer_account_et_padding_top"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/customer_account_et_text_size" />
@@ -67,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:inputType="text"
-                android:maxLength="10"
+                android:maxLength="15"
                 android:paddingTop="@dimen/customer_account_et_padding_top"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/customer_account_et_text_size" />

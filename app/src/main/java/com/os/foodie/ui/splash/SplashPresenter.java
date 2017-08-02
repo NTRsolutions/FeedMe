@@ -41,7 +41,7 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
 //            }
 //        };
 
-        if (getDataManager().isCurrentUserLoggedIn() == true) {
+        if (getDataManager().isCurrentUserLoggedIn()/* == true*/) {
 
             Log.d("isCurrentUserLoggedIn", "true");
 
