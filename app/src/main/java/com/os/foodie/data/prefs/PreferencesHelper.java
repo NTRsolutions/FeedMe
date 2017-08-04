@@ -16,6 +16,10 @@ public interface PreferencesHelper {
 
     void setCurrentUserType(String userType);
 
+    boolean isFacebook();
+
+    void setFacebook(boolean setFacebook);
+
     String getCurrentUserName();
 
     void setCurrentUserName(String userName);

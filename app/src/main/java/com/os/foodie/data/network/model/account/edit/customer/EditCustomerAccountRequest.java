@@ -26,6 +26,9 @@ public class EditCustomerAccountRequest {
     @SerializedName("user_id")
     @Expose
     private String userId;
+    @SerializedName("country_code")
+    @Expose
+    private String countryCode;
 
     public String getFirstName() {
         return firstName;
@@ -65,5 +68,13 @@ public class EditCustomerAccountRequest {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 }

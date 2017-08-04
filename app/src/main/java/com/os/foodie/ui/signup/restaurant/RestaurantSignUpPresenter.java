@@ -31,7 +31,7 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
     }
 
     @Override
-    public void onRestaurantSignUpClick(String fbId, String contactPersonName, String restaurantName, String email, String password, String confirm_password, String phone, String deviceId, String deviceType, String latitude, String longitude, String language, HashMap<String, File> fileMap) {
+    public void onRestaurantSignUpClick(String fbId, String contactPersonName, String restaurantName, String email, String password, String confirm_password, String countryCode, String phone, String deviceId, String deviceType, String latitude, String longitude, String language, HashMap<String, File> fileMap) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -122,7 +122,7 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
                 return;
             }
 
-            final RestaurantSignUpRequest restaurantSignUpRequest = new RestaurantSignUpRequest(fbId, contactPersonName, restaurantName, email, password, phone, deviceId, deviceType, latitude, longitude, language);
+            final RestaurantSignUpRequest restaurantSignUpRequest = new RestaurantSignUpRequest(fbId, contactPersonName, restaurantName, email, password, countryCode, phone, deviceId, deviceType, latitude, longitude, language);
 
             getMvpView().showLoading();
 
@@ -140,7 +140,7 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
                                 Log.d("OTP", ">>" + restaurantSignUpResponse.getResponse().getOtp());
 //                                TODO OTP
 //                                getMvpView().verifyOTP();
-                                getMvpView().verifyOTP(restaurantSignUpResponse.getResponse().getOtp());
+                                getMvpView().verifyOTP(restaurantSignUpResponse.getResponse().getUserId(), restaurantSignUpResponse.getResponse().getOtp());
 
                             } else {
                                 getMvpView().onError(restaurantSignUpResponse.getResponse().getMessage());

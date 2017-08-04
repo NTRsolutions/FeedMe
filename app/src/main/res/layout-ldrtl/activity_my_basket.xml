@@ -143,8 +143,6 @@
                         android:textColor="@color/dark_grey" />
                     <!--android:background="@drawable/rectangle_white_top_outline_grey"-->
 
-                    <!--TODO Dimans and String Set-->
-
                     <LinearLayout
                         android:id="@+id/activity_my_basket_ll_subtotal"
                         android:layout_width="match_parent"
@@ -161,7 +159,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:text="Subtotal"
+                            android:text="@string/my_basket_tv_subtotal_text"
                             android:textSize="@dimen/my_basket_tv_discount_amount_text_size" />
 
                         <TextView
@@ -169,7 +167,6 @@
                             style="@style/TextView3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
                             android:textColor="@color/orange"
                             android:textStyle="bold" />
 

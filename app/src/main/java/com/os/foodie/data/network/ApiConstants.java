@@ -4,13 +4,13 @@ public class ApiConstants {
 
 //
 //        OLD
-    public static final String BASE_URL = "http://192.168.1.69/foodi/web_services/";
+//    public static final String BASE_URL = "http://192.168.1.69/foodi/web_services/";
 //
 //    OLD LIVE
 //    public static final String BASE_URL = "http://67.205.96.105:8080/foodi/web_services/";
 //
 //    NEW LIVE
-//     public static final String BASE_URL = "https://56.octallabs.com/foodi/web_services/";
+     public static final String BASE_URL = "https://56.octallabs.com/foodi/web_services/";
 
 
     public static final String LOGIN = "login";
@@ -20,6 +20,7 @@ public class ApiConstants {
     public static final String RESTAURANT_SIGNUP = "restaurant_signup";
 
     public static final String OTP_VERIFICATION = "otp_confirmation";
+    public static final String OTP_RESEND= "resend_otp";
     public static final String FORGOT_PASSWORD = "forgot_password";
 
     public static final String COUNTRY_LIST = "get_country_list";

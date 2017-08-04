@@ -24,6 +24,9 @@ public class RestaurantSignUpRequest {
     @SerializedName("mobile_number")
     @Expose
     private String mobileNumber;
+    @SerializedName("country_code")
+    @Expose
+    private String countryCode;
     @SerializedName("device_id")
     @Expose
     private String deviceId;
@@ -59,13 +62,14 @@ public class RestaurantSignUpRequest {
      * @param deviceId
      * @param restaurantName
      */
-    public RestaurantSignUpRequest(String fbId, String contactPersonName, String restaurantName, String email, String password, String mobileNumber, String deviceId, String deviceType, String latitude, String longitude, String language) {
+    public RestaurantSignUpRequest(String fbId, String contactPersonName, String restaurantName, String email, String password, String countryCode, String mobileNumber, String deviceId, String deviceType, String latitude, String longitude, String language) {
         super();
         this.fbId = fbId;
         this.contactPersonName = contactPersonName;
         this.restaurantName = restaurantName;
         this.email = email;
         this.password = password;
+        this.countryCode = countryCode;
         this.mobileNumber = mobileNumber;
         this.deviceId = deviceId;
         this.deviceType = deviceType;
@@ -112,6 +116,14 @@ public class RestaurantSignUpRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
     public String getMobileNumber() {

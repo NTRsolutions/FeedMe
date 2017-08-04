@@ -110,9 +110,11 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
         getDataManager().setCustomerRestaurantId(null);
         getDataManager().setCurrentUserName(null);
         getDataManager().setCurrentUserLoggedIn(false);
+        getDataManager().setFacebook(false);
         getDataManager().setCurrentUserId(null);
         getDataManager().setCurrentUserType(null);
         getDataManager().setCurrentUserInfoInitialized(false);
+        getDataManager().setDeviceId("");
 
         getDataManager().setNotificationStatus("0");
     }

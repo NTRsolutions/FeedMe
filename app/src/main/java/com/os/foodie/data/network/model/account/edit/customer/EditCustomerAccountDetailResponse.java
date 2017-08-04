@@ -39,6 +39,9 @@ public class EditCustomerAccountDetailResponse {
         @SerializedName("message")
         @Expose
         private String message;
+        @SerializedName("country_code")
+        @Expose
+        private String countryCode;
 
         public String getId() {
             return id;
@@ -94,6 +97,14 @@ public class EditCustomerAccountDetailResponse {
 
         public void setMessage(String message) {
             this.message = message;
+        }
+
+        public String getCountryCode() {
+            return countryCode;
+        }
+
+        public void setCountryCode(String countryCode) {
+            this.countryCode = countryCode;
         }
     }
 }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.os.foodie.R;
 import com.os.foodie.data.network.model.orderlist.show.OrderList;
 import com.os.foodie.ui.order.restaurant.detail.OrderHistoryDetailActivity;
+import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpPresenter;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpView;
 import com.os.foodie.utils.AppConstants;
@@ -26,12 +27,14 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
     private Context context;
     private String currency;
     private ArrayList<OrderList> orderLists;
+    private RestaurantOrderListFragment restaurantOrderListFragment;
     private RestaurantOrderListMvpPresenter<RestaurantOrderListMvpView> restaurantOrderListMvpPresenter;
 //    private String deliveryTime;
 
-    public RestaurantOrderListAdapter(Context context, ArrayList<OrderList> orderLists, RestaurantOrderListMvpPresenter<RestaurantOrderListMvpView> restaurantOrderListMvpPresenter/*, String deliveryTime*/) {
+    public RestaurantOrderListAdapter(Context context, RestaurantOrderListFragment restaurantOrderListFragment, ArrayList<OrderList> orderLists, RestaurantOrderListMvpPresenter<RestaurantOrderListMvpView> restaurantOrderListMvpPresenter/*, String deliveryTime*/) {
         this.context = context;
         this.orderLists = orderLists;
+        this.restaurantOrderListFragment = restaurantOrderListFragment;
         this.restaurantOrderListMvpPresenter = restaurantOrderListMvpPresenter;
 //        this.deliveryTime = deliveryTime;
     }
@@ -72,7 +75,7 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
         holder.tvDeliveryTime.setText("Ordered on: " + order.getOrderDelieveryDate() + " at " + order.getOrderDelieveryTime().replace(":00", ""));
         holder.tvOrderType.setText(order.getOrderType());
 
-        String totalDiscount = "" + (order.getTotalDiscount() / Float.parseFloat(order.getTotalAmount()) * 100);
+        String totalDiscount = "" + String.format("%.2f", (order.getTotalDiscount() / Float.parseFloat(order.getTotalAmount()) * 100));
         holder.tvDiscount.setText(totalDiscount + "%");
 
 //        holder.tvDiscount.setText(order.getDiscount() + "%");
@@ -142,7 +145,8 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
                 i.putExtra("order_id", orderLists.get(pos).getOrderId());
                 i.putExtra("showUpdateButton", false);
 //                context.startActivity(i);
-                ((Activity) context).startActivityForResult(i, 20);
+                /*((Activity) context)*/
+                restaurantOrderListFragment.startActivityForResult(i, 20);
             }
         });
     }

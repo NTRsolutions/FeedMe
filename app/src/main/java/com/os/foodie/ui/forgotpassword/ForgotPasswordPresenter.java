@@ -6,10 +6,7 @@ import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordRequest;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordResponse;
-import com.os.foodie.data.network.model.otp.OtpVerificationRequest;
-import com.os.foodie.data.network.model.otp.OtpVerificationResponse;
 import com.os.foodie.ui.base.BasePresenter;
-import com.os.foodie.ui.base.MvpPresenter;
 import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.ValidationUtils;
 

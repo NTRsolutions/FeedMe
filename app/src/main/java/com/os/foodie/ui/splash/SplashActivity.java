@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
@@ -46,7 +48,6 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
 //
 ////        getResources().getConfiguration().setLocale(locale);
 //        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
-
 
         initPresenter();
         splashMvpPresenter.onAttach(SplashActivity.this);

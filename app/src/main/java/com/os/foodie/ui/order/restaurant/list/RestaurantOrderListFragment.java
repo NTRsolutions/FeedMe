@@ -92,7 +92,7 @@ public class RestaurantOrderListFragment extends BaseFragment implements Restaur
 
         orderLists = new ArrayList<OrderList>();
 
-        restaurantOrderListAdapter = new RestaurantOrderListAdapter(getContext(), orderLists, restaurantOrderListMvpPresenter);
+        restaurantOrderListAdapter = new RestaurantOrderListAdapter(getContext(), this, orderLists, restaurantOrderListMvpPresenter);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
 

@@ -7,6 +7,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_USER_LOGGED_IN = "PREF_KEY_USER_LOGGED_IN";
     private static final String PREF_KEY_CURRENT_USER_ID = "PREF_KEY_CURRENT_USER_ID";
+    private static final String PREF_KEY_IS_FACEBOOK = "PREF_KEY_IS_FACEBOOK";
     private static final String PREF_KEY_CURRENT_USER_TYPE = "PREF_KEY_CURRENT_USER_TYPE";
     private static final String PREF_KEY_CURRENT_USER_NAME = "PREF_KEY_CURRENT_USER_NAME";
     private static final String PREF_KEY_CURRENT_USER_INITIALIZED = "PREF_KEY_CURRENT_USER_INITIALIZED";
@@ -54,6 +55,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setCurrentUserType(String isCustomer) {
         sharedPreferences.edit().putString(PREF_KEY_CURRENT_USER_TYPE, isCustomer).apply();
+    }
+
+    @Override
+    public boolean isFacebook() {
+        return sharedPreferences.getBoolean(PREF_KEY_IS_FACEBOOK, false);
+    }
+
+    @Override
+    public void setFacebook(boolean setFacebook) {
+        sharedPreferences.edit().putBoolean(PREF_KEY_IS_FACEBOOK, setFacebook).apply();
     }
 
     @Override

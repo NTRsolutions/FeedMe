@@ -18,7 +18,6 @@ public class TimeFormatUtils {
             date1 = simpleDateFormat.parse(d);
             date_str = simpleDateFormat1.format(date1);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

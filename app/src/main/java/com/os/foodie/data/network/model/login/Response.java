@@ -36,7 +36,6 @@ public class Response {
     @SerializedName("user_type")
     @Expose
     private String userType;
-//    TODO Set Profile
     @SerializedName("is_profile_set")
     @Expose
     private String isProfileSet;

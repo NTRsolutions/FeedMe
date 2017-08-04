@@ -94,6 +94,10 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView, V
         } else {
             switchNotification.setChecked(false);
         }
+
+        if (settingsMvpPresenter.isFacebook()) {
+            llChangePassword.setVisibility(View.GONE);
+        }
     }
 
     public void initPresenter() {

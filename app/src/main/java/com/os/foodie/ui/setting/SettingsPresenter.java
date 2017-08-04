@@ -37,6 +37,11 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
     }
 
     @Override
+    public boolean isFacebook() {
+        return getDataManager().isFacebook();
+    }
+
+    @Override
     public void changeLanguage(String languageCode) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {

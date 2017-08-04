@@ -14,7 +14,7 @@ public interface CustomerSignUpMvpView extends MvpView {
 
     void verifyOTP();
 
-    void verifyOTP(String otp);
+    void verifyOTP(String userId, String otp);
 
     void openRestaurantRegistrationActivity();
 

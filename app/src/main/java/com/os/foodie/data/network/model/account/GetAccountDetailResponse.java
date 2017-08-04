@@ -48,6 +48,9 @@ public class GetAccountDetailResponse {
         @SerializedName("message")
         @Expose
         private String message;
+        @SerializedName("country_code")
+        @Expose
+        private String countryCode;
 
         public String getUserId() {
             return userId;
@@ -113,6 +116,13 @@ public class GetAccountDetailResponse {
             this.message = message;
         }
 
+        public String getCountryCode() {
+            return countryCode;
+        }
+
+        public void setCountryCode(String countryCode) {
+            this.countryCode = countryCode;
+        }
     }
 }
 

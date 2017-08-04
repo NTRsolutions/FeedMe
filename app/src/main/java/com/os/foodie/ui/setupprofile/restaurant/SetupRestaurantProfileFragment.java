@@ -248,6 +248,8 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     @Override
     public void onClick(View v) {
 
+        hideKeyboard();
+
         if (v.getId() == ivPhotos.getId()) {
 
             if (((RestaurantMainActivity) getActivity()).hasPermission(Manifest.permission.CAMERA) && ((RestaurantMainActivity) getActivity()).hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE) && ((RestaurantMainActivity) getActivity()).hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -491,30 +493,24 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
     private void selectImage() {
 
-        final CharSequence[] items = {"Take Photo", "Choose from Gallery", "Cancel"};
+        final CharSequence[] items = {getString(R.string.alert_dialog_text_photo_picker_camera), getString(R.string.alert_dialog_text_photo_picker_gallery), getString(R.string.alert_dialog_text_photo_picker_cancel)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Add Photo");
+        builder.setTitle(R.string.alert_dialog_title_photo_picker);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
 
-//                boolean result= hasPermission(Manifest.permission.CAMERA);
+                if (items[item].equals(getString(R.string.alert_dialog_text_photo_picker_camera))) {
 
-                if (items[item].equals("Take Photo")) {
-
-//                    userChoosenTask = 1;
-//                    if(result)
                     cameraIntent();
 
-                } else if (items[item].equals("Choose from Gallery")) {
+                } else if (items[item].equals(getString(R.string.alert_dialog_text_photo_picker_gallery))) {
 
-//                    userChoosenTask = 2;
-//                    if(result)
                     galleryIntent();
 
-                } else if (items[item].equals("Cancel")) {
+                } else if (items[item].equals(getString(R.string.alert_dialog_text_photo_picker_cancel))) {
                     dialog.dismiss();
                 }
             }

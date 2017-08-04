@@ -855,7 +855,6 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 Log.d("Pick only", "COD");
 
                 checkoutRequest.setPaymentMethod(AppConstants.COD);
-//                TODO Date and Time
 
                 if (tvScheduledTime.getText().toString().isEmpty() || tvScheduledTime.getText().toString().equalsIgnoreCase(getString(R.string.my_basket_tv_date_time_text))) {
 //                    checkoutRequest.setOrderDelieveryDate("");
@@ -890,7 +889,6 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                 Log.d("Delivery", "COD");
 
                 checkoutRequest.setPaymentMethod(AppConstants.COD);
-//                TODO Date and Time
 
                 if (tvScheduledTime.getText().toString().isEmpty() || tvScheduledTime.getText().toString().equalsIgnoreCase(getString(R.string.my_basket_tv_date_time_text))) {
 //                    checkoutRequest.setOrderDelieveryDate("");

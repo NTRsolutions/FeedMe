@@ -85,6 +85,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                             } else {
 
                                 getDataManager().setCurrentUserLoggedIn(true);
+                                getDataManager().setFacebook(false);
                                 getDataManager().setCurrentUserId(loginResponse.getResponse().getUserId());
                                 getDataManager().setCurrentUserType(loginResponse.getResponse().getUserType());
 //                                getDataManager().setCurrency(loginResponse.getResponse().getCurrency());
@@ -167,6 +168,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                         if (facebookLoginResponse.getResponse().getStatus() == 1) {
 
                             getDataManager().setCurrentUserLoggedIn(true);
+                            getDataManager().setFacebook(true);
                             getDataManager().setCurrentUserId(facebookLoginResponse.getResponse().getUserId());
                             getDataManager().setCurrentUserType(facebookLoginResponse.getResponse().getUserType());
 

@@ -24,6 +24,9 @@ public class CustomerSignUpRequest implements Parcelable {
     @SerializedName("password")
     @Expose
     private String password;
+    @SerializedName("country_code")
+    @Expose
+    private String countryCode;
     @SerializedName("mobile_number")
     @Expose
     private String mobileNumber;
@@ -55,6 +58,7 @@ public class CustomerSignUpRequest implements Parcelable {
             instance.lastName = ((String) in.readValue((String.class.getClassLoader())));
             instance.email = ((String) in.readValue((String.class.getClassLoader())));
             instance.password = ((String) in.readValue((String.class.getClassLoader())));
+            instance.countryCode = ((String) in.readValue((String.class.getClassLoader())));
             instance.mobileNumber = ((String) in.readValue((String.class.getClassLoader())));
             instance.deviceId = ((String) in.readValue((String.class.getClassLoader())));
             instance.deviceType = ((String) in.readValue((String.class.getClassLoader())));
@@ -84,18 +88,20 @@ public class CustomerSignUpRequest implements Parcelable {
      * @param longitude
      * @param language
      * @param latitude
+     * @param countryCode
      * @param mobileNumber
      * @param firstName
      * @param password
      * @param deviceId
      */
-    public CustomerSignUpRequest(String fbId, String firstName, String lastName, String email, String password, String mobileNumber, String deviceId, String deviceType, String latitude, String longitude, String language) {
+    public CustomerSignUpRequest(String fbId, String firstName, String lastName, String email, String password, String countryCode, String mobileNumber, String deviceId, String deviceType, String latitude, String longitude, String language) {
         super();
         this.fbId = fbId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.countryCode = countryCode;
         this.mobileNumber = mobileNumber;
         this.deviceId = deviceId;
         this.deviceType = deviceType;
@@ -192,12 +198,21 @@ public class CustomerSignUpRequest implements Parcelable {
         this.language = language;
     }
 
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(firstName);
         dest.writeValue(fbId);
         dest.writeValue(lastName);
         dest.writeValue(email);
         dest.writeValue(password);
+        dest.writeValue(countryCode);
         dest.writeValue(mobileNumber);
         dest.writeValue(deviceId);
         dest.writeValue(deviceType);

@@ -33,7 +33,7 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
     }
 
     @Override
-    public void onCustomerSignUpClick(final String fbId, final String first_name, final String last_name, final String email, final String password, String confirm_password, String phone, final String deviceId, final String deviceType, final String latitude, final String longitude, final String language) {
+    public void onCustomerSignUpClick(final String fbId, final String first_name, final String last_name, final String email, final String password, String confirm_password, String countryCode, String phone, final String deviceId, final String deviceType, final String latitude, final String longitude, final String language) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -73,50 +73,56 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
 //                getMvpView().onError(R.string.invalid_email);
                 return;
             }
+            if (countryCode == null || countryCode.isEmpty()) {
+
+                getMvpView().showError(4, getMvpView().getContext().getString(R.string.empty_country_code));
+//                getMvpView().onError(R.string.empty_phone);
+                return;
+            }
             if (phone == null || phone.isEmpty()) {
 
-                getMvpView().showError(4, getMvpView().getContext().getString(R.string.empty_phone));
+                getMvpView().showError(5, getMvpView().getContext().getString(R.string.empty_phone));
 //                getMvpView().onError(R.string.empty_phone);
                 return;
             }
             if (!ValidationUtils.isPhoneValid(phone)) {
 
-                getMvpView().showError(4, getMvpView().getContext().getString(R.string.invalid_phone));
+                getMvpView().showError(5, getMvpView().getContext().getString(R.string.invalid_phone));
 //                getMvpView().onError(R.string.invalid_phone);
                 return;
             }
             if (password == null || password.isEmpty()) {
 
-                getMvpView().showError(5, getMvpView().getContext().getString(R.string.empty_password));
+                getMvpView().showError(6, getMvpView().getContext().getString(R.string.empty_password));
 //                getMvpView().onError(R.string.empty_password);
                 return;
             }
             if (password.length() < 6) {
 
-                getMvpView().showError(5, getMvpView().getContext().getString(R.string.minimum_password));
+                getMvpView().showError(6, getMvpView().getContext().getString(R.string.minimum_password));
 //                getMvpView().onError(R.string.minimum_password);
                 return;
             }
             if (!(password.matches(".*[A-Za-z]+.*[0-9]+.*") || password.matches(".*[0-9]+.*[A-Za-z]+.*"))) {
 
-                getMvpView().showError(5, getMvpView().getContext().getString(R.string.invalid_password));
+                getMvpView().showError(6, getMvpView().getContext().getString(R.string.invalid_password));
 //                getMvpView().onError(R.string.invalid_password);
                 return;
             }
             if (confirm_password == null || confirm_password.isEmpty()) {
 
-                getMvpView().showError(6, getMvpView().getContext().getString(R.string.empty_confirm_password));
+                getMvpView().showError(7, getMvpView().getContext().getString(R.string.empty_confirm_password));
 //                getMvpView().onError(R.string.empty_confirm_password);
                 return;
             }
             if (!password.equals(confirm_password)) {
 
-                getMvpView().showError(6, getMvpView().getContext().getString(R.string.not_match_password));
+                getMvpView().showError(7, getMvpView().getContext().getString(R.string.not_match_password));
 //                getMvpView().onError(R.string.not_match_password);
                 return;
             }
 
-            final CustomerSignUpRequest customerSignUpRequest = new CustomerSignUpRequest(fbId, first_name, last_name, email, password, phone, deviceId, deviceType, latitude, longitude, language);
+            final CustomerSignUpRequest customerSignUpRequest = new CustomerSignUpRequest(fbId, first_name, last_name, email, password, countryCode, phone, deviceId, deviceType, latitude, longitude, language);
 
 //            getMvpView().verifyOTP(new CustomerSignUpRequest(fbId, first_name, last_name, email, password, deviceId, deviceType, latitude, longitude, language));
 
@@ -136,7 +142,7 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
                                 Log.d("OTP", ">>" + customerSignUpResponse.getResponse().getOtp());
 //                                TODO OTP
 //                                getMvpView().verifyOTP();
-                                getMvpView().verifyOTP(customerSignUpResponse.getResponse().getOtp());
+                                getMvpView().verifyOTP(customerSignUpResponse.getResponse().getUserId(), customerSignUpResponse.getResponse().getOtp());
 
                             } else {
                                 getMvpView().onError(customerSignUpResponse.getResponse().getMessage());

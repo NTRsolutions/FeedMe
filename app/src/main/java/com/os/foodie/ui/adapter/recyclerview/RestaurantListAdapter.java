@@ -75,6 +75,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                     .placeholder(ContextCompat.getDrawable(context, R.mipmap.img_placeholder))
                     .error(ContextCompat.getDrawable(context, R.mipmap.img_placeholder))
                     .into(holder.ivRestaurantImage);
+        } else{
+            holder.ivRestaurantImage.setImageResource(R.mipmap.img_placeholder);
         }
 
         holder.ivRestaurantImage.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtils.getScreenHeight(context) / 4));

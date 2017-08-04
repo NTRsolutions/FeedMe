@@ -119,8 +119,6 @@ public class CustomerAccountPresenter<V extends CustomerAccountMvpView> extends 
                             getMvpView().hideLoading();
 
                             if (editCustomerAccountDetailResponse.getResponse().getStatus() == 1) {
-//                                TODO OTP
-//                                getMvpView().verifyOTP();
                                 getDataManager().setCurrentUserName(editCustomerAccountDetailResponse.getResponse().getFirstName()+" "+editCustomerAccountDetailResponse.getResponse().getLastName());
                                 getMvpView().editCustomerAccountDetail(editCustomerAccountDetailResponse);
 

@@ -95,12 +95,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             if (AppConstants.NOTIFICATION_TYPE_ORDER_RECEIVED.equalsIgnoreCase(notificationType)) {
 
-                if (RestaurantOrderListFragment.getInstance().getActivity() != null) {
+                if (RestaurantOrderListFragment.getInstance() != null && RestaurantOrderListFragment.getInstance().getActivity() != null) {
                     RestaurantOrderListFragment.getInstance().newOrder();
                 }
             }
 
-            if (NotificationFragments.getInstance().getActivity() != null) {
+            if (NotificationFragments.getInstance() != null && NotificationFragments.getInstance().getActivity() != null) {
                 Log.d("NotificationFragments", ">>newOrder");
                 NotificationFragments.getInstance().newOrder();
             }

@@ -16,8 +16,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/all_step_padding"
             android:background="@drawable/rectangle_bottom_line_light_grey"
+            android:padding="@dimen/all_step_padding"
             android:src="@mipmap/ic_step_two" />
 
         <ImageView
@@ -51,11 +51,35 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/otp_bt_height"
             android:layout_gravity="center_horizontal"
-            android:layout_marginEnd="@dimen/otp_bt_submit_margin_end"
-            android:layout_marginStart="@dimen/otp_bt_submit_margin_start"
-            android:layout_marginTop="@dimen/otp_bt_submit_margin_top"
+            android:layout_marginEnd="@dimen/otp_bt_margin_start_end"
+            android:layout_marginStart="@dimen/otp_bt_margin_start_end"
+            android:layout_marginTop="@dimen/otp_bt_margin_top_bottom"
             android:gravity="center"
             android:text="@string/otp_bt_submit_text" />
+
+        <com.os.foodie.ui.custom.RippleAppCompatButton
+            android:id="@+id/activity_otp_bt_resend"
+            style="@style/ButtonGrey"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/otp_bt_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/otp_bt_margin_top_bottom"
+            android:layout_marginEnd="@dimen/otp_bt_margin_start_end"
+            android:layout_marginStart="@dimen/otp_bt_margin_start_end"
+            android:gravity="center"
+            android:text="@string/otp_bt_resend_text" />
+
+        <TextView
+            android:id="@+id/activity_otp_tv_wait_seconds"
+            style="@style/TextView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/otp_bt_margin_top_bottom"
+            android:layout_marginEnd="@dimen/otp_bt_margin_start_end"
+            android:layout_marginStart="@dimen/otp_bt_margin_start_end"
+            android:gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:textSize="@dimen/otp_tv_wait_seconds_text_size" />
 
     </LinearLayout>
 

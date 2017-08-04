@@ -5,9 +5,10 @@ import android.util.Log;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
-import com.os.foodie.data.network.model.otp.OtpVerificationRequest;
-import com.os.foodie.data.network.model.otp.OtpVerificationResponse;
-import com.os.foodie.data.network.model.signup.customer.CustomerSignUpResponse;
+import com.os.foodie.data.network.model.otp.resend.ResendOtpRequest;
+import com.os.foodie.data.network.model.otp.resend.ResendOtpResponse;
+import com.os.foodie.data.network.model.otp.verify.OtpVerificationRequest;
+import com.os.foodie.data.network.model.otp.verify.OtpVerificationResponse;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
@@ -36,7 +37,7 @@ public class OtpPresenter<V extends OtpMvpView> extends BasePresenter<V> impleme
 //    }
 
     @Override
-    public void verify(String otp) {
+    public void verify(String userId, String otp) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -52,7 +53,7 @@ public class OtpPresenter<V extends OtpMvpView> extends BasePresenter<V> impleme
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
-                    .verifyOTP(new OtpVerificationRequest(otp))
+                    .verifyOTP(new OtpVerificationRequest(userId, otp))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<OtpVerificationResponse>() {
@@ -68,9 +69,16 @@ public class OtpPresenter<V extends OtpMvpView> extends BasePresenter<V> impleme
 
                                 getDataManager().setCurrentUserLoggedIn(true);
 
+                                if(otpVerificationResponse.getResponse().getIsFacebook().equalsIgnoreCase("no")){
+
+                                    getDataManager().setFacebook(false);
+                                } else {
+
+                                    getDataManager().setFacebook(true);
+                                }
+
                                 getDataManager().setCurrentUserId(otpVerificationResponse.getResponse().getUserId());
                                 getDataManager().setCurrentUserType(otpVerificationResponse.getResponse().getUserType());
-
 
 
                                 getDataManager().setLanguage(AppConstants.LANG_EN);
@@ -82,7 +90,6 @@ public class OtpPresenter<V extends OtpMvpView> extends BasePresenter<V> impleme
                                 config.locale = locale;
 
                                 getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
-
 
 
                                 getDataManager().setNotificationStatus("1");
@@ -99,6 +106,46 @@ public class OtpPresenter<V extends OtpMvpView> extends BasePresenter<V> impleme
 
                             } else {
                                 getMvpView().onError(R.string.incorrect_otp);
+                            }
+
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            getMvpView().hideLoading();
+                            getMvpView().onError(R.string.api_default_error);
+                            Log.d("Error", ">>Err" + throwable.getMessage());
+                        }
+                    }));
+        } else {
+            getMvpView().onError(R.string.connection_error);
+        }
+    }
+
+    @Override
+    public void resendOtp(String userId) {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
+            getMvpView().showLoading();
+
+            getCompositeDisposable().add(getDataManager()
+                    .resendOTP(new ResendOtpRequest(userId))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<ResendOtpResponse>() {
+                        @Override
+                        public void accept(ResendOtpResponse resendOtpResponse) throws Exception {
+
+                            getMvpView().hideLoading();
+
+                            if (resendOtpResponse.getResponse().getStatus() == 1) {
+
+                                Log.d("getUserId", ">>" + resendOtpResponse.getResponse().getMessage());
+                                getMvpView().onOtpResend();
+
+                            } else {
+                                getMvpView().onError(resendOtpResponse.getResponse().getMessage());
                             }
 
                         }

@@ -143,7 +143,13 @@ public class NotificationFragments extends BaseFragment implements NotificationM
 
     public void newOrder() {
 
-        Fragment fragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.content_restaurant_main_cl_fragment);
+        Fragment fragment = null;
+
+        if (appDataManager.getCurrentUserType().equals(AppConstants.CUSTOMER)) {
+            fragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.content_customer_main_cl_fragment);
+        } else {
+            fragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.content_restaurant_main_cl_fragment);
+        }
 
         if (fragment instanceof NotificationFragments) {
 
@@ -158,7 +164,6 @@ public class NotificationFragments extends BaseFragment implements NotificationM
                     }
                 }
             });
-
         }
     }
 }

@@ -38,7 +38,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class FacebookSignUpActivity extends BaseActivity implements FacebookSignUpMvpView, View.OnClickListener {
 
-    private EditText etRestaurantName, etPhone;
+    private EditText etRestaurantName, etCountryCode, etPhone;
     private Button btSubmit;
 
     private static final int PERMISSION_CODE = 10;
@@ -55,15 +55,21 @@ public class FacebookSignUpActivity extends BaseActivity implements FacebookSign
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facebook_sign_up);
+
         initPresenter();
         facebookSignUpMvpPresenter.onAttach(FacebookSignUpActivity.this);
+
         etRestaurantName = (EditText) findViewById(R.id.activity_facebook_sign_up_et_restaurant_name);
+        etCountryCode = (EditText) findViewById(R.id.activity_facebook_sign_up_et_country_code);
         etPhone = (EditText) findViewById(R.id.activity_facebook_sign_up_et_phone);
         btSubmit = (Button) findViewById(R.id.activity_facebook_sign_up_bt_submit);
         ivRestaurantLogo = (CircleImageView) findViewById(R.id.activity_facebook_sign_up_civ_restaurant_logo);
+
         setUp();
+
         ivRestaurantLogo.setOnClickListener(this);
         btSubmit.setOnClickListener(this);
     }
@@ -120,34 +126,27 @@ public class FacebookSignUpActivity extends BaseActivity implements FacebookSign
 
 
     private void selectImage() {
-        final CharSequence[] items = {"Take Photo", "Choose from Gallery", "Cancel"};
+        final CharSequence[] items = {getString(R.string.alert_dialog_text_photo_picker_camera), getString(R.string.alert_dialog_text_photo_picker_gallery), getString(R.string.alert_dialog_text_photo_picker_cancel)};
         AlertDialog.Builder builder = new AlertDialog.Builder(FacebookSignUpActivity.this);
-        builder.setTitle("Add Photo");
+        builder.setTitle(R.string.alert_dialog_title_photo_picker);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
 
-//                boolean result= hasPermission(Manifest.permission.CAMERA);
+                if (items[item].equals(getString(R.string.alert_dialog_text_photo_picker_camera))) {
 
-                if (items[item].equals("Take Photo")) {
-
-//                    userChoosenTask = 1;
-
-//                    if(result)
                     cameraIntent();
 
-                } else if (items[item].equals("Choose from Gallery")) {
+                } else if (items[item].equals(getString(R.string.alert_dialog_text_photo_picker_gallery))) {
 
-//                    userChoosenTask = 2;
-
-//                    if(result)
                     galleryIntent();
 
-                } else if (items[item].equals("Cancel")) {
+                } else if (items[item].equals(getString(R.string.alert_dialog_text_photo_picker_cancel))) {
                     dialog.dismiss();
                 }
             }
         });
+
         builder.show();
     }
 
@@ -168,7 +167,7 @@ public class FacebookSignUpActivity extends BaseActivity implements FacebookSign
         String deviceType = "android";
         String language = "eng";
 
-        facebookSignUpMvpPresenter.onSubmit(facebookSignUpModel, etRestaurantName.getText().toString(), etPhone.getText().toString(), deviceId, deviceType, "", "", language, createFileHashMap());
+        facebookSignUpMvpPresenter.onSubmit(facebookSignUpModel, etRestaurantName.getText().toString(), etCountryCode.getText().toString(), etPhone.getText().toString(), deviceId, deviceType, "", "", language, createFileHashMap());
     }
 
     @Override
@@ -178,11 +177,11 @@ public class FacebookSignUpActivity extends BaseActivity implements FacebookSign
     }
 
     @Override
-    public void verifyOTP(String otp) {
+    public void verifyOTP(String userId, String otp) {
 
-//                                TODO OTP
         Intent intent = new Intent(FacebookSignUpActivity.this, OtpActivity.class);
-        intent.putExtra("OTP", otp);
+        intent.putExtra(AppConstants.OTP, otp);
+        intent.putExtra(AppConstants.USER_ID, userId);
         startActivity(intent);
     }
 

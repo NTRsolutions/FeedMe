@@ -28,7 +28,7 @@ public class FacebookSignUpPresenter<V extends FacebookSignUpMvpView> extends Ba
     }
 
     @Override
-    public void onSubmit(FacebookSignUpModel facebookSignUpModel, String restaurantName, String phone, String deviceId, String deviceType, String latitude, String longitude, String language, HashMap<String, File> fileMap) {
+    public void onSubmit(FacebookSignUpModel facebookSignUpModel, String restaurantName, String countryCode, String phone, String deviceId, String deviceType, String latitude, String longitude, String language, HashMap<String, File> fileMap) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -40,6 +40,10 @@ public class FacebookSignUpPresenter<V extends FacebookSignUpMvpView> extends Ba
                 }
             }
 
+            if (countryCode == null || countryCode.isEmpty()) {
+                getMvpView().onError(R.string.empty_country_code);
+                return;
+            }
             if (phone == null || phone.isEmpty()) {
                 getMvpView().onError(R.string.empty_phone);
                 return;
@@ -51,7 +55,7 @@ public class FacebookSignUpPresenter<V extends FacebookSignUpMvpView> extends Ba
 
             if (facebookSignUpModel.getIsCustomer()) {
 
-                final CustomerSignUpRequest customerSignUpRequest = new CustomerSignUpRequest(facebookSignUpModel.getFbId(), facebookSignUpModel.getFirstName(), facebookSignUpModel.getLastName(), facebookSignUpModel.getEmail(), "", phone, deviceId, deviceType, latitude, longitude, language);
+                final CustomerSignUpRequest customerSignUpRequest = new CustomerSignUpRequest(facebookSignUpModel.getFbId(), facebookSignUpModel.getFirstName(), facebookSignUpModel.getLastName(), facebookSignUpModel.getEmail(), "", countryCode, phone, deviceId, deviceType, latitude, longitude, language);
 
                 getMvpView().showLoading();
 
@@ -67,7 +71,7 @@ public class FacebookSignUpPresenter<V extends FacebookSignUpMvpView> extends Ba
 
                                 if (customerSignUpResponse.getResponse().getStatus() == 1) {
                                     Log.d("OTP", ">>" + customerSignUpResponse.getResponse().getOtp());
-                                    getMvpView().verifyOTP(customerSignUpResponse.getResponse().getOtp());
+                                    getMvpView().verifyOTP(customerSignUpResponse.getResponse().getUserId(), customerSignUpResponse.getResponse().getOtp());
 
                                 } else {
                                     getMvpView().onError(customerSignUpResponse.getResponse().getMessage());
@@ -90,7 +94,7 @@ public class FacebookSignUpPresenter<V extends FacebookSignUpMvpView> extends Ba
                     return;
                 }
 
-                final RestaurantSignUpRequest restaurantSignUpRequest = new RestaurantSignUpRequest(facebookSignUpModel.getFbId(), facebookSignUpModel.getContactPersonName(), restaurantName, facebookSignUpModel.getEmail(), "", phone, deviceId, deviceType, latitude, longitude, language);
+                final RestaurantSignUpRequest restaurantSignUpRequest = new RestaurantSignUpRequest(facebookSignUpModel.getFbId(), facebookSignUpModel.getContactPersonName(), restaurantName, facebookSignUpModel.getEmail(), "", countryCode, phone, deviceId, deviceType, latitude, longitude, language);
 
                 getMvpView().showLoading();
 
@@ -106,7 +110,7 @@ public class FacebookSignUpPresenter<V extends FacebookSignUpMvpView> extends Ba
 
                                 if (restaurantSignUpResponse.getResponse().getStatus() == 1) {
                                     Log.d("OTP", ">>" + restaurantSignUpResponse.getResponse().getOtp());
-                                    getMvpView().verifyOTP(restaurantSignUpResponse.getResponse().getOtp());
+                                    getMvpView().verifyOTP(restaurantSignUpResponse.getResponse().getUserId(), restaurantSignUpResponse.getResponse().getOtp());
 
                                 } else {
                                     getMvpView().onError(restaurantSignUpResponse.getResponse().getMessage());

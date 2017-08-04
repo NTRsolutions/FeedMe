@@ -49,5 +49,21 @@ public class ProjectInfo {
 //    123456
 //
 //---------------------------------------
-
+//
+//    Client Credientials
+//---------------------------------------
+//    Google Integration (Google Maps and Google Analytics)
+//
+//    Email Address:
+//      Alshaibiaa1@gmail.com
+//    Password:
+//      1234567AA
+//----------------------------------------
+//    Facebook Integration
+//
+//    Email Address:
+//      Alshaibi99@gmail.com
+//    Password:
+//      1234567AA
+//----------------------------------------
 }

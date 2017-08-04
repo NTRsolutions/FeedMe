@@ -7,7 +7,11 @@
     <!--Third Party API Integration-->
     <string name="facebook_app_id" translatable="false">796924880472669</string>
     <string name="facebook_provider_app_id" translatable="false">com.facebook.app.FacebookContentProvider796924880472669</string>
-    <string name="google_api_key_1" translatable="false">AIzaSyCjLgWHur6zYob1QkVTeeqUNHuqbcm7puU</string>
+    <!--<string name="facebook_app_id" translatable="false">473716629660112</string>-->
+    <!--<string name="facebook_provider_app_id" translatable="false">com.facebook.app.FacebookContentProvider473716629660112</string>-->
+    <string name="fb_login_protocol_scheme" translatable="false">fb473716629660112</string>
+    <!--<string name="google_api_key_1" translatable="false">AIzaSyCjLgWHur6zYob1QkVTeeqUNHuqbcm7puU</string>-->
+    <string name="google_api_key_1" translatable="false">AIzaSyAAlhxGDSYUzfdyvknR9mFqnNz46Da9Rzw</string>
 
     <!--Fonts-->
     <string name="font_default" translatable="false">fonts/dosis_book.ttf</string>
@@ -53,6 +57,10 @@
     <string name="alert_dialog_title_reorder">Reorder</string>
     <string name="alert_dialog_text_reorder">Are you sure, current items will be cleared from basket?</string>
     <string name="alert_dialog_title_change_language">Change Language</string>
+    <string name="alert_dialog_title_photo_picker">Add Photo</string>
+    <string name="alert_dialog_text_photo_picker_camera">Take Photo</string>
+    <string name="alert_dialog_text_photo_picker_gallery">Choose from Gallery</string>
+    <string name="alert_dialog_text_photo_picker_cancel">Cancel</string>
 
     <!--Menu-->
     <string name="menu_close">Close</string>
@@ -88,6 +96,7 @@
     <string name="invalid_password">Password must contain atleast one alphabetic and numeric character</string>
     <string name="empty_confirm_password">Please confirm your password</string>
     <string name="not_match_password">Password and confirm password do not match.</string>
+    <string name="empty_country_code">Please\nprovide\ncountry\ncode</string>
     <string name="empty_phone">Please provide your phone number</string>
     <string name="invalid_phone">Please provide a valid phone number</string>
     <string name="mandatory_logo">Please provide your restaurant logo</string>
@@ -207,10 +216,15 @@
     <string name="restaurant_sign_up_tv_customer_register_text">Customer Registration</string>
     <string name="restaurant_sign_up_activity_title">Restaurant Sign Up</string>
 
+    <string name="sign_up_tv_plus_text">+</string>
+
     <!--OTP Verification-->
     <string name="otp_activity_title">OTP Verification</string>
     <string name="otp_et_otp_hint">Enter OTP</string>
+    <string name="otp_tv_wait_seconds_text">seconds wait to resend</string>
+    <string name="otp_tv_wait_seconds_resend_text">Resend if OTP not received</string>
     <string name="otp_bt_submit_text">Submit</string>
+    <string name="otp_bt_resend_text">Resend</string>
 
     <!--Forgot Password-->
     <string name="forgot_password_activity_title">Forgot Password</string>
@@ -443,6 +457,7 @@
     <string name="my_basket_bt_checkout_text">Checkout</string>
     <string name="my_basket_tv_empty_basket_text">Basket is empty</string>
     <string name="my_basket_tv_date_time_text" translatable="false">ASAP</string>
+    <string name="my_basket_tv_subtotal_text">Subtotal</string>
 
     <!--Customer_Restaurant Search-->
     <string name="customer_search_tv_no_result_text">No Result Found</string>
@@ -568,7 +583,7 @@
     <string name="dialog_share_tv_gmail_text">Gmail</string>
     <string name="dialog_share_tv_message_text">Message</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Uncategorized -->
     <string name="order_detail_activity_title">Order Detail</string>
     <string name="order_number">Order Number</string>
     <string name="order_type">Order Type</string>

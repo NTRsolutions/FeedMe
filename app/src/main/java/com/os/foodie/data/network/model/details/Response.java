@@ -106,6 +106,9 @@ public class Response {
     @SerializedName("currency")
     @Expose
     private String currency;
+    @SerializedName("country_code")
+    @Expose
+    private String countryCode;
     /**
      * No args constructor for use in serialization
      * 
@@ -143,10 +146,11 @@ public class Response {
      * @param latitude
      * @param mobileNumber
      * @param openingTime
+     * @param countryCode
      * @param avgRating
      * @param reviewCount
      */
-    public Response(Integer isLike, Integer inCart, String id, String avgRating, Integer reviewCount, Integer likeCount, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String paymentMethod, String deliveryZipcode, List<Image> images, String logo, List<Menu> menu, Integer status, String message, String totalQuantity, String totalAmount) {
+    public Response(Integer isLike, Integer inCart, String id, String avgRating, Integer reviewCount, Integer likeCount, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String paymentMethod, String deliveryZipcode, List<Image> images, String logo, List<Menu> menu, Integer status, String message, String totalQuantity, String totalAmount, String countryCode) {
         super();
         this.isLike = isLike;
         this.inCart = inCart;
@@ -180,6 +184,7 @@ public class Response {
         this.message = message;
         this.totalQuantity = totalQuantity;
         this.totalAmount= totalAmount;
+        this.countryCode= countryCode;
     }
 
     public Integer getIsLike() {
@@ -444,5 +449,13 @@ public class Response {
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 }

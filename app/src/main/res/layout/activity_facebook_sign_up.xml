@@ -17,8 +17,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/all_step_padding"
             android:background="@drawable/rectangle_bottom_line_light_grey"
+            android:padding="@dimen/all_step_padding"
             android:src="@mipmap/ic_step_one" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -44,20 +44,50 @@
             android:paddingEnd="@dimen/facebook_sign_up_et_padding_start_end"
             android:paddingStart="@dimen/facebook_sign_up_et_padding_start_end" />
 
-        <EditText
-            android:id="@+id/activity_facebook_sign_up_et_phone"
-            style="@style/EditTextGreySingleLine"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/facebook_sign_up_et_height"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/facebook_sign_up_et_margin_start_end"
             android:layout_marginStart="@dimen/facebook_sign_up_et_margin_start_end"
             android:layout_marginTop="@dimen/facebook_sign_up_et_phone_margin_top"
-            android:hint="@string/facebook_sign_up_et_phone_hint"
-            android:imeOptions="actionDone"
-            android:inputType="number"
-            android:maxLength="12"
-            android:paddingEnd="@dimen/facebook_sign_up_et_padding_start_end"
-            android:paddingStart="@dimen/facebook_sign_up_et_padding_start_end" />
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/sign_up_tv_plus_text"
+                android:textSize="@dimen/sign_up_tv_plus_text_size"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/activity_facebook_sign_up_et_country_code"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="3"
+                android:inputType="phone"
+                android:maxLength="7"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp" />
+
+            <EditText
+                android:id="@+id/activity_facebook_sign_up_et_phone"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/facebook_sign_up_et_height"
+                android:layout_weight="7"
+                android:hint="@string/facebook_sign_up_et_phone_hint"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="12"
+                android:paddingEnd="@dimen/facebook_sign_up_et_padding_start_end"
+                android:paddingStart="@dimen/facebook_sign_up_et_padding_start_end" />
+
+        </LinearLayout>
 
         <com.os.foodie.ui.custom.RippleAppCompatButton
             android:id="@+id/activity_facebook_sign_up_bt_submit"

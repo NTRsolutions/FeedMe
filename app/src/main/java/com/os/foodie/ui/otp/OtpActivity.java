@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
@@ -21,18 +22,32 @@ import com.os.foodie.ui.locationinfo.LocationInfoActivity;
 import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.utils.AppConstants;
 
+import org.reactivestreams.Subscription;
+
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 public class OtpActivity extends BaseActivity implements OtpMvpView, View.OnClickListener {
 
+    private TextView tvWaitSeconds;
     private EditText etOtp;
-    private Button btSubmit;
+    private Button btSubmit, btResend;
 
-//    private boolean isCustomer;
+    private Disposable timer;
 
-    private CustomerSignUpResponse customerSignUpResponse;
+    private final int WAIT = 60;
+
+    private String userId;
+
     //    Need Change to Restaurant
     private CustomerSignUpResponse restaurantSignUpResponse;
+    private CustomerSignUpResponse customerSignUpResponse;
 
     private OtpMvpPresenter<OtpMvpView> otpMvpPresenter;
 
@@ -44,16 +59,21 @@ public class OtpActivity extends BaseActivity implements OtpMvpView, View.OnClic
         initPresenter();
         otpMvpPresenter.onAttach(OtpActivity.this);
 
+        tvWaitSeconds = (TextView) findViewById(R.id.activity_otp_tv_wait_seconds);
         etOtp = (EditText) findViewById(R.id.activity_otp_et_otp);
         btSubmit = (Button) findViewById(R.id.activity_otp_bt_submit);
+        btResend = (Button) findViewById(R.id.activity_otp_bt_resend);
 
         btSubmit.setOnClickListener(this);
+        btResend.setOnClickListener(this);
 
 //                                TODO OTP
-        if (getIntent().hasExtra("OTP")) {
-            etOtp.setText(getIntent().getStringExtra("OTP"));
+        if (getIntent().hasExtra(AppConstants.OTP)) {
+            etOtp.setText(getIntent().getStringExtra(AppConstants.OTP));
+            userId = getIntent().getStringExtra(AppConstants.USER_ID);
         }
-//        getExtras();
+
+        resendWaitTime();
     }
 
     @Override
@@ -84,47 +104,15 @@ public class OtpActivity extends BaseActivity implements OtpMvpView, View.OnClic
 //        otpMvpPresenter = new OtpPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
     }
 
-//    public void getExtras() {
-////        if (getIntent().hasExtra(AppConstants.CUSTOMER_OTP_VERIFICATION)) {
-////
-////            isCustomer = true;
-////            otp = getIntent().getStringExtra(AppConstants.CUSTOMER_OTP_VERIFICATION);
-////
-////        } else {
-////
-////            isCustomer = false;
-////            otp = getIntent().getStringExtra(AppConstants.RESTAURANT_OTP_VERIFICATION);
-////        }
-//
-//        if (getIntent().hasExtra(AppConstants.CUSTOMER_SIGN_UP_RESPONSE)) {
-//
-//            isCustomer = true;
-//            customerSignUpResponse = getIntent().getParcelableExtra(AppConstants.CUSTOMER_SIGN_UP_RESPONSE);
-//            otpMvpPresenter.showMessage(customerSignUpResponse.getResponse().getMessage());
-//
-//            Log.d("getMessage", ">>" + customerSignUpResponse.getResponse().getMessage());
-//
-//            otp = customerSignUpResponse.getResponse().getOtp();
-//
-//        } else {
-//
-//            isCustomer = false;
-//            restaurantSignUpResponse = getIntent().getParcelableExtra(AppConstants.RESTAURANT_SIGN_UP_RESPONSE);
-//            otpMvpPresenter.showMessage(restaurantSignUpResponse.getResponse().getMessage());
-//
-////            otp = restaurantSignUpResponse.getResponse().getOtp();
-//        }
-//
-//        etOtp.setText(otp);
-//    }
-
     @Override
     public void onClick(View v) {
 
         hideKeyboard();
 
         if (v.getId() == btSubmit.getId()) {
-            otpMvpPresenter.verify(etOtp.getText().toString());
+            otpMvpPresenter.verify(userId, etOtp.getText().toString());
+        } else if (v.getId() == btResend.getId()) {
+            otpMvpPresenter.resendOtp(userId);
         }
     }
 
@@ -155,9 +143,43 @@ public class OtpActivity extends BaseActivity implements OtpMvpView, View.OnClic
     }
 
     @Override
+    public void onOtpResend() {
+        resendWaitTime();
+    }
+
+    @Override
     protected void onDestroy() {
+        timer.dispose();
         otpMvpPresenter.dispose();
 //        otpMvpPresenter.onDetach();
         super.onDestroy();
+    }
+
+    void resendWaitTime() {
+
+        btResend.setEnabled(false);
+        btResend.setOnClickListener(null);
+
+        timer = Observable.interval(1, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+
+                        Log.d("Long", ">>" + aLong);
+                        tvWaitSeconds.setText((WAIT - aLong) + " " + getString(R.string.otp_tv_wait_seconds_text));
+
+                        if (aLong >= WAIT) {
+
+                            timer.dispose();
+                            Log.d("10", ">>Done");
+
+                            tvWaitSeconds.setText(getString(R.string.otp_tv_wait_seconds_resend_text));
+
+                            btResend.setEnabled(true);
+                            btResend.setOnClickListener(OtpActivity.this);
+                        }
+                    }
+                });
     }
 }

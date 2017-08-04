@@ -84,14 +84,15 @@ import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailRes
 import com.os.foodie.data.network.model.notification.NotificationListResponse;
 import com.os.foodie.data.network.model.notification.SetNotificationResponse;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryRequest;
-import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryResponse;
 import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderRequest;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderResponse;
 import com.os.foodie.data.network.model.orderlist.show.GetOrderListRequest;
 import com.os.foodie.data.network.model.orderlist.show.GetOrderListResponse;
-import com.os.foodie.data.network.model.otp.OtpVerificationRequest;
-import com.os.foodie.data.network.model.otp.OtpVerificationResponse;
+import com.os.foodie.data.network.model.otp.resend.ResendOtpRequest;
+import com.os.foodie.data.network.model.otp.resend.ResendOtpResponse;
+import com.os.foodie.data.network.model.otp.verify.OtpVerificationRequest;
+import com.os.foodie.data.network.model.otp.verify.OtpVerificationResponse;
 import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardRequest;
 import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardResponse;
 import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardRequest;
@@ -173,6 +174,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setCurrentUserType(String userType) {
         preferencesHelper.setCurrentUserType(userType);
+    }
+
+    @Override
+    public boolean isFacebook() {
+        return preferencesHelper.isFacebook();
+    }
+
+    @Override
+    public void setFacebook(boolean setFacebook) {
+        preferencesHelper.setFacebook(setFacebook);
     }
 
     @Override
@@ -303,6 +314,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<OtpVerificationResponse> verifyOTP(OtpVerificationRequest otpVerificationRequest) {
         return apiHelper.verifyOTP(otpVerificationRequest);
+    }
+
+    @Override
+    public Observable<ResendOtpResponse> resendOTP(ResendOtpRequest resendOtpRequest) {
+        return apiHelper.resendOTP(resendOtpRequest);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
 
     public static final String TAG = "CustomerAccountFragment";
 
-    private EditText etFirstName, etLastName, etEmail, etPhoneNum;
+    private EditText etFirstName, etLastName, etEmail, etCountryCode, etPhoneNum;
     private RippleAppCompatButton btSave, btCancel;
 
     private GetAccountDetailResponse getAccountDetailResponse;
@@ -114,6 +114,7 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
             editCustomerAccountRequest.setFirstName(etFirstName.getText().toString().trim());
             editCustomerAccountRequest.setLastName(etLastName.getText().toString().trim());
             editCustomerAccountRequest.setEmail(etEmail.getText().toString().trim());
+            editCustomerAccountRequest.setCountryCode(etCountryCode.getText().toString().trim());
             editCustomerAccountRequest.setMobileNumber(etPhoneNum.getText().toString().trim());
             editCustomerAccountRequest.setUserId(AppController.get(getActivity()).getAppDataManager().getCurrentUserId());
 
@@ -148,12 +149,14 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
             etFirstName.setText(getAccountDetailResponse.getResponse().getFirstName());
             etLastName.setText(getAccountDetailResponse.getResponse().getLastName());
             etEmail.setText(getAccountDetailResponse.getResponse().getEmail());
+            etCountryCode.setText(getAccountDetailResponse.getResponse().getCountryCode());
             etPhoneNum.setText(getAccountDetailResponse.getResponse().getMobileNumber());
         } else {
 
             etFirstName.setText("");
             etLastName.setText("");
             etEmail.setText("");
+            etCountryCode.setText("");
             etPhoneNum.setText("");
         }
     }
@@ -164,6 +167,7 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
         this.getAccountDetailResponse.getResponse().setFirstName(editCustomerAccountDetailResponse.getResponse().getFirstName());
         this.getAccountDetailResponse.getResponse().setLastName(editCustomerAccountDetailResponse.getResponse().getLastName());
         this.getAccountDetailResponse.getResponse().setEmail(editCustomerAccountDetailResponse.getResponse().getEmail());
+        this.getAccountDetailResponse.getResponse().setCountryCode(editCustomerAccountDetailResponse.getResponse().getCountryCode());
         this.getAccountDetailResponse.getResponse().setMobileNumber(editCustomerAccountDetailResponse.getResponse().getMobileNumber());
 
         setHasOptionsMenu(true);
@@ -183,6 +187,7 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
         etFirstName = (EditText) view.findViewById(R.id.fragment_customer_account_et_first_name);
         etLastName = (EditText) view.findViewById(R.id.fragment_customer_account_et_last_name);
         etEmail = (EditText) view.findViewById(R.id.fragment_customer_account_et_email);
+        etCountryCode = (EditText) view.findViewById(R.id.fragment_customer_account_et_country_code);
         etPhoneNum = (EditText) view.findViewById(R.id.fragment_customer_account_et_phone_number);
 
         btSave = (RippleAppCompatButton) view.findViewById(R.id.activity_customer_bt_save_profile);
@@ -195,6 +200,7 @@ public class CustomerAccountFragment extends BaseFragment implements CustomerAcc
     private void setEditTextEnable(boolean setEnable) {
         etFirstName.setEnabled(setEnable);
         etLastName.setEnabled(setEnable);
+        etCountryCode.setEnabled(setEnable);
         etPhoneNum.setEnabled(setEnable);
         etEmail.setEnabled(setEnable);
     }

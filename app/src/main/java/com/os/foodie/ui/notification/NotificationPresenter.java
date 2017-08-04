@@ -59,8 +59,10 @@ public class NotificationPresenter<V extends NotificationMvpView> extends BasePr
                                 getMvpView().setNotificationList(notificationListResponse);
 
                             } else {
-                                getMvpView().onError(notificationListResponse.getResponse().getMessage());
+                                getMvpView().setNotificationList(notificationListResponse);
+//                                getMvpView().onError(notificationListResponse.getResponse().getMessage());
                             }
+
                         }
                     }, new Consumer<Throwable>() {
                         @Override

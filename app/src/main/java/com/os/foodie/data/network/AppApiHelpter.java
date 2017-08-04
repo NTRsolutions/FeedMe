@@ -86,14 +86,15 @@ import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailRes
 import com.os.foodie.data.network.model.notification.NotificationListResponse;
 import com.os.foodie.data.network.model.notification.SetNotificationResponse;
 import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryRequest;
-import com.os.foodie.data.network.model.order.customer.history.CustomerOrderHistoryResponse;
 import com.os.foodie.data.network.model.order.restaurant.detail.OrderHistoryDetail;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderRequest;
 import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrderResponse;
 import com.os.foodie.data.network.model.orderlist.show.GetOrderListRequest;
 import com.os.foodie.data.network.model.orderlist.show.GetOrderListResponse;
-import com.os.foodie.data.network.model.otp.OtpVerificationRequest;
-import com.os.foodie.data.network.model.otp.OtpVerificationResponse;
+import com.os.foodie.data.network.model.otp.resend.ResendOtpRequest;
+import com.os.foodie.data.network.model.otp.resend.ResendOtpResponse;
+import com.os.foodie.data.network.model.otp.verify.OtpVerificationRequest;
+import com.os.foodie.data.network.model.otp.verify.OtpVerificationResponse;
 import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardRequest;
 import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardResponse;
 import com.os.foodie.data.network.model.payment.delete.DeletePaymentCardRequest;
@@ -227,6 +228,25 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(OtpVerificationResponse.class);
+    }
+
+    @Override
+    public Observable<ResendOtpResponse> resendOTP(ResendOtpRequest resendOtpRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(resendOtpRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.OTP_RESEND)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(ResendOtpResponse.class);
     }
 
     @Override

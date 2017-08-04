@@ -78,7 +78,8 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
 //        holder.tvDeliveryTime.setText(order.getDeliveryTime()+" min.");
         holder.tvOrderType.setText(order.getOrderType());
 
-        String totalDiscount = "" + (order.getTotalDiscount() / Float.parseFloat(order.getTotalAmount()) * 100);
+        String totalDiscount = "" + String.format("%.2f", (order.getTotalDiscount() / Float.parseFloat(order.getTotalAmount()) * 100));
+
         holder.tvDiscount.setText(totalDiscount + "%");
 
 //        holder.tvDiscount.setText(order.getDiscount() + "%");

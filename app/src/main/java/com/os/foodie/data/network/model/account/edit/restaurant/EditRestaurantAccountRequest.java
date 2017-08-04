@@ -26,6 +26,9 @@ public class EditRestaurantAccountRequest {
     @SerializedName("restaurant_id")
     @Expose
     private String restaurantId;
+    @SerializedName("country_code")
+    @Expose
+    private String countryCode;
 
     public String getContactPersonName() {
         return contactPersonName;
@@ -65,5 +68,13 @@ public class EditRestaurantAccountRequest {
 
     public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 }

@@ -386,6 +386,7 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         if (!orderHistoryMvpPresenter.isCustomer() && orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("order received")) {
             restaurantAcceptRejectOptionLl.setVisibility(View.VISIBLE);
+            tvChangeStatus.setVisibility(View.GONE);
         } else {
             restaurantAcceptRejectOptionLl.setVisibility(View.GONE);
         }

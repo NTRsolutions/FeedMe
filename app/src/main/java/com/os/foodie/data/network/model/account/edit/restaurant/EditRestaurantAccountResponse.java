@@ -48,6 +48,9 @@ public class EditRestaurantAccountResponse {
         @SerializedName("message")
         @Expose
         private String message;
+        @SerializedName("country_code")
+        @Expose
+        private String countryCode;
 
         public String getLogo() {
             return logo;
@@ -111,6 +114,14 @@ public class EditRestaurantAccountResponse {
 
         public void setContactPersonName(String contactPersonName) {
             this.contactPersonName = contactPersonName;
+        }
+
+        public String getCountryCode() {
+            return countryCode;
+        }
+
+        public void setCountryCode(String countryCode) {
+            this.countryCode = countryCode;
         }
     }
 }

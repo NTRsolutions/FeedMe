@@ -47,7 +47,7 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
     RestaurantMainActivity restaurantMainActivity;
 
     private CircleImageView profileImageIv;
-    private EditText restaurantNameEt, contactPersonNameEt, emailEt, phoneNumEt;
+    private EditText restaurantNameEt, contactPersonNameEt, emailEt, etCountryCode, phoneNumEt;
     private RippleAppCompatButton btSave, btCancel;
 
     private static final int CAMERA_REQUEST = 2;
@@ -160,6 +160,7 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
             editRestaurantAccountRequest.setContactPersonName(contactPersonNameEt.getText().toString().trim());
             editRestaurantAccountRequest.setRestaurantName(restaurantNameEt.getText().toString().trim());
             editRestaurantAccountRequest.setEmail(emailEt.getText().toString().trim());
+            editRestaurantAccountRequest.setCountryCode(etCountryCode.getText().toString().trim());
             editRestaurantAccountRequest.setMobileNumber(phoneNumEt.getText().toString().trim());
             editRestaurantAccountRequest.setRestaurantId(AppController.get(getActivity()).getAppDataManager().getCurrentUserId());
 
@@ -189,6 +190,7 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
 
             restaurantNameEt.setText(customerRestaurantDetailsResponse.getResponse().getRestaurantName());
             contactPersonNameEt.setText(customerRestaurantDetailsResponse.getResponse().getContactPersonName());
+            etCountryCode.setText(customerRestaurantDetailsResponse.getResponse().getCountryCode());
             phoneNumEt.setText(customerRestaurantDetailsResponse.getResponse().getMobileNumber());
             emailEt.setText(customerRestaurantDetailsResponse.getResponse().getEmail());
 
@@ -196,6 +198,7 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
 
             restaurantNameEt.setText("");
             contactPersonNameEt.setText("");
+            etCountryCode.setText("");
             phoneNumEt.setText("");
             emailEt.setText("");
         }
@@ -206,6 +209,7 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
 
         this.customerRestaurantDetailsResponse.getResponse().setRestaurantName(editRestaurantAccountResponse.getResponse().getRestaurantName());
         this.customerRestaurantDetailsResponse.getResponse().setContactPersonName(editRestaurantAccountResponse.getResponse().getContactPersonName());
+        this.customerRestaurantDetailsResponse.getResponse().setCountryCode(editRestaurantAccountResponse.getResponse().getCountryCode());
         this.customerRestaurantDetailsResponse.getResponse().setMobileNumber(editRestaurantAccountResponse.getResponse().getMobileNumber());
         this.customerRestaurantDetailsResponse.getResponse().setEmail(editRestaurantAccountResponse.getResponse().getEmail());
 
@@ -230,6 +234,7 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
         restaurantNameEt = (EditText) view.findViewById(R.id.fragment_restaurant_account_et_restaurant_name);
         contactPersonNameEt = (EditText) view.findViewById(R.id.fragment_restaurant_account_et_contact_person_name);
         emailEt = (EditText) view.findViewById(R.id.fragment_restaurant_account_et_email);
+        etCountryCode = (EditText) view.findViewById(R.id.fragment_restaurant_account_et_country_code);
         phoneNumEt = (EditText) view.findViewById(R.id.fragment_restaurant_account_et_phone_number);
 
         btSave = (RippleAppCompatButton) view.findViewById(R.id.activity_restaurant_account_bt_save_profile);
@@ -251,30 +256,30 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
         contactPersonNameEt.setEnabled(setEnable);
 
         emailEt.setEnabled(setEnable);
+        etCountryCode.setEnabled(setEnable);
         phoneNumEt.setEnabled(setEnable);
     }
 
 
     private void selectImage() {
 
-        final CharSequence[] items = {"Take Photo", "Choose from Gallery", "Cancel"};
+        final CharSequence[] items = {getString(R.string.alert_dialog_text_photo_picker_camera), getString(R.string.alert_dialog_text_photo_picker_gallery), getString(R.string.alert_dialog_text_photo_picker_cancel)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Add Photo");
-
+        builder.setTitle(R.string.alert_dialog_title_photo_picker);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
 
-                if (items[item].equals("Take Photo")) {
+                if (items[item].equals(getString(R.string.alert_dialog_text_photo_picker_camera))) {
 
                     cameraIntent();
 
-                } else if (items[item].equals("Choose from Gallery")) {
+                } else if (items[item].equals(getString(R.string.alert_dialog_text_photo_picker_gallery))) {
 
                     galleryIntent();
 
-                } else if (items[item].equals("Cancel")) {
+                } else if (items[item].equals(getString(R.string.alert_dialog_text_photo_picker_cancel))) {
                     dialog.dismiss();
                 }
             }

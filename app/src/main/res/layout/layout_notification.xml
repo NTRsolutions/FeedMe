@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                fontPath="@string/font_monospace"
+                style="@style/TextView4"
                 android:text="@string/no_notification" />
 
             <android.support.v7.widget.RecyclerView

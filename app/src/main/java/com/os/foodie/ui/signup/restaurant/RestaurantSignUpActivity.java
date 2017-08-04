@@ -70,7 +70,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 public class RestaurantSignUpActivity extends BaseActivity implements RestaurantSignUpMvpView, View.OnClickListener {
 
     private CircleImageView icRestaurantLogo;
-    private EditText etContactPersonName, etRestaurantName, etEmail, etPassword, etConfirmPassword, etPhone;
+    private EditText etContactPersonName, etRestaurantName, etEmail, etPassword, etConfirmPassword, etCountryCode, etPhone;
     private TextView tvLogIn, tvCustomerRegister;
     private Button btSignUp, btSignUpFacebook;
 
@@ -105,6 +105,7 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
         etEmail = (EditText) findViewById(R.id.activity_restaurant_sign_up_et_email);
         etPassword = (EditText) findViewById(R.id.activity_restaurant_sign_up_et_password);
         etConfirmPassword = (EditText) findViewById(R.id.activity_restaurant_sign_up_et_confirm_password);
+        etCountryCode = (EditText) findViewById(R.id.activity_restaurant_sign_up_et_country_code);
         etPhone = (EditText) findViewById(R.id.activity_restaurant_sign_up_et_phone);
 
         btSignUp = (Button) findViewById(R.id.activity_restaurant_sign_up_bt_sign_up);
@@ -202,7 +203,7 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
         String deviceType = "android";
         String language = "eng";
 
-        restaurantSignUpMvpPresenter.onRestaurantSignUpClick(fbId, etContactPersonName.getText().toString(), etRestaurantName.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString(), etConfirmPassword.getText().toString(), etPhone.getText().toString(), deviceId, deviceType, "", "", language, createFileHashMap());
+        restaurantSignUpMvpPresenter.onRestaurantSignUpClick(fbId, etContactPersonName.getText().toString(), etRestaurantName.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString(), etConfirmPassword.getText().toString(), etCountryCode.getText().toString(), etPhone.getText().toString(), deviceId, deviceType, "", "", language, createFileHashMap());
     }
 
     @Override
@@ -218,11 +219,12 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
     }
 
     @Override
-    public void verifyOTP(String otp) {
+    public void verifyOTP(String userId, String otp) {
 
 //                                TODO OTP
         Intent intent = new Intent(RestaurantSignUpActivity.this, OtpActivity.class);
-        intent.putExtra("OTP", otp);
+        intent.putExtra(AppConstants.OTP, otp);
+        intent.putExtra(AppConstants.USER_ID, userId);
         startActivity(intent);
     }
 
@@ -365,34 +367,27 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
 
 
     private void selectImage() {
-        final CharSequence[] items = {"Take Photo", "Choose from Gallery", "Cancel"};
+        final CharSequence[] items = {getString(R.string.alert_dialog_text_photo_picker_camera), getString(R.string.alert_dialog_text_photo_picker_gallery), getString(R.string.alert_dialog_text_photo_picker_cancel)};
         AlertDialog.Builder builder = new AlertDialog.Builder(RestaurantSignUpActivity.this);
-        builder.setTitle("Add Photo");
+        builder.setTitle(R.string.alert_dialog_title_photo_picker);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
 
-//                boolean result= hasPermission(Manifest.permission.CAMERA);
+                if (items[item].equals(getString(R.string.alert_dialog_text_photo_picker_camera))) {
 
-                if (items[item].equals("Take Photo")) {
-
-//                    userChoosenTask = 1;
-
-//                    if(result)
                     cameraIntent();
 
-                } else if (items[item].equals("Choose from Gallery")) {
+                } else if (items[item].equals(getString(R.string.alert_dialog_text_photo_picker_gallery))) {
 
-//                    userChoosenTask = 2;
-
-//                    if(result)
                     galleryIntent();
 
-                } else if (items[item].equals("Cancel")) {
+                } else if (items[item].equals(getString(R.string.alert_dialog_text_photo_picker_cancel))) {
                     dialog.dismiss();
                 }
             }
         });
+
         builder.show();
     }
 

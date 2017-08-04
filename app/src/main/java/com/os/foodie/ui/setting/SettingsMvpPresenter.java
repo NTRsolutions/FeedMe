@@ -16,6 +16,8 @@ public interface SettingsMvpPresenter<V extends SettingsMvpView> extends MvpPres
 
 //    void setLanguage(String languageCode);
 
+    boolean isFacebook();
+
     void changeLanguage(String languageCode);
 
     boolean isCustomer();

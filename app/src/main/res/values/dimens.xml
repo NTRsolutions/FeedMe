@@ -3,6 +3,7 @@
     <dimen name="density_0">0dp</dimen>
     <dimen name="density_1">1dp</dimen>
     <dimen name="fab_default_margin">16dp</dimen>
+    <dimen name="all_step_padding">10dp</dimen>
 
     <!--Style-->
     <dimen name="style_action_bar_title_size">22sp</dimen>
@@ -152,9 +153,9 @@
     <dimen name="otp_et_otp_padding_end">10dp</dimen>
     <dimen name="otp_et_otp_padding_start">10dp</dimen>
     <dimen name="otp_bt_height">45dp</dimen>
-    <dimen name="otp_bt_submit_margin_end">40dp</dimen>
-    <dimen name="otp_bt_submit_margin_start">40dp</dimen>
-    <dimen name="otp_bt_submit_margin_top">20dp</dimen>
+    <dimen name="otp_bt_margin_start_end">40dp</dimen>
+    <dimen name="otp_bt_margin_top_bottom">20dp</dimen>
+    <dimen name="otp_tv_wait_seconds_text_size">16sp</dimen>
 
     <!--Forgot Password-->
     <dimen name="forgot_password_iv_logo_margin_top">30dp</dimen>
@@ -336,6 +337,11 @@
     <dimen name="restaurant_details_tv_tag_opening_closing_time_text_size">16sp</dimen>
     <dimen name="restaurant_details_tv_opening_closing_time_margin_start">5dp</dimen>
     <dimen name="restaurant_details_tv_opening_closing_time_text_size">16sp</dimen>
+    <dimen name="restaurant_details_ll_working_days_margin_bottom">10dp</dimen>
+    <dimen name="restaurant_details_ll_working_days_margin_start">5dp</dimen>
+    <dimen name="restaurant_details_tv_tag_working_days_text_size">16sp</dimen>
+    <dimen name="restaurant_details_tv_working_days_margin_start">5dp</dimen>
+    <dimen name="restaurant_details_tv_working_days_text_size">16sp</dimen>
 
     <dimen name="course_title_tv_title_top_bottom_margin">5dp</dimen>
     <dimen name="course_title_tv_title_start_end_margin">10dp</dimen>
@@ -347,6 +353,8 @@
     <dimen name="course_content_tv_course_des_margin_top">5dp</dimen>
     <dimen name="course_content_tv_course_des_text_size">16sp</dimen>
     <dimen name="course_content_tv_price_margin">15dp</dimen>
+    <dimen name="course_content_tv_veg_height_width">10dp</dimen>
+    <dimen name="course_content_tv_veg_margin_end">5dp</dimen>
 
     <!--Restaurant Menu-->
     <dimen name="restaurant_menu_fab_add_margin">16dp</dimen>
@@ -515,6 +523,11 @@
     <dimen name="my_basket_ll_checkout_padding_start_end">30dp</dimen>
     <dimen name="my_basket_bt_checkout_height">45dp</dimen>
     <dimen name="my_basket_ll_discount_amount_margin_top">5dp</dimen>
+    <dimen name="my_basket_list_item_ll_sub_main_padding">10dp</dimen>
+    <dimen name="my_basket_list_item_ll_main_padding">10dp</dimen>
+    <dimen name="my_basket_list_item_iv_restaurant_logo_height_width">50dp</dimen>
+    <dimen name="my_basket_list_item_tv_restaurant_name_margin_start">10dp</dimen>
+    <dimen name="my_basket_list_item_tv_view_basket_padding">10dp</dimen>
 
     <!--RecyclerView My Basket Item-->
     <dimen name="mybasket_item_ll_main_padding">10dp</dimen>
@@ -758,20 +771,8 @@
     <dimen name="dialog_share_ll_main_padding_top">10dp</dimen>
     <dimen name="dialog_share_tv_margin">5dp</dimen>
     <dimen name="dialog_share_tv_text_size">20sp</dimen>
-    <dimen name="all_step_padding">10dp</dimen>
-    <dimen name="course_content_tv_veg_height_width">10dp</dimen>
-    <dimen name="course_content_tv_veg_margin_end">5dp</dimen>
-    <dimen name="my_basket_list_item_ll_sub_main_padding">10dp</dimen>
-    <dimen name="my_basket_list_item_ll_main_padding">10dp</dimen>
-    <dimen name="my_basket_list_item_iv_restaurant_logo_height_width">50dp</dimen>
-    <dimen name="my_basket_list_item_tv_restaurant_name_margin_start">10dp</dimen>
-    <dimen name="my_basket_list_item_tv_view_basket_padding">10dp</dimen>
-    <dimen name="restaurant_details_ll_working_days_margin_bottom">10dp</dimen>
-    <dimen name="restaurant_details_ll_working_days_margin_start">5dp</dimen>
-    <dimen name="restaurant_details_tv_tag_working_days_text_size">16sp</dimen>
-    <dimen name="restaurant_details_tv_working_days_margin_start">5dp</dimen>
-    <dimen name="restaurant_details_tv_working_days_text_size">16sp</dimen>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    <dimen name="sign_up_tv_plus_text_size">26sp</dimen>
+    <dimen name="customer_sign_up_et_country_code_margin_start_end">5dp</dimen>
+    <dimen name="customer_sign_up_et_country_code_padding_start_end">5dp</dimen>
 
 </resources>
