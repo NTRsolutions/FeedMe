@@ -1,5 +1,6 @@
 package com.os.foodie.ui.welcome;
 
+import android.Manifest;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
     private ViewPager viewPager;
     private LinearLayout llDots;
     private SlidePagerAdapter slidePagerAdapter;
+
 
 //    private WelcomeMvpPresenter<WelcomeMvpView> welcomeMvpPresenter;
 
@@ -104,6 +106,8 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
             public void onPageScrollStateChanged(int state) {
             }
         });
+
+        requestAllPermissions();
     }
 
     @Override
@@ -135,5 +139,24 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
     protected void onDestroy() {
 //        welcomeMvpPresenter.onDetach();
         super.onDestroy();
+    }
+
+    public void requestAllPermissions() {
+
+        if (!hasPermission(Manifest.permission.READ_PHONE_STATE)
+                || !hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                || !hasPermission(Manifest.permission.CAMERA)
+                || !hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                || !hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+            String permissions[] = new String[]{
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+            requestPermissions(permissions, 10);
+        }
     }
 }
