@@ -216,7 +216,7 @@
     <string name="restaurant_sign_up_tv_customer_register_text">Customer Registration</string>
     <string name="restaurant_sign_up_activity_title">Restaurant Sign Up</string>
 
-    <string name="sign_up_tv_plus_text">+</string>
+    <string name="sign_up_tv_plus_text" translatable="false">+</string>
 
     <!--OTP Verification-->
     <string name="otp_activity_title">OTP Verification</string>
@@ -285,7 +285,7 @@
     <string name="setup_restaurant_profile_et_address_hint">Address</string>
     <string name="setup_restaurant_profile_et_country_hint">Country</string>
     <string name="setup_restaurant_profile_et_city_hint">City</string>
-    <string name="setup_restaurant_profile_et_zip_hint" translatable="false">ZIP Code</string>
+    <string name="setup_restaurant_profile_et_zip_hint">ZIP Code</string>
     <string name="setup_restaurant_profile_et_closing_hours_hint">Closing Hours</string>
     <string name="setup_restaurant_profile_et_expected_delivery_hint">Expected Delivery Time (Optional)</string>
     <string name="setup_restaurant_profile_et_minimum_order_amount_hint">Minimum Order Amount</string>
@@ -344,7 +344,7 @@
     <string name="fragment_working_days_tv_title_text">Select Working Days</string>
 
     <!--Customer Restaurant Details-->
-    <string name="restautant_details_fall_delivery_time_min_text">min</string>
+    <string name="restautant_details_fall_delivery_time_min_text" translatable="false">min</string>
     <string name="restaurant_details_tv_rating_text_rating">Rating</string>
     <string name="restaurant_details_tv_discount_text_discount">Discount</string>
     <string name="restaurant_details_bt_view_basket_text">View Basket</string>
@@ -406,7 +406,7 @@
     <string name="fragment_show_restaurant_profile_content_tv_working_days_text">Working Days:</string>
     <string name="fragment_show_restaurant_profile_content_tv_minimum_order_amount_text">Minimum order amount:</string>
     <string name="fragment_show_restaurant_profile_content_tv_other_details_text">Other Details</string>
-    <string name="fragment_show_restaurant_profile_content_tv_payment_type_text">Payment type:</string>
+    <string name="fragment_show_restaurant_profile_content_tv_payment_type_text">Payment Type:</string>
 
     <!--Restaurant Order List-->
     <string name="title_fragment_restaurant_order_history">Orders History</string>
@@ -465,6 +465,8 @@
     <!--Dialog Item Quantity-->
     <string name="dialog_item_quantity_tv_price_tag_text">Price: </string>
     <string name="dialog_item_quantity_bt_update_text">Update</string>
+    <string name="dialog_item_quantity_bt_add_text">Add</string>
+    <string name="dialog_item_quantity_bt_remove_text">Remove Item</string>
 
     <!--Customer Account-->
     <string name="customer_account_tv_first_name_tag_text">First Name</string>
@@ -508,8 +510,9 @@
     <string name="add_edit_delivery_address_tv_country_tag_text">Country</string>
 
     <!--Customer Search-->
-    <string name="customer_search_tv_minutes_tag_text">min.</string>
+    <string name="customer_search_tv_minutes_tag_text" translatable="false">min.</string>
     <string name="customer_search_tv_rating_tag_text">Rating</string>
+    <string name="customer_search_tv_review_tag_text">Review</string>
 
     <!--Customer Search RecyclerView-->
     <string name="delivery_address_bt_edit_text">Edit</string>
@@ -517,7 +520,7 @@
 
     <!--RecyclerView Restaurant-->
     <string name="restaurant_tv_rating_tag_text">Rating</string>
-    <string name="restaurant_tv_time_text">min.</string>
+    <string name="restaurant_tv_time_text" translatable="false">min.</string>
 
     <!--Manage Payment Card-->
     <string name="manage_cards_activity_title">Manage Cards</string>

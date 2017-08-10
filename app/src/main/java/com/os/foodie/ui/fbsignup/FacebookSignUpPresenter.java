@@ -1,6 +1,9 @@
 package com.os.foodie.ui.fbsignup;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
@@ -10,11 +13,14 @@ import com.os.foodie.data.network.model.signup.restaurant.RestaurantSignUpReques
 import com.os.foodie.data.network.model.signup.restaurant.RestaurantSignUpResponse;
 import com.os.foodie.model.FacebookSignUpModel;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.ui.welcome.WelcomeActivity;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.ValidationUtils;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -69,6 +75,27 @@ public class FacebookSignUpPresenter<V extends FacebookSignUpMvpView> extends Ba
 
                                 getMvpView().hideLoading();
 
+                                if (customerSignUpResponse.getResponse().getIsDeleted() != null && customerSignUpResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                    Locale locale = new Locale(AppConstants.LANG_EN);
+                                    Locale.setDefault(locale);
+
+                                    Configuration config = new Configuration();
+                                    config.locale = locale;
+
+                                    getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                    Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    getMvpView().getContext().startActivity(intent);
+
+                                    getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                    setUserAsLoggedOut();
+
+                                    Toast.makeText(getMvpView().getContext(), customerSignUpResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                                }
+
                                 if (customerSignUpResponse.getResponse().getStatus() == 1) {
                                     Log.d("OTP", ">>" + customerSignUpResponse.getResponse().getOtp());
                                     getMvpView().verifyOTP(customerSignUpResponse.getResponse().getUserId(), customerSignUpResponse.getResponse().getOtp());
@@ -107,6 +134,27 @@ public class FacebookSignUpPresenter<V extends FacebookSignUpMvpView> extends Ba
                             public void accept(RestaurantSignUpResponse restaurantSignUpResponse) throws Exception {
 
                                 getMvpView().hideLoading();
+
+                                if (restaurantSignUpResponse.getResponse().getIsDeleted() != null && restaurantSignUpResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                    Locale locale = new Locale(AppConstants.LANG_EN);
+                                    Locale.setDefault(locale);
+
+                                    Configuration config = new Configuration();
+                                    config.locale = locale;
+
+                                    getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                    Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    getMvpView().getContext().startActivity(intent);
+
+                                    getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                    setUserAsLoggedOut();
+
+                                    Toast.makeText(getMvpView().getContext(), restaurantSignUpResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                                }
 
                                 if (restaurantSignUpResponse.getResponse().getStatus() == 1) {
                                     Log.d("OTP", ">>" + restaurantSignUpResponse.getResponse().getOtp());

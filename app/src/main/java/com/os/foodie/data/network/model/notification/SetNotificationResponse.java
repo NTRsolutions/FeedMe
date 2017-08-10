@@ -34,6 +34,9 @@ public class SetNotificationResponse {
         @SerializedName("is_notification")
         @Expose
         private String isNotification;
+        @SerializedName("is_delete")
+        @Expose
+        private String isDeleted;
 
         public Integer getStatus() {
             return status;
@@ -59,7 +62,12 @@ public class SetNotificationResponse {
             this.isNotification = isNotification;
         }
 
+        public String getIsDeleted() {
+            return isDeleted;
+        }
+
+        public void setIsDeleted(String isDeleted) {
+            this.isDeleted = isDeleted;
+        }
     }
-
-
 }

@@ -1,6 +1,9 @@
 package com.os.foodie.ui.merchantdetail;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
@@ -9,7 +12,11 @@ import com.os.foodie.data.network.model.merchantdetails.get.GetMerchantDetailRes
 import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailRequest;
 import com.os.foodie.data.network.model.merchantdetails.set.SetMerchantDetailResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.ui.welcome.WelcomeActivity;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
+
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -71,6 +78,27 @@ public class MerchantDetailPresenter<V extends MerchantDetailMvpView> extends Ba
 
                             getMvpView().hideLoading();
 
+                            if (merchantDetailResponse.getResponse().getIsDeleted() != null && merchantDetailResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), merchantDetailResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
                             if (merchantDetailResponse.getResponse().getStatus() == 1) {
                                 getMvpView().onError(merchantDetailResponse.getResponse().getMessage());
                                 getMvpView().onMerchantDetailUpdationSuccess();
@@ -109,6 +137,27 @@ public class MerchantDetailPresenter<V extends MerchantDetailMvpView> extends Ba
                         public void accept(GetMerchantDetailResponse merchantDetailResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (merchantDetailResponse.getResponse().getIsDeleted() != null && merchantDetailResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), merchantDetailResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (merchantDetailResponse.getResponse().getStatus() == 1) {
 //                                getMvpView().onError(merchantDetailResponse.getResponse().getMessage());

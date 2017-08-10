@@ -33,6 +33,9 @@ public class StaticPageResponse {
         @SerializedName("description")
         @Expose
         private String description;
+        @SerializedName("is_delete")
+        @Expose
+        private String isDeleted;
 
         public Integer getStatus() {
             return status;
@@ -58,6 +61,13 @@ public class StaticPageResponse {
             this.description = description;
         }
 
+        public String getIsDeleted() {
+            return isDeleted;
+        }
+
+        public void setIsDeleted(String isDeleted) {
+            this.isDeleted = isDeleted;
+        }
     }
 }
 

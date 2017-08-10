@@ -542,7 +542,7 @@ public class DiscountAddActivity extends BaseActivity implements DiscountAddMvpV
 
         } else {
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
             tvStartDate.setText(dateFormat.format(selected.getTime()));
         }
     }
@@ -568,7 +568,7 @@ public class DiscountAddActivity extends BaseActivity implements DiscountAddMvpV
 
         } else {
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
             tvEndDate.setText(dateFormat.format(selected.getTime()));
         }
     }

@@ -1,15 +1,21 @@
 package com.os.foodie.ui.payment.add;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
 import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardRequest;
 import com.os.foodie.data.network.model.payment.addcard.AddPaymentCardResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.ui.welcome.WelcomeActivity;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -85,6 +91,27 @@ public class AddPaymentCardPresenter<V extends AddPaymentCardMvpView> extends Ba
                         public void accept(AddPaymentCardResponse addPaymentCardResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (addPaymentCardResponse.getResponse().getIsDeleted() != null && addPaymentCardResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), addPaymentCardResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (addPaymentCardResponse.getResponse().getStatus() == 1) {
 

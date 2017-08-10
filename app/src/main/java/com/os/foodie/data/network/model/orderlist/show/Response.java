@@ -46,6 +46,9 @@ public class Response {
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("is_delete")
+    @Expose
+    private String isDeleted;
 
     /**
      * No args constructor for use in serialization
@@ -70,7 +73,7 @@ public class Response {
      * @param currency
      * @param restaurantId
      */
-    public Response(List<OrderList> orderList, String restaurantId, String restaurantName, String currency, String openingTime, String closingTime, String deliveryTime, String deliveryType, String deliveryCharge, String minOrderAmount, Integer orderCount, Integer status, String message) {
+    public Response(List<OrderList> orderList, String restaurantId, String restaurantName, String currency, String openingTime, String closingTime, String deliveryTime, String deliveryType, String deliveryCharge, String minOrderAmount, Integer orderCount, Integer status, String message, String isDeleted) {
         super();
         this.orderList = orderList;
         this.restaurantId = restaurantId;
@@ -85,6 +88,7 @@ public class Response {
         this.orderCount = orderCount;
         this.status = status;
         this.message = message;
+        this.isDeleted = isDeleted;
     }
 
     public List<OrderList> getOrderList() {
@@ -191,4 +195,11 @@ public class Response {
         this.message = message;
     }
 
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 }

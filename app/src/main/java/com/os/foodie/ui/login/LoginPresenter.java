@@ -1,7 +1,9 @@
 package com.os.foodie.ui.login;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
@@ -12,6 +14,7 @@ import com.os.foodie.data.network.model.login.LoginResponse;
 import com.os.foodie.data.network.model.signup.customer.CustomerSignUpRequest;
 import com.os.foodie.data.network.model.signup.customer.CustomerSignUpResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.NetworkUtils;
@@ -79,6 +82,27 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                         public void accept(LoginResponse loginResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (loginResponse.getResponse().getIsDeleted() != null && loginResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), loginResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (loginResponse.getResponse().getStatus() == 0) {
                                 getMvpView().onError(loginResponse.getResponse().getMessage());
@@ -164,6 +188,27 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                     public void accept(FacebookLoginResponse facebookLoginResponse) throws Exception {
 
                         getMvpView().hideLoading();
+
+                        if (facebookLoginResponse.getResponse().getIsDeleted() != null && facebookLoginResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                            Locale locale = new Locale(AppConstants.LANG_EN);
+                            Locale.setDefault(locale);
+
+                            Configuration config = new Configuration();
+                            config.locale = locale;
+
+                            getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                            Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            getMvpView().getContext().startActivity(intent);
+
+                            getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                            setUserAsLoggedOut();
+
+                            Toast.makeText(getMvpView().getContext(), facebookLoginResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                        }
 
                         if (facebookLoginResponse.getResponse().getStatus() == 1) {
 

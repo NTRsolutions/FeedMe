@@ -4,11 +4,14 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.annotation.StringRes;
 import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
@@ -23,11 +26,14 @@ import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
 import com.os.foodie.data.network.model.checkout.CheckoutRequest;
 import com.os.foodie.data.network.model.checkout.CheckoutResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.ui.welcome.WelcomeActivity;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -57,6 +63,27 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
                         public void accept(ViewCartResponse viewCartResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (viewCartResponse.getResponse().getIsDeleted() != null && viewCartResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), viewCartResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (viewCartResponse.getResponse().getStatus() == 1) {
 
@@ -92,7 +119,7 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
     }
 
     @Override
-    public void removeFromMyBasket(String userId, String itemId, String restaurantId, final int position) {
+    public void removeFromMyBasket(String userId, String itemId, final String restaurantId, final int position) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -109,6 +136,27 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
                         public void accept(RemoveFromCartResponse removeFromCartResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (removeFromCartResponse.getResponse().getIsDeleted() != null && removeFromCartResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), removeFromCartResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (removeFromCartResponse.getResponse().getStatus() == 1) {
 
@@ -153,6 +201,27 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
 
                             getMvpView().hideLoading();
 
+                            if (updateCartResponse.getResponse().getIsDeleted() != null && updateCartResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), updateCartResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
                             if (updateCartResponse.getResponse().getStatus() == 1) {
 
                                 getMvpView().updateMyBasket(position, qty, updateCartResponse.getResponse().getData().getTotalCartQuantity(), updateCartResponse.getResponse().getData().getTotalCartAmount());
@@ -193,6 +262,27 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
                         public void accept(ClearCartResponse clearCartResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (clearCartResponse.getResponse().getIsDeleted() != null && clearCartResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), clearCartResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (clearCartResponse.getResponse().getStatus() == 1) {
 

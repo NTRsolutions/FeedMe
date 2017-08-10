@@ -55,6 +55,9 @@ public class Response {
     @SerializedName("delivery_zipcode")
     @Expose
     private String deliveryZipCode;
+    @SerializedName("is_delete")
+    @Expose
+    private String isDeleted;
 
     /**
      * No args constructor for use in serialization
@@ -82,7 +85,7 @@ public class Response {
      * @param restaurantId
      * @param deliveryZipCode
      */
-    public Response(List<CartList> cartList, List<MinOrderDiscount> minOrderDiscounts, String restaurantId, String restaurantName, String currency, String workingDays, String openingTime, String closingTime, String deliveryTime, String deliveryType, String paymentType, String deliveryCharge, String minOrderAmount, Integer status, String message, String deliveryZipCode) {
+    public Response(List<CartList> cartList, List<MinOrderDiscount> minOrderDiscounts, String restaurantId, String restaurantName, String currency, String workingDays, String openingTime, String closingTime, String deliveryTime, String deliveryType, String paymentType, String deliveryCharge, String minOrderAmount, Integer status, String message, String deliveryZipCode, String isDeleted) {
         super();
         this.cartList = cartList;
         this.minOrderDiscounts = minOrderDiscounts;
@@ -100,6 +103,7 @@ public class Response {
         this.status = status;
         this.message = message;
         this.deliveryZipCode = deliveryZipCode;
+        this.isDeleted = isDeleted;
     }
 
     public List<CartList> getCartList() {
@@ -228,5 +232,13 @@ public class Response {
 
     public void setDeliveryZipCode(String deliveryZipCode) {
         this.deliveryZipCode = deliveryZipCode;
+    }
+
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

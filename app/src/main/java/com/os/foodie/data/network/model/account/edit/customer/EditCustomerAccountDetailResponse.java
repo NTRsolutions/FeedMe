@@ -42,6 +42,9 @@ public class EditCustomerAccountDetailResponse {
         @SerializedName("country_code")
         @Expose
         private String countryCode;
+        @SerializedName("is_delete")
+        @Expose
+        private String isDeleted;
 
         public String getId() {
             return id;
@@ -105,6 +108,14 @@ public class EditCustomerAccountDetailResponse {
 
         public void setCountryCode(String countryCode) {
             this.countryCode = countryCode;
+        }
+
+        public String getIsDeleted() {
+            return isDeleted;
+        }
+
+        public void setIsDeleted(String isDeleted) {
+            this.isDeleted = isDeleted;
         }
     }
 }

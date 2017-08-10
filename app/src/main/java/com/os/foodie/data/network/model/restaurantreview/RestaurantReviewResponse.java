@@ -30,6 +30,9 @@ public class RestaurantReviewResponse {
         @SerializedName("message")
         @Expose
         private String message;
+        @SerializedName("is_delete")
+        @Expose
+        private String isDeleted;
 
         public Integer getStatus() {
             return status;
@@ -47,6 +50,13 @@ public class RestaurantReviewResponse {
             this.message = message;
         }
 
+        public String getIsDeleted() {
+            return isDeleted;
+        }
+
+        public void setIsDeleted(String isDeleted) {
+            this.isDeleted = isDeleted;
+        }
     }
 
 

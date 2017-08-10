@@ -130,6 +130,9 @@ public class NotificationListResponse {
         @SerializedName("message")
         @Expose
         private String message;
+        @SerializedName("is_delete")
+        @Expose
+        private String isDeleted;
 
         public List<NotificationList> getNotificationList() {
             return notificationList;
@@ -155,6 +158,13 @@ public class NotificationListResponse {
             this.message = message;
         }
 
+        public String getIsDeleted() {
+            return isDeleted;
+        }
+
+        public void setIsDeleted(String isDeleted) {
+            this.isDeleted = isDeleted;
+        }
     }
 
 }

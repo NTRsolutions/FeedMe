@@ -218,7 +218,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                         }
 
                         if (quantity <= 0) {
-                            btUpdateTemp.setText("Remove Item");
+                            btUpdateTemp.setText(getString(R.string.dialog_item_quantity_bt_remove_text));
                             btUpdateTemp.setTextColor(ContextCompat.getColor(MyBasketActivity.this, R.color.red));
                         }
                     }
@@ -245,7 +245,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                             tvPriceTemp.setText(totalAmount + "");
                             tvItemQuantityTemp.setText(quantity + "");
 
-                            btUpdateTemp.setText("Update");
+                            btUpdateTemp.setText(getString(R.string.dialog_item_quantity_bt_update_text));
                             btUpdateTemp.setTextColor(ContextCompat.getColor(MyBasketActivity.this, R.color.orange));
                         }
                     }

@@ -57,6 +57,9 @@ public class Response {
     @SerializedName("language")
     @Expose
     private String language;
+    @SerializedName("is_delete")
+    @Expose
+    private String isDeleted;
 
 
     /**
@@ -83,7 +86,7 @@ public class Response {
      * @param contactPersonName
      * @param language
      */
-    public Response(String userId, String firstName, String lastName, String email, String deviceType, String deviceId, String profileImage, Integer status, String message, String userType, String isProfileSet, String isNotification, String restaurantName, String contactPersonName, String restaurantId, String language) {
+    public Response(String userId, String firstName, String lastName, String email, String deviceType, String deviceId, String profileImage, Integer status, String message, String userType, String isProfileSet, String isNotification, String restaurantName, String contactPersonName, String restaurantId, String language, String isDeleted) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -100,6 +103,7 @@ public class Response {
         this.contactPersonName = contactPersonName;
         this.restaurantId = restaurantId;
         this.language = language;
+        this.isDeleted = isDeleted;
     }
 
 //    public Response(String userId, String firstName, String lastName, String email, String deviceType, String deviceId, String profileImage, Integer status, String message) {
@@ -250,5 +254,13 @@ public class Response {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

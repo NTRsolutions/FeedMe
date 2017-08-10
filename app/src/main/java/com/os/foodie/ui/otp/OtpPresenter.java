@@ -1,7 +1,9 @@
 package com.os.foodie.ui.otp;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
@@ -10,6 +12,7 @@ import com.os.foodie.data.network.model.otp.resend.ResendOtpResponse;
 import com.os.foodie.data.network.model.otp.verify.OtpVerificationRequest;
 import com.os.foodie.data.network.model.otp.verify.OtpVerificationResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 
@@ -61,6 +64,27 @@ public class OtpPresenter<V extends OtpMvpView> extends BasePresenter<V> impleme
                         public void accept(OtpVerificationResponse otpVerificationResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (otpVerificationResponse.getResponse().getIsDeleted() != null && otpVerificationResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), otpVerificationResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (otpVerificationResponse.getResponse().getStatus() == 1) {
                                 Log.d("getUserId", ">>" + otpVerificationResponse.getResponse().getUserId());
@@ -138,6 +162,27 @@ public class OtpPresenter<V extends OtpMvpView> extends BasePresenter<V> impleme
                         public void accept(ResendOtpResponse resendOtpResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (resendOtpResponse.getResponse().getIsDeleted() != null && resendOtpResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), resendOtpResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (resendOtpResponse.getResponse().getStatus() == 1) {
 

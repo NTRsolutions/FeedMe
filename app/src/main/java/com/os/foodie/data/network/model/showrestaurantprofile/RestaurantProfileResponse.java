@@ -58,6 +58,12 @@ public class Response implements Serializable{
     @SerializedName("status")
     @Expose
     private Integer status;
+    @SerializedName("message")
+    @Expose
+    private String message;
+    @SerializedName("is_delete")
+    @Expose
+    private String isDeleted;
 
     public RestaurantDetail getRestaurantDetail() {
         return restaurantDetail;
@@ -75,6 +81,21 @@ public class Response implements Serializable{
         this.status = status;
     }
 
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
 
 

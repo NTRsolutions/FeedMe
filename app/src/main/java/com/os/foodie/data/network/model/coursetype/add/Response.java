@@ -15,6 +15,9 @@ public class Response {
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("is_delete")
+    @Expose
+    private String isDeleted;
 
     /**
      * No args constructor for use in serialization
@@ -29,11 +32,12 @@ public class Response {
      * @param status
      * @param courseId
      */
-    public Response(String courseId, Integer status, String message) {
+    public Response(String courseId, Integer status, String message, String isDeleted) {
         super();
         this.courseId = courseId;
         this.status = status;
         this.message = message;
+        this.isDeleted = isDeleted;
     }
 
     public String getCourseId() {
@@ -60,4 +64,11 @@ public class Response {
         this.message = message;
     }
 
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 }

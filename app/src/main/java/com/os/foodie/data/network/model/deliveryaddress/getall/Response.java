@@ -20,6 +20,9 @@ public class Response implements Parcelable
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("is_delete")
+    @Expose
+    private String isDeleted;
     public final static Creator<Response> CREATOR = new Creator<Response>() {
 
 
@@ -31,6 +34,7 @@ public class Response implements Parcelable
             in.readList(instance.address, (com.os.foodie.data.network.model.deliveryaddress.getall.Address.class.getClassLoader()));
             instance.status = ((Integer) in.readValue((Integer.class.getClassLoader())));
             instance.message = ((String) in.readValue((String.class.getClassLoader())));
+            instance.isDeleted = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -54,11 +58,12 @@ public class Response implements Parcelable
      * @param status
      * @param address
      */
-    public Response(List<Address> address, Integer status, String message) {
+    public Response(List<Address> address, Integer status, String message, String isDeleted) {
         super();
         this.address = address;
         this.status = status;
         this.message = message;
+        this.isDeleted = isDeleted;
     }
 
     public List<Address> getAddress() {
@@ -83,6 +88,14 @@ public class Response implements Parcelable
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
     public void writeToParcel(Parcel dest, int flags) {

@@ -1,6 +1,9 @@
 package com.os.foodie.ui.discount.list;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
@@ -10,9 +13,12 @@ import com.os.foodie.data.network.model.discount.list.DeleteDiscountRequest;
 import com.os.foodie.data.network.model.discount.list.DiscountList;
 import com.os.foodie.data.network.model.discount.list.DiscountListResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.ui.welcome.WelcomeActivity;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -41,6 +47,27 @@ public class DiscountListPresenter<V extends DiscountListMvpView> extends BasePr
                         public void accept(DiscountListResponse discountListResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (discountListResponse.getResponse().getIsDeleted() != null && discountListResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), discountListResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (discountListResponse.getResponse().getStatus() == 1) {
                                 Log.d("getMessage", ">>" + discountListResponse.getResponse().getMessage());
@@ -84,6 +111,27 @@ public class DiscountListPresenter<V extends DiscountListMvpView> extends BasePr
                         public void accept(AddDiscountResponse addDiscountResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (addDiscountResponse.getResponse().getIsDeleted() != null && addDiscountResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), addDiscountResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (addDiscountResponse.getResponse().getStatus() == 1) {
                                 Log.d("getMessage", ">>" + addDiscountResponse.getResponse().getMessage());

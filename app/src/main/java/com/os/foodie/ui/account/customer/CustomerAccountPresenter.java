@@ -1,6 +1,9 @@
 package com.os.foodie.ui.account.customer;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
@@ -9,8 +12,13 @@ import com.os.foodie.data.network.model.account.edit.customer.EditCustomerAccoun
 import com.os.foodie.data.network.model.account.GetAccountDetailRequest;
 import com.os.foodie.data.network.model.account.GetAccountDetailResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.ui.main.customer.CustomerMainActivity;
+import com.os.foodie.ui.welcome.WelcomeActivity;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.ValidationUtils;
+
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -40,11 +48,32 @@ public class CustomerAccountPresenter<V extends CustomerAccountMvpView> extends 
 
                             getMvpView().hideLoading();
 
+                            if (getAccountDetailResponse.getResponse().getIsDeleted() != null && getAccountDetailResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), getAccountDetailResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
                             if (getAccountDetailResponse.getResponse().getStatus() == 1) {
 
                                 if (getAccountDetailResponse.getResponse() != null) {
 
-                                     getMvpView().setAccountDetail(getAccountDetailResponse);
+                                    getMvpView().setAccountDetail(getAccountDetailResponse);
 
                                 } else {
                                     Log.d("Error", ">>Err");
@@ -88,7 +117,7 @@ public class CustomerAccountPresenter<V extends CustomerAccountMvpView> extends 
 //            getMvpView().onError(R.string.invalid_first_name);
 //            return;
 //        }
-            if (editCustomerAccountRequest.getEmail()  == null || editCustomerAccountRequest.getEmail().isEmpty()) {
+            if (editCustomerAccountRequest.getEmail() == null || editCustomerAccountRequest.getEmail().isEmpty()) {
                 getMvpView().onError(R.string.empty_email);
                 return;
             }
@@ -97,7 +126,7 @@ public class CustomerAccountPresenter<V extends CustomerAccountMvpView> extends 
                 return;
             }
 
-            if (editCustomerAccountRequest.getMobileNumber()  == null || editCustomerAccountRequest.getMobileNumber().isEmpty()) {
+            if (editCustomerAccountRequest.getMobileNumber() == null || editCustomerAccountRequest.getMobileNumber().isEmpty()) {
                 getMvpView().onError(R.string.empty_phone);
                 return;
             }
@@ -118,8 +147,29 @@ public class CustomerAccountPresenter<V extends CustomerAccountMvpView> extends 
 
                             getMvpView().hideLoading();
 
+                            if (editCustomerAccountDetailResponse.getResponse().getIsDeleted() != null && editCustomerAccountDetailResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), editCustomerAccountDetailResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
                             if (editCustomerAccountDetailResponse.getResponse().getStatus() == 1) {
-                                getDataManager().setCurrentUserName(editCustomerAccountDetailResponse.getResponse().getFirstName()+" "+editCustomerAccountDetailResponse.getResponse().getLastName());
+                                getDataManager().setCurrentUserName(editCustomerAccountDetailResponse.getResponse().getFirstName() + " " + editCustomerAccountDetailResponse.getResponse().getLastName());
                                 getMvpView().editCustomerAccountDetail(editCustomerAccountDetailResponse);
 
                             } else {

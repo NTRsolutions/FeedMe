@@ -1,6 +1,9 @@
 package com.os.foodie.ui.deliveryaddress.addedit;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
@@ -11,8 +14,12 @@ import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressRequ
 import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressResponse;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.ui.welcome.WelcomeActivity;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.ValidationUtils;
+
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -79,6 +86,27 @@ public class AddEditDeliveryAddressPresenter<V extends AddEditDeliveryAddressMvp
                         public void accept(AddDeliveryAddressResponse addDeliveryAddressResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (addDeliveryAddressResponse.getResponse().getIsDeleted() != null && addDeliveryAddressResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), addDeliveryAddressResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (addDeliveryAddressResponse.getResponse().getStatus() == 1) {
                                 Log.d("getMessage", ">>" + addDeliveryAddressResponse.getResponse().getMessage());
@@ -160,6 +188,27 @@ public class AddEditDeliveryAddressPresenter<V extends AddEditDeliveryAddressMvp
                         public void accept(UpdateAddressResponse updateAddressResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (updateAddressResponse.getResponse().getIsDeleted() != null && updateAddressResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), updateAddressResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (updateAddressResponse.getResponse().getStatus() == 1) {
 

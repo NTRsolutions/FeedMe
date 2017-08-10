@@ -2,11 +2,14 @@ package com.os.foodie.ui.setupprofile.restaurant;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.location.Address;
 import android.support.annotation.StringRes;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.R;
@@ -18,6 +21,8 @@ import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantP
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
 import com.os.foodie.data.prefs.PreferencesHelper;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.ui.welcome.WelcomeActivity;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.TimeFormatUtils;
@@ -30,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -67,6 +73,27 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                             Log.d("Message", ">>" + cuisineTypeResponse.getResponse().getMessage());
 
                             getMvpView().hideLoading();
+
+                            if (cuisineTypeResponse.getResponse().getIsDeleted() != null && cuisineTypeResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), cuisineTypeResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (cuisineTypeResponse.getResponse().getStatus() == 0) {
                                 getMvpView().onError(cuisineTypeResponse.getResponse().getMessage());
@@ -109,6 +136,27 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
 
                             getMvpView().hideLoading();
                             Log.d("Message", ">>" + cuisineTypeResponse.getResponse().getMessage());
+
+                            if (cuisineTypeResponse.getResponse().getIsDeleted() != null && cuisineTypeResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), cuisineTypeResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (cuisineTypeResponse.getResponse().getStatus() == 0) {
                                 getMvpView().onCuisineTypeListReceive(new ArrayList<CuisineType>());
@@ -215,6 +263,27 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                         public void accept(SetupRestaurantProfileResponse restaurantProfileResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (restaurantProfileResponse.getResponse().getIsDeleted() != null && restaurantProfileResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), restaurantProfileResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (restaurantProfileResponse.getResponse().getStatus() == 0) {
                                 getMvpView().onError(restaurantProfileResponse.getResponse().getMessage());

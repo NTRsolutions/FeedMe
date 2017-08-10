@@ -17,6 +17,9 @@ public class Response implements Parcelable
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("is_delete")
+    @Expose
+    private String isDeleted;
     @SerializedName("data")
     @Expose
     private List<Datum> data = null;
@@ -30,6 +33,7 @@ public class Response implements Parcelable
             Response instance = new Response();
             instance.status = ((Integer) in.readValue((Integer.class.getClassLoader())));
             instance.message = ((String) in.readValue((String.class.getClassLoader())));
+            instance.isDeleted = ((String) in.readValue((String.class.getClassLoader())));
             in.readList(instance.data, (Datum.class.getClassLoader()));
             return instance;
         }
@@ -54,10 +58,11 @@ public class Response implements Parcelable
      * @param status
      * @param data
      */
-    public Response(Integer status, String message, List<Datum> data) {
+    public Response(Integer status, String message, String isDeleted, List<Datum> data) {
         super();
         this.status = status;
         this.message = message;
+        this.isDeleted = isDeleted;
         this.data = data;
     }
 
@@ -95,4 +100,11 @@ public class Response implements Parcelable
         return  0;
     }
 
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 }

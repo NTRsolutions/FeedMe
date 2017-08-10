@@ -94,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Payment Type" />
+                android:text="@string/fragment_show_restaurant_profile_content_tv_payment_type_text" />
 
             <TextView
                 android:id="@+id/activity_restaurant_info_tv_payment_type"

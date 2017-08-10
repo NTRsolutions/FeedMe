@@ -202,6 +202,9 @@ public class OrderHistoryDetail {
         @SerializedName("landmark")
         @Expose
         private String landmark;
+        @SerializedName("is_delete")
+        @Expose
+        private String isDeleted;
 
 
         public String getDeliveryAddress() {
@@ -354,6 +357,14 @@ public class OrderHistoryDetail {
 
         public void setCurrency(String currency) {
             this.currency = currency;
+        }
+
+        public String getIsDeleted() {
+            return isDeleted;
+        }
+
+        public void setIsDeleted(String isDeleted) {
+            this.isDeleted = isDeleted;
         }
     }
 

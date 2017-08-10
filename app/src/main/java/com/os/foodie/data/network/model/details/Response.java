@@ -2,6 +2,7 @@
 package com.os.foodie.data.network.model.details;
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -109,15 +110,17 @@ public class Response {
     @SerializedName("country_code")
     @Expose
     private String countryCode;
+    @SerializedName("is_delete")
+    @Expose
+    private String isDeleted;
+
     /**
      * No args constructor for use in serialization
-     * 
      */
     public Response() {
     }
 
     /**
-     * 
      * @param cuisineType
      * @param likeCount
      * @param deliveryZipcode
@@ -150,7 +153,7 @@ public class Response {
      * @param avgRating
      * @param reviewCount
      */
-    public Response(Integer isLike, Integer inCart, String id, String avgRating, Integer reviewCount, Integer likeCount, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String paymentMethod, String deliveryZipcode, List<Image> images, String logo, List<Menu> menu, Integer status, String message, String totalQuantity, String totalAmount, String countryCode) {
+    public Response(Integer isLike, Integer inCart, String id, String avgRating, Integer reviewCount, Integer likeCount, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String paymentMethod, String deliveryZipcode, List<Image> images, String logo, List<Menu> menu, Integer status, String message, String totalQuantity, String totalAmount, String countryCode, String isDeleted) {
         super();
         this.isLike = isLike;
         this.inCart = inCart;
@@ -183,8 +186,9 @@ public class Response {
         this.status = status;
         this.message = message;
         this.totalQuantity = totalQuantity;
-        this.totalAmount= totalAmount;
-        this.countryCode= countryCode;
+        this.totalAmount = totalAmount;
+        this.countryCode = countryCode;
+        this.isDeleted = isDeleted;
     }
 
     public Integer getIsLike() {
@@ -457,5 +461,13 @@ public class Response {
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
+    }
+
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

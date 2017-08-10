@@ -21,6 +21,9 @@ public class Response {
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("is_delete")
+    @Expose
+    private String isDeleted;
 
     /**
      * No args constructor for use in serialization
@@ -37,13 +40,14 @@ public class Response {
      * @param restaurant
      * @param restaurantName
      */
-    public Response(String id, String restaurantName, Restaurant restaurant, Integer status, String message) {
+    public Response(String id, String restaurantName, Restaurant restaurant, Integer status, String message, String isDeleted) {
         super();
         this.id = id;
         this.restaurantName = restaurantName;
         this.restaurant = restaurant;
         this.status = status;
         this.message = message;
+        this.isDeleted = isDeleted;
     }
 
     public String getId() {
@@ -86,4 +90,11 @@ public class Response {
         this.message = message;
     }
 
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 }

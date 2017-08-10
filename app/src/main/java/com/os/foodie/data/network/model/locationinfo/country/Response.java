@@ -16,6 +16,9 @@ public class Response {
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("is_delete")
+    @Expose
+    private String isDeleted;
 
     /**
      * No args constructor for use in serialization
@@ -30,11 +33,12 @@ public class Response {
      * @param status
      * @param country
      */
-    public Response(List<Country> country, Integer status, String message) {
+    public Response(List<Country> country, Integer status, String message, String isDeleted) {
         super();
         this.country = country;
         this.status = status;
         this.message = message;
+        this.isDeleted = isDeleted;
     }
 
     public List<Country> getCountry() {
@@ -61,4 +65,11 @@ public class Response {
         this.message = message;
     }
 
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 }

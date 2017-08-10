@@ -25,6 +25,9 @@ public class Response {
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("is_delete")
+    @Expose
+    private String isDeleted;
     @SerializedName("Data")
     @Expose
     private List<Object> data = null;
@@ -46,7 +49,7 @@ public class Response {
      * @param creditCardNumber
      * @param cardType
      */
-    public Response(Integer status, String cardId, String creditCardNumber, String creditCardId, String cardType, String message, List<Object> data) {
+    public Response(Integer status, String cardId, String creditCardNumber, String creditCardId, String cardType, String message, String isDeleted, List<Object> data) {
         super();
         this.status = status;
         this.cardId = cardId;
@@ -54,6 +57,7 @@ public class Response {
         this.creditCardId = creditCardId;
         this.cardType = cardType;
         this.message = message;
+        this.isDeleted = isDeleted;
         this.data = data;
     }
 
@@ -113,4 +117,11 @@ public class Response {
         this.data = data;
     }
 
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 }

@@ -130,7 +130,11 @@ public class RestaurantSearchAdapter extends RecyclerView.Adapter<RestaurantSear
             holder.rbRating.setRating(0f);
         }
 
-        holder.tvReviews.setText("Reviews(" + restaurantList.getReviewCount() + ")");
+        if(context.getResources().getBoolean(R.bool.is_rtl)){
+            holder.tvReviews.setText("(" + restaurantList.getReviewCount() + ")"+context.getString(R.string.customer_search_tv_review_tag_text) );
+        }else {
+            holder.tvReviews.setText(context.getString(R.string.customer_search_tv_review_tag_text) + "(" + restaurantList.getReviewCount() + ")");
+        }
 
         holder.tvReviews.setOnClickListener(new View.OnClickListener() {
             @Override

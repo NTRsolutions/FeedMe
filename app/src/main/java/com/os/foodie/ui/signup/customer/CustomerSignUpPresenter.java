@@ -1,7 +1,9 @@
 package com.os.foodie.ui.signup.customer;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
@@ -10,6 +12,7 @@ import com.os.foodie.data.network.model.signup.customer.CustomerSignUpResponse;
 import com.os.foodie.data.network.model.fblogin.FacebookLoginRequest;
 import com.os.foodie.data.network.model.fblogin.FacebookLoginResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.ValidationUtils;
@@ -138,6 +141,27 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
 
                             getMvpView().hideLoading();
 
+                            if (customerSignUpResponse.getResponse().getIsDeleted() != null && customerSignUpResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), customerSignUpResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
                             if (customerSignUpResponse.getResponse().getStatus() == 1) {
                                 Log.d("OTP", ">>" + customerSignUpResponse.getResponse().getOtp());
 //                                TODO OTP
@@ -177,6 +201,27 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
                     public void accept(FacebookLoginResponse facebookLoginResponse) throws Exception {
 
                         getMvpView().hideLoading();
+
+                        if (facebookLoginResponse.getResponse().getIsDeleted() != null && facebookLoginResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                            Locale locale = new Locale(AppConstants.LANG_EN);
+                            Locale.setDefault(locale);
+
+                            Configuration config = new Configuration();
+                            config.locale = locale;
+
+                            getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                            Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            getMvpView().getContext().startActivity(intent);
+
+                            getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                            setUserAsLoggedOut();
+
+                            Toast.makeText(getMvpView().getContext(), facebookLoginResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                        }
 
                         if (facebookLoginResponse.getResponse().getStatus() == 0) {
                             getMvpView().onError(facebookLoginResponse.getResponse().getMessage());

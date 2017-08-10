@@ -222,4 +222,387 @@
     <string name="welcome_tv_skip">تخطي</string>
     <string name="welcome_bt_sign_up">سجل</string>
     <string name="welcome_bt_log_in">تسجيل دخول</string>
+
+
+
+
+
+    <!--TODO English-->
+
+
+
+
+    <!--Progress Dialog-->
+    <string name="progress_dialog_tv_message_text_default">الرجاء الأنتظار</string>
+    <string name="progress_dialog_tv_message_text_address_fetch">يتم تحديد عنوانك</string>
+
+    <!--Alert Dialog-->
+    <string name="alert_dialog_bt_default">الافتراضي</string>
+    <string name="alert_dialog_title_logout">تسجيل خروج</string>
+    <string name="alert_dialog_text_logout">هل تريد تسجيل الخروخ؟</string>
+    <string name="alert_dialog_text_delete_dish">هل انت متاكد انك تريد ان تحذف هذا الطب بشكل نهائي</string>
+    <string name="alert_dialog_title_activate_dish">تفعيل الطبق</string>
+    <string name="alert_dialog_text_activate_dish">هل تريد ان تفعل هذا الطبق</string>
+    <string name="alert_dialog_title_deactivate_dish">اوقف تفعيل الطبق</string>
+    <string name="alert_dialog_text_deactivate_dish">هو ايقاف التفعيل لهذا الطبق</string>
+    <string name="alert_dialog_title_clear_basket">مسح سلة</string>
+    <string name="alert_dialog_text_clear_basket">لقد اظفة طلبات من مطعم اخر هل انت متاكد انك تود مسح السله</string>
+    <string name="alert_dialog_text_clear_basket_2">هل تود مسح السله</string>
+    <string name="alert_dialog_title_delete_address">حذف العنوان</string>
+    <string name="alert_dialog_text_delete_address">هل تودة حذف العنوان؟</string>
+    <string name="alert_dialog_title_payment_method">اختر طريقة الدفع</string>
+    <string name="alert_dialog_text_payment_method">كيف تريد ان تدفع</string>
+    <string name="alert_dialog_bt_cod">الدفع عن الاستلام</string>
+    <string name="alert_dialog_text_accept_order">سيتم قبول الطلب. هل أنت متاكد؟</string>
+    <string name="alert_dialog_text_reject_order">سيتم رفظ الطلب. هل أنت متاكد؟</string>
+    <string name="alert_dialog_text_reorder">هل أنت متأكد ,سيتم مسح الاطباق الحالية من السلة؟</string>
+    <string name="alert_dialog_title_photo_picker">إضافة صورة</string>
+    <string name="alert_dialog_text_photo_picker_camera">تصوير</string>
+    <string name="alert_dialog_text_photo_picker_gallery">اختر من المعرض</string>
+    <string name="alert_dialog_text_photo_picker_cancel">إلغاء</string>
+
+    <!--App Message-->
+    <string name="api_retry_error">الرجاء اعادة المحاولة!</string>
+    <string name="api_default_error">حدث شيء خطأ!</string>
+    <string name="some_error">حدث خطأ ما!</string>
+    <string name="connection_error">فقد الاتصال بالإنترنت!</string>
+    <string name="google_play_service_not_avail_error">خدمات تشغيل غوغل غير متوفرة</string>
+    <string name="google_play_service_reinstall_error">مشكلة في خدمة غوغل بلاي، يرجى إعادة تثبيته</string>
+    <string name="geocoder_location_address_not_found">لم يتم العثور على العنوان</string>
+    <string name="empty_menu">القائمة فارغة</string>
+    <string name="no_restaurant">لاتوجد مطاعم</string>
+    <string name="fb_user_already_exist">المستخدم موجود مسبقا</string>
+    <string name="select_address">يرجى تحديد عنوان</string>
+    <string name="not_in_range">المطعم لايوصل لهذه المنطقه</string>
+    <string name="select_payment_card">يرجى تحديد بطاقة</string>
+    <string name="already_selected_language">هي اللغة الحالية </string>
+    <string name="not_logged_in">الرجاء تسجيل الدخول أولا</string>
+
+    <!--Validation Message-->
+    <string name="empty_first_name">الرجاء كتابة اسمك الأول</string>
+    <string name="invalid_first_name">يرجى إدخال الاسم الأول الصحيح</string>
+    <string name="long_first_name">يجب ألا يزيد الاسم الأول عن 15 حرفا</string>
+    <string name="empty_last_name">يرجى إدخال اسم العائلة</string>
+    <string name="invalid_last_name">يرجى إدخال اسم العائلة الصحيح</string>
+    <string name="long_last_name">يجب ألا يزيد اسم العائلة عن 15 حرفا</string>
+    <string name="empty_email">يرجى إدخال عنوان بريد إلكتروني</string>
+    <string name="invalid_email">يرجى إدخال عنوان بريد إلكتروني صالح</string>
+    <string name="empty_password">يرجى إدخال كلمة المرور</string>
+    <string name="minimum_password">يجب أن تتكون كلمة المرور من 6 أحرف</string>
+    <string name="invalid_password">يجب أن تحتوي كلمة المرور على حرف أبجدي و رقم واحد على الأقل</string>
+    <string name="empty_confirm_password">يرجى التأكد من صحة كلمة المرور الخاصة بك</string>
+    <string name="not_match_password">كلمة المرور وتأكيد كلمة المرور لا تتطابقان</string>
+    <string name="empty_country_code">الرجاء \ n تقديم \ n رمز البلد \ n</string>
+    <string name="empty_phone">يرجى إدخال رقم هاتفك</string>
+    <string name="invalid_phone">الرجاء إدخال رقم هاتف صالح</string>
+    <string name="mandatory_logo">يرجى تحميل شعار مطعمك</string>
+    <string name="empty_otp">المرسل على هاتفك OTP الرجاء ادخال رقم الـ</string>
+    <string name="incorrect_otp">خاطئ  OTP رقم الـ</string>
+    <string name="minimum_otp">OTP الرجاء ادخال 6 ارقام الـ</string>
+    <string name="empty_contact_person_name">يرجى ادخال اسم جهة الاتصال</string>
+    <string name="invalid_contact_person_name">يرجى ادخال اسم جهة اتصال صحيحة</string>
+    <string name="long_contact_person_name">يجب ألا يزيد طول اسم جهة الاتصال عن 30 حرفا</string>
+    <string name="empty_restaurant_name">يرجى ادخال اسم المطعم</string>
+    <string name="invalid_restaurant_name">يرجى ادخال اسم مطعم صالح</string>
+    <string name="long_restaurant_name">يجب ألا يزيد اسم المطعم عن 30 حرفا</string>
+    <string name="empty_cuisine_type">يرجى ادخال نوع المطعم</string>
+    <string name="empty_working_days">يرجى اختيار أيام العمل</string>
+    <string name="empty_address">يرجى ادخال عنوان</string>
+    <string name="empty_country">يرجى ادخال البلد</string>
+    <string name="empty_city">يرجى إختيار المدينة</string>
+    <string name="empty_zip_code">يرجى إدخل صندوق البريد البريدي</string>
+    <string name="empty_opening_hours">يرجى إختيار ساعات العمل</string>
+    <string name="empty_closing_hours">يرجى إختيار ساعات الإغلاق</string>
+    <string name="empty_minimum_order_amount">يرجى ادخال الحد الأدنى من الطلب</string>
+    <string name="empty_delivery_charges">يرجى ادخال رسوم التوصيل</string>
+    <string name="empty_delivery_zip_codes">يرجى ادخال الرمز بريدي للتسليم</string>
+    <string name="empty_description">يرجى ادخال بضعة أسطر عن المطعم</string>
+    <string name="mandatory_image">يرجى تحميل صورة واحدة على الأقل</string>
+    <string name="empty_course_type">يرجى ادخال نوع الطبق</string>
+    <string name="empty_menu_item_course_type">يرجى تحديد نوع الطبق</string>
+    <string name="empty_menu_item_name">تقديم اسم الطبق</string>
+    <string name="empty_menu_item_price">يرجى تقديم سعر الطبق</string>
+    <string name="empty_menu_item_description">يرجى تقديم عدد قليل من الأسطر لوصف الطبق</string>
+    <string name="item_activated">تم تنشيط الطبق في القائمة</string>
+    <string name="item_deactivated">تم إلغاء تنشيط الطلب في القائمة</string>
+    <string name="opening_time_after_closing_time">وقت الافتتاح هو بعد وقت الإغلاق</string>
+    <string name="closing_time_before_opening_time">وقت الإغلاق هو قبل وقت الافتتاح</string>
+    <string name="empty_current_password">يرجى إدخال كلمة المرور الحالية</string>
+    <string name="empty_new_password">يرجى إدخال كلمة المرور الجديده</string>
+    <string name="empty_confirm_new_password">الرجاء تأكيد كلمة مرور جديدة</string>
+    <string name="not_match_new_password">كلمة المرور الجديدة غير متطابقة</string>
+    <string name="empty_fullname">يرجى إدخال اسمك الكامل</string>
+    <string name="empty_flat">يرجى إدخال شقة رقم / منزل رقم / الطابق / المبنى</string>
+    <string name="empty_colony">يرجى إدخال اسم الشارع</string>
+    <string name="empty_state">يرجى إدخال اسم المنطقه</string>
+    <string name="empty_credit_card_number">يرجى إدخال رقم بطاقة الائتمان</string>
+    <string name="empty_expiry_month">يرجى إدخال شهر انتهاء الصلاحية</string>
+    <string name="empty_expiry_year">يرجى إدخال سنة انتهاء الصلاحية</string>
+    <string name="empty_cvv">cvv يرجى إدخال رقم </string>
+    <string name="invalid_weekday">لا يفتح المطعم في هذا اليوم</string>
+    <string name="invalid_time">المطعم لا يفتح في هذا الوقت</string>
+    <string name="past_time">لا يمكن وضع الطلب في وقت سابق</string>
+    <string name="invalid_expiry_month">شهر انتهاء الصلاحية غير صالح</string>
+    <string name="invalid_expiry_year">سنة انتهاء الصلاحية غير صالحة</string>
+    <string name="empty_account_holder_name">يرجى إدخال اسم صاحب الحساب</string>
+    <string name="empty_bank_name">يرجى إدخال اسم البنك</string>
+    <string name="empty_account_number">يرجى إدخال رقم الحساب</string>
+    <string name="empty_confirm_account_number">يرجى تأكيد رقم الحساب</string>
+    <string name="not_match_account_number">رقم الحساب غير متطابق</string>
+    <string name="empty_ifsc">IFSC يرجى إدخال رمز </string>
+    <string name="empty_minimum_amount">الرجاء إدخال الحد الأدنى</string>
+    <string name="empty_percentage">يرجى إدخال نسبة الخصم</string>
+    <string name="empty_start_date">الرجاء إدخال تاريخ البدء</string>
+    <string name="empty_end_date">الرجاء إدخال تاريخ الانتهاء</string>
+    <string name="empty_valid_date">الرجاء ادخال تاريخ صحيح</string>
+    <string name="select_dish_name">يرجى تحديد طبق واحد على الأقل</string>
+
+    <!--Slide-->
+    <array name="slide_title_text">
+        <item>البحث عن مطعم</item>
+        <item>اختر الأفضل</item>
+        <item>اختر وجبتك</item>
+        <item>السائق في الطريق</item>
+    </array>
+    <array name="slide_subtitle_text">
+        <item>العثور على أفضل مطعم في منطقتكم</item>
+        <item>اختر المكان المناسب باستخدام التقييمات والتعليقات الموثوق بها</item>
+        <item>بسهولة ستجد المطعم الذي تريده</item>
+        <item>كن مستعدا واسترخي بينما سائقنا فالطريق لإيصال طلبك</item>
+    </array>
+
+    <!--Restaurant Sign up-->
+    <string name="restaurant_sign_up_et_contact_person_name_hint">اسم جهة الاتصال</string>
+    <string name="restaurant_sign_up_et_password_hint">كلمه السر</string>
+    <string name="restaurant_sign_up_tv_customer_register_text">تسجيل كزبون</string>
+    <string name="restaurant_sign_up_activity_title">تسجيل كمطعم</string>
+
+    <!--OTP Verification-->
+    <string name="otp_et_otp_hint">OTP ادخل</string>
+    <string name="otp_tv_wait_seconds_text">seconds wait to resend</string>
+    <string name="otp_tv_wait_seconds_resend_text">Resend if OTP not received</string>
+    <string name="otp_bt_resend_text">Resend</string>
+
+    <!--Location Info-->
+    <string name="location_info_et_country_hint">الدولة</string>
+    <string name="location_info_et_city_hint">المدينة</string>
+
+    <string-array name="country">
+        <item>الدولة</item>
+    </string-array>
+
+    <string-array name="city">
+        <item>المدينة</item>
+    </string-array>
+
+    <string-array name="order_types">
+        <item>استلام فقط </item>
+        <item>توصيل</item>
+        <item>الإثنان</item>
+        <!--<item>Pick and Delivery Both</item>-->
+    </string-array>
+
+    <string-array name="payment_types">
+        <item>عبر الانترنت </item>
+        <item>الدفع عن الاستلام</item>
+        <item>الإثنان</item>
+    </string-array>
+
+    <!--TODO Working Days-->
+    <string-array name="working_days">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+
+    <!--Delivery Types-->
+    <string-array name="delivery_type">
+        <item>Pick only</item>
+        <item>Deliver</item>
+        <item>Pick and deliver</item>
+    </string-array>
+
+    <!--Setup Restaurant Profile-->
+    <string name="setup_restaurant_profile_et_expected_delivery_hint">وقت التسليم المتوقع</string>
+    <string name="setup_restaurant_profile_et_description_hint">وصف</string>
+    <string name="setup_restaurant_profile_et_zip_hint">الرمز البريدي</string>
+
+    <!--Customer Main-->
+    <string name="skip_customer_main_tv_or">او</string>
+
+    <!--Main-->
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+
+    <!--Menu-->
+    <string name="action_discount_mangement">إدارة الخصم</string>
+
+    <!--Customer Home-->
+    <string name="title_activity_customer_home">الصفحه الرئيسيه للزبون</string>
+    <string name="customer_home_tv_no_result">لم يتم العثور على مطعم</string>
+
+    <!--Fragment Add Course Type-->
+    <string name="fragment_add_course_type_tv_title_text">أضف نوع الطبق</string>
+    <string name="fragment_add_course_type_et_course_type_hint">نوع الطبق</string>
+
+    <!--Fragment Cuisine Type-->
+    <string name="fragment_cuisine_type_tv_select_cuisine_types_text">حدد أنواع المطبخ</string>
+
+
+    <!--Fragment Working Days-->
+    <string name="fragment_working_days_tv_title_text">حدد أيام العمل</string>
+
+    <!--Customer Restaurant Details-->
+    <string name="restautant_details_fall_delivery_time_min_text" translatable="false">min</string>
+    <string name="recyclerview_course_content_tv_x_text" translatable="false">x</string>
+    <string name="restaurant_details_tv_total_quantity_tag_text">الكمية</string>
+    <string name="restaurant_details_tv_tag_opening_closing_time_text">وقت الإفتتاح و الإغلاق</string>
+    <string name="restaurant_details_tv_tag_working_days_text">أيام العمل</string>
+
+    <!--Restaurant Menu-->
+    <string name="restaurant_menu_fragment_tv_empty_menu">لم يتم العثور على عنصر قائمة</string>
+
+    <!--Settings-->
+    <string name="settings_client_email" translatable="false">support@foodi.com</string>
+    <string name="settings_rate_us_play_store_url" translatable="false">https://play.google.com/store/apps/details?id=com.facebook.katana</string>
+    <string name="setting_toast_message_language_changed">تم تغيير اللغة إلى</string>
+
+    <!--Change Password-->
+    <string name="change_password_activity_title">تغيير كلمة السر</string>
+
+    <!--Restaurant Order List-->
+    <string name="fragment_restaurant_order_list_tv_no_order_text">لا يوجد طلب</string>
+    <string name="recyclerview_restaurant_order_tv_delivery_time_tag_text">الطبات مفتوحه</string>
+
+    <!--Filters-->
+    <string name="filters_tv_in_km_text" translatable="false">*in km</string>
+    <string name="filters_ctv_deliver_text">ايصال</string>
+
+    <!--My Basket-->
+    <string name="my_basket_activity_title">سلتي</string>
+    <string name="my_basket_ctv_pickup_text">استلم</string>
+    <string name="my_basket_tv_empty_basket_text">السلة فارغة</string>
+    <string name="my_basket_tv_date_time_text" translatable="false">ASAP</string>
+    <string name="my_basket_tv_subtotal_text">حاصل الجمع</string>
+
+    <!--Customer_Restaurant Search-->
+    <string name="customer_search_tv_no_result_text">لم يتم العثور على نتائج</string>
+
+    <!--Dialog Item Quantity-->
+    <string name="dialog_item_quantity_tv_price_tag_text">السعر: </string>
+
+    <!--Add Payment Card-->
+    <string name="add_payment_card_et_month_hint" translatable="false">MM</string>
+    <string name="add_payment_card_et_year_hint" translatable="false">YY</string>
+    <string name="add_payment_card_et_cvv_hint" translatable="false">CVV</string>
+    <string name="add_payment_card_ctv_terms_text" translatable="false"><![CDATA[By adding your debit / credit card, you agree to the Terms & Condition.]]></string>
+
+    <!--Add Edit Delivery Address-->
+    <string name="add_delivery_address_activity_title">اضف عنوان</string>
+    <string name="edit_delivery_address_activity_title">تعديل العنوان</string>
+    <string name="add_edit_delivery_address_et_state_tag_text">الحالة</string>
+
+    <!--Customer Search-->
+    <string name="customer_search_tv_minutes_tag_text" translatable="false">min.</string>
+
+    <!--RecyclerView Restaurant-->
+    <string name="restaurant_tv_time_text" translatable="false">min.</string>
+
+    <!--Manage Payment Card-->
+    <string name="manage_cards_activity_title">إدارة البطاقات</string>
+    <string name="manage_payment_card_tv_alert_text">لاتوجد بطاقات</string>
+
+    <!--Delivery Address-->
+    <string name="delivery_address_tv_empty_alert_text">لايوجد عنوان</string>
+
+    <!--Select Payment-->
+    <string name="select_payment_tv_alert_text">لاتوجد بطاقات</string>
+    <string name="select_payment_bt_search_text">ادفع الأن</string>
+
+    <!--Select Delivery Address-->
+    <string name="select_delivery_address_tv_empty_alert_text">لايوجد عنوان</string>
+
+    <!--Earning-->
+    <string name="earning_tv_empty_alert_text">لاتوجد ارباح</string>
+    <string name="recyclerview_earning_tv_date_tag_text">التاريخ:</string>
+
+    <!--Discount List-->
+    <string name="discount_mangement_activity_title">إدارة الخصم</string>
+    <string name="discount_list_tv_discount_on_tag_text">الخصم فعال</string>
+    <string name="discount_list_tv_valid_on_tag_text">صالح من: </string>
+    <string name="restaurant_discount_list_tv_no_discount_alert_text">لاتوجد خصومات</string>
+
+    <!--Add Discount-->
+    <string name="add_discount_tv_food_course_type_hint">نوع الطبق</string>
+    <string name="add_discount_et_min_amount_hint" translatable="false">0</string>
+    <string name="add_discount_et_min_percent_hint" translatable="false">0.0%</string>
+    <string name="add_discount_et_food_percent_hint" translatable="false">0.0%</string>
+    <string name="add_discount_tv_select_dish_text">اختر الأطباق</string>
+    <string name="add_discount_tv_order_by_text_tag">اطلب في :</string>
+
+    <!-- Review-->
+    <string name="review_tv_alert_text">لاتوجد تعليقات</string>
+
+    <!--Dialog Share-->
+    <string name="dialog_share_tv_facebook_text">Facebook</string>
+    <string name="dialog_share_tv_twitter_text">Twitter</string>
+    <string name="dialog_share_tv_gmail_text">Gmail</string>
+    <string name="dialog_share_tv_message_text">رسائل</string>
+
+    <!-- Uncategorized -->
+    <string name="deliver_to">يرسل الى</string>
+    <string name="order_by">طلب عن طريق:</string>
+    <string name="repeat_order">اعد الطلب</string>
+    <string name="change_status">غير الحاله</string>
+
+    <!--order status dialog-->
+    <string name="under_preparation">قيد الإعداد</string>
+    <string name="ready_to_pick_or_deliver">جاهز للإستلام او التوصيل</string>
+    <string name="in_transit">فالطريق</string>
+    <string name="delivery_or_picked">تم التسليم او التوصيل</string>
+    <string name="done">تم</string>
+    <string name="comment">تعليق</string>
+
+
+    <!--Restaurant Review-->
+    <string name="comment_error">أدخل تعليقك</string>
+    <string name="rate_error">يرجى تقييم واحد على الأقل</string>
+    <string name="landmark">معلم معروف</string>
+
+    <string name="install_twitter">الرجاء تحميل تطبيق تويتر</string>
+
+    <string name="no_notification">لاتوجد اي اشعارات</string>
+
+    <string name="select_registration_type_title">اختر طريقة الاشتراك</string>
+    <string name="select_registration_type_msg">كيف تريد الاشتراك؟</string>
+
+    <string name="customer">كـ زبون</string>
+    <string name="restaurant">كـ مطعم</string>
+
+    <!--My Basket List-->
+    <string name="my_basket_list_tv_empty_basket_text">لم يتم العثور على سلة</string>
+    <string name="my_basket_list_item_tv_view_basket_text">عرض السلة</string>
+
+    <string-array name="pick_order_status">
+        <item>Under Preparation</item>
+        <item>Ready to Pick</item>
+        <item>Picked</item>
+    </string-array>
+
+    <string-array name="delivery_order_status">
+        <item>Under Preparation</item>
+        <item>Ready to Deliver</item>
+        <item>In Transit</item>
+        <item>Delivered</item>
+    </string-array>
+
+    <string name="settings_ll_language_tag_text">لغة</string>
+    <string name="dialog_item_quantity_bt_add_text">إضافة</string>
+    <string name="dialog_item_quantity_bt_remove_text">إزالة بند</string>
+    <string name="customer_search_tv_review_tag_text">إعادة النظر</string>
+
 </resources>

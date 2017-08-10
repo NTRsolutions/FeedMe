@@ -51,6 +51,9 @@ public class GetAccountDetailResponse {
         @SerializedName("country_code")
         @Expose
         private String countryCode;
+        @SerializedName("is_delete")
+        @Expose
+        private String isDeleted;
 
         public String getUserId() {
             return userId;
@@ -122,6 +125,14 @@ public class GetAccountDetailResponse {
 
         public void setCountryCode(String countryCode) {
             this.countryCode = countryCode;
+        }
+
+        public String getIsDeleted() {
+            return isDeleted;
+        }
+
+        public void setIsDeleted(String isDeleted) {
+            this.isDeleted = isDeleted;
         }
     }
 }

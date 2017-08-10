@@ -1,6 +1,9 @@
 package com.os.foodie.ui.order.restaurant.detail;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
@@ -13,8 +16,11 @@ import com.os.foodie.data.network.model.orderlist.acceptreject.AcceptRejectOrder
 import com.os.foodie.data.network.model.reorder.ReorderRequest;
 import com.os.foodie.data.network.model.reorder.ReorderResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
+
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -43,6 +49,27 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
                         public void accept(OrderHistoryDetail getOrderListResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (getOrderListResponse.getResponse().getIsDeleted() != null && getOrderListResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), getOrderListResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (getOrderListResponse.getResponse().getStatus() == 1) {
 
@@ -83,6 +110,27 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
 
                             getMvpView().hideLoading();
 
+                            if (getOrderListResponse.getResponse().getIsDeleted() != null && getOrderListResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), getOrderListResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
                             if (getOrderListResponse.getResponse().getStatus() == 1) {
 
                                 getMvpView().setOrderStatus(getOrderListResponse);
@@ -120,6 +168,27 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
                         public void accept(ReorderResponse reorderResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (reorderResponse.getResponse().getIsDeleted() != null && reorderResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), reorderResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (reorderResponse.getResponse().getStatus() == 1) {
 
@@ -189,6 +258,27 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
                         public void accept(AcceptRejectOrderResponse acceptRejectOrderResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (acceptRejectOrderResponse.getResponse().getIsDeleted() != null && acceptRejectOrderResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), acceptRejectOrderResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (acceptRejectOrderResponse.getResponse().getStatus() == 1) {
 

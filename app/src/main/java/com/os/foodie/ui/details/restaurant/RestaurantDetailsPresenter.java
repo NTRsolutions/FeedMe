@@ -1,7 +1,10 @@
 package com.os.foodie.ui.details.restaurant;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.annotation.StringRes;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
@@ -18,7 +21,11 @@ import com.os.foodie.data.network.model.details.CustomerRestaurantDetailsRespons
 import com.os.foodie.data.network.model.like.LikeDislikeRequest;
 import com.os.foodie.data.network.model.like.LikeDislikeResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.ui.welcome.WelcomeActivity;
+import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
+
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -51,6 +58,27 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
                             public void accept(CustomerRestaurantDetailsResponse restaurantDetailsResponse) throws Exception {
 
                                 getMvpView().hideLoading();
+
+                                if (restaurantDetailsResponse.getResponse().getIsDeleted() != null && restaurantDetailsResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                    Locale locale = new Locale(AppConstants.LANG_EN);
+                                    Locale.setDefault(locale);
+
+                                    Configuration config = new Configuration();
+                                    config.locale = locale;
+
+                                    getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                    Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    getMvpView().getContext().startActivity(intent);
+
+                                    getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                    setUserAsLoggedOut();
+
+                                    Toast.makeText(getMvpView().getContext(), restaurantDetailsResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                                }
 
                                 if (restaurantDetailsResponse.getResponse().getStatus() == 1) {
 
@@ -86,6 +114,27 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
                             public void accept(CustomerRestaurantDetailsResponse restaurantDetailsResponse) throws Exception {
 
                                 getMvpView().hideLoading();
+
+                                if (restaurantDetailsResponse.getResponse().getIsDeleted() != null && restaurantDetailsResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                    Locale locale = new Locale(AppConstants.LANG_EN);
+                                    Locale.setDefault(locale);
+
+                                    Configuration config = new Configuration();
+                                    config.locale = locale;
+
+                                    getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                    Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    getMvpView().getContext().startActivity(intent);
+
+                                    getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                    setUserAsLoggedOut();
+
+                                    Toast.makeText(getMvpView().getContext(), restaurantDetailsResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                                }
 
                                 if (restaurantDetailsResponse.getResponse().getStatus() == 1) {
 
@@ -139,6 +188,27 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
                             getMvpView().hideLoading();
 
+                            if (likeDislikeResponse.getResponse().getIsDeleted() != null && likeDislikeResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), likeDislikeResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
                             if (likeDislikeResponse.getResponse().getStatus() == 1) {
 
                                 Log.d("getIsLike", ">>" + likeDislikeResponse.getResponse().getIsLike());
@@ -182,6 +252,27 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
                         public void accept(AddToCartResponse addToCartResponse) throws Exception {
 
 //                            getMvpView().hideLoading();
+
+                            if (addToCartResponse.getResponse().getIsDeleted() != null && addToCartResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), addToCartResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (addToCartResponse.getResponse().getStatus() == 1) {
 
@@ -228,6 +319,27 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
                             getMvpView().hideLoading();
 
+                            if (removeFromCartResponse.getResponse().getIsDeleted() != null && removeFromCartResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), removeFromCartResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
                             if (removeFromCartResponse.getResponse().getStatus() == 1) {
 
                                 getMvpView().itemRemovedFromBasket(position, removeFromCartResponse.getResponse().getTotalCartQuantity(), removeFromCartResponse.getResponse().getTotalCartAmount());
@@ -271,6 +383,27 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
                         public void accept(UpdateCartResponse updateCartResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (updateCartResponse.getResponse().getIsDeleted() != null && updateCartResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), updateCartResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (updateCartResponse.getResponse().getStatus() == 1) {
 

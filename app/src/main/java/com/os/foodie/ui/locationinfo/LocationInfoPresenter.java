@@ -2,9 +2,11 @@ package com.os.foodie.ui.locationinfo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.location.Address;
 import android.support.annotation.StringRes;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -22,12 +24,14 @@ import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationResponse
 import com.os.foodie.data.network.model.login.LoginRequest;
 import com.os.foodie.data.network.model.login.LoginResponse;
 import com.os.foodie.ui.base.BasePresenter;
+import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.ValidationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -178,6 +182,27 @@ public class LocationInfoPresenter<V extends LocationInfoMvpView> extends BasePr
                         public void accept(SetUserLocationResponse userLocationResponse) throws Exception {
 
                             getMvpView().hideLoading();
+
+                            if (userLocationResponse.getResponse().getIsDeleted() != null && userLocationResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
+
+                                Locale locale = new Locale(AppConstants.LANG_EN);
+                                Locale.setDefault(locale);
+
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+
+                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+
+                                Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                getMvpView().getContext().startActivity(intent);
+
+                                getDataManager().setLanguage(AppConstants.LANG_EN);
+
+                                setUserAsLoggedOut();
+
+                                Toast.makeText(getMvpView().getContext(), userLocationResponse.getResponse().getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                             if (userLocationResponse.getResponse().getStatus() == 1) {
 

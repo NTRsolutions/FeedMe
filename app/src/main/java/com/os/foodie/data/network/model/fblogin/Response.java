@@ -73,6 +73,9 @@ public class Response implements Parcelable
     @SerializedName("language")
     @Expose
     private String language;
+    @SerializedName("is_delete")
+    @Expose
+    private String isDeleted;
 
     public final static Creator<Response> CREATOR = new Creator<Response>() {
 
@@ -102,6 +105,7 @@ public class Response implements Parcelable
             instance.message = ((String) in.readValue((String.class.getClassLoader())));
             instance.restaurantId = ((String) in.readValue((String.class.getClassLoader())));
             instance.language = ((String) in.readValue((String.class.getClassLoader())));
+            instance.isDeleted = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -142,7 +146,7 @@ public class Response implements Parcelable
      * @param restaurantId
      * @param language
      */
-    public Response(String userId, String fbId, String firstName, String lastName, String email, String deviceType, String deviceId, String latitude, String longitude, String isProfileSet, String userType, String restaurantName, Object contactPersonName, String isNotification, String profileImage, String isFacebook, Integer status, String message, String restaurantId, String language) {
+    public Response(String userId, String fbId, String firstName, String lastName, String email, String deviceType, String deviceId, String latitude, String longitude, String isProfileSet, String userType, String restaurantName, Object contactPersonName, String isNotification, String profileImage, String isFacebook, Integer status, String message, String restaurantId, String language, String isDeleted) {
         super();
         this.userId = userId;
         this.fbId = fbId;
@@ -164,6 +168,7 @@ public class Response implements Parcelable
         this.message = message;
         this.restaurantId = restaurantId;
         this.language = language;
+        this.isDeleted = isDeleted;
     }
 
     public String getUserId() {
@@ -334,6 +339,14 @@ public class Response implements Parcelable
         this.language = language;
     }
 
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(userId);
         dest.writeValue(fbId);
@@ -355,6 +368,7 @@ public class Response implements Parcelable
         dest.writeValue(message);
         dest.writeValue(restaurantId);
         dest.writeValue(language);
+        dest.writeValue(isDeleted);
     }
 
     public int describeContents() {

@@ -19,6 +19,9 @@ public class Response {
     @SerializedName("total_cart_amount")
     @Expose
     private String totalCartAmount;
+    @SerializedName("is_delete")
+    @Expose
+    private String isDeleted;
 
     /**
      * No args constructor for use in serialization
@@ -70,5 +73,13 @@ public class Response {
 
     public void setTotalCartAmount(String totalCartAmount) {
         this.totalCartAmount = totalCartAmount;
+    }
+
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

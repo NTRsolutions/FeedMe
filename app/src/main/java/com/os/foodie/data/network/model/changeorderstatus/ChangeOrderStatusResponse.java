@@ -21,7 +21,6 @@ public class ChangeOrderStatusResponse {
         this.response = response;
     }
 
-
     public class Response {
 
         @SerializedName("status")
@@ -33,6 +32,9 @@ public class ChangeOrderStatusResponse {
         @SerializedName("message")
         @Expose
         private String message;
+        @SerializedName("is_delete")
+        @Expose
+        private String isDeleted;
 
         public Integer getStatus() {
             return status;
@@ -58,7 +60,12 @@ public class ChangeOrderStatusResponse {
             this.message = message;
         }
 
+        public String getIsDeleted() {
+            return isDeleted;
+        }
+
+        public void setIsDeleted(String isDeleted) {
+            this.isDeleted = isDeleted;
+        }
     }
-
-
 }

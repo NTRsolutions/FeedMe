@@ -706,10 +706,10 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                     tvItemQuantity.setText(dish.getQty());
 
                     if (dish.getQty().equals("0")) {
-                        btUpdate.setText("Add");
+                        btUpdate.setText(getString(R.string.dialog_item_quantity_bt_add_text));
                         isUpdate = false;
                     } else {
-                        btUpdate.setText("Update");
+                        btUpdate.setText(getString(R.string.dialog_item_quantity_bt_update_text));
                         isUpdate = true;
                     }
 
@@ -791,7 +791,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
                             if (quantity <= 0) {
                                 if (isUpdate) {
-                                    btUpdateTemp.setText("Remove Item");
+                                    btUpdateTemp.setText(getString(R.string.dialog_item_quantity_bt_remove_text));
                                     btUpdateTemp.setTextColor(ContextCompat.getColor(RestaurantDetailsActivity.this, R.color.red));
                                 } else {
                                     btUpdateTemp.setOnClickListener(null);
@@ -824,9 +824,9 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                                 tvItemQuantityTemp.setText(quantity + "");
 
                                 if (isUpdate) {
-                                    btUpdateTemp.setText("Update");
+                                    btUpdateTemp.setText(getString(R.string.dialog_item_quantity_bt_update_text));
                                 } else {
-                                    btUpdateTemp.setText("Add");
+                                    btUpdateTemp.setText(getString(R.string.dialog_item_quantity_bt_add_text));
                                 }
 
                                 btUpdateTemp.setTextColor(ContextCompat.getColor(RestaurantDetailsActivity.this, R.color.orange));
