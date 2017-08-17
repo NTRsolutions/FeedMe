@@ -52,7 +52,7 @@ import io.reactivex.disposables.CompositeDisposable;
 public class CustomerSignUpActivity extends BaseActivity implements CustomerSignUpMvpView, View.OnClickListener {
 
     private EditText etFirstName, etLastName, etEmail, etPassword, etConfirmPassword, etCountryCode, etPhone;
-    private TextView tvLogIn, tvRestaurantRegister;
+    private TextView tvLogIn/*, tvRestaurantRegister*/;
     private Button btSignUp, btSignUpFacebook;
 
     private static final int PERMISSION_CODE = 10;
@@ -83,13 +83,13 @@ public class CustomerSignUpActivity extends BaseActivity implements CustomerSign
         btSignUpFacebook = (Button) findViewById(R.id.activity_customer_sign_up_bt_sign_up_facebook);
 
         tvLogIn = (TextView) findViewById(R.id.activity_customer_sign_up_tv_log_in);
-        tvRestaurantRegister = (TextView) findViewById(R.id.activity_customer_sign_up_tv_restaurant_register);
+//        tvRestaurantRegister = (TextView) findViewById(R.id.activity_customer_sign_up_tv_restaurant_register);
 
         btSignUp.setOnClickListener(this);
         btSignUpFacebook.setOnClickListener(this);
 
         tvLogIn.setOnClickListener(this);
-        tvRestaurantRegister.setOnClickListener(this);
+//        tvRestaurantRegister.setOnClickListener(this);
     }
 
     @Override
@@ -131,8 +131,8 @@ public class CustomerSignUpActivity extends BaseActivity implements CustomerSign
 
         } else if (v.getId() == tvLogIn.getId()) {
             openLogInActivity();
-        } else if (v.getId() == tvRestaurantRegister.getId()) {
-            openRestaurantRegistrationActivity();
+//        } else if (v.getId() == tvRestaurantRegister.getId()) {
+//            openRestaurantRegistrationActivity();
         }
     }
 

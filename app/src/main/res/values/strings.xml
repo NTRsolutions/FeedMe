@@ -633,6 +633,9 @@
     <string name="my_basket_list_tv_empty_basket_text">No Basket Found</string>
     <string name="my_basket_list_item_tv_view_basket_text">View Basket</string>
 
+    <string name="select_basket_title">Select Basket</string>
+    <string name="choose_sign_up_title">Choose Sign Up</string>
+
     <string-array name="pick_order_status">
         <item>Under Preparation</item>
         <item>Ready to Pick</item>

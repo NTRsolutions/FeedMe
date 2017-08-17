@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:ignore="MissingPrefix"
+    android:layout_height="match_parent"
+    tools:context="com.os.foodie.ui.asksignup.AskSignUpActivity">
+
+    <com.os.foodie.ui.custom.RippleAppCompatButton
+        android:id="@+id/activity_ask_sign_up_bt_sign_up_customer"
+        style="@style/ButtonOrange"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/customer_sign_up_bt_sign_up_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="@dimen/customer_sign_up_bt_margin_end"
+        android:layout_marginStart="@dimen/customer_sign_up_bt_margin_start"
+        android:layout_marginTop="@dimen/customer_sign_up_bt_sign_up_margin_top"
+        android:gravity="center"
+        android:text="@string/customer" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/nav_header_skip_customer_main_rl_margin_top">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/nav_header_skip_customer_main_margin_start_end"
+            android:layout_marginStart="@dimen/nav_header_skip_customer_main_margin_start_end"
+            android:layout_marginTop="@dimen/nav_header_skip_customer_main_view_line_margin_top"
+            android:background="@color/black" />
+
+        <TextView
+            fontPath="@string/font_monospace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
+            android:paddingEnd="@dimen/nav_header_skip_customer_main_tv_or_padding_start_end"
+            android:paddingStart="@dimen/nav_header_skip_customer_main_tv_or_padding_start_end"
+            android:text="@string/skip_customer_main_tv_or"
+            android:textColor="@color/black" />
+
+    </RelativeLayout>
+
+    <com.os.foodie.ui.custom.RippleAppCompatButton
+        android:id="@+id/activity_ask_sign_up_bt_sign_up_restaurant"
+        style="@style/ButtonOrange"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/customer_sign_up_bt_sign_up_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="@dimen/customer_sign_up_bt_margin_end"
+        android:layout_marginStart="@dimen/customer_sign_up_bt_margin_start"
+        android:layout_marginTop="@dimen/customer_sign_up_bt_sign_up_margin_top"
+        android:gravity="center"
+        android:text="@string/restaurant" />
+
+</LinearLayout>

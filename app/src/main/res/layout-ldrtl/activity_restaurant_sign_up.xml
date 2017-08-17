@@ -226,20 +226,21 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="@dimen/restaurant_sign_up_tv_log_in_margin_start"
+                    android:layout_marginBottom="@dimen/customer_sign_up_tv_restaurant_register_margin_top"
                     android:text="@string/restaurant_sign_up_tv_log_in_text" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/activity_restaurant_sign_up_tv_customer_register"
-                style="@style/TextButton3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/customer_sign_up_tv_restaurant_register_margin_top"
-                android:layout_marginTop="@dimen/customer_sign_up_tv_restaurant_register_margin_top"
-                android:text="@string/restaurant_sign_up_tv_customer_register_text" />
+            <!--<TextView-->
+                <!--android:id="@+id/activity_restaurant_sign_up_tv_customer_register"-->
+                <!--style="@style/TextButton3"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginBottom="@dimen/customer_sign_up_tv_restaurant_register_margin_top"-->
+                <!--android:layout_marginTop="@dimen/customer_sign_up_tv_restaurant_register_margin_top"-->
+                <!--android:text="@string/restaurant_sign_up_tv_customer_register_text" />-->
 
         </LinearLayout>
 

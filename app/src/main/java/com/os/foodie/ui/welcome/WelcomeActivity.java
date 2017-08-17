@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.os.foodie.R;
+import com.os.foodie.ui.asksignup.AskSignUpActivity;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
 import com.os.foodie.ui.locationinfo.LocationInfoActivity;
@@ -118,7 +119,8 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
 
     @Override
     public void openSignUpActivity() {
-        Intent intent = new Intent(WelcomeActivity.this, CustomerSignUpActivity.class);
+//        Intent intent = new Intent(WelcomeActivity.this, CustomerSignUpActivity.class);
+        Intent intent = new Intent(WelcomeActivity.this, AskSignUpActivity.class);
         startActivity(intent);
     }
 

@@ -604,5 +604,7 @@
     <string name="dialog_item_quantity_bt_add_text">إضافة</string>
     <string name="dialog_item_quantity_bt_remove_text">إزالة بند</string>
     <string name="customer_search_tv_review_tag_text">إعادة النظر</string>
+    <string name="select_basket_title">حدد سلة</string>
+    <string name="choose_sign_up_title">اختر الاشتراك</string>
 
 </resources>

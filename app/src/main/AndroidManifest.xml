@@ -96,7 +96,7 @@
             android:label="@string/restaurant_sign_up_activity_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.otp.OtpActivity"
             android:label="@string/otp_activity_title"
@@ -223,9 +223,14 @@
             android:theme="@style/AppTheme3" />
         <activity
             android:name=".ui.mybasketlist.MyBasketListActivity"
-            android:label="Select Basket"
+            android:label="@string/select_basket_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme3" />
+        <activity android:name=".ui.asksignup.AskSignUpActivity"
+            android:label="@string/choose_sign_up_title"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
     </application>
 
 </manifest>

@@ -71,7 +71,7 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
 
     private CircleImageView icRestaurantLogo;
     private EditText etContactPersonName, etRestaurantName, etEmail, etPassword, etConfirmPassword, etCountryCode, etPhone;
-    private TextView tvLogIn, tvCustomerRegister;
+    private TextView tvLogIn/*, tvCustomerRegister*/;
     private Button btSignUp, btSignUpFacebook;
 
     private String fbId = "";
@@ -112,7 +112,7 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
         btSignUpFacebook = (Button) findViewById(R.id.activity_restaurant_sign_up_bt_sign_up_facebook);
 
         tvLogIn = (TextView) findViewById(R.id.activity_restaurant_sign_up_tv_log_in);
-        tvCustomerRegister = (TextView) findViewById(R.id.activity_restaurant_sign_up_tv_customer_register);
+//        tvCustomerRegister = (TextView) findViewById(R.id.activity_restaurant_sign_up_tv_customer_register);
 
         icRestaurantLogo = (CircleImageView) findViewById(R.id.activity_facebook_sign_up_civ_restaurant_logo);
 
@@ -120,7 +120,7 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
         btSignUpFacebook.setOnClickListener(this);
 
         tvLogIn.setOnClickListener(this);
-        tvCustomerRegister.setOnClickListener(this);
+//        tvCustomerRegister.setOnClickListener(this);
         icRestaurantLogo.setOnClickListener(this);
     }
 
@@ -163,8 +163,8 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
 
         } else if (v.getId() == tvLogIn.getId()) {
             openLogInActivity();
-        } else if (v.getId() == tvCustomerRegister.getId()) {
-            openCustomerRegistrationActivity();
+//        } else if (v.getId() == tvCustomerRegister.getId()) {
+//            openCustomerRegistrationActivity();
         } else if (v.getId() == icRestaurantLogo.getId()) {
 
             if (hasPermission(Manifest.permission.CAMERA) && hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE) && hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {

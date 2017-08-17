@@ -192,8 +192,9 @@
             android:id="@+id/bottom_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_alignParentBottom="true"
-            android:orientation="vertical">
+            android:layout_alignParentStart="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -216,22 +217,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="@dimen/customer_sign_up_tv_log_in_margin_start"
+                    android:layout_marginStart="@dimen/customer_sign_up_tv_log_in_margin_start"                android:layout_marginBottom="@dimen/customer_sign_up_tv_restaurant_register_margin_top"
+
                     android:text="@string/customer_sign_up_tv_log_in_text" />
 
             </LinearLayout>
 
-
-            <TextView
-                android:id="@+id/activity_customer_sign_up_tv_restaurant_register"
-                style="@style/TextButton3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/customer_sign_up_tv_restaurant_register_margin_top"
-                android:layout_marginTop="@dimen/customer_sign_up_tv_restaurant_register_margin_top"
-                android:text="@string/customer_sign_up_tv_restaurant_register_text" />
+            <!--<TextView-->
+                <!--android:id="@+id/activity_customer_sign_up_tv_restaurant_register"-->
+                <!--style="@style/TextButton3"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginBottom="@dimen/customer_sign_up_tv_restaurant_register_margin_top"-->
+                <!--android:layout_marginTop="@dimen/customer_sign_up_tv_restaurant_register_margin_top"-->
+                <!--android:text="@string/customer_sign_up_tv_restaurant_register_text" />-->
 
         </LinearLayout>
 
