@@ -114,7 +114,7 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
         getDataManager().setCurrentUserId(null);
         getDataManager().setCurrentUserType(null);
         getDataManager().setCurrentUserInfoInitialized(false);
-        getDataManager().setDeviceId("");
+//        getDataManager().setDeviceId("");
 
         getDataManager().setNotificationStatus("0");
     }
