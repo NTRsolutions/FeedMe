@@ -12,7 +12,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
@@ -95,6 +97,12 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_sign_up);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
+
         initPresenter();
         restaurantSignUpMvpPresenter.onAttach(RestaurantSignUpActivity.this);
 
@@ -124,16 +132,19 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
         icRestaurantLogo.setOnClickListener(this);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_with_close, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_with_close, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.action_close) {
+//        if (item.getItemId() == R.id.action_close) {
+//            finish();
+//        }
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
 

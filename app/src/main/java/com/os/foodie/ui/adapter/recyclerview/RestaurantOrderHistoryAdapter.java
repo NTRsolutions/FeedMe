@@ -1,7 +1,9 @@
 package com.os.foodie.ui.adapter.recyclerview;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
@@ -17,6 +19,7 @@ import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.orderlist.show.OrderList;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.order.restaurant.detail.OrderHistoryDetailActivity;
+import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryFragment;
 import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryMvpPresenter;
 import com.os.foodie.ui.order.restaurant.history.RestaurantOrderHistoryMvpView;
 import com.os.foodie.utils.AppConstants;
@@ -32,12 +35,15 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
     private Context context;
     private String currency = "";
     private ArrayList<OrderList> orderLists;
+    private RestaurantOrderHistoryFragment restaurantOrderHistoryFragment;
+
     private RestaurantOrderHistoryMvpPresenter<RestaurantOrderHistoryMvpView> restaurantOrderhistoryMvpPresenter;
 //    private String deliveryTime;
 
-    public RestaurantOrderHistoryAdapter(Context context, ArrayList<OrderList> orderLists, RestaurantOrderHistoryMvpPresenter<RestaurantOrderHistoryMvpView> restaurantOrderhistoryMvpPresenter) {
+    public RestaurantOrderHistoryAdapter(Context context, RestaurantOrderHistoryFragment restaurantOrderHistoryFragment, ArrayList<OrderList> orderLists, RestaurantOrderHistoryMvpPresenter<RestaurantOrderHistoryMvpView> restaurantOrderhistoryMvpPresenter) {
         this.context = context;
         this.orderLists = orderLists;
+        this.restaurantOrderHistoryFragment = restaurantOrderHistoryFragment;
         this.restaurantOrderhistoryMvpPresenter = restaurantOrderhistoryMvpPresenter;
     }
 
@@ -78,9 +84,17 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
 //        holder.tvDeliveryTime.setText(order.getDeliveryTime()+" min.");
         holder.tvOrderType.setText(order.getOrderType());
 
-        String totalDiscount = "" + String.format("%.2f", (order.getTotalDiscount() / Float.parseFloat(order.getTotalAmount()) * 100));
+//        String totalDiscount = "" + String.format("%.2f", (order.getTotalDiscount() / Float.parseFloat(order.getTotalAmount()) * 100));
+//
+//        holder.tvDiscount.setText(totalDiscount + "%");
 
-        holder.tvDiscount.setText(totalDiscount + "%");
+        if (order.getOrderStatus().equalsIgnoreCase(context.getResources().getStringArray(R.array.pick_order_status)[2]) || order.getOrderStatus().equalsIgnoreCase(context.getResources().getStringArray(R.array.delivery_order_status)[3])) {
+            holder.tvDiscount.setBackground(ContextCompat.getDrawable(context, R.drawable.rectangle_round_corner_green));
+            holder.tvDiscount.setText(order.getOrderStatus().toLowerCase());
+        } else {
+            holder.tvDiscount.setBackground(ContextCompat.getDrawable(context, R.drawable.rectangle_round_corner_orange));
+            holder.tvDiscount.setText(order.getOrderStatus().toLowerCase());
+        }
 
 //        holder.tvDiscount.setText(order.getDiscount() + "%");
 
@@ -117,7 +131,7 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
                     i.putExtra("showUpdateButton", true);
                 else
                     i.putExtra("showUpdateButton", false);
-                context.startActivity(i);
+                restaurantOrderHistoryFragment.startActivityForResult(i, 10);
             }
         });
     }

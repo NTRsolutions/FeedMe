@@ -4,6 +4,7 @@
     <dimen name="density_1">1dp</dimen>
     <dimen name="fab_default_margin">16dp</dimen>
     <dimen name="all_step_padding">10dp</dimen>
+    <dimen name="toolbar_title_margin_right">30dp</dimen>
 
     <!--Style-->
     <dimen name="style_action_bar_title_size">22sp</dimen>
@@ -438,7 +439,7 @@
     <dimen name="restaurant_order_tv_order_type_tag_text_size">14sp</dimen>
     <dimen name="restaurant_order_tv_order_type_text_size">14sp</dimen>
     <dimen name="restaurant_order_tv_discount_height_width">60dp</dimen>
-    <dimen name="restaurant_order_tv_discount_text_size">18sp</dimen>
+    <dimen name="restaurant_order_tv_discount_text_size">14sp</dimen>
     <dimen name="restaurant_order_tv_price_text_size">24sp</dimen>
     <dimen name="restaurant_order_tv_price_margin_top">10dp</dimen>
     <dimen name="restaurant_order_iv_accept_reject_margin_top">10dp</dimen>

@@ -190,6 +190,12 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == android.R.id.home) {
+
+            Intent intent = new Intent();
+            intent.putExtra(AppConstants.ORDER_ID, orderHistoryDetail.getResponse().getOrderDetail().getOrderId());
+            intent.putExtra(AppConstants.ORDER_STATUS, orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus());
+
+            setResult(20, intent);
             finish();
         }
 
@@ -408,7 +414,7 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         tvOrderStatus.setText(changeOrderStatusResponse.getResponse().getCurrentStatus());
 
-        changeOrderStatusResponse.getResponse().setCurrentStatus(changeOrderStatusResponse.getResponse().getCurrentStatus());
+        orderHistoryDetail.getResponse().getOrderDetail().setOrderStatus(changeOrderStatusResponse.getResponse().getCurrentStatus());
 
         if (orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("decline") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("Picked") || orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus().equalsIgnoreCase("delivered"))
             tvChangeStatus.setVisibility(View.GONE);
@@ -463,7 +469,7 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
 //                if (orderHistoryMvpPresenter.getCustomerRestaurantId().isEmpty()) {
 
-                    orderHistoryMvpPresenter.reorder(orderHistoryDetail.getResponse().getOrderDetail().getOrderId(), orderHistoryDetail.getResponse().getRestaurantId());
+                orderHistoryMvpPresenter.reorder(orderHistoryDetail.getResponse().getOrderDetail().getOrderId(), orderHistoryDetail.getResponse().getRestaurantId());
 
 //                } else {
 //

@@ -1,15 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     tools:context="com.os.foodie.ui.signup.customer.CustomerSignUpActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="right"
+            android:gravity="right"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    fontPath="@string/font_monospace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/toolbar_title_margin_right"
+                    android:text="@string/customer_sign_up_activity_title"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/style_action_bar_title_size"
+                    tools:ignore="MissingPrefix" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -192,9 +229,9 @@
             android:id="@+id/bottom_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -217,22 +254,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="@dimen/customer_sign_up_tv_log_in_margin_start"                android:layout_marginBottom="@dimen/customer_sign_up_tv_restaurant_register_margin_top"
+                    android:layout_marginBottom="@dimen/customer_sign_up_tv_restaurant_register_margin_top"
+                    android:layout_marginStart="@dimen/customer_sign_up_tv_log_in_margin_start"
 
                     android:text="@string/customer_sign_up_tv_log_in_text" />
 
             </LinearLayout>
 
             <!--<TextView-->
-                <!--android:id="@+id/activity_customer_sign_up_tv_restaurant_register"-->
-                <!--style="@style/TextButton3"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginBottom="@dimen/customer_sign_up_tv_restaurant_register_margin_top"-->
-                <!--android:layout_marginTop="@dimen/customer_sign_up_tv_restaurant_register_margin_top"-->
-                <!--android:text="@string/customer_sign_up_tv_restaurant_register_text" />-->
+            <!--android:id="@+id/activity_customer_sign_up_tv_restaurant_register"-->
+            <!--style="@style/TextButton3"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_marginBottom="@dimen/customer_sign_up_tv_restaurant_register_margin_top"-->
+            <!--android:layout_marginTop="@dimen/customer_sign_up_tv_restaurant_register_margin_top"-->
+            <!--android:text="@string/customer_sign_up_tv_restaurant_register_text" />-->
 
         </LinearLayout>
 

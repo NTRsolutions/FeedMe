@@ -1,5 +1,6 @@
 package com.os.foodie.ui.order.restaurant.history;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -81,9 +82,9 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
 
         orderLists = new ArrayList<OrderList>();
 
-        restaurantOrderListAdapter = new RestaurantOrderHistoryAdapter(getContext(), orderLists, restaurantOrderhistoryMvpPresenter);
+        restaurantOrderListAdapter = new RestaurantOrderHistoryAdapter(getContext(), this, orderLists, restaurantOrderhistoryMvpPresenter);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext().getApplicationContext());
 
 //        recyclerView.addItemDecoration(new DividerItemLineDecoration(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
@@ -168,6 +169,27 @@ public class RestaurantOrderHistoryFragment extends BaseFragment implements Rest
         }
 
         restaurantOrderListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 10 && resultCode == 20) {
+
+            for (int i = 0; i < orderLists.size(); i++) {
+
+                if (orderLists.get(i).getOrderId().equals(data.getStringExtra(AppConstants.ORDER_ID))) {
+
+                    orderLists.get(i).setOrderStatus(data.getStringExtra(AppConstants.ORDER_STATUS));
+
+                    break;
+                }
+            }
+
+            recyclerView.invalidate();
+            restaurantOrderListAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

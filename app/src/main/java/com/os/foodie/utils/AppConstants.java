@@ -50,6 +50,7 @@ public class AppConstants {
     public static final String ORDER_ID = "ORDER_ID";
     public static final String USER_ID = "USER_ID";
     public static final String OTP = "OTP";
+    public static final String ORDER_STATUS = "ORDER_STATUS";
 //    public static final String STEP = "STEP";
 
     public static final String DISH_LIST_ARRAYLIST = "DISH_LIST_ARRAYLIST";

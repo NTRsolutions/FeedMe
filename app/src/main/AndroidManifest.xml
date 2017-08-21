@@ -83,19 +83,19 @@
             android:name=".ui.login.LoginActivity"
             android:label="@string/login_activity_title"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.signup.customer.CustomerSignUpActivity"
             android:label="@string/customer_sign_up_activity_title"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.signup.restaurant.RestaurantSignUpActivity"
             android:label="@string/restaurant_sign_up_activity_title"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.otp.OtpActivity"

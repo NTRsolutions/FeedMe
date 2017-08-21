@@ -1,89 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context="com.os.foodie.ui.login.LoginActivity">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/login_iv_logo_margin_top"
-            android:src="@mipmap/ic_logo" />
-
-        <EditText
-            android:id="@+id/activity_login_et_email"
-            style="@style/EditTextGreySingleLine"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/login_et_height"
-            android:layout_marginEnd="@dimen/login_et_margin_end"
-            android:layout_marginStart="@dimen/login_et_margin_start"
-            android:layout_marginTop="@dimen/login_et_email_margin_top"
-            android:hint="@string/login_et_hint_email"
-            android:imeOptions="actionNext"
-            android:inputType="textEmailAddress"
-            android:paddingEnd="@dimen/login_et_padding_end"
-            android:paddingStart="@dimen/login_et_padding_start" />
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="right"
+            android:gravity="right"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-        <EditText
-            android:id="@+id/activity_login_et_password"
-            style="@style/EditTextGreySingleLine"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/login_et_height"
-            android:layout_marginEnd="@dimen/login_et_margin_end"
-            android:layout_marginStart="@dimen/login_et_margin_start"
-            android:layout_marginTop="@dimen/login_et_password_margin_top"
-            android:hint="@string/login_et_hint_password"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:paddingEnd="@dimen/login_et_padding_end"
-            android:paddingStart="@dimen/login_et_padding_start" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-        <com.os.foodie.ui.custom.RippleAppCompatButton
-            android:id="@+id/activity_login_bt_log_in"
-            style="@style/ButtonOrange"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/login_bt_height"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginEnd="@dimen/login_bt_margin_end"
-            android:layout_marginStart="@dimen/login_bt_margin_start"
-            android:layout_marginTop="@dimen/login_bt_log_in_margin_top"
-            android:gravity="center"
-            android:text="@string/login_bt_log_in" />
+                <TextView
+                    fontPath="@string/font_monospace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/toolbar_title_margin_right"
+                    android:text="@string/login_activity_title"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/style_action_bar_title_size"
+                    tools:ignore="MissingPrefix" />
 
-        <TextView
-            android:id="@+id/activity_login_tv_forgot_password"
-            style="@style/TextButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/login_tv_forgot_password_margin_top"
-            android:text="@string/login_tv_text_forgot_password" />
+            </RelativeLayout>
 
-        <com.os.foodie.ui.custom.RippleAppCompatButton
-            android:id="@+id/activity_login_bt_login_facebook"
-            style="@style/ButtonBlue"
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@color/white">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginEnd="@dimen/login_bt_login_facebook_margin_end"
-            android:layout_marginStart="@dimen/login_bt_login_facebook_margin_start"
-            android:layout_marginTop="@dimen/login_bt_login_facebook_margin_top_bottom"
-            android:layout_marginBottom="@dimen/login_bt_login_facebook_margin_top_bottom"
-            android:drawableLeft="@mipmap/ic_facebook"
-            android:drawablePadding="@dimen/login_bt_login_facebook_drawable_padding"
-            android:gravity="center_vertical"
-            android:padding="@dimen/login_bt_login_facebook_padding"
-            android:text="@string/login_bt_login_facebook_text" />
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/login_iv_logo_margin_top"
+                android:src="@mipmap/ic_logo" />
 
-</ScrollView>
+            <EditText
+                android:id="@+id/activity_login_et_email"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_et_height"
+                android:layout_marginEnd="@dimen/login_et_margin_end"
+                android:layout_marginStart="@dimen/login_et_margin_start"
+                android:layout_marginTop="@dimen/login_et_email_margin_top"
+                android:hint="@string/login_et_hint_email"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:paddingEnd="@dimen/login_et_padding_end"
+                android:paddingStart="@dimen/login_et_padding_start" />
+
+            <EditText
+                android:id="@+id/activity_login_et_password"
+                style="@style/EditTextGreySingleLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_et_height"
+                android:layout_marginEnd="@dimen/login_et_margin_end"
+                android:layout_marginStart="@dimen/login_et_margin_start"
+                android:layout_marginTop="@dimen/login_et_password_margin_top"
+                android:hint="@string/login_et_hint_password"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:paddingEnd="@dimen/login_et_padding_end"
+                android:paddingStart="@dimen/login_et_padding_start" />
+
+            <com.os.foodie.ui.custom.RippleAppCompatButton
+                android:id="@+id/activity_login_bt_log_in"
+                style="@style/ButtonOrange"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_bt_height"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="@dimen/login_bt_margin_end"
+                android:layout_marginStart="@dimen/login_bt_margin_start"
+                android:layout_marginTop="@dimen/login_bt_log_in_margin_top"
+                android:gravity="center"
+                android:text="@string/login_bt_log_in" />
+
+            <TextView
+                android:id="@+id/activity_login_tv_forgot_password"
+                style="@style/TextButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/login_tv_forgot_password_margin_top"
+                android:text="@string/login_tv_text_forgot_password" />
+
+            <com.os.foodie.ui.custom.RippleAppCompatButton
+                android:id="@+id/activity_login_bt_login_facebook"
+                style="@style/ButtonBlue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/login_bt_login_facebook_margin_top_bottom"
+                android:layout_marginEnd="@dimen/login_bt_login_facebook_margin_end"
+                android:layout_marginStart="@dimen/login_bt_login_facebook_margin_start"
+                android:layout_marginTop="@dimen/login_bt_login_facebook_margin_top_bottom"
+                android:drawableLeft="@mipmap/ic_facebook"
+                android:drawablePadding="@dimen/login_bt_login_facebook_drawable_padding"
+                android:gravity="center_vertical"
+                android:padding="@dimen/login_bt_login_facebook_padding"
+                android:text="@string/login_bt_login_facebook_text" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
