@@ -61,9 +61,13 @@
     <string name="alert_dialog_text_photo_picker_camera">Take Photo</string>
     <string name="alert_dialog_text_photo_picker_gallery">Choose from Gallery</string>
     <string name="alert_dialog_text_photo_picker_cancel">Cancel</string>
+    <string name="alert_dialog_title_location_disabled">Location Service Disabled</string>
+    <string name="alert_dialog_text_location_disabled">Please enable location service</string>
+    <string name="alert_dialog_text_location_disabled_enable">Enable</string>
 
     <!--Menu-->
     <string name="menu_close">Close</string>
+    <string name="menu_location">Current Location</string>
 
     <!--App Message-->
     <string name="api_retry_error">Please retry!</string>

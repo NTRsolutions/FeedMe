@@ -1,12 +1,23 @@
 package com.os.foodie.ui.deliveryaddress.addedit;
 
+import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.content.PermissionChecker;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
@@ -15,14 +26,19 @@ import com.os.foodie.data.network.model.deliveryaddress.add.AddDeliveryAddressRe
 import com.os.foodie.data.network.model.deliveryaddress.getall.Address;
 import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressRequest;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
+import com.os.foodie.feature.GpsLocation;
+import com.os.foodie.feature.callback.GpsLocationCallback;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
-import com.os.foodie.ui.home.customer.CustomerHomePresenter;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.CommonUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class AddEditDeliveryAddressActivity extends BaseActivity implements AddEditDeliveryAddressMvpView, View.OnClickListener {
+public class AddEditDeliveryAddressActivity extends BaseActivity implements AddEditDeliveryAddressMvpView, View.OnClickListener, GpsLocationCallback {
 
     private EditText etFullName, etPhoneNumber, etPinCode, etFlatNo, etColony;
     private EditText etLandmark, etCity, etState, etCountry;
@@ -31,6 +47,12 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
     private int position;
     private Address address;
     private boolean isEdit;
+
+    private LatLng latLng;
+    private GpsLocation gpsLocation;
+    private static final int GPS_REQUEST_CODE = 10;
+
+    private ProgressDialog progressDialog;
 
     private AddEditDeliveryAddressMvpPresenter<AddEditDeliveryAddressMvpView> addEditDeliveryAddressMvpPresenter;
 
@@ -44,6 +66,8 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
 //        addEditDeliveryAddressMvpPresenter = new AddEditDeliveryAddressPresenter<>(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         addEditDeliveryAddressMvpPresenter.onAttach(AddEditDeliveryAddressActivity.this);
 
+        gpsLocation = new GpsLocation(this, this);
+
         initView();
 
         if (getIntent().hasExtra(AppConstants.DELIVERY_ADDRESS)) {
@@ -56,12 +80,12 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
             setAddresses(address);
         }
 
-        if(isEdit){
+        if (isEdit) {
             getSupportActionBar().setTitle(getString(R.string.edit_delivery_address_activity_title));
         }
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -135,7 +159,7 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_with_close, menu);
+        getMenuInflater().inflate(R.menu.menu_add_edit_delivery_address, menu);
         return true;
     }
 
@@ -144,6 +168,8 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
 
         if (item.getItemId() == R.id.action_close) {
             finish();
+        } else if (item.getItemId() == R.id.action_location) {
+            checkAndRequestGpsLocation();
         }
 
         return true;
@@ -205,5 +231,146 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
         setResult(2, intent);
         finish();
 
+    }
+
+    @Override
+    public void setAllAddress(ArrayList<android.location.Address> addresses) {
+
+        progressDialog.dismiss();
+        progressDialog.cancel();
+
+        android.location.Address address = addresses.get(0);
+        String fullAddress = "";
+
+        Log.d("addresses", ">>" + Arrays.toString(addresses.toArray()));
+        Log.d("addresses", ">>" + Arrays.toString(addresses.toArray()));
+
+        for (int i = 0; i < 2; i++) {
+
+            Log.d("getAddressLine" + i, ">>" + address.getAddressLine(i));
+
+            if (i == 0)
+                fullAddress = address.getAddressLine(i);
+            else if (i < address.getMaxAddressLineIndex())
+                fullAddress += ", " + address.getAddressLine(i);
+            else
+                break;
+        }
+
+        latLng = new LatLng(address.getLatitude(), address.getLongitude());
+//        etCurrentLocation.setText(fullAddress);
+//
+//        if (!locationInfoMvpPresenter.isLoggedIn()) {
+//            locationInfoMvpPresenter.setLatLng(address.getLatitude() + "", address.getLongitude() + "");
+//        }
+
+        if (address.getCountryName() != null && !address.getCountryName().isEmpty()) {
+            etCountry.setText(address.getCountryName());
+        } else {
+            etCountry.setText("");
+        }
+
+        if (address.getAdminArea() != null && !address.getAdminArea().isEmpty()) {
+            etState.setText(address.getAdminArea());
+        } else {
+            etState.setText("");
+        }
+
+        if (address.getPostalCode() != null && !address.getPostalCode().isEmpty()) {
+            etPinCode.setText(address.getPostalCode());
+        } else {
+            etPinCode.setText("");
+        }
+
+        if (address.getFeatureName() != null && !address.getFeatureName().isEmpty()) {
+            etFlatNo.setText(address.getFeatureName());
+        } else {
+            etFlatNo.setText("");
+        }
+
+        if (address.getThoroughfare() != null && !address.getThoroughfare().isEmpty()) {
+            etColony.setText(address.getThoroughfare());
+        } else {
+            etColony.setText("");
+        }
+
+        if (address.getSubAdminArea() != null && !address.getSubAdminArea().isEmpty()) {
+
+            etCity.setText(address.getSubAdminArea());
+
+        } else if (address.getLocality() != null && !address.getLocality().isEmpty()) {
+
+            etCity.setText(address.getLocality());
+
+        } else {
+
+            etCity.setText("");
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults != null && grantResults[0] == PermissionChecker.PERMISSION_GRANTED && requestCode == GPS_REQUEST_CODE) {
+            requestGpsLocation();
+        }
+    }
+
+    public void checkAndRequestGpsLocation() {
+
+        if (gpsLocation.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+
+            if (hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                requestGpsLocation();
+
+            } else {
+                requestPermissionsSafely(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, GPS_REQUEST_CODE);
+            }
+
+        } else {
+            showGpsRequest();
+        }
+    }
+
+    public void requestGpsLocation() {
+        if (progressDialog == null)
+            progressDialog = CommonUtils.showLoadingDialog(this, getString(R.string.progress_dialog_tv_message_text_address_fetch));
+        else {
+            if (!progressDialog.isShowing())
+                progressDialog = CommonUtils.showLoadingDialog(this, getString(R.string.progress_dialog_tv_message_text_address_fetch));
+        }
+        gpsLocation.requestGpsLocation();
+    }
+
+    public void showGpsRequest() {
+        AlertDialog.Builder mAlertDialog = new AlertDialog.Builder(this);
+        mAlertDialog.setTitle(R.string.alert_dialog_title_location_disabled)
+                .setMessage(R.string.alert_dialog_text_location_disabled)
+                .setPositiveButton(R.string.alert_dialog_text_location_disabled_enable, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+                }).show();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        Log.d("Now Observe Location", ">>" + location.toString());
+
+        progressDialog.dismiss();
+        progressDialog.cancel();
+
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        addEditDeliveryAddressMvpPresenter.getGeocoderLocationAddress(this, latLng);
+    }
+
+    @Override
+    public void onFailed() {
+        progressDialog.dismiss();
+        progressDialog.cancel();
     }
 }

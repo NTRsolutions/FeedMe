@@ -381,7 +381,6 @@
     <string name="otp_et_otp_hint">OTP ادخل</string>
     <string name="otp_tv_wait_seconds_text">seconds wait to resend</string>
     <string name="otp_tv_wait_seconds_resend_text">Resend if OTP not received</string>
-    <string name="otp_bt_resend_text">Resend</string>
 
     <!--Location Info-->
     <string name="location_info_et_country_hint">الدولة</string>
@@ -606,5 +605,6 @@
     <string name="customer_search_tv_review_tag_text">إعادة النظر</string>
     <string name="select_basket_title">حدد سلة</string>
     <string name="choose_sign_up_title">اختر الاشتراك</string>
+    <string name="otp_bt_resend_text">Resend</string>
 
 </resources>

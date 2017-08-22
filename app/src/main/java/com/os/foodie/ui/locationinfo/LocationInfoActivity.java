@@ -21,7 +21,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -41,8 +40,8 @@ import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.NetworkUtils;
 
-import java.security.Permission;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -365,9 +364,9 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
     public void showGpsRequest() {
         AlertDialog.Builder mAlertDialog = new AlertDialog.Builder(this);
-        mAlertDialog.setTitle("Location Service Disabled")
-                .setMessage("Please enable location service")
-                .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
+        mAlertDialog.setTitle(R.string.alert_dialog_title_location_disabled)
+                .setMessage(R.string.alert_dialog_text_location_disabled)
+                .setPositiveButton(R.string.alert_dialog_text_location_disabled_enable, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         startActivity(intent);
@@ -412,6 +411,9 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
         Address address = addresses.get(0);
         String fullAddress = "";
+
+        Log.d("addresses", ">>" + Arrays.toString(addresses.toArray()));
+        Log.d("addresses", ">>" + Arrays.toString(addresses.toArray()));
 
         for (int i = 0; i < 2; i++) {
 

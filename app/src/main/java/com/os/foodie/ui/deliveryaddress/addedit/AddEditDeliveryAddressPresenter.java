@@ -1,10 +1,12 @@
 package com.os.foodie.ui.deliveryaddress.addedit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
 import com.os.foodie.data.network.model.deliveryaddress.add.AddDeliveryAddressRequest;
@@ -19,6 +21,8 @@ import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 import com.os.foodie.utils.ValidationUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -273,6 +277,46 @@ public class AddEditDeliveryAddressPresenter<V extends AddEditDeliveryAddressMvp
         address.setCountry(updateAddressRequest.getCountry());
 
         return address;
+    }
+
+    @Override
+    public void getGeocoderLocationAddress(Context context, LatLng latLng) {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
+            getMvpView().showLoading();
+
+            getCompositeDisposable().add(getDataManager()
+                    .getGeocoderLocationAddress(context, latLng)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<List<android.location.Address>>() {
+                        @Override
+                        public void accept(List<android.location.Address> addresses) throws Exception {
+
+                            getMvpView().hideLoading();
+
+                            if (addresses != null && addresses.size() > 0) {
+
+                                getMvpView().setAllAddress((ArrayList<android.location.Address>) addresses);
+
+                            } else {
+                                getMvpView().onError(R.string.geocoder_location_address_not_found);
+                            }
+
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+
+                            getMvpView().hideLoading();
+                            getMvpView().onError(R.string.api_default_error);
+                        }
+                    }));
+
+        } else {
+            getMvpView().onError(R.string.connection_error);
+        }
     }
 
     @Override
