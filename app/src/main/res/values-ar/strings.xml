@@ -606,5 +606,12 @@
     <string name="select_basket_title">حدد سلة</string>
     <string name="choose_sign_up_title">اختر الاشتراك</string>
     <string name="otp_bt_resend_text">Resend</string>
+    <string name="alert_dialog_text_location_disabled">الرجاء تمكين خدمة الموقع</string>
+    <string name="alert_dialog_text_location_disabled_enable">مكن</string>
+    <string name="alert_dialog_title_location_disabled">تم تعطيل خدمة الموقع</string>
+    <string name="customer_sign_up_et_confirm_email_hint">أكد عنوانك الإلكتروني</string>
+    <string name="empty_confirm_email">يرجى تأكيد عنوان البريد الإلكتروني</string>
+    <string name="menu_location">الموقع الحالي</string>
+    <string name="restaurant_sign_up_et_confirm_email_hint">أكد عنوانك الإلكتروني</string>
 
 </resources>
