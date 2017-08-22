@@ -36,7 +36,7 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
     }
 
     @Override
-    public void onCustomerSignUpClick(final String fbId, final String first_name, final String last_name, final String email, final String password, String confirm_password, String countryCode, String phone, final String deviceId, final String deviceType, final String latitude, final String longitude, final String language) {
+    public void onCustomerSignUpClick(final String fbId, final String first_name, final String last_name, final String email, final String confirmEmail, final String password, String confirm_password, String countryCode, String phone, final String deviceId, final String deviceType, final String latitude, final String longitude, final String language) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -76,51 +76,63 @@ public class CustomerSignUpPresenter<V extends CustomerSignUpMvpView> extends Ba
 //                getMvpView().onError(R.string.invalid_email);
                 return;
             }
+            if (confirmEmail == null || confirmEmail.isEmpty()) {
+
+                getMvpView().showError(4, getMvpView().getContext().getString(R.string.empty_confirm_email));
+//                getMvpView().onError(R.string.empty_email);
+                return;
+            }
+            if (!email.equals(confirmEmail)) {
+
+                getMvpView().showError(4, getMvpView().getContext().getString(R.string.not_match_email));
+//                getMvpView().onError(R.string.not_match_password);
+                return;
+            }
             if (countryCode == null || countryCode.isEmpty()) {
 
-                getMvpView().showError(4, getMvpView().getContext().getString(R.string.empty_country_code));
+                getMvpView().showError(5, getMvpView().getContext().getString(R.string.empty_country_code));
 //                getMvpView().onError(R.string.empty_phone);
                 return;
             }
             if (phone == null || phone.isEmpty()) {
 
-                getMvpView().showError(5, getMvpView().getContext().getString(R.string.empty_phone));
+                getMvpView().showError(6, getMvpView().getContext().getString(R.string.empty_phone));
 //                getMvpView().onError(R.string.empty_phone);
                 return;
             }
             if (!ValidationUtils.isPhoneValid(phone)) {
 
-                getMvpView().showError(5, getMvpView().getContext().getString(R.string.invalid_phone));
+                getMvpView().showError(6, getMvpView().getContext().getString(R.string.invalid_phone));
 //                getMvpView().onError(R.string.invalid_phone);
                 return;
             }
             if (password == null || password.isEmpty()) {
 
-                getMvpView().showError(6, getMvpView().getContext().getString(R.string.empty_password));
+                getMvpView().showError(7, getMvpView().getContext().getString(R.string.empty_password));
 //                getMvpView().onError(R.string.empty_password);
                 return;
             }
             if (password.length() < 6) {
 
-                getMvpView().showError(6, getMvpView().getContext().getString(R.string.minimum_password));
+                getMvpView().showError(7, getMvpView().getContext().getString(R.string.minimum_password));
 //                getMvpView().onError(R.string.minimum_password);
                 return;
             }
             if (!(password.matches(".*[A-Za-z]+.*[0-9]+.*") || password.matches(".*[0-9]+.*[A-Za-z]+.*"))) {
 
-                getMvpView().showError(6, getMvpView().getContext().getString(R.string.invalid_password));
+                getMvpView().showError(7, getMvpView().getContext().getString(R.string.invalid_password));
 //                getMvpView().onError(R.string.invalid_password);
                 return;
             }
             if (confirm_password == null || confirm_password.isEmpty()) {
 
-                getMvpView().showError(7, getMvpView().getContext().getString(R.string.empty_confirm_password));
+                getMvpView().showError(8, getMvpView().getContext().getString(R.string.empty_confirm_password));
 //                getMvpView().onError(R.string.empty_confirm_password);
                 return;
             }
             if (!password.equals(confirm_password)) {
 
-                getMvpView().showError(7, getMvpView().getContext().getString(R.string.not_match_password));
+                getMvpView().showError(8, getMvpView().getContext().getString(R.string.not_match_password));
 //                getMvpView().onError(R.string.not_match_password);
                 return;
             }

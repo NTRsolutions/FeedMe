@@ -121,6 +121,20 @@
                     android:paddingEnd="@dimen/customer_sign_up_et_email_padding_end"
                     android:paddingStart="@dimen/customer_sign_up_et_email_padding_start" />
 
+                <EditText
+                    android:id="@+id/activity_customer_sign_up_et_confirm_email"
+                    style="@style/EditTextGreySingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/customer_sign_up_et_email_height"
+                    android:layout_marginEnd="@dimen/customer_sign_up_et_margin_end"
+                    android:layout_marginStart="@dimen/customer_sign_up_et_margin_start"
+                    android:layout_marginTop="@dimen/customer_sign_up_et_email_margin_top"
+                    android:hint="@string/customer_sign_up_et_confirm_email_hint"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:paddingEnd="@dimen/customer_sign_up_et_email_padding_end"
+                    android:paddingStart="@dimen/customer_sign_up_et_email_padding_start" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

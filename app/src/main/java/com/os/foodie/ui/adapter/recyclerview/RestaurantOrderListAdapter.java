@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,9 @@ import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpPresenter;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListMvpView;
 import com.os.foodie.utils.AppConstants;
+import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.DialogUtils;
+import com.os.foodie.utils.ScreenUtils;
 
 import java.util.ArrayList;
 
@@ -77,6 +80,9 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
 
         String totalDiscount = "" + String.format("%.2f", (order.getTotalDiscount() / Float.parseFloat(order.getTotalAmount()) * 100));
         holder.tvDiscount.setText(totalDiscount + "%");
+        holder.tvDiscount.setHeight(ScreenUtils.dpToPx(context,60));
+        holder.tvDiscount.setWidth(ScreenUtils.dpToPx(context,60));
+        holder.tvDiscount.setBackground(ContextCompat.getDrawable(context,R.drawable.circular_image_view_orange));
 
 //        holder.tvDiscount.setText(order.getDiscount() + "%");
         holder.tvPrice.setText(currency + " " + order.getTotalAmount());

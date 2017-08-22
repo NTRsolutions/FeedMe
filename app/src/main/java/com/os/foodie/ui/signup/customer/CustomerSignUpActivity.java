@@ -53,7 +53,7 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class CustomerSignUpActivity extends BaseActivity implements CustomerSignUpMvpView, View.OnClickListener {
 
-    private EditText etFirstName, etLastName, etEmail, etPassword, etConfirmPassword, etCountryCode, etPhone;
+    private EditText etFirstName, etLastName, etEmail, etConfirmEmail, etPassword, etConfirmPassword, etCountryCode, etPhone;
     private TextView tvLogIn/*, tvRestaurantRegister*/;
     private Button btSignUp, btSignUpFacebook;
 
@@ -82,6 +82,7 @@ public class CustomerSignUpActivity extends BaseActivity implements CustomerSign
         etFirstName = (EditText) findViewById(R.id.activity_customer_sign_up_et_first_name);
         etLastName = (EditText) findViewById(R.id.activity_customer_sign_up_et_last_name);
         etEmail = (EditText) findViewById(R.id.activity_customer_sign_up_et_email);
+        etConfirmEmail = (EditText) findViewById(R.id.activity_customer_sign_up_et_confirm_email);
         etPassword = (EditText) findViewById(R.id.activity_customer_sign_up_et_password);
         etConfirmPassword = (EditText) findViewById(R.id.activity_customer_sign_up_et_confirm_password);
         etCountryCode = (EditText) findViewById(R.id.activity_customer_sign_up_et_country_code);
@@ -289,7 +290,7 @@ public class CustomerSignUpActivity extends BaseActivity implements CustomerSign
         String deviceType = "android";
         String language = "eng";
 
-        customerSignUpMvpPresenter.onCustomerSignUpClick(fbId, etFirstName.getText().toString(), etLastName.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString(), etConfirmPassword.getText().toString(), etCountryCode.getText().toString(), etPhone.getText().toString(), deviceId, deviceType, "", "", language);
+        customerSignUpMvpPresenter.onCustomerSignUpClick(fbId, etFirstName.getText().toString(), etLastName.getText().toString(), etEmail.getText().toString(), etConfirmEmail.getText().toString(), etPassword.getText().toString(), etConfirmPassword.getText().toString(), etCountryCode.getText().toString(), etPhone.getText().toString(), deviceId, deviceType, "", "", language);
     }
 
     @Override
@@ -389,23 +390,29 @@ public class CustomerSignUpActivity extends BaseActivity implements CustomerSign
 
             case 4:
 
+                etConfirmEmail.setError(message);
+                etConfirmEmail.requestFocus();
+                break;
+
+            case 5:
+
                 etCountryCode.setError(message);
                 etCountryCode.requestFocus();
                 break;
 
-            case 5:
+            case 6:
 
                 etPhone.setError(message);
                 etPhone.requestFocus();
                 break;
 
-            case 6:
+            case 7:
 
                 etPassword.setError(message);
                 etPassword.requestFocus();
                 break;
 
-            case 7:
+            case 8:
 
                 etConfirmPassword.setError(message);
                 etConfirmPassword.requestFocus();

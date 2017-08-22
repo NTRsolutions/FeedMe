@@ -90,7 +90,9 @@
     <string name="invalid_last_name">Please provide valid last name</string>
     <string name="long_last_name">Last name should not be longer than 15 characters</string>
     <string name="empty_email">Please provide email address</string>
+    <string name="empty_confirm_email">Please confirm email address</string>
     <string name="invalid_email">Please provide valid email address</string>
+    <string name="not_match_email">Email and confirm email do not match.</string>
     <string name="empty_password">Please provide password</string>
     <string name="minimum_password">Password must be 6 character long</string>
     <string name="invalid_password">Password must contain atleast one alphabetic and numeric character</string>
@@ -193,6 +195,7 @@
     <string name="customer_sign_up_et_first_name_hint">First Name</string>
     <string name="customer_sign_up_et_last_name_hint">Last Name</string>
     <string name="customer_sign_up_et_email_hint">Email Address</string>
+    <string name="customer_sign_up_et_confirm_email_hint">Confirm Email Address</string>
     <string name="customer_sign_up_et_password_hint">Password</string>
     <string name="customer_sign_up_et_confirm_password_hint">Confirm Password</string>
     <string name="customer_sign_up_et_phone_number_hint">Phone Number</string>
@@ -206,6 +209,7 @@
     <string name="restaurant_sign_up_et_contact_person_name_hint">Contact Person Name</string>
     <string name="restaurant_sign_up_et_restaurant_name_hint">Restaurant Name</string>
     <string name="restaurant_sign_up_et_email_hint">Email Address</string>
+    <string name="restaurant_sign_up_et_confirm_email_hint">Confirm Email Address</string>
     <string name="restaurant_sign_up_et_password_hint">Password</string>
     <string name="restaurant_sign_up_et_confirm_password_hint">Confirm Password</string>
     <string name="restaurant_sign_up_et_phone_hint">Phone Number</string>
