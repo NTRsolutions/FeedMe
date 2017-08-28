@@ -69,7 +69,7 @@ public class OtpActivity extends BaseActivity implements OtpMvpView, View.OnClic
 
 //                                TODO OTP
         if (getIntent().hasExtra(AppConstants.OTP)) {
-            etOtp.setText(getIntent().getStringExtra(AppConstants.OTP));
+//            etOtp.setText(getIntent().getStringExtra(AppConstants.OTP));
             userId = getIntent().getStringExtra(AppConstants.USER_ID);
         }
 
