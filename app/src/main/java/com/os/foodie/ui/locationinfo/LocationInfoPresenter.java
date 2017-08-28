@@ -8,26 +8,20 @@ import android.support.annotation.StringRes;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
-import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordRequest;
-import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordResponse;
+import com.os.foodie.data.network.model.citycountrylist.CityCountryListResponse;
+import com.os.foodie.data.network.model.citycountrylist.Country;
 import com.os.foodie.data.network.model.locationinfo.city.CityListRequest;
 import com.os.foodie.data.network.model.locationinfo.city.CityListResponse;
 import com.os.foodie.data.network.model.locationinfo.country.CountryListResponse;
 import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationRequest;
 import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationResponse;
-import com.os.foodie.data.network.model.login.LoginRequest;
-import com.os.foodie.data.network.model.login.LoginResponse;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
-import com.os.foodie.utils.ValidationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,6 +133,39 @@ public class LocationInfoPresenter<V extends LocationInfoMvpView> extends BasePr
 
                             } else {
                                 getMvpView().onError(cityListResponse.getResponse().getMessage());
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            getMvpView().onError(R.string.api_default_error);
+                            Log.d("Error", ">>Err" + throwable.getMessage());
+                        }
+                    }));
+        } else {
+            getMvpView().onError(R.string.connection_error);
+        }
+    }
+
+    @Override
+    public void getCityCountryList() {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
+            getCompositeDisposable().add(getDataManager()
+                    .getCityCountryList()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<CityCountryListResponse>() {
+                        @Override
+                        public void accept(CityCountryListResponse cityCountryListResponse) throws Exception {
+
+                            if (cityCountryListResponse.getResponse().getStatus() == 1) {
+                                Log.d("getMessage", ">>" + cityCountryListResponse.getResponse().getMessage());
+                                getMvpView().setCityCountryListAdapter((ArrayList<Country>) cityCountryListResponse.getResponse().getCountry());
+
+                            } else {
+                                getMvpView().onError(cityCountryListResponse.getResponse().getMessage());
                             }
                         }
                     }, new Consumer<Throwable>() {

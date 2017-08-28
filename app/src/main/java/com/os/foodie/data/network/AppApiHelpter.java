@@ -32,6 +32,7 @@ import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
 import com.os.foodie.data.network.model.checkout.CheckoutRequest;
 import com.os.foodie.data.network.model.checkout.CheckoutResponse;
+import com.os.foodie.data.network.model.citycountrylist.CityCountryListResponse;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeRequest;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeResponse;
 import com.os.foodie.data.network.model.coursetype.list.GetCourseTypeResponse;
@@ -293,6 +294,14 @@ public class AppApiHelpter implements ApiHelper {
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(CityListResponse.class);
+    }
+
+    @Override
+    public Observable<CityCountryListResponse> getCityCountryList() {
+
+        return Rx2AndroidNetworking.get(ApiConstants.BASE_URL + ApiConstants.CITY_COUNTRY_LIST)
+                .build()
+                .getObjectObservable(CityCountryListResponse.class);
     }
 
     @Override

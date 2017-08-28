@@ -18,6 +18,8 @@ public interface LocationInfoMvpPresenter<V extends LocationInfoMvpView> extends
 
     void setCityName(String cityName);
 
+    void getCityCountryList();
+
     void setError(@StringRes int resId);
 
     void setError(String message);

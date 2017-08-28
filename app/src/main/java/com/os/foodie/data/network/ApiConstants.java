@@ -26,6 +26,8 @@ public class ApiConstants {
     public static final String COUNTRY_LIST = "get_country_list";
     public static final String CITY_LIST = "get_city_list";
 
+    public static final String CITY_COUNTRY_LIST = "get_country_city_list";
+
     public static final String SET_USER_LOCATION = "set_user_location";
 
     public static final String CUISINE_TYPE_LIST = "get_cuisine_type";

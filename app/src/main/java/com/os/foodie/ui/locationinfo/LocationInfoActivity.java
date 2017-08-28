@@ -14,10 +14,13 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,8 +34,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.R;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.network.model.citycountrylist.City;
+import com.os.foodie.data.network.model.citycountrylist.Country;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.feature.callback.GpsLocationCallback;
+import com.os.foodie.ui.adapter.autocomplete.CityCountryListAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.feature.GpsLocation;
 import com.os.foodie.ui.main.customer.CustomerMainActivity;
@@ -50,10 +56,13 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 //    private Spinner spinnerCountry, spinnerCity;
 
     private ImageView ivStep;
-    private EditText etCountry, etCity;
+    private EditText etCountry/*, etCity*/;
     private EditText etCurrentLocation;
+    private AutoCompleteTextView actvCity;
     private ImageView ivLocation;
     private Button btSubmit;
+
+    private ArrayList<Country> countries;
 
     //    private ArrayList<String> countries;
 //    private ArrayList<String> cities;
@@ -78,11 +87,50 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 //        locationInfoMvpPresenter.setCurrentUserInfoInitialized(false);
 
         gpsLocation = new GpsLocation(this, this);
+        countries = new ArrayList<Country>();
 
         ivStep = (ImageView) findViewById(R.id.activity_location_info_iv_step);
 
+        actvCity = (AutoCompleteTextView) findViewById(R.id.activity_location_info_actv_city);
+
         etCountry = (EditText) findViewById(R.id.activity_location_info_et_country);
-        etCity = (EditText) findViewById(R.id.activity_location_info_et_city);
+        etCountry.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                setCities(editable.toString());
+
+//                for (int i = 0; i < countries.size(); i++) {
+//
+//                    if (countries.get(i).getName().equalsIgnoreCase(editable.toString())) {
+//
+//                        ArrayList<City> cities = (ArrayList<City>) countries.get(i).getCity();
+//                        String[] cityList = new String[cities.size()];
+//
+//                        for (int j = 0; j < cities.size(); j++) {
+//
+//                            cityList[j] = new String(cities.get(j).getCityName());
+//                        }
+//
+////                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, arr);
+//                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(LocationInfoActivity.this, android.R.layout.select_dialog_item, (String[]) cities.toArray());
+//
+//                        actvCity.setThreshold(2);
+//                        actvCity.setAdapter(adapter);
+//                        break;
+//                    }
+//                }
+            }
+        });
+
         etCurrentLocation = (EditText) findViewById(R.id.activity_location_info_et_current_location);
 
         ivLocation = (ImageView) findViewById(R.id.activity_location_info_iv_location);
@@ -93,6 +141,7 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
 
 //        locationInfoMvpPresenter.getCountryList();
 
+        locationInfoMvpPresenter.getCityCountryList();
         setUp();
 
         ivLocation.setOnClickListener(this);
@@ -148,14 +197,14 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
             if (locationInfoMvpPresenter.isLoggedIn()) {
 
                 String country = etCountry.getText().toString();
-                String city = etCity.getText().toString();
+                String city = actvCity.getText().toString();
                 String address = etCurrentLocation.getText().toString();
 
                 locationInfoMvpPresenter.setUserLocationInfo(latLng, country, city, address);
 
             } else {
 
-                locationInfoMvpPresenter.setCityName(etCity.getText().toString());
+                locationInfoMvpPresenter.setCityName(actvCity.getText().toString());
             }
         }
     }
@@ -396,6 +445,11 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
     }
 
     @Override
+    public void setCityCountryListAdapter(ArrayList<Country> countries) {
+        this.countries = countries;
+    }
+
+    @Override
     public void onUserLocationInfoSaved() {
 
         Intent intent = new Intent(LocationInfoActivity.this, CustomerMainActivity.class);
@@ -445,17 +499,37 @@ public class LocationInfoActivity extends BaseActivity implements LocationInfoMv
         if (address.getSubAdminArea() != null && !address.getSubAdminArea().isEmpty()) {
 
 //            etCity.setEnabled(false);
-            etCity.setText(address.getSubAdminArea());
+            actvCity.setText(address.getSubAdminArea());
 
         } else if (address.getLocality() != null && !address.getLocality().isEmpty()) {
 
 //            etCity.setEnabled(false);
-            etCity.setText(address.getLocality());
+            actvCity.setText(address.getLocality());
 
         } else {
 
 //            etCity.setEnabled(true);
-            etCity.setText("");
+            actvCity.setText("");
+        }
+
+        setCities(etCountry.getText().toString());
+    }
+
+    public void setCities(String editable) {
+
+        for (int i = 0; i < countries.size(); i++) {
+
+            if (countries.get(i).getName().equalsIgnoreCase(editable)) {
+
+                ArrayList<City> cities = (ArrayList<City>) countries.get(i).getCity();
+
+                CityCountryListAdapter adapter = new CityCountryListAdapter(LocationInfoActivity.this, cities);
+
+                actvCity.setThreshold(2);
+                actvCity.setAdapter(adapter);
+
+                break;
+            }
         }
     }
 }
