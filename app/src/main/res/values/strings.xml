@@ -643,6 +643,8 @@
 
     <string name="select_basket_title">Select Basket</string>
     <string name="choose_sign_up_title">Choose Sign Up</string>
+    <string name="order_history_order_on_tag">Ordered on</string>
+    <string name="order_history_at_tag">at</string>
 
     <string-array name="pick_order_status">
         <item>Under Preparation</item>

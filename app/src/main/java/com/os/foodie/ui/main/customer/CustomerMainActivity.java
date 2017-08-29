@@ -360,13 +360,13 @@ public class CustomerMainActivity extends BaseActivity implements CustomerMainMv
     @Override
     public void doLogout() {
 
-        Locale locale = new Locale(AppConstants.LANG_EN);
-        Locale.setDefault(locale);
-
-        Configuration config = new Configuration();
-        config.locale = locale;
-
-        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+//        Locale locale = new Locale(AppConstants.LANG_EN);
+//        Locale.setDefault(locale);
+//
+//        Configuration config = new Configuration();
+//        config.locale = locale;
+//
+//        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
         Intent intent = new Intent(CustomerMainActivity.this, WelcomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

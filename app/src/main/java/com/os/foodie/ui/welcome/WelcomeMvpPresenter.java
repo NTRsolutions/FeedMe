@@ -4,5 +4,9 @@ import com.os.foodie.ui.base.MvpPresenter;
 
 public interface WelcomeMvpPresenter<V extends WelcomeMvpView> extends MvpPresenter<V> {
 
+    void changeLanguage(String languageCode);
+
+    String getLanguage();
+
     void dispose();
 }

@@ -315,7 +315,13 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         }
 
 
-        tvReview.setText("Reviews(" + restaurantDetailsResponse.getResponse().getReviewCount() + ")");
+        if (getResources().getBoolean(R.bool.is_rtl)) {
+            tvReview.setText("(" + restaurantDetailsResponse.getResponse().getReviewCount() + ")" + getResources().getString(R.string.review_activity_title));
+        } else {
+            tvReview.setText(getResources().getString(R.string.review_activity_title) + "(" + restaurantDetailsResponse.getResponse().getReviewCount() + ")");
+        }
+
+//        tvReview.setText("Reviews(" + restaurantDetailsResponse.getResponse().getReviewCount() + ")");
 
         tvReview.setOnClickListener(new View.OnClickListener() {
             @Override

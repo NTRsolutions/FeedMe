@@ -99,8 +99,9 @@
                 android:paddingEnd="@dimen/location_info_et_padding_end"
                 android:paddingStart="@dimen/location_info_et_padding_start" />
 
-            <EditText
-                android:id="@+id/activity_location_info_et_city"
+            <!--<EditText-->
+            <AutoCompleteTextView
+                android:id="@+id/activity_location_info_actv_city"
                 style="@style/EditTextGreySingleLine"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/location_info_et_height"
@@ -110,6 +111,7 @@
                 android:inputType="text"
                 android:paddingEnd="@dimen/location_info_et_padding_end"
                 android:paddingStart="@dimen/location_info_et_padding_start" />
+            <!--android:enabled="false"-->
             <!--android:gravity="start|center_vertical"-->
 
             <LinearLayout

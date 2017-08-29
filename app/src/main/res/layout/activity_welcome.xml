@@ -9,17 +9,41 @@
     android:orientation="vertical"
     tools:context="com.os.foodie.ui.welcome.WelcomeActivity">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/activity_welcome_viewpager"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/density_0"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/activity_welcome_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/activity_welcome_tv_language"
+            fontPath="@string/font_monospace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:drawablePadding="20dp"
+            android:drawableRight="@mipmap/ic_arrow_down"
+            android:paddingBottom="10dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:textSize="20sp"
+            tools:ignore="MissingPrefix" />
+        <!--android:background="@drawable/rectangle_round_corner_edit_text"-->
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/activity_welcome_ll_dots"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/welcome_ll_margin_bottom"
+        android:layoutDirection="ltr"
         android:gravity="center_horizontal"
         android:orientation="horizontal" />
 

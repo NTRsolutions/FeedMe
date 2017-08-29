@@ -379,8 +379,8 @@
 
     <!--OTP Verification-->
     <string name="otp_et_otp_hint">OTP ادخل</string>
-    <string name="otp_tv_wait_seconds_text">seconds wait to resend</string>
-    <string name="otp_tv_wait_seconds_resend_text">Resend if OTP not received</string>
+    <string name="otp_tv_wait_seconds_text">ثانية الانتظار لإعادة إرسال</string>
+    <string name="otp_tv_wait_seconds_resend_text">إعادة إرسال إذا لم يتم استلام OTP</string>
 
     <!--Location Info-->
     <string name="location_info_et_country_hint">الدولة</string>
@@ -605,7 +605,7 @@
     <string name="customer_search_tv_review_tag_text">إعادة النظر</string>
     <string name="select_basket_title">حدد سلة</string>
     <string name="choose_sign_up_title">اختر الاشتراك</string>
-    <string name="otp_bt_resend_text">Resend</string>
+    <string name="otp_bt_resend_text">إعادة إرسال</string>
     <string name="alert_dialog_text_location_disabled">الرجاء تمكين خدمة الموقع</string>
     <string name="alert_dialog_text_location_disabled_enable">مكن</string>
     <string name="alert_dialog_title_location_disabled">تم تعطيل خدمة الموقع</string>
@@ -613,5 +613,7 @@
     <string name="empty_confirm_email">يرجى تأكيد عنوان البريد الإلكتروني</string>
     <string name="menu_location">الموقع الحالي</string>
     <string name="restaurant_sign_up_et_confirm_email_hint">أكد عنوانك الإلكتروني</string>
+    <string name="order_history_order_on_tag">طلب على</string>
+    <string name="order_history_at_tag">في</string>
 
 </resources>

@@ -57,7 +57,7 @@ public class CustomerMainPresenter<V extends CustomerMainMvpView> extends BasePr
 
                                 setUserAsLoggedOut();
 
-                                getDataManager().setLanguage(AppConstants.LANG_EN);
+//                                getDataManager().setLanguage(AppConstants.LANG_EN);
 
                                 getMvpView().doLogout();
 

@@ -75,7 +75,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                     .placeholder(ContextCompat.getDrawable(context, R.mipmap.img_placeholder))
                     .error(ContextCompat.getDrawable(context, R.mipmap.img_placeholder))
                     .into(holder.ivRestaurantImage);
-        } else{
+        } else {
             holder.ivRestaurantImage.setImageResource(R.mipmap.img_placeholder);
         }
 
@@ -110,7 +110,11 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             holder.rbRating.setRating(0f);
         }
 
-        holder.tvReviews.setText("Reviews(" + restaurantList.getReviewCount() + ")");
+        if (context.getResources().getBoolean(R.bool.is_rtl)) {
+            holder.tvReviews.setText("(" + restaurantList.getReviewCount() + ")" + context.getResources().getString(R.string.review_activity_title));
+        } else {
+            holder.tvReviews.setText(context.getResources().getString(R.string.review_activity_title) + "(" + restaurantList.getReviewCount() + ")");
+        }
 
         holder.tvReviews.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -59,7 +59,7 @@ public class RestaurantMainPresenter<V extends RestaurantMainMvpView> extends Ba
 
                                 setUserAsLoggedOut();
 
-                                getDataManager().setLanguage(AppConstants.LANG_EN);
+//                                getDataManager().setLanguage(AppConstants.LANG_EN);
 
                                 getMvpView().doLogout();
 

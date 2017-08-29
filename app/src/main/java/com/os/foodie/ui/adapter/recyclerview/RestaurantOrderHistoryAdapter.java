@@ -80,7 +80,15 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
 
         holder.tvOrderId.setText(order.getOrderId());
 //        holder.tvItemName.setText(order.getDishName());
-        holder.tvDeliveryTime.setText("Ordered on " + order.getOrderDelieveryDate() + " at " + order.getOrderDelieveryTime().replace(":00", ""));
+
+//        if (context.getResources().getBoolean(R.bool.is_rtl)) {
+//            holder.tvDeliveryTime.setText(order.getOrderDelieveryTime().replace(":00", "") + " " + context.getString(R.string.order_history_at_tag) + " " + order.getOrderDelieveryDate() + " " + context.getString(R.string.order_history_order_on_tag));
+//        } else {
+//            holder.tvDeliveryTime.setText(context.getString(R.string.order_history_order_on_tag) + " " + order.getOrderDelieveryDate() + " " + context.getString(R.string.order_history_at_tag) + " " + order.getOrderDelieveryTime().replace(":00", ""));
+//        }
+
+        holder.tvDeliveryTime.setText(context.getString(R.string.order_history_order_on_tag) + " " + order.getOrderDelieveryDate() + " " + context.getString(R.string.order_history_at_tag) + " " + order.getOrderDelieveryTime().replace(":00", ""));
+
 //        holder.tvDeliveryTime.setText(order.getDeliveryTime()+" min.");
         holder.tvOrderType.setText(order.getOrderType());
 

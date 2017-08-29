@@ -4,6 +4,7 @@ import com.os.foodie.data.DataManager;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.ui.splash.SplashMvpPresenter;
 import com.os.foodie.ui.splash.SplashMvpView;
+import com.os.foodie.utils.AppConstants;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -16,6 +17,14 @@ public class WelcomePresenter<V extends WelcomeMvpView> extends BasePresenter<V>
     @Override
     public void onAttach(V mvpView) {
         super.onAttach(mvpView);
+    }
+
+    public void changeLanguage(String languageCode){
+        getDataManager().setLanguage(languageCode);
+    }
+
+    public String getLanguage(){
+        return getDataManager().getLanguage();
     }
 
     @Override

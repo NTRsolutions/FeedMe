@@ -61,19 +61,19 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
                                 if (restaurantDetailsResponse.getResponse().getIsDeleted() != null && restaurantDetailsResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
 
-                                    Locale locale = new Locale(AppConstants.LANG_EN);
-                                    Locale.setDefault(locale);
-
-                                    Configuration config = new Configuration();
-                                    config.locale = locale;
-
-                                    getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+//                                    Locale locale = new Locale(AppConstants.LANG_EN);
+//                                    Locale.setDefault(locale);
+//
+//                                    Configuration config = new Configuration();
+//                                    config.locale = locale;
+//
+//                                    getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
 
                                     Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     getMvpView().getContext().startActivity(intent);
 
-                                    getDataManager().setLanguage(AppConstants.LANG_EN);
+//                                    getDataManager().setLanguage(AppConstants.LANG_EN);
 
                                     setUserAsLoggedOut();
 
@@ -117,19 +117,19 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
                                 if (restaurantDetailsResponse.getResponse().getIsDeleted() != null && restaurantDetailsResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
 
-                                    Locale locale = new Locale(AppConstants.LANG_EN);
-                                    Locale.setDefault(locale);
-
-                                    Configuration config = new Configuration();
-                                    config.locale = locale;
-
-                                    getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+//                                    Locale locale = new Locale(AppConstants.LANG_EN);
+//                                    Locale.setDefault(locale);
+//
+//                                    Configuration config = new Configuration();
+//                                    config.locale = locale;
+//
+//                                    getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
 
                                     Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     getMvpView().getContext().startActivity(intent);
 
-                                    getDataManager().setLanguage(AppConstants.LANG_EN);
+//                                    getDataManager().setLanguage(AppConstants.LANG_EN);
 
                                     setUserAsLoggedOut();
 
@@ -190,19 +190,19 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
                             if (likeDislikeResponse.getResponse().getIsDeleted() != null && likeDislikeResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
 
-                                Locale locale = new Locale(AppConstants.LANG_EN);
-                                Locale.setDefault(locale);
-
-                                Configuration config = new Configuration();
-                                config.locale = locale;
-
-                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+//                                Locale locale = new Locale(AppConstants.LANG_EN);
+//                                Locale.setDefault(locale);
+//
+//                                Configuration config = new Configuration();
+//                                config.locale = locale;
+//
+//                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
 
                                 Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 getMvpView().getContext().startActivity(intent);
 
-                                getDataManager().setLanguage(AppConstants.LANG_EN);
+//                                getDataManager().setLanguage(AppConstants.LANG_EN);
 
                                 setUserAsLoggedOut();
 
@@ -255,19 +255,19 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
                             if (addToCartResponse.getResponse().getIsDeleted() != null && addToCartResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
 
-                                Locale locale = new Locale(AppConstants.LANG_EN);
-                                Locale.setDefault(locale);
-
-                                Configuration config = new Configuration();
-                                config.locale = locale;
-
-                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+//                                Locale locale = new Locale(AppConstants.LANG_EN);
+//                                Locale.setDefault(locale);
+//
+//                                Configuration config = new Configuration();
+//                                config.locale = locale;
+//
+//                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
 
                                 Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 getMvpView().getContext().startActivity(intent);
 
-                                getDataManager().setLanguage(AppConstants.LANG_EN);
+//                                getDataManager().setLanguage(AppConstants.LANG_EN);
 
                                 setUserAsLoggedOut();
 
@@ -321,19 +321,19 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
                             if (removeFromCartResponse.getResponse().getIsDeleted() != null && removeFromCartResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
 
-                                Locale locale = new Locale(AppConstants.LANG_EN);
-                                Locale.setDefault(locale);
-
-                                Configuration config = new Configuration();
-                                config.locale = locale;
-
-                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+//                                Locale locale = new Locale(AppConstants.LANG_EN);
+//                                Locale.setDefault(locale);
+//
+//                                Configuration config = new Configuration();
+//                                config.locale = locale;
+//
+//                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
 
                                 Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 getMvpView().getContext().startActivity(intent);
 
-                                getDataManager().setLanguage(AppConstants.LANG_EN);
+//                                getDataManager().setLanguage(AppConstants.LANG_EN);
 
                                 setUserAsLoggedOut();
 
@@ -386,19 +386,19 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
                             if (updateCartResponse.getResponse().getIsDeleted() != null && updateCartResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
 
-                                Locale locale = new Locale(AppConstants.LANG_EN);
-                                Locale.setDefault(locale);
-
-                                Configuration config = new Configuration();
-                                config.locale = locale;
-
-                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+//                                Locale locale = new Locale(AppConstants.LANG_EN);
+//                                Locale.setDefault(locale);
+//
+//                                Configuration config = new Configuration();
+//                                config.locale = locale;
+//
+//                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
 
                                 Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 getMvpView().getContext().startActivity(intent);
 
-                                getDataManager().setLanguage(AppConstants.LANG_EN);
+//                                getDataManager().setLanguage(AppConstants.LANG_EN);
 
                                 setUserAsLoggedOut();
 

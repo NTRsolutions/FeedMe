@@ -212,19 +212,19 @@ public class LocationInfoPresenter<V extends LocationInfoMvpView> extends BasePr
 
                             if (userLocationResponse.getResponse().getIsDeleted() != null && userLocationResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
 
-                                Locale locale = new Locale(AppConstants.LANG_EN);
-                                Locale.setDefault(locale);
-
-                                Configuration config = new Configuration();
-                                config.locale = locale;
-
-                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+//                                Locale locale = new Locale(AppConstants.LANG_EN);
+//                                Locale.setDefault(locale);
+//
+//                                Configuration config = new Configuration();
+//                                config.locale = locale;
+//
+//                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
 
                                 Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 getMvpView().getContext().startActivity(intent);
 
-                                getDataManager().setLanguage(AppConstants.LANG_EN);
+//                                getDataManager().setLanguage(AppConstants.LANG_EN);
 
                                 setUserAsLoggedOut();
 

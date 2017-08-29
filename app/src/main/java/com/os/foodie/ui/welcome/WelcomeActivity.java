@@ -1,15 +1,24 @@
 package com.os.foodie.ui.welcome;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.Html;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.os.foodie.R;
+import com.os.foodie.data.AppDataManager;
+import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.ui.asksignup.AskSignUpActivity;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
@@ -18,19 +27,24 @@ import com.os.foodie.ui.login.LoginActivity;
 import com.os.foodie.ui.setupprofile.restaurant.SetupRestaurantProfileFragment;
 import com.os.foodie.ui.signup.customer.CustomerSignUpActivity;
 import com.os.foodie.ui.slide.SlidePagerAdapter;
+import com.os.foodie.ui.splash.SplashActivity;
 import com.os.foodie.utils.AppConstants;
+
+import java.util.Locale;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, View.OnClickListener {
 
     private RippleAppCompatButton btLogIn, btSignUp;
-    private TextView tvSkip;
+    private TextView tvSkip, tvLanguage;
 
     private ViewPager viewPager;
     private LinearLayout llDots;
     private SlidePagerAdapter slidePagerAdapter;
 
 
-//    private WelcomeMvpPresenter<WelcomeMvpView> welcomeMvpPresenter;
+    private WelcomeMvpPresenter<WelcomeMvpView> welcomeMvpPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +52,8 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-//        initPresenter();
+        initPresenter();
+        welcomeMvpPresenter.onAttach(this);
 
         slidePagerAdapter = new SlidePagerAdapter(getSupportFragmentManager());
 
@@ -49,13 +64,13 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
         btLogIn = (RippleAppCompatButton) findViewById(R.id.activity_welcome_bt_log_in);
         btSignUp = (RippleAppCompatButton) findViewById(R.id.activity_welcome_bt_sign_up);
 
+        tvLanguage = (TextView) findViewById(R.id.activity_welcome_tv_language);
         tvSkip = (TextView) findViewById(R.id.activity_welcome_tv_skip);
 
         btLogIn.setOnClickListener(this);
         btSignUp.setOnClickListener(this);
+        tvLanguage.setOnClickListener(this);
         tvSkip.setOnClickListener(this);
-
-//        welcomeMvpPresenter.onAttach(this);
 
         setUp();
     }
@@ -78,16 +93,25 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
         }
     }
 
-//    public void initPresenter() {
-//
-//        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
-//        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper);
-//
-//        welcomeMvpPresenter = new WelcomePresenter(appDataManager, new CompositeDisposable());
-//    }
+    public void initPresenter() {
+
+        AppApiHelpter appApiHelpter = new AppApiHelpter();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        AppPreferencesHelper appPreferencesHelper = new AppPreferencesHelper(this, AppConstants.PREFERENCE_DEFAULT);
+
+        AppDataManager appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
+
+        welcomeMvpPresenter = new WelcomePresenter(appDataManager, compositeDisposable);
+    }
 
     @Override
     protected void setUp() {
+
+        if (welcomeMvpPresenter.getLanguage().equals(AppConstants.LANG_EN)) {
+            tvLanguage.setText(getString(R.string.language_en));
+        } else {
+            tvLanguage.setText(getString(R.string.language_ar));
+        }
 
         viewPager.setAdapter(slidePagerAdapter);
 
@@ -134,12 +158,44 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
         } else if (v.getId() == tvSkip.getId()) {
             Intent intent = new Intent(WelcomeActivity.this, LocationInfoActivity.class);
             startActivity(intent);
+        } else if (v.getId() == tvLanguage.getId()) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialog);
+
+            builder.setTitle(getString(R.string.alert_dialog_title_change_language));
+
+            String[] languages = {getString(R.string.language_en), getString(R.string.language_ar)};
+
+            builder.setItems(languages, new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    dialog.dismiss();
+
+                    switch (which) {
+
+                        case 0:
+                            changeLanguage(AppConstants.LANG_EN);
+                            tvLanguage.setText(getResources().getString(R.string.language_en));
+//                            changeLanguage(AppConstants.LANG_ENG, getString(R.string.setting_dialog_change_language_en));
+                            break;
+                        case 1:
+                            changeLanguage(AppConstants.LANG_AR);
+                            tvLanguage.setText(getResources().getString(R.string.language_ar));
+//                            changeLanguage(AppConstants.LANG_AR, getString(R.string.setting_dialog_change_language_ar));
+                            break;
+                    }
+                }
+            });
+
+            builder.show();
         }
     }
 
     @Override
     protected void onDestroy() {
-//        welcomeMvpPresenter.onDetach();
+        welcomeMvpPresenter.dispose();
         super.onDestroy();
     }
 
@@ -160,5 +216,39 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
 
             requestPermissions(permissions, 10);
         }
+    }
+
+    public void changeLanguage(String languageCode) {
+
+        welcomeMvpPresenter.changeLanguage(languageCode);
+
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.locale = locale;
+
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        Log.d("onConfigurationChanged", "Called");
+
+//        Locale locale = new Locale(languageCode);
+//        Locale.setDefault(locale);
+//
+//        Configuration config = new Configuration();
+//        config.locale = locale;
+//
+//        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
     }
 }

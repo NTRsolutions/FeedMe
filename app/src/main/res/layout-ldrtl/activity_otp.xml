@@ -52,6 +52,7 @@
             android:layout_height="@dimen/otp_bt_height"
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="@dimen/otp_bt_margin_start_end"
+            android:layout_marginBottom="@dimen/otp_bt_margin_top_bottom"
             android:layout_marginStart="@dimen/otp_bt_margin_start_end"
             android:layout_marginTop="@dimen/otp_bt_margin_top_bottom"
             android:gravity="center"

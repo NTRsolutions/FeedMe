@@ -60,7 +60,7 @@ public class FiltersPresenter<V extends FiltersMvpView> extends BasePresenter<V>
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 getMvpView().getContext().startActivity(intent);
 
-                                getDataManager().setLanguage(AppConstants.LANG_EN);
+//                                getDataManager().setLanguage(AppConstants.LANG_EN);
 
                                 setUserAsLoggedOut();
 

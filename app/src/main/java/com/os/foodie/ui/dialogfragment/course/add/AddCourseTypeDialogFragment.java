@@ -117,19 +117,19 @@ public class AddCourseTypeDialogFragment extends DialogFragment implements View.
 
                             if (addCourseTypeResponse.getResponse().getIsDeleted() != null && addCourseTypeResponse.getResponse().getIsDeleted().equalsIgnoreCase("1")) {
 
-                                Locale locale = new Locale(AppConstants.LANG_EN);
-                                Locale.setDefault(locale);
-
-                                Configuration config = new Configuration();
-                                config.locale = locale;
-
-                                getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+//                                Locale locale = new Locale(AppConstants.LANG_EN);
+//                                Locale.setDefault(locale);
+//
+//                                Configuration config = new Configuration();
+//                                config.locale = locale;
+//
+//                                getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
                                 Intent intent = new Intent(getActivity(), WelcomeActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
 
-                                AppController.get(getActivity()).getAppDataManager().setLanguage(AppConstants.LANG_EN);
+//                                AppController.get(getActivity()).getAppDataManager().setLanguage(AppConstants.LANG_EN);
 
 
                                 AppController.get(getActivity()).getAppDataManager().setRestaurantLogoURL(null);
@@ -140,7 +140,7 @@ public class AddCourseTypeDialogFragment extends DialogFragment implements View.
                                 AppController.get(getActivity()).getAppDataManager().setCurrentUserId(null);
                                 AppController.get(getActivity()).getAppDataManager().setCurrentUserType(null);
                                 AppController.get(getActivity()).getAppDataManager().setCurrentUserInfoInitialized(false);
-                                AppController.get(getActivity()).getAppDataManager().setDeviceId("");
+//                                AppController.get(getActivity()).getAppDataManager().setDeviceId("");
 
                                 AppController.get(getActivity()).getAppDataManager().setNotificationStatus("0");
 

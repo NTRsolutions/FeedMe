@@ -481,13 +481,13 @@ public class RestaurantMainActivity extends BaseActivity implements RestaurantMa
     @Override
     public void doLogout() {
 
-        Locale locale = new Locale(AppConstants.LANG_EN);
-        Locale.setDefault(locale);
-
-        Configuration config = new Configuration();
-        config.locale = locale;
-
-        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+//        Locale locale = new Locale(AppConstants.LANG_EN);
+//        Locale.setDefault(locale);
+//
+//        Configuration config = new Configuration();
+//        config.locale = locale;
+//
+//        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
 
         Intent intent = new Intent(RestaurantMainActivity.this, WelcomeActivity.class);

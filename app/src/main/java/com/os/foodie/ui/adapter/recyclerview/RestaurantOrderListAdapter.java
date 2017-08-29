@@ -75,14 +75,17 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
 
         holder.tvOrderId.setText(order.getOrderId());
 //        holder.tvItemName.setText(order.getDishName());
-        holder.tvDeliveryTime.setText("Ordered on: " + order.getOrderDelieveryDate() + " at " + order.getOrderDelieveryTime().replace(":00", ""));
+
+        holder.tvDeliveryTime.setText(context.getString(R.string.order_history_order_on_tag) + " " + order.getOrderDelieveryDate() + " " + context.getString(R.string.order_history_at_tag) + " " + order.getOrderDelieveryTime().replace(":00", ""));
+
+//        holder.tvDeliveryTime.setText("Ordered on: " + order.getOrderDelieveryDate() + " at " + order.getOrderDelieveryTime().replace(":00", ""));
         holder.tvOrderType.setText(order.getOrderType());
 
         String totalDiscount = "" + String.format("%.2f", (order.getTotalDiscount() / Float.parseFloat(order.getTotalAmount()) * 100));
         holder.tvDiscount.setText(totalDiscount + "%");
-        holder.tvDiscount.setHeight(ScreenUtils.dpToPx(context,60));
-        holder.tvDiscount.setWidth(ScreenUtils.dpToPx(context,60));
-        holder.tvDiscount.setBackground(ContextCompat.getDrawable(context,R.drawable.circular_image_view_orange));
+        holder.tvDiscount.setHeight(ScreenUtils.dpToPx(context, 60));
+        holder.tvDiscount.setWidth(ScreenUtils.dpToPx(context, 60));
+        holder.tvDiscount.setBackground(ContextCompat.getDrawable(context, R.drawable.circular_image_view_orange));
 
 //        holder.tvDiscount.setText(order.getDiscount() + "%");
         holder.tvPrice.setText(currency + " " + order.getTotalAmount());
