@@ -49,6 +49,7 @@ public class MyBasketListActivity extends BaseActivity implements MyBasketListMv
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
+        getSupportActionBar().setTitle(getResources().getString(R.string.select_basket_title));
 
         cartLists = new ArrayList<CartList>();
         myBasketListAdapter = new MyBasketListAdapter(this, cartLists);

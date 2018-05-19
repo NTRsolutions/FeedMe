@@ -104,16 +104,15 @@ public class OtpPresenter<V extends OtpMvpView> extends BasePresenter<V> impleme
                                 getDataManager().setCurrentUserId(otpVerificationResponse.getResponse().getUserId());
                                 getDataManager().setCurrentUserType(otpVerificationResponse.getResponse().getUserType());
 
-
-                                getDataManager().setLanguage(AppConstants.LANG_EN);
-
-                                Locale locale = new Locale(getDataManager().getLanguage());
-                                Locale.setDefault(locale);
-
-                                Configuration config = new Configuration();
-                                config.locale = locale;
-
-                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
+//                                getDataManager().setLanguage(AppConstants.LANG_EN);
+//
+//                                Locale locale = new Locale(getDataManager().getLanguage());
+//                                Locale.setDefault(locale);
+//
+//                                Configuration config = new Configuration();
+//                                config.locale = locale;
+//
+//                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
 
 
                                 getDataManager().setNotificationStatus("1");

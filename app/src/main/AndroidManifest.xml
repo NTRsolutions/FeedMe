@@ -38,18 +38,7 @@
             android:authorities="com.facebook.app.FacebookContentProvider796924880472669"
             android:exported="true" />
 
-        <receiver
-            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
-            </intent-filter>
-        </receiver>
 
-        <service
-            android:name="com.google.android.gms.analytics.AnalyticsService"
-            android:enabled="true"
-            android:exported="false" />
         <service android:name=".service.firebase.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -232,6 +221,41 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2"
             android:windowSoftInputMode="stateHidden|adjustPan" />
+
+
+        <!--
+         Optionally, register AnalyticsReceiver and AnalyticsService to support background
+         dispatching on non-Google Play devices
+       -->
+        <receiver
+            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!--
+             Optionally, register CampaignTrackingReceiver and CampaignTrackingService to enable
+             installation campaign reporting
+        -->
+        <receiver
+            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
+
+
+
     </application>
 
 </manifest>

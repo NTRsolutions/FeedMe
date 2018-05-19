@@ -72,7 +72,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 public class RestaurantSignUpActivity extends BaseActivity implements RestaurantSignUpMvpView, View.OnClickListener {
 
     private CircleImageView icRestaurantLogo;
-    private EditText etContactPersonName, etRestaurantName, etEmail, etConfirmEmail, etPassword, etConfirmPassword, etCountryCode, etPhone;
+    private EditText etContactPersonName, etRestaurantName,etRestaurantNameArabic, etEmail, etConfirmEmail, etPassword, etConfirmPassword, etCountryCode, etPhone;
     private TextView tvLogIn/*, tvCustomerRegister*/;
     private Button btSignUp, btSignUpFacebook;
 
@@ -110,6 +110,7 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
 
         etContactPersonName = (EditText) findViewById(R.id.activity_restaurant_sign_up_et_contact_person_name);
         etRestaurantName = (EditText) findViewById(R.id.activity_restaurant_sign_up_et_restaurant_name);
+        etRestaurantNameArabic= (EditText) findViewById(R.id.activity_restaurant_sign_up_et_restaurant_name_arabic);
         etEmail = (EditText) findViewById(R.id.activity_restaurant_sign_up_et_email);
         etConfirmEmail = (EditText) findViewById(R.id.activity_restaurant_sign_up_et_confirm_email);
         etPassword = (EditText) findViewById(R.id.activity_restaurant_sign_up_et_password);
@@ -215,7 +216,7 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
         String deviceType = "android";
         String language = "eng";
 
-        restaurantSignUpMvpPresenter.onRestaurantSignUpClick(fbId, etContactPersonName.getText().toString(), etRestaurantName.getText().toString(), etEmail.getText().toString(), etConfirmEmail.getText().toString(), etPassword.getText().toString(), etConfirmPassword.getText().toString(), etCountryCode.getText().toString(), etPhone.getText().toString(), deviceId, deviceType, "", "", language, createFileHashMap());
+        restaurantSignUpMvpPresenter.onRestaurantSignUpClick(fbId, etContactPersonName.getText().toString(), etRestaurantName.getText().toString(), etEmail.getText().toString(), etConfirmEmail.getText().toString(), etPassword.getText().toString(), etConfirmPassword.getText().toString(), etCountryCode.getText().toString(), etPhone.getText().toString(), deviceId, deviceType, "", "", language, createFileHashMap(),etRestaurantNameArabic.getText().toString());
     }
 
     @Override
@@ -588,6 +589,12 @@ public class RestaurantSignUpActivity extends BaseActivity implements Restaurant
 
                 etConfirmPassword.setError(message);
                 etConfirmPassword.requestFocus();
+                break;
+
+            case 8:
+
+                etRestaurantNameArabic.setError(message);
+                etRestaurantNameArabic.requestFocus();
                 break;
         }
     }

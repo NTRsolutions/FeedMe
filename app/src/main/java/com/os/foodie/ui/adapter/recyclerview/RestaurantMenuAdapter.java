@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.os.foodie.R;
 import com.os.foodie.data.network.model.menu.show.restaurant.Dish;
 import com.os.foodie.ui.menu.add.RestaurantMenuAddUpdateDishActivity;
@@ -24,8 +25,11 @@ import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.CommonUtils;
 import com.os.foodie.utils.DialogUtils;
 import com.os.foodie.utils.ScreenUtils;
+import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -47,12 +51,14 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
 
     class RestaurantMenuViewHolder extends RecyclerView.ViewHolder {
 
+        public CircleImageView civDishImage;
         public TextView tvDishName, tvVegNonVeg, tvPrice, tvDescription;
         public ImageView ivOverflow;
 
         public RestaurantMenuViewHolder(View itemView) {
             super(itemView);
 
+            civDishImage = (CircleImageView) itemView.findViewById(R.id.recyclerview_restaurant_menu_civ_profile_image);
             tvDishName = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_menu_tv_dish_name);
             tvVegNonVeg = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_menu_tv_veg_nonveg);
             tvDescription = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_menu_tv_description);
@@ -72,13 +78,36 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
 
         final Dish dish = dishArrayList.get(position);
 
-        holder.tvDishName.setText(dish.getName());
+        Glide.with(context)
+                .load(dish.getDishImage())
+//                .placeholder(R.mipmap.img_placeholder)
+                .error(R.mipmap.img_placeholder)
+                .into(holder.civDishImage);
+
+        if (dish.getDishImage() != null && !dish.getDishImage().isEmpty()) {
+
+            holder.civDishImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new ImageViewer.Builder(context, new String[]{dish.getDishImage()})
+                            .setStartPosition(position)
+                            .show();
+                }
+            });
+        }
+
+        if (restaurantMenuMvpPresenter.getAppDataManager().getLanguage().equalsIgnoreCase(AppConstants.LANG_AR)) {
+            holder.tvDishName.setText(dish.getNameArabic());
+        } else {
+            holder.tvDishName.setText(dish.getName());
+        }
+
         holder.tvDescription.setText(dish.getDescription());
 
         if (dish.getPrice().contains(".00")) {
-            holder.tvPrice.setText(CommonUtils.dataDecode(restaurantMenuMvpPresenter.getAppDataManager().getCurrency())+" "+ dish.getPrice().replace(".00", ""));
+            holder.tvPrice.setText(CommonUtils.dataDecode(restaurantMenuMvpPresenter.getAppDataManager().getCurrency()) + " " + dish.getPrice().replace(".00", ""));
         } else {
-            holder.tvPrice.setText(CommonUtils.dataDecode(restaurantMenuMvpPresenter.getAppDataManager().getCurrency())+" "+ dish.getPrice());
+            holder.tvPrice.setText(CommonUtils.dataDecode(restaurantMenuMvpPresenter.getAppDataManager().getCurrency()) + " " + dish.getPrice());
         }
 
         if (dish.getVegNonveg().equalsIgnoreCase(AppConstants.VEG)) {
@@ -87,7 +116,9 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
             holder.tvVegNonVeg.setText("Non-Veg");
         }
 
-        holder.ivOverflow.setOnClickListener(new View.OnClickListener() {
+        holder.ivOverflow.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View v) {
 

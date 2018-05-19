@@ -16,6 +16,9 @@ public class EditRestaurantAccountRequest {
     @SerializedName("restaurant_name")
     @Expose
     private String restaurantName;
+    @SerializedName("restaurant_name_arabic")
+    @Expose
+    private String restaurantNameArabic;
     @SerializedName("email")
     @Expose
     private String email;
@@ -76,5 +79,13 @@ public class EditRestaurantAccountRequest {
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
+    }
+
+    public String getRestaurantNameArabic() {
+        return restaurantNameArabic;
+    }
+
+    public void setRestaurantNameArabic(String restaurantNameArabic) {
+        this.restaurantNameArabic = restaurantNameArabic;
     }
 }

@@ -4,13 +4,16 @@ public class ApiConstants {
 
 //
 //        OLD
-//    public static final String BASE_URL = "http://192.168.1.69/foodi/web_services/";
+//   public static final String BASE_URL = "http://192.168.1.69/foodi/web_services/";
 //
 //    OLD LIVE
 //    public static final String BASE_URL = "http://67.205.96.105:8080/foodi/web_services/";
 //
 //    NEW LIVE
-     public static final String BASE_URL = "https://56.octallabs.com/foodi/web_services/";
+//     public static final String BASE_URL = "https://56.octallabs.com/foodi/web_services/";
+//
+//    PUBLISH LIVE
+     public static final String BASE_URL = "http://feedmeqa.com/web_services/";
 
 
     public static final String LOGIN = "login";
@@ -27,6 +30,7 @@ public class ApiConstants {
     public static final String CITY_LIST = "get_city_list";
 
     public static final String CITY_COUNTRY_LIST = "get_country_city_list";
+    public static final String GET_USER_LOCATION = "get_user_location";
 
     public static final String SET_USER_LOCATION = "set_user_location";
 

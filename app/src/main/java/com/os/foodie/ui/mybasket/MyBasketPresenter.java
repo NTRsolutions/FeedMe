@@ -254,7 +254,7 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
-                    .clearCart(new ClearCartRequest(getDataManager().getCurrentUserId(),restaurantId))
+                    .clearCart(new ClearCartRequest(getDataManager().getCurrentUserId(), restaurantId))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<ClearCartResponse>() {
@@ -355,6 +355,11 @@ public class MyBasketPresenter<V extends MyBasketMvpView> extends BasePresenter<
         } else {
             getMvpView().onError(R.string.connection_error);
         }
+    }
+
+    @Override
+    public String getLanguage() {
+        return getDataManager().getLanguage();
     }
 
     @Override

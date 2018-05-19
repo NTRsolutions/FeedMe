@@ -51,6 +51,7 @@ public class DeliveryAddressActivity extends BaseActivity implements DeliveryAdd
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
+        getSupportActionBar().setTitle(getResources().getString(R.string.delivery_address_activity_title));
 
         initPresenter();
 //        deliveryAddressMvpPresenter = new DeliveryAddressPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());

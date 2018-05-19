@@ -139,7 +139,7 @@
                 android:gravity="start|center_vertical"
                 android:layoutDirection="rtl"
                 android:hint="@string/add_payment_card_et_cvv_hint"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="3"
                 android:padding="@dimen/add_payment_card_et_padding"
                 android:textSize="@dimen/add_payment_card_et_text_size" />

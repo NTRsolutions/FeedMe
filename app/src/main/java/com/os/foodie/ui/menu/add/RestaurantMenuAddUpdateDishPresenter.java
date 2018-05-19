@@ -16,7 +16,9 @@ import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.NetworkUtils;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -56,10 +58,12 @@ public class RestaurantMenuAddUpdateDishPresenter<V extends RestaurantMenuAddUpd
                                 } else {
                                     Log.d("Error", ">>Err");
                                     getMvpView().onError("Course not found");
+                                    getMvpView().onCourseTypeReceived(new ArrayList<Course>());
                                 }
 
                             } else {
-                                getMvpView().onError(R.string.some_error);
+                                getMvpView().onError(courseTypeResponse.getResponse().getMessage());
+                                getMvpView().onCourseTypeReceived(new ArrayList<Course>());
                             }
 
                         }
@@ -77,7 +81,7 @@ public class RestaurantMenuAddUpdateDishPresenter<V extends RestaurantMenuAddUpd
     }
 
     @Override
-    public void addRestaurantMenuItem(String dishId, String courseId, String itemName, String price, String description, String vegNonVeg) {
+    public void addRestaurantMenuItem(String dishId, String courseId, String itemName, String price, String description, String vegNonVeg, HashMap<String, File> menuImageFile, String itemNameArabic) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -86,7 +90,11 @@ public class RestaurantMenuAddUpdateDishPresenter<V extends RestaurantMenuAddUpd
                 return;
             }
             if (itemName == null || itemName.isEmpty()) {
-                getMvpView().onError(R.string.empty_menu_item_name);
+                getMvpView().onError(R.string.empty_menu_item_name_english);
+                return;
+            }
+            if (itemNameArabic == null || itemNameArabic.isEmpty()) {
+                getMvpView().onError(R.string.empty_menu_item_name_arabic);
                 return;
             }
             if (price == null || price.isEmpty()) {
@@ -98,10 +106,15 @@ public class RestaurantMenuAddUpdateDishPresenter<V extends RestaurantMenuAddUpd
                 return;
             }
 
+            if ((dishId == null || dishId.isEmpty()) && (menuImageFile == null || menuImageFile.isEmpty())) {
+                getMvpView().onError(R.string.mandatory_dish_image);
+                return;
+            }
+
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
-                    .addRestaurantMenuItem(new AddMenuItemRequest(getDataManager().getCurrentUserId(), dishId, courseId, vegNonVeg, itemName, description, price, "1"))
+                    .addRestaurantMenuItem(new AddMenuItemRequest(getDataManager().getCurrentUserId(), dishId, courseId, vegNonVeg, itemName, description, price, "1", itemNameArabic), menuImageFile)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<AddMenuItemResponse>() {

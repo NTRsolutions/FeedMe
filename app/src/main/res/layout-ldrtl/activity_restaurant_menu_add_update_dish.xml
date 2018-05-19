@@ -18,6 +18,14 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/activity_restaurant_menu_add_update_dish_civ_profile_image"
+            android:layout_width="@dimen/restaurant_account_civ_height_width"
+            android:layout_height="@dimen/restaurant_account_civ_height_width"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/restaurant_menu_add_update_rbt_veg_margin_start"
+            android:src="@mipmap/img_placeholder" />
+
         <EditText
             android:id="@+id/activity_restaurant_menu_add_update_dish_et_course_type"
             style="@style/EditTextGreySingleLine"
@@ -40,11 +48,26 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/restaurant_menu_add_update_et_height"
             android:layout_marginTop="@dimen/restaurant_menu_add_update_et_margin_top"
-            android:hint="@string/restaurant_menu_add_update_et_item_name_hint"
+            android:hint="@string/restaurant_menu_add_update_et_item_name_hint_english"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:paddingEnd="@dimen/restaurant_menu_add_update_et_padding_end"
             android:paddingStart="@dimen/restaurant_menu_add_update_et_padding_start" />
+
+        <EditText
+
+            android:id="@+id/activity_restaurant_menu_add_update_dish_et_item_name_arabic"
+            style="@style/EditTextGreySingleLine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/restaurant_menu_add_update_et_height"
+            android:layout_marginTop="@dimen/restaurant_menu_add_update_et_margin_top"
+            android:hint="@string/restaurant_menu_add_update_et_item_name_hint_arabic"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:paddingEnd="@dimen/restaurant_menu_add_update_et_padding_end"
+            android:paddingStart="@dimen/restaurant_menu_add_update_et_padding_start"
+            android:layoutDirection="ltr"
+            android:textAlignment="viewEnd"/>
 
         <EditText
             android:id="@+id/activity_restaurant_menu_add_update_dish_et_item_unit_price"

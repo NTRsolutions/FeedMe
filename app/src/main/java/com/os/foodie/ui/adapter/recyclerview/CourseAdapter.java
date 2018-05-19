@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
@@ -20,10 +21,13 @@ import com.os.foodie.ui.details.restaurant.RestaurantDetailsMvpPresenter;
 import com.os.foodie.ui.details.restaurant.RestaurantDetailsPresenter;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.CommonUtils;
+import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -38,6 +42,8 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private final int TITLE = 1;
     private final int CONTENT = 2;
+
+    ForClick forClick;
 
     String currency = "";
 
@@ -68,13 +74,18 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         RelativeLayout rlCourseQuantity;
         LinearLayout llMain;
+        CircleImageView civDishImage;
         TextView tvCourseQuantity, tvVeg, tvCourseName, tvCourseDescription, tvPrice;
 
         public CourseContentViewHolder(View itemView) {
             super(itemView);
 
+
             llMain = (LinearLayout) itemView.findViewById(R.id.recyclerview_course_content_ll_main);
             rlCourseQuantity = (RelativeLayout) itemView.findViewById(R.id.recyclerview_course_content_rl_course_quantity);
+
+            civDishImage = (CircleImageView) itemView.findViewById(R.id.recyclerview_course_content_civ_dish_image);
+
             tvCourseQuantity = (TextView) itemView.findViewById(R.id.recyclerview_course_content_tv_course_quantity);
             tvVeg = (TextView) itemView.findViewById(R.id.recyclerview_course_content_tv_veg);
             tvCourseName = (TextView) itemView.findViewById(R.id.recyclerview_course_content_tv_course_name);
@@ -147,6 +158,31 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         final Dish dish = (Dish) objectArrayList.get(position);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("itemView", "onClick");
+                forClick.onClick(v, position);
+            }
+        });
+
+        Glide.with(activity)
+                .load(dish.getDishImage())
+                .error(R.mipmap.img_placeholder)
+                .into(holder.civDishImage);
+
+        if (dish.getDishImage() != null && !dish.getDishImage().isEmpty()) {
+
+            holder.civDishImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new ImageViewer.Builder(activity, new String[]{dish.getDishImage()})
+                            .setStartPosition(position)
+                            .show();
+                }
+            });
+        }
+
         if (dish.getQty() != null && !dish.getQty().isEmpty()) {
 
             int quantity = Integer.parseInt(dish.getQty());
@@ -168,7 +204,15 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             holder.tvVeg.setBackground(ContextCompat.getDrawable(activity, R.drawable.circular_image_view_orange));
         }
 
-        holder.tvCourseName.setText(dish.getName());
+//        holder.tvCourseName.setText(dish.getName());
+
+
+        if (AppController.get(activity).getAppDataManager().getLanguage().equalsIgnoreCase(AppConstants.LANG_AR)) {
+            holder.tvCourseName.setText(dish.getNameArabic());
+        } else {
+            holder.tvCourseName.setText(dish.getName());
+        }
+
         holder.tvCourseDescription.setText(dish.getDescription());
 
         String price = dish.getPrice();
@@ -262,5 +306,13 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public float getTotalAmount() {
         return totalAmount;
+    }
+
+    public void setForClick(ForClick forClick) {
+        this.forClick = forClick;
+    }
+
+    public interface ForClick {
+        void onClick(View view, int position);
     }
 }

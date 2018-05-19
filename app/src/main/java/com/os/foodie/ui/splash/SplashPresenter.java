@@ -92,7 +92,7 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
     public void waitAndGo(Context context) {
 
         getDataManager().setLatLng("", "");
-        getDataManager().setCityName("");
+        getDataManager().setCityId("");
 
         if (getDataManager().getLanguage() == null || getDataManager().getLanguage().isEmpty()) {
             getDataManager().setLanguage(AppConstants.LANG_EN);
@@ -111,14 +111,14 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
 
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
 
-        Observable
+        getCompositeDisposable().add(Observable
                 .timer(AppConstants.SPLASH_DURATION, TimeUnit.SECONDS)
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
                         decideNextActivity();
                     }
-                });
+                }));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.os.foodie.ui.dialogfragment.orderstatus;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatRadioButton;
@@ -14,6 +15,7 @@ import android.widget.RadioGroup;
 import com.os.foodie.R;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
 
+@SuppressLint("ValidFragment")
 public class OrderStatusDialogFragment extends DialogFragment implements View.OnClickListener {
 
 
@@ -32,6 +34,9 @@ public class OrderStatusDialogFragment extends DialogFragment implements View.On
     private AppCompatRadioButton readyToPickOrDeliverRb;
     private AppCompatRadioButton inTransitRb;
     private AppCompatRadioButton deliveryOrPickedRb;
+
+    public OrderStatusDialogFragment() {
+    }
 
     public OrderStatusDialogFragment(String orderType, String currentOrderStatus) {
 

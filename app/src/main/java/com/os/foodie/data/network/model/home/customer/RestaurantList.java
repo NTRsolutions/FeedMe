@@ -26,6 +26,9 @@ public class RestaurantList implements Parcelable
     @SerializedName("restaurant_name")
     @Expose
     private String restaurantName;
+    @SerializedName("restaurant_name_arabic")
+    @Expose
+    private String restaurantNameArabic;
     @SerializedName("contact_person_name")
     @Expose
     private String contactPersonName;
@@ -96,6 +99,7 @@ public class RestaurantList implements Parcelable
             instance.avgRating = ((String) in.readValue((String.class.getClassLoader())));
             instance.reviewCount = ((Integer) in.readValue((Integer.class.getClassLoader())));
             instance.restaurantName = ((String) in.readValue((String.class.getClassLoader())));
+            instance.restaurantNameArabic = ((String) in.readValue((String.class.getClassLoader())));
             instance.contactPersonName = ((String) in.readValue((String.class.getClassLoader())));
             instance.minOrderAmount = ((String) in.readValue((String.class.getClassLoader())));
             instance.address = ((String) in.readValue((String.class.getClassLoader())));
@@ -378,12 +382,21 @@ public class RestaurantList implements Parcelable
         this.logo = logo;
     }
 
+    public String getRestaurantNameArabic() {
+        return restaurantNameArabic;
+    }
+
+    public void setRestaurantNameArabic(String restaurantNameArabic) {
+        this.restaurantNameArabic = restaurantNameArabic;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(isLike);
         dest.writeValue(id);
         dest.writeValue(avgRating);
         dest.writeValue(reviewCount);
         dest.writeValue(restaurantName);
+        dest.writeValue(restaurantNameArabic);
         dest.writeValue(contactPersonName);
         dest.writeValue(minOrderAmount);
         dest.writeValue(address);

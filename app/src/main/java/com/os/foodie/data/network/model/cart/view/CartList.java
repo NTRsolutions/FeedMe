@@ -24,6 +24,9 @@ public class CartList {
     @SerializedName("name")
     @Expose
     private String name;
+    @SerializedName("name_arabic")
+    @Expose
+    private String nameArabic;
     @SerializedName("description")
     @Expose
     private String description;
@@ -33,6 +36,9 @@ public class CartList {
     @SerializedName("discount")
     @Expose
     private String discount;
+    @SerializedName("dish_image")
+    @Expose
+    private String dishImage;
 
     /**
      * No args constructor for use in serialization
@@ -51,7 +57,7 @@ public class CartList {
      * @param dishId
      * @param discountId
      */
-    public CartList(String cartId, String qty, String dishId, String discountId, String availableMaxDiscount, String name, String discount, String description, String price) {
+    public CartList(String cartId, String qty, String dishId, String discountId, String availableMaxDiscount, String name, String discount, String description, String price, String dishImage) {
         super();
         this.cartId = cartId;
         this.qty = qty;
@@ -62,6 +68,7 @@ public class CartList {
         this.discount = discount;
         this.description = description;
         this.price = price;
+        this.dishImage = dishImage;
     }
 
     public String getCartId() {
@@ -134,5 +141,21 @@ public class CartList {
 
     public void setDiscount(String discount) {
         this.discount = discount;
+    }
+
+    public String getDishImage() {
+        return dishImage;
+    }
+
+    public void setDishImage(String dishImage) {
+        this.dishImage = dishImage;
+    }
+
+    public String getNameArabic() {
+        return nameArabic;
+    }
+
+    public void setNameArabic(String nameArabic) {
+        this.nameArabic = nameArabic;
     }
 }

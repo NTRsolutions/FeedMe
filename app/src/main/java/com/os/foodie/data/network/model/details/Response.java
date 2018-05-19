@@ -29,6 +29,9 @@ public class Response {
     @SerializedName("restaurant_name")
     @Expose
     private String restaurantName;
+    @SerializedName("restaurant_name_arabic")
+    @Expose
+    private String restaurantNameArabic;
     @SerializedName("min_order_amount")
     @Expose
     private String minOrderAmount;
@@ -153,7 +156,7 @@ public class Response {
      * @param avgRating
      * @param reviewCount
      */
-    public Response(Integer isLike, Integer inCart, String id, String avgRating, Integer reviewCount, Integer likeCount, String restaurantName, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String paymentMethod, String deliveryZipcode, List<Image> images, String logo, List<Menu> menu, Integer status, String message, String totalQuantity, String totalAmount, String countryCode, String isDeleted) {
+    public Response(Integer isLike, Integer inCart, String id, String avgRating, Integer reviewCount, Integer likeCount, String restaurantName, String restaurantNameArabic, String minOrderAmount, String contactPersonName, String address, String latitude, String longitude, String zipCode, String openingTime, String closingTime, String description, String cuisineType, String workingDays, String mobileNumber, String email, String deliveryTime, String deliveryCharge, String deliveryType, String paymentMethod, String deliveryZipcode, List<Image> images, String logo, List<Menu> menu, Integer status, String message, String totalQuantity, String totalAmount, String countryCode, String isDeleted) {
         super();
         this.isLike = isLike;
         this.inCart = inCart;
@@ -162,6 +165,7 @@ public class Response {
         this.likeCount = likeCount;
         this.reviewCount = reviewCount;
         this.restaurantName = restaurantName;
+        this.restaurantNameArabic = restaurantNameArabic;
         this.minOrderAmount = minOrderAmount;
         this.contactPersonName = contactPersonName;
         this.address = address;
@@ -469,5 +473,13 @@ public class Response {
 
     public void setIsDeleted(String isDeleted) {
         this.isDeleted = isDeleted;
+    }
+
+    public String getRestaurantNameArabic() {
+        return restaurantNameArabic;
+    }
+
+    public void setRestaurantNameArabic(String restaurantNameArabic) {
+        this.restaurantNameArabic = restaurantNameArabic;
     }
 }

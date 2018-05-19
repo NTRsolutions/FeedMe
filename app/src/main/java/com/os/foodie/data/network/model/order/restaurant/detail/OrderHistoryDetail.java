@@ -155,6 +155,9 @@ public class OrderHistoryDetail {
         @SerializedName("restaurant_name")
         @Expose
         private String restaurantName;
+        @SerializedName("restaurant_name_arabic")
+        @Expose
+        private String restaurantNameArabic;
         @SerializedName("contact_person_name")
         @Expose
         private Object contactPersonName;
@@ -365,6 +368,14 @@ public class OrderHistoryDetail {
 
         public void setIsDeleted(String isDeleted) {
             this.isDeleted = isDeleted;
+        }
+
+        public String getRestaurantNameArabic() {
+            return restaurantNameArabic;
+        }
+
+        public void setRestaurantNameArabic(String restaurantNameArabic) {
+            this.restaurantNameArabic = restaurantNameArabic;
         }
     }
 

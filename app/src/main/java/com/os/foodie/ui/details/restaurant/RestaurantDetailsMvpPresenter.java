@@ -26,6 +26,8 @@ public interface RestaurantDetailsMvpPresenter<V extends RestaurantDetailsMvpVie
 
     boolean isCurrentUserLoggedIn();
 
+    String getLanguage();
+
     void onError(@StringRes int resId);
 
     void dispose();

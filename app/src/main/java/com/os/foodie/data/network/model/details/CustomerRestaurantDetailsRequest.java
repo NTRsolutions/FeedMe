@@ -16,8 +16,11 @@ public class CustomerRestaurantDetailsRequest implements Parcelable {
     @SerializedName("restaurant_id")
     @Expose
     private String restaurantId;
-    public final static Creator<CustomerRestaurantDetailsRequest> CREATOR = new Creator<CustomerRestaurantDetailsRequest>() {
+    @SerializedName("language")
+    @Expose
+    private String language;
 
+    public final static Creator<CustomerRestaurantDetailsRequest> CREATOR = new Creator<CustomerRestaurantDetailsRequest>() {
 
         @SuppressWarnings({
                 "unchecked"
@@ -26,6 +29,7 @@ public class CustomerRestaurantDetailsRequest implements Parcelable {
             CustomerRestaurantDetailsRequest instance = new CustomerRestaurantDetailsRequest();
             instance.userId = ((String) in.readValue((String.class.getClassLoader())));
             instance.restaurantId = ((String) in.readValue((String.class.getClassLoader())));
+            instance.language = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -45,10 +49,11 @@ public class CustomerRestaurantDetailsRequest implements Parcelable {
      * @param userId
      * @param restaurantId
      */
-    public CustomerRestaurantDetailsRequest(String userId, String restaurantId) {
+    public CustomerRestaurantDetailsRequest(String userId, String restaurantId, String language) {
         super();
         this.userId = userId;
         this.restaurantId = restaurantId;
+        this.language = language;
     }
 
     public String getUserId() {
@@ -67,9 +72,18 @@ public class CustomerRestaurantDetailsRequest implements Parcelable {
         this.restaurantId = restaurantId;
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(restaurantId);
         dest.writeValue(userId);
+        dest.writeValue(language);
     }
 
     public int describeContents() {

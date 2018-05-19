@@ -153,20 +153,21 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
 
             } else {
 
-                boolean inRange = false;
+//                boolean inRange = false;
 
-                for (int i = 0; i < deliveryAreas.length; i++) {
+//                for (int i = 0; i < deliveryAreas.length; i++) {
+//
+////                    if (addresses.get(selectedPosition).getPincode().equalsIgnoreCase(deliveryAreas[i])) {
+//                    if (addresses.get(selectedPosition).getCity().equalsIgnoreCase(deliveryAreas[i])) {
+//                        inRange = true;
+//                        break;
+//                    }
+//                }
 
-                    if (addresses.get(selectedPosition).getPincode().equalsIgnoreCase(deliveryAreas[i])) {
-                        inRange = true;
-                        break;
-                    }
-                }
-
-                if (!inRange) {
-                    selectDeliveryAddressMvpPresenter.setError(R.string.not_in_range);
-                    return;
-                }
+//                if (!inRange) {
+//                    selectDeliveryAddressMvpPresenter.setError(R.string.not_in_range);
+//                    return;
+//                }
 
                 String paymentMethod = checkoutRequest.getPaymentMethod();
 
@@ -195,8 +196,8 @@ public class SelectDeliveryAddressActivity extends BaseActivity implements Selec
         if (getIntent().hasExtra(AppConstants.CHECKOUT)) {
             checkoutRequest = getIntent().getParcelableExtra(AppConstants.CHECKOUT);
 
-            deliveryAreas = getIntent().getStringExtra(AppConstants.DELIVERY_ADDRESS).split(",");
-            Log.d("deliveryAreas", ">>" + Arrays.toString(deliveryAreas));
+//            deliveryAreas = getIntent().getStringExtra(AppConstants.DELIVERY_ADDRESS).split(",");
+//            Log.d("deliveryAreas", ">>" + Arrays.toString(deliveryAreas));
         }
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {

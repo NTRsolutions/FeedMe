@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
@@ -66,6 +67,8 @@ public class RestaurantMenuFragment extends BaseFragment implements RestaurantMe
 
         setHasOptionsMenu(true);
 
+        Fresco.initialize(getActivity());
+
         initPresenter();
 //        restaurantMenuMvpPresenter = new RestaurantMenuPresenter(AppController.get(getActivity()).getAppDataManager(), AppController.get(getActivity()).getCompositeDisposable());
         restaurantMenuMvpPresenter.onAttach(this);
@@ -93,7 +96,7 @@ public class RestaurantMenuFragment extends BaseFragment implements RestaurantMe
         return view;
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
 
         AppApiHelpter appApiHelpter = new AppApiHelpter();
         CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -172,6 +175,7 @@ public class RestaurantMenuFragment extends BaseFragment implements RestaurantMe
     @Override
     public void onDestroyView() {
         restaurantMenuMvpPresenter.dispose();
+        Fresco.shutDown();
 //        restaurantMenuMvpPresenter.onDetach();
         super.onDestroyView();
     }

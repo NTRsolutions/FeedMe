@@ -7,5 +7,7 @@ public interface RestaurantSearchMvpPresenter<V extends RestaurantSearchMvpView>
 
     void getRestaurantList(String keyword, Filters filters);
 
+    String getLanguage();
+
     void dispose();
 }

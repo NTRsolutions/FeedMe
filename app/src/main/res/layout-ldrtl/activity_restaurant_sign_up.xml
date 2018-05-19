@@ -23,7 +23,8 @@
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="wrap_content"                android:layout_marginLeft="@dimen/toolbar_title_margin_right"
+
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -31,7 +32,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/toolbar_title_margin_right"
                     android:text="@string/restaurant_sign_up_activity_title"
                     android:textColor="@color/orange"
                     android:textSize="@dimen/style_action_bar_title_size"
@@ -98,11 +98,24 @@
                     android:layout_marginEnd="@dimen/restaurant_sign_up_et_margin_end"
                     android:layout_marginStart="@dimen/restaurant_sign_up_et_margin_start"
                     android:layout_marginTop="@dimen/restaurant_sign_up_et_restaurant_name_margin_top"
-                    android:gravity="start|center_vertical"
-                    android:hint="@string/restaurant_sign_up_et_restaurant_name_hint"
+                    android:hint="@string/restaurant_sign_up_et_restaurant_name_hint_english"
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
-                    android:layoutDirection="rtl"
+                    android:maxLength="30"
+                    android:paddingEnd="@dimen/restaurant_sign_up_et_restaurant_name_padding_end"
+                    android:paddingStart="@dimen/restaurant_sign_up_et_restaurant_name_padding_start" />
+
+                <EditText
+                    android:id="@+id/activity_restaurant_sign_up_et_restaurant_name_arabic"
+                    style="@style/EditTextGreySingleLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/restaurant_sign_up_et_restaurant_name_height"
+                    android:layout_marginEnd="@dimen/restaurant_sign_up_et_margin_end"
+                    android:layout_marginStart="@dimen/restaurant_sign_up_et_margin_start"
+                    android:layout_marginTop="@dimen/restaurant_sign_up_et_restaurant_name_margin_top"
+                    android:hint="@string/restaurant_sign_up_et_restaurant_name_hint_arabic"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
                     android:maxLength="30"
                     android:paddingEnd="@dimen/restaurant_sign_up_et_restaurant_name_padding_end"
                     android:paddingStart="@dimen/restaurant_sign_up_et_restaurant_name_padding_start" />
@@ -165,6 +178,7 @@
                         android:layout_marginEnd="5dp"
                         android:layout_marginStart="5dp"
                         android:layout_weight="3"
+                        android:digits="1234567890"
                         android:inputType="phone"
                         android:maxLength="7"
                         android:paddingEnd="5dp"
@@ -176,6 +190,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/restaurant_sign_up_et_phone_height"
                         android:layout_weight="7"
+                        android:digits="1234567890"
                         android:hint="@string/restaurant_sign_up_et_phone_hint"
                         android:imeOptions="actionNext"
                         android:inputType="phone"

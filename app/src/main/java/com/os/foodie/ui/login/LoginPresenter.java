@@ -71,10 +71,18 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                 return;
             }
 
+            String language = null;
+
+            if (getDataManager().getLanguage().equalsIgnoreCase(AppConstants.LANG_EN)) {
+                language = AppConstants.LANG_ENG;
+            } else {
+                language = AppConstants.LANG_AR;
+            }
+
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
-                    .doLogin(new LoginRequest(email, password, deviceId, deviceType))
+                    .doLogin(new LoginRequest(email, password, deviceId, deviceType, language))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<LoginResponse>() {
@@ -118,23 +126,19 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                                 getDataManager().setCurrency(loginResponse.getResponse().getCurrency());
 
 
-                                if (loginResponse.getResponse().getLanguage().equalsIgnoreCase(AppConstants.LANG_ENG)) {
-                                    getDataManager().setLanguage(AppConstants.LANG_EN);
-                                } else {
-                                    getDataManager().setLanguage(AppConstants.LANG_AR);
-                                }
-
-
-                                Locale locale = new Locale(getDataManager().getLanguage());
-                                Locale.setDefault(locale);
-
-                                Configuration config = new Configuration();
-                                config.locale = locale;
-
-                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
-
-
-//                                getDataManager().setCurrency(URLDecoder.decode(loginResponse.getResponse().getCurrency(), "UTF-8"));
+//                                if (loginResponse.getResponse().getLanguage().equalsIgnoreCase(AppConstants.LANG_ENG)) {
+//                                    getDataManager().setLanguage(AppConstants.LANG_EN);
+//                                } else {
+//                                    getDataManager().setLanguage(AppConstants.LANG_AR);
+//                                }
+//
+//                                Locale locale = new Locale(getDataManager().getLanguage());
+//                                Locale.setDefault(locale);
+//
+//                                Configuration config = new Configuration();
+//                                config.locale = locale;
+//
+//                                getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
 
                                 getDataManager().setNotificationStatus(loginResponse.getResponse().getIsNotification());
 
@@ -177,10 +181,18 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
     @Override
     public void onFacebookLoginClick(final String fbId, final String first_name, final String last_name, final String email, String deviceId, String deviceType) {
 
+        String language = null;
+
+        if (getDataManager().getLanguage().equalsIgnoreCase(AppConstants.LANG_EN)) {
+            language = AppConstants.LANG_ENG;
+        } else {
+            language = AppConstants.LANG_AR;
+        }
+
         getMvpView().showLoading();
 
         getCompositeDisposable().add(getDataManager()
-                .doFacebookLogin(new FacebookLoginRequest(email, fbId, deviceId, deviceType))
+                .doFacebookLogin(new FacebookLoginRequest(email, fbId, deviceId, deviceType, language))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<FacebookLoginResponse>() {
@@ -217,29 +229,25 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
                             getDataManager().setCurrentUserId(facebookLoginResponse.getResponse().getUserId());
                             getDataManager().setCurrentUserType(facebookLoginResponse.getResponse().getUserType());
 
-                            if (facebookLoginResponse.getResponse().getLanguage().equalsIgnoreCase(AppConstants.LANG_ENG)) {
-                                getDataManager().setLanguage(AppConstants.LANG_EN);
-                            } else {
-                                getDataManager().setLanguage(AppConstants.LANG_AR);
-                            }
-
-
-
-
-
-                            Locale locale = new Locale(getDataManager().getLanguage());
-                            Locale.setDefault(locale);
-
-                            Configuration config = new Configuration();
-                            config.locale = locale;
-
-                            getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
-
+//                            if (facebookLoginResponse.getResponse().getLanguage().equalsIgnoreCase(AppConstants.LANG_ENG)) {
+//                                getDataManager().setLanguage(AppConstants.LANG_EN);
+//                            } else {
+//                                getDataManager().setLanguage(AppConstants.LANG_AR);
+//                            }
+//
+//                            Locale locale = new Locale(getDataManager().getLanguage());
+//                            Locale.setDefault(locale);
+//
+//                            Configuration config = new Configuration();
+//                            config.locale = locale;
+//
+//                            getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
 
 
                             getDataManager().setNotificationStatus(facebookLoginResponse.getResponse().getIsNotification());
 
                             if (facebookLoginResponse.getResponse().getUserType().equals(AppConstants.CUSTOMER)) {
+
                                 getDataManager().setCurrentUserName(facebookLoginResponse.getResponse().getFirstName() + " " + facebookLoginResponse.getResponse().getLastName());
                                 getDataManager().setCustomerRestaurantId(facebookLoginResponse.getResponse().getRestaurantId());
                             } else {
@@ -249,7 +257,13 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
 //                                    getDataManager().setCurrency(URLDecoder.decode(facebookLoginResponse.getResponse().getCurrency(), "UTF-8"));
                                 }
 
-                                getDataManager().setCurrentUserName(facebookLoginResponse.getResponse().getRestaurantName());
+                                if (getDataManager().getLanguage().equalsIgnoreCase(AppConstants.LANG_AR)) {
+                                    getDataManager().setCurrentUserName(facebookLoginResponse.getResponse().getRestaurantNameArabic());
+                                } else {
+                                    getDataManager().setCurrentUserName(facebookLoginResponse.getResponse().getRestaurantName());
+                                }
+
+//                                getDataManager().setCurrentUserName(facebookLoginResponse.getResponse().getRestaurantName());
                                 getDataManager().setRestaurantLogoURL(facebookLoginResponse.getResponse().getProfileImage());
                                 Log.d("getProfileImage", ">>" + getDataManager().getRestaurantLogoURL());
                             }

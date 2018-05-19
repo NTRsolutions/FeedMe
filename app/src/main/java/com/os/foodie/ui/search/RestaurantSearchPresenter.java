@@ -37,13 +37,21 @@ public class RestaurantSearchPresenter<V extends RestaurantSearchMvpView> extend
 
 //            getMvpView().showLoading();
 
+            String language = null;
+
+            if (getDataManager().getLanguage().equalsIgnoreCase(AppConstants.LANG_EN)) {
+                language = AppConstants.LANG_ENG;
+            } else {
+                language = AppConstants.LANG_AR;
+            }
+
             getCompositeDisposable().clear();
 
             if (getDataManager().isCurrentUserLoggedIn()) {
 
                 getCompositeDisposable().add(getDataManager()
                         .getRestaurantList(
-                                new GetRestaurantListRequest(getDataManager().getCurrentUserId(), keyword, "", "", "", filters))
+                                new GetRestaurantListRequest(getDataManager().getCurrentUserId(), keyword, "", "", "", filters, ""))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Consumer<GetRestaurantListResponse>() {
@@ -106,7 +114,7 @@ public class RestaurantSearchPresenter<V extends RestaurantSearchMvpView> extend
 
                 getCompositeDisposable().add(getDataManager()
                         .getRestaurantList(
-                                new GetRestaurantListRequest("", keyword, getDataManager().getLatitude(), getDataManager().getLongitude(), getDataManager().getCityName(), filters))
+                                new GetRestaurantListRequest("", keyword, getDataManager().getLatitude(), getDataManager().getLongitude(), getDataManager().getCityId(), filters, language))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Consumer<GetRestaurantListResponse>() {
@@ -169,6 +177,11 @@ public class RestaurantSearchPresenter<V extends RestaurantSearchMvpView> extend
         } else {
             getMvpView().onError(R.string.connection_error);
         }
+    }
+
+    @Override
+    public String getLanguage() {
+        return getDataManager().getLanguage();
     }
 
     @Override

@@ -10,10 +10,18 @@
     android:layout_marginTop="@dimen/restaurant_menu_ll_main_margin_top"
     android:orientation="horizontal">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/recyclerview_restaurant_menu_civ_profile_image"
+        android:layout_width="@dimen/restaurant_ll_minutes_height_width"
+        android:layout_height="@dimen/restaurant_ll_minutes_height_width"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/img_placeholder" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_marginStart="@dimen/restaurant_menu_ll_main_margin_start"
         android:layout_marginEnd="@dimen/restaurant_menu_ll_sub_main_margin_end"
         android:gravity="center_vertical"
         android:orientation="vertical">

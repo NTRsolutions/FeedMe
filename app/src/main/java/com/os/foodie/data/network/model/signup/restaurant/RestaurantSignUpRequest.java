@@ -15,6 +15,11 @@ public class RestaurantSignUpRequest {
     @SerializedName("restaurant_name")
     @Expose
     private String restaurantName;
+
+    @SerializedName("restaurant_name_arabic")
+    @Expose
+    private String restaurantNameArabic;
+
     @SerializedName("email")
     @Expose
     private String email;
@@ -62,7 +67,7 @@ public class RestaurantSignUpRequest {
      * @param deviceId
      * @param restaurantName
      */
-    public RestaurantSignUpRequest(String fbId, String contactPersonName, String restaurantName, String email, String password, String countryCode, String mobileNumber, String deviceId, String deviceType, String latitude, String longitude, String language) {
+    public RestaurantSignUpRequest(String fbId, String contactPersonName, String restaurantName, String email, String password, String countryCode, String mobileNumber, String deviceId, String deviceType, String latitude, String longitude, String language,String restaurantNameArabic) {
         super();
         this.fbId = fbId;
         this.contactPersonName = contactPersonName;
@@ -76,6 +81,7 @@ public class RestaurantSignUpRequest {
         this.latitude = latitude;
         this.longitude = longitude;
         this.language = language;
+        this.restaurantNameArabic=restaurantNameArabic;
     }
 
     public String getFbId() {
@@ -174,4 +180,12 @@ public class RestaurantSignUpRequest {
         this.language = language;
     }
 
+
+    public String getRestaurantNameArabic() {
+        return restaurantNameArabic;
+    }
+
+    public void setRestaurantNameArabic(String restaurantNameArabic) {
+        this.restaurantNameArabic = restaurantNameArabic;
+    }
 }

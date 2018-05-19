@@ -21,6 +21,10 @@ public class AddMenuItemRequest {
     @SerializedName("name")
     @Expose
     private String name;
+
+    @SerializedName("name_arabic")
+    @Expose
+    private String nameArabic;
     @SerializedName("description")
     @Expose
     private String description;
@@ -48,7 +52,7 @@ public class AddMenuItemRequest {
      * @param courseId
      * @param restaurantId
      */
-    public AddMenuItemRequest(String restaurantId, String dishId, String courseId, String vegNonveg, String name, String description, String price, String avail) {
+    public AddMenuItemRequest(String restaurantId, String dishId, String courseId, String vegNonveg, String name, String description, String price, String avail, String itemNameArabic) {
         super();
         this.restaurantId = restaurantId;
         this.dishId = dishId;
@@ -58,6 +62,7 @@ public class AddMenuItemRequest {
         this.description = description;
         this.price = price;
         this.avail = avail;
+        this.nameArabic=itemNameArabic;
     }
 
     public String getRestaurantId() {
@@ -122,5 +127,13 @@ public class AddMenuItemRequest {
 
     public void setDishId(String dishId) {
         this.dishId = dishId;
+    }
+
+    public String getNameArabic() {
+        return nameArabic;
+    }
+
+    public void setNameArabic(String nameArabic) {
+        this.nameArabic = nameArabic;
     }
 }

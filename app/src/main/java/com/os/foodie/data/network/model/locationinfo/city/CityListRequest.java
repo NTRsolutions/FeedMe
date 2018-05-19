@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class CityListRequest {
 
-    @SerializedName("country_id")
+    @SerializedName("language")
     @Expose
-    private String countryId;
+    private String language;
 
     /**
      * No args constructor for use in serialization
@@ -19,19 +19,19 @@ public class CityListRequest {
 
     /**
      * 
-     * @param countryId
+     * @param language
      */
-    public CityListRequest(String countryId) {
+    public CityListRequest(String language) {
         super();
-        this.countryId = countryId;
+        this.language = language;
     }
 
-    public String getCountryId() {
-        return countryId;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setCountryId(String countryId) {
-        this.countryId = countryId;
+    public void setLanguage(String countryId) {
+        this.language = language;
     }
 
 }

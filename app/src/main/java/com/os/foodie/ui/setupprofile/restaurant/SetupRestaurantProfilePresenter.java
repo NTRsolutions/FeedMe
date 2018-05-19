@@ -15,8 +15,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
+import com.os.foodie.data.network.model.citycountrylist.City;
+import com.os.foodie.data.network.model.citycountrylist.CityCountryListRequest;
+import com.os.foodie.data.network.model.citycountrylist.CityCountryListResponse;
+import com.os.foodie.data.network.model.citycountrylist.Country;
 import com.os.foodie.data.network.model.cuisinetype.list.CuisineType;
 import com.os.foodie.data.network.model.cuisinetype.list.CuisineTypeResponse;
+import com.os.foodie.data.network.model.locationinfo.city.CityListRequest;
+import com.os.foodie.data.network.model.locationinfo.city.CityListResponse;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileResponse;
 import com.os.foodie.data.prefs.PreferencesHelper;
@@ -181,7 +187,7 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
     }
 
     @Override
-    public void saveRestaurantProfile(final SetupRestaurantProfileRequest restaurantProfileRequest, HashMap<String, File> fileMap, boolean isEditProfile) {
+    public void saveRestaurantProfile(final SetupRestaurantProfileRequest restaurantProfileRequest, HashMap<String, File> fileMap, boolean isEditProfile, com.os.foodie.data.network.model.locationinfo.city.City city) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -205,7 +211,7 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                 return;
             }
 
-            if (restaurantProfileRequest.getCity() == null || restaurantProfileRequest.getCity().isEmpty()) {
+            if (restaurantProfileRequest.getCity() == null || restaurantProfileRequest.getCity().isEmpty() || city == null || city.getCityId() == null) {
                 getMvpView().onError(R.string.empty_city);
                 return;
             }
@@ -502,6 +508,97 @@ public class SetupRestaurantProfilePresenter<V extends SetupRestaurantProfileMvp
                     }));
 
         } else {
+            getMvpView().onError(R.string.connection_error);
+        }
+    }
+
+    @Override
+    public void getCityCountryList() {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
+            String language = "";
+
+            if (getDataManager().getLanguage().equals(AppConstants.LANG_AR)) {
+                language = AppConstants.LANG_AR;
+            } else {
+                language = AppConstants.LANG_ENG;
+            }
+
+            getCompositeDisposable().add(getDataManager()
+                    .getCityCountryList(new CityCountryListRequest(language))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<CityCountryListResponse>() {
+                        @Override
+                        public void accept(CityCountryListResponse cityCountryListResponse) throws Exception {
+
+                            if (cityCountryListResponse.getResponse().getStatus() == 1) {
+                                Log.d("getMessage", ">>" + cityCountryListResponse.getResponse().getMessage());
+                                getMvpView().setCityCountryListAdapter((ArrayList<Country>) cityCountryListResponse.getResponse().getCountry());
+
+                            } else {
+                                getMvpView().onError(cityCountryListResponse.getResponse().getMessage());
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            getMvpView().onError(R.string.api_default_error);
+                            Log.d("Error", ">>Err" + throwable.getMessage());
+                        }
+                    }));
+        } else {
+            getMvpView().onError(R.string.connection_error);
+        }
+    }
+
+    @Override
+    public void getCityList() {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
+            getMvpView().showLoading();
+
+            String language = "";
+
+            if (getDataManager().getLanguage().equals(AppConstants.LANG_AR)) {
+                language = AppConstants.LANG_AR;
+            } else {
+                language = AppConstants.LANG_ENG;
+            }
+
+            getCompositeDisposable().add(getDataManager()
+                    .getCityList(new CityListRequest(language))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<CityListResponse>() {
+                        @Override
+                        public void accept(CityListResponse cityListResponse) throws Exception {
+
+                            getMvpView().hideLoading();
+
+                            if (cityListResponse.getResponse().getStatus() == 1) {
+                                Log.d("getMessage", ">>" + cityListResponse.getResponse().getMessage());
+                            getMvpView().onCityListReceived((ArrayList<com.os.foodie.data.network.model.locationinfo.city.City>) cityListResponse.getResponse().getCity());
+                                //getMvpView().openCitySelector((ArrayList<com.os.foodie.data.network.model.locationinfo.city.City>) cityListResponse.getResponse().getCity());
+
+                            } else {
+                                getMvpView().onError(cityListResponse.getResponse().getMessage());
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+
+                            getMvpView().hideLoading();
+                            getMvpView().onError(R.string.api_default_error);
+                            Log.d("Error", ">>Err" + throwable.getMessage());
+                        }
+                    }));
+        } else {
+
+            getMvpView().hideLoading();
             getMvpView().onError(R.string.connection_error);
         }
     }

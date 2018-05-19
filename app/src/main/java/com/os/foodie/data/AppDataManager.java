@@ -30,6 +30,7 @@ import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
 import com.os.foodie.data.network.model.checkout.CheckoutRequest;
 import com.os.foodie.data.network.model.checkout.CheckoutResponse;
+import com.os.foodie.data.network.model.citycountrylist.CityCountryListRequest;
 import com.os.foodie.data.network.model.citycountrylist.CityCountryListResponse;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeRequest;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeResponse;
@@ -64,6 +65,8 @@ import com.os.foodie.data.network.model.like.LikeDislikeResponse;
 import com.os.foodie.data.network.model.locationinfo.city.CityListRequest;
 import com.os.foodie.data.network.model.locationinfo.city.CityListResponse;
 import com.os.foodie.data.network.model.locationinfo.country.CountryListResponse;
+import com.os.foodie.data.network.model.locationinfo.get.GetUserLocationDetailRequest;
+import com.os.foodie.data.network.model.locationinfo.get.GetUserLocationDetailResponse;
 import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationRequest;
 import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationResponse;
 import com.os.foodie.data.network.model.login.LoginRequest;
@@ -278,8 +281,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public String getCityName() {
-        return preferencesHelper.getCityName();
+    public String getCityId() {
+        return preferencesHelper.getCityId();
     }
 
     @Override
@@ -288,8 +291,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public void setCityName(String cityName) {
-        preferencesHelper.setCityName(cityName);
+    public void setCityId(String cityId) {
+        preferencesHelper.setCityId(cityId);
     }
 
     @Override
@@ -338,8 +341,13 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Observable<CityCountryListResponse> getCityCountryList() {
-        return apiHelper.getCityCountryList();
+    public Observable<CityCountryListResponse> getCityCountryList(CityCountryListRequest cityCountryListRequest) {
+        return apiHelper.getCityCountryList(cityCountryListRequest);
+    }
+
+    @Override
+    public Observable<GetUserLocationDetailResponse> getUserLocationDetail(GetUserLocationDetailRequest userLocationDetailRequest) {
+        return apiHelper.getUserLocationDetail(userLocationDetailRequest);
     }
 
     @Override
@@ -438,8 +446,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Observable<AddMenuItemResponse> addRestaurantMenuItem(AddMenuItemRequest addMenuItemRequest) {
-        return apiHelper.addRestaurantMenuItem(addMenuItemRequest);
+    public Observable<AddMenuItemResponse> addRestaurantMenuItem(AddMenuItemRequest addMenuItemRequest, HashMap<String, File> menuImageFile) {
+        return apiHelper.addRestaurantMenuItem(addMenuItemRequest, menuImageFile);
     }
 
     @Override
@@ -576,8 +584,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Observable<OrderHistoryDetail> getOrderHistoryDetail(String orderId) {
-        return apiHelper.getOrderHistoryDetail(orderId);
+    public Observable<OrderHistoryDetail> getOrderHistoryDetail(String orderId,String language) {
+        return apiHelper.getOrderHistoryDetail(orderId,language);
     }
 
     @Override
@@ -596,8 +604,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Observable<ChangeOrderStatusResponse> changeOrderStatus(String orderId, String orderStatus) {
-        return apiHelper.changeOrderStatus(orderId, orderStatus);
+    public Observable<ChangeOrderStatusResponse> changeOrderStatus(String orderId, String orderStatus, String language) {
+        return apiHelper.changeOrderStatus(orderId, orderStatus, language);
     }
 
     @Override

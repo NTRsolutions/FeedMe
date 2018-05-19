@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.os.foodie.R;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
@@ -92,6 +93,8 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
+
+        Fresco.initialize(this);
 
         initPresenter();
         orderHistoryMvpPresenter.onAttach(OrderHistoryDetailActivity.this);
@@ -191,11 +194,15 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
 
         if (item.getItemId() == android.R.id.home) {
 
-            Intent intent = new Intent();
-            intent.putExtra(AppConstants.ORDER_ID, orderHistoryDetail.getResponse().getOrderDetail().getOrderId());
-            intent.putExtra(AppConstants.ORDER_STATUS, orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus());
+            if (orderHistoryDetail != null) {
 
-            setResult(20, intent);
+                Intent intent = new Intent();
+                intent.putExtra(AppConstants.ORDER_ID, orderHistoryDetail.getResponse().getOrderDetail().getOrderId());
+                intent.putExtra(AppConstants.ORDER_STATUS, orderHistoryDetail.getResponse().getOrderDetail().getOrderStatus());
+
+                setResult(20, intent);
+            }
+
             finish();
         }
 
@@ -235,7 +242,12 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
         } else {
 
             tvPhoneNumber.setText(orderHistoryDetail.getResponse().getMobileNumber1());
-            tvName.setText(orderHistoryDetail.getResponse().getRestaurantName());
+
+            if(appDataManager.getLanguage().equalsIgnoreCase(AppConstants.LANG_AR)){
+                tvName.setText(orderHistoryDetail.getResponse().getRestaurantNameArabic());
+            } else {
+                tvName.setText(orderHistoryDetail.getResponse().getRestaurantName());
+            }
             ivUserImage.setVisibility(View.VISIBLE);
 
             Glide.with(mContext)
@@ -585,6 +597,7 @@ public class OrderHistoryDetailActivity extends BaseActivity implements OrderHis
     @Override
     public void onDestroy() {
         orderHistoryMvpPresenter.dispose();
+        Fresco.shutDown();
         super.onDestroy();
     }
 }

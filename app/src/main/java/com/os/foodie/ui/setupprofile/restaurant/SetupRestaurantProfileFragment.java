@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -18,18 +19,23 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -44,7 +50,9 @@ import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.ApiConstants;
 import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.network.model.citycountrylist.Country;
 import com.os.foodie.data.network.model.cuisinetype.list.CuisineType;
+import com.os.foodie.data.network.model.locationinfo.city.City;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.network.model.showrestaurantprofile.RestaurantProfileResponse;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
@@ -53,7 +61,12 @@ import com.os.foodie.feature.GpsLocation;
 import com.os.foodie.feature.callback.AddCuisineTypeCallback;
 import com.os.foodie.feature.callback.GpsLocationCallback;
 import com.os.foodie.model.WorkingDay;
+import com.os.foodie.ui.adapter.autocomplete.CityCountryListAdapter;
 import com.os.foodie.ui.base.BaseFragment;
+import com.os.foodie.ui.dialogfragment.city.CityListDialogFragment;
+import com.os.foodie.ui.dialogfragment.city.CityOnClickListener;
+import com.os.foodie.ui.dialogfragment.city2.City2ListDialogFragment;
+import com.os.foodie.ui.dialogfragment.city2.City2OnClickListener;
 import com.os.foodie.ui.dialogfragment.cuisine.list.CuisineTypeDialogFragment;
 import com.os.foodie.ui.dialogfragment.workingdays.WorkingDaysDialogFragment;
 import com.os.foodie.ui.locationinfo.LocationInfoActivity;
@@ -92,16 +105,18 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
-public class SetupRestaurantProfileFragment extends BaseFragment implements AddCuisineTypeCallback, SetupRestaurantProfileMvpView, View.OnClickListener, GpsLocationCallback {
+public class SetupRestaurantProfileFragment extends BaseFragment implements AddCuisineTypeCallback, SetupRestaurantProfileMvpView, View.OnClickListener, GpsLocationCallback, City2OnClickListener,CityOnClickListener {
 
     public static final String TAG = "SetupRestaurantProfileFragment";
 
     private ImageView ivStep, ivPhotos;
     private GridLayout glPhotos;
 
-    private EditText etCuisineType, etWorkingDays, etAddress, etZipCode, etCountry, etCity;
+    private EditText etCuisineType, etWorkingDays, etAddress, etZipCode, etCountry/*, etCity*/;
     private EditText etOpeningTime, etClosingTime, etMinimumOrderAmount, etDeliveryTime;
     private EditText etDeliveryCharges, etDeliveryZipCodes, etDescription;
+
+    private TextView actvCity;
 
     private ImageView ivLocation;
 
@@ -145,6 +160,20 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     private static final int GPS_REQUEST_CODE = 10;
     String currencySymbol = "";
 
+    private ArrayList<Country> countries;
+    String cityIds = "";
+
+//    private int selectedCountryPosition = -1;
+//    private int selectedCityPosition = -1;
+
+    private City city;
+
+    ArrayList<com.os.foodie.data.network.model.locationinfo.city.City> cities;
+
+    private ArrayList<com.os.foodie.data.network.model.locationinfo.city.City> selectedDeliveryAreas;
+
+    private CityListDialogFragment cityListDialogFragment;
+
     public static SetupRestaurantProfileFragment newInstance(RestaurantProfileResponse restaurantProfileResponse) {
 
         Bundle args = new Bundle();
@@ -174,6 +203,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         gpsLocation = new GpsLocation(getActivity(), this);
 
 //        latLng = new LatLng(0, 0);
+        countries = new ArrayList<Country>();
         idList = new ArrayList<Integer>();
         fileMap = new HashMap<Integer, File>();
 
@@ -191,7 +221,7 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         etWorkingDays = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_working_days);
         etAddress = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_address);
         etCountry = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_country);
-        etCity = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_city);
+//        etCity = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_city);
         etZipCode = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_zip);
         etOpeningTime = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_opening_hours);
         etClosingTime = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_closing_hours);
@@ -201,6 +231,16 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         etDeliveryZipCodes = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_delivery_areas);
         etDescription = (EditText) view.findViewById(R.id.fragment_setup_restaurant_profile_et_description);
 
+        actvCity = (TextView) view.findViewById(R.id.fragment_setup_restaurant_profile_et_city);
+
+        /*actvCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                selectedCityPosition = position;
+                city = (City) parent.getItemAtPosition(position);
+            }
+        });
+*/
         ivLocation = (ImageView) view.findViewById(R.id.fragment_setup_restaurant_profile_iv_address);
         ivLocation.bringToFront();
         ivLocation.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
@@ -211,6 +251,30 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         btSave = (Button) view.findViewById(R.id.fragment_setup_restaurant_profile_bt_save);
         btCancel = (Button) view.findViewById(R.id.fragment_setup_restaurant_profile_bt_cancel);
 
+//
+//        actvCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                selectedCityPosition=position;
+//            }
+//        });
+
+        /*etCountry.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                //setCities(editable.toString());
+            }
+        });*/
+
         ivPhotos.setOnClickListener(this);
         etCuisineType.setOnClickListener(this);
         etWorkingDays.setOnClickListener(this);
@@ -220,10 +284,16 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         etOpeningTime.setOnClickListener(this);
         etClosingTime.setOnClickListener(this);
 
+        etDeliveryZipCodes.setOnClickListener(this);
         btSave.setOnClickListener(this);
         btCancel.setOnClickListener(this);
 
+        actvCity.setOnClickListener(this);
+
         setupRestaurantProfileMvpPresenter.dismissDialog();
+    //    setupRestaurantProfileMvpPresenter.getCityCountryList();
+
+        setupRestaurantProfileMvpPresenter.getCityList();
 
         setProfileData();
 
@@ -345,10 +415,33 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
             HashMap<String, File> fileHashMap = createFileHashMap();
             SetupRestaurantProfileRequest restaurantProfileRequest = createRestaurantProfileRequest();
 
-            setupRestaurantProfileMvpPresenter.saveRestaurantProfile(restaurantProfileRequest, fileHashMap, isEditProfile);
+
+            if (city == null || city.getName() == null || !city.getName().equalsIgnoreCase(actvCity.getText().toString())) {
+
+                setupRestaurantProfileMvpPresenter.saveRestaurantProfile(restaurantProfileRequest, fileHashMap, isEditProfile, null);
+
+            } else {
+
+                setupRestaurantProfileMvpPresenter.saveRestaurantProfile(restaurantProfileRequest, fileHashMap, isEditProfile, city);
+
+            }
 
         } else if (v.getId() == btCancel.getId()) {
             restaurantMainActivity.navigateToShowRestaurantProfile();
+
+        } else if (v.getId() == etDeliveryZipCodes.getId()) {
+
+            openCitySelector(cities);
+        }else if(v.getId() == actvCity.getId()){
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList(AppConstants.CITY_LIST, cities);
+            bundle.putParcelable(AppConstants.CITY_LISTENER, this);
+
+            cityListDialogFragment = new CityListDialogFragment();
+            cityListDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogFragment);
+            cityListDialogFragment.setArguments(bundle);
+            cityListDialogFragment.show(getChildFragmentManager(), "CityListDialogFragment");
+
         }
     }
 
@@ -722,14 +815,33 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         restaurantProfileRequest.setAddress(etAddress.getText().toString());
         restaurantProfileRequest.setCountry(etCountry.getText().toString());
-        restaurantProfileRequest.setCity(etCity.getText().toString());
+//        restaurantProfileRequest.setCity(etCity.getText().toString());
+//        restaurantProfileRequest.setCity(actvCity.getText().toString());
+
+        if (city == null || city.getName() == null || !city.getName().equalsIgnoreCase(actvCity.getText().toString())) {
+            restaurantProfileRequest.setCity(null);
+        } else {
+            restaurantProfileRequest.setCity(city.getCityId());
+        }
+
         restaurantProfileRequest.setZipCode(etZipCode.getText().toString());
-        restaurantProfileRequest.setOpeningTime(TimeFormatUtils.changeTimeFormat(etOpeningTime.getText().toString(), "hh:mm a", "HH:mm"));
-        restaurantProfileRequest.setClosingTime(TimeFormatUtils.changeTimeFormat(etClosingTime.getText().toString(), "hh:mm a", "HH:mm"));
+
+        if (!etOpeningTime.getText().toString().isEmpty()) {
+            restaurantProfileRequest.setOpeningTime(TimeFormatUtils.changeTimeFormat(etOpeningTime.getText().toString(), "hh:mm a", "HH:mm"));
+        } else {
+            restaurantProfileRequest.setOpeningTime(null);
+        }
+
+        if (!etClosingTime.getText().toString().isEmpty()) {
+            restaurantProfileRequest.setClosingTime(TimeFormatUtils.changeTimeFormat(etClosingTime.getText().toString(), "hh:mm a", "HH:mm"));
+        } else {
+            restaurantProfileRequest.setClosingTime(null);
+        }
         restaurantProfileRequest.setMinOrderAmount(etMinimumOrderAmount.getText().toString());
         restaurantProfileRequest.setDeliveryTime(etDeliveryTime.getText().toString());
         restaurantProfileRequest.setDeliveryCharge(etDeliveryCharges.getText().toString());
-        restaurantProfileRequest.setDeliveryZipcode(etDeliveryZipCodes.getText().toString());
+//        restaurantProfileRequest.setDeliveryZipcode(etDeliveryZipCodes.getText().toString());
+
         restaurantProfileRequest.setDescription(etDescription.getText().toString());
 //        restaurantProfileRequest.setCurrency(CommonUtils.dataEncode("₹"));
         restaurantProfileRequest.setCurrency(CommonUtils.dataEncode(currencySymbol));
@@ -748,11 +860,12 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         restaurantProfileRequest.setPaymentMethod(getPaymentType());
 
         if (restaurantProfileResponse != null) {
-
+            restaurantProfileRequest.setDeliveryZipcode(restaurantProfileResponse.getResponse().getRestaurantDetail().getDeliveryCitiesIds());
             restaurantProfileRequest.setLatitude(restaurantProfileResponse.getResponse().getRestaurantDetail().getLatitude());
             restaurantProfileRequest.setLongitude(restaurantProfileResponse.getResponse().getRestaurantDetail().getLongitude());
 
         } else {
+            restaurantProfileRequest.setDeliveryZipcode(cityIds);
             restaurantProfileRequest.setLatitude(latLng.latitude + "");
             restaurantProfileRequest.setLongitude(latLng.longitude + "");
         }
@@ -1011,30 +1124,30 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 //            etCountry.setLongClickable(true);
         }
 
-        if (address.getSubAdminArea() != null && !address.getSubAdminArea().isEmpty()) {
-
-//            etCity.setClickable(true);
-//            etCity.setEnabled(false);
-            etCity.setText(address.getSubAdminArea());
-
-//            etCity.setFocusable(false);
-//            etCity.setLongClickable(false);
-
-        } else if (address.getLocality() != null && !address.getLocality().isEmpty()) {
-
-//            etCity.setClickable(true);
-//            etCity.setEnabled(false);
-            etCity.setText(address.getLocality());
-
-        } else {
-
-//            etCity.setClickable(false);
-//            etCity.setEnabled(true);
-            etCity.setText("");
-
-//            etCity.setFocusable(true);
-//            etCity.setLongClickable(true);
-        }
+//        if (address.getSubAdminArea() != null && !address.getSubAdminArea().isEmpty()) {
+//
+////            etCity.setClickable(true);
+////            etCity.setEnabled(false);
+//            etCity.setText(address.getSubAdminArea());
+//
+////            etCity.setFocusable(false);
+////            etCity.setLongClickable(false);
+//
+//        } else if (address.getLocality() != null && !address.getLocality().isEmpty()) {
+//
+////            etCity.setClickable(true);
+////            etCity.setEnabled(false);
+//            etCity.setText(address.getLocality());
+//
+//        } else {
+//
+////            etCity.setClickable(false);
+////            etCity.setEnabled(true);
+//            etCity.setText("");
+//
+////            etCity.setFocusable(true);
+////            etCity.setLongClickable(true);
+//        }
 
         if (address.getPostalCode() != null && !address.getPostalCode().isEmpty()) {
 
@@ -1058,6 +1171,111 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
         }
 
 //        Log.d("getPostalCode", ">>" + address.getPostalCode());
+
+     //   setCities(etCountry.getText().toString());
+    }
+
+    /*public void setCities(String editable) {
+
+        for (int i = 0; i < countries.size(); i++) {
+
+            if (countries.get(i).getName() != null && !countries.get(i).getName().isEmpty() && countries.get(i).getName().equalsIgnoreCase(editable)) {
+
+                ArrayList<City> cities = (ArrayList<City>) countries.get(i).getCity();
+
+                CityCountryListAdapter adapter = new CityCountryListAdapter(getActivity(), cities);
+
+                actvCity.setThreshold(2);
+                actvCity.setAdapter(adapter);
+
+//                selectedCountryPosition = i;
+
+                break;
+            }
+        }
+    }*/
+
+    @Override
+    public void setCityCountryListAdapter(ArrayList<Country> countries) {
+        this.countries = countries;
+
+       // setCities(etCountry.getText().toString());
+
+    /*    if (restaurantProfileResponse != null) {
+
+            for (int i = 0; i < countries.size(); i++) {
+
+                boolean flag = false;
+
+                for (int j = 0; j < countries.get(i).getCity().size(); j++) {
+
+                    if (countries.get(i).getCity().get(j).getCityId().equals(restaurantProfileResponse.getResponse().getRestaurantDetail().getCityId())) {
+
+                        actvCity.setText(countries.get(i).getCity().get(j).getCityName());
+
+                        city = countries.get(i).getCity().get(j);
+//                    selectedCountryPosition = i;
+//                    selectedCityPosition = j;
+
+                        flag = true;
+                        break;
+                    }
+                }
+
+                if (flag) {
+                    break;
+                }
+            }
+        }*/
+    }
+
+    @Override
+    public void openCitySelector(ArrayList<com.os.foodie.data.network.model.locationinfo.city.City> cities) {
+
+        if (restaurantProfileResponse!=null && restaurantProfileResponse.getResponse().getRestaurantDetail().getDeliveryCitiesIds() != null && !restaurantProfileResponse.getResponse().getRestaurantDetail().getDeliveryCitiesIds().isEmpty()) {
+
+            String[] selectedCityIds = restaurantProfileResponse.getResponse().getRestaurantDetail().getDeliveryCitiesIds().split(",");
+
+            for (int i = 0; i < selectedCityIds.length; i++) {
+
+                for (int j = 0; j < cities.size(); j++) {
+
+                    if (cities.get(j).getCityId().equals(selectedCityIds[i])) {
+
+                        cities.get(j).setChecked(true);
+                        break;
+                    }
+                }
+            }
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(AppConstants.CITY_LIST, cities);
+        bundle.putParcelable(AppConstants.CITY_LISTENER, this);
+
+        City2ListDialogFragment cityListDialogFragment = new City2ListDialogFragment();
+        cityListDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogFragment);
+        cityListDialogFragment.setArguments(bundle);
+        cityListDialogFragment.show(getActivity().getSupportFragmentManager(), "City2ListDialogFragment");
+    }
+
+    @Override
+    public void onCityListReceived(ArrayList<com.os.foodie.data.network.model.locationinfo.city.City> cities) {
+        this.cities = cities;
+
+        if (restaurantProfileResponse != null) {
+
+            for (int i = 0; i < cities.size(); i++) {
+
+
+                if (cities.get(i).getCityId().equals(restaurantProfileResponse.getResponse().getRestaurantDetail().getCityId())) {
+                    city = cities.get(i);
+                    actvCity.setText(city.getName());
+                    break;
+                }
+            }
+        }
+
     }
 
     public void setProfileData() {
@@ -1066,9 +1284,9 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
 
         if (extra != null) {
 
-            restaurantProfileResponse = (RestaurantProfileResponse) extra.getSerializable("profileResponse");
+            if ((RestaurantProfileResponse) extra.getSerializable("profileResponse") != null) {
 
-            if (restaurantProfileResponse != null) {
+                restaurantProfileResponse = (RestaurantProfileResponse) extra.getSerializable("profileResponse");
 
                 isEditProfile = true;
 
@@ -1097,22 +1315,25 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
                 }
 
                 etDescription.setText(restaurantDetail.getDescription());
-                etDeliveryZipCodes.setText(restaurantDetail.getDeliveryZipcode());
+//                etDeliveryZipCodes.setText(restaurantDetail.getDeliveryZipcode());
+                etDeliveryZipCodes.setText(restaurantDetail.getDeliveryCitiesNames());
                 etDeliveryCharges.setText(restaurantDetail.getDeliveryCharge());
                 etMinimumOrderAmount.setText(restaurantDetail.getMinOrderAmount());
                 etDeliveryTime.setText(restaurantDetail.getDeliveryTime());
                 etOpeningTime.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getOpeningTime(), "HH:mm:ss", "hh:mm a"));
                 etClosingTime.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getClosingTime(), "HH:mm:ss", "hh:mm a"));
                 etZipCode.setText(restaurantDetail.getZipCode());
-                etCity.setText(restaurantDetail.getCityName());
+//                etCity.setText(restaurantDetail.getCityName());
+//                actvCity.setText(restaurantDetail.getCityName());
                 etCountry.setText(restaurantDetail.getCountryName());
                 etAddress.setText(restaurantDetail.getAddress());
                 etWorkingDays.setText(restaurantDetail.getWorkingDays());
                 etCuisineType.setText(restaurantDetail.getCuisineType());
 
+                //setCities(etCountry.getText().toString());
+
                 if (restaurantDetail.getDeliveryType().equalsIgnoreCase("Pick Only"))
                     spinnerDeliveryType.setSelection(0);
-
                 else if (restaurantDetail.getDeliveryType().equalsIgnoreCase("Deliver"))
                     spinnerDeliveryType.setSelection(1);
                 else
@@ -1314,5 +1535,65 @@ public class SetupRestaurantProfileFragment extends BaseFragment implements AddC
     public void onFailed() {
         progressDialog.dismiss();
         progressDialog.cancel();
+    }
+
+    @Override
+    public void onClick(ArrayList<com.os.foodie.data.network.model.locationinfo.city.City> citiesChecked) {
+
+         cityIds = "";
+        String cityNames = "";
+
+        for (int i = 0; i < citiesChecked.size(); i++) {
+
+            if (i == 0) {
+
+                cityIds = citiesChecked.get(i).getCityId();
+                cityNames = citiesChecked.get(i).getName();
+
+            } else {
+
+                cityIds += "," + citiesChecked.get(i).getCityId();
+                cityNames += "," + citiesChecked.get(i).getName();
+
+            }
+            Log.d("citiesChecked " + i, ">>" + citiesChecked.get(i).getName());
+        }
+        if(restaurantProfileResponse!=null) {
+            restaurantProfileResponse.getResponse().getRestaurantDetail().setDeliveryCitiesIds(cityIds);
+            restaurantProfileResponse.getResponse().getRestaurantDetail().setDeliveryCitiesNames(cityNames);
+        }
+
+        etDeliveryZipCodes.setText(cityNames);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
+
+    public final static Creator<SetupRestaurantProfileFragment> CREATOR = new Creator<SetupRestaurantProfileFragment>() {
+
+        @SuppressWarnings({"unchecked"})
+        @Override
+        public SetupRestaurantProfileFragment createFromParcel(Parcel source) {
+            return new SetupRestaurantProfileFragment();
+        }
+
+        @Override
+        public SetupRestaurantProfileFragment[] newArray(int size) {
+            return new SetupRestaurantProfileFragment[size];
+        }
+    };
+
+    @Override
+    public void onClick(com.os.foodie.data.network.model.locationinfo.city.City city) {
+        this.city = city;
+        actvCity.setText(city.getName());
+        cityListDialogFragment.dismiss();
     }
 }

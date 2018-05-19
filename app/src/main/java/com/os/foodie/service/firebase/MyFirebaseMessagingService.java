@@ -20,6 +20,8 @@ import com.os.foodie.R;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
+import com.os.foodie.ui.main.customer.CustomerMainActivity;
+import com.os.foodie.ui.main.restaurant.RestaurantMainActivity;
 import com.os.foodie.ui.notification.NotificationFragments;
 import com.os.foodie.ui.order.restaurant.detail.OrderHistoryDetailActivity;
 import com.os.foodie.ui.order.restaurant.list.RestaurantOrderListFragment;
@@ -121,7 +123,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             .setWhen(notificationTime)
                             .setDefaults(Notification.DEFAULT_ALL);
 
-            Intent notificationIntent;
+            Intent notificationIntent, parentIntent;
+
+            if (userType.equalsIgnoreCase(AppConstants.CUSTOMER)) {
+                parentIntent = new Intent(this, CustomerMainActivity.class);
+            } else {
+                parentIntent = new Intent(this, RestaurantMainActivity.class);
+            }
 
             notificationIntent = new Intent(this, OrderHistoryDetailActivity.class);
             notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -137,9 +145,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationIntent.putExtras(notification_bundle);
 
             int id = (int) (System.currentTimeMillis() * (int) (Math.random() * 100));
+            stackBuilder.addNextIntent(parentIntent);
             stackBuilder.addNextIntent(notificationIntent);
             //int requestID = (int) System.currentTimeMillis();
-            PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
+            PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_ONE_SHOT);
 
             notification1
                     .setContentText(notiMsg)

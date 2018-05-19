@@ -40,7 +40,7 @@ public class RestaurantAccountPresenter<V extends RestaurantAccountMvpView> exte
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
-                    .getRestaurantDetails(new CustomerRestaurantDetailsRequest(getDataManager().getCurrentUserId(), restaurantId))
+                    .getRestaurantDetails(new CustomerRestaurantDetailsRequest(getDataManager().getCurrentUserId(), restaurantId,""))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<CustomerRestaurantDetailsResponse>() {
@@ -101,6 +101,10 @@ public class RestaurantAccountPresenter<V extends RestaurantAccountMvpView> exte
 
             if (editRestaurantAccountRequest.getRestaurantName() == null || editRestaurantAccountRequest.getRestaurantName().trim().isEmpty()) {
                 getMvpView().onError(R.string.empty_restaurant_name);
+                return;
+            }
+            if (editRestaurantAccountRequest.getRestaurantNameArabic() == null || editRestaurantAccountRequest.getRestaurantNameArabic().trim().isEmpty()) {
+                getMvpView().onError(R.string.empty_restaurant_name_arabic);
                 return;
             }
             if (editRestaurantAccountRequest.getContactPersonName() == null || editRestaurantAccountRequest.getContactPersonName().trim().isEmpty()) {

@@ -42,9 +42,6 @@ public class SetupRestaurantProfileRequest {
     @SerializedName("zip_code")
     @Expose
     private String zipCode;
-    @SerializedName("delivery_zipcode")
-    @Expose
-    private String deliveryZipcode;
     @SerializedName("description")
     @Expose
     private String description;
@@ -68,6 +65,13 @@ public class SetupRestaurantProfileRequest {
     @SerializedName("currency")
     @Expose
     private String currency;
+
+    @SerializedName("delivery_cities_id")
+    @Expose
+//    private String deliveryCitiesIds;
+//    @SerializedName("delivery_zipcode")
+//    @Expose
+    private String deliveryZipcode;
 
     /**
      * No args constructor for use in serialization

@@ -40,8 +40,16 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
 
             getMvpView().showLoading();
 
+            String language = null;
+
+            if (getDataManager().getLanguage().equalsIgnoreCase(AppConstants.LANG_EN)) {
+                language = AppConstants.LANG_ENG;
+            } else {
+                language = AppConstants.LANG_AR;
+            }
+
             getCompositeDisposable().add(getDataManager()
-                    .getOrderHistoryDetail(orderId)
+                    .getOrderHistoryDetail(orderId,language)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<OrderHistoryDetail>() {
@@ -98,10 +106,18 @@ public class OrderHistoryPresenter<V extends OrderHistoryMvpView> extends BasePr
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
+            String language = "";
+
+            if (getDataManager().getLanguage().equals(AppConstants.LANG_AR)) {
+                language = AppConstants.LANG_AR;
+            } else {
+                language = AppConstants.LANG_ENG;
+            }
+
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
-                    .changeOrderStatus(orderId, status)
+                    .changeOrderStatus(orderId, status, language)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<ChangeOrderStatusResponse>() {

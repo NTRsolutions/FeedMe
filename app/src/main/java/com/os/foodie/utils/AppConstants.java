@@ -32,6 +32,8 @@ public class AppConstants {
     public static final String EDIT_DISH = "EDIT_DISH";
     public static final String DISH_ARRAYLIST = "DISH_ARRAYLIST";
     public static final String WORKING_DAYS_ARRAYLIST = "WORKING_DAYS_ARRAYLIST";
+    public static final String CITY_LIST = "CITY_LIST";
+    public static final String CITY_LISTENER = "CITY_LISTENER";
 
     //    Slide Arguments
     public static final int TOTAL_SLIDE = 4;

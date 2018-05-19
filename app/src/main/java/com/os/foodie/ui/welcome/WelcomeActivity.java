@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.os.foodie.R;
+import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
@@ -250,5 +251,12 @@ public class WelcomeActivity extends BaseActivity implements WelcomeMvpView, Vie
 //        config.locale = locale;
 //
 //        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        AppController.get(this).trackScreenView("FeedMe");
     }
 }

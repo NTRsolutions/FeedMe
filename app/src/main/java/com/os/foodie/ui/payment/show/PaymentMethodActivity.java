@@ -51,6 +51,7 @@ public class PaymentMethodActivity extends BaseActivity implements PaymentMethod
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.mipmap.ic_home_up_orange));
+        getSupportActionBar().setTitle(getResources().getString(R.string.manage_cards_activity_title));
 
         initPresenter();
 //        paymentMethodMvpPresenter = new PaymentMethodPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());

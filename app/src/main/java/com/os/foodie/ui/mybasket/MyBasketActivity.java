@@ -35,16 +35,20 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.network.model.cart.add.AddToCartRequest;
 import com.os.foodie.data.network.model.cart.view.CartList;
 import com.os.foodie.data.network.model.cart.view.MinOrderDiscount;
 import com.os.foodie.data.network.model.cart.view.ViewCartResponse;
 import com.os.foodie.data.network.model.checkout.CheckoutRequest;
 import com.os.foodie.data.network.model.checkout.CheckoutResponse;
+import com.os.foodie.data.network.model.details.Dish;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
+import com.os.foodie.ui.adapter.recyclerview.CourseAdapter;
 import com.os.foodie.ui.adapter.recyclerview.MyBasketAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RecyclerTouchListener;
@@ -69,7 +73,7 @@ import java.util.Locale;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, View.OnClickListener {
+public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, View.OnClickListener, MyBasketAdapter.ForClick {
 
     private Calendar selectedCalendar;
 
@@ -102,6 +106,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_basket);
+
+        Fresco.initialize(this);
 
         initPresenter();
 //        myBasketMvpPresenter = new MyBasketPresenter(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
@@ -156,138 +162,140 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(myBasketAdapter);
 
-        RecyclerTouchListener.ClickListener clickListener = new RecyclerTouchListener.ClickListener() {
+        myBasketAdapter.setForClick(this);
 
-            @Override
-            public void onClick(View view, final int position) {
-
-                LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                final View dialogView = inflater.inflate(R.layout.dialog_item_quantity, null);
-
-                final Dialog mBottomSheetDialog = new Dialog(MyBasketActivity.this, R.style.AlertDialogBottomSlide);
-
-                TextView tvItemName = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_name);
-                TextView tvItemQuantity = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_quantity);
-                TextView tvPrice = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price);
-                TextView tvCurrency = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price_currency);
-
-                tvCurrency.setText(myBasketAdapter.getCurrency());
-
-                ImageView ivMinus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_minus);
-                ImageView ivPlus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_plus);
-
-                Button btUpdate = (Button) dialogView.findViewById(R.id.dialog_item_quantity_bt_update);
-
-                final CartList cartItem = cartLists.get(position);
-
-                tvItemName.setText(cartItem.getName());
-                tvItemQuantity.setText(cartItem.getQty());
-
-                float price = Float.parseFloat(cartItem.getPrice());
-                int quantity = Integer.parseInt(cartItem.getQty());
-
-                int totalAmount = 0;
-                totalAmount += price * quantity;
-
-                tvPrice.setText(totalAmount + "");
-
-                final TextView tvItemQuantityTemp = tvItemQuantity;
-                final TextView tvPriceTemp = tvPrice;
-                final Button btUpdateTemp = btUpdate;
-
-                ivMinus.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        float price = Float.parseFloat(cartLists.get(position).getPrice());
-                        int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
-
-                        if (quantity > 0) {
-
-                            quantity--;
-
-                            int totalAmount = 0;
-                            totalAmount += price * quantity;
-
-                            Log.d("quantity", ">>" + quantity);
-                            Log.d("price", ">>" + price);
-                            Log.d("totalAmount", ">>" + totalAmount);
-
-                            tvPriceTemp.setText(totalAmount + "");
-                            tvItemQuantityTemp.setText(quantity + "");
-                        }
-
-                        if (quantity <= 0) {
-                            btUpdateTemp.setText(getString(R.string.dialog_item_quantity_bt_remove_text));
-                            btUpdateTemp.setTextColor(ContextCompat.getColor(MyBasketActivity.this, R.color.red));
-                        }
-                    }
-                });
-
-                ivPlus.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        float price = Float.parseFloat(cartLists.get(position).getPrice());
-                        int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
-
-                        if (quantity >= 0) {
-
-                            quantity++;
-
-                            int totalAmount = 0;
-                            totalAmount += price * quantity;
-
-                            Log.d("quantity", ">>" + quantity);
-                            Log.d("price", ">>" + price);
-                            Log.d("totalAmount", ">>" + totalAmount);
-
-                            tvPriceTemp.setText(totalAmount + "");
-                            tvItemQuantityTemp.setText(quantity + "");
-
-                            btUpdateTemp.setText(getString(R.string.dialog_item_quantity_bt_update_text));
-                            btUpdateTemp.setTextColor(ContextCompat.getColor(MyBasketActivity.this, R.color.orange));
-                        }
-                    }
-                });
-
-                btUpdate.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if (tvItemQuantityTemp.getText().toString().equals("0")) {
-//                            cartLists.remove(position);
+//        RecyclerTouchListener.ClickListener clickListener = new RecyclerTouchListener.ClickListener() {
 //
-//                            myBasketAdapter.notifyDataSetChanged();
-//                            updateTotalAmount();
-                            mBottomSheetDialog.dismiss();
-                            myBasketMvpPresenter.removeFromMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(), viewCartResponse.getResponse().getRestaurantId(), position);
-
-                        } else {
-//                            cartLists.get(position).setQty(tvItemQuantityTemp.getText().toString());
+//            @Override
+//            public void onClick(View view, final int position) {
 //
-//                            myBasketAdapter.notifyDataSetChanged();
-//                            updateTotalAmount();
-                            mBottomSheetDialog.dismiss();
-                            myBasketMvpPresenter.updateMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(), viewCartResponse.getResponse().getRestaurantId(), tvItemQuantityTemp.getText().toString(), cartLists.get(position).getPrice(), position);
-                        }
-                    }
-                });
-
-                mBottomSheetDialog.setContentView(dialogView); // your custom view.
-                mBottomSheetDialog.setCancelable(true);
-                mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
-                mBottomSheetDialog.show();
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        };
-
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, clickListener));
+//                LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                final View dialogView = inflater.inflate(R.layout.dialog_item_quantity, null);
+//
+//                final Dialog mBottomSheetDialog = new Dialog(MyBasketActivity.this, R.style.AlertDialogBottomSlide);
+//
+//                TextView tvItemName = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_name);
+//                TextView tvItemQuantity = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_quantity);
+//                TextView tvPrice = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price);
+//                TextView tvCurrency = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price_currency);
+//
+//                tvCurrency.setText(myBasketAdapter.getCurrency());
+//
+//                ImageView ivMinus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_minus);
+//                ImageView ivPlus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_plus);
+//
+//                Button btUpdate = (Button) dialogView.findViewById(R.id.dialog_item_quantity_bt_update);
+//
+//                final CartList cartItem = cartLists.get(position);
+//
+//                tvItemName.setText(cartItem.getName());
+//                tvItemQuantity.setText(cartItem.getQty());
+//
+//                float price = Float.parseFloat(cartItem.getPrice());
+//                int quantity = Integer.parseInt(cartItem.getQty());
+//
+//                int totalAmount = 0;
+//                totalAmount += price * quantity;
+//
+//                tvPrice.setText(totalAmount + "");
+//
+//                final TextView tvItemQuantityTemp = tvItemQuantity;
+//                final TextView tvPriceTemp = tvPrice;
+//                final Button btUpdateTemp = btUpdate;
+//
+//                ivMinus.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        float price = Float.parseFloat(cartLists.get(position).getPrice());
+//                        int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
+//
+//                        if (quantity > 0) {
+//
+//                            quantity--;
+//
+//                            int totalAmount = 0;
+//                            totalAmount += price * quantity;
+//
+//                            Log.d("quantity", ">>" + quantity);
+//                            Log.d("price", ">>" + price);
+//                            Log.d("totalAmount", ">>" + totalAmount);
+//
+//                            tvPriceTemp.setText(totalAmount + "");
+//                            tvItemQuantityTemp.setText(quantity + "");
+//                        }
+//
+//                        if (quantity <= 0) {
+//                            btUpdateTemp.setText(getString(R.string.dialog_item_quantity_bt_remove_text));
+//                            btUpdateTemp.setTextColor(ContextCompat.getColor(MyBasketActivity.this, R.color.red));
+//                        }
+//                    }
+//                });
+//
+//                ivPlus.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        float price = Float.parseFloat(cartLists.get(position).getPrice());
+//                        int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
+//
+//                        if (quantity >= 0) {
+//
+//                            quantity++;
+//
+//                            int totalAmount = 0;
+//                            totalAmount += price * quantity;
+//
+//                            Log.d("quantity", ">>" + quantity);
+//                            Log.d("price", ">>" + price);
+//                            Log.d("totalAmount", ">>" + totalAmount);
+//
+//                            tvPriceTemp.setText(totalAmount + "");
+//                            tvItemQuantityTemp.setText(quantity + "");
+//
+//                            btUpdateTemp.setText(getString(R.string.dialog_item_quantity_bt_update_text));
+//                            btUpdateTemp.setTextColor(ContextCompat.getColor(MyBasketActivity.this, R.color.orange));
+//                        }
+//                    }
+//                });
+//
+//                btUpdate.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        if (tvItemQuantityTemp.getText().toString().equals("0")) {
+////                            cartLists.remove(position);
+////
+////                            myBasketAdapter.notifyDataSetChanged();
+////                            updateTotalAmount();
+//                            mBottomSheetDialog.dismiss();
+//                            myBasketMvpPresenter.removeFromMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(), viewCartResponse.getResponse().getRestaurantId(), position);
+//
+//                        } else {
+////                            cartLists.get(position).setQty(tvItemQuantityTemp.getText().toString());
+////
+////                            myBasketAdapter.notifyDataSetChanged();
+////                            updateTotalAmount();
+//                            mBottomSheetDialog.dismiss();
+//                            myBasketMvpPresenter.updateMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(), viewCartResponse.getResponse().getRestaurantId(), tvItemQuantityTemp.getText().toString(), cartLists.get(position).getPrice(), position);
+//                        }
+//                    }
+//                });
+//
+//                mBottomSheetDialog.setContentView(dialogView); // your custom view.
+//                mBottomSheetDialog.setCancelable(true);
+//                mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//                mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
+//                mBottomSheetDialog.show();
+//            }
+//
+//            @Override
+//            public void onLongClick(View view, int position) {
+//
+//            }
+//        };
+//
+//        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, clickListener));
 
         myBasketMvpPresenter.getMyBasketDetails(AppController.get(this).getAppDataManager().getCurrentUserId(), restaurantId);
 
@@ -656,6 +664,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
     @Override
     protected void onDestroy() {
         myBasketMvpPresenter.dispose();
+        Fresco.shutDown();
 //        myBasketMvpPresenter.onDetach();
         super.onDestroy();
     }
@@ -875,8 +884,8 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
                         return;
                     }
 
-                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
-                    SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm");
+                    SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
+                    SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat("HH:mm",Locale.ENGLISH);
 
                     checkoutRequest.setOrderDelieveryDate(simpleDateFormatDate.format(selectedCalendar.getTime()));
                     checkoutRequest.setOrderDelieveryTime(simpleDateFormatTime.format(selectedCalendar.getTime()));
@@ -1008,7 +1017,7 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         boolean isOk = false;
         String[] selectedWeekDays = viewCartResponse.getResponse().getWorkingDays().split(",");
 
-        for (int i = 0; i < weekDays.length; i++) {
+        for (int i = 0; i < selectedWeekDays.length; i++) {
 
             if (weekDays[tempCalendar.get(Calendar.DAY_OF_WEEK) - 1].equalsIgnoreCase(selectedWeekDays[i])) {
                 isOk = true;
@@ -1119,6 +1128,130 @@ public class MyBasketActivity extends BaseActivity implements MyBasketMvpView, V
         }
 
         return false;
+    }
+
+    @Override
+    public void onClick(View view, final int position) {
+
+
+        LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View dialogView = inflater.inflate(R.layout.dialog_item_quantity, null);
+
+        final Dialog mBottomSheetDialog = new Dialog(MyBasketActivity.this, R.style.AlertDialogBottomSlide);
+
+        TextView tvItemName = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_name);
+        TextView tvItemQuantity = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_quantity);
+        TextView tvPrice = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price);
+        TextView tvCurrency = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price_currency);
+
+        tvCurrency.setText(myBasketAdapter.getCurrency());
+
+        ImageView ivMinus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_minus);
+        ImageView ivPlus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_plus);
+
+        Button btUpdate = (Button) dialogView.findViewById(R.id.dialog_item_quantity_bt_update);
+
+        final CartList cartItem = cartLists.get(position);
+
+        tvItemName.setText(cartItem.getName());
+        tvItemQuantity.setText(cartItem.getQty());
+
+        float price = Float.parseFloat(cartItem.getPrice());
+        int quantity = Integer.parseInt(cartItem.getQty());
+
+        int totalAmount = 0;
+        totalAmount += price * quantity;
+
+        tvPrice.setText(totalAmount + "");
+
+        final TextView tvItemQuantityTemp = tvItemQuantity;
+        final TextView tvPriceTemp = tvPrice;
+        final Button btUpdateTemp = btUpdate;
+
+        ivMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                float price = Float.parseFloat(cartLists.get(position).getPrice());
+                int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
+
+                if (quantity > 0) {
+
+                    quantity--;
+
+                    int totalAmount = 0;
+                    totalAmount += price * quantity;
+
+                    Log.d("quantity", ">>" + quantity);
+                    Log.d("price", ">>" + price);
+                    Log.d("totalAmount", ">>" + totalAmount);
+
+                    tvPriceTemp.setText(totalAmount + "");
+                    tvItemQuantityTemp.setText(quantity + "");
+                }
+
+                if (quantity <= 0) {
+                    btUpdateTemp.setText(getString(R.string.dialog_item_quantity_bt_remove_text));
+                    btUpdateTemp.setTextColor(ContextCompat.getColor(MyBasketActivity.this, R.color.red));
+                }
+            }
+        });
+
+        ivPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                float price = Float.parseFloat(cartLists.get(position).getPrice());
+                int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
+
+                if (quantity >= 0) {
+
+                    quantity++;
+
+                    int totalAmount = 0;
+                    totalAmount += price * quantity;
+
+                    Log.d("quantity", ">>" + quantity);
+                    Log.d("price", ">>" + price);
+                    Log.d("totalAmount", ">>" + totalAmount);
+
+                    tvPriceTemp.setText(totalAmount + "");
+                    tvItemQuantityTemp.setText(quantity + "");
+
+                    btUpdateTemp.setText(getString(R.string.dialog_item_quantity_bt_update_text));
+                    btUpdateTemp.setTextColor(ContextCompat.getColor(MyBasketActivity.this, R.color.orange));
+                }
+            }
+        });
+
+        btUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (tvItemQuantityTemp.getText().toString().equals("0")) {
+//                            cartLists.remove(position);
+//
+//                            myBasketAdapter.notifyDataSetChanged();
+//                            updateTotalAmount();
+                    mBottomSheetDialog.dismiss();
+                    myBasketMvpPresenter.removeFromMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(), viewCartResponse.getResponse().getRestaurantId(), position);
+
+                } else {
+//                            cartLists.get(position).setQty(tvItemQuantityTemp.getText().toString());
+//
+//                            myBasketAdapter.notifyDataSetChanged();
+//                            updateTotalAmount();
+                    mBottomSheetDialog.dismiss();
+                    myBasketMvpPresenter.updateMyBasket(AppController.get(MyBasketActivity.this).getAppDataManager().getCurrentUserId(), cartLists.get(position).getDishId(), viewCartResponse.getResponse().getRestaurantId(), tvItemQuantityTemp.getText().toString(), cartLists.get(position).getPrice(), position);
+                }
+            }
+        });
+
+        mBottomSheetDialog.setContentView(dialogView); // your custom view.
+        mBottomSheetDialog.setCancelable(true);
+        mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
+        mBottomSheetDialog.show();
     }
 
 //

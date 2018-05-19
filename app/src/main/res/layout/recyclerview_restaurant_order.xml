@@ -20,9 +20,11 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/recyclerview_restaurant_order_tv_order_id"
+            android:id="@+id/recyclerview_restaurant_order_tv_name"
             style="@style/TextView5"
+            android:textSize="@dimen/style_text_view_3_text_size"
             android:layout_width="match_parent"
+            tools:text="Customer Name: Amrat Singh"
             android:layout_height="wrap_content" />
 
         <!--<TextView-->
@@ -39,16 +41,36 @@
             android:layout_marginTop="@dimen/restaurant_order_ll_delivery_time_margin_top"
             android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/recyclerview_restaurant_order_tv_order_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                tools:text="Order Id: 321465"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/restaurant_order_delivery_type_text_size"
+                fontPath="@string/font_serif"
+                android:typeface="serif" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/restaurant_order_ll_order_type_margin_top"
+            android:orientation="horizontal">
+
             <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginRight="5dp"-->
-                <!--android:ellipsize="end"-->
-                <!--android:maxLines="2"-->
-                <!--android:text="@string/recyclerview_restaurant_order_tv_delivery_time_tag_text"-->
-                <!--android:textColor="@color/dark_grey"-->
-                <!--android:textSize="@dimen/restaurant_order_tv_delivery_type_tag_text_size"-->
-                <!--android:typeface="serif" />-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginRight="5dp"-->
+            <!--android:ellipsize="end"-->
+            <!--android:maxLines="2"-->
+            <!--android:text="@string/recyclerview_restaurant_order_tv_delivery_time_tag_text"-->
+            <!--android:textColor="@color/dark_grey"-->
+            <!--android:textSize="@dimen/restaurant_order_tv_delivery_type_tag_text_size"-->
+            <!--android:typeface="serif" />-->
 
             <TextView
                 android:id="@+id/recyclerview_restaurant_order_tv_delivery_time"
@@ -56,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
+                tools:text="To be delivered on 19-07-2017 at 12:57"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/restaurant_order_delivery_type_text_size"
                 fontPath="@string/font_serif"

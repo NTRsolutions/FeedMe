@@ -11,10 +11,13 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -22,14 +25,19 @@ import com.os.foodie.R;
 import com.os.foodie.application.AppController;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
+import com.os.foodie.data.network.model.citycountrylist.City;
+import com.os.foodie.data.network.model.citycountrylist.Country;
 import com.os.foodie.data.network.model.deliveryaddress.add.AddDeliveryAddressRequest;
 import com.os.foodie.data.network.model.deliveryaddress.getall.Address;
 import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressRequest;
+import com.os.foodie.data.network.model.locationinfo.get.Response;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
 import com.os.foodie.feature.GpsLocation;
 import com.os.foodie.feature.callback.GpsLocationCallback;
+import com.os.foodie.ui.adapter.autocomplete.CityCountryListAdapter;
 import com.os.foodie.ui.base.BaseActivity;
 import com.os.foodie.ui.custom.RippleAppCompatButton;
+import com.os.foodie.ui.locationinfo.LocationInfoActivity;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.CommonUtils;
 
@@ -41,8 +49,12 @@ import io.reactivex.disposables.CompositeDisposable;
 public class AddEditDeliveryAddressActivity extends BaseActivity implements AddEditDeliveryAddressMvpView, View.OnClickListener, GpsLocationCallback {
 
     private EditText etFullName, etPhoneNumber, etPinCode, etFlatNo, etColony;
-    private EditText etLandmark, etCity, etState, etCountry;
+    private EditText etLandmark/*, etCity*/, etState, etCountry;
     private RippleAppCompatButton btSave;
+
+    private AutoCompleteTextView actvCity;
+
+    private ArrayList<Country> countries;
 
     private int position;
     private Address address;
@@ -66,6 +78,7 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
 //        addEditDeliveryAddressMvpPresenter = new AddEditDeliveryAddressPresenter<>(AppController.get(this).getAppDataManager(), AppController.get(this).getCompositeDisposable());
         addEditDeliveryAddressMvpPresenter.onAttach(AddEditDeliveryAddressActivity.this);
 
+        countries = new ArrayList<Country>();
         gpsLocation = new GpsLocation(this, this);
 
         initView();
@@ -83,6 +96,8 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
         if (isEdit) {
             getSupportActionBar().setTitle(getString(R.string.edit_delivery_address_activity_title));
         }
+
+        addEditDeliveryAddressMvpPresenter.getLocationDetailsAndCityCountryList();
     }
 
     public void initPresenter() {
@@ -116,7 +131,7 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
                     updateAddressRequest.setFlatNumber(etFlatNo.getText().toString().trim());
                     updateAddressRequest.setColony(etColony.getText().toString().trim());
                     updateAddressRequest.setLandmark(etLandmark.getText().toString().trim());
-                    updateAddressRequest.setCity(etCity.getText().toString().trim());
+                    updateAddressRequest.setCity(actvCity.getText().toString().trim());
                     updateAddressRequest.setCountry(etCountry.getText().toString().trim());
                     updateAddressRequest.setState(etState.getText().toString().trim());
                     updateAddressRequest.setUserId(AppController.get(this).getAppDataManager().getCurrentUserId());
@@ -134,7 +149,7 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
                     addDeliveryAddressRequest.setFlatNumber(etFlatNo.getText().toString().trim());
                     addDeliveryAddressRequest.setColony(etColony.getText().toString().trim());
                     addDeliveryAddressRequest.setLandmark(etLandmark.getText().toString().trim());
-                    addDeliveryAddressRequest.setCity(etCity.getText().toString().trim());
+                    addDeliveryAddressRequest.setCity(actvCity.getText().toString().trim());
                     addDeliveryAddressRequest.setCountry(etCountry.getText().toString().trim());
                     addDeliveryAddressRequest.setState(etState.getText().toString().trim());
 
@@ -183,11 +198,29 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
         etFlatNo = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_flat_no);
         etColony = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_colony);
         etLandmark = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_landmark);
-        etCity = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_city);
+//        etCity = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_city);
         etState = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_state);
         etCountry = (EditText) findViewById(R.id.activity_add_edit_delivery_address_et_country);
 
+        actvCity = (AutoCompleteTextView) findViewById(R.id.activity_add_edit_delivery_address_et_city);
+
         btSave = (RippleAppCompatButton) findViewById(R.id.activity_add_delivery_address_bt_save);
+
+        etCountry.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                setCities(editable.toString());
+            }
+        });
 
         setOnClickListener();
     }
@@ -200,7 +233,7 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
         etFlatNo.setText(address.getFlatNumber());
         etColony.setText(address.getColony());
         etLandmark.setText(address.getLandmark());
-        etCity.setText(address.getCity());
+        actvCity.setText(address.getCity());
         etState.setText(address.getState());
         etCountry.setText(address.getCountry());
     }
@@ -296,16 +329,18 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
 
         if (address.getSubAdminArea() != null && !address.getSubAdminArea().isEmpty()) {
 
-            etCity.setText(address.getSubAdminArea());
+            actvCity.setText(address.getSubAdminArea());
 
         } else if (address.getLocality() != null && !address.getLocality().isEmpty()) {
 
-            etCity.setText(address.getLocality());
+            actvCity.setText(address.getLocality());
 
         } else {
 
-            etCity.setText("");
+            actvCity.setText("");
         }
+
+        setCities(etCountry.getText().toString());
     }
 
     @Override
@@ -372,5 +407,34 @@ public class AddEditDeliveryAddressActivity extends BaseActivity implements AddE
     public void onFailed() {
         progressDialog.dismiss();
         progressDialog.cancel();
+    }
+
+    @Override
+    public void setCityCountryListAdapter(ArrayList<Country> countries, Response response) {
+        this.countries = countries;
+
+        if (!isEdit) {
+            etCountry.setText(response.getCountry());
+            actvCity.setText(response.getCity());
+            etColony.setText(response.getAddress());
+        }
+    }
+
+    public void setCities(String editable) {
+
+        for (int i = 0; i < countries.size(); i++) {
+
+            if (countries.get(i).getName() != null && !countries.get(i).getName().isEmpty() && countries.get(i).getName().equalsIgnoreCase(editable)) {
+
+                ArrayList<City> cities = (ArrayList<City>) countries.get(i).getCity();
+
+                CityCountryListAdapter adapter = new CityCountryListAdapter(AddEditDeliveryAddressActivity.this, cities);
+
+                actvCity.setThreshold(2);
+                actvCity.setAdapter(adapter);
+
+                break;
+            }
+        }
     }
 }

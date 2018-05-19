@@ -45,12 +45,20 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
+            String language = null;
+
+            if (getDataManager().getLanguage().equalsIgnoreCase(AppConstants.LANG_EN)) {
+                language = AppConstants.LANG_ENG;
+            } else {
+                language = AppConstants.LANG_AR;
+            }
+
             getMvpView().showLoading();
 
             if (getDataManager().isCurrentUserLoggedIn()) {
 
                 getCompositeDisposable().add(getDataManager()
-                        .getRestaurantDetails(new CustomerRestaurantDetailsRequest(getDataManager().getCurrentUserId(), restaurantId))
+                        .getRestaurantDetails(new CustomerRestaurantDetailsRequest(getDataManager().getCurrentUserId(), restaurantId, language))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Consumer<CustomerRestaurantDetailsResponse>() {
@@ -68,7 +76,6 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
 //                                    config.locale = locale;
 //
 //                                    getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
-
                                     Intent intent = new Intent(getMvpView().getContext(), WelcomeActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     getMvpView().getContext().startActivity(intent);
@@ -106,7 +113,7 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
             } else {
 
                 getCompositeDisposable().add(getDataManager()
-                        .getRestaurantDetails(new CustomerRestaurantDetailsRequest("", restaurantId))
+                        .getRestaurantDetails(new CustomerRestaurantDetailsRequest("", restaurantId, language))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Consumer<CustomerRestaurantDetailsResponse>() {
@@ -484,6 +491,11 @@ public class RestaurantDetailsPresenter<V extends RestaurantDetailsMvpView> exte
     @Override
     public boolean isCurrentUserLoggedIn() {
         return getDataManager().isCurrentUserLoggedIn();
+    }
+
+    @Override
+    public String getLanguage() {
+        return getDataManager().getLanguage();
     }
 
     @Override

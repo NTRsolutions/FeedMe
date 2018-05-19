@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:gravity="center"
     tools:ignore="MissingPrefix"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context="com.os.foodie.ui.asksignup.AskSignUpActivity">
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Feedme</string>
 
     <!--RTL Check-->
     <bool name="is_rtl">true</bool>
@@ -205,7 +204,7 @@
     <string name="setup_restaurant_profile_et_closing_hours_hint">"ساعات الإغلاق "</string>
     <string name="setup_restaurant_profile_et_cuisine_type_hint">نوع المطبخ</string>
     <!--<string name="setup_restaurant_profile_et_delivery_areas_hint">مناطق التوصيل</string>-->
-    <string name="setup_restaurant_profile_et_delivery_areas_hint">مناطق التسليم (على سبيل المثال، 1000,1303)</string>
+    <string name="setup_restaurant_profile_et_delivery_areas_hint">مناطق التسليم</string>
     <string name="setup_restaurant_profile_et_delivery_charges_hint">"رسوم التوصيل "</string>
     <string name="setup_restaurant_profile_et_minimum_order_amount_hint">الحد الأدنى للطلب:</string>
     <string name="setup_restaurant_profile_et_opening_hours_hint">ساعات العمل</string>
@@ -279,30 +278,31 @@
     <string name="not_logged_in">الرجاء تسجيل الدخول أولا</string>
 
     <!--Validation Message-->
-    <string name="empty_first_name">الرجاء كتابة اسمك الأول</string>
+    <string name="empty_first_name">الإسم الأول مطلوب</string>
     <string name="invalid_first_name">يرجى إدخال الاسم الأول الصحيح</string>
     <string name="long_first_name">يجب ألا يزيد الاسم الأول عن 15 حرفا</string>
-    <string name="empty_last_name">يرجى إدخال اسم العائلة</string>
+    <string name="empty_last_name">اسم العائلة مطلوب</string>
     <string name="invalid_last_name">يرجى إدخال اسم العائلة الصحيح</string>
     <string name="long_last_name">يجب ألا يزيد اسم العائلة عن 15 حرفا</string>
-    <string name="empty_email">يرجى إدخال عنوان بريد إلكتروني</string>
+    <string name="empty_email">عنوان البريد الإلكتروني مطلوب</string>
     <string name="invalid_email">يرجى إدخال عنوان بريد إلكتروني صالح</string>
-    <string name="empty_password">يرجى إدخال كلمة المرور</string>
+    <string name="empty_password">كلمة المرور مطلوبة</string>
     <string name="minimum_password">يجب أن تتكون كلمة المرور من 6 أحرف</string>
     <string name="invalid_password">يجب أن تحتوي كلمة المرور على حرف أبجدي و رقم واحد على الأقل</string>
-    <string name="empty_confirm_password">يرجى التأكد من صحة كلمة المرور الخاصة بك</string>
+    <string name="empty_confirm_password">تأكيد كلمة المرور مطلوبة</string>
     <string name="not_match_password">كلمة المرور وتأكيد كلمة المرور لا تتطابقان</string>
-    <string name="empty_country_code">الرجاء \ n تقديم \ n رمز البلد \ n</string>
-    <string name="empty_phone">يرجى إدخال رقم هاتفك</string>
+    <string name="empty_country_code">الرجاء تقديم رمز البلد</string>
+    <!--<string name="empty_country_code">الرجاء <![CDATA[ <br/> ]]> تقديم <![CDATA[ <br/> ]]> رمز البلد</string>-->
+    <string name="empty_phone">رقم الهاتف مطلوب</string>
     <string name="invalid_phone">الرجاء إدخال رقم هاتف صالح</string>
     <string name="mandatory_logo">يرجى تحميل شعار مطعمك</string>
     <string name="empty_otp">المرسل على هاتفك OTP الرجاء ادخال رقم الـ</string>
     <string name="incorrect_otp">خاطئ  OTP رقم الـ</string>
     <string name="minimum_otp">OTP الرجاء ادخال 6 ارقام الـ</string>
-    <string name="empty_contact_person_name">يرجى ادخال اسم جهة الاتصال</string>
+    <string name="empty_contact_person_name">اسم جهة الاتصال مطلوب</string>
     <string name="invalid_contact_person_name">يرجى ادخال اسم جهة اتصال صحيحة</string>
     <string name="long_contact_person_name">يجب ألا يزيد طول اسم جهة الاتصال عن 30 حرفا</string>
-    <string name="empty_restaurant_name">يرجى ادخال اسم المطعم</string>
+    <string name="empty_restaurant_name">مطلوب اسم المطعم</string>
     <string name="invalid_restaurant_name">يرجى ادخال اسم مطعم صالح</string>
     <string name="long_restaurant_name">يجب ألا يزيد اسم المطعم عن 30 حرفا</string>
     <string name="empty_cuisine_type">يرجى ادخال نوع المطعم</string>
@@ -434,8 +434,6 @@
     <string name="skip_customer_main_tv_or">او</string>
 
     <!--Main-->
-    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
-    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
     <!--Menu-->
     <string name="action_discount_mangement">إدارة الخصم</string>
@@ -456,8 +454,6 @@
     <string name="fragment_working_days_tv_title_text">حدد أيام العمل</string>
 
     <!--Customer Restaurant Details-->
-    <string name="restautant_details_fall_delivery_time_min_text" translatable="false">min</string>
-    <string name="recyclerview_course_content_tv_x_text" translatable="false">x</string>
     <string name="restaurant_details_tv_total_quantity_tag_text">الكمية</string>
     <string name="restaurant_details_tv_tag_opening_closing_time_text">وقت الإفتتاح و الإغلاق</string>
     <string name="restaurant_details_tv_tag_working_days_text">أيام العمل</string>
@@ -466,8 +462,6 @@
     <string name="restaurant_menu_fragment_tv_empty_menu">لم يتم العثور على عنصر قائمة</string>
 
     <!--Settings-->
-    <string name="settings_client_email" translatable="false">support@foodi.com</string>
-    <string name="settings_rate_us_play_store_url" translatable="false">https://play.google.com/store/apps/details?id=com.facebook.katana</string>
     <string name="setting_toast_message_language_changed">تم تغيير اللغة إلى</string>
 
     <!--Change Password-->
@@ -478,14 +472,12 @@
     <string name="recyclerview_restaurant_order_tv_delivery_time_tag_text">الطبات مفتوحه</string>
 
     <!--Filters-->
-    <string name="filters_tv_in_km_text" translatable="false">*in km</string>
     <string name="filters_ctv_deliver_text">ايصال</string>
 
     <!--My Basket-->
     <string name="my_basket_activity_title">سلتي</string>
     <string name="my_basket_ctv_pickup_text">استلم</string>
     <string name="my_basket_tv_empty_basket_text">السلة فارغة</string>
-    <string name="my_basket_tv_date_time_text" translatable="false">ASAP</string>
     <string name="my_basket_tv_subtotal_text">حاصل الجمع</string>
 
     <!--Customer_Restaurant Search-->
@@ -495,10 +487,6 @@
     <string name="dialog_item_quantity_tv_price_tag_text">السعر: </string>
 
     <!--Add Payment Card-->
-    <string name="add_payment_card_et_month_hint" translatable="false">MM</string>
-    <string name="add_payment_card_et_year_hint" translatable="false">YY</string>
-    <string name="add_payment_card_et_cvv_hint" translatable="false">CVV</string>
-    <string name="add_payment_card_ctv_terms_text" translatable="false"><![CDATA[By adding your debit / credit card, you agree to the Terms & Condition.]]></string>
 
     <!--Add Edit Delivery Address-->
     <string name="add_delivery_address_activity_title">اضف عنوان</string>
@@ -506,10 +494,8 @@
     <string name="add_edit_delivery_address_et_state_tag_text">الحالة</string>
 
     <!--Customer Search-->
-    <string name="customer_search_tv_minutes_tag_text" translatable="false">min.</string>
 
     <!--RecyclerView Restaurant-->
-    <string name="restaurant_tv_time_text" translatable="false">min.</string>
 
     <!--Manage Payment Card-->
     <string name="manage_cards_activity_title">إدارة البطاقات</string>
@@ -537,9 +523,6 @@
 
     <!--Add Discount-->
     <string name="add_discount_tv_food_course_type_hint">نوع الطبق</string>
-    <string name="add_discount_et_min_amount_hint" translatable="false">0</string>
-    <string name="add_discount_et_min_percent_hint" translatable="false">0.0%</string>
-    <string name="add_discount_et_food_percent_hint" translatable="false">0.0%</string>
     <string name="add_discount_tv_select_dish_text">اختر الأطباق</string>
     <string name="add_discount_tv_order_by_text_tag">اطلب في :</string>
 
@@ -615,5 +598,18 @@
     <string name="restaurant_sign_up_et_confirm_email_hint">أكد عنوانك الإلكتروني</string>
     <string name="order_history_order_on_tag">طلب على</string>
     <string name="order_history_at_tag">في</string>
+    <string name="mandatory_dish_image">يرجى تقديم صورة الطبق</string>
+    <string name="order_history_order_on_tag_2">ليتم تسليمها</string>
+    <string name="order_customer_name">اسم الزبون:</string>
+    <string name="order_restaurant_name">اسم المطعم:</string>
+    <string name="empty_menu_item_name_arabic">يرجى تقديم اسم العنصر عربي</string>
+    <string name="empty_menu_item_name_english">يرجى تقديم اسم العنصر باللغة الإنجليزية</string>
+    <string name="empty_restaurant_name_arabic">مطلوب اسم المطعم باللغة العربية</string>
+    <string name="not_match_email">البريد الإلكتروني وتأكيد البريد الإلكتروني غير متطابقين.</string>
+    <string name="restaurant_menu_add_update_et_item_name_hint_arabic">اسم العنصر باللغة العربية</string>
+    <string name="restaurant_menu_add_update_et_item_name_hint_english">اسم العنصر باللغة الإنجليزية</string>
+    <string name="restaurant_sign_up_et_restaurant_name_hint_arabic">اسم المطعم باللغة العربية</string>
+    <string name="restaurant_sign_up_et_restaurant_name_hint_english">اسم المطعم باللغة الإنجليزية</string>
+    <string name="order_id">رقم التعريف الخاص بالطلب:</string>
 
 </resources>

@@ -5,10 +5,18 @@
     android:orientation="horizontal"
     android:padding="@dimen/mybasket_item_ll_main_padding">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/recyclerview_mybasket_item_civ_dish_image"
+        android:layout_width="@dimen/add_discount_bt_height"
+        android:layout_height="@dimen/add_discount_bt_height"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/img_placeholder" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_marginStart="@dimen/restaurant_menu_tv_vegnonveg_margin_top"
         android:orientation="vertical">
 
         <TextView

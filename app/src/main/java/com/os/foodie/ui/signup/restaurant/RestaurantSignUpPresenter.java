@@ -31,7 +31,7 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
     }
 
     @Override
-    public void onRestaurantSignUpClick(String fbId, String contactPersonName, String restaurantName, String email, String confirmEmail, String password, String confirm_password, String countryCode, String phone, String deviceId, String deviceType, String latitude, String longitude, String language, HashMap<String, File> fileMap) {
+    public void onRestaurantSignUpClick(String fbId, String contactPersonName, String restaurantName, String email, String confirmEmail, String password, String confirm_password, String countryCode, String phone, String deviceId, String deviceType, String latitude, String longitude, String language, HashMap<String, File> fileMap, String restaurantNameArabic) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -54,6 +54,13 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
             if (restaurantName == null || restaurantName.trim().isEmpty()) {
 
                 getMvpView().showError(2, getMvpView().getContext().getString(R.string.empty_restaurant_name));
+//                getMvpView().onError(R.string.empty_restaurant_name);
+                return;
+            }
+
+            if (restaurantNameArabic == null || restaurantNameArabic.trim().isEmpty()) {
+
+                getMvpView().showError(8, getMvpView().getContext().getString(R.string.empty_restaurant_name_arabic));
 //                getMvpView().onError(R.string.empty_restaurant_name);
                 return;
             }
@@ -134,7 +141,13 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
                 return;
             }
 
-            final RestaurantSignUpRequest restaurantSignUpRequest = new RestaurantSignUpRequest(fbId, contactPersonName, restaurantName, email, password, countryCode, phone, deviceId, deviceType, latitude, longitude, language);
+            if (getDataManager().getLanguage().equalsIgnoreCase(AppConstants.LANG_EN)) {
+                language = AppConstants.LANG_ENG;
+            } else {
+                language = AppConstants.LANG_AR;
+            }
+
+            final RestaurantSignUpRequest restaurantSignUpRequest = new RestaurantSignUpRequest(fbId, contactPersonName, restaurantName, email, password, countryCode, phone, deviceId, deviceType, latitude, longitude, language,restaurantNameArabic);
 
             getMvpView().showLoading();
 
@@ -178,10 +191,18 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
 
 //        getMvpView().onError("Res fb sign up done");
 
+        String language = null;
+
+        if (getDataManager().getLanguage().equalsIgnoreCase(AppConstants.LANG_EN)) {
+            language = AppConstants.LANG_ENG;
+        } else {
+            language = AppConstants.LANG_AR;
+        }
+
         getMvpView().showLoading();
 
         getCompositeDisposable().add(getDataManager()
-                .doFacebookLogin(new FacebookLoginRequest(email, fbId, deviceId, deviceType))
+                .doFacebookLogin(new FacebookLoginRequest(email, fbId, deviceId, deviceType,language))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<FacebookLoginResponse>() {
@@ -207,15 +228,13 @@ public class RestaurantSignUpPresenter<V extends RestaurantSignUpMvpView> extend
                                 Log.d("getProfileImage", ">>" + getDataManager().getRestaurantLogoURL());
                             }
 
-
-                            Locale locale = new Locale(getDataManager().getLanguage());
-                            Locale.setDefault(locale);
-
-                            Configuration config = new Configuration();
-                            config.locale = locale;
-
-                            getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
-
+//                            Locale locale = new Locale(getDataManager().getLanguage());
+//                            Locale.setDefault(locale);
+//
+//                            Configuration config = new Configuration();
+//                            config.locale = locale;
+//
+//                            getMvpView().getContext().getResources().updateConfiguration(config, getMvpView().getContext().getResources().getDisplayMetrics());
 
                             if (facebookLoginResponse.getResponse().getIsProfileSet().equals("1")) {
                                 getDataManager().setCurrentUserInfoInitialized(true);

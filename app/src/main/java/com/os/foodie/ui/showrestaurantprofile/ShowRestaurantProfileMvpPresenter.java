@@ -16,5 +16,7 @@ public interface ShowRestaurantProfileMvpPresenter<V extends ShowRestaurantProfi
 
     void getRestaurantProfile(String restaurantId);
 
+    String getLanguage();
+
     void dispose();
 }

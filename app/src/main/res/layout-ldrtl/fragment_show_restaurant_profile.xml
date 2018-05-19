@@ -77,7 +77,6 @@
                             style="@style/TextView6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="end"
                             android:layout_marginBottom="@dimen/restaurant_details_tv_restaurant_name_margin_bottom"
                             android:layout_marginStart="@dimen/show_restaurant_profile_tv_restaurant_name_margin_start" />
 

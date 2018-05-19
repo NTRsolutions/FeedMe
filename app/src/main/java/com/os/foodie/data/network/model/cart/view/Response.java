@@ -53,6 +53,7 @@ public class Response {
     @Expose
     private String message;
     @SerializedName("delivery_zipcode")
+//    @SerializedName("delivery_cities_name")
     @Expose
     private String deliveryZipCode;
     @SerializedName("is_delete")

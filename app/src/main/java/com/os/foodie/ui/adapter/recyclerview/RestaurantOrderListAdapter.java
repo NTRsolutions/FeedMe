@@ -24,6 +24,7 @@ import com.os.foodie.utils.DialogUtils;
 import com.os.foodie.utils.ScreenUtils;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantOrderListAdapter.RestaurantOrderListViewHolder> {
 
@@ -44,7 +45,7 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
 
     class RestaurantOrderListViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvOrderId/*, tvItemName*/, tvOrderType, tvDeliveryTime, tvDiscount, tvPrice;
+        public TextView tvOrderId/*, tvItemName*/, tvName, tvOrderType, tvDeliveryTime, tvDiscount, tvPrice;
         public ImageView ivAccept, ivReject;
 
         public RestaurantOrderListViewHolder(View itemView) {
@@ -52,6 +53,7 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
 
             tvOrderId = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_order_id);
 //            tvItemName = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_item_name);
+            tvName = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_name);
             tvDeliveryTime = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_delivery_time);
             tvOrderType = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_order_type);
             tvDiscount = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_discount);
@@ -73,15 +75,20 @@ public class RestaurantOrderListAdapter extends RecyclerView.Adapter<RestaurantO
 
         final OrderList order = orderLists.get(position);
 
-        holder.tvOrderId.setText(order.getOrderId());
+        holder.tvOrderId.setText(context.getString(R.string.order_id) + " " + order.getOrderId());
+//        holder.tvOrderId.setText(order.getOrderId());
+
 //        holder.tvItemName.setText(order.getDishName());
 
-        holder.tvDeliveryTime.setText(context.getString(R.string.order_history_order_on_tag) + " " + order.getOrderDelieveryDate() + " " + context.getString(R.string.order_history_at_tag) + " " + order.getOrderDelieveryTime().replace(":00", ""));
+        holder.tvName.setText(context.getString(R.string.order_customer_name) + " " + order.getName());
+
+//        holder.tvDeliveryTime.setText(context.getString(R.string.order_history_order_on_tag) + " " + order.getOrderDelieveryDate() + " " + context.getString(R.string.order_history_at_tag) + " " + order.getOrderDelieveryTime().replace(":00", ""));
+        holder.tvDeliveryTime.setText(context.getString(R.string.order_history_order_on_tag_2) + " " + order.getOrderDelieveryDate() + " " + context.getString(R.string.order_history_at_tag) + " " + order.getOrderDelieveryTime().replace(":00", ""));
 
 //        holder.tvDeliveryTime.setText("Ordered on: " + order.getOrderDelieveryDate() + " at " + order.getOrderDelieveryTime().replace(":00", ""));
         holder.tvOrderType.setText(order.getOrderType());
 
-        String totalDiscount = "" + String.format("%.2f", (order.getTotalDiscount() / Float.parseFloat(order.getTotalAmount()) * 100));
+        String totalDiscount = "" + String.format(Locale.ENGLISH, "%.2f", (Float.parseFloat(order.getTotalDiscount()) / Float.parseFloat(order.getTotalAmount()) * 100));
         holder.tvDiscount.setText(totalDiscount + "%");
         holder.tvDiscount.setHeight(ScreenUtils.dpToPx(context, 60));
         holder.tvDiscount.setWidth(ScreenUtils.dpToPx(context, 60));

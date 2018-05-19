@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/otp_et_otp_margin_top"
+    android:orientation="vertical">
+
+    <CheckedTextView
+        android:id="@+id/item_city2_list_tv_city"
+        style="@style/TextView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/cuisine_type_working_days_ctv_drawable_padding"
+        android:drawableStart="?android:attr/listChoiceIndicatorMultiple"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        tools:text="City" />
+
+</LinearLayout>

@@ -35,7 +35,7 @@ public class ShowRestaurantProfilePresenter<V extends ShowRestaurantProfileMvpVi
             getMvpView().showLoading();
 
             getCompositeDisposable().add(getDataManager()
-                    .getRestaurantProfile(new CustomerRestaurantDetailsRequest(getDataManager().getCurrentUserId(), restaurantId))
+                    .getRestaurantProfile(new CustomerRestaurantDetailsRequest(getDataManager().getCurrentUserId(), restaurantId,""))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<RestaurantProfileResponse>() {
@@ -87,6 +87,11 @@ public class ShowRestaurantProfilePresenter<V extends ShowRestaurantProfileMvpVi
         {
             getMvpView().onError(R.string.connection_error);
         }
+    }
+
+    @Override
+    public String getLanguage() {
+        return getDataManager().getLanguage();
     }
 
     @Override

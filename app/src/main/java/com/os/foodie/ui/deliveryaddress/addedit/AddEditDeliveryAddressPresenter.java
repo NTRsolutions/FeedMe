@@ -9,12 +9,18 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
+import com.os.foodie.data.network.model.citycountrylist.CityCountryListRequest;
+import com.os.foodie.data.network.model.citycountrylist.CityCountryListResponse;
+import com.os.foodie.data.network.model.citycountrylist.Country;
 import com.os.foodie.data.network.model.deliveryaddress.add.AddDeliveryAddressRequest;
 import com.os.foodie.data.network.model.deliveryaddress.add.AddDeliveryAddressResponse;
 import com.os.foodie.data.network.model.deliveryaddress.getall.Address;
 import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressRequest;
 import com.os.foodie.data.network.model.deliveryaddress.update.UpdateAddressResponse;
+import com.os.foodie.data.network.model.deliveryaddress.zip.LocationAndCityCountryListResponse;
 import com.os.foodie.data.network.model.forgotpassword.ForgotPasswordResponse;
+import com.os.foodie.data.network.model.locationinfo.get.GetUserLocationDetailRequest;
+import com.os.foodie.data.network.model.locationinfo.get.GetUserLocationDetailResponse;
 import com.os.foodie.ui.base.BasePresenter;
 import com.os.foodie.ui.welcome.WelcomeActivity;
 import com.os.foodie.utils.AppConstants;
@@ -25,9 +31,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class AddEditDeliveryAddressPresenter<V extends AddEditDeliveryAddressMvpView> extends BasePresenter<V> implements AddEditDeliveryAddressMvpPresenter<V> {
@@ -53,10 +64,10 @@ public class AddEditDeliveryAddressPresenter<V extends AddEditDeliveryAddressMvp
                 getMvpView().onError(R.string.invalid_phone);
                 return;
             }
-            if (addDeliveryAddressRequest.getPincode() == null || addDeliveryAddressRequest.getPincode().isEmpty()) {
+           /* if (addDeliveryAddressRequest.getPincode() == null || addDeliveryAddressRequest.getPincode().isEmpty()) {
                 getMvpView().onError(R.string.empty_zip_code);
                 return;
-            }
+            }*/
 
             if (addDeliveryAddressRequest.getFlatNumber() == null || addDeliveryAddressRequest.getFlatNumber().isEmpty()) {
                 getMvpView().onError(R.string.empty_flat);
@@ -155,10 +166,10 @@ public class AddEditDeliveryAddressPresenter<V extends AddEditDeliveryAddressMvp
                 getMvpView().onError(R.string.invalid_phone);
                 return;
             }
-            if (updateAddressRequest.getPincode() == null || updateAddressRequest.getPincode().isEmpty()) {
+           /* if (updateAddressRequest.getPincode() == null || updateAddressRequest.getPincode().isEmpty()) {
                 getMvpView().onError(R.string.empty_zip_code);
                 return;
-            }
+            }*/
 
             if (updateAddressRequest.getFlatNumber() == null || updateAddressRequest.getFlatNumber().isEmpty()) {
                 getMvpView().onError(R.string.empty_flat);
@@ -311,6 +322,97 @@ public class AddEditDeliveryAddressPresenter<V extends AddEditDeliveryAddressMvp
 
                             getMvpView().hideLoading();
                             getMvpView().onError(R.string.api_default_error);
+                        }
+                    }));
+
+        } else {
+            getMvpView().onError(R.string.connection_error);
+        }
+    }
+
+//    @Override
+//    public Observable<CityCountryListResponse> getCityCountryList() {
+//
+//        return /*getCompositeDisposable().add(*/getDataManager()
+//                .getCityCountryList()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                    /*.subscribe(new Consumer<CityCountryListResponse>() {
+//                        @Override
+//                        public void accept(CityCountryListResponse cityCountryListResponse) throws Exception {
+//
+//                            if (cityCountryListResponse.getResponse().getStatus() == 1) {
+//                                Log.d("getMessage", ">>" + cityCountryListResponse.getResponse().getMessage());
+//                                getMvpView().setCityCountryListAdapter((ArrayList<Country>) cityCountryListResponse.getResponse().getCountry());
+//
+//                            } else {
+//                                getMvpView().onError(cityCountryListResponse.getResponse().getMessage());
+//                            }
+//                        }
+//                    }, new Consumer<Throwable>() {
+//                        @Override
+//                        public void accept(Throwable throwable) throws Exception {
+//                            getMvpView().onError(R.string.api_default_error);
+//                            Log.d("Error", ">>Err" + throwable.getMessage());
+//                        }
+//                    }))*/;
+//
+//    }
+
+    @Override
+    public void getLocationDetailsAndCityCountryList() {
+
+        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+
+            getMvpView().showLoading();
+
+            String language = "";
+
+            if (getDataManager().getLanguage().equals(AppConstants.LANG_AR)) {
+                language = AppConstants.LANG_AR;
+            } else {
+                language = AppConstants.LANG_ENG;
+            }
+
+            getCompositeDisposable().add(Observable.zip(getDataManager().getCityCountryList(new CityCountryListRequest(language)), getDataManager().getUserLocationDetail(new GetUserLocationDetailRequest(getDataManager().getCurrentUserId())), new BiFunction<CityCountryListResponse, GetUserLocationDetailResponse, LocationAndCityCountryListResponse>() {
+                @Override
+                public LocationAndCityCountryListResponse apply(CityCountryListResponse cityCountryListResponse, GetUserLocationDetailResponse userLocationDetailResponse) throws Exception {
+
+                    return new LocationAndCityCountryListResponse(cityCountryListResponse, userLocationDetailResponse);
+                }
+            })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<LocationAndCityCountryListResponse>() {
+                        @Override
+                        public void accept(LocationAndCityCountryListResponse locationAndCityCountryListResponse) throws Exception {
+
+                            getMvpView().hideLoading();
+
+                            if (locationAndCityCountryListResponse.getCityCountryListResponse().getResponse().getStatus() == 1 && locationAndCityCountryListResponse.getUserLocationDetailResponse().getResponse().getStatus() == 1) {
+
+                                Log.d("getMessage", ">>" + locationAndCityCountryListResponse.getCityCountryListResponse().getResponse().getMessage());
+                                Log.d("getMessage", ">>" + locationAndCityCountryListResponse.getUserLocationDetailResponse().getResponse().getMessage());
+
+                                getMvpView().setCityCountryListAdapter((ArrayList<Country>) locationAndCityCountryListResponse.getCityCountryListResponse().getResponse().getCountry(), locationAndCityCountryListResponse.getUserLocationDetailResponse().getResponse());
+
+                            } else if (locationAndCityCountryListResponse.getCityCountryListResponse().getResponse().getStatus() == 0) {
+
+                                getMvpView().onError(locationAndCityCountryListResponse.getCityCountryListResponse().getResponse().getMessage());
+
+                            } else if (locationAndCityCountryListResponse.getUserLocationDetailResponse().getResponse().getStatus() == 0) {
+
+                                getMvpView().onError(locationAndCityCountryListResponse.getUserLocationDetailResponse().getResponse().getMessage());
+                            }
+                        }
+
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+
+                            getMvpView().hideLoading();
+                            getMvpView().onError(R.string.api_default_error);
+                            Log.d("Error", ">>Err" + throwable.getMessage());
                         }
                     }));
 

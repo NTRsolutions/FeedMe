@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/restaurant_account_tv_padding_start"
-                android:text="@string/restaurant_account_tv_restaurant_name_text"
+                android:text="@string/restaurant_sign_up_et_restaurant_name_hint_english"
                 android:textColor="@color/orange" />
 
             <EditText
@@ -58,6 +58,41 @@
                 android:textSize="@dimen/restaurant_account_et_text_size" />
 
         </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/restaurant_account_ll_margin_start_end"
+            android:layout_marginStart="@dimen/restaurant_account_ll_margin_start_end"
+            android:layout_marginTop="@dimen/restaurant_account_ll_restaurant_name_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                fontPath="@string/font_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/restaurant_account_tv_padding_start"
+                android:text="@string/restaurant_sign_up_et_restaurant_name_hint_arabic"
+                android:textColor="@color/orange" />
+
+            <EditText
+                android:id="@+id/fragment_restaurant_account_et_restaurant_name_arabic"
+                fontPath="@string/font_default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLength="30"
+                android:paddingTop="@dimen/restaurant_account_et_padding_top"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/restaurant_account_et_text_size" />
+
+        </LinearLayout>
+
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -145,6 +180,7 @@
                 android:layout_marginStart="@dimen/customer_sign_up_et_country_code_margin_start_end"
                 android:layout_weight="3"
                 android:enabled="false"
+                android:digits="1234567890"
                 android:inputType="phone"
                 android:lines="1"
                 android:maxLength="7"
@@ -176,6 +212,7 @@
                     android:enabled="false"
                     android:inputType="number"
                     android:lines="1"
+                    android:digits="1234567890"
                     android:maxLength="12"
                     android:paddingTop="@dimen/restaurant_account_et_padding_top"
                     android:textColor="@color/dark_grey"

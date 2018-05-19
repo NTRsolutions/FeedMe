@@ -14,6 +14,9 @@ public class OrderList {
     @SerializedName("order_amount")
     @Expose
     private String totalAmount;
+    @SerializedName("name")
+    @Expose
+    private String name;
     @SerializedName("order_status")
     @Expose
     private String orderStatus;
@@ -32,7 +35,7 @@ public class OrderList {
     //    TODO Extra Field Added
     @SerializedName("total_discount")
     @Expose
-    private Float totalDiscount;
+    private String totalDiscount;
     @SerializedName("order_delievery_date")
     @Expose
     private String orderDelieveryDate;
@@ -62,9 +65,10 @@ public class OrderList {
      * @param discount
      * @param totalDiscount
      */
-    public OrderList(String orderId, String totalAmount, String orderStatus, Float totalDiscount, String currency, String paymentStatus, String orderType, Float discount, String orderDelieveryDate, String orderDelieveryTime, String dishName) {
+    public OrderList(String orderId, String name, String totalAmount, String orderStatus, String totalDiscount, String currency, String paymentStatus, String orderType, Float discount, String orderDelieveryDate, String orderDelieveryTime, String dishName) {
         super();
         this.orderId = orderId;
+        this.name = name;
         this.currency = currency;
         this.totalAmount = totalAmount;
         this.orderStatus = orderStatus;
@@ -158,11 +162,19 @@ public class OrderList {
         this.currency = currency;
     }
 
-    public Float getTotalDiscount() {
+    public String getTotalDiscount() {
         return totalDiscount;
     }
 
-    public void setTotalDiscount(Float totalDiscount) {
+    public void setTotalDiscount(String totalDiscount) {
         this.totalDiscount = totalDiscount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

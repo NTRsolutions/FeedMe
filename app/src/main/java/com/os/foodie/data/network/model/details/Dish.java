@@ -15,6 +15,9 @@ public class Dish {
     @SerializedName("name")
     @Expose
     private String name;
+    @SerializedName("name_arabic")
+    @Expose
+    private String nameArabic;
     @SerializedName("course_id")
     @Expose
     private String courseId;
@@ -36,6 +39,9 @@ public class Dish {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("dish_image")
+    @Expose
+    private String dishImage;
 
     /**
      * No args constructor for use in serialization
@@ -57,11 +63,12 @@ public class Dish {
      * @param dishId
      * @param courseName
      */
-    public Dish(String qty, String dishId, String name, String courseId, String courseName, String description, String price, String avail, String vegNonveg, String status) {
+    public Dish(String qty, String dishId, String name, String nameArabic, String courseId, String courseName, String description, String price, String avail, String vegNonveg, String status, String dishImage) {
         super();
         this.qty = qty;
         this.dishId = dishId;
         this.name = name;
+        this.nameArabic = nameArabic;
         this.courseId = courseId;
         this.courseName = courseName;
         this.description = description;
@@ -69,6 +76,7 @@ public class Dish {
         this.avail = avail;
         this.vegNonveg = vegNonveg;
         this.status = status;
+        this.dishImage = dishImage;
     }
 
     public String getQty() {
@@ -151,4 +159,19 @@ public class Dish {
         this.status = status;
     }
 
+    public String getDishImage() {
+        return dishImage;
+    }
+
+    public void setDishImage(String dishImage) {
+        this.dishImage = dishImage;
+    }
+
+    public String getNameArabic() {
+        return nameArabic;
+    }
+
+    public void setNameArabic(String nameArabic) {
+        this.nameArabic = nameArabic;
+    }
 }

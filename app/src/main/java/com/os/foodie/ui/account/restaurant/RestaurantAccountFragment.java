@@ -47,7 +47,7 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
     RestaurantMainActivity restaurantMainActivity;
 
     private CircleImageView profileImageIv;
-    private EditText restaurantNameEt, contactPersonNameEt, emailEt, etCountryCode, phoneNumEt;
+    private EditText restaurantNameEt,restaurantNameArabicEt, contactPersonNameEt, emailEt, etCountryCode, phoneNumEt;
     private RippleAppCompatButton btSave, btCancel;
 
     private static final int CAMERA_REQUEST = 2;
@@ -159,6 +159,7 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
             EditRestaurantAccountRequest editRestaurantAccountRequest = new EditRestaurantAccountRequest();
             editRestaurantAccountRequest.setContactPersonName(contactPersonNameEt.getText().toString().trim());
             editRestaurantAccountRequest.setRestaurantName(restaurantNameEt.getText().toString().trim());
+            editRestaurantAccountRequest.setRestaurantNameArabic(restaurantNameArabicEt.getText().toString().trim());
             editRestaurantAccountRequest.setEmail(emailEt.getText().toString().trim());
             editRestaurantAccountRequest.setCountryCode(etCountryCode.getText().toString().trim());
             editRestaurantAccountRequest.setMobileNumber(phoneNumEt.getText().toString().trim());
@@ -187,8 +188,8 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
 
         if (this.customerRestaurantDetailsResponse != null) {
 
-
             restaurantNameEt.setText(customerRestaurantDetailsResponse.getResponse().getRestaurantName());
+            restaurantNameArabicEt.setText(customerRestaurantDetailsResponse.getResponse().getRestaurantNameArabic());
             contactPersonNameEt.setText(customerRestaurantDetailsResponse.getResponse().getContactPersonName());
             etCountryCode.setText(customerRestaurantDetailsResponse.getResponse().getCountryCode());
             phoneNumEt.setText(customerRestaurantDetailsResponse.getResponse().getMobileNumber());
@@ -197,6 +198,7 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
         } else {
 
             restaurantNameEt.setText("");
+            restaurantNameArabicEt.setText("");
             contactPersonNameEt.setText("");
             etCountryCode.setText("");
             phoneNumEt.setText("");
@@ -208,6 +210,7 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
     public void editRestaurantAccountDetail(EditRestaurantAccountResponse editRestaurantAccountResponse) {
 
         this.customerRestaurantDetailsResponse.getResponse().setRestaurantName(editRestaurantAccountResponse.getResponse().getRestaurantName());
+        this.customerRestaurantDetailsResponse.getResponse().setRestaurantNameArabic(editRestaurantAccountResponse.getResponse().getRestaurantNameArabic());
         this.customerRestaurantDetailsResponse.getResponse().setContactPersonName(editRestaurantAccountResponse.getResponse().getContactPersonName());
         this.customerRestaurantDetailsResponse.getResponse().setCountryCode(editRestaurantAccountResponse.getResponse().getCountryCode());
         this.customerRestaurantDetailsResponse.getResponse().setMobileNumber(editRestaurantAccountResponse.getResponse().getMobileNumber());
@@ -232,6 +235,8 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
         profileImageIv = (CircleImageView) view.findViewById(R.id.fragment_restaurant_account_civ_profile_image);
 
         restaurantNameEt = (EditText) view.findViewById(R.id.fragment_restaurant_account_et_restaurant_name);
+        restaurantNameArabicEt = (EditText) view.findViewById(R.id.fragment_restaurant_account_et_restaurant_name_arabic);
+
         contactPersonNameEt = (EditText) view.findViewById(R.id.fragment_restaurant_account_et_contact_person_name);
         emailEt = (EditText) view.findViewById(R.id.fragment_restaurant_account_et_email);
         etCountryCode = (EditText) view.findViewById(R.id.fragment_restaurant_account_et_country_code);
@@ -253,13 +258,13 @@ public class RestaurantAccountFragment extends BaseFragment implements Restauran
     private void setEditTextEnable(boolean setEnable) {
 
         restaurantNameEt.setEnabled(setEnable);
+        restaurantNameArabicEt.setEnabled(setEnable);
         contactPersonNameEt.setEnabled(setEnable);
 
         emailEt.setEnabled(setEnable);
         etCountryCode.setEnabled(setEnable);
         phoneNumEt.setEnabled(setEnable);
     }
-
 
     private void selectImage() {
 

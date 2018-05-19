@@ -45,10 +45,18 @@ public class CustomerHomePresenter<V extends CustomerHomeMvpView> extends BasePr
                 swipeRefreshLayout.setRefreshing(true);
             }
 
+            String language = null;
+
+            if (getDataManager().getLanguage().equalsIgnoreCase(AppConstants.LANG_EN)) {
+                language = AppConstants.LANG_ENG;
+            } else {
+                language = AppConstants.LANG_AR;
+            }
+
             if (getDataManager().isCurrentUserLoggedIn()) {
 
                 getCompositeDisposable().add(getDataManager()
-                        .getRestaurantList(new GetRestaurantListRequest(getDataManager().getCurrentUserId(), "", "", "", "", filters))
+                        .getRestaurantList(new GetRestaurantListRequest(getDataManager().getCurrentUserId(), "", "", "", "", filters, ""))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Consumer<GetRestaurantListResponse>() {
@@ -119,7 +127,7 @@ public class CustomerHomePresenter<V extends CustomerHomeMvpView> extends BasePr
             } else {
 
                 getCompositeDisposable().add(getDataManager()
-                        .getRestaurantList(new GetRestaurantListRequest("", "", getDataManager().getLatitude(), getDataManager().getLongitude(), getDataManager().getCityName(), filters))
+                        .getRestaurantList(new GetRestaurantListRequest("", "", getDataManager().getLatitude(), getDataManager().getLongitude(), getDataManager().getCityId(), filters, language))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Consumer<GetRestaurantListResponse>() {
@@ -170,6 +178,11 @@ public class CustomerHomePresenter<V extends CustomerHomeMvpView> extends BasePr
         } else {
             getMvpView().onError(R.string.connection_error);
         }
+    }
+
+    @Override
+    public String getLanguage() {
+        return getDataManager().getLanguage();
     }
 
     @Override

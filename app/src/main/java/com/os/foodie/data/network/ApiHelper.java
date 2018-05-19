@@ -29,6 +29,7 @@ import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
 import com.os.foodie.data.network.model.checkout.CheckoutRequest;
 import com.os.foodie.data.network.model.checkout.CheckoutResponse;
+import com.os.foodie.data.network.model.citycountrylist.CityCountryListRequest;
 import com.os.foodie.data.network.model.citycountrylist.CityCountryListResponse;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeRequest;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeResponse;
@@ -63,6 +64,8 @@ import com.os.foodie.data.network.model.like.LikeDislikeResponse;
 import com.os.foodie.data.network.model.locationinfo.city.CityListRequest;
 import com.os.foodie.data.network.model.locationinfo.city.CityListResponse;
 import com.os.foodie.data.network.model.locationinfo.country.CountryListResponse;
+import com.os.foodie.data.network.model.locationinfo.get.GetUserLocationDetailRequest;
+import com.os.foodie.data.network.model.locationinfo.get.GetUserLocationDetailResponse;
 import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationRequest;
 import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationResponse;
 import com.os.foodie.data.network.model.login.LoginRequest;
@@ -143,7 +146,9 @@ public interface ApiHelper {
 
     Observable<CityListResponse> getCityList(CityListRequest cityListRequest);
 
-    Observable<CityCountryListResponse> getCityCountryList();
+    Observable<CityCountryListResponse> getCityCountryList(CityCountryListRequest cityCountryListRequest);
+
+    Observable<GetUserLocationDetailResponse> getUserLocationDetail(GetUserLocationDetailRequest userLocationDetailRequest);
 
     Observable<SetUserLocationResponse> setUserLocationInfo(SetUserLocationRequest setUserLocationRequest);
 
@@ -155,7 +160,9 @@ public interface ApiHelper {
 
     Observable<GetRestaurantMenuResponse> getRestaurantMenuList(GetRestaurantMenuRequest restaurantMenuRequest);
 
-    Observable<AddMenuItemResponse> addRestaurantMenuItem(AddMenuItemRequest addMenuItemRequest);
+//    Observable<AddMenuItemResponse> addRestaurantMenuItem(AddMenuItemRequest addMenuItemRequest);
+
+    public Observable<AddMenuItemResponse> addRestaurantMenuItem(AddMenuItemRequest addMenuItemRequest, HashMap<String, File>  fileMap);
 
     Observable<StatusMenuItemResponse> changeStatusRestaurantMenuItem(StatusMenuItemRequest statusMenuItemRequest);
 
@@ -247,9 +254,9 @@ public interface ApiHelper {
     Observable<GetOrderListResponse> getCustomerOrderHistoryList(CustomerOrderHistoryRequest customerOrderHistoryRequest);
 //Observable<CustomerOrderHistoryResponse> getCustomerOrderHistoryList(CustomerOrderHistoryRequest customerOrderHistoryRequest);
 
-    Observable<OrderHistoryDetail> getOrderHistoryDetail(String orderId);
+    Observable<OrderHistoryDetail> getOrderHistoryDetail(String orderId,String language);
 
-    Observable<ChangeOrderStatusResponse> changeOrderStatus(String orderId, String orderStatus);
+    Observable<ChangeOrderStatusResponse> changeOrderStatus(String orderId, String orderStatus, String language);
 
     Observable<RestaurantReviewResponse> sendRestaurantReview(RestaurantReviewRequest restaurantReviewRequest);
 

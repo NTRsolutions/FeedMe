@@ -34,7 +34,7 @@ public class FacebookSignUpPresenter<V extends FacebookSignUpMvpView> extends Ba
     }
 
     @Override
-    public void onSubmit(FacebookSignUpModel facebookSignUpModel, String restaurantName, String countryCode, String phone, String deviceId, String deviceType, String latitude, String longitude, String language, HashMap<String, File> fileMap) {
+    public void onSubmit(FacebookSignUpModel facebookSignUpModel, String restaurantName, String restaurantNameArabic, String countryCode, String phone, String deviceId, String deviceType, String latitude, String longitude, String language, HashMap<String, File> fileMap) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
@@ -120,8 +120,12 @@ public class FacebookSignUpPresenter<V extends FacebookSignUpMvpView> extends Ba
                     getMvpView().onError(R.string.empty_restaurant_name);
                     return;
                 }
+                if (restaurantNameArabic == null || restaurantNameArabic.isEmpty()) {
+                    getMvpView().onError(R.string.empty_restaurant_name_arabic);
+                    return;
+                }
 
-                final RestaurantSignUpRequest restaurantSignUpRequest = new RestaurantSignUpRequest(facebookSignUpModel.getFbId(), facebookSignUpModel.getContactPersonName(), restaurantName, facebookSignUpModel.getEmail(), "", countryCode, phone, deviceId, deviceType, latitude, longitude, language);
+                final RestaurantSignUpRequest restaurantSignUpRequest = new RestaurantSignUpRequest(facebookSignUpModel.getFbId(), facebookSignUpModel.getContactPersonName(), restaurantName, facebookSignUpModel.getEmail(), "", countryCode, phone, deviceId, deviceType, latitude, longitude, language, restaurantNameArabic);
 
                 getMvpView().showLoading();
 

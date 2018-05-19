@@ -97,7 +97,7 @@ public class RestaurantReviewDialogFragment extends DialogFragment implements Vi
 
         Glide.with(getActivity())
                 .load(restaurant_image)
-                .placeholder(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
+//                .placeholder(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
                 .error(ContextCompat.getDrawable(getActivity(), R.mipmap.img_placeholder))
                 .into(restaurantRatingUserimageIv);
     }

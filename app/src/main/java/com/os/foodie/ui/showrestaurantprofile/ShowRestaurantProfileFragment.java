@@ -207,7 +207,11 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 //            tvDeliveryTime.setText("0");
         }
 
-        tvRestaurantName.setText(restaurantDetail.getRestaurantName());
+        if (setupRestaurantProfileMvpPresenter.getLanguage().equalsIgnoreCase(AppConstants.LANG_AR)) {
+            tvRestaurantName.setText(restaurantDetail.getRestaurantNameArabic());
+        } else {
+            tvRestaurantName.setText(restaurantDetail.getRestaurantName());
+        }
         tvOpeningClosingHours.setText(TimeFormatUtils.changeTimeFormat(restaurantDetail.getOpeningTime(), "HH:mm:ss", "hh:mm a") + " - " + TimeFormatUtils.changeTimeFormat(restaurantDetail.getClosingTime(), "HH:mm:ss", "hh:mm a"));
         tvDeliveryCharges.setText(CommonUtils.dataDecode(restaurantDetail.getCurrency()) + " " + restaurantDetail.getDeliveryCharge());
         tvMinimumOrderAmount.setText(CommonUtils.dataDecode(restaurantDetail.getCurrency()) + " " + restaurantDetail.getMinOrderAmount());
@@ -220,9 +224,16 @@ public class ShowRestaurantProfileFragment extends BaseFragment implements ShowR
 //            e.printStackTrace();
 //        }
 
-        tvDeliveryAreas.setText(restaurantDetail.getDeliveryZipcode());
+//        tvDeliveryAreas.setText(restaurantDetail.getDeliveryZipcode());
+        tvDeliveryAreas.setText(restaurantDetail.getDeliveryCitiesNames());
         tvOrderType.setText(restaurantDetail.getDeliveryType());
-        tvWorkingDays.setText(restaurantDetail.getWorkingDays());
+        String[] workingDaysAry = restaurantDetail.getWorkingDays().split(",");
+        if (workingDaysAry.length == 7)
+            tvWorkingDays.setText(getString(R.string.moday_to_sunday));
+        else
+            tvWorkingDays.setText(restaurantDetail.getWorkingDays());
+
+
         tvPaymentType.setText(restaurantDetail.getPaymentMethod());
         tvAddress.setText(restaurantDetail.getAddress());
         tvCity.setText(restaurantDetail.getCityName());

@@ -18,6 +18,9 @@ public class FacebookLoginRequest {
     @SerializedName("device_type")
     @Expose
     private String deviceType;
+    @SerializedName("language")
+    @Expose
+    private String language;
 
     /**
      * No args constructor for use in serialization
@@ -31,12 +34,13 @@ public class FacebookLoginRequest {
      * @param deviceType
      * @param deviceId
      */
-    public FacebookLoginRequest(String email, String fbId, String deviceId, String deviceType) {
+    public FacebookLoginRequest(String email, String fbId, String deviceId, String deviceType, String language) {
         super();
         this.email = email;
         this.fbId = fbId;
         this.deviceId = deviceId;
         this.deviceType = deviceType;
+        this.language = language;
     }
 
     public String getEmail() {
@@ -71,4 +75,11 @@ public class FacebookLoginRequest {
         this.deviceType = deviceType;
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 }

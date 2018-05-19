@@ -16,10 +16,10 @@
             android:id="@+id/activity_location_info_iv_step"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/all_step_padding"
-            android:visibility="gone"
             android:background="@drawable/rectangle_bottom_line_light_grey"
-            android:src="@mipmap/ic_step_three"/>
+            android:padding="@dimen/all_step_padding"
+            android:src="@mipmap/ic_step_three"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -87,20 +87,20 @@
             <!--android:paddingTop="15dp"-->
             <!--android:spinnerMode="dialog" />-->
 
-            <EditText
-                android:id="@+id/activity_location_info_et_country"
-                style="@style/EditTextGreySingleLine"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/location_info_et_height"
-                android:layout_marginTop="@dimen/location_info_et_country_margin_top"
-                android:hint="@string/location_info_et_country_hint"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:paddingEnd="@dimen/location_info_et_padding_end"
-                android:paddingStart="@dimen/location_info_et_padding_start" />
-
             <!--<EditText-->
-            <AutoCompleteTextView
+            <!--android:id="@+id/activity_location_info_et_country"-->
+            <!--style="@style/EditTextGreySingleLine"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/location_info_et_height"-->
+            <!--android:layout_marginTop="@dimen/location_info_et_country_margin_top"-->
+            <!--android:hint="@string/location_info_et_country_hint"-->
+            <!--android:imeOptions="actionDone"-->
+            <!--android:inputType="text"-->
+            <!--android:paddingEnd="@dimen/location_info_et_padding_end"-->
+            <!--android:paddingStart="@dimen/location_info_et_padding_start" />-->
+
+            <!--<AutoCompleteTextView-->
+            <EditText
                 android:id="@+id/activity_location_info_actv_city"
                 style="@style/EditTextGreySingleLine"
                 android:layout_width="match_parent"
@@ -108,7 +108,8 @@
                 android:layout_marginTop="@dimen/location_info_et_margin_top"
                 android:hint="@string/location_info_et_city_hint"
                 android:imeOptions="actionDone"
-                android:inputType="text"
+                android:focusable="false"
+                android:inputType="none"
                 android:paddingEnd="@dimen/location_info_et_padding_end"
                 android:paddingStart="@dimen/location_info_et_padding_start" />
             <!--android:enabled="false"-->
@@ -130,22 +131,23 @@
                     android:hint="@string/location_info_et_current_location_hint"
                     android:imeOptions="actionDone"
                     android:inputType="text"
-                    android:paddingStart="@dimen/location_info_et_padding_start" />
+                    android:paddingStart="@dimen/location_info_et_padding_start"
+                    android:visibility="gone" />
 
-                <ImageView
-                    android:id="@+id/activity_location_info_iv_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/location_info_et_height"
-                    android:layout_marginTop="@dimen/location_info_et_margin_top"
-                    android:background="@drawable/rectangle_round_corner_left_orange"
-                    android:padding="5dp"
-                    android:src="@mipmap/ic_gps" />
+                <!--<ImageView-->
+                <!--android:id="@+id/activity_location_info_iv_location"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="@dimen/location_info_et_height"-->
+                <!--android:layout_marginTop="@dimen/location_info_et_margin_top"-->
+                <!--android:background="@drawable/rectangle_round_corner_left_orange"-->
+                <!--android:padding="5dp"-->
+                <!--android:src="@mipmap/ic_gps" />-->
 
-                <!--android:clickable="true"-->
-                <!--android:focusable="false"-->
-                <!--android:longClickable="false"-->
-                <!--android:drawableEnd="@mipmap/ic_gps"-->
-                <!--android:drawablePadding="5dp"-->
+                <!--&lt;!&ndash;android:clickable="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:focusable="false"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:longClickable="false"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:drawableEnd="@mipmap/ic_gps"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:drawablePadding="5dp"&ndash;&gt;-->
 
             </LinearLayout>
 

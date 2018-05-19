@@ -66,4 +66,14 @@ public class ProjectInfo {
 //    Password:
 //      1234567AA
 //----------------------------------------
+//
+//    Signed APK Credential
+//
+//    Key Store Password:
+//      octal@123
+//
+//    Key Alias:
+//      Feedme
+//    Key Alias Password:
+//      octal@123
 }

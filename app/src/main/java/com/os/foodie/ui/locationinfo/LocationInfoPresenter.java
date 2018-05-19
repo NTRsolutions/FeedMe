@@ -11,11 +11,15 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.R;
 import com.os.foodie.data.DataManager;
+import com.os.foodie.data.network.model.citycountrylist.City;
+import com.os.foodie.data.network.model.citycountrylist.CityCountryListRequest;
 import com.os.foodie.data.network.model.citycountrylist.CityCountryListResponse;
 import com.os.foodie.data.network.model.citycountrylist.Country;
 import com.os.foodie.data.network.model.locationinfo.city.CityListRequest;
 import com.os.foodie.data.network.model.locationinfo.city.CityListResponse;
 import com.os.foodie.data.network.model.locationinfo.country.CountryListResponse;
+import com.os.foodie.data.network.model.locationinfo.get.GetUserLocationDetailRequest;
+import com.os.foodie.data.network.model.locationinfo.get.GetUserLocationDetailResponse;
 import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationRequest;
 import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationResponse;
 import com.os.foodie.ui.base.BasePresenter;
@@ -55,14 +59,14 @@ public class LocationInfoPresenter<V extends LocationInfoMvpView> extends BasePr
     }
 
     @Override
-    public void setCityName(String cityName) {
+    public void setCityId(String cityId, com.os.foodie.data.network.model.locationinfo.city.City city) {
 
-        if (cityName == null || cityName.isEmpty()) {
+        if (cityId == null || cityId.isEmpty() || city.getCityId() == null) {
             getMvpView().onError(R.string.empty_city);
             return;
         }
 
-        getDataManager().setCityName(cityName);
+        getDataManager().setCityId(cityId);
         getMvpView().onUserLocationInfoSaved();
     }
 
@@ -114,22 +118,67 @@ public class LocationInfoPresenter<V extends LocationInfoMvpView> extends BasePr
         }
     }
 
+//    @Override
+//    public void getCityList(String countryId) {
+//
+//        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+//
+//            getCompositeDisposable().add(getDataManager()
+//                    .getCityList(new CityListRequest(countryId))
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new Consumer<CityListResponse>() {
+//                        @Override
+//                        public void accept(CityListResponse cityListResponse) throws Exception {
+//
+//                            if (cityListResponse.getResponse().getStatus() == 1) {
+//                                Log.d("getMessage", ">>" + cityListResponse.getResponse().getMessage());
+////                                getMvpView().setCityAdapter(cityListResponse.getResponse().getCity());
+//
+//                            } else {
+//                                getMvpView().onError(cityListResponse.getResponse().getMessage());
+//                            }
+//                        }
+//                    }, new Consumer<Throwable>() {
+//                        @Override
+//                        public void accept(Throwable throwable) throws Exception {
+//                            getMvpView().onError(R.string.api_default_error);
+//                            Log.d("Error", ">>Err" + throwable.getMessage());
+//                        }
+//                    }));
+//        } else {
+//            getMvpView().onError(R.string.connection_error);
+//        }
+//    }
+
     @Override
-    public void getCityList(String countryId) {
+    public void getCityList() {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
+            getMvpView().showLoading();
+
+            String language = "";
+
+            if (getDataManager().getLanguage().equals(AppConstants.LANG_AR)) {
+                language = AppConstants.LANG_AR;
+            } else {
+                language = AppConstants.LANG_ENG;
+            }
+
             getCompositeDisposable().add(getDataManager()
-                    .getCityList(new CityListRequest(countryId))
+                    .getCityList(new CityListRequest(language))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<CityListResponse>() {
                         @Override
                         public void accept(CityListResponse cityListResponse) throws Exception {
 
+                            getMvpView().hideLoading();
+
                             if (cityListResponse.getResponse().getStatus() == 1) {
                                 Log.d("getMessage", ">>" + cityListResponse.getResponse().getMessage());
-//                                getMvpView().setCityAdapter(cityListResponse.getResponse().getCity());
+                                getMvpView().setCityAdapter((ArrayList<com.os.foodie.data.network.model.locationinfo.city.City>) cityListResponse.getResponse().getCity());
 
                             } else {
                                 getMvpView().onError(cityListResponse.getResponse().getMessage());
@@ -138,34 +187,86 @@ public class LocationInfoPresenter<V extends LocationInfoMvpView> extends BasePr
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
+
+                            getMvpView().hideLoading();
                             getMvpView().onError(R.string.api_default_error);
                             Log.d("Error", ">>Err" + throwable.getMessage());
                         }
                     }));
         } else {
+
+            getMvpView().hideLoading();
             getMvpView().onError(R.string.connection_error);
         }
     }
 
+//    @Override
+//    public void getCityCountryList() {
+//
+//        if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
+//
+//            getMvpView().showLoading();
+//
+//            String language = "";
+//
+//            if (getDataManager().getLanguage().equals(AppConstants.LANG_AR)) {
+//                language = AppConstants.LANG_AR;
+//            } else {
+//                language = AppConstants.LANG_ENG;
+//            }
+//
+//            getCompositeDisposable().add(getDataManager()
+//                    .getCityCountryList(new CityCountryListRequest(language))
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new Consumer<CityCountryListResponse>() {
+//                        @Override
+//                        public void accept(CityCountryListResponse cityCountryListResponse) throws Exception {
+//
+//                            getMvpView().hideLoading();
+//
+//                            if (cityCountryListResponse.getResponse().getStatus() == 1) {
+//                                Log.d("getMessage", ">>" + cityCountryListResponse.getResponse().getMessage());
+//                                getMvpView().setCityCountryListAdapter((ArrayList<Country>) cityCountryListResponse.getResponse().getCountry());
+//
+//                            } else {
+//                                getMvpView().onError(cityCountryListResponse.getResponse().getMessage());
+//                            }
+//                        }
+//                    }, new Consumer<Throwable>() {
+//                        @Override
+//                        public void accept(Throwable throwable) throws Exception {
+//                            getMvpView().onError(R.string.api_default_error);
+//                            Log.d("Error", ">>Err" + throwable.getMessage());
+//                        }
+//                    }));
+//        } else {
+//            getMvpView().hideLoading();
+//            getMvpView().onError(R.string.connection_error);
+//        }
+//    }
+
     @Override
-    public void getCityCountryList() {
+    public void getUserLocationDetail() {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
             getCompositeDisposable().add(getDataManager()
-                    .getCityCountryList()
+                    .getUserLocationDetail(new GetUserLocationDetailRequest(getDataManager().getCurrentUserId()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<CityCountryListResponse>() {
+                    .subscribe(new Consumer<GetUserLocationDetailResponse>() {
                         @Override
-                        public void accept(CityCountryListResponse cityCountryListResponse) throws Exception {
+                        public void accept(GetUserLocationDetailResponse userLocationDetailResponse) throws Exception {
 
-                            if (cityCountryListResponse.getResponse().getStatus() == 1) {
-                                Log.d("getMessage", ">>" + cityCountryListResponse.getResponse().getMessage());
-                                getMvpView().setCityCountryListAdapter((ArrayList<Country>) cityCountryListResponse.getResponse().getCountry());
+                            if (userLocationDetailResponse.getResponse().getStatus() == 1) {
+
+                                Log.d("getMessage", ">>" + userLocationDetailResponse.getResponse().getMessage());
+
+                                getMvpView().setInitilizedLocation(userLocationDetailResponse.getResponse());
 
                             } else {
-                                getMvpView().onError(cityCountryListResponse.getResponse().getMessage());
+                                getMvpView().onError(userLocationDetailResponse.getResponse().getMessage());
                             }
                         }
                     }, new Consumer<Throwable>() {
@@ -181,15 +282,15 @@ public class LocationInfoPresenter<V extends LocationInfoMvpView> extends BasePr
     }
 
     @Override
-    public void setUserLocationInfo(LatLng latLng, String country, String city, String address) {
+    public void setUserLocationInfo(LatLng latLng, String country, String city, String address, com.os.foodie.data.network.model.locationinfo.city.City cityObj) {
 
         if (NetworkUtils.isNetworkConnected(getMvpView().getContext())) {
 
-            if (country == null || country.isEmpty()) {
-                getMvpView().onError(R.string.empty_country);
-                return;
-            }
-            if (city == null || city.isEmpty()) {
+//            if (country == null || country.isEmpty()) {
+//                getMvpView().onError(R.string.empty_country);
+//                return;
+//            }
+            if (city == null || city.isEmpty() || cityObj == null || cityObj.getCityId() == null) {
                 getMvpView().onError(R.string.empty_city);
                 return;
             }

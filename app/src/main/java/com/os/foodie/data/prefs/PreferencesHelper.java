@@ -56,11 +56,11 @@ public interface PreferencesHelper {
 
     String getLongitude();
 
-    String getCityName();
+    String getCityId();
 
     void setLatLng(String latitude, String longitude);
 
-    void setCityName(String cityName);
+    void setCityId(String cityId);
 
 
 //    String getCurrentUserEmail();

@@ -18,6 +18,8 @@ import com.os.foodie.R;
 import com.os.foodie.data.network.model.home.customer.RestaurantList;
 import com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity;
 import com.os.foodie.ui.review.ReviewActivity;
+import com.os.foodie.ui.search.RestaurantSearchMvpPresenter;
+import com.os.foodie.ui.search.RestaurantSearchMvpView;
 import com.os.foodie.utils.AppConstants;
 import com.wefika.flowlayout.FlowLayout;
 
@@ -27,10 +29,12 @@ public class RestaurantSearchAdapter extends RecyclerView.Adapter<RestaurantSear
 
     private Context context;
     public ArrayList<RestaurantList> restaurantLists;
+    private RestaurantSearchMvpPresenter<RestaurantSearchMvpView> restaurantSearchMvpPresenter;
 
-    public RestaurantSearchAdapter(Context context, ArrayList<RestaurantList> restaurantLists) {
+    public RestaurantSearchAdapter(Context context, ArrayList<RestaurantList> restaurantLists, RestaurantSearchMvpPresenter<RestaurantSearchMvpView> restaurantSearchMvpPresenter) {
         this.context = context;
         this.restaurantLists = restaurantLists;
+        this.restaurantSearchMvpPresenter = restaurantSearchMvpPresenter;
     }
 
     class RestaurantSearchViewHolder extends RecyclerView.ViewHolder {
@@ -71,7 +75,11 @@ public class RestaurantSearchAdapter extends RecyclerView.Adapter<RestaurantSear
                 .placeholder(ContextCompat.getDrawable(context, R.mipmap.ic_launcher))
                 .into(holder.ivRestaurantImage);
 
-        holder.tvRestaurantName.setText(restaurantList.getRestaurantName());
+        if (restaurantSearchMvpPresenter.getLanguage().equalsIgnoreCase(AppConstants.LANG_AR)) {
+            holder.tvRestaurantName.setText(restaurantList.getRestaurantNameArabic());
+        } else {
+            holder.tvRestaurantName.setText(restaurantList.getRestaurantName());
+        }
 
         if (restaurantList.getDeliveryTime() != null && !restaurantList.getDeliveryTime().isEmpty()) {
 

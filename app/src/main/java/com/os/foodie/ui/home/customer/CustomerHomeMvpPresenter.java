@@ -9,5 +9,7 @@ public interface CustomerHomeMvpPresenter<V extends CustomerHomeMvpView> extends
 
     void getRestaurantList(Filters filters, SwipeRefreshLayout swipeRefreshLayout);
 
+    String getLanguage();
+
     void dispose();
 }

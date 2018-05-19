@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.StringRes;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.os.foodie.data.network.model.locationinfo.city.City;
 import com.os.foodie.ui.base.MvpPresenter;
 
 public interface LocationInfoMvpPresenter<V extends LocationInfoMvpView> extends MvpPresenter<V> {
@@ -16,9 +17,9 @@ public interface LocationInfoMvpPresenter<V extends LocationInfoMvpView> extends
 
     void setLatLng(String latitude, String longitude);
 
-    void setCityName(String cityName);
+    void setCityId(String cityName, City city);
 
-    void getCityCountryList();
+//    void getCityCountryList();
 
     void setError(@StringRes int resId);
 
@@ -26,11 +27,13 @@ public interface LocationInfoMvpPresenter<V extends LocationInfoMvpView> extends
 
     void getCountryList();
 
-    void getCityList(String countryId);
+    void getCityList();
 
-    void setUserLocationInfo(LatLng latLng, String country, String city, String address);
+    void setUserLocationInfo(LatLng latLng, String country, String city, String address, City cityObj);
 
     void getGeocoderLocationAddress(Context context, LatLng latLng);
+
+    void getUserLocationDetail();
 
     void dispose();
 }

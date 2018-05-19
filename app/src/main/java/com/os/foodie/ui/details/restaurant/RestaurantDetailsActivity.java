@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -93,7 +94,7 @@ import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class RestaurantDetailsActivity extends BaseActivity implements RestaurantDetailsMvpView, View.OnClickListener, ViewPager.OnPageChangeListener {
+public class RestaurantDetailsActivity extends BaseActivity implements RestaurantDetailsMvpView, View.OnClickListener, ViewPager.OnPageChangeListener, CourseAdapter.ForClick {
 
     private RelativeLayout rlBasketDetails;
     private TextView tvTotalQuantity, tvTotalAmount;
@@ -375,7 +376,11 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                 });
 
 
-        tvRestaurantName.setText(restaurantDetailsResponse.getResponse().getRestaurantName());
+        if (restaurantDetailsMvpPresenter.getLanguage().equalsIgnoreCase(AppConstants.LANG_AR)) {
+            tvRestaurantName.setText(restaurantDetailsResponse.getResponse().getRestaurantNameArabic());
+        } else {
+            tvRestaurantName.setText(restaurantDetailsResponse.getResponse().getRestaurantName());
+        }
 
 //        getSupportActionBar().setTitle(restaurantDetailsResponse.getResponse().getRestaurantName());
 
@@ -400,7 +405,13 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         closing = simpleDateFormat1.format(closingTime.getTime());
 
         tvOpeningClosingTime.setText(opening.toUpperCase() + " to " + closing.toUpperCase());
-        tvWorkingDays.setText(restaurantDetailsResponse.getResponse().getWorkingDays());
+
+        String[] workingDaysAry = restaurantDetailsResponse.getResponse().getWorkingDays().split(",");
+        if (workingDaysAry.length == 7)
+            tvWorkingDays.setText(getString(R.string.moday_to_sunday));
+        else
+            tvWorkingDays.setText(restaurantDetailsResponse.getResponse().getWorkingDays());
+
 //        tvOpeningClosingTime.setText();
 
 
@@ -475,7 +486,8 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(courseAdapter);
 
-        setOnItemTouch();
+//        setOnItemTouch();
+        courseAdapter.setForClick(this);
 
         courseAdapter.notifyDataSetChanged();
 //        courseAdapter.calcBasketDetails();
@@ -563,7 +575,12 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
                     }
                 });
 
-        tvRestaurantName.setText(restaurantDetailsResponse.getResponse().getRestaurantName());
+
+        if (restaurantDetailsMvpPresenter.getLanguage().equalsIgnoreCase(AppConstants.LANG_AR)) {
+            tvRestaurantName.setText(restaurantDetailsResponse.getResponse().getRestaurantNameArabic());
+        } else {
+            tvRestaurantName.setText(restaurantDetailsResponse.getResponse().getRestaurantName());
+        }
 
 
 //        getSupportActionBar().setTitle(restaurantDetailsResponse.getResponse().getRestaurantName());
@@ -650,7 +667,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         if (/*!restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() && */!restaurantDetailsResponse.getResponse().getTotalQuantity().equals("0")/* && restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)*/) {
 //        if (courseAdapter.getTotalQuantity() > 0) {
 
-            tvTotalQuantity.setText("Quantity: " + restaurantDetailsResponse.getResponse().getTotalQuantity());
+            tvTotalQuantity.setText(/*"Quantity: " +*/ restaurantDetailsResponse.getResponse().getTotalQuantity());
             tvTotalAmount.setText(CommonUtils.dataDecode(restaurantDetailsResponse.getResponse().getCurrency()) + restaurantDetailsResponse.getResponse().getTotalAmount());
 //            try {
 //                tvTotalAmount.setText(URLDecoder.decode(restaurantDetailsResponse.getResponse().getCurrency(), "UTF-8") + restaurantDetailsResponse.getResponse().getTotalAmount());
@@ -670,6 +687,10 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
             @Override
             public void onClick(View view, final int position) {
+
+                if (view.getId() == R.id.recyclerview_course_content_civ_dish_image) {
+                    finish();
+                }
 
                 Log.d("getCustomerRestaurantId", ">>" + restaurantDetailsMvpPresenter.getCustomerRestaurantId());
 
@@ -884,7 +905,7 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
             }
         };
 
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, clickListener));
+//        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, clickListener));
     }
 
     @Override
@@ -908,7 +929,15 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
     public void setRestaurantDetails(CustomerRestaurantDetailsResponse restaurantDetailsResponse) {
 
         restaurantDetails.setId(restaurantDetailsResponse.getResponse().getId());
-        restaurantDetails.setRestaurantName(restaurantDetailsResponse.getResponse().getRestaurantName());
+
+        if (restaurantDetailsMvpPresenter.getLanguage().equalsIgnoreCase(AppConstants.LANG_AR)) {
+            restaurantDetails.setRestaurantName(restaurantDetailsResponse.getResponse().getRestaurantNameArabic());
+        } else {
+            restaurantDetails.setRestaurantName(restaurantDetailsResponse.getResponse().getRestaurantName());
+        }
+
+//        restaurantDetails.setRestaurantName(restaurantDetailsResponse.getResponse().getRestaurantName());
+
         restaurantDetails.setMinOrderAmount(restaurantDetailsResponse.getResponse().getMinOrderAmount());
         restaurantDetails.setContactPersonName(restaurantDetailsResponse.getResponse().getContactPersonName());
         restaurantDetails.setAddress(restaurantDetailsResponse.getResponse().getAddress());
@@ -1054,7 +1083,6 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 //        }
     }
 
-
     public void sharingImageToTwitter() {
 
 
@@ -1090,7 +1118,6 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         }
 
     }
-
 
     public void share() {
 
@@ -1191,7 +1218,6 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
         shareDialog.show(content);
     }
 
-
     public void shareToFb() {
 
         List<String> permissionNeeds = Collections.singletonList("publish_actions");
@@ -1222,7 +1248,6 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
             shareViaFacebook();
         }
     }
-
 
     public void shareViaMessage() {
 
@@ -1312,6 +1337,199 @@ public class RestaurantDetailsActivity extends BaseActivity implements Restauran
 
         if (requestCode == 1 && granted) {
             share();
+        }
+    }
+
+    @Override
+    public void onClick(View view, final int position) {
+
+        Log.d("getCustomerRestaurantId", ">>" + restaurantDetailsMvpPresenter.getCustomerRestaurantId());
+
+        if (!restaurantDetailsMvpPresenter.isCurrentUserLoggedIn()) {
+            restaurantDetailsMvpPresenter.onError(R.string.not_logged_in);
+            return;
+        }
+
+        if (objectArrayList.get(position) instanceof Dish) {
+
+//                    if (restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty() || restaurantDetailsMvpPresenter.getCustomerRestaurantId().equals(restaurantId)) {
+
+            final boolean isUpdate;
+
+            LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final View dialogView = inflater.inflate(R.layout.dialog_item_quantity, null);
+
+            final Dialog mBottomSheetDialog = new Dialog(RestaurantDetailsActivity.this, R.style.AlertDialogBottomSlide);
+
+            TextView tvItemName = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_name);
+            TextView tvItemQuantity = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_item_quantity);
+            TextView tvPrice = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price);
+            TextView tvCurrency = (TextView) dialogView.findViewById(R.id.dialog_item_quantity_tv_price_currency);
+
+            tvCurrency.setText(CommonUtils.dataDecode(restaurantDetails.getCurrency()));
+//                        try {
+//                            tvCurrency.setText(URLDecoder.decode(restaurantDetails.getCurrency(), "UTF-8"));
+//                        } catch (UnsupportedEncodingException e) {
+//                            e.printStackTrace();
+//                        }
+
+            ImageView ivMinus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_minus);
+            ImageView ivPlus = (ImageView) dialogView.findViewById(R.id.dialog_item_quantity_iv_plus);
+
+            Button btUpdate = (Button) dialogView.findViewById(R.id.dialog_item_quantity_bt_update);
+
+            Dish dish = (Dish) objectArrayList.get(position);
+
+
+            if (restaurantDetailsMvpPresenter.getLanguage().equalsIgnoreCase(AppConstants.LANG_AR)) {
+                tvItemName.setText(dish.getNameArabic());
+            } else {
+                tvItemName.setText(dish.getName());
+            }
+
+            tvItemQuantity.setText(dish.getQty());
+
+            if (dish.getQty().equals("0")) {
+                btUpdate.setText(getString(R.string.dialog_item_quantity_bt_add_text));
+                isUpdate = false;
+            } else {
+                btUpdate.setText(getString(R.string.dialog_item_quantity_bt_update_text));
+                isUpdate = true;
+            }
+
+            float price = Float.parseFloat(dish.getPrice());
+            int quantity = Integer.parseInt(dish.getQty());
+
+            int totalAmount = 0;
+            totalAmount += price * quantity;
+
+            tvPrice.setText(totalAmount + "");
+
+            final TextView tvItemQuantityTemp = tvItemQuantity;
+            final TextView tvPriceTemp = tvPrice;
+            final Button btUpdateTemp = btUpdate;
+
+            final View.OnClickListener onClickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (tvItemQuantityTemp.getText().toString().equals("0")) {
+//                            cartLists.remove(position);
+//
+//                            myBasketAdapter.notifyDataSetChanged();
+//                            updateTotalAmount();
+                        mBottomSheetDialog.dismiss();
+                        restaurantDetailsMvpPresenter.removeFromMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), ((Dish) objectArrayList.get(position)).getDishId(), restaurantId, position);
+
+                    } else {
+//                            cartLists.get(position).setQty(tvItemQuantityTemp.getText().toString());
+//
+//                            myBasketAdapter.notifyDataSetChanged();
+//                            updateTotalAmount();
+                        mBottomSheetDialog.dismiss();
+                        if (isUpdate) {
+                            restaurantDetailsMvpPresenter.updateMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), restaurantId, ((Dish) objectArrayList.get(position)).getDishId(), tvItemQuantityTemp.getText().toString(), ((Dish) objectArrayList.get(position)).getPrice(), position);
+                        } else {
+
+                            if (restaurantDetailsMvpPresenter.getCustomerRestaurantId().isEmpty()) {
+                                restaurantDetailsMvpPresenter.setCustomerRestaurantId(restaurantId);
+                            }
+
+                            AddToCartRequest addToCartRequest = new AddToCartRequest();
+
+                            addToCartRequest.setDishId(((Dish) objectArrayList.get(position)).getDishId());
+                            addToCartRequest.setUserId(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId());
+                            addToCartRequest.setRestaurantId(restaurantId);
+                            addToCartRequest.setPrice(((Dish) objectArrayList.get(position)).getPrice());
+                            addToCartRequest.setQty((Integer.parseInt(tvItemQuantityTemp.getText().toString())) + "");
+
+                            restaurantDetailsMvpPresenter.addItemToCart(position, addToCartRequest);
+
+//                                    restaurantDetailsMvpPresenter.updateMyBasket(AppController.get(RestaurantDetailsActivity.this).getAppDataManager().getCurrentUserId(), ((Dish) objectArrayList.get(position)).getDishId(), tvItemQuantityTemp.getText().toString(), position);
+                        }
+                    }
+                }
+            };
+
+            ivMinus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    float price = Float.parseFloat(((Dish) objectArrayList.get(position)).getPrice());
+                    int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
+
+                    if (quantity > 0) {
+
+                        quantity--;
+
+                        int totalAmount = 0;
+                        totalAmount += price * quantity;
+
+                        Log.d("quantity", ">>" + quantity);
+                        Log.d("price", ">>" + price);
+                        Log.d("totalAmount", ">>" + totalAmount);
+
+                        tvPriceTemp.setText(totalAmount + "");
+                        tvItemQuantityTemp.setText(quantity + "");
+                    }
+
+                    if (quantity <= 0) {
+                        if (isUpdate) {
+                            btUpdateTemp.setText(getString(R.string.dialog_item_quantity_bt_remove_text));
+                            btUpdateTemp.setTextColor(ContextCompat.getColor(RestaurantDetailsActivity.this, R.color.red));
+                        } else {
+                            btUpdateTemp.setOnClickListener(null);
+                        }
+                    }
+                }
+            });
+
+            ivPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    float price = Float.parseFloat(((Dish) objectArrayList.get(position)).getPrice());
+                    int quantity = Integer.parseInt(tvItemQuantityTemp.getText().toString());
+
+                    if (quantity >= 0) {
+
+                        btUpdateTemp.setOnClickListener(onClickListener);
+
+                        quantity++;
+
+                        int totalAmount = 0;
+                        totalAmount += price * quantity;
+
+                        Log.d("quantity", ">>" + quantity);
+                        Log.d("price", ">>" + price);
+                        Log.d("totalAmount", ">>" + totalAmount);
+
+                        tvPriceTemp.setText(totalAmount + "");
+                        tvItemQuantityTemp.setText(quantity + "");
+
+                        if (isUpdate) {
+                            btUpdateTemp.setText(getString(R.string.dialog_item_quantity_bt_update_text));
+                        } else {
+                            btUpdateTemp.setText(getString(R.string.dialog_item_quantity_bt_add_text));
+                        }
+
+                        btUpdateTemp.setTextColor(ContextCompat.getColor(RestaurantDetailsActivity.this, R.color.orange));
+                    }
+                }
+            });
+
+            if (dish.getQty().equals("0")) {
+
+                btUpdate.setOnClickListener(null);
+            } else {
+                btUpdate.setOnClickListener(onClickListener);
+            }
+
+            mBottomSheetDialog.setContentView(dialogView); // your custom view.
+            mBottomSheetDialog.setCancelable(true);
+            mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
+            mBottomSheetDialog.show();
         }
     }
 }

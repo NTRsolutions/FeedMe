@@ -423,7 +423,9 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/activity_restaurant_details_ll_total_quantity"
             android:layout_toLeftOf="@+id/activity_restaurant_details_bt_view_basket"
-            android:textStyle="bold" />
+            android:textDirection="ltr"
+            android:textStyle="bold"
+            tools:text="$5" />
 
         <com.os.foodie.ui.custom.RippleAppCompatButton
             android:id="@+id/activity_restaurant_details_bt_view_basket"

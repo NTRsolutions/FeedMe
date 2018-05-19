@@ -38,7 +38,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class FacebookSignUpActivity extends BaseActivity implements FacebookSignUpMvpView, View.OnClickListener {
 
-    private EditText etRestaurantName, etCountryCode, etPhone;
+    private EditText etRestaurantName,etRestaurantNameArabic, etCountryCode, etPhone;
     private Button btSubmit;
 
     private static final int PERMISSION_CODE = 10;
@@ -63,6 +63,8 @@ public class FacebookSignUpActivity extends BaseActivity implements FacebookSign
         facebookSignUpMvpPresenter.onAttach(FacebookSignUpActivity.this);
 
         etRestaurantName = (EditText) findViewById(R.id.activity_facebook_sign_up_et_restaurant_name);
+        etRestaurantNameArabic= (EditText) findViewById(R.id.activity_facebook_sign_up_et_restaurant_name_arabic);
+
         etCountryCode = (EditText) findViewById(R.id.activity_facebook_sign_up_et_country_code);
         etPhone = (EditText) findViewById(R.id.activity_facebook_sign_up_et_phone);
         btSubmit = (Button) findViewById(R.id.activity_facebook_sign_up_bt_submit);
@@ -167,7 +169,7 @@ public class FacebookSignUpActivity extends BaseActivity implements FacebookSign
         String deviceType = "android";
         String language = "eng";
 
-        facebookSignUpMvpPresenter.onSubmit(facebookSignUpModel, etRestaurantName.getText().toString(), etCountryCode.getText().toString(), etPhone.getText().toString(), deviceId, deviceType, "", "", language, createFileHashMap());
+        facebookSignUpMvpPresenter.onSubmit(facebookSignUpModel, etRestaurantName.getText().toString(), etRestaurantNameArabic.getText().toString(), etCountryCode.getText().toString(), etPhone.getText().toString(), deviceId, deviceType, "", "", language, createFileHashMap());
     }
 
     @Override
@@ -192,6 +194,7 @@ public class FacebookSignUpActivity extends BaseActivity implements FacebookSign
 
         if (facebookSignUpModel.getIsCustomer()) {
             etRestaurantName.setVisibility(View.GONE);
+            etRestaurantNameArabic.setVisibility(View.GONE);
             ivRestaurantLogo.setVisibility(View.GONE);
         }
     }

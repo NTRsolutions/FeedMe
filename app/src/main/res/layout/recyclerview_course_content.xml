@@ -36,6 +36,14 @@
 
     </RelativeLayout>
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/recyclerview_course_content_civ_dish_image"
+        android:layout_width="@dimen/add_discount_bt_height"
+        android:layout_height="@dimen/add_discount_bt_height"
+        android:layout_marginStart="@dimen/course_content_ll_main_course_margin"
+        android:layout_gravity="center"
+        android:src="@mipmap/img_placeholder" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

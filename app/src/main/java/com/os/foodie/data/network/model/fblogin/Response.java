@@ -46,6 +46,9 @@ public class Response implements Parcelable
     @SerializedName("restaurant_name")
     @Expose
     private String restaurantName;
+    @SerializedName("restaurant_name_arabic")
+    @Expose
+    private String restaurantNameArabic;
     @SerializedName("contact_person_name")
     @Expose
     private Object contactPersonName;
@@ -97,6 +100,7 @@ public class Response implements Parcelable
             instance.isProfileSet = ((String) in.readValue((String.class.getClassLoader())));
             instance.userType = ((String) in.readValue((String.class.getClassLoader())));
             instance.restaurantName = ((String) in.readValue((String.class.getClassLoader())));
+            instance.restaurantNameArabic = ((String) in.readValue((String.class.getClassLoader())));
             instance.contactPersonName = ((Object) in.readValue((Object.class.getClassLoader())));
             instance.isNotification = ((String) in.readValue((String.class.getClassLoader())));
             instance.profileImage = ((String) in.readValue((String.class.getClassLoader())));
@@ -146,7 +150,7 @@ public class Response implements Parcelable
      * @param restaurantId
      * @param language
      */
-    public Response(String userId, String fbId, String firstName, String lastName, String email, String deviceType, String deviceId, String latitude, String longitude, String isProfileSet, String userType, String restaurantName, Object contactPersonName, String isNotification, String profileImage, String isFacebook, Integer status, String message, String restaurantId, String language, String isDeleted) {
+    public Response(String userId, String fbId, String firstName, String lastName, String email, String deviceType, String deviceId, String latitude, String longitude, String isProfileSet, String userType, String restaurantName, String restaurantNameArabic, Object contactPersonName, String isNotification, String profileImage, String isFacebook, Integer status, String message, String restaurantId, String language, String isDeleted) {
         super();
         this.userId = userId;
         this.fbId = fbId;
@@ -160,6 +164,7 @@ public class Response implements Parcelable
         this.isProfileSet = isProfileSet;
         this.userType = userType;
         this.restaurantName = restaurantName;
+        this.restaurantNameArabic = restaurantNameArabic;
         this.contactPersonName = contactPersonName;
         this.isNotification = isNotification;
         this.profileImage = profileImage;
@@ -347,6 +352,14 @@ public class Response implements Parcelable
         this.isDeleted = isDeleted;
     }
 
+    public String getRestaurantNameArabic() {
+        return restaurantNameArabic;
+    }
+
+    public void setRestaurantNameArabic(String restaurantNameArabic) {
+        this.restaurantNameArabic = restaurantNameArabic;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(userId);
         dest.writeValue(fbId);
@@ -360,6 +373,7 @@ public class Response implements Parcelable
         dest.writeValue(isProfileSet);
         dest.writeValue(userType);
         dest.writeValue(restaurantName);
+        dest.writeValue(restaurantNameArabic);
         dest.writeValue(contactPersonName);
         dest.writeValue(isNotification);
         dest.writeValue(profileImage);

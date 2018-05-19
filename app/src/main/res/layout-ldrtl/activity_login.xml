@@ -21,7 +21,7 @@
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -76,7 +76,6 @@
                 android:layoutDirection="rtl"
                 android:paddingEnd="@dimen/login_et_padding_end"
                 android:paddingStart="@dimen/login_et_padding_start" />
-
             <EditText
                 android:id="@+id/activity_login_et_password"
                 style="@style/EditTextGreySingleLine"
@@ -87,7 +86,7 @@
                 android:layout_marginTop="@dimen/login_et_password_margin_top"
                 android:gravity="start|center_vertical"
                 android:hint="@string/login_et_hint_password"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionNext"
                 android:inputType="textPassword"
                 android:layoutDirection="rtl"
                 android:paddingEnd="@dimen/login_et_padding_end"

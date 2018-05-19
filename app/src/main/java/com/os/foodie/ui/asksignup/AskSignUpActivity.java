@@ -22,6 +22,8 @@ public class AskSignUpActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ask_sign_up);
 
+        getSupportActionBar().setTitle(getResources().getString(R.string.choose_sign_up_title));
+
         btAsCustomer = (Button) findViewById(R.id.activity_ask_sign_up_bt_sign_up_customer);
         btAsRestaurant = (Button) findViewById(R.id.activity_ask_sign_up_bt_sign_up_restaurant);
 

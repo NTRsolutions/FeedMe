@@ -18,6 +18,9 @@ public class LoginRequest {
     @SerializedName("device_type")
     @Expose
     private String deviceType;
+    @SerializedName("language")
+    @Expose
+    private String language;
 
     /**
      * No args constructor for use in serialization
@@ -33,12 +36,13 @@ public class LoginRequest {
      * @param password
      * @param deviceId
      */
-    public LoginRequest(String email, String password, String deviceId, String deviceType) {
+    public LoginRequest(String email, String password, String deviceId, String deviceType, String language) {
         super();
         this.email = email;
         this.password = password;
         this.deviceId = deviceId;
         this.deviceType = deviceType;
+        this.language = language;
     }
 
     public String getEmail() {
@@ -73,4 +77,11 @@ public class LoginRequest {
         this.deviceType = deviceType;
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 }

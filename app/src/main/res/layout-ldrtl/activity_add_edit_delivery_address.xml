@@ -61,6 +61,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/add_edit_delivery_address_ll_margin_top"
@@ -164,7 +165,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/add_edit_delivery_address_tv_city_tag_text" />
 
-            <EditText
+            <!--<EditText-->
+            <AutoCompleteTextView
                 android:id="@+id/activity_add_edit_delivery_address_et_city"
                 style="@style/EditTextGreySingleLine"
                 android:layout_width="match_parent"

@@ -77,7 +77,7 @@ public class CustomerHomeFragment extends BaseFragment implements CustomerHomeMv
 
         restaurantList = new ArrayList<RestaurantList>();
 
-        restaurantListAdapter = new RestaurantListAdapter(getContext(), restaurantList);
+        restaurantListAdapter = new RestaurantListAdapter(getContext(), restaurantList, customerHomeMvpPresenter);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
 

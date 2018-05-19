@@ -49,7 +49,7 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
 
     class RestaurantOrderListViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvOrderId/*, tvItemName*/, tvOrderType, tvDeliveryTime, tvDiscount, tvPrice;
+        public TextView tvOrderId/*, tvItemName*/, tvName, tvOrderType, tvDeliveryTime, tvDiscount, tvPrice;
         public ImageView ivAccept, ivReject;
 
         public RestaurantOrderListViewHolder(View itemView) {
@@ -57,6 +57,7 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
 
             tvOrderId = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_order_id);
 //            tvItemName = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_item_name);
+            tvName = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_name);
             tvDeliveryTime = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_delivery_time);
             tvOrderType = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_order_type);
             tvDiscount = (TextView) itemView.findViewById(R.id.recyclerview_restaurant_order_tv_discount);
@@ -78,7 +79,16 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
 
         final OrderList order = orderLists.get(position);
 
-        holder.tvOrderId.setText(order.getOrderId());
+//        holder.tvOrderId.setText(order.getOrderId());
+
+        holder.tvOrderId.setText(context.getString(R.string.order_id) + " " + order.getOrderId());
+
+        if (restaurantOrderhistoryMvpPresenter.getCurrentUserType().equalsIgnoreCase(AppConstants.CUSTOMER)) {
+            holder.tvName.setText(context.getString(R.string.order_restaurant_name) + " " + order.getName());
+        } else {
+            holder.tvName.setText(context.getString(R.string.order_customer_name) + " " + order.getName());
+        }
+
 //        holder.tvItemName.setText(order.getDishName());
 
 //        if (context.getResources().getBoolean(R.bool.is_rtl)) {
@@ -87,7 +97,7 @@ public class RestaurantOrderHistoryAdapter extends RecyclerView.Adapter<Restaura
 //            holder.tvDeliveryTime.setText(context.getString(R.string.order_history_order_on_tag) + " " + order.getOrderDelieveryDate() + " " + context.getString(R.string.order_history_at_tag) + " " + order.getOrderDelieveryTime().replace(":00", ""));
 //        }
 
-        holder.tvDeliveryTime.setText(context.getString(R.string.order_history_order_on_tag) + " " + order.getOrderDelieveryDate() + " " + context.getString(R.string.order_history_at_tag) + " " + order.getOrderDelieveryTime().replace(":00", ""));
+        holder.tvDeliveryTime.setText(context.getString(R.string.order_history_order_on_tag_2) + " " + order.getOrderDelieveryDate() + " " + context.getString(R.string.order_history_at_tag) + " " + order.getOrderDelieveryTime().replace(":00", ""));
 
 //        holder.tvDeliveryTime.setText(order.getDeliveryTime()+" min.");
         holder.tvOrderType.setText(order.getOrderType());

@@ -15,8 +15,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.os.foodie.R;
+import com.os.foodie.application.AppController;
 import com.os.foodie.data.network.model.home.customer.RestaurantList;
 import com.os.foodie.ui.details.restaurant.RestaurantDetailsActivity;
+import com.os.foodie.ui.home.customer.CustomerHomeMvpPresenter;
+import com.os.foodie.ui.home.customer.CustomerHomeMvpView;
+import com.os.foodie.ui.home.customer.CustomerHomePresenter;
 import com.os.foodie.ui.review.ReviewActivity;
 import com.os.foodie.ui.search.RestaurantSearchActivity;
 import com.os.foodie.utils.AppConstants;
@@ -29,10 +33,12 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     private Context context;
     public ArrayList<RestaurantList> restaurantLists;
+    private CustomerHomeMvpPresenter<CustomerHomeMvpView> customerHomeMvpPresenter;
 
-    public RestaurantListAdapter(Context context, ArrayList<RestaurantList> restaurantLists) {
+    public RestaurantListAdapter(Context context, ArrayList<RestaurantList> restaurantLists, CustomerHomeMvpPresenter<CustomerHomeMvpView> customerHomeMvpPresenter) {
         this.context = context;
         this.restaurantLists = restaurantLists;
+        this.customerHomeMvpPresenter = customerHomeMvpPresenter;
     }
 
     class RestaurantListViewHolder extends RecyclerView.ViewHolder {
@@ -89,7 +95,11 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             }
         });
 
-        holder.tvRestaurantName.setText(restaurantList.getRestaurantName());
+        if (customerHomeMvpPresenter.getLanguage().equalsIgnoreCase(AppConstants.LANG_AR)) {
+            holder.tvRestaurantName.setText(restaurantList.getRestaurantNameArabic());
+        } else {
+            holder.tvRestaurantName.setText(restaurantList.getRestaurantName());
+        }
 
         if (restaurantList.getDeliveryTime() != null && !restaurantList.getDeliveryTime().isEmpty()) {
 

@@ -16,6 +16,12 @@ public class Dish implements Parcelable
     @SerializedName("name")
     @Expose
     private String name;
+
+    @SerializedName("name_arabic")
+    @Expose
+    private String nameArabic;
+
+
     @SerializedName("course_id")
     @Expose
     private String courseId;
@@ -37,6 +43,9 @@ public class Dish implements Parcelable
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("dish_image")
+    @Expose
+    private String dishImage;
     public final static Creator<Dish> CREATOR = new Creator<Dish>() {
 
 
@@ -54,6 +63,8 @@ public class Dish implements Parcelable
             instance.avail = ((String) in.readValue((String.class.getClassLoader())));
             instance.vegNonveg = ((String) in.readValue((String.class.getClassLoader())));
             instance.status = ((String) in.readValue((String.class.getClassLoader())));
+            instance.dishImage = ((String) in.readValue((String.class.getClassLoader())));
+            instance.nameArabic = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -83,7 +94,7 @@ public class Dish implements Parcelable
      * @param dishId
      * @param courseName
      */
-    public Dish(String dishId, String name, String courseId, String courseName, String description, String price, String avail, String vegNonveg, String status) {
+    public Dish(String dishId, String name, String courseId, String courseName, String description, String price, String avail, String vegNonveg, String status, String dishImage, String nameArabic) {
         super();
         this.dishId = dishId;
         this.name = name;
@@ -94,6 +105,8 @@ public class Dish implements Parcelable
         this.avail = avail;
         this.vegNonveg = vegNonveg;
         this.status = status;
+        this.dishImage = dishImage;
+        this.nameArabic=nameArabic;
     }
 
     public String getDishId() {
@@ -168,6 +181,22 @@ public class Dish implements Parcelable
         this.status = status;
     }
 
+    public String getDishImage() {
+        return dishImage;
+    }
+
+    public void setDishImage(String dishImage) {
+        this.dishImage = dishImage;
+    }
+
+    public String getNameArabic() {
+        return nameArabic;
+    }
+
+    public void setNameArabic(String nameArabic) {
+        this.nameArabic = nameArabic;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(dishId);
         dest.writeValue(name);
@@ -178,6 +207,8 @@ public class Dish implements Parcelable
         dest.writeValue(avail);
         dest.writeValue(vegNonveg);
         dest.writeValue(status);
+        dest.writeValue(dishImage);
+        dest.writeValue(nameArabic);
     }
 
     public int describeContents() {

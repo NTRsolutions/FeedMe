@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.os.foodie.data.DataManager;
+import com.os.foodie.data.network.model.locationinfo.city.City;
 import com.os.foodie.data.network.model.setupprofile.restaurant.SetupRestaurantProfileRequest;
 import com.os.foodie.data.prefs.PreferencesHelper;
 import com.os.foodie.ui.base.MvpPresenter;
@@ -20,7 +21,7 @@ public interface SetupRestaurantProfileMvpPresenter<V extends SetupRestaurantPro
 
     void onCuisineTypeClick();
 
-    void saveRestaurantProfile(SetupRestaurantProfileRequest restaurantProfileRequest, HashMap<String, File> fileMap,boolean tag);
+    void saveRestaurantProfile(SetupRestaurantProfileRequest restaurantProfileRequest, HashMap<String, File> fileMap, boolean tag, City city);
 
     void getGeocoderLocationAddress(Context context, LatLng latLng);
 
@@ -36,7 +37,11 @@ public interface SetupRestaurantProfileMvpPresenter<V extends SetupRestaurantPro
 
     boolean isCurrentUserInfoInitialized();
 
+    void getCityCountryList();
+
     void deleteRestaurantImage(String imageId);
+
+    void getCityList();
 
     void dispose();
 }

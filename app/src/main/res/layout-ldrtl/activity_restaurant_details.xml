@@ -433,6 +433,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
+            android:textDirection="rtl"
             android:layout_below="@+id/activity_restaurant_details_ll_total_quantity"
             android:layout_toStartOf="@+id/activity_restaurant_details_bt_view_basket"
             android:textStyle="bold" />

@@ -22,12 +22,16 @@ public class GetRestaurantListRequest implements Parcelable {
     @SerializedName("longitude")
     @Expose
     private String longitude;
-    @SerializedName("city_name")
+    @SerializedName("city_id")
     @Expose
     private String cityName;
     @SerializedName("filters")
     @Expose
     private Filters filters;
+    @SerializedName("language")
+    @Expose
+    private String language;
+
     public final static Creator<GetRestaurantListRequest> CREATOR = new Creator<GetRestaurantListRequest>() {
 
 
@@ -42,6 +46,7 @@ public class GetRestaurantListRequest implements Parcelable {
             instance.longitude = ((String) in.readValue((String.class.getClassLoader())));
             instance.cityName = ((String) in.readValue((String.class.getClassLoader())));
             instance.filters = ((Filters) in.readValue((Filters.class.getClassLoader())));
+            instance.language = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -62,7 +67,7 @@ public class GetRestaurantListRequest implements Parcelable {
      * @param searchText
      * @param filters
      */
-    public GetRestaurantListRequest(String userId, String searchText, String latitude, String longitude, String cityName, Filters filters) {
+    public GetRestaurantListRequest(String userId, String searchText, String latitude, String longitude, String cityName, Filters filters, String language) {
         super();
         this.userId = userId;
         this.latitude = latitude;
@@ -70,6 +75,7 @@ public class GetRestaurantListRequest implements Parcelable {
         this.cityName = cityName;
         this.searchText = searchText;
         this.filters = filters;
+        this.language = language;
     }
 
     public String getUserId() {
@@ -120,6 +126,14 @@ public class GetRestaurantListRequest implements Parcelable {
         this.filters = filters;
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(userId);
         dest.writeValue(searchText);
@@ -127,6 +141,7 @@ public class GetRestaurantListRequest implements Parcelable {
         dest.writeValue(longitude);
         dest.writeValue(cityName);
         dest.writeValue(filters);
+        dest.writeValue(language);
     }
 
     public int describeContents() {

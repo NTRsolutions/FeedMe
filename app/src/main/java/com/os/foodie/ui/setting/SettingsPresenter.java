@@ -102,9 +102,14 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
 
                             if (changeLanguageResponse.getResponse().getStatus() == 1) {
 
+                                if (getDataManager().getCurrentUserType().equalsIgnoreCase(AppConstants.RESTAURANT)) {
+                                    getDataManager().setCurrentUserName(changeLanguageResponse.getResponse().getName());
+                                }
+
                                 if (changeLanguageResponse.getResponse().getLanguage().equalsIgnoreCase(AppConstants.LANG_ENG)) {
                                     getDataManager().setLanguage(AppConstants.LANG_EN);
                                     getMvpView().changeLanguage(AppConstants.LANG_EN, getMvpView().getContext().getString(R.string.language_en));
+
                                 } else {
                                     getDataManager().setLanguage(AppConstants.LANG_AR);
                                     getMvpView().changeLanguage(AppConstants.LANG_AR, getMvpView().getContext().getString(R.string.language_ar));

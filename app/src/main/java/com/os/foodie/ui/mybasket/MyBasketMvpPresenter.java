@@ -23,6 +23,8 @@ public interface MyBasketMvpPresenter<V extends MyBasketMvpView> extends MvpPres
 
     void checkout(CheckoutRequest checkoutRequest);
 
+    String getLanguage();
+
     void dispose();
 
     void onError(@StringRes int resId);

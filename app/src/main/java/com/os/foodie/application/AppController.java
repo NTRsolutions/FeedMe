@@ -13,12 +13,14 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.os.foodie.R;
 import com.os.foodie.data.AppDataManager;
 import com.os.foodie.data.network.AppApiHelpter;
 import com.os.foodie.data.network.model.home.customer.Filters;
 import com.os.foodie.data.prefs.AppPreferencesHelper;
+import com.os.foodie.tracker.AnalyticsTrackers;
 import com.os.foodie.utils.AppConstants;
 import com.os.foodie.utils.FontOverride;
 
@@ -36,8 +38,7 @@ public class AppController extends MultiDexApplication {
     private AppDataManager appDataManager;
     private CompositeDisposable compositeDisposable;
 
-    private static GoogleAnalytics googleAnalytics;
-    private static Tracker tracker;
+
 
     private Filters filters;
 
@@ -82,7 +83,11 @@ public class AppController extends MultiDexApplication {
 
         appDataManager = new AppDataManager(this, appPreferencesHelper, appApiHelpter);
 
-        googleAnalytics = GoogleAnalytics.getInstance(this);
+        /* google analytics*/
+        AnalyticsTrackers.initialize(this);
+        AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
+
+
         filters = new Filters();
     }
 
@@ -110,14 +115,31 @@ public class AppController extends MultiDexApplication {
         this.filters = filters;
     }
 
-    synchronized public Tracker getDefaultTracker() {
-        // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
-        if (tracker == null) {
-            tracker = googleAnalytics.newTracker(R.xml.global_tracker);
-            tracker.enableAutoActivityTracking(true);
-//            tracker = googleAnalytics.newTracker(R.xml.global_tracker);
-        }
 
-        return tracker;
+
+    public synchronized Tracker getGoogleAnalyticsTracker() {
+        AnalyticsTrackers analyticsTrackers = AnalyticsTrackers.getInstance();
+        return analyticsTrackers.get(AnalyticsTrackers.Target.APP);
     }
+
+    /***
+     * Tracking screen view
+     *
+     * @param screenName screen name to be displayed on GA dashboard
+     */
+    public void trackScreenView(String screenName) {
+        Tracker t = getGoogleAnalyticsTracker();
+
+        // Set screen name.
+        t.setScreenName(screenName);
+
+        // Send a screen view.
+        t.send(new HitBuilders.ScreenViewBuilder().build());
+
+        GoogleAnalytics.getInstance(this).dispatchLocalHits();
+    }
+
+
+
+
 }

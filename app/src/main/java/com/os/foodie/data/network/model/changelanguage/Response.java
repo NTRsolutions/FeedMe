@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Response {
 
+    @SerializedName("name")
+    @Expose
+    private String name;
     @SerializedName("language")
     @Expose
     private String language;
@@ -32,12 +35,13 @@ public class Response {
      * @param status
      * @param language
      */
-    public Response(String language, Integer status, String message, String isDeleted) {
+    public Response(String language, Integer status, String message, String isDeleted, String name) {
         super();
         this.language = language;
         this.status = status;
         this.message = message;
         this.isDeleted = isDeleted;
+        this.name = name;
     }
 
     public String getLanguage() {
@@ -70,5 +74,13 @@ public class Response {
 
     public void setIsDeleted(String isDeleted) {
         this.isDeleted = isDeleted;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

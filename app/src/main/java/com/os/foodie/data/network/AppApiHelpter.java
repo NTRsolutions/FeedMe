@@ -32,6 +32,7 @@ import com.os.foodie.data.network.model.changepassword.ChangePasswordRequest;
 import com.os.foodie.data.network.model.changepassword.ChangePasswordResponse;
 import com.os.foodie.data.network.model.checkout.CheckoutRequest;
 import com.os.foodie.data.network.model.checkout.CheckoutResponse;
+import com.os.foodie.data.network.model.citycountrylist.CityCountryListRequest;
 import com.os.foodie.data.network.model.citycountrylist.CityCountryListResponse;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeRequest;
 import com.os.foodie.data.network.model.coursetype.add.AddCourseTypeResponse;
@@ -66,6 +67,8 @@ import com.os.foodie.data.network.model.like.LikeDislikeResponse;
 import com.os.foodie.data.network.model.locationinfo.city.CityListRequest;
 import com.os.foodie.data.network.model.locationinfo.city.CityListResponse;
 import com.os.foodie.data.network.model.locationinfo.country.CountryListResponse;
+import com.os.foodie.data.network.model.locationinfo.get.GetUserLocationDetailRequest;
+import com.os.foodie.data.network.model.locationinfo.get.GetUserLocationDetailResponse;
 import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationRequest;
 import com.os.foodie.data.network.model.locationinfo.set.SetUserLocationResponse;
 import com.os.foodie.data.network.model.login.LoginRequest;
@@ -297,11 +300,41 @@ public class AppApiHelpter implements ApiHelper {
     }
 
     @Override
-    public Observable<CityCountryListResponse> getCityCountryList() {
+    public Observable<CityCountryListResponse> getCityCountryList(CityCountryListRequest cityCountryListRequest) {
 
-        return Rx2AndroidNetworking.get(ApiConstants.BASE_URL + ApiConstants.CITY_COUNTRY_LIST)
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(cityCountryListRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.CITY_COUNTRY_LIST)
+                .addJSONObjectBody(jsonObject)
                 .build()
                 .getObjectObservable(CityCountryListResponse.class);
+    }
+
+    @Override
+    public Observable<GetUserLocationDetailResponse> getUserLocationDetail(GetUserLocationDetailRequest userLocationDetailRequest) {
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(new Gson().toJson(userLocationDetailRequest));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("jsonObject", ">>" + jsonObject.toString());
+
+        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.GET_USER_LOCATION)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .getObjectObservable(GetUserLocationDetailResponse.class);
     }
 
     @Override
@@ -537,7 +570,8 @@ public class AppApiHelpter implements ApiHelper {
     }
 
     @Override
-    public Observable<AddMenuItemResponse> addRestaurantMenuItem(AddMenuItemRequest addMenuItemRequest) {
+//    public Observable<AddMenuItemResponse> addRestaurantMenuItem(AddMenuItemRequest addMenuItemRequest) {
+    public Observable<AddMenuItemResponse> addRestaurantMenuItem(AddMenuItemRequest addMenuItemRequest, HashMap<String, File> fileMap) {
 
         JSONObject jsonObject = null;
 
@@ -549,8 +583,14 @@ public class AppApiHelpter implements ApiHelper {
 
         Log.d("jsonObject", ">>" + jsonObject.toString());
 
-        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.ADD_RESTAURANT_MENU_ITEM)
-                .addJSONObjectBody(jsonObject)
+//        return Rx2AndroidNetworking.post(ApiConstants.BASE_URL + ApiConstants.ADD_RESTAURANT_MENU_ITEM)
+//                .addJSONObjectBody(jsonObject)
+//                .build()
+//                .getObjectObservable(AddMenuItemResponse.class);
+
+        return Rx2AndroidNetworking.upload(ApiConstants.BASE_URL + ApiConstants.ADD_RESTAURANT_MENU_ITEM)
+                .addMultipartFile(fileMap)
+                .addMultipartParameter("data", jsonObject.toString())
                 .build()
                 .getObjectObservable(AddMenuItemResponse.class);
     }
@@ -1245,13 +1285,13 @@ public class AppApiHelpter implements ApiHelper {
     }
 
     @Override
-    public Observable<OrderHistoryDetail> getOrderHistoryDetail(String orderId) {
+    public Observable<OrderHistoryDetail> getOrderHistoryDetail(String orderId,String language) {
         JSONObject jsonObject = null;
 
         try {
             jsonObject = new JSONObject();
             jsonObject.put("order_id", orderId);
-
+            jsonObject.put("language", language);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -1265,13 +1305,14 @@ public class AppApiHelpter implements ApiHelper {
     }
 
     @Override
-    public Observable<ChangeOrderStatusResponse> changeOrderStatus(String orderId, String orderStatus) {
+    public Observable<ChangeOrderStatusResponse> changeOrderStatus(String orderId, String orderStatus, String language) {
         JSONObject jsonObject = null;
 
         try {
             jsonObject = new JSONObject();
             jsonObject.put("order_id", orderId);
             jsonObject.put("order_status", orderStatus);
+            jsonObject.put("language", language);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -87,32 +87,32 @@
     <string name="not_logged_in">Please log in first</string>
 
     <!--Validation Message-->
-    <string name="empty_first_name">Please provide your first name</string>
+    <string name="empty_first_name">First name is required</string>
     <string name="invalid_first_name">Please provide valid first name</string>
     <string name="long_first_name">First name should not be longer than 15 characters</string>
-    <string name="empty_last_name">Please provide your last name</string>
+    <string name="empty_last_name">Last name is required</string>
     <string name="invalid_last_name">Please provide valid last name</string>
     <string name="long_last_name">Last name should not be longer than 15 characters</string>
-    <string name="empty_email">Please provide email address</string>
+    <string name="empty_email">Email Address is required</string>
     <string name="empty_confirm_email">Please confirm email address</string>
     <string name="invalid_email">Please provide valid email address</string>
     <string name="not_match_email">Email and confirm email do not match.</string>
-    <string name="empty_password">Please provide password</string>
-    <string name="minimum_password">Password must be 6 character long</string>
+    <string name="empty_password">Password is required</string>
+    <string name="minimum_password">Password should be 6 character long</string>
     <string name="invalid_password">Password must contain atleast one alphabetic and numeric character</string>
-    <string name="empty_confirm_password">Please confirm your password</string>
+    <string name="empty_confirm_password">Confirm Password is required</string>
     <string name="not_match_password">Password and confirm password do not match.</string>
-    <string name="empty_country_code">Please\nprovide\ncountry\ncode</string>
-    <string name="empty_phone">Please provide your phone number</string>
+    <string name="empty_country_code">Country\ncode is\nrequired</string>
+    <string name="empty_phone">Phone number is required</string>
     <string name="invalid_phone">Please provide a valid phone number</string>
     <string name="mandatory_logo">Please provide your restaurant logo</string>
     <string name="empty_otp">Please provide the OTP sent on your phone number</string>
     <string name="incorrect_otp">Incorrect OTP</string>
     <string name="minimum_otp">Please enter 6 digit OTP</string>
-    <string name="empty_contact_person_name">Please provide contact person name</string>
+    <string name="empty_contact_person_name">Contact Person Name is required</string>
     <string name="invalid_contact_person_name">Please provide valid contact person name</string>
     <string name="long_contact_person_name">Contact person name should not be longer than 30 characters</string>
-    <string name="empty_restaurant_name">Please provide restaurant name</string>
+    <string name="empty_restaurant_name">Restaurant Name is required</string>
     <string name="invalid_restaurant_name">Please provide valid restaurant name</string>
     <string name="long_restaurant_name">Restaurant name should not be longer than 30 characters</string>
     <string name="empty_cuisine_type">Please provide cuisine type</string>
@@ -125,7 +125,8 @@
     <string name="empty_closing_hours">Please provide closing hours</string>
     <string name="empty_minimum_order_amount">Please provide minimum order amount</string>
     <string name="empty_delivery_charges">Please provide delivery charges</string>
-    <string name="empty_delivery_zip_codes">Please provide delivery zip codes</string>
+    <!--<string name="empty_delivery_zip_codes">Please provide delivery zip codes</string>-->
+    <string name="empty_delivery_zip_codes">Please provide delivery areas</string>
     <string name="empty_description">Please provide few lines about restaurant</string>
     <string name="mandatory_image">Please provide atleast one image</string>
     <string name="empty_course_type">Please provide course type</string>
@@ -166,6 +167,7 @@
     <string name="empty_end_date">Please enter end date</string>
     <string name="empty_valid_date">Please enter a valid date.</string>
     <string name="select_dish_name">Please select at least one dish.</string>
+    <string name="mandatory_dish_image">Please provide dish image</string>
 
     <!--Slide-->
     <array name="slide_title_text">
@@ -298,7 +300,7 @@
     <string name="setup_restaurant_profile_et_expected_delivery_hint">Expected Delivery Time (Optional)</string>
     <string name="setup_restaurant_profile_et_minimum_order_amount_hint">Minimum Order Amount</string>
     <string name="setup_restaurant_profile_et_delivery_charges_hint">Delivery Charges</string>
-    <string name="setup_restaurant_profile_et_delivery_areas_hint">Delivery Areas(e.g., 1000,1303)</string>
+    <string name="setup_restaurant_profile_et_delivery_areas_hint">Delivery Areas</string>
     <string name="setup_restaurant_profile_bt_save_text">Save</string>
     <string name="setup_restaurant_profile_et_opening_hours_hint">Opening Hours</string>
     <string name="setup_restaurant_profile_bt_cancel_text">Cancel</string>
@@ -399,7 +401,7 @@
     <string name="settings_tv_faq_tag_text">FAQ</string>
     <string name="settings_tv_rate_us_tag_text">Rate Us</string>
     <string name="settings_client_email" translatable="false">support@foodi.com</string>
-    <string name="settings_rate_us_play_store_url" translatable="false">https://play.google.com/store/apps/details?id=com.facebook.katana</string>
+    <string name="settings_rate_us_play_store_url" translatable="false">https://play.google.com/store/apps/details?id=com.os.foodie</string>
     <string name="setting_toast_message_language_changed">Language changed to </string>
 
     <!--Change Password-->
@@ -496,7 +498,7 @@
     <string name="add_payment_card_activity_title">Add Card</string>
     <string name="add_payment_card_et_card_number_hint">Card Number</string>
     <string name="add_payment_card_et_month_hint" translatable="false">MM</string>
-    <string name="add_payment_card_et_year_hint" translatable="false">YY</string>
+    <string name="add_payment_card_et_year_hint" translatable="false">YYYY</string>
     <string name="add_payment_card_et_cvv_hint" translatable="false">CVV</string>
     <string name="add_payment_card_bt_add_text">Add</string>
     <string name="add_payment_card_et_first_name_hint">First Name</string>
@@ -645,6 +647,19 @@
     <string name="choose_sign_up_title">Choose Sign Up</string>
     <string name="order_history_order_on_tag">Ordered on</string>
     <string name="order_history_at_tag">at</string>
+
+    <string name="restaurant_menu_add_update_et_item_name_hint_english">Item name in English</string>
+    <string name="restaurant_menu_add_update_et_item_name_hint_arabic">Item name in Arabic</string>
+    <string name="empty_menu_item_name_english">Please provide item name in English</string>
+    <string name="empty_menu_item_name_arabic">Please provide item name Arabic</string>
+    <string name="moday_to_sunday" translatable="false">Monday-Sunday</string>
+    <string name="restaurant_sign_up_et_restaurant_name_hint_english">Restaurant Name in English</string>
+    <string name="restaurant_sign_up_et_restaurant_name_hint_arabic">Restaurant Name in Arabic</string>
+    <string name="empty_restaurant_name_arabic">Restaurant Name in Arabic is required</string>
+    <string name="order_history_order_on_tag_2">To be delivered on</string>
+    <string name="order_customer_name">Customer Name:</string>
+    <string name="order_restaurant_name">Restaurant Name:</string>
+    <string name="order_id">Order ID:</string>
 
     <string-array name="pick_order_status">
         <item>Under Preparation</item>

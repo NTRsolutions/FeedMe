@@ -15,5 +15,7 @@ public interface AddEditDeliveryAddressMvpPresenter<V extends AddEditDeliveryAdd
 
     void getGeocoderLocationAddress(Context context, LatLng latLng);
 
+    void getLocationDetailsAndCityCountryList();
+
     void dispose();
 }

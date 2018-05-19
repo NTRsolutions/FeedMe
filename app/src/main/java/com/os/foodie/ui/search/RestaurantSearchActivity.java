@@ -66,7 +66,7 @@ public class RestaurantSearchActivity extends BaseActivity implements Restaurant
 
         recyclerView = (RecyclerView) findViewById(R.id.activity_customer_search_recyclerview);
         restaurantList = new ArrayList<RestaurantList>();
-        restaurantSearchAdapter = new RestaurantSearchAdapter(getContext(), restaurantList);
+        restaurantSearchAdapter = new RestaurantSearchAdapter(getContext(), restaurantList, restaurantSearchMvpPresenter);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 

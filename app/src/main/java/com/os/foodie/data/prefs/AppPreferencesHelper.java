@@ -139,7 +139,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getLanguage() {
-        return sharedPreferences.getString(PREF_KEY_LANGUAGE, "en");
+        return sharedPreferences.getString(PREF_KEY_LANGUAGE, "ar");
     }
 
     @Override
@@ -158,7 +158,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public String getCityName() {
+    public String getCityId() {
         return sharedPreferences.getString(PREF_KEY_CITY, "");
     }
 
@@ -169,8 +169,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public void setCityName(String cityName) {
-        sharedPreferences.edit().putString(PREF_KEY_CITY, cityName).apply();
+    public void setCityId(String cityId) {
+        sharedPreferences.edit().putString(PREF_KEY_CITY, cityId).apply();
     }
 
 //    private static final String PREF_KEY_USER_LOGGED_IN_MODE = "PREF_KEY_USER_LOGGED_IN_MODE";
